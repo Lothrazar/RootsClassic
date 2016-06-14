@@ -83,6 +83,7 @@ public class TileEntityBrazier extends TEBase implements ITickable {
 				}
 				heldItem = null;
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 				return true;
 			}
 			if (burning){
@@ -91,6 +92,7 @@ public class TileEntityBrazier extends TEBase implements ITickable {
 					progress = 0;
 					heldItem = null;
 					markDirty();
+					this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 					return true;
 				}
 			}
@@ -100,6 +102,7 @@ public class TileEntityBrazier extends TEBase implements ITickable {
 				burning = true;
 				progress = 2400;
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 				return true;
 			}
 		}
@@ -111,6 +114,7 @@ public class TileEntityBrazier extends TEBase implements ITickable {
 				}
 				playerItem.stackSize --;
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 				return true;
 			}
 		}
@@ -131,6 +135,7 @@ public class TileEntityBrazier extends TEBase implements ITickable {
 			if (progress == 0){
 				heldItem = null;
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
 			}
 		}
 		if (ticker > 360){

@@ -75,6 +75,7 @@ public class TileEntityMortar extends TEBase {
 					inventory.remove(inventory.size()-1);
 				}
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 				return true;
 			}
 		}
@@ -88,6 +89,7 @@ public class TileEntityMortar extends TEBase {
 				}
 				inventory.clear();
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 				return true;
 			}
 		}
@@ -100,6 +102,7 @@ public class TileEntityMortar extends TEBase {
 						inventory.add(new ItemStack(heldItem.getItem(),1,heldItem.getMetadata()));
 						heldItem.stackSize --;
 						markDirty();
+						this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 						return true;
 					}
 				}
@@ -111,6 +114,7 @@ public class TileEntityMortar extends TEBase {
 					inventory.add(oneItem);
 					heldItem.stackSize --;
 					markDirty();
+					this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 					return true;
 				}
 			}

@@ -83,6 +83,7 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 				}
 				stick = null;
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 				return true;
 			}
 			else if (dust != null){
@@ -91,6 +92,7 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 				}
 				dust = null;
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 				return true;
 			}
 			return false;
@@ -100,6 +102,7 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 				stick = new ItemStack(Items.STICK,1);
 				heldItem.stackSize --;
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 				return true;
 			}
 			return false;
@@ -111,6 +114,7 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 				dust = ItemStack.loadItemStackFromNBT(tag);
 				heldItem.stackSize --;
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 				return true;
 			}
 			return false;
@@ -179,6 +183,7 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 			stick = null;
 			dust = null;
 			markDirty();
+			this.getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
 		}
 	}
 }

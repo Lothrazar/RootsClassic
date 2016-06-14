@@ -124,6 +124,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
 					inventory.remove(inventory.size()-1);
 				}
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 				return true;
 			}
 		}
@@ -137,6 +138,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
 					incenses = RitualManager.getIncenses(world, getPos());
 					progress = 200;
 					markDirty();
+					this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 					return true;
 				}
 			}
@@ -145,6 +147,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
 					player.addChatMessage(new TextComponentString(TextFormatting.RED+"No valid ritual structure found!"));
 				}
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 				return true;
 			}
 		}
@@ -157,6 +160,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
 				inventory.add(toAdd);
 				heldItem.stackSize --;
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 				return true;
 			}
 		}
@@ -199,6 +203,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
 				ritualName = null;
 				ritual = null;
 				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
 			}
 		}
 	}

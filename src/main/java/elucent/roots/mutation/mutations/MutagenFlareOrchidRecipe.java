@@ -31,14 +31,14 @@ public class MutagenFlareOrchidRecipe extends MutagenRecipe {
 	public boolean matches(List<ItemStack> items, World world, BlockPos pos, EntityPlayer player){
 		if (super.matches(items, world, pos, player)){
 			if (world.provider.getDimensionType() == DimensionType.NETHER && player.getActivePotionEffect(Potion.getPotionFromResourceLocation("fire_resistance")) != null
-					&& world.getBlockState(pos.east()).getBlock() == Blocks.FIRE
-					&& world.getBlockState(pos.west()).getBlock() == Blocks.FIRE
-					&& world.getBlockState(pos.north()).getBlock() == Blocks.FIRE
-					&& world.getBlockState(pos.south()).getBlock() == Blocks.FIRE
-					&& world.getBlockState(pos.east().north()).getBlock() == Blocks.FIRE
-					&& world.getBlockState(pos.west().south()).getBlock() == Blocks.FIRE
-					&& world.getBlockState(pos.north().west()).getBlock() == Blocks.FIRE
-					&& world.getBlockState(pos.south().east()).getBlock() == Blocks.FIRE){
+					&& world.getBlockState(pos.east()).getBlock() == Blocks.NETHERRACK
+					&& world.getBlockState(pos.west()).getBlock() == Blocks.NETHERRACK
+					&& world.getBlockState(pos.north()).getBlock() == Blocks.NETHERRACK
+					&& world.getBlockState(pos.south()).getBlock() == Blocks.NETHERRACK
+					&& world.getBlockState(pos.east().north()).getBlock() == Blocks.NETHERRACK
+					&& world.getBlockState(pos.west().south()).getBlock() == Blocks.NETHERRACK
+					&& world.getBlockState(pos.north().west()).getBlock() == Blocks.NETHERRACK
+					&& world.getBlockState(pos.south().east()).getBlock() == Blocks.NETHERRACK){
 				return true;
 			}
 		}
