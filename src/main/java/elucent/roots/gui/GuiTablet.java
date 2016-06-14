@@ -37,6 +37,11 @@ public class GuiTablet extends GuiScreen {
 	}
 	
 	@Override
+	public boolean doesGuiPauseGame(){
+		return false;
+	}
+	
+	@Override
 	public void mouseClicked(int mouseX, int mouseY, int mouseButton){float basePosX = ((float)width/2.0f)-108;
 		ResearchGroup group = null;
 		ResearchBase base = null;
