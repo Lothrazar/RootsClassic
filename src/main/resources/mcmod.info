@@ -1,0 +1,16 @@
+[
+{
+  "modid": "roots",
+  "name": "Roots",
+  "description": "Druidic Magic Mod",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Elucent","Leordas"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

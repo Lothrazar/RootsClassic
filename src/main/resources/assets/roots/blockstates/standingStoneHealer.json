@@ -1,0 +1,6 @@
+{
+    "variants":{
+        "topq=bottom":{"model": "roots:standingStoneT2Bottom"},
+        "topq=top":{"model": "roots:standingStoneHealer"}
+    }
+}
