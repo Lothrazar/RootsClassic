@@ -5,6 +5,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockNetherWart;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
@@ -43,7 +44,7 @@ public class EventManager {
 			}
 		}
 		if (block == Blocks.NETHER_WART){
-			if (((BlockCrops) block).isMaxAge(event.getState())){
+			if (((BlockNetherWart) block).getMetaFromState(event.getState()) == 2){
 				if (random.nextInt(20) == 0){
 					event.getDrops().add(new ItemStack(RegistryManager.infernalStem,1));
 				}
