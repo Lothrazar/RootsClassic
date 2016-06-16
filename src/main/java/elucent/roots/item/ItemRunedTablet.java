@@ -28,7 +28,9 @@ public class ItemRunedTablet extends Item {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
-		player.openGui(Roots.instance, 1, world, (int)player.posX, (int)player.posY, (int)player.posZ);
+		if (hand == EnumHand.MAIN_HAND){
+			player.openGui(Roots.instance, 1, world, (int)player.posX, (int)player.posY, (int)player.posZ);
+		}
 		return new ActionResult(EnumActionResult.PASS, stack);
 	}
 	

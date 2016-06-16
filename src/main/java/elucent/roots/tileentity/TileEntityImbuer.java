@@ -135,37 +135,42 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 		}
 		if (progress != 0 && progress % 1 == 0){
 			int chance = random.nextInt(4);
-			ComponentBase comp = ComponentManager.getComponentFromName(dust.getTagCompound().getString("effect"));
-			if (chance == 0){
-				if (random.nextBoolean()){
-					Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.125, getPos().getY()+0.125, getPos().getZ()+0.125, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
-				}
-				else {
-					Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.125, getPos().getY()+0.125, getPos().getZ()+0.125, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
-				}
+			ComponentBase comp = null;
+			if (dust.getTagCompound().hasKey("effect")){
+				comp = ComponentManager.getComponentFromName(dust.getTagCompound().getString("effect"));
 			}
-			if (chance == 1){
-				if (random.nextBoolean()){
-					Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.875, getPos().getY()+0.125, getPos().getZ()+0.125, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+			if (comp != null){
+				if (chance == 0){
+					if (random.nextBoolean()){
+						Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.125, getPos().getY()+0.125, getPos().getZ()+0.125, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+					}
+					else {
+						Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.125, getPos().getY()+0.125, getPos().getZ()+0.125, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+					}
 				}
-				else {
-					Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.875, getPos().getY()+0.125, getPos().getZ()+0.125, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+				if (chance == 1){
+					if (random.nextBoolean()){
+						Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.875, getPos().getY()+0.125, getPos().getZ()+0.125, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+					}
+					else {
+						Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.875, getPos().getY()+0.125, getPos().getZ()+0.125, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+					}
 				}
-			}
-			if (chance == 2){
-				if (random.nextBoolean()){
-					Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.875, getPos().getY()+0.125, getPos().getZ()+0.875, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+				if (chance == 2){
+					if (random.nextBoolean()){
+						Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.875, getPos().getY()+0.125, getPos().getZ()+0.875, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+					}
+					else {
+						Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.875, getPos().getY()+0.125, getPos().getZ()+0.875, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+					}
 				}
-				else {
-					Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.875, getPos().getY()+0.125, getPos().getZ()+0.875, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
-				}
-			}
-			if (chance == 3){
-				if (random.nextBoolean()){
-					Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.125, getPos().getY()+0.125, getPos().getZ()+0.875, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
-				}
-				else {
-					Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.125, getPos().getY()+0.125, getPos().getZ()+0.875, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+				if (chance == 3){
+					if (random.nextBoolean()){
+						Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.125, getPos().getY()+0.125, getPos().getZ()+0.875, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+					}
+					else {
+						Roots.proxy.spawnParticleMagicLineFX(getWorld(), getPos().getX()+0.125, getPos().getY()+0.125, getPos().getZ()+0.875, getPos().getX()+0.5, getPos().getY()+0.625, getPos().getZ()+0.5, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+					}
 				}
 			}
 		}

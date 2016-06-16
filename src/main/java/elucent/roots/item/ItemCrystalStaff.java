@@ -153,8 +153,8 @@ public class ItemCrystalStaff extends Item {
 			int potency = stack.getTagCompound().getInteger("potency");
 			int efficiency = stack.getTagCompound().getInteger("efficiency");
 			int size = stack.getTagCompound().getInteger("size");
-			comp.castingAction((EntityPlayer) player, count, potency, efficiency, size);
 			if (comp != null){
+				comp.castingAction((EntityPlayer) player, count, potency, efficiency, size);
 				if (random.nextBoolean()){	
 					Roots.proxy.spawnParticleMagicLineFX(player.getEntityWorld(), player.posX+2.0*(random.nextFloat()-0.5), player.posY+2.0*(random.nextFloat()-0.5)+1.0, player.posZ+2.0*(random.nextFloat()-0.5), player.posX, player.posY+1.0, player.posZ, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
 				}

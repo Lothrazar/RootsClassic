@@ -536,5 +536,6 @@ public class ModelDruidArmor extends ModelArmorBase {
 	    for (int i = 0; i < bootL.childModels.size(); i ++){
 	    	bootL.childModels.get(i).rotationPointY -= 12;
 	    }
+	    this.armorScale = 1.12f;
 	}
 }

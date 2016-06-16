@@ -53,6 +53,24 @@ public class ItemStaff extends Item {
 	}
 	
 	@Override
+	public double getDurabilityForDisplay(ItemStack stack){
+		if (stack.hasTagCompound()){
+			return (double)stack.getTagCompound().getInteger("uses")/(double)stack.getTagCompound().getInteger("maxUses");
+		}
+		return 1.0;
+	}
+	
+	@Override
+	public boolean showDurabilityBar(ItemStack stack){
+		if (stack.hasTagCompound()){
+			if (stack.getTagCompound().getInteger("uses") < stack.getTagCompound().getInteger("maxUses")){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft){
 		if (timeLeft < (72000-20)){
 			if (stack.hasTagCompound()){
@@ -130,12 +148,14 @@ public class ItemStaff extends Item {
 			int potency = stack.getTagCompound().getInteger("potency");
 			int efficiency = stack.getTagCompound().getInteger("efficiency");
 			int size = stack.getTagCompound().getInteger("size");
-			comp.castingAction((EntityPlayer) player, count, potency, efficiency, size);
-			if (random.nextBoolean()){	
-				Roots.proxy.spawnParticleMagicLineFX(player.getEntityWorld(), player.posX+2.0*(random.nextFloat()-0.5), player.posY+2.0*(random.nextFloat()-0.5)+1.0, player.posZ+2.0*(random.nextFloat()-0.5), player.posX, player.posY+1.0, player.posZ, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
-			}
-			else {
-				Roots.proxy.spawnParticleMagicLineFX(player.getEntityWorld(), player.posX+2.0*(random.nextFloat()-0.5), player.posY+2.0*(random.nextFloat()-0.5)+1.0, player.posZ+2.0*(random.nextFloat()-0.5), player.posX, player.posY+1.0, player.posZ, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+			if (comp != null){
+				comp.castingAction((EntityPlayer) player, count, potency, efficiency, size);
+				if (random.nextBoolean()){	
+					Roots.proxy.spawnParticleMagicLineFX(player.getEntityWorld(), player.posX+2.0*(random.nextFloat()-0.5), player.posY+2.0*(random.nextFloat()-0.5)+1.0, player.posZ+2.0*(random.nextFloat()-0.5), player.posX, player.posY+1.0, player.posZ, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+				}
+				else {
+					Roots.proxy.spawnParticleMagicLineFX(player.getEntityWorld(), player.posX+2.0*(random.nextFloat()-0.5), player.posY+2.0*(random.nextFloat()-0.5)+1.0, player.posZ+2.0*(random.nextFloat()-0.5), player.posX, player.posY+1.0, player.posZ, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+				}	
 			}
 		}
 	}
@@ -146,7 +166,8 @@ public class ItemStaff extends Item {
 		stack.getTagCompound().setInteger("potency", potency);
 		stack.getTagCompound().setInteger("efficiency", efficiency);
 		stack.getTagCompound().setInteger("size", size);
-		stack.getTagCompound().setInteger("uses", 65);
+		stack.getTagCompound().setInteger("uses", 65+32*efficiency);
+		stack.getTagCompound().setInteger("maxUses", 65+32*efficiency);
 	}
 	
 	@Override

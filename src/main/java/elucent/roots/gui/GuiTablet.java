@@ -49,7 +49,7 @@ public class GuiTablet extends GuiScreen {
 			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("roots:textures/gui/tabletGui.png"));
 			float yShift = (float) Math.floor(i / 6);
 			float xShift = i % 6;
-			if (mouseX >= basePosX+32*xShift && mouseX < basePosX+32*xShift+24 && mouseY >= 32+32*yShift && mouseY < 32+40*yShift+24){
+			if (mouseX >= basePosX+32*xShift && mouseX < basePosX+32*xShift+24 && mouseY >= 32+40*yShift && mouseY < 32+40*yShift+24){
 				group = ResearchManager.globalResearches.get(currentGroup);
 				base = ResearchManager.globalResearches.get(currentGroup).researches.get(i);
 			}
@@ -135,7 +135,7 @@ public class GuiTablet extends GuiScreen {
 			if (ResearchManager.globalResearches.get(currentGroup).researches.get(i).icon != null){
 				this.itemRender.renderItemIntoGUI(ResearchManager.globalResearches.get(currentGroup).researches.get(i).icon, (int)(basePosX+xShift*32+4), (int)(32+40*yShift+4));
 			}
-			if (mouseX >= basePosX+32*xShift && mouseX < basePosX+32*xShift+24 && mouseY >= 32+32*yShift && mouseY < 32+40*yShift+24){
+			if (mouseX >= basePosX+32*xShift && mouseX < basePosX+32*xShift+24 && mouseY >= 32+40*yShift && mouseY < 32+40*yShift+24){
 				String name = ResearchManager.globalResearches.get(currentGroup).researches.get(i).properName;
 				this.fontRendererObj.drawStringWithShadow(name, basePosX+32*xShift+12-(fontRendererObj.getStringWidth(name)/2.0f), 32+40*yShift+25, Util.intColor(255, 255, 255));
 			}

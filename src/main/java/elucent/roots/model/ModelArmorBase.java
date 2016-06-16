@@ -15,6 +15,8 @@ public class ModelArmorBase extends ModelBiped {
 	
 	public EntityEquipmentSlot slot;
 	
+	public float armorScale = 1.05f;
+	
 	ModelRenderer head;
     ModelRenderer chest;
     ModelRenderer armR;
@@ -106,14 +108,14 @@ public class ModelArmorBase extends ModelBiped {
             float f = 2.0F;
             GlStateManager.scale(1.5F / f, 1.5F / f, 1.5F / f);
             GlStateManager.translate(0.0F, 16.0F * scale, 0.0F);
-            this.renderHead(scale);
+            this.renderHead(scale*armorScale);
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
             GlStateManager.scale(1.0F / f, 1.0F / f, 1.0F / f);
             GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
-            this.renderParts(scale*1.05f);
+            this.renderPartsMinusHead(scale*armorScale);
             GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
-            this.renderLegs(scale*1.05f);
+            this.renderLegs(scale*armorScale);
         }
         else
         {
@@ -122,9 +124,10 @@ public class ModelArmorBase extends ModelBiped {
                 GlStateManager.translate(0.0F, 0.2F, 0.0F);
             }
 
-            this.renderParts(scale*1.05f);
+            this.renderParts(scale*armorScale);
+            this.renderArms(scale*armorScale);
             GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
-            this.renderLegs(scale*1.05f);
+            this.renderLegs(scale*armorScale);
         }
 
         GlStateManager.popMatrix();
@@ -137,8 +140,15 @@ public class ModelArmorBase extends ModelBiped {
 	public void renderParts(float scale){
 		head.render(scale);
 		chest.render(scale);
+	}
+	
+	public void renderArms(float scale){
 		armR.render(scale);
 		armL.render(scale);
+	}
+	
+	public void renderPartsMinusHead(float scale){
+		chest.render(scale);
 	}
 	
 	public void renderLegs(float scale){
