@@ -26,9 +26,11 @@ public class RitualImbuer extends RitualBase {
 		ItemStack toSpawn = new ItemStack(RegistryManager.crystalStaff, 1);
 		ItemCrystalStaff.createData(toSpawn);
 		for (int i = 0; i < incenses.size() && i < 4; i ++){
-			if (incenses.get(i).getItem() == RegistryManager.dustPetal && incenses.get(i).hasTagCompound()){
-				NBTTagCompound tag = incenses.get(i).getTagCompound();
-				ItemCrystalStaff.addEffect(toSpawn, i+1, tag.getString("effect"), tag.getInteger("potency"), tag.getInteger("efficiency"), tag.getInteger("size"));
+			if (incenses.get(i) != null){
+				if (incenses.get(i).getItem() == RegistryManager.dustPetal && incenses.get(i).hasTagCompound()){
+					NBTTagCompound tag = incenses.get(i).getTagCompound();
+					ItemCrystalStaff.addEffect(toSpawn, i+1, tag.getString("effect"), tag.getInteger("potency"), tag.getInteger("efficiency"), tag.getInteger("size"));
+				}
 			}
 		}
 		if (!world.isRemote){

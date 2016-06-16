@@ -136,8 +136,10 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 		if (progress != 0 && progress % 1 == 0){
 			int chance = random.nextInt(4);
 			ComponentBase comp = null;
-			if (dust.getTagCompound().hasKey("effect")){
-				comp = ComponentManager.getComponentFromName(dust.getTagCompound().getString("effect"));
+			if (dust.hasTagCompound()){
+				if (dust.getTagCompound().hasKey("effect")){
+					comp = ComponentManager.getComponentFromName(dust.getTagCompound().getString("effect"));
+				}
 			}
 			if (comp != null){
 				if (chance == 0){

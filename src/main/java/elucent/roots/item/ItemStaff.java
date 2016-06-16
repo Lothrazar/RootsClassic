@@ -55,7 +55,7 @@ public class ItemStaff extends Item {
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack){
 		if (stack.hasTagCompound()){
-			return (double)stack.getTagCompound().getInteger("uses")/(double)stack.getTagCompound().getInteger("maxUses");
+			return 1.0-(double)stack.getTagCompound().getInteger("uses")/(double)stack.getTagCompound().getInteger("maxUses");
 		}
 		return 1.0;
 	}
