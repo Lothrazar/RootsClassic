@@ -32,7 +32,7 @@ public class ComponentLilac extends ComponentBase{
 	}
 	
 	public void growBlockSafe(World world, BlockPos pos, int potency){
-		if (world.getBlockState(pos).getBlock() instanceof IGrowable && random.nextInt(4-(int)potency) == 0){
+		if (world.getBlockState(pos).getBlock() instanceof IGrowable && random.nextInt(5-(int)potency) < 2){
 			((IGrowable)world.getBlockState(pos).getBlock()).grow(world, random, pos, world.getBlockState(pos));
 		}
 	}

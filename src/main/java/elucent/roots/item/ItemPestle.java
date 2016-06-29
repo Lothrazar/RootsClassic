@@ -22,6 +22,16 @@ public class ItemPestle extends Item {
 		return new ItemStack(this,1);
 	}
 	
+	@Override
+	public boolean hasContainerItem(){
+		return true;
+	}
+	
+	@Override
+	public int getItemStackLimit(){
+		return 1;
+	}
+	
 	@SideOnly(Side.CLIENT)
 	public void initModel(){
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(),"inventory"));

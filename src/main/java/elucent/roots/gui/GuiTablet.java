@@ -2,6 +2,7 @@ package elucent.roots.gui;
 
 import org.lwjgl.opengl.GL11;
 
+import elucent.roots.ConfigManager;
 import elucent.roots.Roots;
 import elucent.roots.Util;
 import elucent.roots.research.ResearchBase;
@@ -14,6 +15,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
@@ -103,9 +105,10 @@ public class GuiTablet extends GuiScreen {
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks){
+		GlStateManager.color(1, 1, 1, 1);
 		RenderHelper.disableStandardItemLighting();
 		RenderHelper.enableGUIStandardItemLighting();
-		cycle += 8.0;
+		cycle += 4.0;
 		this.drawDefaultBackground();
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("roots:textures/gui/tabletGui.png"));
 		this.mouseX = mouseX;
@@ -113,17 +116,22 @@ public class GuiTablet extends GuiScreen {
 		
 		float unit = (float)width/32.0f;
 		
-		GlStateManager.enableBlend();
-		Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer vertexbuffer = tessellator.getBuffer();
-        vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		for (float i = 0; i < width; i += (float)width/32.0f){
-			float height1 = 12.0f*((float)Math.cos(((cycle/360.0)+(i/(width/4.0)))*Math.PI)+1.0f);
-			float height2 = 12.0f*((float)Math.cos(((cycle/360.0)+((i+(float)width/32.0)/(width/4.0)))*Math.PI)+1.0f);
-			this.drawQuad(vertexbuffer, i, height-(24.0f+height1), i+(float)width/32.0f, height-(24.0f+height2), i+(float)width/32.0f, height, i, height, 16, 96, 16, 64);
+		if (ConfigManager.showTabletWave){
+			GlStateManager.enableBlend();
+			GlStateManager.color(1, 1, 1, 1);
+			Tessellator tessellator = Tessellator.getInstance();
+	        VertexBuffer vertexbuffer = tessellator.getBuffer();
+	        vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
+			for (float i = 0; i < width; i += (float)width/32.0f){
+				float height1 = 12.0f*((float)Math.cos(((cycle/360.0)+(i/(width/4.0)))*Math.PI)+1.0f);
+				float height2 = 12.0f*((float)Math.cos(((cycle/360.0)+((i+(float)width/32.0)/(width/4.0)))*Math.PI)+1.0f);
+				this.drawQuad(vertexbuffer, i, height-(24.0f+height1), i+(float)width/32.0f, height-(24.0f+height2), i+(float)width/32.0f, height, i, height, 16, 96, 16, 64);
+			}
+		    tessellator.draw();
+		    GlStateManager.disableBlend();
 		}
-	    tessellator.draw();
-	    GlStateManager.disableBlend();
+		
+		GlStateManager.color(1, 1, 1, 1);
 		
 		float basePosX = ((float)width/2.0f)-108;
 		
@@ -136,11 +144,11 @@ public class GuiTablet extends GuiScreen {
 				this.itemRender.renderItemIntoGUI(ResearchManager.globalResearches.get(currentGroup).researches.get(i).icon, (int)(basePosX+xShift*32+4), (int)(32+40*yShift+4));
 			}
 			if (mouseX >= basePosX+32*xShift && mouseX < basePosX+32*xShift+24 && mouseY >= 32+40*yShift && mouseY < 32+40*yShift+24){
-				String name = ResearchManager.globalResearches.get(currentGroup).researches.get(i).properName;
+				String name = I18n.format("roots.research."+ResearchManager.globalResearches.get(currentGroup).name+"."+ResearchManager.globalResearches.get(currentGroup).researches.get(i).name+".name");
 				this.fontRendererObj.drawStringWithShadow(name, basePosX+32*xShift+12-(fontRendererObj.getStringWidth(name)/2.0f), 32+40*yShift+25, Util.intColor(255, 255, 255));
 			}
 		}
-		this.fontRendererObj.drawStringWithShadow(ResearchManager.globalResearches.get(currentGroup).properName, width/2.0f-(fontRendererObj.getStringWidth(ResearchManager.globalResearches.get(currentGroup).properName)/2.0f), height-16.0f, Util.intColor(255, 255, 255));
+		this.fontRendererObj.drawStringWithShadow(I18n.format("roots.research."+ResearchManager.globalResearches.get(currentGroup).name+".name"), width/2.0f-(fontRendererObj.getStringWidth(ResearchManager.globalResearches.get(currentGroup).properName)/2.0f), height-16.0f, Util.intColor(255, 255, 255));
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("roots:textures/gui/tabletGui.png"));
 		if (mouseX >= 32 && mouseX < 64 && mouseY >= height-48 && mouseY < height-32){
 			this.drawTexturedModalRect(32, height-48, 32, 80, 32, 16);

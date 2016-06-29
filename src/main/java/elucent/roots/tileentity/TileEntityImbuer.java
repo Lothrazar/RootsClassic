@@ -178,19 +178,21 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 		}
 		if (progress > 40){
 			progress = 0;
-			ItemStack staff = new ItemStack(RegistryManager.staff,1,1);
-			String effectName = dust.getTagCompound().getString("effect");
-			int potency = dust.getTagCompound().getInteger("potency");
-			int duration = dust.getTagCompound().getInteger("duration");
-			int size = dust.getTagCompound().getInteger("size");
-			ItemStaff.createData(staff, effectName, potency, duration, size);
-			if (!getWorld().isRemote){
-				getWorld().spawnEntityInWorld(new EntityItem(getWorld(),getPos().getX()+0.5,getPos().getY()+1.0,getPos().getZ()+0.5,staff));
+			if (dust.hasTagCompound()){
+				ItemStack staff = new ItemStack(RegistryManager.staff,1,1);
+				String effectName = dust.getTagCompound().getString("effect");
+				int potency = dust.getTagCompound().getInteger("potency");
+				int duration = dust.getTagCompound().getInteger("duration");
+				int size = dust.getTagCompound().getInteger("size");
+				ItemStaff.createData(staff, effectName, potency, duration, size);
+				if (!getWorld().isRemote){
+					getWorld().spawnEntityInWorld(new EntityItem(getWorld(),getPos().getX()+0.5,getPos().getY()+1.0,getPos().getZ()+0.5,staff));
+				}
+				stick = null;
+				dust = null;
+				markDirty();
+				this.getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
 			}
-			stick = null;
-			dust = null;
-			markDirty();
-			this.getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
 		}
 	}
 }

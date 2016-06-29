@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -226,10 +227,10 @@ public class ItemCrystalStaff extends Item {
 		if (stack.hasTagCompound()){
 			ComponentBase comp = ComponentManager.getComponentFromName(this.getEffect(stack));
 			if (comp != null){
-				tooltip.add(TextFormatting.GOLD + "Type: " + comp.getTextColor() + comp.getEffectName());
-				tooltip.add(TextFormatting.RED + "  +" + this.getPotency(stack) + " potency.");
-				tooltip.add(TextFormatting.RED + "  +" + this.getEfficiency(stack) + " efficiency.");
-				tooltip.add(TextFormatting.RED + "  +" + this.getSize(stack) + " size.");
+				tooltip.add(TextFormatting.GOLD + I18n.format("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
+				tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("potency") + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
+				tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("efficiency") + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
+				tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("size") + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
 			}
 		}
 	}

@@ -50,8 +50,9 @@ public class ComponentPoppy extends ComponentBase{
 		if (type == EnumCastType.SPELL){
 			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-size*2.4,y-size*2.4,z-size*2.4,x+size*2.4,y+size*2.4,z+size*2.4));
 			for (int i = 0; i < targets.size(); i ++){
+				targets.get(i).setAttackTarget(null);
 				int j = random.nextInt(targets.size());
-				if (j != i && random.nextInt(8-2*(int)potency) == 0){
+				if (j != i && random.nextInt(7-2*(int)potency) == 0){
 					targets.get(i).setAttackTarget(targets.get(j));
 				}
 			}

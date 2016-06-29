@@ -12,6 +12,7 @@ import elucent.roots.model.ModelDruidRobes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -61,8 +62,8 @@ public class ItemDruidArmor extends ItemArmor {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced){
 		tooltip.add("");
-		tooltip.add(TextFormatting.GRAY + "When full set equipped:");
-		tooltip.add(TextFormatting.BLUE + " Increased Health Regeneration");
+		tooltip.add(TextFormatting.GRAY + I18n.format("roots.attribute.fullset.name"));
+		tooltip.add(TextFormatting.BLUE + " " + I18n.format("roots.attribute.increasedregen.name"));
 	}
 	
 	@SideOnly(Side.CLIENT)

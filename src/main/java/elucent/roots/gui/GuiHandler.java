@@ -20,10 +20,11 @@ public class GuiHandler implements IGuiHandler {
 		}
 		if (ID == 2){
 			ResearchBase research = ResearchManager.getResearch(player.getEntityData().getString("RMOD_researchGroup"),player.getEntityData().getString("RMOD_researchBase"));
+			ResearchGroup group = ResearchManager.getResearchGroup(player.getEntityData().getString("RMOD_researchGroup"));
 			player.getEntityData().removeTag("RMOD_researchGroup");
 			player.getEntityData().removeTag("RMOD_researchBase");
-			if (research != null){
-				return new GuiTabletPage(research,player);
+			if (research != null && group != null){
+				return new GuiTabletPage(group, research, player);
 			}
 		}
 		return null;

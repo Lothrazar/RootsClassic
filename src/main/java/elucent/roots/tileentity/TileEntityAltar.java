@@ -17,6 +17,7 @@ import elucent.roots.item.ItemStaff;
 import elucent.roots.ritual.RitualBase;
 import elucent.roots.ritual.RitualManager;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -115,7 +116,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
 	}
 	
 	public boolean activate(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
-		if (heldItem == null && !player.isSneaking()){
+		if (heldItem == null && !player.isSneaking() && this.progress == 0){
 			if (inventory.size() > 0){
 				if (!world.isRemote){
 					world.spawnEntityInWorld(new EntityItem(world, pos.getX()+0.5, pos.getY()+1.0, pos.getZ()+0.5, inventory.remove(inventory.size()-1)));
@@ -128,7 +129,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
 				return true;
 			}
 		}
-		else if (player.isSneaking() && heldItem == null){
+		else if (player.isSneaking() && heldItem == null && this.progress == 0){
 			ritualName = null;
 			ritual = null;
 			for (int i = 0; i < RitualManager.rituals.size(); i ++){
@@ -144,7 +145,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
 			}
 			if (ritualName == null){
 				if (world.isRemote){
-					player.addChatMessage(new TextComponentString(TextFormatting.RED+"No valid ritual structure found!"));
+					player.addChatMessage(new TextComponentString(TextFormatting.RED+I18n.format("roots.error.noritual.name")));
 				}
 				markDirty();
 				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);

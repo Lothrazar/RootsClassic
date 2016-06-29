@@ -1,5 +1,7 @@
 package elucent.roots.gui;
 
+import java.util.ArrayList;
+
 import org.lwjgl.opengl.GL11;
 
 import elucent.roots.RegistryManager;
@@ -16,6 +18,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -29,11 +32,13 @@ public class GuiTabletPage extends GuiScreen {
 	public double cycle = 0;
 	public int currentPage = 0;
 	public ResearchBase research = null;
+	public ResearchGroup group = null;
 	boolean showRightArrow = false;
 	boolean showLeftArrow = true;
 	EntityPlayer player = null;
-	public GuiTabletPage(ResearchBase r, EntityPlayer player){
+	public GuiTabletPage(ResearchGroup g, ResearchBase r, EntityPlayer player){
 		this.player = player;
+		group = g;
 		research = r;
 	}
 	
@@ -77,6 +82,7 @@ public class GuiTabletPage extends GuiScreen {
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks){
+		GlStateManager.color(1, 1, 1, 1);
 		RenderHelper.disableStandardItemLighting();
 		RenderHelper.enableGUIStandardItemLighting();
 		if (this.currentPage == 0){
@@ -100,12 +106,15 @@ public class GuiTabletPage extends GuiScreen {
 		float basePosX = ((float)width/2.0f)-96;
 		float basePosY = ((float)height/2.0f)-128;
 		EnumRecipeType type = research.info.get(currentPage).recipe;
+		GlStateManager.color(1, 1, 1, 1);
 		if (type == EnumRecipeType.TYPE_NULL){
 			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("roots:textures/gui/tabletGui.png"));
 			this.drawTexturedModalRect(basePosX,basePosY,64,0,192,256);
-			fontRendererObj.drawStringWithShadow(research.info.get(currentPage).title, basePosX+96-(this.fontRendererObj.getStringWidth(research.info.get(currentPage).title)/2.0f), basePosY+12, Util.intColor(255, 255, 255));
-			for (int i = 0; i < research.info.get(currentPage).info.size(); i ++){
-				fontRendererObj.drawStringWithShadow(research.info.get(currentPage).info.get(i),basePosX+16,basePosY+32+i*11,Util.intColor(255, 255, 255));
+			String title = I18n.format("roots.research."+group.name+"."+research.name+".page"+(this.currentPage+1)+"title.name");
+			fontRendererObj.drawStringWithShadow(title, basePosX+96-(this.fontRendererObj.getStringWidth(title)/2.0f), basePosY+12, Util.intColor(255, 255, 255));
+			ArrayList<String> info = research.info.get(currentPage).makeLines(I18n.format("roots.research."+group.name+"."+research.name+".page"+(this.currentPage+1)+"info"));
+			for (int i = 0; i < info.size(); i ++){
+				fontRendererObj.drawStringWithShadow(info.get(i),basePosX+16,basePosY+32+i*11,Util.intColor(255, 255, 255));
 			}
 		}
 		if (type == EnumRecipeType.TYPE_CRAFTING){
@@ -141,10 +150,12 @@ public class GuiTabletPage extends GuiScreen {
 			if (research.info.get(currentPage).craftingRecipe.get(9) != null){
 				this.itemRender.renderItemIntoGUI(research.info.get(currentPage).craftingRecipe.get(9), (int)basePosX+144, (int)basePosY+56);
 			}
-			for (int i = 0; i < research.info.get(currentPage).info.size(); i ++){
-				fontRendererObj.drawStringWithShadow(research.info.get(currentPage).info.get(i),basePosX+16,basePosY+96+i*11,Util.intColor(255, 255, 255));
+			ArrayList<String> info = research.info.get(currentPage).makeLines(I18n.format("roots.research."+group.name+"."+research.name+".page"+(this.currentPage+1)+"info"));
+			for (int i = 0; i < info.size(); i ++){
+				fontRendererObj.drawStringWithShadow(info.get(i),basePosX+16,basePosY+104+i*11,Util.intColor(255, 255, 255));
 			}
-			fontRendererObj.drawStringWithShadow(research.info.get(currentPage).title, basePosX+96-(this.fontRendererObj.getStringWidth(research.info.get(currentPage).title)/2.0f), basePosY+12, Util.intColor(255, 255, 255));
+			String title = I18n.format("roots.research."+group.name+"."+research.name+".page"+(this.currentPage+1)+"title.name");
+			fontRendererObj.drawStringWithShadow(title, basePosX+96-(this.fontRendererObj.getStringWidth(title)/2.0f), basePosY+12, Util.intColor(255, 255, 255));
 		}
 		if (type == EnumRecipeType.TYPE_SMELTING){
 			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("roots:textures/gui/tabletSmelting.png"));
@@ -155,10 +166,12 @@ public class GuiTabletPage extends GuiScreen {
 			if (research.info.get(currentPage).smeltingRecipe.get(1) != null){
 				this.itemRender.renderItemIntoGUI(research.info.get(currentPage).smeltingRecipe.get(1), (int)basePosX+144, (int)basePosY+56);
 			}
-			for (int i = 0; i < research.info.get(currentPage).info.size(); i ++){
-				fontRendererObj.drawStringWithShadow(research.info.get(currentPage).info.get(i),basePosX+16,basePosY+104+i*11,Util.intColor(255, 255, 255));
+			ArrayList<String> info = research.info.get(currentPage).makeLines(I18n.format("roots.research."+group.name+"."+research.name+".page"+(this.currentPage+1)+"info"));
+			for (int i = 0; i < info.size(); i ++){
+				fontRendererObj.drawStringWithShadow(info.get(i),basePosX+16,basePosY+104+i*11,Util.intColor(255, 255, 255));
 			}
-			fontRendererObj.drawStringWithShadow(research.info.get(currentPage).title, basePosX+96-(this.fontRendererObj.getStringWidth(research.info.get(currentPage).title)/2.0f), basePosY+12, Util.intColor(255, 255, 255));
+			String title = I18n.format("roots.research."+group.name+"."+research.name+".page"+(this.currentPage+1)+"title.name");
+			fontRendererObj.drawStringWithShadow(title, basePosX+96-(this.fontRendererObj.getStringWidth(title)/2.0f), basePosY+12, Util.intColor(255, 255, 255));
 		}
 		if (type == EnumRecipeType.TYPE_DISPLAY){
 			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("roots:textures/gui/tabletDisplay.png"));
@@ -166,10 +179,12 @@ public class GuiTabletPage extends GuiScreen {
 			if (research.info.get(currentPage).displayItem != null){
 				this.itemRender.renderItemIntoGUI(research.info.get(currentPage).displayItem, (int)basePosX+88, (int)basePosY+48);
 			}
-			for (int i = 0; i < research.info.get(currentPage).info.size(); i ++){
-				fontRendererObj.drawStringWithShadow(research.info.get(currentPage).info.get(i),basePosX+16,basePosY+80+i*11,Util.intColor(255, 255, 255));
+			ArrayList<String> info = research.info.get(currentPage).makeLines(I18n.format("roots.research."+group.name+"."+research.name+".page"+(this.currentPage+1)+"info"));
+			for (int i = 0; i < info.size(); i ++){
+				fontRendererObj.drawStringWithShadow(info.get(i),basePosX+16,basePosY+80+i*11,Util.intColor(255, 255, 255));
 			}
-			fontRendererObj.drawStringWithShadow(research.info.get(currentPage).title, basePosX+96-(this.fontRendererObj.getStringWidth(research.info.get(currentPage).title)/2.0f), basePosY+12, Util.intColor(255, 255, 255));
+			String title = I18n.format("roots.research."+group.name+"."+research.name+".page"+(this.currentPage+1)+"title.name");
+			fontRendererObj.drawStringWithShadow(title, basePosX+96-(this.fontRendererObj.getStringWidth(title)/2.0f), basePosY+12, Util.intColor(255, 255, 255));
 		}
 		if (type == EnumRecipeType.TYPE_ALTAR){
 			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("roots:textures/gui/tabletAltar.png"));
@@ -208,7 +223,8 @@ public class GuiTabletPage extends GuiScreen {
 					this.itemRender.renderItemIntoGUI(research.info.get(currentPage).altarRecipe.incenses.get(i), (int)basePosX+76+16*i, (int)basePosY+88);
 				}
 			}
-			fontRendererObj.drawStringWithShadow(research.info.get(currentPage).title, basePosX+96-(this.fontRendererObj.getStringWidth(research.info.get(currentPage).title)/2.0f), basePosY+12, Util.intColor(255, 255, 255));
+			String title = I18n.format("roots.research."+group.name+"."+research.name+".page"+(this.currentPage+1)+"title.name");
+			fontRendererObj.drawStringWithShadow(title, basePosX+96-(this.fontRendererObj.getStringWidth(title)/2.0f), basePosY+12, Util.intColor(255, 255, 255));
 		}
 		if (type == EnumRecipeType.TYPE_MORTAR){
 			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("roots:textures/gui/tabletMortar.png"));
@@ -217,10 +233,12 @@ public class GuiTabletPage extends GuiScreen {
 				this.itemRender.renderItemIntoGUI(research.info.get(currentPage).mortarRecipe.materials.get(i), (int)basePosX+24+i*16, (int)basePosY+56);
 			}
 			this.itemRender.renderItemIntoGUI(new ItemStack(RegistryManager.dustPetal), (int)basePosX+144, (int)basePosY+56);
-			for (int i = 0; i < research.info.get(currentPage).info.size(); i ++){
-				fontRendererObj.drawStringWithShadow(research.info.get(currentPage).info.get(i),basePosX+16,basePosY+96+i*11,Util.intColor(255, 255, 255));
+			ArrayList<String> info = research.info.get(currentPage).makeLines(I18n.format("roots.research."+group.name+"."+research.name+".page"+(this.currentPage+1)+"info"));
+			for (int i = 0; i < info.size(); i ++){
+				fontRendererObj.drawStringWithShadow(info.get(i),basePosX+16,basePosY+96+i*11,Util.intColor(255, 255, 255));
 			}
-			fontRendererObj.drawStringWithShadow(research.info.get(currentPage).title, basePosX+96-(this.fontRendererObj.getStringWidth(research.info.get(currentPage).title)/2.0f), basePosY+12, Util.intColor(255, 255, 255));
+			String title = I18n.format("roots.research."+group.name+"."+research.name+".page"+(this.currentPage+1)+"title.name");
+			fontRendererObj.drawStringWithShadow(title, basePosX+96-(this.fontRendererObj.getStringWidth(title)/2.0f), basePosY+12, Util.intColor(255, 255, 255));
 		}
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("roots:textures/gui/tabletGui.png"));
 		if (showLeftArrow){

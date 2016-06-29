@@ -11,6 +11,7 @@ import elucent.roots.component.ComponentManager;
 import elucent.roots.component.EnumCastType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -77,10 +78,10 @@ public class DustPetal extends Item {
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced){
 		if (stack.hasTagCompound()){
 			ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
-			tooltip.add(TextFormatting.GOLD + "Type: " + comp.getTextColor() + comp.getEffectName());
-			tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("potency") + " potency.");
-			tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("efficiency") + " efficiency.");
-			tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("size") + " size.");
+			tooltip.add(TextFormatting.GOLD + I18n.format("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
+			tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("potency") + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
+			tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("efficiency") + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
+			tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("size") + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
 		}
 	}
 	

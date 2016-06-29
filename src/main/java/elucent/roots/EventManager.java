@@ -32,26 +32,26 @@ public class EventManager {
 	public void onBlockHarvested(HarvestDropsEvent event){
 		Block block = event.getState().getBlock();
 		if (block == Blocks.TALLGRASS){
-			if (random.nextInt(40) == 0){
+			if (random.nextInt(ConfigManager.oldRootDropChance) == 0){
 				event.getDrops().add(new ItemStack(RegistryManager.oldRoot,1));
 			}
 		}
 		if (block == Blocks.WHEAT || block == Blocks.CARROTS || block == Blocks.POTATOES || block == Blocks.BEETROOTS){
 			if (((BlockCrops)block).isMaxAge(event.getState())){
-				if (random.nextInt(30) == 0){
+				if (random.nextInt(ConfigManager.verdantSprigDropChance) == 0){
 					event.getDrops().add(new ItemStack(RegistryManager.verdantSprig,1));
 				}
 			}
 		}
 		if (block == Blocks.NETHER_WART){
-			if (((BlockNetherWart) block).getMetaFromState(event.getState()) == 2){
-				if (random.nextInt(20) == 0){
+			if (((BlockNetherWart) block).getMetaFromState(event.getState()) != 0){
+				if (random.nextInt(ConfigManager.infernalStemDropChance) == 0){
 					event.getDrops().add(new ItemStack(RegistryManager.infernalStem,1));
 				}
 			}
 		}
 		if (block == Blocks.CHORUS_FLOWER){
-			if (random.nextInt(10) == 0){
+			if (random.nextInt(ConfigManager.dragonsEyeDropChance) == 0){
 				event.getDrops().add(new ItemStack(RegistryManager.dragonsEye,1));
 			}
 		}

@@ -34,7 +34,9 @@ public class RitualImbuer extends RitualBase {
 			}
 		}
 		if (!world.isRemote){
-			world.spawnEntityInWorld(new EntityItem(world,pos.getX()+0.5,pos.getY()+1.5,pos.getZ()+0.5,toSpawn));
+			EntityItem item = new EntityItem(world,pos.getX()+0.5,pos.getY()+1.5,pos.getZ()+0.5,toSpawn);
+			item.forceSpawn = true;
+			world.spawnEntityInWorld(item);
 		}
 		inventory.clear();
 		world.getTileEntity(pos).markDirty();

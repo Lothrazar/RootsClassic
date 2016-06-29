@@ -34,6 +34,9 @@ public class ComponentDandelion extends ComponentBase{
 					targets.get(i).motionX = caster.getLookVec().xCoord;
 					targets.get(i).motionY = (float)(potency==0?1.0:1.0+0.5*potency);
 					targets.get(i).motionZ = caster.getLookVec().zCoord;
+					if (targets.get(i) instanceof EntityPlayer){
+						((EntityPlayer)targets.get(i)).velocityChanged = true;
+					}
 				}
 			}
 		}

@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import elucent.roots.item.ItemDruidRobes;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -82,7 +83,7 @@ public class ComponentBase {
 	}
 	
 	public String getEffectName(){
-		return effectName;
+		return I18n.format("roots.component."+name+".name");
 	}
 	
 	public TextFormatting getTextColor(){

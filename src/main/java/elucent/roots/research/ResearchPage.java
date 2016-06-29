@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import elucent.roots.component.ComponentRecipe;
 import elucent.roots.ritual.RitualBase;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 
 public class ResearchPage {
@@ -16,13 +18,40 @@ public class ResearchPage {
 	public ArrayList<String> info = new ArrayList<String>();
 	public String title = "";
 	
-	public ResearchPage(String title){
-		this.title = title;
+	public ResearchPage(){
 	}
 	
-	public ResearchPage addInfo(String s){
-		info.add(s);
-		return this;
+	public ArrayList<String> makeLines(String s){
+		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<String> words = new ArrayList<String>();
+		String temp = "";
+		int counter = 0;
+		for (int i = 0; i < s.length(); i ++){
+			temp += s.charAt(i);
+			if (s.charAt(i) == ' '){
+				words.add(temp);
+				temp = "";
+			}
+		}
+		words.add(temp);
+		temp = "";
+		for (int i = 0; i < words.size(); i ++){
+			counter += Minecraft.getMinecraft().fontRendererObj.getStringWidth(words.get(i));
+			if (counter > 160){
+				list.add(temp);
+				temp = words.get(i);
+				counter = Minecraft.getMinecraft().fontRendererObj.getStringWidth(words.get(i));
+			}
+			else {
+				temp += words.get(i);
+			}
+		}
+		list.add(temp);
+		System.out.println("Research contents: \"" + this.title + "\"");
+		for (int i = 0; i < list.size(); i ++){
+			System.out.println("  " + i + ": " + list.get(i));
+		}
+		return list;
 	}
 	
 	public ResearchPage addCraftingRecipe(ItemStack stack1, ItemStack stack2, ItemStack stack3, ItemStack stack4, ItemStack stack5, ItemStack stack6, ItemStack stack7, ItemStack stack8, ItemStack stack9, ItemStack result){

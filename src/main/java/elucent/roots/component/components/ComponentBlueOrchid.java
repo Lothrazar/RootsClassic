@@ -63,6 +63,9 @@ public class ComponentBlueOrchid extends ComponentBase{
 						if (targets.get(i).getUniqueID() != caster.getUniqueID()){
 							targets.get(i).moveEntity(0, 3, 0);
 							targets.get(i).motionY = 0.65+random.nextDouble()+0.25*potency;
+							if (targets.get(i) instanceof EntityPlayer){
+								((EntityPlayer)targets.get(i)).velocityChanged = true;
+							}
 						}
 					}
 					if (random.nextInt(3) == 0){

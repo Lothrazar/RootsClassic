@@ -28,6 +28,11 @@ public class TEBase extends TileEntity {
 		return writeToNBT(new NBTTagCompound());
 	}
 	
+	@Override
+	public SPacketUpdateTileEntity getUpdatePacket(){
+		return new SPacketUpdateTileEntity(getPos(), 0, getUpdateTag());
+	}
+	
 	public void breakBlock(World world, BlockPos pos, IBlockState state, EntityPlayer player){
 		this.invalidate();
 	}

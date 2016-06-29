@@ -11,6 +11,7 @@ import elucent.roots.model.ModelDruidRobes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -79,8 +80,8 @@ public class ItemDruidRobes extends ItemArmor {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced){
 		tooltip.add("");
-		tooltip.add(TextFormatting.GRAY + "When full set equipped:");
-		tooltip.add(TextFormatting.BLUE + " +2 Spell Efficiency");
+		tooltip.add(TextFormatting.GRAY + I18n.format("roots.attribute.fullset.name"));
+		tooltip.add(TextFormatting.BLUE + " +2" + I18n.format("roots.attribute.spellefficiency.name"));
 	}
 	
 	@SideOnly(Side.CLIENT)
