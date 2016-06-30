@@ -31,6 +31,11 @@ item.druidArmorBoots.name=Wildwood Boots
 item.runedTablet.name=Runic Tablet
 item.growthSalve.name=Growth Powder
 item.mutagen.name=Mutating Powder
+item.nightshade.name=Nightshade
+item.blackcurrant.name=Blackcurrant
+item.redcurrant.name=Redcurrant
+item.whitecurrant.name=Whitecurrant
+item.elderberry.name=Elderberry
 
 tile.mortar.name=Mortar
 tile.imbuer.name=Imbuer

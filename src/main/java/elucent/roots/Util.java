@@ -18,6 +18,7 @@ public class Util {
 	public static Random random = new Random();
 	public static ArrayList<IBlockState> oreList = new ArrayList<IBlockState>();
 	public static ArrayList<Block> naturalBlocks = new ArrayList<Block>();
+	public static ArrayList<Item> berries = new ArrayList<Item>();
 	
 	public static BlockPos getRayTrace(World world, EntityPlayer player, int reachDistance){
 		double x = player.posX;
@@ -57,6 +58,14 @@ public class Util {
 		naturalBlocks.add(Blocks.FLOWING_WATER);
 		naturalBlocks.add(Blocks.RED_FLOWER);
 		naturalBlocks.add(Blocks.YELLOW_FLOWER);
+	}
+	
+	public static void initBerries(){
+		berries.add(RegistryManager.nightshade);
+		berries.add(RegistryManager.blackCurrant);
+		berries.add(RegistryManager.redCurrant);
+		berries.add(RegistryManager.whiteCurrant);
+		berries.add(RegistryManager.elderBerry);
 	}
 	
 	public static boolean containsItem(List<ItemStack> list, Item item){
