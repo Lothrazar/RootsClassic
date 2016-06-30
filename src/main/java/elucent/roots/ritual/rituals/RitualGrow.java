@@ -2,7 +2,9 @@ package elucent.roots.ritual.rituals;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Random;
 
+import net.minecraft.block.IGrowable;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -19,18 +21,22 @@ import elucent.roots.RegistryManager;
 import elucent.roots.Util;
 import elucent.roots.ritual.RitualBase;
 
-public class RitualMassBreed extends RitualBase {
-	public RitualMassBreed(String name, double r, double g, double b) {
+public class RitualGrow extends RitualBase {
+	Random random = new Random();
+	
+	public RitualGrow(String name, double r, double g, double b) {
 		super(name, r, g, b);
 	}
 	
 	@Override
 	public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses){
-		inventory.clear();
-		List<EntityAnimal> animals = (List<EntityAnimal>)world.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(pos.getX()-22,pos.getY()-8,pos.getZ()-22,pos.getX()+23,pos.getY()+9,pos.getZ()+23));
-		if (animals.size() > 0){
-			for (int i = 0; i < animals.size(); i ++){
-				animals.get(i).getEntityData().setInteger("InLove", 400);
+		for (int i = -17; i < 18; i ++){
+			for (int j = -4; j < 5; j ++){
+				for (int k = -17; k < 18; k ++){
+					if (world.getBlockState(pos.add(i,j,k)).getBlock() instanceof IGrowable && random.nextInt(12) == 0){
+						((IGrowable)world.getBlockState(pos.add(i,j,k)).getBlock()).grow(world, random, pos.add(i,j,k), world.getBlockState(pos.add(i,j,k)));
+					}
+				}
 			}
 		}
 	}

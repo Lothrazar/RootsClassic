@@ -2,6 +2,7 @@ package elucent.roots.ritual.rituals;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,26 +26,32 @@ import elucent.roots.RegistryManager;
 import elucent.roots.Util;
 import elucent.roots.ritual.RitualBase;
 
-public class RitualLifeDrain extends RitualBase {
-	public RitualLifeDrain(String name, double r, double g, double b) {
+public class RitualFlare extends RitualBase {
+	Random random = new Random();
+	
+	public RitualFlare(String name, double r, double g, double b) {
 		super(name, r, g, b);
 	}
 	
 	@Override
 	public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses){
-		inventory.clear();
-		List<EntityMob> enemies = (List<EntityMob>)world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(pos.getX()-22,pos.getY()-8,pos.getZ()-22,pos.getX()+23,pos.getY()+9,pos.getZ()+23));
-		float drainedHealth = 0;
-		if (enemies.size() > 0){
-			for (int i = 0; i < enemies.size(); i ++){
-				enemies.get(i).attackEntityFrom(DamageSource.cactus, 9);
-				drainedHealth += 9;
+		for (int i = 0; i < inventory.size(); i ++){
+			if (inventory.get(i) != null){
+				if (inventory.get(i).getItem() == Items.FLINT_AND_STEEL && inventory.get(i).getItemDamage() < inventory.get(i).getMaxDamage()-1){
+					if (!world.isRemote){
+						EntityItem item = new EntityItem(world, pos.getX()+0.5, pos.getY()+1.5, pos.getZ()+0.5, new ItemStack(Items.FLINT_AND_STEEL,1,inventory.get(i).getItemDamage()+1));
+						item.forceSpawn = true;
+						world.spawnEntityInWorld(item);
+					}
+				}
 			}
 		}
-		List<EntityPlayer> players = (List<EntityPlayer>)world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.getX()-22,pos.getY()-8,pos.getZ()-22,pos.getX()+23,pos.getY()+9,pos.getZ()+23));
-		float numPlayers = players.size();
-		for (int i = 0; i < numPlayers; i ++){
-			players.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("regeneration"),(int)(100*(drainedHealth/numPlayers)),0));
+		inventory.clear();
+		List<EntityLivingBase> enemies = (List<EntityLivingBase>)world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.getX()-22,pos.getY()-8,pos.getZ()-22,pos.getX()+23,pos.getY()+9,pos.getZ()+23));
+		if (enemies.size() > 0){
+			for (int i = 0; i < enemies.size(); i ++){
+				enemies.get(i).setFire(random.nextInt(5)+14);
+			}
 		}
 	}
 }

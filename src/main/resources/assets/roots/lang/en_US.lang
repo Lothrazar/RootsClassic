@@ -247,6 +247,11 @@ roots.research.ritual.livingtools.page2title.name=Ritual: Living Shovel
 roots.research.ritual.livingtools.page2title.name=Ritual: Living Sword
 roots.research.ritual.livingtools.page2title.name=Ritual: Living Hoe
 
+roots.research.ritual.grow.name=Growth Ritual
+roots.research.ritual.grow.page1title.name=Spark of Life
+roots.research.ritual.grow.page1info=With the simple life-channeling abilities of the altar, you have devised a ritual that will aid the growth of your crops. This ritual will scan for crops in a 35x35x9 area and randomly apply a bonemeal-like effect to a few of them.
+roots.research.ritual.grow.page2title.name=Ritual: Grow
+
 roots.research.ritual.standingstones.name=Standing Stones
 roots.research.ritual.standingstones.page1title.name=Engraved Stones
 roots.research.ritual.standingstones.page1info=In order to gain access to more powerful rituals, you need a better way to channel life energy from the world around you. By carving runes into this stone structure, you give it the much-needed ability to draw in power from the world around it to fuel your magical desires.
@@ -275,6 +280,11 @@ roots.research.ritual.rainrituals.page1title.name=Weather Magic
 roots.research.ritual.rainrituals.page1info=With a few simple natural ingredients, you have discovered two rituals, one that will summon rain to the world and another to banish it.
 roots.research.ritual.rainrituals.page2title.name=Ritual: Summon Rain
 roots.research.ritual.rainrituals.page3title.name=Ritual: Banish Rain
+
+roots.research.ritual.flare.name=Fire Blast
+roots.research.ritual.flare.page1title.name=Offensive Rituals
+roots.research.ritual.flare.page1info=Not all of your rituals are for happy, fun purposes like toggling the rain or bringing your pet pig back to life. The flare ritual uses some fiery materials from the nether as well as some volatile fuels to burn mobs inside a 45x45x17 area around the altar, except for players immediately near the altar.
+roots.research.ritual.flare.page2title.name=Ritual: Flare
 
 roots.research.ritual.standingstones2.name=Enhanced Standing Stones
 roots.research.ritual.standingstones2.page1title.name=The Next Level
@@ -341,3 +351,8 @@ roots.research.ritual.lifedrain.name=Life Drain
 roots.research.ritual.lifedrain.page1title.name=Taking It Back
 roots.research.ritual.lifedrain.page1info=The life force present in hostile mobs is corrupt and tainted. With this ritual, you have developed a means of taking this life force for more beneficial purposes. This ritual will damage all hostile mobs in a large area, and divide the damage dealt evenly among nearby players in the form of healing.
 roots.research.ritual.lifedrain.page2title.name=Ritual: Life Drain
+
+roots.research.ritual.sacrifice.name=Sacrifice
+roots.research.ritual.sacrifice.page1title.name=A Supernatural Deal
+roots.research.ritual.sacrifice.page1info=You are simply fed up with going on long adventures searching for specific plants to complete your spells. With this ritual, you have developed a sinister solution. When this ritual finishes its particle light show, it will instantly kill a mob placed near it. In exchange, a random plant may be dropped from the altar. The source of these drops remains unknown to you...
+roots.research.ritual.sacrifice.page2title.name=Ritual: Sacrifice

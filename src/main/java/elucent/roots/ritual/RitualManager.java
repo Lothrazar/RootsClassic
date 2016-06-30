@@ -7,6 +7,8 @@ import elucent.roots.RegistryManager;
 import elucent.roots.Util;
 import elucent.roots.ritual.rituals.RitualCauseRain;
 import elucent.roots.ritual.rituals.RitualCrafting;
+import elucent.roots.ritual.rituals.RitualFlare;
+import elucent.roots.ritual.rituals.RitualGrow;
 import elucent.roots.ritual.rituals.RitualImbuer;
 import elucent.roots.ritual.rituals.RitualLifeDrain;
 import elucent.roots.ritual.rituals.RitualMassBreed;
@@ -34,6 +36,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class RitualManager {
 	public static ArrayList<RitualBase> rituals = new ArrayList<RitualBase>();
@@ -684,7 +687,7 @@ public class RitualManager {
 				.addIncense(new ItemStack(Items.NETHER_WART,1))
 				.addIngredient(new ItemStack(Items.ENDER_PEARL,1))
 				.addIngredient(new ItemStack(Items.ENDER_PEARL,1))
-				.addIngredient(new ItemStack(Items.BONE,1)));/*
+				.addIngredient(new ItemStack(Items.BONE,1)));
 		rituals.add(new RitualSacrifice("sacrifice", 94, 9, 56)
 				.addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
 				.addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -702,7 +705,29 @@ public class RitualManager {
 				.addIncense(new ItemStack(RegistryManager.darkOakTreeBark,1,0))
 				.addIngredient(new ItemStack(Items.FLINT,1))
 				.addIngredient(new ItemStack(Items.IRON_SWORD,1))
-				.addIngredient(new ItemStack(Items.BONE,1)));*/
+				.addIngredient(new ItemStack(Items.BONE,1)));
+		rituals.add(new RitualFlare("flare", 255, 91, 25)
+				.addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
+				.addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
+				.addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
+				.addBlock(RegistryManager.standingStoneT1, 3, 0, 3)
+				.addBlock(RegistryManager.standingStoneT1, 3, 0, 0)
+				.addBlock(RegistryManager.standingStoneT1, -3, 0, 0)
+				.addBlock(RegistryManager.standingStoneT1, 0, 0, 3)
+				.addBlock(RegistryManager.standingStoneT1, 0, 0, -3)
+				.addIncense(new ItemStack(Items.GUNPOWDER,1))
+				.addIncense(new ItemStack(RegistryManager.infernalStem,1,0))
+				.addIngredient(new ItemStack(Items.FLINT_AND_STEEL,1,OreDictionary.WILDCARD_VALUE))
+				.addIngredient(new ItemStack(Items.COAL,1))
+				.addIngredient(new ItemStack(Items.COAL,1,1)));
+		rituals.add(new RitualGrow("grow", 82, 212, 47)
+				.addIncense(new ItemStack(Items.WHEAT,1))
+				.addIncense(new ItemStack(Items.BEETROOT,1))
+				.addIncense(new ItemStack(Items.POTATO,1))
+				.addIncense(new ItemStack(Items.CARROT,1))
+				.addIngredient(new ItemStack(Items.REDSTONE,1))
+				.addIngredient(new ItemStack(Items.DYE,1,15))
+				.addIngredient(new ItemStack(RegistryManager.verdantSprig,1)));
 	}
 	
 	public static RitualBase getRitualFromName(String name){
