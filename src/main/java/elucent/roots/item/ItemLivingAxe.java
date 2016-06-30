@@ -8,6 +8,8 @@ import com.google.common.collect.Sets;
 import elucent.roots.RegistryManager;
 import elucent.roots.Roots;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -29,9 +31,14 @@ public class ItemLivingAxe extends ItemTool {
 		setUnlocalizedName("livingAxe");
 		setCreativeTab(Roots.tab);
 		setHarvestLevel("axe",this.toolMaterial.getHarvestLevel());
-		this.damageVsEntity = this.toolMaterial.getDamageVsEntity() + 3.0f;
+		this.damageVsEntity = this.toolMaterial.getDamageVsEntity() + 6.0f;
 		this.attackSpeed = -3.1f;
 	}
+	
+	public float getStrVsBlock(ItemStack stack, IBlockState state){
+        Material material = state.getMaterial();
+        return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE ? super.getStrVsBlock(stack, state) : this.efficiencyOnProperMaterial;
+    }
 	
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected){

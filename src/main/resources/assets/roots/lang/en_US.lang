@@ -56,7 +56,7 @@ roots.attribute.spellefficiency.name=Spell Efficiency
 
 roots.tooltip.spelltypeheading.name=Type
 roots.tooltip.spellpotency.name=potency
-roots.tooltip.spellefficiency.name=effiency
+roots.tooltip.spellefficiency.name=efficency
 roots.tooltip.spellsize.name=size
 roots.tooltip.usesremaining.name=uses remaining
 
@@ -116,11 +116,11 @@ roots.research.spells.name=Spellcraft
 
 roots.research.spells.mortar.name=The Mortar
 roots.research.spells.mortar.page1title.name=The Mortar
-roots.research.spells.mortar.page1info.name=The flora in the world around you seem to have vast untapped power. What better way to access that than mashing them into a pulp?
+roots.research.spells.mortar.page1info=The flora in the world around you seem to have vast untapped power. What better way to access that than mashing them into a pulp?
 roots.research.spells.mortar.page2title.name=The Pestle
-roots.research.spells.mortar.page2info.name=Of course, to mash the aforementioned plants into a pulp, you're going to need something to mash with. This pestle, fashioned out of a smooth white stone, should do the task nicely.
+roots.research.spells.mortar.page2info=Of course, to mash the aforementioned plants into a pulp, you're going to need something to mash with. This pestle, fashioned out of a smooth white stone, should do the task nicely.
 roots.research.spells.mortar.page3title.name=Usage
-roots.research.spells.mortar.page3info.name=Using the mortar and pestle is quite simple. Detailed in this tablet are many recipes for different spells. You will need all of these ingredients, as well as a particular base ingredient. To create the most basic possible spell, simply place in the spell's recipe, as well as an old root. This will allow for a spell with no modifiers.
+roots.research.spells.mortar.page3info=Using the mortar and pestle is quite simple. Detailed in this tablet are many recipes for different spells. You will need all of these ingredients, as well as a particular base ingredient. To create the most basic possible spell, simply place in the spell's recipe, as well as an old root. This will allow for a spell with no modifiers.
 
 roots.research.spells.imbuer.name=Imbuing a Staff
 roots.research.spells.imbuer.page1title.name=The Imbuer
@@ -242,10 +242,10 @@ roots.research.ritual.livingtools.name=Living Tools
 roots.research.ritual.livingtools.page1title.name=Self-Repairing
 roots.research.ritual.livingtools.page1info=Your rituals are capable of channeling life energy into previously dead objects. Using this, you can grow newer, stronger forms for your wooden tools. Adding a little gold for reinforcement, as well as a verdant sprig to grow upon, will grant you tools of similar strength to iron that repair slowly over time.
 roots.research.ritual.livingtools.page2title.name=Ritual: Living Pickaxe
-roots.research.ritual.livingtools.page2title.name=Ritual: Living Axe
-roots.research.ritual.livingtools.page2title.name=Ritual: Living Shovel
-roots.research.ritual.livingtools.page2title.name=Ritual: Living Sword
-roots.research.ritual.livingtools.page2title.name=Ritual: Living Hoe
+roots.research.ritual.livingtools.page3title.name=Ritual: Living Axe
+roots.research.ritual.livingtools.page4title.name=Ritual: Living Shovel
+roots.research.ritual.livingtools.page5title.name=Ritual: Living Sword
+roots.research.ritual.livingtools.page6title.name=Ritual: Living Hoe
 
 roots.research.ritual.grow.name=Growth Ritual
 roots.research.ritual.grow.page1title.name=Spark of Life

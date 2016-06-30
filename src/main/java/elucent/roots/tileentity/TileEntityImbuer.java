@@ -182,7 +182,7 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 				ItemStack staff = new ItemStack(RegistryManager.staff,1,1);
 				String effectName = dust.getTagCompound().getString("effect");
 				int potency = dust.getTagCompound().getInteger("potency");
-				int duration = dust.getTagCompound().getInteger("duration");
+				int duration = dust.getTagCompound().getInteger("efficiency");
 				int size = dust.getTagCompound().getInteger("size");
 				ItemStaff.createData(staff, effectName, potency, duration, size);
 				if (!getWorld().isRemote){

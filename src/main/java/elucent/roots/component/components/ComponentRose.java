@@ -26,6 +26,7 @@ public class ComponentRose extends ComponentBase {
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
 					targets.get(i).attackEntityFrom(DamageSource.cactus, (int)(7+4*potency));
+					targets.get(i).attackEntityAsMob(caster);
 					targets.get(i).setLastAttacker(caster);
 					targets.get(i).setRevengeTarget((EntityLivingBase)caster);
 				}

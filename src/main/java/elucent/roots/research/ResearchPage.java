@@ -47,10 +47,6 @@ public class ResearchPage {
 			}
 		}
 		list.add(temp);
-		System.out.println("Research contents: \"" + this.title + "\"");
-		for (int i = 0; i < list.size(); i ++){
-			System.out.println("  " + i + ": " + list.get(i));
-		}
 		return list;
 	}
 	

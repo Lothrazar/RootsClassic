@@ -81,7 +81,7 @@ public class ItemDruidRobes extends ItemArmor {
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced){
 		tooltip.add("");
 		tooltip.add(TextFormatting.GRAY + I18n.format("roots.attribute.fullset.name"));
-		tooltip.add(TextFormatting.BLUE + " +2" + I18n.format("roots.attribute.spellefficiency.name"));
+		tooltip.add(TextFormatting.BLUE + " +2 " + I18n.format("roots.attribute.spellefficiency.name"));
 	}
 	
 	@SideOnly(Side.CLIENT)
