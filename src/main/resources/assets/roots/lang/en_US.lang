@@ -36,6 +36,8 @@ item.blackcurrant.name=Blackcurrant
 item.redcurrant.name=Redcurrant
 item.whitecurrant.name=Whitecurrant
 item.elderberry.name=Elderberry
+item.healingPoultice.name=Healing Poultice
+item.rootyStew.name=Rooty Stew
 
 tile.mortar.name=Mortar
 tile.imbuer.name=Imbuer
@@ -98,16 +100,16 @@ roots.research.nature.barkharvesting.page1title.name=Simple Materials
 roots.research.nature.barkharvesting.page1info=Trees are very important to natural magic. Using some wood and saplings, you can create a knife capable of softly harvesting the bark from trees, which can be used in recipes and rituals. Right-click a log block to harvest bark from it, with a chance of breaking the log block.
 
 roots.research.nature.magicalmaterials.name=Rare Materials
-roots.research.nature.magicalmaterials.page1title.name=Foraging
+roots.research.nature.magicalmaterials.page1title.name=Roots of Magic
 roots.research.nature.magicalmaterials.page1info=In the world around you, you may find several rare plants and herbs that are crucial for many aspects of natural magic.
 roots.research.nature.magicalmaterials.page2title.name=Old Roots
-roots.research.nature.magicalmaterials.page2info=Old roots can be found at a 1/40 chance when breaking tall grass. They are needed for a lot of early magic, as they are required for spells without modifiers.
+roots.research.nature.magicalmaterials.page2info=Old roots can be found at a 1/40 chance when breaking tall grass. They are needed for a lot of early magic, as they are required for spells without modifiers. They can also be eaten to restore a very small amount of hunger.
 roots.research.nature.magicalmaterials.page3title.name=Verdant Sprigs
 roots.research.nature.magicalmaterials.page3info=Verdant sprigs will drop at a 1/30 chance when harvesting fully-grown crops of all kinds. They have innate life force that persists after being harvested, so their uses often relate to bringing life to objects.
 roots.research.nature.magicalmaterials.page4title.name=Infernal Bulbs
-roots.research.nature.magicalmaterials.page4info=Infernal Bulbs will drop at a 1/20 chance from grown nether wart. Infernal bulbs are imbued with the fire of their home in the nether, so they are useful when a large amount of energy is needed.
+roots.research.nature.magicalmaterials.page4info=Infernal Bulbs will drop at a 1/20 chance from grown nether wart. Infernal bulbs are imbued with the fire of their home in the nether, so they are useful when a large amount of energy is needed. They can also be used as fairly effective furnace fuel, or given to skeletons to make them withered.
 roots.research.nature.magicalmaterials.page5title.name=Dragon's Eyes
-roots.research.nature.magicalmaterials.page5info=Dragon's eyes will drop at a 1/10 chance from chorus flowers. They are imbued with the same eldritch energy as the ender dragon itself.
+roots.research.nature.magicalmaterials.page5info=Dragon's eyes will drop at a 1/10 chance from chorus flowers. They are imbued with the same eldritch energy as the ender dragon itself. In addition to spell-related uses, they can be eaten for a more powerful chorus fruit effect, or smelted to yield one ender pearl.
 
 roots.research.nature.grassseeds.name=Growth Powder
 roots.research.nature.grassseeds.page1title.name=Lawn Care
@@ -116,6 +118,18 @@ roots.research.nature.grassseeds.page1info=This simple mixture can grow grass on
 roots.research.nature.mutagen.name=Mutating Powder
 roots.research.nature.mutagen.page1title.name=New Plants
 roots.research.nature.mutagen.page1info=Using the power of a nether star, you have created a powder capable of mutating new kinds of flora. This powder is only used in very specific circumstances, specified in the spell components section of this tablet.
+
+roots.research.nature.berries.name=Berries
+roots.research.nature.berries.page1title.name=Foraging
+roots.research.nature.berries.page1info=When breaking oak leaves by hand, you may occasionally find a random berry. There are five different kinds of berries, each one with different properties. Some may even be used in spells or rituals later on...
+
+roots.research.nature.stew.name=Rooty Stew
+roots.research.nature.stew.page1title.name=Soup For You
+roots.research.nature.stew.page1info=While Old Roots can be eaten alone, they're not very appetizing. By cooking it with some wheat in a bowl, you can create a delicious stew capable of replenishing much more hunger.
+
+roots.research.nature.poultice.name=Healing Poultice
+roots.research.nature.poultice.page1title.name=Medicine
+roots.research.nature.poultice.page1info=Verdant Sprigs are commonly used for their life-related properties. By applying the pulp of a verdant sprig to your wounds with these poultices, you can heal a small amount of health.
 
 roots.research.spells.name=Spellcraft
 

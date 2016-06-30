@@ -4,6 +4,7 @@ import elucent.roots.RegistryManager;
 import elucent.roots.Roots;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -11,28 +12,24 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class RootsItemFood extends ItemFood
+public class ItemRootyStew extends ItemFood
 {
-	public RootsItemFood(String name, int amount, float saturation, boolean isWolFFood){
-		super(amount, saturation, isWolFFood);
+	public ItemRootyStew(){
+		super(7, 1.0F, false);
 		this.setCreativeTab(Roots.tab);
-		this.setUnlocalizedName(name);
+		this.setUnlocalizedName("rootyStew");
+	}
+	
+	@Override
+	public int getItemStackLimit(){
+		return 1;
 	}
 	
 	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving){
 		 super.onItemUseFinish(stack, worldIn, entityLiving);
-		 if(stack.getItem() == RegistryManager.redCurrant){
-			 entityLiving.heal(2F); 
-		 }
-		 if(stack.getItem() == RegistryManager.elderBerry){
-			 if(!worldIn.isRemote){
-				 entityLiving.clearActivePotions();
-			 }
-		 }
-		 if (stack.getItem() == RegistryManager.healingPoultice){
-			 entityLiving.heal(5F);
-		 }
+		 stack.stackSize = 1;
+		 stack.setItem(Items.BOWL);
 		 return stack;
 	}
 	

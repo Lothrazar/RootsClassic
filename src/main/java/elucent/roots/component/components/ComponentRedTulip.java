@@ -55,6 +55,7 @@ public class ComponentRedTulip extends ComponentBase{
 				skeleton.setHeldItem(EnumHand.MAIN_HAND, null);
 				skeleton.setDropItemsWhenDead(false);
 				skeleton.getEntityData().setBoolean("RMOD_dropItems", false);
+				skeleton.getEntityData().setLong("RMOD_dontTarget", caster.getUniqueID().getMostSignificantBits());
 				skeleton.setPosition(x, y+2.0, z);
 				skeleton.setAttackTarget(targets.get(random.nextInt(targets.size())));
 				if (skeleton.getAttackTarget().getUniqueID() != caster.getUniqueID()){

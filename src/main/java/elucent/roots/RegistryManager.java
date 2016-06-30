@@ -32,6 +32,7 @@ import elucent.roots.item.ItemLivingSword;
 import elucent.roots.item.ItemMaterial;
 import elucent.roots.item.ItemMutagen;
 import elucent.roots.item.ItemPestle;
+import elucent.roots.item.ItemRootyStew;
 import elucent.roots.item.ItemRunedTablet;
 import elucent.roots.item.ItemStaff;
 import elucent.roots.item.ItemTreeBark;
@@ -72,7 +73,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class RegistryManager {
-	public static Item mutagen, growthSalve, runedTablet, druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots, livingPickaxe, livingSword, livingHoe, livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig, infernalStem, dragonsEye,druidKnife,oakTreeBark,spruceTreeBark,birchTreeBark,jungleTreeBark,acaciaTreeBark,darkOakTreeBark,nightshade,blackCurrant,redCurrant,whiteCurrant,elderBerry;
+	public static Item rootyStew, healingPoultice, mutagen, growthSalve, runedTablet, druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots, livingPickaxe, livingSword, livingHoe, livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig, infernalStem, dragonsEye,druidKnife,oakTreeBark,spruceTreeBark,birchTreeBark,jungleTreeBark,acaciaTreeBark,darkOakTreeBark,nightshade,blackCurrant,redCurrant,whiteCurrant,elderBerry;
 	public static Block flareOrchid, radiantDaisy, standingStoneGrower, standingStoneHealer, standingStoneIgniter, standingStoneEntangler, standingStoneAccelerator, standingStoneRepulsor, standingStoneVacuum, midnightBloom, mortar, imbuer, altar, druidChalice, standingStoneT1, standingStoneT2, brazier;
 	
 	public static ToolMaterial livingMaterial = EnumHelper.addToolMaterial("livingMaterial", 2, 192, 6.0f, 2.0f, 18);
@@ -88,7 +89,7 @@ public class RegistryManager {
 		GameRegistry.registerItem(pestle = new ItemPestle(), "pestle");
 		GameRegistry.registerItem(staff = new ItemStaff(), "staff");
 		GameRegistry.registerItem(crystalStaff = new ItemCrystalStaff(), "crystalStaff");
-		GameRegistry.registerItem(oldRoot = new ItemMaterial("oldRoot"), "oldRoot");
+		GameRegistry.registerItem(oldRoot = new RootsItemFood("oldRoot",1,0.1F,false), "oldRoot");
 		GameRegistry.registerItem(verdantSprig = new ItemMaterial("verdantSprig"), "verdantSprig");
 		GameRegistry.registerItem(infernalStem = new ItemMaterial("infernalStem"), "infernalStem");
 		GameRegistry.registerItem(dragonsEye = new ItemDragonsEye("dragonsEye", 2, 0.1F, false), "dragonsEye");
@@ -119,7 +120,8 @@ public class RegistryManager {
 		GameRegistry.registerItem(redCurrant = new RootsItemFood("redcurrant", 4, 0.4F, false), "redcurrant");
 		GameRegistry.registerItem(whiteCurrant = new RootsItemFood("whitecurrant", 4, 0.4F, false), "whitecurrant");
 		GameRegistry.registerItem(elderBerry = new RootsItemFood("elderberry", 2, 0.1F, false), "elderberry");
-		
+		GameRegistry.registerItem(healingPoultice = new RootsItemFood("healingPoultice", 0, 0F, false).setMaxStackSize(8), "healingPoultice"); 
+		GameRegistry.registerItem(rootyStew = new ItemRootyStew(), "rootyStew"); 
 		/**
 		 * REGISTERING BLOCKS
 		 */
@@ -156,6 +158,8 @@ public class RegistryManager {
 		GameRegistry.registerTileEntity(TileEntityStandingStoneGrower.class,"TileEntityStandingStoneGrower");
 		GameRegistry.registerTileEntity(TileEntityStandingStoneIgniter.class,"TileEntityStandingStoneIgniter");
 		GameRegistry.registerTileEntity(TileEntityStandingStoneHealer.class,"TileEntityStandingStoneHealer");
+	
+		GameRegistry.registerFuelHandler(new FuelManager());
 	}
 	
 	public static void registerRecipes(){
@@ -171,7 +175,8 @@ public class RegistryManager {
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(RegistryManager.growthSalve,4), new Object[]{new ItemStack(Items.WHEAT_SEEDS,1),new ItemStack(Blocks.TALLGRASS,1,1),"dustRedstone", new ItemStack(RegistryManager.pestle,1)}));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(RegistryManager.mutagen,1), new Object[]{new ItemStack(RegistryManager.growthSalve), new ItemStack(RegistryManager.growthSalve), new ItemStack(RegistryManager.growthSalve), new ItemStack(RegistryManager.growthSalve), new ItemStack(Items.NETHER_STAR,1), new ItemStack(Items.NETHER_WART,1), new ItemStack(RegistryManager.pestle,1)}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(RegistryManager.runedTablet,1), true, new Object[]{" R ","SBS"," S ",'S',Items.WHEAT_SEEDS,'B',"stone",'R',RegistryManager.oldRoot}));
-		
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(RegistryManager.rootyStew,1), new Object[]{new ItemStack(Items.WHEAT,1), new ItemStack(Items.BOWL,1), new ItemStack(RegistryManager.oldRoot,1)}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(RegistryManager.healingPoultice,2), new Object[]{new ItemStack(Items.DYE,1,1), new ItemStack(Items.PAPER,1), new ItemStack(RegistryManager.pestle,1), new ItemStack(RegistryManager.verdantSprig,1)}));
 		GameRegistry.addSmelting(RegistryManager.dragonsEye, new ItemStack(Items.ENDER_PEARL), 1F);
 	}
 	
@@ -224,6 +229,8 @@ public class RegistryManager {
 		((RootsItemFood)redCurrant).initModel();
 		((RootsItemFood)whiteCurrant).initModel();
 		((RootsItemFood)elderBerry).initModel();
+		((RootsItemFood)healingPoultice).initModel();
+		((ItemRootyStew)rootyStew).initModel();
 		
 		((BlockDruidChalice)druidChalice).initModel();
 		((BlockMortar)mortar).initModel();

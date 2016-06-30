@@ -8,6 +8,8 @@ import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockNetherWart;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -18,6 +20,7 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
@@ -67,6 +70,29 @@ public class EventManager {
 	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event){
 		if (PlayerManager.hasEffect(event.getEntityPlayer(), "allium") && random.nextInt(4) != 0){
 			event.setCanceled(true);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onRightClickEntity(PlayerInteractEvent.EntityInteract event){
+		if (event.getEntityLiving() instanceof EntitySkeleton){
+			if (event.getEntityPlayer().getHeldItem(event.getHand()) != null){
+				if (event.getEntityPlayer().getHeldItem(event.getHand()).getItem() == RegistryManager.infernalStem){
+					event.getEntityPlayer().getHeldItem(event.getHand()).stackSize --;
+					event.getEntityLiving().getEntityData().setInteger("SkeletonType", 1);
+				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onLivingTarget(LivingSetAttackTargetEvent event){
+		if (event.getTarget() instanceof EntityPlayer){
+			if (event.getEntity().getEntityData().hasKey("RMOD_dontTarget")){
+				if (event.getTarget().getUniqueID().getMostSignificantBits() == event.getEntity().getEntityData().getLong("RMOD_dontTarget")){
+					event.setCanceled(true);
+				}
+			}
 		}
 	}
 	
