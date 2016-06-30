@@ -19,6 +19,7 @@ import elucent.roots.block.BlockStandingStoneT2;
 import elucent.roots.block.BlockStandingStoneVacuum;
 import elucent.roots.item.DustPetal;
 import elucent.roots.item.ItemCrystalStaff;
+import elucent.roots.item.ItemDragonsEye;
 import elucent.roots.item.ItemDruidArmor;
 import elucent.roots.item.ItemDruidKnife;
 import elucent.roots.item.ItemDruidRobes;
@@ -90,7 +91,7 @@ public class RegistryManager {
 		GameRegistry.registerItem(oldRoot = new ItemMaterial("oldRoot"), "oldRoot");
 		GameRegistry.registerItem(verdantSprig = new ItemMaterial("verdantSprig"), "verdantSprig");
 		GameRegistry.registerItem(infernalStem = new ItemMaterial("infernalStem"), "infernalStem");
-		GameRegistry.registerItem(dragonsEye = new ItemMaterial("dragonsEye"), "dragonsEye");
+		GameRegistry.registerItem(dragonsEye = new ItemDragonsEye("dragonsEye", 2, 0.1F, false), "dragonsEye");
 		GameRegistry.registerItem(oakTreeBark = new ItemTreeBark("oakTreeBark"),"oakTreeBark");
 		GameRegistry.registerItem(spruceTreeBark = new ItemTreeBark("spruceTreeBark"),"spruceTreeBark");
 		GameRegistry.registerItem(birchTreeBark = new ItemTreeBark("birchTreeBark"),"birchTreeBark");
@@ -170,6 +171,8 @@ public class RegistryManager {
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(RegistryManager.growthSalve,4), new Object[]{new ItemStack(Items.WHEAT_SEEDS,1),new ItemStack(Blocks.TALLGRASS,1,1),"dustRedstone", new ItemStack(RegistryManager.pestle,1)}));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(RegistryManager.mutagen,1), new Object[]{new ItemStack(RegistryManager.growthSalve), new ItemStack(RegistryManager.growthSalve), new ItemStack(RegistryManager.growthSalve), new ItemStack(RegistryManager.growthSalve), new ItemStack(Items.NETHER_STAR,1), new ItemStack(Items.NETHER_WART,1), new ItemStack(RegistryManager.pestle,1)}));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(RegistryManager.runedTablet,1), true, new Object[]{" R ","SBS"," S ",'S',Items.WHEAT_SEEDS,'B',"stone",'R',RegistryManager.oldRoot}));
+		
+		GameRegistry.addSmelting(RegistryManager.dragonsEye, new ItemStack(Items.ENDER_PEARL), 1F);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -193,7 +196,7 @@ public class RegistryManager {
 		((ItemMaterial)oldRoot).initModel();
 		((ItemMaterial)verdantSprig).initModel();
 		((ItemMaterial)infernalStem).initModel();
-		((ItemMaterial)dragonsEye).initModel();
+		((ItemDragonsEye)dragonsEye).initModel();
 		((ItemTreeBark)oakTreeBark).initModel();
 		((ItemTreeBark)spruceTreeBark).initModel();
 		((ItemTreeBark)birchTreeBark).initModel();
