@@ -10,6 +10,7 @@ import elucent.roots.ritual.rituals.RitualCrafting;
 import elucent.roots.ritual.rituals.RitualImbuer;
 import elucent.roots.ritual.rituals.RitualLifeDrain;
 import elucent.roots.ritual.rituals.RitualMassBreed;
+import elucent.roots.ritual.rituals.RitualSacrifice;
 import elucent.roots.ritual.rituals.RitualSummoning;
 import elucent.roots.tileentity.TileEntityAltar;
 import elucent.roots.tileentity.TileEntityBrazier;
@@ -683,7 +684,25 @@ public class RitualManager {
 				.addIncense(new ItemStack(Items.NETHER_WART,1))
 				.addIngredient(new ItemStack(Items.ENDER_PEARL,1))
 				.addIngredient(new ItemStack(Items.ENDER_PEARL,1))
-				.addIngredient(new ItemStack(Items.BONE,1)));
+				.addIngredient(new ItemStack(Items.BONE,1)));/*
+		rituals.add(new RitualSacrifice("sacrifice", 94, 9, 56)
+				.addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
+				.addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
+				.addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
+				.addBlock(RegistryManager.standingStoneT1, 3, 0, 3)
+				.addBlock(RegistryManager.standingStoneT1, 3, 0, 0)
+				.addBlock(RegistryManager.standingStoneT1, -3, 0, 0)
+				.addBlock(RegistryManager.standingStoneT1, 0, 0, 3)
+				.addBlock(RegistryManager.standingStoneT1, 0, 0, -3)
+				.addBlock(RegistryManager.standingStoneT2, 5, 1, 0)
+				.addBlock(RegistryManager.standingStoneT2, -5, 1, 0)
+				.addBlock(RegistryManager.standingStoneT2, 0, 1, 5)
+				.addBlock(RegistryManager.standingStoneT2, 0, 1, -5)
+				.addIncense(new ItemStack(Items.BLAZE_POWDER,1))
+				.addIncense(new ItemStack(RegistryManager.darkOakTreeBark,1,0))
+				.addIngredient(new ItemStack(Items.FLINT,1))
+				.addIngredient(new ItemStack(Items.IRON_SWORD,1))
+				.addIngredient(new ItemStack(Items.BONE,1)));*/
 	}
 	
 	public static RitualBase getRitualFromName(String name){

@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.util.EnumHandSide;
@@ -89,7 +90,7 @@ public class ModelArmorBase extends ModelBiped {
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, netHeadPitch, scale, entity);
         
 		this.setHeadRotation();
-		this.setChestRotation();
+		this.setChestRotation(entity);
 		this.setLegsRotation();
 		this.setBootRotation();
 		GlStateManager.pushMatrix();
@@ -159,21 +160,51 @@ public class ModelArmorBase extends ModelBiped {
 	}
 	
 	public void setHeadRotation(){
+		head.rotationPointX = bipedHead.rotationPointX;
+		head.rotationPointY = bipedHead.rotationPointY;
+		head.rotationPointZ = bipedHead.rotationPointZ;
 		setRotation(head,bipedHead.rotateAngleX,bipedHead.rotateAngleY,bipedHead.rotateAngleZ);
 	}
 	
-	public void setChestRotation(){
+	public void setChestRotation(Entity e){
+		/*if (e instanceof EntityPlayer){
+			((EntityPlayer)e).get
+		}*/
+		chest.rotationPointX = bipedBody.rotationPointX;
+		chest.rotationPointY = bipedBody.rotationPointY-1;
+		chest.rotationPointZ = bipedBody.rotationPointZ;
+		chest.offsetY -= 0.125;
+		armR.rotationPointX = bipedRightArm.rotationPointX+5;
+		armR.rotationPointY = bipedRightArm.rotationPointY-1;
+		armR.rotationPointZ = bipedRightArm.rotationPointZ;
+		armR.offsetY -= 0;
+		armL.rotationPointX = bipedLeftArm.rotationPointX-5;
+		armL.rotationPointY = bipedLeftArm.rotationPointY-1;
+		armL.rotationPointZ = bipedLeftArm.rotationPointZ;
+		armL.offsetY -= 0;
 		setRotation(chest,bipedBody.rotateAngleX,bipedBody.rotateAngleY,bipedBody.rotateAngleZ);
 		setRotation(armR,bipedRightArm.rotateAngleX,bipedRightArm.rotateAngleY,bipedRightArm.rotateAngleZ);
 		setRotation(armL,bipedLeftArm.rotateAngleX,bipedLeftArm.rotateAngleY,bipedLeftArm.rotateAngleZ);
 	}
 	
 	public void setLegsRotation(){
+		legR.rotationPointX = bipedRightLeg.rotationPointX+2;
+		legR.rotationPointY = bipedRightLeg.rotationPointY-24;
+		legR.rotationPointZ = bipedRightLeg.rotationPointZ;
+		legL.rotationPointX = bipedLeftLeg.rotationPointX-2;
+		legL.rotationPointY = bipedLeftLeg.rotationPointY-24;
+		legL.rotationPointZ = bipedLeftLeg.rotationPointZ;
 		setRotation(legR,bipedRightLeg.rotateAngleX,bipedRightLeg.rotateAngleY,bipedRightLeg.rotateAngleZ);
 		setRotation(legL,bipedLeftLeg.rotateAngleX,bipedLeftLeg.rotateAngleY,bipedLeftLeg.rotateAngleZ);
 	}
 	
 	public void setBootRotation(){
+		bootR.rotationPointX = bipedRightLeg.rotationPointX+2;
+		bootR.rotationPointY = bipedRightLeg.rotationPointY-24;
+		bootR.rotationPointZ = bipedRightLeg.rotationPointZ;
+		bootL.rotationPointX = bipedLeftLeg.rotationPointX-2;
+		bootL.rotationPointY = bipedLeftLeg.rotationPointY-24;
+		bootL.rotationPointZ = bipedLeftLeg.rotationPointZ;
 		setRotation(bootR,bipedRightLeg.rotateAngleX,bipedRightLeg.rotateAngleY,bipedRightLeg.rotateAngleZ);
 		setRotation(bootL,bipedLeftLeg.rotateAngleX,bipedLeftLeg.rotateAngleY,bipedLeftLeg.rotateAngleZ);
 	}

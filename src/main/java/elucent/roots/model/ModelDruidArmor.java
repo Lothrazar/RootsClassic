@@ -267,73 +267,73 @@ public class ModelDruidArmor extends ModelArmorBase {
 	      setRotation(chest13, -1.832596F, 2.879793F, 0F);
 	      armR1 = new ModelRenderer(this, 32, 16);
 	      armR1.addBox(-2F, -4F, -1F, 4, 4, 2);
-	      armR1.setRotationPoint(-7.5F, 9F, 0F);
+	      armR1.setRotationPoint(-7.5F, 8F, 0F);
 	      armR1.setTextureSize(64, 64);
 	      armR1.mirror = true;
 	      setRotation(armR1, 0F, 1.570796F, 0F);
 	      armR2 = new ModelRenderer(this, 8, 16);
 	      armR2.addBox(-1F, -4F, -1F, 2, 4, 2);
-	      armR2.setRotationPoint(-6F, 1F, 0F);
+	      armR2.setRotationPoint(-6F, 0F, 0F);
 	      armR2.setTextureSize(64, 64);
 	      armR2.mirror = true;
 	      setRotation(armR2, -0.7853982F, 0F, -0.3926991F);
 	      armR3 = new ModelRenderer(this, 8, 16);
 	      armR3.addBox(-1F, -4F, -1F, 2, 4, 2);
-	      armR3.setRotationPoint(-6F, 1F, -1F);
+	      armR3.setRotationPoint(-6F, 0F, -1F);
 	      armR3.setTextureSize(64, 64);
 	      armR3.mirror = true;
 	      setRotation(armR3, -0.2617994F, 0F, -0.1308997F);
 	      armR4 = new ModelRenderer(this, 48, 16);
 	      armR4.addBox(-1F, 0F, -1F, 2, 7, 2);
-	      armR4.setRotationPoint(-7F, 10F, 0F);
+	      armR4.setRotationPoint(-7F, 9F, 0F);
 	      armR4.setTextureSize(64, 64);
 	      armR4.mirror = true;
 	      setRotation(armR4, 0.1308997F, 1.570796F, 3.141593F);
 	      armR5 = new ModelRenderer(this, 16, 32);
 	      armR5.addBox(-2F, -4F, -2F, 4, 4, 4);
-	      armR5.setRotationPoint(-5F, 4F, 0F);
+	      armR5.setRotationPoint(-5F, 3F, 0F);
 	      armR5.setTextureSize(64, 64);
 	      armR5.mirror = true;
 	      setRotation(armR5, 0.2617994F, 1.570796F, 0F);
 	      armR6 = new ModelRenderer(this, 0, 16);
 	      armR6.addBox(-1F, -6F, -1F, 2, 6, 2);
-	      armR6.setRotationPoint(-6.5F, 5F, 0F);
+	      armR6.setRotationPoint(-6.5F, 4F, 0F);
 	      armR6.setTextureSize(64, 64);
 	      armR6.mirror = true;
 	      setRotation(armR6, -1.047198F, -0.3926991F, 0F);
 	      armL1 = new ModelRenderer(this, 16, 32);
 	      armL1.addBox(-2F, -4F, -2F, 4, 4, 4);
-	      armL1.setRotationPoint(5F, 4F, 0F);
+	      armL1.setRotationPoint(5F, 3F, 0F);
 	      armL1.setTextureSize(64, 64);
 	      armL1.mirror = true;
 	      setRotation(armL1, -0.2617994F, 1.570796F, 0F);
 	      armL2 = new ModelRenderer(this, 48, 16);
 	      armL2.addBox(-1F, 0F, -1F, 2, 7, 2);
-	      armL2.setRotationPoint(7F, 10F, 0F);
+	      armL2.setRotationPoint(7F, 9F, 0F);
 	      armL2.setTextureSize(64, 64);
 	      armL2.mirror = true;
 	      setRotation(armL2, -0.1308997F, 1.570796F, 3.141593F);
 	      armL3 = new ModelRenderer(this, 32, 16);
 	      armL3.addBox(-2F, -4F, -1F, 4, 4, 2);
-	      armL3.setRotationPoint(7.5F, 9F, 0F);
+	      armL3.setRotationPoint(7.5F, 8F, 0F);
 	      armL3.setTextureSize(64, 64);
 	      armL3.mirror = true;
 	      setRotation(armL3, 0F, -1.570796F, 0F);
 	      armL4 = new ModelRenderer(this, 0, 16);
 	      armL4.addBox(-1F, -6F, -1F, 2, 6, 2);
-	      armL4.setRotationPoint(6.5F, 5F, 0F);
+	      armL4.setRotationPoint(6.5F, 4F, 0F);
 	      armL4.setTextureSize(64, 64);
 	      armL4.mirror = true;
 	      setRotation(armL4, -1.047198F, 0.3926991F, 0F);
 	      armL5 = new ModelRenderer(this, 8, 16);
 	      armL5.addBox(-1F, -4F, -1F, 2, 4, 2);
-	      armL5.setRotationPoint(6F, 1F, 0F);
+	      armL5.setRotationPoint(6F, 0F, 0F);
 	      armL5.setTextureSize(64, 64);
 	      armL5.mirror = true;
 	      setRotation(armL5, -0.7853982F, 0F, 0.3926991F);
 	      armL6 = new ModelRenderer(this, 8, 16);
 	      armL6.addBox(-1F, -4F, -1F, 2, 4, 2);
-	      armL6.setRotationPoint(6F, 1F, -1F);
+	      armL6.setRotationPoint(6F, 0F, -1F);
 	      armL6.setTextureSize(64, 64);
 	      armL6.mirror = true;
 	      setRotation(armL6, -0.2617994F, 0F, 0.1308997F);
@@ -478,6 +478,9 @@ public class ModelDruidArmor extends ModelArmorBase {
 	    chest.addChild(chest11);
 	    chest.addChild(chest12);
 	    chest.addChild(chest13);
+	    for (int i = 0; i < chest.childModels.size(); i ++){
+	    	chest.childModels.get(i).rotationPointY -= 1;
+	    }
 	    
 	    armR = new ModelRenderer(this);
 	    armR.addChild(armR1);
@@ -536,6 +539,6 @@ public class ModelDruidArmor extends ModelArmorBase {
 	    for (int i = 0; i < bootL.childModels.size(); i ++){
 	    	bootL.childModels.get(i).rotationPointY -= 12;
 	    }
-	    this.armorScale = 1.12f;
+	    this.armorScale = 1.2f;
 	}
 }
