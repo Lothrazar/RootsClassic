@@ -9,6 +9,7 @@ import net.minecraft.block.BlockNetherWart;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -53,6 +54,11 @@ public class EventManager {
 		if (block == Blocks.CHORUS_FLOWER){
 			if (random.nextInt(ConfigManager.dragonsEyeDropChance) == 0){
 				event.getDrops().add(new ItemStack(RegistryManager.dragonsEye,1));
+			}
+		}
+		if (block == Blocks.LEAVES && block.getMetaFromState(event.getState()) == 8){
+			if (random.nextInt(ConfigManager.berriesDropChance) == 0){
+				event.getDrops().add(new ItemStack(Util.berries.get(random.nextInt(Util.berries.size())),1));
 			}
 		}
 	}

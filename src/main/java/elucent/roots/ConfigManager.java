@@ -4,7 +4,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ConfigManager {
-	public static int oldRootDropChance, verdantSprigDropChance, infernalStemDropChance, dragonsEyeDropChance;
+	public static int oldRootDropChance, verdantSprigDropChance, infernalStemDropChance, dragonsEyeDropChance, berriesDropChance;
 	public static boolean showTabletWave;
 	
 	public static void load(FMLPreInitializationEvent event){
@@ -16,6 +16,7 @@ public class ConfigManager {
     	verdantSprigDropChance = config.getInt("verdantSprigDropChance", "world", 30, 0, 999, "Verdant Sprigs will drop from grown crops with a 1/verdantSprigDropChance probability.");
     	infernalStemDropChance = config.getInt("infernalBulbDropChance", "world", 20, 0, 999, "Infernal Bulbs will drop from nether wart with a 1/infernalBulbDropChance probability.");
     	dragonsEyeDropChance = config.getInt("dragonsEyeDropChance", "world", 10, 0, 999, "Dragon's Eyes will drop from chorus flowers with a 1/dragonsEyeDropChance probability.");
+    	berriesDropChance = config.getInt("berriesDropChance", "world", 25, 0, 999, "Berries will drop from oak leaves with a 1/berriesDropChance probability.");
     	showTabletWave = config.getBoolean("showTabletWave", "client", true, "Toggles the wave effect in the Runic Tablet GUI.");
     	config.save();
 	}

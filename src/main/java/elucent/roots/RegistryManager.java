@@ -34,6 +34,7 @@ import elucent.roots.item.ItemPestle;
 import elucent.roots.item.ItemRunedTablet;
 import elucent.roots.item.ItemStaff;
 import elucent.roots.item.ItemTreeBark;
+import elucent.roots.item.RootsItemFood;
 import elucent.roots.tileentity.TileEntityAltar;
 import elucent.roots.tileentity.TileEntityAltarRenderer;
 import elucent.roots.tileentity.TileEntityBrazier;
@@ -45,14 +46,13 @@ import elucent.roots.tileentity.TileEntityMortar;
 import elucent.roots.tileentity.TileEntityMortarRenderer;
 import elucent.roots.tileentity.TileEntityStandingStoneAccelerator;
 import elucent.roots.tileentity.TileEntityStandingStoneEntangler;
+import elucent.roots.tileentity.TileEntityStandingStoneGrower;
 import elucent.roots.tileentity.TileEntityStandingStoneHealer;
 import elucent.roots.tileentity.TileEntityStandingStoneIgniter;
-import elucent.roots.tileentity.TileEntityStandingStoneGrower;
 import elucent.roots.tileentity.TileEntityStandingStoneRepulsor;
 import elucent.roots.tileentity.TileEntityStandingStoneVacuum;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -60,6 +60,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -69,7 +71,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class RegistryManager {
-	public static Item mutagen, growthSalve, runedTablet, druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots, livingPickaxe, livingSword, livingHoe, livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig, infernalStem, dragonsEye,druidKnife,oakTreeBark,spruceTreeBark,birchTreeBark,jungleTreeBark,acaciaTreeBark,darkOakTreeBark;
+	public static Item mutagen, growthSalve, runedTablet, druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots, livingPickaxe, livingSword, livingHoe, livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig, infernalStem, dragonsEye,druidKnife,oakTreeBark,spruceTreeBark,birchTreeBark,jungleTreeBark,acaciaTreeBark,darkOakTreeBark,nightshade,blackCurrant,redCurrant,whiteCurrant,elderBerry;
 	public static Block flareOrchid, radiantDaisy, standingStoneGrower, standingStoneHealer, standingStoneIgniter, standingStoneEntangler, standingStoneAccelerator, standingStoneRepulsor, standingStoneVacuum, midnightBloom, mortar, imbuer, altar, druidChalice, standingStoneT1, standingStoneT2, brazier;
 	
 	public static ToolMaterial livingMaterial = EnumHelper.addToolMaterial("livingMaterial", 2, 192, 6.0f, 2.0f, 18);
@@ -111,6 +113,11 @@ public class RegistryManager {
 		GameRegistry.registerItem(runedTablet = new ItemRunedTablet(),"runedTablet");
 		GameRegistry.registerItem(growthSalve = new ItemGrowthSalve(),"growthSalve");
 		GameRegistry.registerItem(mutagen = new ItemMutagen(),"mutagen");
+		GameRegistry.registerItem(nightshade = new RootsItemFood("nightshade", 2, 0.1F, false).setPotionEffect(new PotionEffect(Potion.getPotionById(19), 320), 1F), "nightshade");
+		GameRegistry.registerItem(blackCurrant = new RootsItemFood("blackcurrant", 4, 0.4F, false), "blackcurrant");
+		GameRegistry.registerItem(redCurrant = new RootsItemFood("redcurrant", 4, 0.4F, false), "redcurrant");
+		GameRegistry.registerItem(whiteCurrant = new RootsItemFood("whitecurrant", 4, 0.4F, false), "whitecurrant");
+		GameRegistry.registerItem(elderBerry = new RootsItemFood("elderberry", 2, 0.1F, false), "elderberry");
 		
 		/**
 		 * REGISTERING BLOCKS
@@ -209,6 +216,11 @@ public class RegistryManager {
 		((ItemRunedTablet)runedTablet).initModel();
 		((ItemGrowthSalve)growthSalve).initModel();
 		((ItemMutagen)mutagen).initModel();
+		((RootsItemFood)nightshade).initModel();
+		((RootsItemFood)blackCurrant).initModel();
+		((RootsItemFood)redCurrant).initModel();
+		((RootsItemFood)whiteCurrant).initModel();
+		((RootsItemFood)elderBerry).initModel();
 		
 		((BlockDruidChalice)druidChalice).initModel();
 		((BlockMortar)mortar).initModel();
