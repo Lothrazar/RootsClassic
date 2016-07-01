@@ -198,7 +198,7 @@ public class RegistryManager {
 		((ItemPestle)pestle).initModel();
 		((ItemStaff)staff).initModel();
 		((ItemCrystalStaff)crystalStaff).initModel();
-		((ItemMaterial)oldRoot).initModel();
+		((RootsItemFood)oldRoot).initModel();
 		((ItemMaterial)verdantSprig).initModel();
 		((ItemMaterial)infernalStem).initModel();
 		((ItemDragonsEye)dragonsEye).initModel();
