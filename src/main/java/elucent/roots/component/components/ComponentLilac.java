@@ -10,7 +10,9 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockNetherWart;
 import net.minecraft.block.IGrowable;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
@@ -34,6 +36,15 @@ public class ComponentLilac extends ComponentBase{
 	public void growBlockSafe(World world, BlockPos pos, int potency){
 		if (world.getBlockState(pos).getBlock() instanceof IGrowable && random.nextInt(5-(int)potency) < 2){
 			((IGrowable)world.getBlockState(pos).getBlock()).grow(world, random, pos, world.getBlockState(pos));
+		}
+		if(world.getBlockState(pos).getBlock() == Blocks.NETHER_WART && random.nextInt(5-(int)potency) < 2){
+			BlockNetherWart wart = (BlockNetherWart) world.getBlockState(pos).getBlock();
+			IBlockState state = world.getBlockState(pos);
+			int age = (Integer)state.getValue(wart.AGE).intValue();
+			if(age < 3){
+				state = state.withProperty(wart.AGE, Integer.valueOf(age + 1));
+				world.setBlockState(pos, state, 2);
+			}
 		}
 	}
 	
