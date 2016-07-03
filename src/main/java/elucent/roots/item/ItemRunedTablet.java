@@ -4,6 +4,7 @@ import elucent.roots.Roots;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -27,8 +28,14 @@ public class ItemRunedTablet extends Item {
 	}
 	
 	@Override
+	public EnumAction getItemUseAction(ItemStack stack){
+		return EnumAction.BLOCK;
+	}
+	
+	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
 		if (hand == EnumHand.MAIN_HAND){
+			player.setActiveHand(hand);
 			player.openGui(Roots.instance, 1, world, (int)player.posX, (int)player.posY, (int)player.posZ);
 		}
 		return new ActionResult(EnumActionResult.PASS, stack);

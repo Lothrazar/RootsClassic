@@ -3,6 +3,7 @@ package elucent.roots.proxy;
 import elucent.roots.RegistryManager;
 import elucent.roots.Roots;
 import elucent.roots.Util;
+import elucent.roots.capability.RootsCapabilityManager;
 import elucent.roots.component.ComponentManager;
 import elucent.roots.gui.GuiHandler;
 import elucent.roots.mutation.MutagenManager;
@@ -19,6 +20,7 @@ public class CommonProxy {
 	public void preInit(FMLPreInitializationEvent event){
 		RegistryManager.init();
 		RegistryManager.registerRecipes();
+		RootsCapabilityManager.preInit();
 	}
 	
 	public void init(FMLInitializationEvent event){

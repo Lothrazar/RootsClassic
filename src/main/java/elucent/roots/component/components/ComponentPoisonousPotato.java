@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 public class ComponentPoisonousPotato extends ComponentBase{
 	Random random = new Random();
 	public ComponentPoisonousPotato(){
-		super("poisonouspotato","Electric Spark",Items.POISONOUS_POTATO,6);	
+		super("poisonouspotato","Electric Spark",Items.POISONOUS_POTATO,24);	
 	}
 	
 	@Override

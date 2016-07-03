@@ -32,8 +32,10 @@ import elucent.roots.item.ItemLivingSword;
 import elucent.roots.item.ItemMaterial;
 import elucent.roots.item.ItemMutagen;
 import elucent.roots.item.ItemPestle;
+import elucent.roots.item.ItemResearchIcon;
 import elucent.roots.item.ItemRootyStew;
 import elucent.roots.item.ItemRunedTablet;
+import elucent.roots.item.ItemRunicFocus;
 import elucent.roots.item.ItemStaff;
 import elucent.roots.item.ItemTreeBark;
 import elucent.roots.item.RootsItemFood;
@@ -73,7 +75,8 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class RegistryManager {
-	public static Item rootyStew, healingPoultice, mutagen, growthSalve, runedTablet, druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots, livingPickaxe, livingSword, livingHoe, livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig, infernalStem, dragonsEye,druidKnife,oakTreeBark,spruceTreeBark,birchTreeBark,jungleTreeBark,acaciaTreeBark,darkOakTreeBark,nightshade,blackCurrant,redCurrant,whiteCurrant,elderBerry;
+	public static Item runicFocus, rootyStew, healingPoultice, mutagen, growthSalve, runedTablet, druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots, livingPickaxe, livingSword, livingHoe, livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig, infernalStem, dragonsEye,druidKnife,oakTreeBark,spruceTreeBark,birchTreeBark,jungleTreeBark,acaciaTreeBark,darkOakTreeBark,nightshade,blackCurrant,redCurrant,whiteCurrant,elderBerry;
+	public static Item manaResearchIcon;
 	public static Block flareOrchid, radiantDaisy, standingStoneGrower, standingStoneHealer, standingStoneIgniter, standingStoneEntangler, standingStoneAccelerator, standingStoneRepulsor, standingStoneVacuum, midnightBloom, mortar, imbuer, altar, druidChalice, standingStoneT1, standingStoneT2, brazier;
 	
 	public static ToolMaterial livingMaterial = EnumHelper.addToolMaterial("livingMaterial", 2, 192, 6.0f, 2.0f, 18);
@@ -120,8 +123,10 @@ public class RegistryManager {
 		GameRegistry.registerItem(redCurrant = new RootsItemFood("redcurrant", 4, 0.4F, false), "redcurrant");
 		GameRegistry.registerItem(whiteCurrant = new RootsItemFood("whitecurrant", 4, 0.4F, false), "whitecurrant");
 		GameRegistry.registerItem(elderBerry = new RootsItemFood("elderberry", 2, 0.1F, false), "elderberry");
-		GameRegistry.registerItem(healingPoultice = new RootsItemFood("healingPoultice", 0, 0F, false).setMaxStackSize(8), "healingPoultice"); 
+		GameRegistry.registerItem(healingPoultice = new RootsItemFood("healingPoultice", 0, 0F, false).setAlwaysEdible().setMaxStackSize(8), "healingPoultice"); 
 		GameRegistry.registerItem(rootyStew = new ItemRootyStew(), "rootyStew"); 
+		GameRegistry.registerItem(runicFocus = new ItemRunicFocus(), "runicFocus"); 
+		GameRegistry.registerItem(manaResearchIcon = new ItemResearchIcon("manaResearchIcon"), "manaResearchIcon");
 		/**
 		 * REGISTERING BLOCKS
 		 */
@@ -129,7 +134,7 @@ public class RegistryManager {
 		GameRegistry.registerBlock(altar = new BlockAltar(), "altar");
 		GameRegistry.registerBlock(brazier = new BlockBrazier(), "brazier");
 		GameRegistry.registerBlock(imbuer = new BlockImbuer(), "imbuer");
-		GameRegistry.registerBlock(druidChalice = new BlockDruidChalice(),"druidChalice");
+		//GameRegistry.registerBlock(druidChalice = new BlockDruidChalice(),"druidChalice");
 		GameRegistry.registerBlock(standingStoneT1 = new BlockStandingStoneT1(),"standingStoneT1");
 		GameRegistry.registerBlock(standingStoneT2 = new BlockStandingStoneT2(),"standingStoneT2");
 		GameRegistry.registerBlock(standingStoneVacuum = new BlockStandingStoneVacuum(),"standingStoneVacuum");
@@ -198,7 +203,7 @@ public class RegistryManager {
 		((ItemPestle)pestle).initModel();
 		((ItemStaff)staff).initModel();
 		((ItemCrystalStaff)crystalStaff).initModel();
-		((ItemMaterial)oldRoot).initModel();
+		((RootsItemFood)oldRoot).initModel();
 		((ItemMaterial)verdantSprig).initModel();
 		((ItemMaterial)infernalStem).initModel();
 		((ItemDragonsEye)dragonsEye).initModel();
@@ -231,8 +236,10 @@ public class RegistryManager {
 		((RootsItemFood)elderBerry).initModel();
 		((RootsItemFood)healingPoultice).initModel();
 		((ItemRootyStew)rootyStew).initModel();
+		((ItemRunicFocus)runicFocus).initModel();
+		((ItemResearchIcon)manaResearchIcon).initModel();
 		
-		((BlockDruidChalice)druidChalice).initModel();
+		//((BlockDruidChalice)druidChalice).initModel();
 		((BlockMortar)mortar).initModel();
 		((BlockAltar)altar).initModel();
 		((BlockBrazier)brazier).initModel();

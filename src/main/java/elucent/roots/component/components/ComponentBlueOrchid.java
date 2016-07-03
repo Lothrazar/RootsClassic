@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 public class ComponentBlueOrchid extends ComponentBase{
 	Random random = new Random();
 	public ComponentBlueOrchid(){
-		super("blueorchid","Earthen Roots",Blocks.RED_FLOWER,8);	
+		super("blueorchid","Earthen Roots",Blocks.RED_FLOWER,14);	
 	}
 	
 	public void destroyBlockSafe(World world, BlockPos pos, int potency){

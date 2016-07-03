@@ -6,6 +6,7 @@ import java.util.Random;
 import net.minecraft.util.text.TextFormatting;
 import elucent.roots.Roots;
 import elucent.roots.Util;
+import elucent.roots.capability.RootsCapabilityManager;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.ComponentManager;
 import elucent.roots.component.EnumCastType;
@@ -35,7 +36,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemStaff extends Item {
+public class ItemStaff extends Item implements IManaRelatedItem {
 	Random random = new Random();
 	
 	public ItemStaff(){
@@ -73,7 +74,7 @@ public class ItemStaff extends Item {
 	
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft){
-		if (timeLeft < (72000-20)){
+		if (timeLeft < (72000-12)){
 			if (stack.hasTagCompound()){
 				if (stack.getTagCompound().getInteger("uses") > 0){
 					stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
@@ -81,39 +82,27 @@ public class ItemStaff extends Item {
 					int potency = stack.getTagCompound().getInteger("potency");
 					int efficiency = stack.getTagCompound().getInteger("efficiency");
 					int size = stack.getTagCompound().getInteger("size");
-					double cost = 1.0-(1.0/(comp.xpCost));
-					if (((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null
-						&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
-						&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.LEGS) != null
-						&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.FEET) != null){
-						if (((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemDruidRobes
-							&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemDruidRobes
-							&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemDruidRobes
-							&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemDruidRobes){
-							efficiency += 2;
+					if (((EntityPlayer)player).hasCapability(RootsCapabilityManager.manaCapability, null) && ((EntityPlayer)player).getCapability(RootsCapabilityManager.manaCapability, null).getMana() >= ((float)comp.xpCost)/(efficiency+1)){
+						((EntityPlayer)player).getCapability(RootsCapabilityManager.manaCapability, null).setMana(((EntityPlayer)player).getCapability(RootsCapabilityManager.manaCapability, null).getMana()-(((float)comp.xpCost)/(efficiency+1)));
+						comp.doEffect(world, player, EnumCastType.SPELL, player.posX+3.0*player.getLookVec().xCoord, player.posY+3.0*player.getLookVec().yCoord, player.posZ+3.0*player.getLookVec().zCoord, potency, efficiency, 3.0+2.0*size);
+						for (int i = 0 ; i < 90; i ++){
+							double offX = random.nextFloat()*0.5-0.25;
+							double offY = random.nextFloat()*0.5-0.25;
+							double offZ = random.nextFloat()*0.5-0.25;
+							double coeff = (offX+offY+offZ)/1.5+0.5;
+							double dx = (player.getLookVec().xCoord+offX)*coeff;
+							double dy = (player.getLookVec().yCoord+offY)*coeff;
+							double dz = (player.getLookVec().zCoord+offZ)*coeff;
+							if (random.nextBoolean()){
+								Roots.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+							}
+							else {
+								Roots.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+							}
 						}
-					}
-					if (random.nextDouble()*(1.0+0.5*efficiency) < cost){
-						((EntityPlayer)player).getFoodStats().addExhaustion(random.nextInt(comp.xpCost));
-					}
-					comp.doEffect(world, player, EnumCastType.SPELL, player.posX+3.0*player.getLookVec().xCoord, player.posY+3.0*player.getLookVec().yCoord, player.posZ+3.0*player.getLookVec().zCoord, potency, efficiency, 3.0+2.0*size);
-					for (int i = 0 ; i < 90; i ++){
-						double offX = random.nextFloat()*0.5-0.25;
-						double offY = random.nextFloat()*0.5-0.25;
-						double offZ = random.nextFloat()*0.5-0.25;
-						double coeff = (offX+offY+offZ)/1.5+0.5;
-						double dx = (player.getLookVec().xCoord+offX)*coeff;
-						double dy = (player.getLookVec().yCoord+offY)*coeff;
-						double dz = (player.getLookVec().zCoord+offZ)*coeff;
-						if (random.nextBoolean()){
-							Roots.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+						if (stack.getTagCompound().getInteger("uses") == 0){
+							stack.stackSize = 0;
 						}
-						else {
-							Roots.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
-						}
-					}
-					if (stack.getTagCompound().getInteger("uses") == 0){
-						stack.stackSize = 0;
 					}
 				}
 			}
@@ -127,9 +116,11 @@ public class ItemStaff extends Item {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
-		player.setActiveHand(hand);
-		
-		return new ActionResult(EnumActionResult.PASS, stack);
+		if (Minecraft.getMinecraft().currentScreen == null){
+			player.setActiveHand(hand);
+			return new ActionResult(EnumActionResult.PASS, stack);
+		}
+		return new ActionResult(EnumActionResult.FAIL, stack);
 	}
 	
 	@Override

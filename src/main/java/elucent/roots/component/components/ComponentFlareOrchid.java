@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 public class ComponentFlareOrchid extends ComponentBase{
 	Random random = new Random();
 	public ComponentFlareOrchid(){
-		super("flareorchid","Combustion",RegistryManager.flareOrchid,20);	
+		super("flareorchid","Combustion",RegistryManager.flareOrchid,36);	
 	}
 	
 	@Override

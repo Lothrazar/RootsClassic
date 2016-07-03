@@ -37,7 +37,7 @@ import net.minecraft.world.World;
 public class ComponentOxeyeDaisy extends ComponentBase{
 	Random random = new Random();
 	public ComponentOxeyeDaisy(){
-		super("oxeyedaisy","Acceleration",Blocks.RED_FLOWER,8,8);	
+		super("oxeyedaisy","Acceleration",Blocks.RED_FLOWER,8,14);	
 	}
 	
 	@Override

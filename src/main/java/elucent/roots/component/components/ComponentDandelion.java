@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 public class ComponentDandelion extends ComponentBase{
 	Random rnd = new Random();
 	public ComponentDandelion(){
-		super("dandelion","Dandelion Winds",Blocks.YELLOW_FLOWER,2);
+		super("dandelion","Dandelion Winds",Blocks.YELLOW_FLOWER,8);
 		
 	}
 	

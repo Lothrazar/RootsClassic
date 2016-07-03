@@ -42,7 +42,7 @@ import net.minecraft.world.World;
 public class ComponentPoppy extends ComponentBase{
 	Random random = new Random();
 	public ComponentPoppy(){
-		super("poppy","Insanity",Blocks.RED_FLOWER,0,3);	
+		super("poppy","Insanity",Blocks.RED_FLOWER,0,8);	
 	}
 	
 	@Override

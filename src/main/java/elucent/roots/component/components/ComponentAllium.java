@@ -34,7 +34,7 @@ import net.minecraft.world.World;
 public class ComponentAllium extends ComponentBase{
 	Random random = new Random();
 	public ComponentAllium(){
-		super("allium","Allium's Ruin",Blocks.RED_FLOWER,3);	
+		super("allium","Allium's Ruin",Blocks.RED_FLOWER,8);	
 	}
 	
 	public void destroyBlockSafe(World world, BlockPos pos, int potency){
@@ -49,14 +49,19 @@ public class ComponentAllium extends ComponentBase{
 			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					targets.get(i).attackEntityFrom(DamageSource.generic, (int)(3+2*potency));
-					targets.get(i).setLastAttacker(caster);
-					targets.get(i).setRevengeTarget((EntityLivingBase)caster);
-					List<ItemStack> equipment = Lists.newArrayList(targets.get(i).getEquipmentAndArmor());
-					for (int j = 0; j < equipment.size(); j ++){
-						if (equipment.get(j) != null){
-							if (equipment.get(j).isItemStackDamageable()){
-								equipment.get(j).damageItem((int)(random.nextInt(16+8*(int)potency)+8+4*potency), targets.get(i));
+					if (targets.get(i) instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()){
+						
+					}
+					else {
+						targets.get(i).attackEntityFrom(DamageSource.generic, (int)(3+2*potency));
+						targets.get(i).setLastAttacker(caster);
+						targets.get(i).setRevengeTarget((EntityLivingBase)caster);
+						List<ItemStack> equipment = Lists.newArrayList(targets.get(i).getEquipmentAndArmor());
+						for (int j = 0; j < equipment.size(); j ++){
+							if (equipment.get(j) != null){
+								if (equipment.get(j).isItemStackDamageable()){
+									equipment.get(j).damageItem((int)(random.nextInt(16+8*(int)potency)+8+4*potency), targets.get(i));
+								}
 							}
 						}
 					}

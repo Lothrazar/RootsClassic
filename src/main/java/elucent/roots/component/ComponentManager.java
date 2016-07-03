@@ -29,6 +29,7 @@ import elucent.roots.component.components.ComponentWhiteTulip;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
 
 public class ComponentManager {
@@ -158,6 +159,11 @@ public class ComponentManager {
 				.addIngredient(new ItemStack(Blocks.GLOWSTONE,1))
 				.addIngredient(new ItemStack(Blocks.GLOWSTONE,1))
 				.addIngredient(new ItemStack(Blocks.REDSTONE_BLOCK,1)));
+	}
+	
+	public static void addComponent(ComponentBase component, ComponentRecipe recipe){
+		components.add(component);
+		recipes.add(recipe);
 	}
 	
 	public static boolean isValidEffectItem(ItemStack stack){

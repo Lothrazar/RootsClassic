@@ -35,7 +35,7 @@ import net.minecraft.world.World;
 public class ComponentApple extends ComponentBase{
 	Random random = new Random();
 	public ComponentApple(){
-		super("apple","Nature's Cure",Items.APPLE,3);	
+		super("apple","Nature's Cure",Items.APPLE,16);	
 	}
 	
 	@Override

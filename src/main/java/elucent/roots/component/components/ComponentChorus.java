@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 public class ComponentChorus extends ComponentBase{
 	Random random = new Random();
 	public ComponentChorus(){
-		super("chorus","Ender Warp",Items.CHORUS_FRUIT,4);	
+		super("chorus","Ender Warp",Items.CHORUS_FRUIT,12);	
 	}
 	
 	@Override

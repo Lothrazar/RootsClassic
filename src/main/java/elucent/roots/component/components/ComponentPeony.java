@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 public class ComponentPeony extends ComponentBase{
 	Random rnd = new Random();
 	public ComponentPeony(){
-		super("peony", "Regeneration", Blocks.DOUBLE_PLANT,5,5);
+		super("peony", "Regeneration", Blocks.DOUBLE_PLANT,5,24);
 	}
 	
 	@Override

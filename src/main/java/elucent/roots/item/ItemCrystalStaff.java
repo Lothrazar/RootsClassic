@@ -7,6 +7,7 @@ import net.minecraft.util.text.TextFormatting;
 
 import elucent.roots.Roots;
 import elucent.roots.Util;
+import elucent.roots.capability.RootsCapabilityManager;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.ComponentManager;
 import elucent.roots.component.EnumCastType;
@@ -37,7 +38,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemCrystalStaff extends Item {
+public class ItemCrystalStaff extends Item implements IManaRelatedItem {
 	Random random = new Random();
 	
 	public ItemCrystalStaff(){
@@ -58,7 +59,7 @@ public class ItemCrystalStaff extends Item {
 	
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft){
-		if (timeLeft < (72000-20)){
+		if (timeLeft < (72000-12)){
 			if (stack.hasTagCompound()){
 				BlockPos pos = new BlockPos(player.posX,player.posY,player.posZ);
 				boolean doEffect = false;
@@ -90,24 +91,26 @@ public class ItemCrystalStaff extends Item {
 						}
 						double xpCost = (comp.xpCost + potency)*(1.0-0.25*(double)efficiency);
 						Random random = new Random();
-						double cost = 1.0-(1.0/(comp.xpCost));
-						if (random.nextDouble()*(1.0+0.5*efficiency) < cost){
-							((EntityPlayer)player).getFoodStats().addExhaustion(random.nextInt(comp.xpCost));
-						}
-						comp.doEffect(world, player, EnumCastType.SPELL, player.posX+3.0*player.getLookVec().xCoord, player.posY+3.0*player.getLookVec().yCoord, player.posZ+3.0*player.getLookVec().zCoord, potency, efficiency, 3.0+2.0*size);
-						for (int i = 0 ; i < 90; i ++){
-							double offX = random.nextFloat()*0.5-0.25;
-							double offY = random.nextFloat()*0.5-0.25;
-							double offZ = random.nextFloat()*0.5-0.25;
-							double coeff = (offX+offY+offZ)/1.5+0.5;
-							double dx = (player.getLookVec().xCoord+offX)*coeff;
-							double dy = (player.getLookVec().yCoord+offY)*coeff;
-							double dz = (player.getLookVec().zCoord+offZ)*coeff;
-							if (random.nextBoolean()){
-								Roots.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+						if (((EntityPlayer)player).hasCapability(RootsCapabilityManager.manaCapability, null) && ((EntityPlayer)player).getCapability(RootsCapabilityManager.manaCapability, null).getMana() >= ((float)comp.xpCost)/(efficiency+1)){
+							((EntityPlayer)player).getCapability(RootsCapabilityManager.manaCapability, null).setMana(((EntityPlayer)player).getCapability(RootsCapabilityManager.manaCapability, null).getMana()-(((float)comp.xpCost)/(efficiency+1)));
+							comp.doEffect(world, player, EnumCastType.SPELL, player.posX+3.0*player.getLookVec().xCoord, player.posY+3.0*player.getLookVec().yCoord, player.posZ+3.0*player.getLookVec().zCoord, potency, efficiency, 3.0+2.0*size);
+							for (int i = 0 ; i < 90; i ++){
+								double offX = random.nextFloat()*0.5-0.25;
+								double offY = random.nextFloat()*0.5-0.25;
+								double offZ = random.nextFloat()*0.5-0.25;
+								double coeff = (offX+offY+offZ)/1.5+0.5;
+								double dx = (player.getLookVec().xCoord+offX)*coeff;
+								double dy = (player.getLookVec().yCoord+offY)*coeff;
+								double dz = (player.getLookVec().zCoord+offZ)*coeff;
+								if (random.nextBoolean()){
+									Roots.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+								}
+								else {
+									Roots.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+								}
 							}
-							else {
-								Roots.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+							if (stack.getTagCompound().getInteger("uses") == 0){
+								stack.stackSize = 0;
 							}
 						}
 					}
@@ -123,7 +126,7 @@ public class ItemCrystalStaff extends Item {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
-		if (stack.hasTagCompound() && !player.isSneaking()){
+		if (stack.hasTagCompound() && !player.isSneaking() && Minecraft.getMinecraft().currentScreen == null){
 			player.setActiveHand(hand);
 			return new ActionResult(EnumActionResult.PASS, stack);
 		}

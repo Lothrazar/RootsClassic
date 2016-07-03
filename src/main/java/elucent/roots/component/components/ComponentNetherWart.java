@@ -25,7 +25,7 @@ import net.minecraft.world.World;
 public class ComponentNetherWart extends ComponentBase{
 	Random random = new Random();
 	public ComponentNetherWart(){
-		super("netherwart","Inferno",Items.NETHER_WART,5);	
+		super("netherwart","Inferno",Items.NETHER_WART,10);	
 	}
 	
 	@Override
@@ -34,10 +34,15 @@ public class ComponentNetherWart extends ComponentBase{
 			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					targets.get(i).attackEntityFrom(DamageSource.inFire, (int)(5+2*potency));
-					targets.get(i).setFire((int) (4+3*potency));
-					targets.get(i).setLastAttacker(caster);
-					targets.get(i).setRevengeTarget((EntityLivingBase)caster);
+					if (targets.get(i) instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()){
+						
+					}
+					else {
+						targets.get(i).attackEntityFrom(DamageSource.inFire, (int)(5+2*potency));
+						targets.get(i).setFire((int) (4+3*potency));
+						targets.get(i).setLastAttacker(caster);
+						targets.get(i).setRevengeTarget((EntityLivingBase)caster);
+					}
 				}
 			}
 		}

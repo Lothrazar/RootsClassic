@@ -23,7 +23,7 @@ public class BlockDruidChalice extends Block/* extends TEBlockBase implements IT
 		super(Material.WOOD);
 		setUnlocalizedName("druidChalice");
 		setHardness(0.5f);
-		setCreativeTab(Roots.tab);
+		//setCreativeTab(Roots.tab);
 	}
 	
 	@SideOnly(Side.CLIENT)

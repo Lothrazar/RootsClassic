@@ -3,19 +3,34 @@ package elucent.roots;
 
 import java.util.Random;
 
+import org.lwjgl.opengl.GL11;
+
+import elucent.roots.capability.RootsCapabilityManager;
+import elucent.roots.item.IManaRelatedItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockNetherWart;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.event.entity.item.ItemEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
@@ -26,6 +41,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemPickupEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -96,8 +112,106 @@ public class EventManager {
 		}
 	}
 	
+	@SideOnly(Side.CLIENT)
+	public void drawQuad(VertexBuffer vertexbuffer, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int minU, int minV, int maxU, int maxV){
+		float f = 0.00390625F;
+        float f1 = 0.00390625F;
+        vertexbuffer.pos((double)(x1 + 0.0F), (double)(y1 + 0.0F), (double)0).tex((double)((float)(minU + 0) * f), (double)((float)(minV + maxV) * f1)).endVertex();
+        vertexbuffer.pos((double)(x2 + 0.0F), (double)(y2 + 0.0F), (double)0).tex((double)((float)(minU + maxU) * f), (double)((float)(minV + maxV) * f1)).endVertex();
+        vertexbuffer.pos((double)(x3 + 0.0F), (double)(y3 + 0.0F), (double)0).tex((double)((float)(minU + maxU) * f), (double)((float)(minV + 0) * f1)).endVertex();
+        vertexbuffer.pos((double)(x4 + 0.0F), (double)(y4 + 0.0F), (double)0).tex((double)((float)(minU + 0) * f), (double)((float)(minV + 0) * f1)).endVertex();
+    }
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onGameOverlayRender(RenderGameOverlayEvent.Post e){
+		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		boolean showBar = false;
+		if (player.getHeldItemMainhand() != null){
+			if (player.getHeldItemMainhand().getItem() instanceof IManaRelatedItem){
+				showBar = true;
+			}
+		}
+		if (player.getHeldItemOffhand() != null){
+			if (player.getHeldItemOffhand().getItem() instanceof IManaRelatedItem){
+				showBar = true;
+			}
+		}
+		if (player.capabilities.isCreativeMode){
+			showBar = false;
+		}
+		if (showBar){
+			if (player.getCapability(RootsCapabilityManager.manaCapability, null).getMaxMana() > 0){
+				if (e.getType() == ElementType.TEXT){
+					GlStateManager.disableDepth();
+					GlStateManager.disableCull();
+					GlStateManager.pushMatrix();
+					Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("roots:textures/gui/manaBar.png"));
+					
+					Tessellator tess = Tessellator.getInstance();
+					VertexBuffer b = tess.getBuffer();
+					int w = e.getResolution().getScaledWidth();
+					int h = e.getResolution().getScaledHeight();
+					GlStateManager.color(1f, 1f, 1f, 1f);
+					
+					int manaNumber = Math.round(player.getCapability(RootsCapabilityManager.manaCapability, null).getMana());
+					int maxManaNumber = Math.round(player.getCapability(RootsCapabilityManager.manaCapability, null).getMaxMana());
+					
+					int offsetX = 0;
+					
+					b.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+					while (maxManaNumber > 0){
+						this.drawQuad(b, w/2+10+offsetX, h-(ConfigManager.manaBarOffset-9), w/2+19+offsetX, h-(ConfigManager.manaBarOffset-9), w/2+19+offsetX, h-ConfigManager.manaBarOffset, w/2+10+offsetX, h-ConfigManager.manaBarOffset, 0, 0, 9, 9);
+						if (maxManaNumber > 4){
+							maxManaNumber -= 4;
+							offsetX += 8;
+						}
+						else {
+							maxManaNumber = 0;
+						}
+					}
+					offsetX = 0;
+					while (manaNumber > 0){
+						if (manaNumber > 4){
+							this.drawQuad(b, w/2+10+offsetX, h-(ConfigManager.manaBarOffset-9), w/2+19+offsetX, h-(ConfigManager.manaBarOffset-9), w/2+19+offsetX, h-ConfigManager.manaBarOffset, w/2+10+offsetX, h-ConfigManager.manaBarOffset, 0, 16, 9, 9);
+							manaNumber -= 4;
+							offsetX += 8;
+						}
+						else {
+							if (manaNumber == 4){
+								this.drawQuad(b, w/2+10+offsetX, h-(ConfigManager.manaBarOffset-9), w/2+19+offsetX, h-(ConfigManager.manaBarOffset-9), w/2+19+offsetX, h-ConfigManager.manaBarOffset, w/2+10+offsetX, h-ConfigManager.manaBarOffset, 0, 16, 9, 9);
+							}
+							if (manaNumber == 3){
+								this.drawQuad(b, w/2+10+offsetX, h-(ConfigManager.manaBarOffset-9), w/2+19+offsetX, h-(ConfigManager.manaBarOffset-9), w/2+19+offsetX, h-ConfigManager.manaBarOffset, w/2+10+offsetX, h-ConfigManager.manaBarOffset, 16, 16, 9, 9);
+							}
+							if (manaNumber == 2){
+								this.drawQuad(b, w/2+10+offsetX, h-(ConfigManager.manaBarOffset-9), w/2+19+offsetX, h-(ConfigManager.manaBarOffset-9), w/2+19+offsetX, h-ConfigManager.manaBarOffset, w/2+10+offsetX, h-ConfigManager.manaBarOffset, 32, 16, 9, 9);
+							}
+							if (manaNumber == 1){
+								this.drawQuad(b, w/2+10+offsetX, h-(ConfigManager.manaBarOffset-9), w/2+19+offsetX, h-(ConfigManager.manaBarOffset-9), w/2+19+offsetX, h-ConfigManager.manaBarOffset, w/2+10+offsetX, h-ConfigManager.manaBarOffset, 48, 16, 9, 9);
+							}
+							manaNumber = 0;
+						}
+					}
+					tess.draw();
+					
+					GlStateManager.popMatrix();
+					GlStateManager.enableCull();
+					GlStateManager.enableDepth();
+				}
+			}
+		}
+	}
+	
 	@SubscribeEvent
 	public void onLivingTick(LivingUpdateEvent event){
+		if (event.getEntityLiving() instanceof EntityPlayer){
+			if (event.getEntityLiving().ticksExisted % 5 == 0){
+				if (event.getEntityLiving().hasCapability(RootsCapabilityManager.manaCapability, null)){
+					event.getEntityLiving().getCapability(RootsCapabilityManager.manaCapability, null).setMana(event.getEntityLiving().getCapability(RootsCapabilityManager.manaCapability, null).getMana()+1.0f);
+				}
+			}
+		}
 		if (event.getEntityLiving().getEntityData().hasKey("RMOD_skipTicks")){
 			if (event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks") > 0){
 				event.getEntityLiving().getEntityData().setInteger("RMOD_skipTicks", event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks")-1);

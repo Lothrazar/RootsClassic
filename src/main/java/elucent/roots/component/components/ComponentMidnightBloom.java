@@ -35,7 +35,7 @@ import net.minecraft.world.World;
 public class ComponentMidnightBloom extends ComponentBase{
 	Random random = new Random();
 	public ComponentMidnightBloom(){
-		super("midnightbloom","Time Stop",RegistryManager.midnightBloom,20);	
+		super("midnightbloom","Time Stop",RegistryManager.midnightBloom,36);	
 	}
 	
 	@Override

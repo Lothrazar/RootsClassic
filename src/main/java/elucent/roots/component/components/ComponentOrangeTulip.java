@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 public class ComponentOrangeTulip extends ComponentBase{
 	Random random = new Random();
 	public ComponentOrangeTulip(){
-		super("orangetulip","Shielding",Blocks.RED_FLOWER,5);	
+		super("orangetulip","Shielding",Blocks.RED_FLOWER,20);	
 	}
 	
 	@Override

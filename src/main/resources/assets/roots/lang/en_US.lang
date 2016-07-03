@@ -59,7 +59,7 @@ tile.standingStoneHealer.name=Healing Standing Stone
 
 roots.attribute.fullset.name=When full set equipped
 roots.attribute.increasedregen.name=Increased Health Regeneration
-roots.attribute.spellefficiency.name=Spell Efficiency
+roots.attribute.increasedmanaregen.name=Increased Terra Regeneration
 
 roots.tooltip.spelltypeheading.name=Type
 roots.tooltip.spellpotency.name=potency
@@ -152,6 +152,10 @@ roots.research.spells.modifiers.page1title.name=More Bang For Your Buck
 roots.research.spells.modifiers.page1info=Mixing some modifiers into your spells can make them much more powerful. Potency modifiers (glowstone dust) will improve the strength of a spell's effects. Efficiency modifiers (redstone dust) will improve the casting cost and number of uses a spell has. Size modifiers (gunpowder) will improve the area a spell effects.
 roots.research.spells.modifiers.page2title.name=Base Ingredients
 roots.research.spells.modifiers.page2info=For a spell to have modifiers, though, certain base ingredients are required. Old Roots will allow a spell to be crafted, but permit no modifiers. Verdant Sprigs can support one modifier slot, Infernal Bulbs can support two, and Dragon's Eyes can support three. These ingredients must be added first, before any other modifiers are added to the mortar.
+
+roots.research.spells.mana.name=Terra
+roots.research.spells.mana.page1title.name=Casting Costs
+roots.research.spells.mana.page1info=When you hold your new staff in your hand, you notice a power awakened within you, as well as a conveniently placed bar on your screen. These leaves represent a life force deep within you, called Terra, that powers your spells. All spells will cost a certain amount of this energy, but it will regenerate fairly quickly over time.
 
 roots.research.spells.poppy.name=Spell Component: Insanity
 roots.research.spells.poppy.page1title.name=Betrayal
@@ -375,3 +379,11 @@ roots.research.ritual.sacrifice.name=Sacrifice
 roots.research.ritual.sacrifice.page1title.name=A Supernatural Deal
 roots.research.ritual.sacrifice.page1info=You are simply fed up with going on long adventures searching for specific plants to complete your spells. With this ritual, you have developed a sinister solution. When this ritual finishes its particle light show, it will instantly kill a mob placed near it. In exchange, a random plant may be dropped from the altar. The source of these drops remains unknown to you...
 roots.research.ritual.sacrifice.page2title.name=Ritual: Sacrifice
+
+roots.research.ritual.runicFocus.name=Runic Foci
+roots.research.ritual.runicFocus.page1title.name=Stored Power
+roots.research.ritual.runicFocus.page1info=By engraving this stone with some runes, and placing a rare gem at its core, you have created an item that will store up life energy. It can be charged with a ritual at an altar, and then either discharged or incorporated into other items in rituals or other processes.
+roots.research.ritual.runicFocus.page2title.name=Ritual: Runic Focus
+roots.research.ritual.runicFocus.page3title.name=Charging It Up
+roots.research.ritual.runicFocus.page3info=To actually charge the focus, you need some energetic dust from the overworld, as well as some energetic dust from the nether. Using the fiery energies of an infernal stem, you can force the energy from the dusts into the focus, along with the life energy that accompanies all rituals.
+roots.research.ritual.runicFocus.page4title.name=Ritual: Runic Focus Charging

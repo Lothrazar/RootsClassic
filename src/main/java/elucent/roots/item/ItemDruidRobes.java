@@ -7,6 +7,7 @@ import com.google.common.collect.Multimap;
 
 import elucent.roots.RegistryManager;
 import elucent.roots.Roots;
+import elucent.roots.capability.RootsCapabilityManager;
 import elucent.roots.model.ModelDruidRobes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
@@ -75,13 +76,18 @@ public class ItemDruidRobes extends ItemArmor {
 		if (stack.isItemDamaged() && rnd.nextInt(40) == 0){
 			stack.setItemDamage(stack.getItemDamage()-1);
 		}
+		if (rnd.nextInt(30) == 0){
+			if (player.hasCapability(RootsCapabilityManager.manaCapability, null)){
+				player.getCapability(RootsCapabilityManager.manaCapability, null).setMana(player.getCapability(RootsCapabilityManager.manaCapability, null).getMana()+1.0f);
+			}
+		}
 	}
 	
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced){
 		tooltip.add("");
 		tooltip.add(TextFormatting.GRAY + I18n.format("roots.attribute.fullset.name"));
-		tooltip.add(TextFormatting.BLUE + " +2 " + I18n.format("roots.attribute.spellefficiency.name"));
+		tooltip.add(TextFormatting.BLUE + " " + I18n.format("roots.attribute.increasedmanaregen.name"));
 	}
 	
 	@SideOnly(Side.CLIENT)

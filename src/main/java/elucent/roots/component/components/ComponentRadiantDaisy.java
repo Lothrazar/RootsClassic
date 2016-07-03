@@ -37,7 +37,7 @@ import net.minecraft.world.World;
 public class ComponentRadiantDaisy extends ComponentBase{
 	Random random = new Random();
 	public ComponentRadiantDaisy(){
-		super("radiantdaisy","Radiance",RegistryManager.radiantDaisy,5);	
+		super("radiantdaisy","Radiance",RegistryManager.radiantDaisy,36);	
 	}
 	
 	@Override
@@ -57,10 +57,15 @@ public class ComponentRadiantDaisy extends ComponentBase{
 				if (targets.size() > 0){
 					for (int j = 0; j < targets.size() && !didHit; j ++){
 						if (targets.get(j).getUniqueID() != player.getUniqueID()){
-							didHit = true;
-							targets.get(j).attackEntityFrom(DamageSource.magic, (float) (12+3.0*potency));
-							targets.get(j).setLastAttacker(player);
-							targets.get(j).setRevengeTarget((EntityLivingBase)player);
+							if (targets.get(i) instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()){
+								
+							}
+							else {
+								didHit = true;
+								targets.get(j).attackEntityFrom(DamageSource.magic, (float) (12+3.0*potency));
+								targets.get(j).setLastAttacker(player);
+								targets.get(j).setRevengeTarget((EntityLivingBase)player);
+							}
 						}
 					}
 				}

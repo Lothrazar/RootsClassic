@@ -1,11 +1,15 @@
 package elucent.roots;
 
+import elucent.roots.capability.IManaCapability;
+import elucent.roots.capability.RootsCapabilityManager;
 import elucent.roots.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -44,8 +48,10 @@ public class Roots
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
+    	System.out.println("");
     	ConfigManager.load(event);
     	MinecraftForge.EVENT_BUS.register(new EventManager());
+    	MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
     	proxy.preInit(event);
     }
     
