@@ -3,6 +3,7 @@ package elucent.roots;
 import java.util.ArrayList;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.stats.Achievement;
 import elucent.roots.component.ComponentEffect;
 
 public class PlayerManager {
@@ -35,6 +36,12 @@ public class PlayerManager {
 			if (playerEffects.get(i).duration <= 0){
 				playerEffects.remove(i);
 			}
+		}
+	}
+	
+	public static void addAchievement(EntityPlayer player, Achievement ach){
+		if(!player.getEntityWorld().isRemote){
+			player.addStat(ach, 1);
 		}
 	}
 }

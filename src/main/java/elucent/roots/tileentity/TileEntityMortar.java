@@ -2,6 +2,7 @@ package elucent.roots.tileentity;
 
 import java.util.ArrayList;
 
+import elucent.roots.PlayerManager;
 import elucent.roots.RegistryManager;
 import elucent.roots.Util;
 import elucent.roots.component.ComponentManager;
@@ -90,6 +91,7 @@ public class TileEntityMortar extends TEBase {
 				inventory.clear();
 				markDirty();
 				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+				PlayerManager.addAchievement(player, RegistryManager.achieveDust);
 				return true;
 			}
 		}

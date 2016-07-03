@@ -92,6 +92,9 @@ roots.component.rosebush.name=Rose's Thorns
 roots.component.sunflower.name=Solar Smite
 roots.component.whitetulip.name=Blistering Cold
 
+achievement.dust=Petal Dust
+achievement.dust.desc=Craft petal dust 
+
 
 roots.research.nature.name=Natural Arts
 
