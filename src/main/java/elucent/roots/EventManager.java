@@ -340,6 +340,7 @@ public class EventManager {
 						int aquaLvl = sword.getTagCompound().getInteger("aquatic");
 						float amount = aquaLvl * 1;
 						float currentAmount = event.getAmount();
+						event.getSource().setDamageBypassesArmor();
 						event.setAmount(currentAmount + amount);
 					}
 					if((sword.hasTagCompound() && sword.getTagCompound().hasKey("holy")) && event.getEntityLiving().getCreatureAttribute() == EnumCreatureAttribute.UNDEAD){
