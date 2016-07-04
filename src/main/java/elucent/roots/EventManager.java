@@ -18,6 +18,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,6 +36,10 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.item.ItemEvent;
+<<<<<<< HEAD
+=======
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
+>>>>>>> 58989fe61e9575ac7536e5aad5a4113910ca5b05
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -313,8 +319,50 @@ public class EventManager {
 			event.setAmount((float) (event.getAmount()*(1.0+event.getEntityLiving().getEntityData().getDouble("RMOD_vuln"))));
 			event.getEntityLiving().getEntityData().removeTag("RMOD_vuln");
 		}
+		
+		if(event.getEntityLiving() instanceof EntityPlayer){
+			EntityPlayer player = (EntityPlayer)event.getEntity();
+			if(player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == RegistryManager.engravedSword){
+				ItemStack sword = player.inventory.getCurrentItem();
+				if(sword.hasTagCompound() && sword.getTagCompound().hasKey("shadowstep")){
+					int stepLvl = sword.getTagCompound().getInteger("shadowstep");
+					int chance = stepLvl * 15;
+					if(random.nextInt(100) < chance){
+						event.setCanceled(true);
+					}
+				}
+			}
+		}
+		
+		if(event.getSource().getEntity() instanceof EntityPlayer){
+			if(!event.getEntity().getEntityWorld().isRemote){
+				EntityPlayer player = (EntityPlayer)event.getSource().getEntity();
+				if(player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == RegistryManager.engravedSword){
+					ItemStack sword = player.inventory.getCurrentItem();
+					if(sword.hasTagCompound() && sword.getTagCompound().hasKey("aquatic")){
+						int aquaLvl = sword.getTagCompound().getInteger("aquatic");
+						float amount = aquaLvl * 1;
+						float currentAmount = event.getAmount();
+						event.setAmount(currentAmount + amount);
+					}
+					if((sword.hasTagCompound() && sword.getTagCompound().hasKey("holy")) && event.getEntityLiving().getCreatureAttribute() == EnumCreatureAttribute.UNDEAD){
+						int holyLvl = sword.getTagCompound().getInteger("holy");
+						float amount = holyLvl * 3;
+						float currentAmount = event.getAmount();
+						event.setAmount(currentAmount + amount);
+					}
+					if(sword.hasTagCompound() && sword.getTagCompound().hasKey("spikes")){
+						int spikeLvl = sword.getTagCompound().getInteger("spikes");
+						float amount = spikeLvl * 2;
+						float currentAmount = event.getAmount();
+						event.setAmount(currentAmount + amount);
+					}
+				}
+			}
+		}
+		
 	}
-	
+
 	@SubscribeEvent
 	public void onTick(TickEvent.ServerTickEvent event){
 		PlayerManager.updateEffects();

@@ -2,7 +2,6 @@ package elucent.roots;
 
 import elucent.roots.block.BlockAltar;
 import elucent.roots.block.BlockBrazier;
-import elucent.roots.block.BlockDruidChalice;
 import elucent.roots.block.BlockFlareOrchid;
 import elucent.roots.block.BlockImbuer;
 import elucent.roots.block.BlockMidnightBloom;
@@ -23,6 +22,7 @@ import elucent.roots.item.ItemDragonsEye;
 import elucent.roots.item.ItemDruidArmor;
 import elucent.roots.item.ItemDruidKnife;
 import elucent.roots.item.ItemDruidRobes;
+import elucent.roots.item.ItemEngravedSword;
 import elucent.roots.item.ItemGrowthSalve;
 import elucent.roots.item.ItemLivingAxe;
 import elucent.roots.item.ItemLivingHoe;
@@ -77,12 +77,13 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class RegistryManager {
-	public static Item runicFocus, rootyStew, healingPoultice, mutagen, growthSalve, runedTablet, druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots, livingPickaxe, livingSword, livingHoe, livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig, infernalStem, dragonsEye,druidKnife,oakTreeBark,spruceTreeBark,birchTreeBark,jungleTreeBark,acaciaTreeBark,darkOakTreeBark,nightshade,blackCurrant,redCurrant,whiteCurrant,elderBerry;
+	public static Item runicFocus, rootyStew, healingPoultice, mutagen, growthSalve, runedTablet, druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots, livingPickaxe, livingSword, livingHoe, livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig, infernalStem, dragonsEye,druidKnife,oakTreeBark,spruceTreeBark,birchTreeBark,jungleTreeBark,acaciaTreeBark,darkOakTreeBark,nightshade,blackCurrant,redCurrant,whiteCurrant,elderBerry, engravedSword;
 	public static Item manaResearchIcon;
 	public static Block flareOrchid, radiantDaisy, standingStoneGrower, standingStoneHealer, standingStoneIgniter, standingStoneEntangler, standingStoneAccelerator, standingStoneRepulsor, standingStoneVacuum, midnightBloom, mortar, imbuer, altar, druidChalice, standingStoneT1, standingStoneT2, brazier;
 	
 	public static Achievement achieveDust, achieveTablet, achieveSpellRose, achieveSpellGrowth, achieveSpellInsanity, achieveMaxModifiers, achieveLotsDamage, achieveTimeStop, achieveAltar, achieveStandingStone, achieveWildwood, achieveShadow, achieveSpellElements, achieveVampire;
 	
+	public static ToolMaterial engravedMaterial = EnumHelper.addToolMaterial("engraved", 2, 1000, 5F, 6.5F, 5);
 	public static ToolMaterial livingMaterial = EnumHelper.addToolMaterial("livingMaterial", 2, 192, 6.0f, 2.0f, 18);
 	public static ArmorMaterial druidRobesMaterial = EnumHelper.addArmorMaterial("druidRobes", "roots:druidRobes", 10, new int[]{1,5,6,2}, 20, null, 0);
 	public static ArmorMaterial druidArmorMaterial = EnumHelper.addArmorMaterial("druidArmor", "roots:druidArmor", 15, new int[]{2,5,7,3}, 10, null, 1.0f);
@@ -130,6 +131,7 @@ public class RegistryManager {
 		GameRegistry.registerItem(healingPoultice = new RootsItemFood("healingPoultice", 0, 0F, false).setAlwaysEdible().setMaxStackSize(8), "healingPoultice"); 
 		GameRegistry.registerItem(rootyStew = new ItemRootyStew(), "rootyStew"); 
 		GameRegistry.registerItem(runicFocus = new ItemRunicFocus(), "runicFocus"); 
+		GameRegistry.registerItem(engravedSword = new ItemEngravedSword(engravedMaterial), "engravedSword");
 		GameRegistry.registerItem(manaResearchIcon = new ItemResearchIcon("manaResearchIcon"), "manaResearchIcon");
 		/**
 		 * REGISTERING BLOCKS
@@ -289,6 +291,7 @@ public class RegistryManager {
 		((RootsItemFood)healingPoultice).initModel();
 		((ItemRootyStew)rootyStew).initModel();
 		((ItemRunicFocus)runicFocus).initModel();
+		((ItemEngravedSword)engravedSword).initModel();
 		((ItemResearchIcon)manaResearchIcon).initModel();
 		
 		//((BlockDruidChalice)druidChalice).initModel();

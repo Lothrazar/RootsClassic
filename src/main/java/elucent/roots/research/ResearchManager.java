@@ -446,6 +446,13 @@ public class ResearchManager {
 								    .addAltarRecipe(RitualManager.getRitualFromName("runicFocusCharging"))
 								    )
 	                       )
+				 .addResearch(new ResearchBase("engravedSword", new ItemStack(RegistryManager.engravedSword))
+						   .addPage(new ResearchPage()
+								    .addDisplayItem(new ItemStack(RegistryManager.engravedSword)))
+						   .addPage(new ResearchPage()
+								    .addAltarRecipe(RitualManager.getRitualFromName("engraved"))
+								    )
+						   )
 			  );
 	}
 	public static ResearchBase getResearch(String groupName, String researchName){
