@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -59,19 +60,19 @@ public class ItemEngravedSword extends ItemTool{
 		if(stack.hasTagCompound()){
 			NBTTagCompound tag = stack.getTagCompound();
 			if(tag.hasKey("spikes")){
-				tooltip.add(I18n.format("roots.mod.spikes.name") + numerals[tag.getInteger("spikes")]);
+				tooltip.add(TextFormatting.WHITE + I18n.format("roots.mod.spikes.name") + numerals[tag.getInteger("spikes")]);
 			}
 			if(tag.hasKey("forceful")){
-				tooltip.add(I18n.format("roots.mod.forceful.name") + numerals[tag.getInteger("forceful")]);
+				tooltip.add(TextFormatting.BLACK + I18n.format("roots.mod.forceful.name") + numerals[tag.getInteger("forceful")]);
 			}
 			if(tag.hasKey("holy")){
-				tooltip.add(I18n.format("roots.mod.holy.name") + numerals[tag.getInteger("holy")]);
+				tooltip.add(TextFormatting.GOLD + I18n.format("roots.mod.holy.name") + numerals[tag.getInteger("holy")]);
 			}
 			if(tag.hasKey("aquatic")){
-				tooltip.add(I18n.format("roots.mod.aquatic.name") + numerals[tag.getInteger("aquatic")]);
+				tooltip.add(TextFormatting.AQUA + I18n.format("roots.mod.aquatic.name") + numerals[tag.getInteger("aquatic")]);
 			}
 			if(tag.hasKey("shadowstep")){
-				tooltip.add(I18n.format("roots.mod.shadowstep.name") + numerals[tag.getInteger("shadowstep")]);
+				tooltip.add(TextFormatting.DARK_PURPLE + I18n.format("roots.mod.shadowstep.name") + numerals[tag.getInteger("shadowstep")]);
 			}
 		}
 	}
