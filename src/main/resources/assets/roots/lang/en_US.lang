@@ -95,6 +95,12 @@ roots.component.rosebush.name=Rose's Thorns
 roots.component.sunflower.name=Solar Smite
 roots.component.whitetulip.name=Blistering Cold
 
+roots.mod.spikes.name=Spikes 
+roots.mod.holy.name=Holy 
+roots.mod.forceful.name=Forceful 
+roots.mod.aquatic.name=Aquatic 
+roots.mod.shadowstep.name=Shadow Step 
+
 achievement.dust=Petal Dust
 achievement.dust.desc=Craft petal dust 
 
