@@ -7,6 +7,7 @@ import elucent.roots.RegistryManager;
 import elucent.roots.Util;
 import elucent.roots.ritual.rituals.RitualCauseRain;
 import elucent.roots.ritual.rituals.RitualCrafting;
+import elucent.roots.ritual.rituals.RitualEngravedSword;
 import elucent.roots.ritual.rituals.RitualFlare;
 import elucent.roots.ritual.rituals.RitualGrow;
 import elucent.roots.ritual.rituals.RitualImbuer;
@@ -756,6 +757,25 @@ public class RitualManager {
 				.addIngredient(new ItemStack(Items.REDSTONE,1))
 				.addIngredient(new ItemStack(Items.DYE,1,15))
 				.addIngredient(new ItemStack(RegistryManager.verdantSprig,1)));
+		rituals.add(new RitualEngravedSword("engraved", 104, 106, 107)
+				.setResult(new ItemStack(RegistryManager.engravedSword))
+				.addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
+				.addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
+				.addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
+				.addBlock(RegistryManager.standingStoneT1, 3, 0, 3)
+				.addBlock(RegistryManager.standingStoneT1, 3, 0, 0)
+				.addBlock(RegistryManager.standingStoneT1, -3, 0, 0)
+				.addBlock(RegistryManager.standingStoneT1, 0, 0, 3)
+				.addBlock(RegistryManager.standingStoneT1, 0, 0, -3)
+				.addBlock(RegistryManager.standingStoneT2, 5, 1, 0)
+				.addBlock(RegistryManager.standingStoneT2, -5, 1, 0)
+				.addBlock(RegistryManager.standingStoneT2, 0, 1, 5)
+				.addBlock(RegistryManager.standingStoneT2, 0, 1, -5)
+				.addIncense(new ItemStack(Blocks.VINE))
+				.addIncense(new ItemStack(Items.SPIDER_EYE))
+				.addIngredient(new ItemStack(Items.STONE_SWORD))
+				.addIngredient(new ItemStack(RegistryManager.runicFocus))
+				.addIngredient(new ItemStack(Items.GLOWSTONE_DUST)));
 	}
 	
 	public static RitualBase getRitualFromName(String name){

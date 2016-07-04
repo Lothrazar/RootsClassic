@@ -42,6 +42,7 @@ public class ItemRunicFocus extends Item implements IManaRelatedItem {
 	public ItemRunicFocus(){
 		super();
 		setUnlocalizedName("runicFocus_0");
+		this.setCreativeTab(Roots.tab);
 	}
 	
 	@Override
