@@ -41,7 +41,7 @@ public class ItemEngravedSword extends ItemTool{
 
 	    if (equipmentSlot == EntityEquipmentSlot.MAINHAND){	
 	    	multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName());      
-	    	multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.7D, 0));
+	    	multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.8D, 0));
 	    }
 	    return multimap;
 	}

@@ -38,6 +38,7 @@ item.whitecurrant.name=Whitecurrant
 item.elderberry.name=Elderberry
 item.healingPoultice.name=Healing Poultice
 item.rootyStew.name=Rooty Stew
+item.engravedSword.name=Engraved Blade
 
 tile.mortar.name=Mortar
 tile.imbuer.name=Imbuer
@@ -393,6 +394,21 @@ roots.research.ritual.runicFocus.page2title.name=Ritual: Runic Focus
 roots.research.ritual.runicFocus.page3title.name=Charging It Up
 roots.research.ritual.runicFocus.page3info=To actually charge the focus, you need some energetic dust from the overworld, as well as some energetic dust from the nether. Using the fiery energies of an infernal stem, you can force the energy from the dusts into the focus, along with the life energy that accompanies all rituals.
 roots.research.ritual.runicFocus.page4title.name=Ritual: Runic Focus Charging
+
+roots.research.ritual.engravedSword.name=Engraved Blade
+roots.research.ritual.engravedSword.page1title.name=Modular Weapon
+roots.research.ritual.engravedSword.page1info=Using the properties of a Runic Focus, you have created a new weapon. During the crafting of this weapon you can burn up to four different kinds of barks as additional incenses to add different buffs to the sword. You can mix and match these buffs as you please, and they will stack if you put more than one on at a time.
+roots.research.ritual.engravedSword.page2title.name=Ritual: Engraved Blade
+roots.research.ritual.engravedSword.page3title.name=Spikes
+roots.research.ritual.engravedSword.page3info=Each acacia bark you burn as incense during the sword's crafting will add 2 damage to the sword.
+roots.research.ritual.engravedSword.page4title.name=Forceful
+roots.research.ritual.engravedSword.page4info=Each spruce bark you burn as incense during the sword's crafting will add additional knockback to the sword's attacks.
+roots.research.ritual.engravedSword.page5title.name=Holy
+roots.research.ritual.engravedSword.page5info=Each birch bark you burn as incense during the sword's crafting will add 3 additional damage whenever the sword attacks undead creatures.
+roots.research.ritual.engravedSword.page6title.name=Aquatic
+roots.research.ritual.engravedSword.page6info=Each jungle bark you burn as incense during the sword's crafting will add 1 drowning damage to the sword's damage output.
+roots.research.ritual.engravedSword.page7title.name=Shadow Step
+roots.research.ritual.engravedSword.page7info=Each dark oak bark you burn as incense during the sword's crafting will increase your chance to dodge attacks made against you when holding the sword.
 
 achievement.tablet=Who Needs Pages?
 achievement.tablet.desc=Craft a Runic Tablet.

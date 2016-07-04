@@ -399,7 +399,7 @@ public class RitualManager {
 		rituals.add(new RitualCrafting("runicFocusCharging", 109, 242, 109)
 				.setResult(new ItemStack(RegistryManager.runicFocus,1,1))
 				.addIncense(new ItemStack(RegistryManager.infernalStem,1))
-				.addIncense(new ItemStack(Items.WHEAT_SEEDS,1))
+				.addIncense(new ItemStack(Items.WHEAT,1))
 				.addIngredient(new ItemStack(RegistryManager.runicFocus,1,0))
 				.addIngredient(new ItemStack(Items.REDSTONE,1))
 				.addIngredient(new ItemStack(Items.GLOWSTONE_DUST,1)));
@@ -757,7 +757,7 @@ public class RitualManager {
 				.addIngredient(new ItemStack(Items.REDSTONE,1))
 				.addIngredient(new ItemStack(Items.DYE,1,15))
 				.addIngredient(new ItemStack(RegistryManager.verdantSprig,1)));
-		rituals.add(new RitualEngravedSword("engraved", 104, 106, 107)
+		rituals.add(new RitualEngravedSword("engravedCrafting", 104, 106, 107)
 				.setResult(new ItemStack(RegistryManager.engravedSword))
 				.addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
 				.addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -771,8 +771,10 @@ public class RitualManager {
 				.addBlock(RegistryManager.standingStoneT2, -5, 1, 0)
 				.addBlock(RegistryManager.standingStoneT2, 0, 1, 5)
 				.addBlock(RegistryManager.standingStoneT2, 0, 1, -5)
-				.addIncense(new ItemStack(Blocks.VINE))
-				.addIncense(new ItemStack(Items.SPIDER_EYE))
+				.addIncense(new ItemStack(Blocks.RED_FLOWER,1))
+				.addIncense(new ItemStack(RegistryManager.oakTreeBark))
+				.addIncense(new ItemStack(RegistryManager.infernalStem))
+				.addIncense(new ItemStack(Blocks.DOUBLE_PLANT,1,4))
 				.addIngredient(new ItemStack(Items.STONE_SWORD))
 				.addIngredient(new ItemStack(RegistryManager.runicFocus))
 				.addIngredient(new ItemStack(Items.GLOWSTONE_DUST)));
