@@ -109,9 +109,6 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
 									Roots.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
 								}
 							}
-							if (stack.getTagCompound().getInteger("uses") == 0){
-								stack.stackSize = 0;
-							}
 						}
 					}
 				}

@@ -323,7 +323,7 @@ public class EventManager {
 				ItemStack sword = player.inventory.getCurrentItem();
 				if(sword.hasTagCompound() && sword.getTagCompound().hasKey("shadowstep")){
 					int stepLvl = sword.getTagCompound().getInteger("shadowstep");
-					int chance = stepLvl * 15;
+					double chance = (double)stepLvl * 12.5;
 					if(random.nextInt(100) < chance){
 						event.setCanceled(true);
 					}
@@ -338,19 +338,19 @@ public class EventManager {
 					ItemStack sword = player.inventory.getCurrentItem();
 					if(sword.hasTagCompound() && sword.getTagCompound().hasKey("aquatic")){
 						int aquaLvl = sword.getTagCompound().getInteger("aquatic");
-						float amount = aquaLvl * 1;
+						float amount = aquaLvl * 0.5f;
 						float currentAmount = event.getAmount();
 						event.setAmount(currentAmount + amount);
 					}
 					if((sword.hasTagCompound() && sword.getTagCompound().hasKey("holy")) && event.getEntityLiving().getCreatureAttribute() == EnumCreatureAttribute.UNDEAD){
 						int holyLvl = sword.getTagCompound().getInteger("holy");
-						float amount = holyLvl * 3;
+						float amount = holyLvl * 1.5f;
 						float currentAmount = event.getAmount();
 						event.setAmount(currentAmount + amount);
 					}
 					if(sword.hasTagCompound() && sword.getTagCompound().hasKey("spikes")){
 						int spikeLvl = sword.getTagCompound().getInteger("spikes");
-						float amount = spikeLvl * 2;
+						float amount = spikeLvl;
 						float currentAmount = event.getAmount();
 						event.setAmount(currentAmount + amount);
 					}

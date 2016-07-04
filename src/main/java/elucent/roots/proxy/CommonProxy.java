@@ -26,6 +26,7 @@ public class CommonProxy {
 	
 	public void init(FMLInitializationEvent event){
 		ComponentManager.init();
+		RegistryManager.registerEntities();
 		RitualManager.init();
 		MutagenManager.init();
 	}

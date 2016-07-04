@@ -37,7 +37,7 @@ import net.minecraft.world.World;
 public class ComponentRadiantDaisy extends ComponentBase{
 	Random random = new Random();
 	public ComponentRadiantDaisy(){
-		super("radiantdaisy","Radiance",RegistryManager.radiantDaisy,36);	
+		super("radiantdaisy","Radiance",RegistryManager.radiantDaisy,24);	
 	}
 	
 	@Override
@@ -47,7 +47,7 @@ public class ComponentRadiantDaisy extends ComponentBase{
 			double posX = player.posX+player.getLookVec().xCoord*0.5;
 			double posY = player.posY+1.5+player.getLookVec().yCoord*0.5;
 			double posZ = player.posZ+player.getLookVec().zCoord*0.5;
-			for (int i = 0; i < 100+50*size; i ++){
+			for (int i = 0; i < 200+100*size; i ++){
 				boolean didHit = false;
 				Roots.proxy.spawnParticleMagicAuraFX(player.getEntityWorld(), posX, posY, posZ, 0, 0, 0, 255, 255, 255);
 				posX += player.getLookVec().xCoord*0.25;
@@ -57,7 +57,7 @@ public class ComponentRadiantDaisy extends ComponentBase{
 				if (targets.size() > 0){
 					for (int j = 0; j < targets.size() && !didHit; j ++){
 						if (targets.get(j).getUniqueID() != player.getUniqueID()){
-							if (targets.get(i) instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()){
+							if (targets.get(j) instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()){
 								
 							}
 							else {

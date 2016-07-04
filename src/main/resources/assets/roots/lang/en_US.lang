@@ -39,6 +39,8 @@ item.elderberry.name=Elderberry
 item.healingPoultice.name=Healing Poultice
 item.rootyStew.name=Rooty Stew
 item.engravedSword.name=Engraved Blade
+runicFocus_0.name=Runic Focus
+runicFocus_1.name=Charged Runic Focus
 
 tile.mortar.name=Mortar
 tile.imbuer.name=Imbuer
@@ -69,8 +71,13 @@ roots.tooltip.spellpotency.name=potency
 roots.tooltip.spellefficiency.name=efficency
 roots.tooltip.spellsize.name=size
 roots.tooltip.usesremaining.name=uses remaining
+roots.tooltip.spikes.name=Spikes
+roots.tooltip.forceful.name=Forceful
+roots.tooltip.holy.name=Holy
+roots.tooltip.aquatic.name=Aquatic
+roots.tooltip.shadowstep.name=Shadow Step
 
-roots.error.noritual.name=No valid ritual found\!
+roots.error.noritual.name=No valid ritual found!
 
 roots.component.allium.name=Rending Strike
 roots.component.apple.name=Nature's Cure
@@ -197,8 +204,8 @@ roots.research.spells.pinktulip.page1title.name=Vampirism
 roots.research.spells.pinktulip.page1info=You have found that the pink tulip can closely link with the life force of living creatures. Using the above recipe, you can create a spell capable of damaging hit entities, while simultaneously stealing some of their life force to regenerate yours.
 
 roots.research.spells.oxeyedaisy.name=Spell Component: Acceleration
-roots.research.spells.oxeyedaisy.page1title.name=Time Skip
-roots.research.spells.oxeyedaisy.page1info=The oxeye daisy is attuned to the passage of time itself. Using the above recipe, you can create a spell capable of skipping through a small amount of time. The world's time will progress somewhat, and the progress of a targeted tile entity will progress significantly.
+roots.research.spells.oxeyedaisy.page1title.name=Overclocked
+roots.research.spells.oxeyedaisy.page1info=The oxeye daisy is attuned to the passage of time itself. Using the above recipe, you can create a spell capable of increasing the tick rate of furnaces, brewing stands, or other devices that you target with your spell. By default, the spell will triple the rate of these devices.
 
 roots.research.spells.dandelion.name=Spell Component: Dandelion Winds
 roots.research.spells.dandelion.page1title.name=Gust
@@ -289,11 +296,11 @@ roots.research.ritual.standingstones.page1info=In order to gain access to more p
 roots.research.ritual.animalsummoning.name=Animal Reanimation
 roots.research.ritual.animalsummoning.page1title.name=Life Giver
 roots.research.ritual.animalsummoning.page1info=With the enhanced channeling abilities of the standing stones, you believe that you could imbue the corpse of a dead creature with enough healing energy to bring it back to life. Given the flesh and bones of a passive mob, these rituals will bring that mob back to life on top of the altar.
-roots.research.ritualsummoning.page2title.name=Ritual: Pig Summoning
-roots.research.ritualsummoning.page3title.name=Ritual: Cow Summoning
-roots.research.ritualsummoning.page4title.name=Ritual: Sheep Summoning
-roots.research.ritualsummoning.page5title.name=Ritual: Chicken Summoning
-roots.research.ritualsummoning.page6title.name=Ritual: Rabbit Summoning
+roots.research.ritual.animalsummoning.page2title.name=Ritual: Pig Summoning
+roots.research.ritual.animalsummoning.page3title.name=Ritual: Cow Summoning
+roots.research.ritual.animalsummoning.page4title.name=Ritual: Sheep Summoning
+roots.research.ritual.animalsummoning.page5title.name=Ritual: Chicken Summoning
+roots.research.ritual.animalsummoning.page6title.name=Ritual: Rabbit Summoning
 
 roots.research.ritual.crystalstaff.name=The Crystal Staff
 roots.research.ritual.crystalstaff.page1title.name=Reusable Magic
@@ -400,13 +407,13 @@ roots.research.ritual.engravedSword.page1title.name=Modular Weapon
 roots.research.ritual.engravedSword.page1info=Using the properties of a Runic Focus, you have created a new weapon. During the crafting of this weapon you can burn up to four different kinds of barks as additional incenses to add different buffs to the sword. You can mix and match these buffs as you please, and they will stack if you put more than one on at a time.
 roots.research.ritual.engravedSword.page2title.name=Ritual: Engraved Blade
 roots.research.ritual.engravedSword.page3title.name=Spikes
-roots.research.ritual.engravedSword.page3info=Each acacia bark you burn as incense during the sword's crafting will add 2 damage to the sword.
+roots.research.ritual.engravedSword.page3info=Each acacia bark you burn as incense during the sword's crafting will add some generic damage to the sword.
 roots.research.ritual.engravedSword.page4title.name=Forceful
 roots.research.ritual.engravedSword.page4info=Each spruce bark you burn as incense during the sword's crafting will add additional knockback to the sword's attacks.
 roots.research.ritual.engravedSword.page5title.name=Holy
-roots.research.ritual.engravedSword.page5info=Each birch bark you burn as incense during the sword's crafting will add 3 additional damage whenever the sword attacks undead creatures.
+roots.research.ritual.engravedSword.page5info=Each birch bark you burn as incense during the sword's crafting will add some bonus damage whenever the sword attacks undead creatures.
 roots.research.ritual.engravedSword.page6title.name=Aquatic
-roots.research.ritual.engravedSword.page6info=Each jungle bark you burn as incense during the sword's crafting will add 1 drowning damage to the sword's damage output.
+roots.research.ritual.engravedSword.page6info=Each jungle bark you burn as incense during the sword's crafting will add a small amount of drowning damage to the sword's damage output.
 roots.research.ritual.engravedSword.page7title.name=Shadow Step
 roots.research.ritual.engravedSword.page7info=Each dark oak bark you burn as incense during the sword's crafting will increase your chance to dodge attacks made against you when holding the sword.
 

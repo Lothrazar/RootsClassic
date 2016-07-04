@@ -70,7 +70,6 @@ public class TileEntityAltar extends TEBase implements ITickable {
 		if (tag.hasKey("ritualName")){
 			ritualName = tag.getString("ritualName");
 			ritual = RitualManager.getRitualFromName(ritualName);
-			System.out.println("Ritual name: " + ritualName);
 		}
 		if (tag.hasKey("progress")){
 			progress = tag.getInteger("progress");
@@ -199,7 +198,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
 					ritualName = null;
 				}
 			}
-			if (progress == 0){
+			if (progress == 0 && ritual != null){
 				ritual.doEffect(getWorld(),getPos(),inventory,incenses);
 				ritualName = null;
 				ritual = null;

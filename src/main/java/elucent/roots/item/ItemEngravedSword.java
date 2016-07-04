@@ -10,6 +10,7 @@ import elucent.roots.RegistryManager;
 import elucent.roots.Roots;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -41,7 +42,7 @@ public class ItemEngravedSword extends ItemTool{
 
 	    if (equipmentSlot == EntityEquipmentSlot.MAINHAND){	
 	    	multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName());      
-	    	multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.8D, 0));
+	    	multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -3.0D, 0));
 	    }
 	    return multimap;
 	}
@@ -58,19 +59,19 @@ public class ItemEngravedSword extends ItemTool{
 		if(stack.hasTagCompound()){
 			NBTTagCompound tag = stack.getTagCompound();
 			if(tag.hasKey("spikes")){
-				tooltip.add("Spikes " + numerals[tag.getInteger("spikes")]);
+				tooltip.add(I18n.format("roots.tooltip.spikes.name") + " " + numerals[tag.getInteger("spikes")]);
 			}
 			if(tag.hasKey("forceful")){
-				tooltip.add("Forceful " + numerals[tag.getInteger("forceful")]);
+				tooltip.add(I18n.format("roots.tooltip.forceful.name") + " " + numerals[tag.getInteger("forceful")]);
 			}
 			if(tag.hasKey("holy")){
-				tooltip.add("Holy " + numerals[tag.getInteger("holy")]);
+				tooltip.add(I18n.format("roots.tooltip.holy.name") + " " + numerals[tag.getInteger("holy")]);
 			}
 			if(tag.hasKey("aquatic")){
-				tooltip.add("Aqautic " + numerals[tag.getInteger("aquatic")]);
+				tooltip.add(I18n.format("roots.tooltip.aquatic.name") + " " + numerals[tag.getInteger("aquatic")]);
 			}
 			if(tag.hasKey("shadowstep")){
-				tooltip.add("Shadow Step " + numerals[tag.getInteger("shadowstep")]);
+				tooltip.add(I18n.format("roots.tooltip.shadowstep.name") + " " + numerals[tag.getInteger("shadowstep")]);
 			}
 		}
 	}

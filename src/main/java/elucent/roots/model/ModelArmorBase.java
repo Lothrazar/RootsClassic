@@ -189,10 +189,10 @@ public class ModelArmorBase extends ModelBiped {
 	
 	public void setLegsRotation(){
 		legR.rotationPointX = bipedRightLeg.rotationPointX+2;
-		legR.rotationPointY = bipedRightLeg.rotationPointY-24;
+		legR.rotationPointY = bipedRightLeg.rotationPointY-22;
 		legR.rotationPointZ = bipedRightLeg.rotationPointZ;
 		legL.rotationPointX = bipedLeftLeg.rotationPointX-2;
-		legL.rotationPointY = bipedLeftLeg.rotationPointY-24;
+		legL.rotationPointY = bipedLeftLeg.rotationPointY-22;
 		legL.rotationPointZ = bipedLeftLeg.rotationPointZ;
 		setRotation(legR,bipedRightLeg.rotateAngleX,bipedRightLeg.rotateAngleY,bipedRightLeg.rotateAngleZ);
 		setRotation(legL,bipedLeftLeg.rotateAngleX,bipedLeftLeg.rotateAngleY,bipedLeftLeg.rotateAngleZ);
@@ -200,10 +200,10 @@ public class ModelArmorBase extends ModelBiped {
 	
 	public void setBootRotation(){
 		bootR.rotationPointX = bipedRightLeg.rotationPointX+2;
-		bootR.rotationPointY = bipedRightLeg.rotationPointY-24;
+		bootR.rotationPointY = bipedRightLeg.rotationPointY-22;
 		bootR.rotationPointZ = bipedRightLeg.rotationPointZ;
 		bootL.rotationPointX = bipedLeftLeg.rotationPointX-2;
-		bootL.rotationPointY = bipedLeftLeg.rotationPointY-24;
+		bootL.rotationPointY = bipedLeftLeg.rotationPointY-22;
 		bootL.rotationPointZ = bipedLeftLeg.rotationPointZ;
 		setRotation(bootR,bipedRightLeg.rotateAngleX,bipedRightLeg.rotateAngleY,bipedRightLeg.rotateAngleZ);
 		setRotation(bootL,bipedLeftLeg.rotateAngleX,bipedLeftLeg.rotateAngleY,bipedLeftLeg.rotateAngleZ);

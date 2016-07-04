@@ -5,6 +5,7 @@ import java.util.List;
 
 import elucent.roots.RegistryManager;
 import elucent.roots.Util;
+import elucent.roots.ritual.RitualBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,7 +13,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class RitualEngravedSword extends RitualCrafting{
+public class RitualEngravedSword extends RitualBase {
+	public ItemStack result = null;
+	
+	public RitualBase setResult(ItemStack stack){
+		this.result = stack;
+		return this;
+	}
 
 	public RitualEngravedSword(String name, double r, double g, double b){
 		super(name, r, g, b);
@@ -30,7 +37,6 @@ public class RitualEngravedSword extends RitualCrafting{
 				int mods = 0;
 				EntityItem item = new EntityItem(world,pos.getX()+0.5,pos.getY()+1.5,pos.getZ()+0.5,toSpawn);
 				item.forceSpawn = true;
-				world.spawnEntityInWorld(item);
 				ItemStack stack = item.getEntityItem();
 				stack.setTagCompound(new NBTTagCompound());
 				for(Item i: items){
@@ -51,6 +57,7 @@ public class RitualEngravedSword extends RitualCrafting{
 					}	
 					mods++;
 				}
+				world.spawnEntityInWorld(item);
 			}
 			inventory.clear();
 			world.getTileEntity(pos).markDirty();

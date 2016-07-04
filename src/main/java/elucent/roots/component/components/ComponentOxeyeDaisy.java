@@ -11,6 +11,7 @@ import elucent.roots.Util;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.ComponentEffect;
 import elucent.roots.component.EnumCastType;
+import elucent.roots.entity.EntityTileAccelerator;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.block.Block;
@@ -20,6 +21,7 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -43,9 +45,13 @@ public class ComponentOxeyeDaisy extends ComponentBase{
 	@Override
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){	
-			if (caster instanceof EntityPlayer && !world.isRemote){
+			if (caster instanceof EntityPlayer){
 				BlockPos pos = Util.getRayTrace(world,(EntityPlayer)caster,4+2*(int)size);
-				world.setWorldTime(world.getWorldTime()+100*(int)potency+100);
+				if (world.getTileEntity(pos) != null && !world.isRemote){
+					EntityTileAccelerator a = new EntityTileAccelerator(world,pos,(int)potency,(int)size);
+					world.spawnEntityInWorld(a);
+				}
+				/*world.setWorldTime(world.getWorldTime()+500*(int)potency+1000);
 				if (world.getTileEntity(pos) != null){
 					if (world.getTileEntity(pos) instanceof ITickable){
 						for (int i = 0; i < 40+20*(int)potency; i ++){
@@ -54,7 +60,7 @@ public class ComponentOxeyeDaisy extends ComponentBase{
 					}
 				}
 				else {
-				}
+				}*/
 			}
 		}
 	}

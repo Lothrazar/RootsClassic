@@ -37,7 +37,10 @@ public class RootsCapabilityManager {
             
             @Override
             public <T> T getCapability(Capability<T> capability, EnumFacing facing){
-                return manaCapability.cast(this);
+            	if (capability == manaCapability){
+            		return manaCapability.cast(this);
+            	}
+            	return null;
             }
 
 			@Override
