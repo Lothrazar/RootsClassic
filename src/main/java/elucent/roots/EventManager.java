@@ -36,10 +36,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.item.ItemEvent;
-<<<<<<< HEAD
-=======
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
->>>>>>> 58989fe61e9575ac7536e5aad5a4113910ca5b05
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
