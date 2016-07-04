@@ -30,6 +30,7 @@ public class RitualMassBreed extends RitualBase {
 		List<EntityAnimal> animals = (List<EntityAnimal>)world.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(pos.getX()-22,pos.getY()-8,pos.getZ()-22,pos.getX()+23,pos.getY()+9,pos.getZ()+23));
 		if (animals.size() > 0){
 			for (int i = 0; i < animals.size(); i ++){
+				animals.get(i).setInLove(world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 5, false));
 				animals.get(i).getEntityData().setInteger("InLove", 400);
 			}
 		}

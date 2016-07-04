@@ -7,6 +7,7 @@ import java.util.Random;
 import com.google.common.collect.Lists;
 
 import elucent.roots.PlayerManager;
+import elucent.roots.RegistryManager;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.ComponentEffect;
 import elucent.roots.component.EnumCastType;
@@ -52,7 +53,12 @@ public class ComponentPoppy extends ComponentBase{
 			for (int i = 0; i < targets.size(); i ++){
 				targets.get(i).setAttackTarget(null);
 				int j = random.nextInt(targets.size());
-				if (j != i && random.nextInt(7-2*(int)potency) == 0){
+				if (j != i && random.nextDouble() >= 1.0/(potency+1.0)){
+					if (caster instanceof EntityPlayer){
+						if (!((EntityPlayer)caster).hasAchievement(RegistryManager.achieveSpellInsanity)){
+							PlayerManager.addAchievement((EntityPlayer)caster, RegistryManager.achieveSpellInsanity);
+						}
+					}
 					targets.get(i).setAttackTarget(targets.get(j));
 				}
 			}

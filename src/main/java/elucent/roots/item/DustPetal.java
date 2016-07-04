@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.util.text.TextFormatting;
+import elucent.roots.PlayerManager;
+import elucent.roots.RegistryManager;
 import elucent.roots.Roots;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.ComponentManager;
@@ -45,7 +47,7 @@ public class DustPetal extends Item {
 		}
 	}
 	
-	public static void createData(ItemStack stack, String effect, ArrayList<ItemStack> items){
+	public static void createData(ItemStack stack, EntityPlayer player, String effect, ArrayList<ItemStack> items){
 		stack.setTagCompound(new NBTTagCompound());
 		int potency = 0;
 		int efficiency = 0;
@@ -62,6 +64,11 @@ public class DustPetal extends Item {
 				if (items.get(i).getItem() == Items.GUNPOWDER){
 					size ++;
 				}
+			}
+		}
+		if (potency >= 3 || efficiency >= 3 || size >= 3){
+			if (!(player).hasAchievement(RegistryManager.achieveMaxModifiers)){
+				PlayerManager.addAchievement(player, RegistryManager.achieveMaxModifiers);
 			}
 		}
 		stack.getTagCompound().setInteger("potency", potency);

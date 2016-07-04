@@ -3,6 +3,8 @@ package elucent.roots.component.components;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import elucent.roots.PlayerManager;
+import elucent.roots.RegistryManager;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.EnumCastType;
 import net.minecraft.entity.Entity;
@@ -24,16 +26,29 @@ public class ComponentRose extends ComponentBase {
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){
 			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
+			int damageDealt = 0;
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
 					if (targets.get(i) instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()){
 						
 					}
 					else {
+						if (caster instanceof EntityPlayer){
+							if (!((EntityPlayer)caster).hasAchievement(RegistryManager.achieveSpellRose)){
+								PlayerManager.addAchievement(((EntityPlayer)caster), RegistryManager.achieveSpellRose);
+							}
+						}
 						targets.get(i).attackEntityFrom(DamageSource.cactus, (int)(7+4*potency));
 						targets.get(i).attackEntityAsMob(caster);
 						targets.get(i).setLastAttacker(caster);
 						targets.get(i).setRevengeTarget((EntityLivingBase)caster);
+					}
+				}
+			}
+			if (damageDealt > 80){
+				if (caster instanceof EntityPlayer){
+					if (!((EntityPlayer)caster).hasAchievement(RegistryManager.achieveLotsDamage)){
+						PlayerManager.addAchievement(((EntityPlayer)caster), RegistryManager.achieveLotsDamage);
 					}
 				}
 			}

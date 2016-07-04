@@ -13,6 +13,7 @@ import elucent.roots.Util;
 public class ComponentRecipe {
 	public String effectResult = "";
 	public ArrayList<ItemStack> materials = new ArrayList<ItemStack>();
+	public boolean disabled = false;
 	
 	public static int getModifierCapacity(List<ItemStack> items){
 		int maxCapacity = -1;

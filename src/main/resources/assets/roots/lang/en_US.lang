@@ -95,6 +95,7 @@ roots.component.whitetulip.name=Blistering Cold
 achievement.dust=Petal Dust
 achievement.dust.desc=Craft petal dust 
 
+roots.research.disabled.name=Disabled By Config!
 
 roots.research.nature.name=Natural Arts
 
@@ -390,3 +391,32 @@ roots.research.ritual.runicFocus.page2title.name=Ritual: Runic Focus
 roots.research.ritual.runicFocus.page3title.name=Charging It Up
 roots.research.ritual.runicFocus.page3info=To actually charge the focus, you need some energetic dust from the overworld, as well as some energetic dust from the nether. Using the fiery energies of an infernal stem, you can force the energy from the dusts into the focus, along with the life energy that accompanies all rituals.
 roots.research.ritual.runicFocus.page4title.name=Ritual: Runic Focus Charging
+
+achievement.tablet=Who Needs Pages?
+achievement.tablet.desc=Craft a Runic Tablet.
+achievement.dust=No Macerator Required!
+achievement.dust.desc=Use a Mortar to craft a Petal Dust.
+achievement.spellRose=A Weapon By Any Other Name...
+achievement.spellRose.desc=Deal damage using the "Rose's Thorns" spell.
+achievement.spellGrowth=I Rate This Spell 10/10/10.
+achievement.spellGrowth.desc=Get maximum growth from a single growth spell.
+achievement.spellInsanity=You Were The Chosen One!
+achievement.spellInsanity.desc=Cause a monster to betray its friends with the "Insanity" spell.
+achievement.maxModifiers=All The Mods!
+achievement.maxModifiers.desc=Make a spell with three of any single modifier.
+achievement.lotsDamage=Nerf This!
+achievement.lotsDamage.desc=Deal over 80 total damage with one spell.
+achievement.timeStop=「THE WORLD」
+achievement.timeStop.desc=Kill an entity during stopped time.
+achievement.altar=Another Original™ Block
+achievement.altar.desc=Craft a Casting Altar.
+achievement.standingStone=Your Very Own Henge
+achievement.standingStone.desc=Create an Attuned Standing Stone.
+achievement.wildwood=I Am Root
+achievement.wildwood.desc=Equip a full set of Wildwood armor.
+achievement.shadow=I Am The Night
+achievement.shadow.desc=Forge an engraved blade with Shadow Step IV.
+achievement.spellElements=Avatar.
+achievement.spellElements.desc=Equip the "Earth Spike", "Dandelion Winds", "Water Blast", and "Fireball" spells on a crystal staff.
+achievement.vampire=I Reject My Humanity!
+achievement.vampire.desc=Drain enough life using the Life Drain ritual to heal 10 hearts.

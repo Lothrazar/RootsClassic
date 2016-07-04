@@ -3,6 +3,8 @@ package elucent.roots.component.components;
 import java.util.ArrayList;
 import java.util.Random;
 
+import elucent.roots.PlayerManager;
+import elucent.roots.RegistryManager;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.EnumCastType;
 import net.minecraft.potion.Potion;
@@ -31,6 +33,7 @@ public class ComponentNetherWart extends ComponentBase{
 	@Override
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){	
+			int damageDealt = 0;
 			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
@@ -38,10 +41,18 @@ public class ComponentNetherWart extends ComponentBase{
 						
 					}
 					else {
-						targets.get(i).attackEntityFrom(DamageSource.inFire, (int)(5+2*potency));
+						damageDealt += (int)(5+3*potency);
+						targets.get(i).attackEntityFrom(DamageSource.inFire, (int)(5+3*potency));
 						targets.get(i).setFire((int) (4+3*potency));
 						targets.get(i).setLastAttacker(caster);
 						targets.get(i).setRevengeTarget((EntityLivingBase)caster);
+					}
+				}
+			}
+			if (damageDealt > 80){
+				if (caster instanceof EntityPlayer){
+					if (!((EntityPlayer)caster).hasAchievement(RegistryManager.achieveLotsDamage)){
+						PlayerManager.addAchievement(((EntityPlayer)caster), RegistryManager.achieveLotsDamage);
 					}
 				}
 			}

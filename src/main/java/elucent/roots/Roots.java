@@ -48,7 +48,6 @@ public class Roots
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
-    	System.out.println("");
     	ConfigManager.load(event);
     	MinecraftForge.EVENT_BUS.register(new EventManager());
     	MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());

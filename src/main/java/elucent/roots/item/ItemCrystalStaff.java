@@ -225,6 +225,13 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
 		return null;
 	}
 	
+	public static String getEffect(ItemStack stack, int slot){
+		if (stack.hasTagCompound()){
+			return stack.getTagCompound().getString("effect"+slot);
+		}
+		return null;
+	}
+	
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced){
 		if (stack.hasTagCompound()){

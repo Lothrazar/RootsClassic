@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.google.common.collect.Multimap;
 
+import elucent.roots.PlayerManager;
 import elucent.roots.RegistryManager;
 import elucent.roots.Roots;
 import elucent.roots.model.ModelDruidArmor;
@@ -85,6 +86,21 @@ public class ItemDruidArmor extends ItemArmor {
 		}
 		if (rnd.nextInt(40) == 0){
 			player.heal(1);
+		}
+		if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null
+				&& player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
+				&& player.getItemStackFromSlot(EntityEquipmentSlot.LEGS) != null
+				&& player.getItemStackFromSlot(EntityEquipmentSlot.FEET) != null
+				){
+			if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemDruidArmor
+					&& player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemDruidArmor
+					&& player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemDruidArmor
+					&& player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemDruidArmor
+					){
+				if (!player.hasAchievement(RegistryManager.achieveWildwood)){
+					PlayerManager.addAchievement(player, RegistryManager.achieveWildwood);
+				}
+			}
 		}
 	}
 	

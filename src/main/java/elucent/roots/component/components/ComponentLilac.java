@@ -3,6 +3,8 @@ package elucent.roots.component.components;
 import java.util.ArrayList;
 import java.util.Random;
 
+import elucent.roots.PlayerManager;
+import elucent.roots.RegistryManager;
 import elucent.roots.Util;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.EnumCastType;
@@ -33,9 +35,10 @@ public class ComponentLilac extends ComponentBase{
 		super("lilac","Growth",Blocks.DOUBLE_PLANT,1,14);	
 	}
 	
-	public void growBlockSafe(World world, BlockPos pos, int potency){
+	public boolean growBlockSafe(World world, BlockPos pos, int potency){
 		if (world.getBlockState(pos).getBlock() instanceof IGrowable && random.nextInt(5-(int)potency) < 2){
 			((IGrowable)world.getBlockState(pos).getBlock()).grow(world, random, pos, world.getBlockState(pos));
+			return true;
 		}
 		if(world.getBlockState(pos).getBlock() == Blocks.NETHER_WART && random.nextInt(5-(int)potency) < 2){
 			BlockNetherWart wart = (BlockNetherWart) world.getBlockState(pos).getBlock();
@@ -44,8 +47,10 @@ public class ComponentLilac extends ComponentBase{
 			if(age < 3){
 				state = state.withProperty(wart.AGE, Integer.valueOf(age + 1));
 				world.setBlockState(pos, state, 2);
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	@Override
@@ -53,18 +58,13 @@ public class ComponentLilac extends ComponentBase{
 		if (type == EnumCastType.SPELL){	
 			if (caster instanceof EntityPlayer && !world.isRemote){
 				BlockPos pos = Util.getRayTrace(world,(EntityPlayer)caster,4+2*(int)size);
-				growBlockSafe(world, pos, (int)potency);
-				if (random.nextBoolean()){
-					growBlockSafe(world, pos.east(), (int)potency);
-				}
-				if (random.nextBoolean()){
-					growBlockSafe(world, pos.west(), (int)potency);
-				}
-				if (random.nextBoolean()){
-					growBlockSafe(world, pos.north(), (int)potency);
-				}
-				if (random.nextBoolean()){
-					growBlockSafe(world, pos.south(), (int)potency);
+				boolean fullEfficiency = growBlockSafe(world, pos, (int)potency) && growBlockSafe(world, pos.east(), (int)potency) && growBlockSafe(world, pos.west(), (int)potency) &&growBlockSafe(world, pos.north(), (int)potency) &&growBlockSafe(world, pos.south(), (int)potency);
+				if (fullEfficiency){
+					if (caster instanceof EntityPlayer){
+						if (!((EntityPlayer)caster).hasAchievement(RegistryManager.achieveSpellGrowth)){
+							PlayerManager.addAchievement((EntityPlayer)caster, RegistryManager.achieveSpellGrowth);
+						}
+					}
 				}
 			}
 		}

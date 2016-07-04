@@ -25,7 +25,7 @@ group= "elucent.roots" // http://maven.apache.org/guides/mini/guide-naming-conve
 archivesBaseName = "roots"
 
 minecraft {
-    version = "1.9.4-12.17.0.1922-1.9.4"
+    version = "1.9.4-12.17.0.1976"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.

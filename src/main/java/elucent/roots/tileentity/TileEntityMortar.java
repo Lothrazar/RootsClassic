@@ -82,17 +82,19 @@ public class TileEntityMortar extends TEBase {
 		}
 		else if (heldItem.getItem() == RegistryManager.pestle){
 			ComponentRecipe recipe = ComponentManager.getRecipe(inventory);
-			if (recipe != null && ComponentRecipe.getModifierCapacity(inventory) != -1){
-				ItemStack drop = new ItemStack(RegistryManager.dustPetal,1);
-				DustPetal.createData(drop, recipe.effectResult, inventory);
-				if (!world.isRemote){
-					world.spawnEntityInWorld(new EntityItem(world,getPos().getX()+0.5,getPos().getY()+0.5,getPos().getZ()+0.5,drop));
+			if (!recipe.disabled && this.inventory.size() > 3){
+				if (recipe != null && ComponentRecipe.getModifierCapacity(inventory) != -1){
+					ItemStack drop = new ItemStack(RegistryManager.dustPetal,1);
+					DustPetal.createData(drop, player, recipe.effectResult, inventory);
+					if (!world.isRemote){
+						world.spawnEntityInWorld(new EntityItem(world,getPos().getX()+0.5,getPos().getY()+0.5,getPos().getZ()+0.5,drop));
+					}
+					inventory.clear();
+					markDirty();
+					this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+					PlayerManager.addAchievement(player, RegistryManager.achieveDust);
+					return true;
 				}
-				inventory.clear();
-				markDirty();
-				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-				PlayerManager.addAchievement(player, RegistryManager.achieveDust);
-				return true;
 			}
 		}
 		else {

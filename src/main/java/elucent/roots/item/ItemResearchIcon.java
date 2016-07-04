@@ -11,7 +11,6 @@ public class ItemResearchIcon extends Item {
 	public ItemResearchIcon(String name){
 		super();
 		setUnlocalizedName(name);
-		setCreativeTab(Roots.tab);
 	}
 	
 	@SideOnly(Side.CLIENT)

@@ -21,6 +21,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import elucent.roots.PlayerManager;
 import elucent.roots.RegistryManager;
 import elucent.roots.Util;
 import elucent.roots.ritual.RitualBase;
@@ -44,7 +45,12 @@ public class RitualLifeDrain extends RitualBase {
 		List<EntityPlayer> players = (List<EntityPlayer>)world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.getX()-22,pos.getY()-8,pos.getZ()-22,pos.getX()+23,pos.getY()+9,pos.getZ()+23));
 		float numPlayers = players.size();
 		for (int i = 0; i < numPlayers; i ++){
-			players.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("regeneration"),(int)(100*(drainedHealth/numPlayers)),0));
+			players.get(i).heal(drainedHealth / (numPlayers*2.5f));
+			if (drainedHealth/(numPlayers*2.5f) > 20.0){
+				if (!players.get(i).hasAchievement(RegistryManager.achieveVampire)){
+					PlayerManager.addAchievement(players.get(i), RegistryManager.achieveVampire);
+				}
+			}
 		}
 	}
 }

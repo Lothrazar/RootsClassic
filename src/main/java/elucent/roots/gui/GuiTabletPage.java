@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 import elucent.roots.RegistryManager;
 import elucent.roots.Roots;
 import elucent.roots.Util;
+import elucent.roots.component.ComponentManager;
 import elucent.roots.research.EnumRecipeType;
 import elucent.roots.research.ResearchBase;
 import elucent.roots.research.ResearchGroup;
@@ -22,6 +23,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 
 public class GuiTabletPage extends GuiScreen {
 	public double mouseX = 0;
@@ -238,6 +240,9 @@ public class GuiTabletPage extends GuiScreen {
 				fontRendererObj.drawStringWithShadow(info.get(i),basePosX+16,basePosY+96+i*11,Util.intColor(255, 255, 255));
 			}
 			String title = I18n.format("roots.research."+group.name+"."+research.name+".page"+(this.currentPage+1)+"title.name");
+			if (research.info.get(currentPage).mortarRecipe.disabled){
+				title = TextFormatting.RED + I18n.format("roots.research.disabled.name");
+			}
 			fontRendererObj.drawStringWithShadow(title, basePosX+96-(this.fontRendererObj.getStringWidth(title)/2.0f), basePosY+12, Util.intColor(255, 255, 255));
 		}
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("roots:textures/gui/tabletGui.png"));

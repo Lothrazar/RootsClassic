@@ -133,6 +133,7 @@ public class TileEntityBrazier extends TEBase implements ITickable {
 				getWorld().spawnParticle(EnumParticleTypes.FLAME, getPos().getX()+0.5, getPos().getY()+0.5, getPos().getZ()+0.5, 0, 0, 0, 0);
 			}
 			if (progress == 0){
+				burning = false;
 				heldItem = null;
 				markDirty();
 				this.getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);

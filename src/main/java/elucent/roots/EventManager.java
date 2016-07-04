@@ -1,12 +1,14 @@
 
 package elucent.roots;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
 import elucent.roots.capability.RootsCapabilityManager;
 import elucent.roots.item.IManaRelatedItem;
+import elucent.roots.item.ItemCrystalStaff;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockNetherWart;
@@ -22,6 +24,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -31,6 +34,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.item.ItemEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
@@ -41,7 +45,9 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemPickupEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -107,6 +113,41 @@ public class EventManager {
 			if (event.getEntity().getEntityData().hasKey("RMOD_dontTarget")){
 				if (event.getTarget().getUniqueID().getMostSignificantBits() == event.getEntity().getEntityData().getLong("RMOD_dontTarget")){
 					event.setCanceled(true);
+				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onItemPickup(PlayerEvent.ItemPickupEvent event){
+		if (event.pickedUp != null){
+			if (event.player != null){
+				if (event.pickedUp.getEntityItem().getItem() == RegistryManager.dustPetal){
+					if (!event.player.hasAchievement(RegistryManager.achieveDust)){
+						PlayerManager.addAchievement(event.player, RegistryManager.achieveDust);
+					}
+				}
+				if (event.pickedUp.getEntityItem().getItem() == Item.getItemFromBlock(RegistryManager.altar)){
+					if (!event.player.hasAchievement(RegistryManager.achieveAltar)){
+						PlayerManager.addAchievement(event.player, RegistryManager.achieveAltar);
+					}
+				}
+				if (event.pickedUp.getEntityItem().getItem() == Item.getItemFromBlock(RegistryManager.standingStoneT2)){
+					if (!event.player.hasAchievement(RegistryManager.achieveStandingStone)){
+						PlayerManager.addAchievement(event.player, RegistryManager.achieveStandingStone);
+					}
+				}
+				if (event.pickedUp.getEntityItem().getItem() == RegistryManager.crystalStaff){
+					ArrayList<String> spells = new ArrayList<String>();
+					spells.add(ItemCrystalStaff.getEffect(event.pickedUp.getEntityItem(),1));
+					spells.add(ItemCrystalStaff.getEffect(event.pickedUp.getEntityItem(),2));
+					spells.add(ItemCrystalStaff.getEffect(event.pickedUp.getEntityItem(),3));
+					spells.add(ItemCrystalStaff.getEffect(event.pickedUp.getEntityItem(),4));
+					if (spells.contains("netherwart") && spells.contains("dandelion") && spells.contains("blueorchid") && spells.contains("lilypad")){
+						if (!event.player.hasAchievement(RegistryManager.achieveSpellElements)){
+							PlayerManager.addAchievement(event.player, RegistryManager.achieveSpellElements);
+						}
+					}
 				}
 			}
 		}
@@ -204,6 +245,24 @@ public class EventManager {
 	}
 	
 	@SubscribeEvent
+	public void onItemCraft(ItemCraftedEvent event){
+		if (event.player != null){
+			if (event.crafting != null){
+				if (event.crafting.getItem() == Item.getItemFromBlock(RegistryManager.altar)){
+					if (!event.player.hasAchievement(RegistryManager.achieveAltar)){
+						PlayerManager.addAchievement(event.player, RegistryManager.achieveAltar);
+					}
+				}
+				if (event.crafting.getItem() == Item.getItemFromBlock(RegistryManager.standingStoneT2)){
+					if (!event.player.hasAchievement(RegistryManager.achieveStandingStone)){
+						PlayerManager.addAchievement(event.player, RegistryManager.achieveStandingStone);
+					}
+				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
 	public void onLivingTick(LivingUpdateEvent event){
 		if (event.getEntityLiving() instanceof EntityPlayer){
 			if (event.getEntityLiving().ticksExisted % 5 == 0){
@@ -214,6 +273,13 @@ public class EventManager {
 		}
 		if (event.getEntityLiving().getEntityData().hasKey("RMOD_skipTicks")){
 			if (event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks") > 0){
+				if (event.getEntityLiving().getHealth() <= 0){
+					if (event.getEntityLiving().getLastAttacker() instanceof EntityPlayer){
+						if (!((EntityPlayer)event.getEntityLiving().getLastAttacker()).hasAchievement(RegistryManager.achieveTimeStop)){
+							PlayerManager.addAchievement((EntityPlayer)event.getEntityLiving().getLastAttacker(), RegistryManager.achieveTimeStop);
+						}
+					}
+				}
 				event.getEntityLiving().getEntityData().setInteger("RMOD_skipTicks", event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks")-1);
 				if (event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks") <= 0){
 					event.getEntityLiving().getEntityData().removeTag("RMOD_skipTicks");

@@ -7,6 +7,7 @@ import java.util.Random;
 import com.google.common.collect.Lists;
 
 import elucent.roots.PlayerManager;
+import elucent.roots.RegistryManager;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.ComponentEffect;
 import elucent.roots.component.EnumCastType;
@@ -46,6 +47,7 @@ public class ComponentAllium extends ComponentBase{
 	@Override
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){
+			int damageDealt = 0;
 			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
@@ -53,6 +55,7 @@ public class ComponentAllium extends ComponentBase{
 						
 					}
 					else {
+						damageDealt += (int)(3+2*potency);
 						targets.get(i).attackEntityFrom(DamageSource.generic, (int)(3+2*potency));
 						targets.get(i).setLastAttacker(caster);
 						targets.get(i).setRevengeTarget((EntityLivingBase)caster);
@@ -64,6 +67,13 @@ public class ComponentAllium extends ComponentBase{
 								}
 							}
 						}
+					}
+				}
+			}
+			if (damageDealt > 80){
+				if (caster instanceof EntityPlayer){
+					if (!((EntityPlayer)caster).hasAchievement(RegistryManager.achieveLotsDamage)){
+						PlayerManager.addAchievement(((EntityPlayer)caster), RegistryManager.achieveLotsDamage);
 					}
 				}
 			}

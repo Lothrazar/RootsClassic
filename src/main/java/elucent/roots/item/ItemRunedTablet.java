@@ -1,5 +1,7 @@
 package elucent.roots.item;
 
+import elucent.roots.PlayerManager;
+import elucent.roots.RegistryManager;
 import elucent.roots.Roots;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -35,6 +37,9 @@ public class ItemRunedTablet extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
 		if (hand == EnumHand.MAIN_HAND){
+			if (!player.hasAchievement(RegistryManager.achieveTablet)){
+				PlayerManager.addAchievement(player, RegistryManager.achieveTablet);
+			}
 			player.setActiveHand(hand);
 			player.openGui(Roots.instance, 1, world, (int)player.posX, (int)player.posY, (int)player.posZ);
 		}
