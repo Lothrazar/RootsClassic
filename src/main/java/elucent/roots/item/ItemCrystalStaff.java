@@ -86,7 +86,7 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
 								&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemDruidRobes
 								&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemDruidRobes
 								&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemDruidRobes){
-								efficiency += 2;
+								potency += 1;
 							}
 						}
 						double xpCost = (comp.xpCost + potency)*(1.0-0.25*(double)efficiency);

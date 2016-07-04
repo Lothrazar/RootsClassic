@@ -82,6 +82,17 @@ public class ItemStaff extends Item implements IManaRelatedItem {
 					int potency = stack.getTagCompound().getInteger("potency");
 					int efficiency = stack.getTagCompound().getInteger("efficiency");
 					int size = stack.getTagCompound().getInteger("size");
+					if (((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null
+						&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
+						&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.LEGS) != null
+						&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.FEET) != null){
+						if (((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemDruidRobes
+							&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemDruidRobes
+							&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemDruidRobes
+							&& ((EntityPlayer)player).getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemDruidRobes){
+							potency += 1;
+						}
+					}
 					if (((EntityPlayer)player).hasCapability(RootsCapabilityManager.manaCapability, null) && ((EntityPlayer)player).getCapability(RootsCapabilityManager.manaCapability, null).getMana() >= ((float)comp.xpCost)/(efficiency+1)){
 						((EntityPlayer)player).getCapability(RootsCapabilityManager.manaCapability, null).setMana(((EntityPlayer)player).getCapability(RootsCapabilityManager.manaCapability, null).getMana()-(((float)comp.xpCost)/(efficiency+1)));
 						comp.doEffect(world, player, EnumCastType.SPELL, player.posX+3.0*player.getLookVec().xCoord, player.posY+3.0*player.getLookVec().yCoord, player.posZ+3.0*player.getLookVec().zCoord, potency, efficiency, 3.0+2.0*size);

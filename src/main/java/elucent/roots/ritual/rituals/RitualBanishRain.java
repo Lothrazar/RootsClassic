@@ -36,5 +36,6 @@ public class RitualBanishRain extends RitualBase {
 	public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses){
 		inventory.clear();
 		world.getWorldInfo().setRaining(false);
+		world.getWorldInfo().setCleanWeatherTime(3600);
 	}
 }

@@ -57,9 +57,11 @@ tile.standingStoneIgniter.name=Igniting Standing Stone
 tile.standingStoneGrower.name=Growing Standing Stone
 tile.standingStoneHealer.name=Healing Standing Stone
 
-roots.attribute.fullset.name=When full set equipped
+roots.attribute.fullset.name=When full set equipped:
+roots.attribute.equipped.name=When equipped:
 roots.attribute.increasedregen.name=Increased Health Regeneration
 roots.attribute.increasedmanaregen.name=Increased Terra Regeneration
+roots.attribute.potency.name=Potency
 
 roots.tooltip.spelltypeheading.name=Type
 roots.tooltip.spellpotency.name=potency

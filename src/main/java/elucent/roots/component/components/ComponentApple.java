@@ -46,6 +46,9 @@ public class ComponentApple extends ComponentBase{
 				((EntityPlayer)caster).clearActivePotions();
 				for (int i = 0; i < effects.size(); i ++){
 					PotionEffect effect = effects.get(i);
+					if (effect.getPotion().getName() == "Soul Fray"){
+						((EntityPlayer)caster).addPotionEffect(effect);
+					}
 					if (effect.getPotion() == Potion.getPotionFromResourceLocation("slowness")){
 						((EntityPlayer)caster).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("speed"),effect.getDuration(),effect.getAmplifier()+(int)potency));
 					}

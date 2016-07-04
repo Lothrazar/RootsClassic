@@ -73,10 +73,10 @@ public class ItemDruidRobes extends ItemArmor {
 	
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack){
-		if (stack.isItemDamaged() && rnd.nextInt(40) == 0){
+		if (stack.isItemDamaged() && rnd.nextInt(80) == 0){
 			stack.setItemDamage(stack.getItemDamage()-1);
 		}
-		if (rnd.nextInt(30) == 0){
+		if (rnd.nextInt(40) == 0){
 			if (player.hasCapability(RootsCapabilityManager.manaCapability, null)){
 				player.getCapability(RootsCapabilityManager.manaCapability, null).setMana(player.getCapability(RootsCapabilityManager.manaCapability, null).getMana()+1.0f);
 			}
@@ -86,8 +86,11 @@ public class ItemDruidRobes extends ItemArmor {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced){
 		tooltip.add("");
-		tooltip.add(TextFormatting.GRAY + I18n.format("roots.attribute.fullset.name"));
+		tooltip.add(TextFormatting.GRAY + I18n.format("roots.attribute.equipped.name"));
 		tooltip.add(TextFormatting.BLUE + " " + I18n.format("roots.attribute.increasedmanaregen.name"));
+		tooltip.add("");
+		tooltip.add(TextFormatting.GRAY + I18n.format("roots.attribute.fullset.name"));
+		tooltip.add(TextFormatting.BLUE + " +1 " + I18n.format("roots.attribute.potency.name"));
 	}
 	
 	@SideOnly(Side.CLIENT)

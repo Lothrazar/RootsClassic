@@ -42,7 +42,7 @@ public class ComponentManager {
 		components.add(new ComponentDandelion().setPrimaryColor(255,217,102).setSecondaryColor(240,159,10).setTextColor(TextFormatting.YELLOW));
 		components.add(new ComponentChorus().setPrimaryColor(95,57,95).setSecondaryColor(225,215,225).setTextColor(TextFormatting.DARK_PURPLE));
 		components.add(new ComponentNetherWart().setPrimaryColor(255,76,36).setSecondaryColor(255,174,0).setTextColor(TextFormatting.GOLD));
-		components.add(new ComponentPeony().setPrimaryColor(255,102,178).setSecondaryColor(255,51,153).setTextColor(TextFormatting.DARK_PURPLE));
+		components.add(new ComponentPeony().setPrimaryColor(255,102,178).setSecondaryColor(255,51,153).setTextColor(TextFormatting.LIGHT_PURPLE));
 		components.add(new ComponentSunflower().setPrimaryColor(255,255,128).setSecondaryColor(255,255,255).setTextColor(TextFormatting.WHITE));
 		components.add(new ComponentLilac().setPrimaryColor(112,80,112).setSecondaryColor(0,112,24).setTextColor(TextFormatting.GREEN));
 		components.add(new ComponentAzureBluet().setPrimaryColor(240,240,255).setSecondaryColor(86,86,96).setTextColor(TextFormatting.GRAY));

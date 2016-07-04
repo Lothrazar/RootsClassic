@@ -42,7 +42,7 @@ public class ItemLivingAxe extends ItemTool {
 	
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected){
-		if (random.nextInt(20) == 0){
+		if (random.nextInt(80) == 0){
 			if (stack.getItemDamage() > 0){
 				stack.setItemDamage(stack.getItemDamage()-1);
 			}
