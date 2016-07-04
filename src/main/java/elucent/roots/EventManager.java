@@ -28,6 +28,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -338,10 +339,9 @@ public class EventManager {
 					ItemStack sword = player.inventory.getCurrentItem();
 					if(sword.hasTagCompound() && sword.getTagCompound().hasKey("aquatic")){
 						int aquaLvl = sword.getTagCompound().getInteger("aquatic");
-						float amount = aquaLvl * 1;
+						int amount = aquaLvl * 2;
 						float currentAmount = event.getAmount();
-						event.getSource().setDamageBypassesArmor();
-						event.setAmount(currentAmount + amount);
+						event.getEntity().attackEntityFrom(DamageSource.drown, amount);
 					}
 					if((sword.hasTagCompound() && sword.getTagCompound().hasKey("holy")) && event.getEntityLiving().getCreatureAttribute() == EnumCreatureAttribute.UNDEAD){
 						int holyLvl = sword.getTagCompound().getInteger("holy");
