@@ -37,7 +37,10 @@ item.redcurrant.name=Смородина красная
 item.whitecurrant.name=Смородина белая
 item.elderberry.name=Бузина
 item.healingPoultice.name=Лечебная припарка
-item.rootyStew.name=Rooty Stew
+item.rootyStew.name=Тушёный корень
+item.engravedSword.name=Выгравированный клинок
+runicFocus_0.name=Рунический фокус
+runicFocus_1.name=Заряженный рунический фокус
 
 tile.mortar.name=Ступка
 tile.imbuer.name=Наполнитель
@@ -58,11 +61,13 @@ tile.standingStoneGrower.name=Стоячий камень роста
 tile.standingStoneHealer.name=Стоячий камень исцеления
 
 roots.attribute.fullset.name=Когда надет полный комплект:
-roots.attribute.increasedregen.name=Повышение регенерации здоровья
-roots.attribute.spellefficiency.name=Эффективность заклинаний
+roots.attribute.equipped.name=Когда надет:
+roots.attribute.increasedregen.name=Повышенная регенерация здоровья
+roots.attribute.increasedmanaregen.name=Повышенная регенерация земли
+roots.attribute.potency.name=Мощность
 
 roots.tooltip.spelltypeheading.name=Тип
-roots.tooltip.spellpotency.name=сила
+roots.tooltip.spellpotency.name=мощность
 roots.tooltip.spellefficiency.name=эффективность
 roots.tooltip.spellsize.name=размер
 roots.tooltip.usesremaining.name=использований осталось
@@ -92,24 +97,28 @@ roots.component.rosebush.name=Шипы розы
 roots.component.sunflower.name=Солнечный удар
 roots.component.whitetulip.name=Стремительный холод
 
+achievement.dust=Лепестковая пыль
+achievement.dust.desc=Сделать лепестковую пыль
+
+roots.research.disabled.name=Отключено в конфиге!
 
 roots.research.nature.name=Природные искусства
 
 roots.research.nature.barkharvesting.name=Сбор коры
 roots.research.nature.barkharvesting.page1title.name=Простые материалы
-roots.research.nature.barkharvesting.page1info=Trees are very important to natural magic. Using some wood and saplings, you can create a knife capable of softly harvesting the bark from trees, which can be used in recipes and rituals. Right-click a log block to harvest bark from it, with a chance of breaking the log block.
+roots.research.nature.barkharvesting.page1info=Деревья очень важны для естественной магии. Используя немного досок и ростков, вы создали нож, способный мягко собирать кору с деревьев, который может быть использован в рецептах и ритуалах. ПКМ по дереву, чтобы собрать с него кору, с шансом сломать блок дерева.
 
 roots.research.nature.magicalmaterials.name=Редкие материалы
 roots.research.nature.magicalmaterials.page1title.name=Корневая магия
-roots.research.nature.magicalmaterials.page1info=In the world around you, you may find several rare plants and herbs that are crucial for many aspects of natural magic.
+roots.research.nature.magicalmaterials.page1info=В окружающем Вас мире Вы можете найти несколько редких растений и трав, которые имеют решающее значение во многих аспектах естественной магии.
 roots.research.nature.magicalmaterials.page2title.name=Старый корень
-roots.research.nature.magicalmaterials.page2info=Old roots can be found at a 1/40 chance when breaking tall grass. They are needed for a lot of early magic, as they are required for spells without modifiers. They can also be eaten to restore a very small amount of hunger.
+roots.research.nature.magicalmaterials.page2info=Старые корни могут быть найдены с шансом 1/40 при ломании высокой травы. Они нужны для множества ранней магии, так как они необходимы для заклинаний без модификаторов. Они могут быть также съедены для восстановления очень маленького количества голода.
 roots.research.nature.magicalmaterials.page3title.name=Зеленеющий росток
-roots.research.nature.magicalmaterials.page3info=Verdant sprigs will drop at a 1/30 chance when harvesting fully-grown crops of all kinds. They have innate life force that persists after being harvested, so their uses often relate to bringing life to objects.
+roots.research.nature.magicalmaterials.page3info=Зеленеющий росток выпадает с шансом 1/30 при сборе полностью выращенных посевов всех видов. Они имеют врождённую жизненную силу, которая сохраняется после их сбора, поэтому их использование часто связано с приведением жизни объектам.
 roots.research.nature.magicalmaterials.page4title.name=Адская колба
-roots.research.nature.magicalmaterials.page4info=Infernal Bulbs will drop at a 1/20 chance from grown nether wart. Infernal bulbs are imbued with the fire of their home in the nether, so they are useful when a large amount of energy is needed. They can also be used as fairly effective furnace fuel, or given to skeletons to make them withered.
+roots.research.nature.magicalmaterials.page4info=Адская колба выпадает с шансом 1/20 при сборе полностью выращенных наростов из Незера. Адские колбы пропитаны огнём своего дома в Незере, поэтому они полезны, когда требуется большое количество энергии. Они могут быть также использованы в качестве весьма эфективного топлива в печи, или отданы скелетам, чтобы иссушить их.
 roots.research.nature.magicalmaterials.page5title.name=Глаз дракона
-roots.research.nature.magicalmaterials.page5info=Dragon's eyes will drop at a 1/10 chance from chorus flowers. They are imbued with the same eldritch energy as the ender dragon itself. In addition to spell-related uses, they can be eaten for a more powerful chorus fruit effect, or smelted to yield one ender pearl.
+roots.research.nature.magicalmaterials.page5info=Глаз дракона выпадает с шансом 1/10 из цветков хоруса. Они пропитаны той же жуткой энергией, как и сам Эндер-дракон. В дополнении к использованию связанных заклинаний, они могут быть съедены для более мощного эффекта плода хоруса, или переплавлены для получения одного эндер-жемчуга.
 
 roots.research.nature.grassseeds.name=Порошок роста
 roots.research.nature.grassseeds.page1title.name=Уход за газоном
@@ -123,7 +132,7 @@ roots.research.nature.berries.name=Ягоды
 roots.research.nature.berries.page1title.name=Фуражировка
 roots.research.nature.berries.page1info=When breaking oak leaves by hand, you may occasionally find a random berry. There are five different kinds of berries, each one with different properties. Some may even be used in spells or rituals later on...
 
-roots.research.nature.stew.name=Rooty Stew
+roots.research.nature.stew.name=Тушёный корень
 roots.research.nature.stew.page1title.name=Суп для Вас
 roots.research.nature.stew.page1info=While Old Roots can be eaten alone, they're not very appetizing. By cooking it with some wheat in a bowl, you can create a delicious stew capable of replenishing much more hunger.
 
@@ -152,6 +161,10 @@ roots.research.spells.modifiers.page1title.name=Больше отдачи от �
 roots.research.spells.modifiers.page1info=Mixing some modifiers into your spells can make them much more powerful. Potency modifiers (glowstone dust) will improve the strength of a spell's effects. Efficiency modifiers (redstone dust) will improve the casting cost and number of uses a spell has. Size modifiers (gunpowder) will improve the area a spell effects.
 roots.research.spells.modifiers.page2title.name=Базовые ингредиенты
 roots.research.spells.modifiers.page2info=For a spell to have modifiers, though, certain base ingredients are required. Old Roots will allow a spell to be crafted, but permit no modifiers. Verdant Sprigs can support one modifier slot, Infernal Bulbs can support two, and Dragon's Eyes can support three. These ingredients must be added first, before any other modifiers are added to the mortar.
+
+roots.research.spells.mana.name=Земля
+roots.research.spells.mana.page1title.name=Затраты на литьё
+roots.research.spells.mana.page1info=When you hold your new staff in your hand, you notice a power awakened within you, as well as a conveniently placed bar on your screen. These leaves represent a life force deep within you, called Terra, that powers your spells. All spells will cost a certain amount of this energy, but it will regenerate fairly quickly over time.
 
 roots.research.spells.poppy.name=Компонент заклинания: Безумие
 roots.research.spells.poppy.page1title.name=Предательство
@@ -375,3 +388,55 @@ roots.research.ritual.sacrifice.name=Жертвоприношение
 roots.research.ritual.sacrifice.page1title.name=Сверхъестественная сделка
 roots.research.ritual.sacrifice.page1info=You are simply fed up with going on long adventures searching for specific plants to complete your spells. With this ritual, you have developed a sinister solution. When this ritual finishes its particle light show, it will instantly kill a mob placed near it. In exchange, a random plant may be dropped from the altar. The source of these drops remains unknown to you...
 roots.research.ritual.sacrifice.page2title.name=Ритуал: Жертвоприношение
+
+roots.research.ritual.runicFocus.name=Рунический фокус
+roots.research.ritual.runicFocus.page1title.name=Хранимая мощность
+roots.research.ritual.runicFocus.page1info=By engraving this stone with some runes, and placing a rare gem at its core, you have created an item that will store up life energy. It can be charged with a ritual at an altar, and then either discharged or incorporated into other items in rituals or other processes.
+roots.research.ritual.runicFocus.page2title.name=Ритуал: Рунический фокус
+roots.research.ritual.runicFocus.page3title.name=Заряди его
+roots.research.ritual.runicFocus.page3info=To actually charge the focus, you need some energetic dust from the overworld, as well as some energetic dust from the nether. Using the fiery energies of an infernal stem, you can force the energy from the dusts into the focus, along with the life energy that accompanies all rituals.
+roots.research.ritual.runicFocus.page4title.name=Ритуал: Заряженный рунический фокус
+
+roots.research.ritual.engravedSword.name=Выгравированный клинок
+roots.research.ritual.engravedSword.page1title.name=Модульное оружие
+roots.research.ritual.engravedSword.page1info=Using the properties of a Runic Focus, you have created a new weapon. During the crafting of this weapon you can burn up to four different kinds of barks as additional incenses to add different buffs to the sword. You can mix and match these buffs as you please, and they will stack if you put more than one on at a time.
+roots.research.ritual.engravedSword.page2title.name=Ритуал: Выгравированный клинок
+roots.research.ritual.engravedSword.page3title.name=Шипы
+roots.research.ritual.engravedSword.page3info=Each acacia bark you burn as incense during the sword's crafting will add 2 damage to the sword.
+roots.research.ritual.engravedSword.page4title.name=Forceful
+roots.research.ritual.engravedSword.page4info=Each spruce bark you burn as incense during the sword's crafting will add additional knockback to the sword's attacks.
+roots.research.ritual.engravedSword.page5title.name=Holy
+roots.research.ritual.engravedSword.page5info=Each birch bark you burn as incense during the sword's crafting will add 3 additional damage whenever the sword attacks undead creatures.
+roots.research.ritual.engravedSword.page6title.name=Aquatic
+roots.research.ritual.engravedSword.page6info=Each jungle bark you burn as incense during the sword's crafting will add 1 drowning damage to the sword's damage output.
+roots.research.ritual.engravedSword.page7title.name=Теневой шаг
+roots.research.ritual.engravedSword.page7info=Each dark oak bark you burn as incense during the sword's crafting will increase your chance to dodge attacks made against you when holding the sword.
+
+achievement.tablet=Кому нужны страницы?
+achievement.tablet.desc=Сделать рунический планшет.
+achievement.dust=Не требуется измельчитель!
+achievement.dust.desc=Используйте ступку для изготовления лепестковой пыли.
+achievement.spellRose=Оружие с любым другим именем...
+achievement.spellRose.desc=Нанести урон используя заклинание "Шипы розы".
+achievement.spellGrowth=Я оцениваю это заклинание на 10/10/10.
+achievement.spellGrowth.desc=Get maximum growth from a single growth spell.
+achievement.spellInsanity=Ты - избранный!
+achievement.spellInsanity.desc=Заставьте монстра предать своих друзей с заклинанием "Безумие".
+achievement.maxModifiers=Все модификации!
+achievement.maxModifiers.desc=Создать заклинание с любыми тремя одиночными модификаторами.
+achievement.lotsDamage=Понёрфите это!
+achievement.lotsDamage.desc=Нанести более 80 общего урона с одним из заклинаний.
+achievement.timeStop=「МИР」
+achievement.timeStop.desc=Убить существо во время остановки времени.
+achievement.altar=Другой оригинальный™ блок
+achievement.altar.desc=Сделать литейный алтарь.
+achievement.standingStone=Ваш собственный хендж
+achievement.standingStone.desc=Создать настроенный стоячий камень.
+achievement.wildwood=Я есть РУТ
+achievement.wildwood.desc=Надеть полный комплект дикодревесной брони
+achievement.shadow=Я ночь
+achievement.shadow.desc=Forge an engraved blade with Shadow Step IV.
+achievement.spellElements=Воплощение божества.
+achievement.spellElements.desc=Вооружить кристальный посох зачарованиями "Земляной шип", "Одуванчиковый ветер", "Взрыв воды", и "Огненный шар".
+achievement.vampire=Я отвергаю мою человечность!
+achievement.vampire.desc=Drain enough life using the Life Drain ritual to heal 10 hearts.
