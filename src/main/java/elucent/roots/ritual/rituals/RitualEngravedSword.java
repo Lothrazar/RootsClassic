@@ -42,20 +42,24 @@ public class RitualEngravedSword extends RitualBase {
 				for(Item i: items){
 					if(i == (RegistryManager.acaciaTreeBark) && mods < 4){
 						addMod(stack, "spikes");
+						mods++;
 					}
 					if(i == RegistryManager.spruceTreeBark && mods < 4){
 						addMod(stack, "forceful");
+						mods++;
 					}	
 					if(i == RegistryManager.birchTreeBark && mods < 4){
 						addMod(stack, "holy");
+						mods++;
 					}	
 					if(i == RegistryManager.jungleTreeBark && mods < 4){
 						addMod(stack, "aquatic");
+						mods++;
 					}	
 					if(i == RegistryManager.darkOakTreeBark && mods < 4){
 						addMod(stack, "shadowstep");
+						mods++;
 					}	
-					mods++;
 				}
 				world.spawnEntityInWorld(item);
 			}
