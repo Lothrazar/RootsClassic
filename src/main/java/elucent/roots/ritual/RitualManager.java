@@ -770,7 +770,7 @@ public class RitualManager {
 				.addIngredient(new ItemStack(Items.STONE_SWORD))
 				.addIngredient(new ItemStack(RegistryManager.runicFocus))
 				.addIngredient(new ItemStack(Items.GLOWSTONE_DUST)));
-		rituals.add(new RitualTimeShift("timeshift", 255, 255, 94, 135, 21, 176)
+		rituals.add(new RitualTimeShift("timeshift", 240, 245, 88, 252, 162, 35)
 				.addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
 				.addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
 				.addBlock(RegistryManager.standingStoneT1, 3, 0, -3)

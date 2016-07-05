@@ -152,7 +152,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
 			}
 		}
 		else {
-			if (inventory.size() < 3){
+			if (inventory.size() < 3 && progress == 0){
 				ItemStack toAdd = new ItemStack(heldItem.getItem(),1,heldItem.getItemDamage());
 				if (heldItem.hasTagCompound()){
 					toAdd.setTagCompound(heldItem.getTagCompound());
