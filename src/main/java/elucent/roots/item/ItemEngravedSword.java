@@ -27,12 +27,12 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemEngravedSword extends ItemTool{
+public class ItemEngravedSword extends ItemSword{
 	private ToolMaterial material;
 	private String[] numerals = {"0", "I", "II", "III", "IIII"};
 	
 	public ItemEngravedSword(ToolMaterial material){
-		super(material,Sets.newHashSet(new Block[]{Blocks.WEB}));
+		super(material);
 		this.material = material;
 		this.setUnlocalizedName("engravedSword");
 		this.setCreativeTab(Roots.tab);
