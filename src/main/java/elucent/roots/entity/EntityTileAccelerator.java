@@ -16,7 +16,6 @@ public class EntityTileAccelerator extends Entity {
 	int potency = 1;
 	public EntityTileAccelerator(World world, BlockPos pos, int potency, int size) {
 		super(world);
-		System.out.println("Entity init!");
 		this.pos = pos;
 		this.potency = potency+2;
 		this.lifetime = 200+200*size;
@@ -28,11 +27,14 @@ public class EntityTileAccelerator extends Entity {
 	@Override
 	public void onUpdate(){
 		super.onUpdate();
-		System.out.println("Entity update!");
 		if (this.getEntityWorld().getTileEntity(this.pos) instanceof ITickable){
 			for (int i = 0; i < potency; i ++){
 				((ITickable)this.getEntityWorld().getTileEntity(this.pos)).update();
 			}
+		}
+		else {
+			this.kill();
+			this.getEntityWorld().removeEntity(this);
 		}
 		for (int i = 0; i < 2; i ++){
 			int side = random.nextInt(6);

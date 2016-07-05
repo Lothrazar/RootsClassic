@@ -48,19 +48,11 @@ public class ComponentOxeyeDaisy extends ComponentBase{
 			if (caster instanceof EntityPlayer){
 				BlockPos pos = Util.getRayTrace(world,(EntityPlayer)caster,4+2*(int)size);
 				if (world.getTileEntity(pos) != null && !world.isRemote){
-					EntityTileAccelerator a = new EntityTileAccelerator(world,pos,(int)potency,(int)size);
-					world.spawnEntityInWorld(a);
-				}
-				/*world.setWorldTime(world.getWorldTime()+500*(int)potency+1000);
-				if (world.getTileEntity(pos) != null){
-					if (world.getTileEntity(pos) instanceof ITickable){
-						for (int i = 0; i < 40+20*(int)potency; i ++){
-							((ITickable)world.getTileEntity(pos)).update();
-						}
+					if (world.getEntitiesWithinAABB(EntityTileAccelerator.class, new AxisAlignedBB(pos.getX()-0.1,pos.getY()-0.1,pos.getZ()-0.1,pos.getX()+0.1,pos.getY()+0.1,pos.getZ()+0.1)).size() == 0){
+						EntityTileAccelerator a = new EntityTileAccelerator(world,pos,(int)potency,(int)size);
+						world.spawnEntityInWorld(a);
 					}
 				}
-				else {
-				}*/
 			}
 		}
 	}

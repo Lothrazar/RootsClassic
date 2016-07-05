@@ -76,7 +76,7 @@ public class ItemStaff extends Item implements IManaRelatedItem {
 	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft){
 		if (timeLeft < (72000-12)){
 			if (stack.hasTagCompound()){
-				if (stack.getTagCompound().getInteger("uses") > 0){
+				if (stack.getTagCompound().getInteger("uses") >= 0){
 					stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
 					ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
 					int potency = stack.getTagCompound().getInteger("potency");
@@ -111,9 +111,6 @@ public class ItemStaff extends Item implements IManaRelatedItem {
 								Roots.proxy.spawnParticleMagicFX(world, player.posX+dx, player.posY+1.5+dy, player.posZ+dz, dx, dy, dz, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
 							}
 						}
-						if (stack.getTagCompound().getInteger("uses") == 0){
-							stack.stackSize = 0;
-						}
 					}
 				}
 			}
@@ -132,6 +129,17 @@ public class ItemStaff extends Item implements IManaRelatedItem {
 			return new ActionResult(EnumActionResult.PASS, stack);
 		}
 		return new ActionResult(EnumActionResult.FAIL, stack);
+	}
+	
+	@Override
+	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected){
+		if (stack.hasTagCompound()){
+			if (stack.getTagCompound().getInteger("uses") <= 0){
+				if (entity instanceof EntityPlayer){
+					((EntityPlayer)entity).inventory.setInventorySlotContents(slot, null);
+				}
+			}
+		}
 	}
 	
 	@Override
