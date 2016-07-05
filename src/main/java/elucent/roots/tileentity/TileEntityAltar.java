@@ -177,16 +177,38 @@ public class TileEntityAltar extends TEBase implements ITickable {
 			progress --;
 			if (getWorld().isRemote){
 				if (ritual.positions.size() > 0){
-					BlockPos pos = ritual.positions.get(random.nextInt(ritual.positions.size())).up().add(getPos().getX(),getPos().getY(),getPos().getZ());
-					Roots.proxy.spawnParticleMagicAltarLineFX(getWorld(), pos.getX()+0.5, pos.getY()+0.125, pos.getZ()+0.5, getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, ritual.secondaryColor.xCoord, ritual.secondaryColor.yCoord, ritual.secondaryColor.zCoord);
-					if(random.nextInt(10) == 0){
+					BlockPos pos = ritual.positions.get(random.nextInt(ritual.positions.size())).up().add(getPos().getX(),getPos().getY(),getPos().getZ());			
+					
+					if(random.nextInt(6) == 0){
 						Roots.proxy.spawnParticleMagicAltarLineFX(getWorld(), pos.getX()+0.5, pos.getY()+0.125, pos.getZ()+0.5, getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, ritual.color.xCoord, ritual.color.yCoord, ritual.color.zCoord);
+					} else{
+						Roots.proxy.spawnParticleMagicAltarLineFX(getWorld(), pos.getX()+0.5, pos.getY()+0.125, pos.getZ()+0.5, getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, ritual.secondaryColor.xCoord, ritual.secondaryColor.yCoord, ritual.secondaryColor.zCoord);
 					}
 				}
-				Roots.proxy.spawnParticleMagicAltarFX(getWorld(), getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, 0.125*Math.sin(Math.toRadians(360.0*(progress % 100)/100.0)), 0, 0.125*Math.cos(Math.toRadians(360.0*(progress % 100)/100.0)), ritual.color.xCoord, ritual.color.yCoord, ritual.color.zCoord);
-				Roots.proxy.spawnParticleMagicAltarFX(getWorld(), getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, 0.125*Math.sin(Math.toRadians(90.0+360.0*(progress % 100)/100.0)), 0, 0.125*Math.cos(Math.toRadians(90.0+360.0*(progress % 100)/100.0)), ritual.color.xCoord, ritual.color.yCoord, ritual.color.zCoord);
-				Roots.proxy.spawnParticleMagicAltarFX(getWorld(), getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, 0.125*Math.sin(Math.toRadians(180.0+360.0*(progress % 100)/100.0)), 0, 0.125*Math.cos(Math.toRadians(180.0+360.0*(progress % 100)/100.0)), ritual.color.xCoord, ritual.color.yCoord, ritual.color.zCoord);
-				Roots.proxy.spawnParticleMagicAltarFX(getWorld(), getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, 0.125*Math.sin(Math.toRadians(270.0+360.0*(progress % 100)/100.0)), 0, 0.125*Math.cos(Math.toRadians(270.0+360.0*(progress % 100)/100.0)), ritual.color.xCoord, ritual.color.yCoord, ritual.color.zCoord);
+				if(random.nextInt(4) == 0){
+					Roots.proxy.spawnParticleMagicAltarFX(getWorld(), getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, 0.125*Math.sin(Math.toRadians(360.0*(progress % 100)/100.0)), 0, 0.125*Math.cos(Math.toRadians(360.0*(progress % 100)/100.0)), ritual.color.xCoord, ritual.color.yCoord, ritual.color.zCoord);
+				} else{
+					Roots.proxy.spawnParticleMagicAltarFX(getWorld(), getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, 0.125*Math.sin(Math.toRadians(360.0*(progress % 100)/100.0)), 0, 0.125*Math.cos(Math.toRadians(360.0*(progress % 100)/100.0)), ritual.secondaryColor.xCoord, ritual.secondaryColor.yCoord, ritual.secondaryColor.zCoord);
+				}
+				if(random.nextInt(4) == 0){
+					Roots.proxy.spawnParticleMagicAltarFX(getWorld(), getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, 0.125*Math.sin(Math.toRadians(90.0+360.0*(progress % 100)/100.0)), 0, 0.125*Math.cos(Math.toRadians(90.0+360.0*(progress % 100)/100.0)), ritual.color.xCoord, ritual.color.yCoord, ritual.color.zCoord);
+				} else{
+					Roots.proxy.spawnParticleMagicAltarFX(getWorld(), getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, 0.125*Math.sin(Math.toRadians(90.0+360.0*(progress % 100)/100.0)), 0, 0.125*Math.cos(Math.toRadians(90.0+360.0*(progress % 100)/100.0)), ritual.secondaryColor.xCoord, ritual.secondaryColor.yCoord, ritual.secondaryColor.zCoord);
+				}
+				if(random.nextInt(4) == 0){
+					Roots.proxy.spawnParticleMagicAltarFX(getWorld(), getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, 0.125*Math.sin(Math.toRadians(180.0+360.0*(progress % 100)/100.0)), 0, 0.125*Math.cos(Math.toRadians(180.0+360.0*(progress % 100)/100.0)), ritual.color.xCoord, ritual.color.yCoord, ritual.color.zCoord);
+				} else{
+					Roots.proxy.spawnParticleMagicAltarFX(getWorld(), getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, 0.125*Math.sin(Math.toRadians(180.0+360.0*(progress % 100)/100.0)), 0, 0.125*Math.cos(Math.toRadians(180.0+360.0*(progress % 100)/100.0)), ritual.secondaryColor.xCoord, ritual.secondaryColor.yCoord, ritual.secondaryColor.zCoord);
+				}
+				if(random.nextInt(4) == 0){
+					Roots.proxy.spawnParticleMagicAltarFX(getWorld(), getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, 0.125*Math.sin(Math.toRadians(270.0+360.0*(progress % 100)/100.0)), 0, 0.125*Math.cos(Math.toRadians(270.0+360.0*(progress % 100)/100.0)), ritual.color.xCoord, ritual.color.yCoord, ritual.color.zCoord);
+				} else{
+					Roots.proxy.spawnParticleMagicAltarFX(getWorld(), getPos().getX()+0.5, getPos().getY()+0.875, getPos().getZ()+0.5, 0.125*Math.sin(Math.toRadians(270.0+360.0*(progress % 100)/100.0)), 0, 0.125*Math.cos(Math.toRadians(270.0+360.0*(progress % 100)/100.0)), ritual.secondaryColor.xCoord, ritual.secondaryColor.yCoord, ritual.secondaryColor.zCoord);
+				}
+				
+				
+				
+				
 			}
 			if (progress % 40 == 0){
 				incenses = RitualManager.getIncenses(getWorld(), getPos());
