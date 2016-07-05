@@ -1,10 +1,8 @@
 package elucent.roots.ritual;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import elucent.roots.RegistryManager;
-import elucent.roots.Util;
 import elucent.roots.ritual.rituals.RitualCauseRain;
 import elucent.roots.ritual.rituals.RitualCrafting;
 import elucent.roots.ritual.rituals.RitualEngravedSword;
@@ -15,10 +13,8 @@ import elucent.roots.ritual.rituals.RitualLifeDrain;
 import elucent.roots.ritual.rituals.RitualMassBreed;
 import elucent.roots.ritual.rituals.RitualSacrifice;
 import elucent.roots.ritual.rituals.RitualSummoning;
-import elucent.roots.tileentity.TileEntityAltar;
+import elucent.roots.ritual.rituals.RitualTimeShift;
 import elucent.roots.tileentity.TileEntityBrazier;
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -36,8 +32,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class RitualManager {
 	public static ArrayList<RitualBase> rituals = new ArrayList<RitualBase>();
@@ -776,6 +770,17 @@ public class RitualManager {
 				.addIngredient(new ItemStack(Items.STONE_SWORD))
 				.addIngredient(new ItemStack(RegistryManager.runicFocus))
 				.addIngredient(new ItemStack(Items.GLOWSTONE_DUST)));
+		rituals.add(new RitualTimeShift("timeshift", 255, 255, 94, 135, 21, 176)
+				.addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
+				.addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
+				.addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
+				.addBlock(RegistryManager.standingStoneT1, 3, 0, 3)
+				.addBlock(RegistryManager.standingStoneT1, 3, 0, 0)
+				.addBlock(RegistryManager.standingStoneT1, -3, 0, 0)
+				.addBlock(RegistryManager.standingStoneT1, 0, 0, 3)
+				.addBlock(RegistryManager.standingStoneT1, 0, 0, -3)
+				.addIngredient(new ItemStack(Items.CLOCK))
+				.addIngredient(new ItemStack(Items.IRON_INGOT)));
 	}
 	
 	public static RitualBase getRitualFromName(String name){

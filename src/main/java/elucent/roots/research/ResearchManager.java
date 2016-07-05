@@ -468,6 +468,13 @@ public class ResearchManager {
 								    .addDisplayItem(new ItemStack(RegistryManager.darkOakTreeBark))
 								    )
 						   )
+				 .addResearch(new ResearchBase("timeshift", new ItemStack(Items.CLOCK))
+						   .addPage(new ResearchPage()
+								    )
+						   .addPage(new ResearchPage()
+								    .addAltarRecipe(RitualManager.getRitualFromName("timeshift"))
+								    )
+	                       )
 			  );
 	}
 	public static ResearchBase getResearch(String groupName, String researchName){

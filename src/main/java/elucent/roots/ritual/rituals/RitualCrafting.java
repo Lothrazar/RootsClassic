@@ -25,6 +25,10 @@ public class RitualCrafting extends RitualBase {
 		super(name, r, g, b);
 	}
 	
+	public RitualCrafting(String name, double r, double g, double b, double r2, double g2, double b2) {
+		super(name, r, g, b, r2, g2, b2);
+	}
+	
 	@Override
 	public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses){
 		if (Util.itemListsMatchWithSize(inventory, this.ingredients)){

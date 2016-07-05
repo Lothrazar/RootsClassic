@@ -19,11 +19,19 @@ public class RitualBase {
 	public ArrayList<ItemStack> incenses = new ArrayList<ItemStack>();
 	public ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 	public Vec3d color = new Vec3d(255,255,255);
+	public Vec3d secondaryColor = new Vec3d(255,255,255);
 	public String name = "";
 	
 	public RitualBase(String parName, double r, double g, double b){
 		name = parName;
 		color = new Vec3d(r,g,b);
+		secondaryColor = new Vec3d(r,g,b);
+	}
+	
+	public RitualBase(String parName, double r, double g, double b, double r2, double g2, double b2){
+		name = parName;
+		color = new Vec3d(r,g,b);
+		secondaryColor = new Vec3d(r2,g2,b2);
 	}
 	
 	public RitualBase addBlock(Block b, int x, int y, int z){

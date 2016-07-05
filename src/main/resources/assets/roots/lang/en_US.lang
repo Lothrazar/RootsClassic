@@ -423,6 +423,11 @@ roots.research.ritual.engravedSword.page6info=Each jungle bark you burn as incen
 roots.research.ritual.engravedSword.page7title.name=Shadow Step
 roots.research.ritual.engravedSword.page7info=Each dark oak bark you burn as incense during the sword's crafting will increase your chance to dodge attacks made against you when holding the sword.
 
+roots.research.ritual.timeshift.name=Time Shift
+roots.research.ritual.timeshift.page1title.name=Timey Wimey Stuff
+roots.research.ritual.timeshift.page1info=I'll let you change this Elucent
+roots.research.ritual.timeshift.page2title.name=Ritual: Time Shift
+
 achievement.tablet=Who Needs Pages?
 achievement.tablet.desc=Craft a Runic Tablet.
 achievement.dust=No Macerator Required!
