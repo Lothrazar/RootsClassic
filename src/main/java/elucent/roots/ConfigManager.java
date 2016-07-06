@@ -12,6 +12,7 @@ public class ConfigManager {
 	public static String[] disabledComponents;
 	public static int chargeTicks, staffUses, efficiencyBonus;
 	public static int manaBarOffset;
+	public static boolean disablePVP;
 	
 	public static void load(FMLPreInitializationEvent event){
     	Configuration config = new Configuration(event.getSuggestedConfigurationFile());
@@ -32,6 +33,7 @@ public class ConfigManager {
     	disabledComponents = config.getStringList("disabledComponents", "spells", new String[]{
     			"<example>","<another example>"
     			}, "A string list of all disabled components. Valid component names include: \"allium\", \"apple\", \"azurebluet\", \"blueorchid\", \"chorus\", \"dandelion\", \"flareorchid\", \"lilac\", \"lilypad\", \"midnightbloom\", \"netherwart\", \"orangetulip\", \"oxeyedaisy\", \"peony\", \"pinktulip\", \"poisonouspotato\", \"poppy\", \"radiantdaisy\", \"redtulip\", \"rosebush\", \"sunflower\", \"whitetulip\"");
+    	disablePVP = config.getBoolean("disablePVP", "spells", false, "Whether or not damaging spells can affect players.");
     	config.save();
 	}
 }

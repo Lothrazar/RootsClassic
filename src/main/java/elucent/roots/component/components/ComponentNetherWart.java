@@ -3,6 +3,7 @@ package elucent.roots.component.components;
 import java.util.ArrayList;
 import java.util.Random;
 
+import elucent.roots.ConfigManager;
 import elucent.roots.PlayerManager;
 import elucent.roots.RegistryManager;
 import elucent.roots.component.ComponentBase;
@@ -37,7 +38,7 @@ public class ComponentNetherWart extends ComponentBase{
 			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					if (targets.get(i) instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()){
+					if (targets.get(i) instanceof EntityPlayer && ConfigManager.disablePVP){
 						
 					}
 					else {

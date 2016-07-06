@@ -3,6 +3,7 @@ package elucent.roots.component.components;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import elucent.roots.ConfigManager;
 import elucent.roots.PlayerManager;
 import elucent.roots.RegistryManager;
 import elucent.roots.component.ComponentBase;
@@ -29,7 +30,7 @@ public class ComponentRose extends ComponentBase {
 			int damageDealt = 0;
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					if (targets.get(i) instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()){
+					if (targets.get(i) instanceof EntityPlayer && ConfigManager.disablePVP){
 						
 					}
 					else {

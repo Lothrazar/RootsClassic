@@ -168,6 +168,7 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
 				}
 			}
 		}
+		EntityPlayer p;
 	}
 	
 	public static void createData(ItemStack stack){
@@ -239,9 +240,9 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
 			ComponentBase comp = ComponentManager.getComponentFromName(this.getEffect(stack));
 			if (comp != null){
 				tooltip.add(TextFormatting.GOLD + I18n.format("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
-				tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("potency") + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
-				tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("efficiency") + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
-				tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("size") + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
+				tooltip.add(TextFormatting.RED + "  +" + this.getPotency(stack) + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
+				tooltip.add(TextFormatting.RED + "  +" + this.getEfficiency(stack) + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
+				tooltip.add(TextFormatting.RED + "  +" + this.getSize(stack) + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
 			}
 		}
 	}

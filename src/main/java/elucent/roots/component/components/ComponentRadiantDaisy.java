@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.google.common.collect.Lists;
 
+import elucent.roots.ConfigManager;
 import elucent.roots.PlayerManager;
 import elucent.roots.RegistryManager;
 import elucent.roots.Roots;
@@ -57,7 +58,7 @@ public class ComponentRadiantDaisy extends ComponentBase{
 				if (targets.size() > 0){
 					for (int j = 0; j < targets.size() && !didHit; j ++){
 						if (targets.get(j).getUniqueID() != player.getUniqueID()){
-							if (targets.get(j) instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()){
+							if (targets.get(j) instanceof EntityPlayer && ConfigManager.disablePVP){
 								
 							}
 							else {

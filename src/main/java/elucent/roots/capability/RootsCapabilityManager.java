@@ -1,12 +1,15 @@
 package elucent.roots.capability;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -20,14 +23,17 @@ public class RootsCapabilityManager {
 	
 	@SubscribeEvent
 	public void onAddCapabilities(AttachCapabilitiesEvent.Entity e){
-		class ManaCapabilityProvider implements ICapabilityProvider, IManaCapability {
+		class ManaCapabilityProvider implements ICapabilityProvider, INBTSerializable, IManaCapability {
             private EntityPlayer player;
             
-            float mana = 40;
-            float maxMana = 40;
+            float mana;
+            float maxMana;
 
-            ManaCapabilityProvider(EntityPlayer player){
-                this.player = player;
+            ManaCapabilityProvider(boolean isNew){
+                if (isNew){
+                	mana = 40;
+                	maxMana = 40;
+                }
             }
             
             @Override
@@ -68,12 +74,32 @@ public class RootsCapabilityManager {
 			public void setMaxMana(float maxMana) {
 				this.maxMana = maxMana;
 			}
+
+			@Override
+			public NBTBase serializeNBT() {
+				NBTTagCompound tag = new NBTTagCompound();
+				tag.setFloat("maxMana", getMaxMana());
+				tag.setFloat("mana", getMana());
+				return tag;
+			}
+
+			@Override
+			public void deserializeNBT(NBTBase nbt) {
+				if (nbt instanceof NBTTagCompound){
+					System.out.println("Loading NBT!");
+					NBTTagCompound tag = (NBTTagCompound)nbt;
+					if (tag.hasKey("mana")){
+						setMana(tag.getFloat("mana"));
+					}
+					if (tag.hasKey("maxMana")){
+						setMaxMana(tag.getFloat("maxMana"));
+					}
+				}
+			}
         }
 		
 		if (e.getEntity() instanceof EntityPlayer){
-			ManaCapabilityProvider provider = new ManaCapabilityProvider((EntityPlayer)e.getEntity());
-			provider.setMana(40.0f);
-			provider.setMaxMana(40.0f);
+			ManaCapabilityProvider provider = new ManaCapabilityProvider(!e.getEntity().hasCapability(manaCapability, null));
 			e.addCapability(new ResourceLocation("roots:manaCapability"), provider);
 		}
 	}

@@ -1,8 +1,8 @@
 package elucent.roots.capability;
 
 public class DefaultManaCapability implements IManaCapability {
-	public float maxMana = 0;
-	public float mana = 0;
+	public float maxMana = 40;
+	public float mana = 40;
 	public DefaultManaCapability(float maxMana, float mana){
 		this.maxMana = maxMana;
 		this.mana = mana;
