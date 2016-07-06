@@ -124,11 +124,12 @@ public class ItemStaff extends Item implements IManaRelatedItem {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
-		if (Minecraft.getMinecraft().currentScreen == null){
+		if(world.isRemote && Minecraft.getMinecraft().currentScreen != null){
+			return new ActionResult(EnumActionResult.FAIL, stack);
+		} else{
 			player.setActiveHand(hand);
 			return new ActionResult(EnumActionResult.PASS, stack);
 		}
-		return new ActionResult(EnumActionResult.FAIL, stack);
 	}
 	
 	@Override
