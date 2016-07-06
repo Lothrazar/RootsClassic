@@ -32,7 +32,7 @@ public class RitualEngravedSword extends RitualBase {
 			items.add(i.getItem());
 		}
 		if (Util.itemListsMatchWithSize(inventory, this.ingredients)){
-			ItemStack toSpawn = result;
+			ItemStack toSpawn = result.copy();
 			if (!world.isRemote){
 				int mods = 0;
 				EntityItem item = new EntityItem(world,pos.getX()+0.5,pos.getY()+1.5,pos.getZ()+0.5,toSpawn);

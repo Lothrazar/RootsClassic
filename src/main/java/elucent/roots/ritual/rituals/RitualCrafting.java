@@ -32,7 +32,7 @@ public class RitualCrafting extends RitualBase {
 	@Override
 	public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses){
 		if (Util.itemListsMatchWithSize(inventory, this.ingredients)){
-			ItemStack toSpawn = result;
+			ItemStack toSpawn = result.copy();
 			if (!world.isRemote){
 				EntityItem item = new EntityItem(world,pos.getX()+0.5,pos.getY()+1.5,pos.getZ()+0.5,toSpawn);
 				item.forceSpawn = true;
