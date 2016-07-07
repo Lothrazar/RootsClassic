@@ -1,5 +1,6 @@
 package elucent.roots;
 
+import elucent.roots.block.BlockAestheticStandingStone;
 import elucent.roots.block.BlockAltar;
 import elucent.roots.block.BlockBrazier;
 import elucent.roots.block.BlockFlareOrchid;
@@ -40,6 +41,7 @@ import elucent.roots.item.ItemRunicFocus;
 import elucent.roots.item.ItemStaff;
 import elucent.roots.item.ItemTreeBark;
 import elucent.roots.item.RootsItemFood;
+import elucent.roots.tileentity.TileEntityAestheticStandingStone;
 import elucent.roots.tileentity.TileEntityAltar;
 import elucent.roots.tileentity.TileEntityAltarRenderer;
 import elucent.roots.tileentity.TileEntityBrazier;
@@ -81,7 +83,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 public class RegistryManager {
 	public static Item runicFocus, rootyStew, healingPoultice, mutagen, growthSalve, runedTablet, druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots, livingPickaxe, livingSword, livingHoe, livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig, infernalStem, dragonsEye,druidKnife,oakTreeBark,spruceTreeBark,birchTreeBark,jungleTreeBark,acaciaTreeBark,darkOakTreeBark,nightshade,blackCurrant,redCurrant,whiteCurrant,elderBerry, engravedSword;
 	public static Item manaResearchIcon;
-	public static Block flareOrchid, radiantDaisy, standingStoneGrower, standingStoneHealer, standingStoneIgniter, standingStoneEntangler, standingStoneAccelerator, standingStoneRepulsor, standingStoneVacuum, midnightBloom, mortar, imbuer, altar, druidChalice, standingStoneT1, standingStoneT2, brazier;
+	public static Block flareOrchid, radiantDaisy, standingStoneGrower, standingStoneHealer, standingStoneIgniter, standingStoneEntangler, standingStoneAccelerator, standingStoneAesthetic, standingStoneRepulsor, standingStoneVacuum, midnightBloom, mortar, imbuer, altar, druidChalice, standingStoneT1, standingStoneT2, brazier;
 	
 	public static Achievement achieveDust, achieveTablet, achieveSpellRose, achieveSpellGrowth, achieveSpellInsanity, achieveMaxModifiers, achieveLotsDamage, achieveTimeStop, achieveAltar, achieveStandingStone, achieveWildwood, achieveShadow, achieveSpellElements, achieveVampire;
 	
@@ -148,6 +150,7 @@ public class RegistryManager {
 		GameRegistry.registerBlock(standingStoneVacuum = new BlockStandingStoneVacuum(),"standingStoneVacuum");
 		GameRegistry.registerBlock(standingStoneRepulsor = new BlockStandingStoneRepulsor(),"standingStoneRepulsor");
 		GameRegistry.registerBlock(standingStoneAccelerator = new BlockStandingStoneAccelerator(),"standingStoneAccelerator");
+		GameRegistry.registerBlock(standingStoneAesthetic = new BlockAestheticStandingStone(),"standingStoneAesthetic");
 		GameRegistry.registerBlock(standingStoneEntangler = new BlockStandingStoneEntangler(),"standingStoneEntangler");
 		GameRegistry.registerBlock(standingStoneIgniter = new BlockStandingStoneIgniter(),"standingStoneIgniter");
 		GameRegistry.registerBlock(standingStoneGrower = new BlockStandingStoneGrower(),"standingStoneGrower");
@@ -167,6 +170,7 @@ public class RegistryManager {
 		GameRegistry.registerTileEntity(TileEntityStandingStoneVacuum.class,"TileEntityStandingStoneVacuum");
 		GameRegistry.registerTileEntity(TileEntityStandingStoneRepulsor.class,"TileEntityStandingStoneRepulsor");
 		GameRegistry.registerTileEntity(TileEntityStandingStoneAccelerator.class,"TileEntityStandingStoneAccelerator");
+		GameRegistry.registerTileEntity(TileEntityAestheticStandingStone.class,"TileEntityAestheticStandingStone");
 		GameRegistry.registerTileEntity(TileEntityStandingStoneEntangler.class,"TileEntityStandingStoneEntangler");
 		GameRegistry.registerTileEntity(TileEntityStandingStoneGrower.class,"TileEntityStandingStoneGrower");
 		GameRegistry.registerTileEntity(TileEntityStandingStoneIgniter.class,"TileEntityStandingStoneIgniter");
@@ -310,6 +314,7 @@ public class RegistryManager {
 		((BlockStandingStoneVacuum)standingStoneVacuum).initModel();
 		((BlockStandingStoneRepulsor)standingStoneRepulsor).initModel();
 		((BlockStandingStoneAccelerator)standingStoneAccelerator).initModel();
+		((BlockAestheticStandingStone)standingStoneAesthetic).initModel();
 		((BlockStandingStoneEntangler)standingStoneEntangler).initModel();
 		((BlockStandingStoneGrower)standingStoneGrower).initModel();
 		((BlockStandingStoneIgniter)standingStoneIgniter).initModel();
