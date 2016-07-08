@@ -48,12 +48,16 @@ public class ComponentRadiantDaisy extends ComponentBase{
 			double posX = player.posX+player.getLookVec().xCoord*0.5;
 			double posY = player.posY+1.5+player.getLookVec().yCoord*0.5;
 			double posZ = player.posZ+player.getLookVec().zCoord*0.5;
+			double potencyMod = 0;
+			double motionX = player.getLookVec().xCoord*0.25;
+			double motionY = player.getLookVec().yCoord*0.25;
+			double motionZ = player.getLookVec().zCoord*0.25;
 			for (int i = 0; i < 200+100*size; i ++){
 				boolean didHit = false;
 				Roots.proxy.spawnParticleMagicAuraFX(player.getEntityWorld(), posX, posY, posZ, 0, 0, 0, 255, 255, 255);
-				posX += player.getLookVec().xCoord*0.25;
-				posY += player.getLookVec().yCoord*0.25;
-				posZ += player.getLookVec().zCoord*0.25;
+				posX += motionX;
+				posY += motionY;
+				posZ += motionZ;
 				List<EntityLivingBase> targets = (List<EntityLivingBase>)player.getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX-0.25,posY-0.25,posZ-0.25,posX+0.25,posY+0.25,posZ+0.25));
 				if (targets.size() > 0){
 					for (int j = 0; j < targets.size() && !didHit; j ++){
@@ -63,7 +67,8 @@ public class ComponentRadiantDaisy extends ComponentBase{
 							}
 							else {
 								didHit = true;
-								targets.get(j).attackEntityFrom(DamageSource.magic, (float) (12+3.0*potency));
+								targets.get(j).attackEntityFrom(DamageSource.generic, (float) (12+3.0*(potency+potencyMod)));
+								targets.get(j).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("blindness"),40+(int)(20.0*(potency+potencyMod)),0));
 								targets.get(j).setLastAttacker(player);
 								targets.get(j).setRevengeTarget((EntityLivingBase)player);
 							}
@@ -71,7 +76,30 @@ public class ComponentRadiantDaisy extends ComponentBase{
 					}
 				}
 				if (player.getEntityWorld().getBlockState(new BlockPos(posX,posY,posZ)).isFullCube()){
-					didHit = true;
+					if (potency-potencyMod == -1.0){
+						didHit = true;
+					}
+					else {
+						potencyMod -= 0.5;
+						if (!player.getEntityWorld().getBlockState(new BlockPos(posX+1.0,posY,posZ)).isFullCube() && motionX < 0){
+							motionX *= -1;
+						}
+						if (!player.getEntityWorld().getBlockState(new BlockPos(posX-1.0,posY,posZ)).isFullCube() && motionX > 0){
+							motionX *= -1;
+						}
+						if (!player.getEntityWorld().getBlockState(new BlockPos(posX,posY+1.0,posZ)).isFullCube() && motionY < 0){
+							motionY *= -1;
+						}
+						if (!player.getEntityWorld().getBlockState(new BlockPos(posX,posY-1.0,posZ)).isFullCube() && motionY > 0){
+							motionY *= -1;
+						}
+						if (!player.getEntityWorld().getBlockState(new BlockPos(posX,posY,posZ+1.0)).isFullCube() && motionZ < 0){
+							motionZ *= -1;
+						}
+						if (!player.getEntityWorld().getBlockState(new BlockPos(posX,posY,posZ-1.0)).isFullCube() && motionZ > 0){
+							motionZ *= -1;
+						}
+					}
 				}
 				if (didHit){
 					return;

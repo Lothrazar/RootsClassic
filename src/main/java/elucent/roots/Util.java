@@ -6,10 +6,12 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
@@ -33,6 +35,42 @@ public class Util {
 			}
 		}
 		return new BlockPos(x,y,z);
+	}
+	
+	public static void addTickTracking(Entity entity){
+		if (entity.getEntityData().hasKey("RMOD_trackTicks")){
+			entity.getEntityData().setInteger("RMOD_trackTicks", entity.getEntityData().getInteger("RMOD_trackTicks")+1);
+		}
+		else {
+			entity.getEntityData().setInteger("RMOD_trackTicks", 1);
+		}
+	}
+	
+	public static void decrementTickTracking(Entity entity){
+		if (entity.getEntityData().hasKey("RMOD_trackTicks")){
+			entity.getEntityData().setInteger("RMOD_trackTicks", entity.getEntityData().getInteger("RMOD_trackTicks")-1);
+			if (entity.getEntityData().getInteger("RMOD_trackTicks") == 0){
+				entity.removeTag("RMOD_trackTicks");
+			}
+		}
+	}
+	
+	public static Entity getRayTraceEntity(World world, EntityPlayer player, int reachDistance){
+		double x = player.posX;
+		double y = player.posY + player.getEyeHeight();
+		double z = player.posZ;
+		for (int i = 0; i < reachDistance*10.0; i ++){
+			x += player.getLookVec().xCoord*0.1;
+			y += player.getLookVec().yCoord*0.1;
+			z += player.getLookVec().zCoord*0.1;
+			List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x-0.1,y-0.1,z-0.1,x+0.1,y+0.1,z+0.1));
+			if (entities.size() > 0){
+				if (entities.get(0).getUniqueID() != player.getUniqueID()){
+					return entities.get(0);
+				}
+			}
+		}
+		return null;
 	}
 	
 	public static void initOres(){

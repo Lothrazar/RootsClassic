@@ -30,17 +30,11 @@ public class ItemRunedTablet extends Item {
 	}
 	
 	@Override
-	public EnumAction getItemUseAction(ItemStack stack){
-		return EnumAction.BLOCK;
-	}
-	
-	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand){
 		if (hand == EnumHand.MAIN_HAND){
 			if (!player.hasAchievement(RegistryManager.achieveTablet)){
 				PlayerManager.addAchievement(player, RegistryManager.achieveTablet);
 			}
-			player.setActiveHand(hand);
 			player.openGui(Roots.instance, 1, world, (int)player.posX, (int)player.posY, (int)player.posZ);
 		}
 		return new ActionResult(EnumActionResult.PASS, stack);

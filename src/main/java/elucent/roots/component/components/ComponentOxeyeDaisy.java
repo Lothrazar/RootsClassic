@@ -11,6 +11,7 @@ import elucent.roots.Util;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.ComponentEffect;
 import elucent.roots.component.EnumCastType;
+import elucent.roots.entity.EntityAccelerator;
 import elucent.roots.entity.EntityTileAccelerator;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -46,11 +47,22 @@ public class ComponentOxeyeDaisy extends ComponentBase{
 	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
 		if (type == EnumCastType.SPELL){	
 			if (caster instanceof EntityPlayer){
-				BlockPos pos = Util.getRayTrace(world,(EntityPlayer)caster,4+2*(int)size);
-				if (world.getTileEntity(pos) != null && !world.isRemote){
-					if (world.getEntitiesWithinAABB(EntityTileAccelerator.class, new AxisAlignedBB(pos.getX()-0.1,pos.getY()-0.1,pos.getZ()-0.1,pos.getX()+0.1,pos.getY()+0.1,pos.getZ()+0.1)).size() == 0){
-						EntityTileAccelerator a = new EntityTileAccelerator(world,pos,(int)potency,(int)size);
-						world.spawnEntityInWorld(a);
+				Entity entity = Util.getRayTraceEntity(world, (EntityPlayer)caster, 4+2*(int)size);
+				if (entity != null){
+					if (!world.isRemote){
+						if (world.getEntitiesWithinAABB(EntityAccelerator.class, new AxisAlignedBB(entity.posX-0.1,entity.posY-0.1,entity.posZ-0.1,entity.posX+0.1,entity.posY+0.1,entity.posZ+0.1)).size() == 0){
+							EntityAccelerator a = new EntityAccelerator(world,entity,(int)potency,(int)size);
+							world.spawnEntityInWorld(a);
+						}
+					}
+				}
+				else {
+					BlockPos pos = Util.getRayTrace(world,(EntityPlayer)caster,4+2*(int)size);
+					if (world.getTileEntity(pos) != null && !world.isRemote){
+						if (world.getEntitiesWithinAABB(EntityTileAccelerator.class, new AxisAlignedBB(pos.getX()-0.1,pos.getY()-0.1,pos.getZ()-0.1,pos.getX()+0.1,pos.getY()+0.1,pos.getZ()+0.1)).size() == 0){
+							EntityTileAccelerator a = new EntityTileAccelerator(world,pos,(int)potency,(int)size);
+							world.spawnEntityInWorld(a);
+						}
 					}
 				}
 			}

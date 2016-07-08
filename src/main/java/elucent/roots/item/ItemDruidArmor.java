@@ -84,9 +84,6 @@ public class ItemDruidArmor extends ItemArmor {
 		if (stack.isItemDamaged() && rnd.nextInt(80) == 0){
 			stack.setItemDamage(stack.getItemDamage()-1);
 		}
-		if (rnd.nextInt(100) == 0){
-			player.heal(1);
-		}
 		if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null
 				&& player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
 				&& player.getItemStackFromSlot(EntityEquipmentSlot.LEGS) != null

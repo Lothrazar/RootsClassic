@@ -44,6 +44,7 @@ public class ComponentMidnightBloom extends ComponentBase{
 			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size*6.0,y-size*6.0,z-size*6.0,x+size*6.0,y+size*6.0,z+size*6.0));
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
+					targets.get(i).getEntityData().setBoolean("RMOD_trackTicks", false);
 					targets.get(i).getEntityData().setInteger("RMOD_skipTicks", 40+40*(int)potency);
 				}
 			}

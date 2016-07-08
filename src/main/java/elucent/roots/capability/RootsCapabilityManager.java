@@ -86,13 +86,13 @@ public class RootsCapabilityManager {
 			@Override
 			public void deserializeNBT(NBTBase nbt) {
 				if (nbt instanceof NBTTagCompound){
-					System.out.println("Loading NBT!");
 					NBTTagCompound tag = (NBTTagCompound)nbt;
-					if (tag.hasKey("mana")){
-						setMana(tag.getFloat("mana"));
-					}
+					//System.out.println("Loading NBT! Mana=" + tag.getFloat("mana") + "/" + tag.getFloat("maxMana"));
 					if (tag.hasKey("maxMana")){
 						setMaxMana(tag.getFloat("maxMana"));
+					}
+					if (tag.hasKey("mana")){
+						setMana(tag.getFloat("mana"));
 					}
 				}
 			}

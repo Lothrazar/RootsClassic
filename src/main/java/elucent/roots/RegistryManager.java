@@ -16,6 +16,7 @@ import elucent.roots.block.BlockStandingStoneRepulsor;
 import elucent.roots.block.BlockStandingStoneT1;
 import elucent.roots.block.BlockStandingStoneT2;
 import elucent.roots.block.BlockStandingStoneVacuum;
+import elucent.roots.entity.EntityAccelerator;
 import elucent.roots.entity.EntityTileAccelerator;
 import elucent.roots.item.DustPetal;
 import elucent.roots.item.ItemCrystalStaff;
@@ -177,6 +178,7 @@ public class RegistryManager {
 	
 	public static void registerEntities(){
 		EntityRegistry.registerModEntity(EntityTileAccelerator.class, "tileAccelerator", 0, Roots.instance, 64, 20, true);
+		EntityRegistry.registerModEntity(EntityAccelerator.class, "entityAccelerator", 0, Roots.instance, 64, 20, true);
 	}
 	
 	public static void registerRecipes(){

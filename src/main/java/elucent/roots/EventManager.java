@@ -262,20 +262,23 @@ public class EventManager {
 				}
 			}
 		}
-		if (event.getEntityLiving().getEntityData().hasKey("RMOD_skipTicks")){
-			if (event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks") > 0){
-				if (event.getEntityLiving().getHealth() <= 0){
-					if (event.getEntityLiving().getLastAttacker() instanceof EntityPlayer){
-						if (!((EntityPlayer)event.getEntityLiving().getLastAttacker()).hasAchievement(RegistryManager.achieveTimeStop)){
-							PlayerManager.addAchievement((EntityPlayer)event.getEntityLiving().getLastAttacker(), RegistryManager.achieveTimeStop);
+		if (event.getEntityLiving().getEntityData().hasKey("RMOD_trackTicks")){
+			if (event.getEntityLiving().getEntityData().hasKey("RMOD_skipTicks")){
+				if (event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks") > 0){
+					if (event.getEntityLiving().getHealth() <= 0){
+						if (event.getEntityLiving().getLastAttacker() instanceof EntityPlayer){
+							if (!((EntityPlayer)event.getEntityLiving().getLastAttacker()).hasAchievement(RegistryManager.achieveTimeStop)){
+								PlayerManager.addAchievement((EntityPlayer)event.getEntityLiving().getLastAttacker(), RegistryManager.achieveTimeStop);
+							}
 						}
 					}
+					event.getEntityLiving().getEntityData().setInteger("RMOD_skipTicks", event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks")-1);
+					if (event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks") <= 0){
+						event.getEntityLiving().getEntityData().removeTag("RMOD_skipTicks");
+						Util.decrementTickTracking(event.getEntityLiving());
+					}
+					event.setCanceled(true);
 				}
-				event.getEntityLiving().getEntityData().setInteger("RMOD_skipTicks", event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks")-1);
-				if (event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks") <= 0){
-					event.getEntityLiving().getEntityData().removeTag("RMOD_skipTicks");
-				}
-				event.setCanceled(true);
 			}
 		}
 	}
@@ -343,13 +346,7 @@ public class EventManager {
 					}
 				}
 			}
-		}
-		
-	}
-
-	@SubscribeEvent
-	public void onTick(TickEvent.ServerTickEvent event){
-		PlayerManager.updateEffects();
+		}	
 	}
 	
 	@SideOnly(Side.CLIENT)

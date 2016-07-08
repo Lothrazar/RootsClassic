@@ -6,6 +6,7 @@ import java.util.UUID;
 import elucent.roots.ConfigManager;
 import elucent.roots.PlayerManager;
 import elucent.roots.RegistryManager;
+import elucent.roots.Util;
 import elucent.roots.component.ComponentBase;
 import elucent.roots.component.EnumCastType;
 import net.minecraft.entity.Entity;
@@ -31,7 +32,6 @@ public class ComponentRose extends ComponentBase {
 			for (int i = 0; i < targets.size(); i ++){
 				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
 					if (targets.get(i) instanceof EntityPlayer && ConfigManager.disablePVP){
-						
 					}
 					else {
 						if (caster instanceof EntityPlayer){
@@ -39,7 +39,9 @@ public class ComponentRose extends ComponentBase {
 								PlayerManager.addAchievement(((EntityPlayer)caster), RegistryManager.achieveSpellRose);
 							}
 						}
-						targets.get(i).attackEntityFrom(DamageSource.cactus, (int)(7+4*potency));
+						targets.get(i).attackEntityFrom(DamageSource.cactus, (int)(9+2*potency));
+						Util.addTickTracking(targets.get(i));
+						targets.get(i).getEntityData().setFloat("RMOD_thornsDamage", 2.0f+(float)potency);
 						targets.get(i).attackEntityAsMob(caster);
 						targets.get(i).setLastAttacker(caster);
 						targets.get(i).setRevengeTarget((EntityLivingBase)caster);
