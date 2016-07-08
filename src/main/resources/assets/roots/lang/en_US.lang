@@ -59,6 +59,7 @@ tile.standingStoneAccelerator.name=Accelerating Standing Stone
 tile.standingStoneIgniter.name=Igniting Standing Stone
 tile.standingStoneGrower.name=Growing Standing Stone
 tile.standingStoneHealer.name=Healing Standing Stone
+tile.standingStoneAesthetic.name=Standing Stone
 
 roots.attribute.fullset.name=When full set equipped:
 roots.attribute.equipped.name=When equipped:
@@ -427,6 +428,10 @@ roots.research.ritual.timeshift.name=Time Shift
 roots.research.ritual.timeshift.page1title.name=Timey Wimey Stuff
 roots.research.ritual.timeshift.page1info=After many hours you have discovered that by burning common time keeping devices you can move time by an amount proportional to the amount of clocks burned as incense.
 roots.research.ritual.timeshift.page2title.name=Ritual: Time Shift
+
+roots.research.ritual.poweredstones.page16title.name=Ritual: Standing Stone
+roots.research.ritual.poweredstones.page17title.name=Standing Stone
+roots.research.ritual.poweredstones.page17info=A basic standing stone. Particles can be colored using Rose red, Lapis Lazuli, Cactus Green and reset using bone meal.
 
 achievement.tablet=Who Needs Pages?
 achievement.tablet.desc=Craft a Runic Tablet.
