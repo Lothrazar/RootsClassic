@@ -22,6 +22,13 @@ public class Util {
 	public static ArrayList<Block> naturalBlocks = new ArrayList<Block>();
 	public static ArrayList<Item> berries = new ArrayList<Item>();
 	
+	public static double randomDouble(double min, double max){
+		double range = max - min;
+		double scale = random.nextDouble() * range;
+		double shifted = scale + min;
+		return shifted;
+	}
+	
 	public static BlockPos getRayTrace(World world, EntityPlayer player, int reachDistance){
 		double x = player.posX;
 		double y = player.posY + player.getEyeHeight();
