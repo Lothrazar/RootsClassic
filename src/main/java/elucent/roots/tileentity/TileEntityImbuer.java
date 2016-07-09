@@ -76,46 +76,49 @@ public class TileEntityImbuer extends TEBase implements ITickable {
 	}
 	
 	public boolean activate(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
-		if (heldItem == null){
-			if (stick != null){
-				if (!world.isRemote){
-					world.spawnEntityInWorld(new EntityItem(world,pos.getX()+0.5,pos.getY()+1.0,pos.getZ()+0.5,stick));
+		if (progress == 0){
+			if (heldItem == null){
+				if (stick != null){
+					if (!world.isRemote){
+						world.spawnEntityInWorld(new EntityItem(world,pos.getX()+0.5,pos.getY()+1.0,pos.getZ()+0.5,stick));
+					}
+					stick = null;
+					markDirty();
+					this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+					return true;
 				}
-				stick = null;
-				markDirty();
-				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-				return true;
-			}
-			else if (dust != null){
-				if (!world.isRemote){
-					world.spawnEntityInWorld(new EntityItem(world,pos.getX()+0.5,pos.getY()+1.0,pos.getZ()+0.5,dust));
+				else if (dust != null){
+					if (!world.isRemote){
+						world.spawnEntityInWorld(new EntityItem(world,pos.getX()+0.5,pos.getY()+1.0,pos.getZ()+0.5,dust));
+					}
+					dust = null;
+					markDirty();
+					this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+					return true;
 				}
-				dust = null;
-				markDirty();
-				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-				return true;
+				return false;
 			}
-			return false;
-		}
-		else if (heldItem.getItem() == Items.STICK){
-			if (stick == null){
-				stick = new ItemStack(Items.STICK,1);
-				heldItem.stackSize --;
-				markDirty();
-				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-				return true;
+			else if (heldItem.getItem() == Items.STICK){
+				if (stick == null){
+					stick = new ItemStack(Items.STICK,1);
+					heldItem.stackSize --;
+					markDirty();
+					this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+					return true;
+				}
+				return false;
 			}
-			return false;
-		}
-		else if (heldItem.getItem() == RegistryManager.dustPetal){
-			if (dust == null){
-				NBTTagCompound tag = new NBTTagCompound();
-				heldItem.writeToNBT(tag);
-				dust = ItemStack.loadItemStackFromNBT(tag);
-				heldItem.stackSize --;
-				markDirty();
-				this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-				return true;
+			else if (heldItem.getItem() == RegistryManager.dustPetal){
+				if (dust == null){
+					NBTTagCompound tag = new NBTTagCompound();
+					heldItem.writeToNBT(tag);
+					dust = ItemStack.loadItemStackFromNBT(tag);
+					heldItem.stackSize --;
+					markDirty();
+					this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+					return true;
+				}
+				return false;
 			}
 			return false;
 		}

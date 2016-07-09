@@ -17,6 +17,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -103,7 +105,9 @@ public class EventManager {
 		if (event.getTarget() instanceof EntityPlayer){
 			if (event.getEntity().getEntityData().hasKey("RMOD_dontTarget")){
 				if (event.getTarget().getUniqueID().getMostSignificantBits() == event.getEntity().getEntityData().getLong("RMOD_dontTarget")){
-					event.setCanceled(true);
+					if (event.isCancelable()){
+						event.setCanceled(true);
+					}
 				}
 			}
 		}
@@ -306,6 +310,12 @@ public class EventManager {
 		if (event.getEntityLiving().getEntityData().hasKey("RMOD_vuln")){
 			event.setAmount((float) (event.getAmount()*(1.0+event.getEntityLiving().getEntityData().getDouble("RMOD_vuln"))));
 			event.getEntityLiving().getEntityData().removeTag("RMOD_vuln");
+		}
+		
+		if (event.getEntityLiving().getEntityData().hasKey("RMOD_thornsDamage") && event.getSource().getEntity() instanceof EntityLivingBase){
+			((EntityLivingBase)event.getSource().getEntity()).attackEntityFrom(DamageSource.cactus, event.getEntityLiving().getEntityData().getFloat("RMOD_thornsDamage"));
+			event.getEntityLiving().getEntityData().removeTag("RMOD_thornsDamage");
+			Util.decrementTickTracking(event.getEntityLiving());
 		}
 		
 		if(event.getEntityLiving() instanceof EntityPlayer){

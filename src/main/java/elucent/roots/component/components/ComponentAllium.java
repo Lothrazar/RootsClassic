@@ -56,18 +56,11 @@ public class ComponentAllium extends ComponentBase{
 						
 					}
 					else {
-						damageDealt += (int)(3+2*potency);
-						targets.get(i).attackEntityFrom(DamageSource.generic, (int)(3+2*potency));
+						damageDealt += (int)(4+2*potency);
+						targets.get(i).attackEntityFrom(DamageSource.generic, (int)(5+2*potency));
 						targets.get(i).setLastAttacker(caster);
 						targets.get(i).setRevengeTarget((EntityLivingBase)caster);
-						List<ItemStack> equipment = Lists.newArrayList(targets.get(i).getEquipmentAndArmor());
-						for (int j = 0; j < equipment.size(); j ++){
-							if (equipment.get(j) != null){
-								if (equipment.get(j).isItemStackDamageable()){
-									equipment.get(j).damageItem((int)(random.nextInt(16+8*(int)potency)+8+4*potency), targets.get(i));
-								}
-							}
-						}
+						targets.get(i).getEntityData().setDouble("RMOD_vuln", 1.0+0.5*potency);
 					}
 				}
 			}
