@@ -135,7 +135,7 @@ public class GuiTablet extends GuiScreen {
 		float basePosX = (width/2.0f)-108;
 		
 		for (int i = 0; i < ResearchManager.globalResearches.get(currentGroup).researches.size(); i ++){
-			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("roots:textures/gui/tabletGui.png"));
+      Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Const.MODID, "textures/gui/tabletGui.png"));
 			float yShift = (float) Math.floor(i / 6);
 			float xShift = i % 6;
 			this.drawTexturedModalRect(basePosX+32*xShift, 32+40*yShift, 16, 0, 24, 24);
@@ -148,7 +148,7 @@ public class GuiTablet extends GuiScreen {
 			}
 		}
 		this.fontRendererObj.drawStringWithShadow(I18n.format("roots.research."+ResearchManager.globalResearches.get(currentGroup).name+".name"), width/2.0f-(fontRendererObj.getStringWidth(ResearchManager.globalResearches.get(currentGroup).properName)/2.0f), height-16.0f, Util.intColor(255, 255, 255));
-		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("roots:textures/gui/tabletGui.png"));
+    Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Const.MODID, "textures/gui/tabletGui.png"));
 		if (mouseX >= 32 && mouseX < 64 && mouseY >= height-48 && mouseY < height-32){
 			this.drawTexturedModalRect(32, height-48, 32, 80, 32, 16);
 		}
