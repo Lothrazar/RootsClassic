@@ -1,13 +1,13 @@
 [
 {
-  "modid": "roots",
-  "name": "Roots",
-  "description": "Druidic Magic Mod",
+  "modid": "rootsclassic",
+  "name": "Roots Classic",
+  "description": "Classic port of Roots, the Druidic Magic Mod",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["Elucent"],
+  "authorList": ["Elucent", "Lothrazar"],
   "credits": "",
   "logoFile": "",
   "screenshots": [],
