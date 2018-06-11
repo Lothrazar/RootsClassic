@@ -1,0 +1,8 @@
+{
+    "parent" : "item/handheld",
+    "textures" : {
+        "layer0" : "rootsclassic:items/staffBase",
+        "layer1" : "rootsclassic:items/staffGlow2",
+        "layer2" : "rootsclassic:items/staffGlow1"
+    }
+}

@@ -1,7 +1,0 @@
-{
-    "parent": "block/cross",
-    "textures": {
-        "cross": "roots:blocks/flareOrchid",
-        "particle": "roots:blocks/flareOrchid"
-    }
-}

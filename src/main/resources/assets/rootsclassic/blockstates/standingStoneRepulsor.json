@@ -1,0 +1,6 @@
+{
+    "variants":{
+        "topq=bottom":{"model": "rootsclassic:standingStoneT2Bottom"},
+        "topq=top":{"model": "rootsclassic:standingStoneRepulsor"}
+    }
+}
