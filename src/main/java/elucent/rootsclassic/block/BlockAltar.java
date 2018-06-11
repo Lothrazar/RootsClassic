@@ -22,43 +22,44 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockAltar extends TEBlockBase implements ITileEntityProvider {
-	public BlockAltar(){
-		super(Material.GROUND);
-		setUnlocalizedName("altar");
-		setCreativeTab(Roots.tab);
-		setHardness(1.0f);
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public void initModel(){
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(),"inventory"));
-	}
-	
-	@Override
-	public boolean isOpaqueCube(IBlockState state){
-		return false;
-	}
-	
-	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos){
-		return new AxisAlignedBB(0.0,0,0.0,1.0,0.75,1.0);
-	}
-	
-	@Override
-	public boolean isFullCube(IBlockState state){
-		return false;
-	}
-	
-	@Override
-	public boolean canRenderInLayer(BlockRenderLayer layer){
-		if (layer == BlockRenderLayer.CUTOUT){
-			return true;
-		}
-		return false;
-	}
 
-	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityAltar();
-	}
+  public BlockAltar() {
+    super(Material.GROUND);
+    setUnlocalizedName("altar");
+    setCreativeTab(Roots.tab);
+    setHardness(1.0f);
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void initModel() {
+    ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+  }
+
+  @Override
+  public boolean isOpaqueCube(IBlockState state) {
+    return false;
+  }
+
+  @Override
+  public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+    return new AxisAlignedBB(0.0, 0, 0.0, 1.0, 0.75, 1.0);
+  }
+
+  @Override
+  public boolean isFullCube(IBlockState state) {
+    return false;
+  }
+
+  @Override
+  public boolean canRenderInLayer(BlockRenderLayer layer) {
+    if (layer == BlockRenderLayer.CUTOUT) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public TileEntity createNewTileEntity(World worldIn, int meta) {
+    return new TileEntityAltar();
+  }
 }

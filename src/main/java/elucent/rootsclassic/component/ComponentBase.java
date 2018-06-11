@@ -17,90 +17,86 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 public class ComponentBase {
-	String name = "";
-	String effectName = "";
-	ItemStack itemSource = null;
-	public Vec3d primaryColor = new Vec3d(0, 0, 0);
-	public Vec3d secondaryColor = new Vec3d(0, 0, 0);
-	public int xpCost = 0;
-	public boolean singleCast = true;
-	Random random = new Random();
-	TextFormatting textColor = TextFormatting.WHITE;
-	
-	public ComponentBase setPrimaryColor(double r, double g, double b){
-		this.primaryColor = new Vec3d(r,g,b);
-		return this;
-	}
-	
-	public ComponentBase setSecondaryColor(double r, double g, double b){
-		this.secondaryColor = new Vec3d(r,g,b);
-		return this;
-	}
-	
-	public ComponentBase setTextColor(TextFormatting color){
-		this.textColor = color;
-		return this;
-	}
-	
-	public ComponentBase(String name, String effectName, ItemStack item, int cost){
-		this.name = name;
-		this.xpCost = cost;
-		this.effectName = effectName;
-		itemSource = item;
-	}
 
-	public ComponentBase(String name, String effectName, Item item, int cost){
-		this.name = name;
-		this.xpCost = cost;
-		this.effectName = effectName;
-		itemSource = new ItemStack(item);
-	}
+  String name = "";
+  String effectName = "";
+  ItemStack itemSource = null;
+  public Vec3d primaryColor = new Vec3d(0, 0, 0);
+  public Vec3d secondaryColor = new Vec3d(0, 0, 0);
+  public int xpCost = 0;
+  public boolean singleCast = true;
+  Random random = new Random();
+  TextFormatting textColor = TextFormatting.WHITE;
 
-	public ComponentBase(String name, String effectName, Block item, int cost){
-		this.name = name;
-		this.xpCost = cost;
-		this.effectName = effectName;
-		itemSource = new ItemStack(item);
-	}
+  public ComponentBase setPrimaryColor(double r, double g, double b) {
+    this.primaryColor = new Vec3d(r, g, b);
+    return this;
+  }
 
-	public ComponentBase(String name, String effectName, Item item, int meta, int cost){
-		this.name = name;
-		this.xpCost = cost;
-		this.effectName = effectName;
-		itemSource = new ItemStack(item,1,meta);
-	}
+  public ComponentBase setSecondaryColor(double r, double g, double b) {
+    this.secondaryColor = new Vec3d(r, g, b);
+    return this;
+  }
 
-	public ComponentBase(String name, String effectName, Block item, int meta, int cost){
-		this.name = name;
-		this.xpCost = cost;
-		this.effectName = effectName;
-		itemSource = new ItemStack(item,1,meta);
-	}
-	
-	public String getName(){
-		return name;
-	}
-	
-	public String getEffectName(){
-		return I18n.format("roots.component."+name+".name");
-	}
-	
-	public TextFormatting getTextColor(){
-		return textColor;
-	}
-	
-	public ItemStack getItem(){
-		return itemSource;
-	}
-	
-	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
-		
-	}
-	
-	public void doEffect(World world, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
-		
-	}
-	
-	public void castingAction(EntityPlayer player, int count, int potency, int efficiency, int size){
-	}
+  public ComponentBase setTextColor(TextFormatting color) {
+    this.textColor = color;
+    return this;
+  }
+
+  public ComponentBase(String name, String effectName, ItemStack item, int cost) {
+    this.name = name;
+    this.xpCost = cost;
+    this.effectName = effectName;
+    itemSource = item;
+  }
+
+  public ComponentBase(String name, String effectName, Item item, int cost) {
+    this.name = name;
+    this.xpCost = cost;
+    this.effectName = effectName;
+    itemSource = new ItemStack(item);
+  }
+
+  public ComponentBase(String name, String effectName, Block item, int cost) {
+    this.name = name;
+    this.xpCost = cost;
+    this.effectName = effectName;
+    itemSource = new ItemStack(item);
+  }
+
+  public ComponentBase(String name, String effectName, Item item, int meta, int cost) {
+    this.name = name;
+    this.xpCost = cost;
+    this.effectName = effectName;
+    itemSource = new ItemStack(item, 1, meta);
+  }
+
+  public ComponentBase(String name, String effectName, Block item, int meta, int cost) {
+    this.name = name;
+    this.xpCost = cost;
+    this.effectName = effectName;
+    itemSource = new ItemStack(item, 1, meta);
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getEffectName() {
+    return I18n.format("roots.component." + name + ".name");
+  }
+
+  public TextFormatting getTextColor() {
+    return textColor;
+  }
+
+  public ItemStack getItem() {
+    return itemSource;
+  }
+
+  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {}
+
+  public void doEffect(World world, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {}
+
+  public void castingAction(EntityPlayer player, int count, int potency, int efficiency, int size) {}
 }

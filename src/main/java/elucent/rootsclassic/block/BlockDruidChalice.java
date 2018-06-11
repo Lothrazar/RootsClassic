@@ -18,36 +18,29 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockDruidChalice extends Block/* extends TEBlockBase implements ITileEntityProvider*/{
-	public BlockDruidChalice(){
-		super(Material.WOOD);
-		setUnlocalizedName("druidChalice");
-		setHardness(0.5f);
-		//setCreativeTab(Roots.tab);
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public void initModel(){
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this),0,new ModelResourceLocation(getRegistryName(),"inventory"));
-	}
-	
-	@Override
-	public boolean isOpaqueCube(IBlockState state){
-		return false;
-	}
-	
-	/*@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos){
-		return new AxisAlignedBB(0.4,0,0,0.6,0,0.2);
-	}*/
-	
-	@Override
-	public boolean isFullCube(IBlockState state){
-		return true;
-	}
-	/*
-	@Override
-	public TileEntity createNewTileEntity(World worldIn,int meta){
-		return new TileEntityDruidChalice();
-	}*/
+public class BlockDruidChalice extends Block/* extends TEBlockBase implements ITileEntityProvider */ {
+
+  public BlockDruidChalice() {
+    super(Material.WOOD);
+    setUnlocalizedName("druidChalice");
+    setHardness(0.5f);
+    //setCreativeTab(Roots.tab);
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void initModel() {
+    ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+  }
+
+  @Override
+  public boolean isOpaqueCube(IBlockState state) {
+    return false;
+  }
+
+  /* @Override public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos){ return new AxisAlignedBB(0.4,0,0,0.6,0,0.2); } */
+  @Override
+  public boolean isFullCube(IBlockState state) {
+    return true;
+  }
+  /* @Override public TileEntity createNewTileEntity(World worldIn,int meta){ return new TileEntityDruidChalice(); } */
 }

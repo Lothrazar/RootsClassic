@@ -16,25 +16,25 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 public class MutagenRadiantDaisyRecipe extends MutagenRecipe {
-	public MutagenRadiantDaisyRecipe() {
-		super("radiantDaisy",Blocks.RED_FLOWER.getStateFromMeta(8),RegistryManager.radiantDaisy.getDefaultState());
-		addIngredient(new ItemStack(Blocks.GLOWSTONE,1));
-		addIngredient(new ItemStack(Items.PRISMARINE_CRYSTALS,1));
-	}
-	
-	@Override
-	public void onCrafted(World world, BlockPos pos, EntityPlayer player){
-		player.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("blindness"),1200,0));
-	}
-	
-	@Override
-	public boolean matches(List<ItemStack> items, World world, BlockPos pos, EntityPlayer player){
-		if (super.matches(items, world, pos, player)){
-			if (world.provider.getDimensionType() == DimensionType.OVERWORLD && player.getActivePotionEffect(Potion.getPotionFromResourceLocation("night_vision")) != null && player.getEntityWorld().getWorldTime() > 5000 && player.getEntityWorld().getWorldTime() < 7000){
-				return true;
-			}
-		}
-		return false;
-	}
-	
+
+  public MutagenRadiantDaisyRecipe() {
+    super("radiantDaisy", Blocks.RED_FLOWER.getStateFromMeta(8), RegistryManager.radiantDaisy.getDefaultState());
+    addIngredient(new ItemStack(Blocks.GLOWSTONE, 1));
+    addIngredient(new ItemStack(Items.PRISMARINE_CRYSTALS, 1));
+  }
+
+  @Override
+  public void onCrafted(World world, BlockPos pos, EntityPlayer player) {
+    player.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("blindness"), 1200, 0));
+  }
+
+  @Override
+  public boolean matches(List<ItemStack> items, World world, BlockPos pos, EntityPlayer player) {
+    if (super.matches(items, world, pos, player)) {
+      if (world.provider.getDimensionType() == DimensionType.OVERWORLD && player.getActivePotionEffect(Potion.getPotionFromResourceLocation("night_vision")) != null && player.getEntityWorld().getWorldTime() > 5000 && player.getEntityWorld().getWorldTime() < 7000) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

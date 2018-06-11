@@ -36,33 +36,34 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemRunicFocus extends Item implements IManaRelatedItem {
-	Random random = new Random();
-	
-	public ItemRunicFocus(){
-		super();
-		setUnlocalizedName("runicFocus_0");
-		this.setCreativeTab(Roots.tab);
-	}
-	
-	@Override
-	public int getItemStackLimit(){
-		return 1;
-	}
-	
-	@Override
-	public String getUnlocalizedName(ItemStack stack){
-		if (stack.getItemDamage() == 0){
-			return "runicFocus_0";
-		}
-		if (stack.getItemDamage() == 1){
-			return "runicFocus_1";
-		}
-		return "runicFocus_0";
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public void initModel(){
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName()+"_0","inventory"));
-		ModelLoader.setCustomModelResourceLocation(this, 1, new ModelResourceLocation(getRegistryName()+"_1","inventory"));
-	}
+
+  Random random = new Random();
+
+  public ItemRunicFocus() {
+    super();
+    setUnlocalizedName("runicFocus_0");
+    this.setCreativeTab(Roots.tab);
+  }
+
+  @Override
+  public int getItemStackLimit() {
+    return 1;
+  }
+
+  @Override
+  public String getUnlocalizedName(ItemStack stack) {
+    if (stack.getItemDamage() == 0) {
+      return "runicFocus_0";
+    }
+    if (stack.getItemDamage() == 1) {
+      return "runicFocus_1";
+    }
+    return "runicFocus_0";
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void initModel() {
+    ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName() + "_0", "inventory"));
+    ModelLoader.setCustomModelResourceLocation(this, 1, new ModelResourceLocation(getRegistryName() + "_1", "inventory"));
+  }
 }

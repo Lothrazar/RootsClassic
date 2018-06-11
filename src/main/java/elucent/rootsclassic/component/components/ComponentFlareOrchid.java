@@ -3,7 +3,6 @@ package elucent.rootsclassic.component.components;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import com.google.common.collect.Lists;
 import elucent.rootsclassic.PlayerManager;
 import elucent.rootsclassic.RegistryManager;
@@ -31,18 +30,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+public class ComponentFlareOrchid extends ComponentBase {
 
-public class ComponentFlareOrchid extends ComponentBase{
-	Random random = new Random();
-	public ComponentFlareOrchid(){
-		super("flareorchid","Combustion",RegistryManager.flareOrchid,36);	
-	}
-	
-	@Override
-	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
-		if (type == EnumCastType.SPELL){
-			BlockPos pos = Util.getRayTrace(world,(EntityPlayer)caster,16+8*(int)size);
-			world.newExplosion(null, pos.getX(), pos.getY(), pos.getZ(), (float) (3.0+(double)potency), true, true);
-		}
-	}
+  Random random = new Random();
+
+  public ComponentFlareOrchid() {
+    super("flareorchid", "Combustion", RegistryManager.flareOrchid, 36);
+  }
+
+  @Override
+  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+    if (type == EnumCastType.SPELL) {
+      BlockPos pos = Util.getRayTrace(world, (EntityPlayer) caster, 16 + 8 * (int) size);
+      world.newExplosion(null, pos.getX(), pos.getY(), pos.getZ(), (float) (3.0 + (double) potency), true, true);
+    }
+  }
 }

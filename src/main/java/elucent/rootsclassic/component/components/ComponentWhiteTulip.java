@@ -3,7 +3,6 @@ package elucent.rootsclassic.component.components;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import com.google.common.collect.Lists;
 import elucent.rootsclassic.ConfigManager;
 import elucent.rootsclassic.PlayerManager;
@@ -31,39 +30,38 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+public class ComponentWhiteTulip extends ComponentBase {
 
-public class ComponentWhiteTulip extends ComponentBase{
-	Random random = new Random();
-	public ComponentWhiteTulip(){
-		super("whitetulip","Blistering Cold",Blocks.RED_FLOWER,6,10);	
-	}
-	
-	@Override
-	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
-		if (type == EnumCastType.SPELL){
-			int damageDealt = 0;
-			ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x-size,y-size,z-size,x+size,y+size,z+size));
-			for (int i = 0; i < targets.size(); i ++){
-				if (targets.get(i).getUniqueID() != caster.getUniqueID()){
-					if (targets.get(i) instanceof EntityPlayer && ConfigManager.disablePVP){
-						
-					}
-					else {
-						targets.get(i).attackEntityFrom(DamageSource.generic, (int)(5+3*potency));
-						damageDealt += (int)(5+3*potency);
-						targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("slowness"),200+100*(int)potency,(int)potency));
-						targets.get(i).setLastAttacker(caster);
-						targets.get(i).setRevengeTarget((EntityLivingBase)caster);
-					}
-				}
-			}
-			if (damageDealt > 80){
-				if (caster instanceof EntityPlayer){
-					if (!((EntityPlayer)caster).hasAchievement(RegistryManager.achieveLotsDamage)){
-						PlayerManager.addAchievement(((EntityPlayer)caster), RegistryManager.achieveLotsDamage);
-					}
-				}
-			}
-		}
-	}
+  Random random = new Random();
+
+  public ComponentWhiteTulip() {
+    super("whitetulip", "Blistering Cold", Blocks.RED_FLOWER, 6, 10);
+  }
+
+  @Override
+  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+    if (type == EnumCastType.SPELL) {
+      int damageDealt = 0;
+      ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
+      for (int i = 0; i < targets.size(); i++) {
+        if (targets.get(i).getUniqueID() != caster.getUniqueID()) {
+          if (targets.get(i) instanceof EntityPlayer && ConfigManager.disablePVP) {}
+          else {
+            targets.get(i).attackEntityFrom(DamageSource.generic, (int) (5 + 3 * potency));
+            damageDealt += (int) (5 + 3 * potency);
+            targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("slowness"), 200 + 100 * (int) potency, (int) potency));
+            targets.get(i).setLastAttacker(caster);
+            targets.get(i).setRevengeTarget((EntityLivingBase) caster);
+          }
+        }
+      }
+      if (damageDealt > 80) {
+        if (caster instanceof EntityPlayer) {
+          if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveLotsDamage)) {
+            PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveLotsDamage);
+          }
+        }
+      }
+    }
+  }
 }

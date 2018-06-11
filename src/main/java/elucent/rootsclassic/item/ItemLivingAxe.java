@@ -2,7 +2,6 @@ package elucent.rootsclassic.item;
 
 import java.util.Random;
 import java.util.Set;
-
 import com.google.common.collect.Sets;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
@@ -24,33 +23,34 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemLivingAxe extends ItemTool {
-	Random random = new Random();
-	public ItemLivingAxe(){
-		super(RegistryManager.livingMaterial,Sets.newHashSet(new Block[]{Blocks.PLANKS}));
-		setUnlocalizedName("livingAxe");
-		setCreativeTab(Roots.tab);
-		setHarvestLevel("axe",this.toolMaterial.getHarvestLevel());
-		this.damageVsEntity = this.toolMaterial.getDamageVsEntity() + 6.0f;
-		this.attackSpeed = -3.1f;
-	}
-	
-	public float getStrVsBlock(ItemStack stack, IBlockState state){
-        Material material = state.getMaterial();
-        return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE ? super.getStrVsBlock(stack, state) : this.efficiencyOnProperMaterial;
+
+  Random random = new Random();
+
+  public ItemLivingAxe() {
+    super(RegistryManager.livingMaterial, Sets.newHashSet(new Block[] { Blocks.PLANKS }));
+    setUnlocalizedName("livingAxe");
+    setCreativeTab(Roots.tab);
+    setHarvestLevel("axe", this.toolMaterial.getHarvestLevel());
+    this.damageVsEntity = this.toolMaterial.getDamageVsEntity() + 6.0f;
+    this.attackSpeed = -3.1f;
+  }
+
+  public float getStrVsBlock(ItemStack stack, IBlockState state) {
+    Material material = state.getMaterial();
+    return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE ? super.getStrVsBlock(stack, state) : this.efficiencyOnProperMaterial;
+  }
+
+  @Override
+  public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+    if (random.nextInt(80) == 0) {
+      if (stack.getItemDamage() > 0) {
+        stack.setItemDamage(stack.getItemDamage() - 1);
+      }
     }
-	
-	@Override
-	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected){
-		if (random.nextInt(80) == 0){
-			if (stack.getItemDamage() > 0){
-				stack.setItemDamage(stack.getItemDamage()-1);
-			}
-		}
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public void initModel(){
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(),"inventory"));
-	}
-	
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void initModel() {
+    ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+  }
 }

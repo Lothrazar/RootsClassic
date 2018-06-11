@@ -17,20 +17,21 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
+public class ComponentChorus extends ComponentBase {
 
-public class ComponentChorus extends ComponentBase{
-	Random random = new Random();
-	public ComponentChorus(){
-		super("chorus","Ender Warp",Items.CHORUS_FRUIT,12);	
-	}
-	
-	@Override
-	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
-		if (type == EnumCastType.SPELL){	
-			if (caster instanceof EntityPlayer){
-				EntityPlayer player = (EntityPlayer)caster;
-				player.setPosition(player.posX + player.getLookVec().xCoord*(8.0+8.0*potency), player.posY + player.getLookVec().yCoord*(8.0+8.0*potency), player.posZ + player.getLookVec().zCoord*(8.0+8.0*potency));
-			}
-		}
-	}
+  Random random = new Random();
+
+  public ComponentChorus() {
+    super("chorus", "Ender Warp", Items.CHORUS_FRUIT, 12);
+  }
+
+  @Override
+  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+    if (type == EnumCastType.SPELL) {
+      if (caster instanceof EntityPlayer) {
+        EntityPlayer player = (EntityPlayer) caster;
+        player.setPosition(player.posX + player.getLookVec().xCoord * (8.0 + 8.0 * potency), player.posY + player.getLookVec().yCoord * (8.0 + 8.0 * potency), player.posZ + player.getLookVec().zCoord * (8.0 + 8.0 * potency));
+      }
+    }
+  }
 }

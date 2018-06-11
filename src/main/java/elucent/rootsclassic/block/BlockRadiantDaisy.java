@@ -24,37 +24,38 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockRadiantDaisy extends BlockBush {
-	public BlockRadiantDaisy(){
-		super();
-		setUnlocalizedName("radiantDaisy");
-		setCreativeTab(Roots.tab);
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public void initModel(){
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(),"inventory"));
-	}
-	
-	@Override
-	public boolean isOpaqueCube(IBlockState state){
-		return false;
-	}
-	
-	@Override
-	public boolean canRenderInLayer(BlockRenderLayer layer){
-		if (layer == BlockRenderLayer.CUTOUT){
-			return true;
-		}
-		return false;
-	}
-	
-	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos){
-		return new AxisAlignedBB(0.375,0,0.375,0.625,0.5,0.625);
-	}
-	
-	@Override
-	public boolean isFullCube(IBlockState state){
-		return false;
-	}
+
+  public BlockRadiantDaisy() {
+    super();
+    setUnlocalizedName("radiantDaisy");
+    setCreativeTab(Roots.tab);
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void initModel() {
+    ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+  }
+
+  @Override
+  public boolean isOpaqueCube(IBlockState state) {
+    return false;
+  }
+
+  @Override
+  public boolean canRenderInLayer(BlockRenderLayer layer) {
+    if (layer == BlockRenderLayer.CUTOUT) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+    return new AxisAlignedBB(0.375, 0, 0.375, 0.625, 0.5, 0.625);
+  }
+
+  @Override
+  public boolean isFullCube(IBlockState state) {
+    return false;
+  }
 }

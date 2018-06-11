@@ -3,7 +3,6 @@ package elucent.rootsclassic.component.components;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import com.google.common.collect.Lists;
 import elucent.rootsclassic.PlayerManager;
 import elucent.rootsclassic.RegistryManager;
@@ -38,29 +37,30 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+public class ComponentPoppy extends ComponentBase {
 
-public class ComponentPoppy extends ComponentBase{
-	Random random = new Random();
-	public ComponentPoppy(){
-		super("poppy","Insanity",Blocks.RED_FLOWER,0,8);	
-	}
-	
-	@Override
-	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
-		if (type == EnumCastType.SPELL){
-			ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x-size*2.4,y-size*2.4,z-size*2.4,x+size*2.4,y+size*2.4,z+size*2.4));
-			for (int i = 0; i < targets.size(); i ++){
-				targets.get(i).setAttackTarget(null);
-				int j = random.nextInt(targets.size());
-				if (j != i && random.nextDouble() >= 1.0/(potency+1.0)){
-					if (caster instanceof EntityPlayer){
-						if (!((EntityPlayer)caster).hasAchievement(RegistryManager.achieveSpellInsanity)){
-							PlayerManager.addAchievement((EntityPlayer)caster, RegistryManager.achieveSpellInsanity);
-						}
-					}
-					targets.get(i).setAttackTarget(targets.get(j));
-				}
-			}
-		}
-	}
+  Random random = new Random();
+
+  public ComponentPoppy() {
+    super("poppy", "Insanity", Blocks.RED_FLOWER, 0, 8);
+  }
+
+  @Override
+  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+    if (type == EnumCastType.SPELL) {
+      ArrayList<EntityMob> targets = (ArrayList<EntityMob>) world.getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(x - size * 2.4, y - size * 2.4, z - size * 2.4, x + size * 2.4, y + size * 2.4, z + size * 2.4));
+      for (int i = 0; i < targets.size(); i++) {
+        targets.get(i).setAttackTarget(null);
+        int j = random.nextInt(targets.size());
+        if (j != i && random.nextDouble() >= 1.0 / (potency + 1.0)) {
+          if (caster instanceof EntityPlayer) {
+            if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveSpellInsanity)) {
+              PlayerManager.addAchievement((EntityPlayer) caster, RegistryManager.achieveSpellInsanity);
+            }
+          }
+          targets.get(i).setAttackTarget(targets.get(j));
+        }
+      }
+    }
+  }
 }

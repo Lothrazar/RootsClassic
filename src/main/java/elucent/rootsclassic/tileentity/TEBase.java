@@ -14,30 +14,31 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class TEBase extends TileEntity {
-	public TEBase(){
-		super();
-	}
-	
-	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet){
-		readFromNBT(packet.getNbtCompound());
-	}
-	
-	@Override
-	public NBTTagCompound getUpdateTag(){
-		return writeToNBT(new NBTTagCompound());
-	}
-	
-	@Override
-	public SPacketUpdateTileEntity getUpdatePacket(){
-		return new SPacketUpdateTileEntity(getPos(), 0, getUpdateTag());
-	}
-	
-	public void breakBlock(World world, BlockPos pos, IBlockState state, EntityPlayer player){
-		this.invalidate();
-	}
-	
-	public boolean activate(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ){
-		return false;
-	}
+
+  public TEBase() {
+    super();
+  }
+
+  @Override
+  public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+    readFromNBT(packet.getNbtCompound());
+  }
+
+  @Override
+  public NBTTagCompound getUpdateTag() {
+    return writeToNBT(new NBTTagCompound());
+  }
+
+  @Override
+  public SPacketUpdateTileEntity getUpdatePacket() {
+    return new SPacketUpdateTileEntity(getPos(), 0, getUpdateTag());
+  }
+
+  public void breakBlock(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+    this.invalidate();
+  }
+
+  public boolean activate(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    return false;
+  }
 }

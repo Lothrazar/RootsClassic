@@ -3,7 +3,6 @@ package elucent.rootsclassic.component.components;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import com.google.common.collect.Lists;
 import elucent.rootsclassic.PlayerManager;
 import elucent.rootsclassic.Util;
@@ -35,36 +34,37 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+public class ComponentOxeyeDaisy extends ComponentBase {
 
-public class ComponentOxeyeDaisy extends ComponentBase{
-	Random random = new Random();
-	public ComponentOxeyeDaisy(){
-		super("oxeyedaisy","Acceleration",Blocks.RED_FLOWER,8,14);	
-	}
-	
-	@Override
-	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size){
-		if (type == EnumCastType.SPELL){	
-			if (caster instanceof EntityPlayer){
-				Entity entity = Util.getRayTraceEntity(world, (EntityPlayer)caster, 4+2*(int)size);
-				if (entity != null){
-					if (!world.isRemote){
-						if (world.getEntitiesWithinAABB(EntityAccelerator.class, new AxisAlignedBB(entity.posX-0.1,entity.posY-0.1,entity.posZ-0.1,entity.posX+0.1,entity.posY+0.1,entity.posZ+0.1)).size() == 0){
-							EntityAccelerator a = new EntityAccelerator(world,entity,(int)potency,(int)size);
-							world.spawnEntityInWorld(a);
-						}
-					}
-				}
-				else {
-					BlockPos pos = Util.getRayTrace(world,(EntityPlayer)caster,4+2*(int)size);
-					if (world.getTileEntity(pos) != null && !world.isRemote){
-						if (world.getEntitiesWithinAABB(EntityTileAccelerator.class, new AxisAlignedBB(pos.getX()-0.1,pos.getY()-0.1,pos.getZ()-0.1,pos.getX()+0.1,pos.getY()+0.1,pos.getZ()+0.1)).size() == 0){
-							EntityTileAccelerator a = new EntityTileAccelerator(world,pos,(int)potency,(int)size);
-							world.spawnEntityInWorld(a);
-						}
-					}
-				}
-			}
-		}
-	}
+  Random random = new Random();
+
+  public ComponentOxeyeDaisy() {
+    super("oxeyedaisy", "Acceleration", Blocks.RED_FLOWER, 8, 14);
+  }
+
+  @Override
+  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+    if (type == EnumCastType.SPELL) {
+      if (caster instanceof EntityPlayer) {
+        Entity entity = Util.getRayTraceEntity(world, (EntityPlayer) caster, 4 + 2 * (int) size);
+        if (entity != null) {
+          if (!world.isRemote) {
+            if (world.getEntitiesWithinAABB(EntityAccelerator.class, new AxisAlignedBB(entity.posX - 0.1, entity.posY - 0.1, entity.posZ - 0.1, entity.posX + 0.1, entity.posY + 0.1, entity.posZ + 0.1)).size() == 0) {
+              EntityAccelerator a = new EntityAccelerator(world, entity, (int) potency, (int) size);
+              world.spawnEntityInWorld(a);
+            }
+          }
+        }
+        else {
+          BlockPos pos = Util.getRayTrace(world, (EntityPlayer) caster, 4 + 2 * (int) size);
+          if (world.getTileEntity(pos) != null && !world.isRemote) {
+            if (world.getEntitiesWithinAABB(EntityTileAccelerator.class, new AxisAlignedBB(pos.getX() - 0.1, pos.getY() - 0.1, pos.getZ() - 0.1, pos.getX() + 0.1, pos.getY() + 0.1, pos.getZ() + 0.1)).size() == 0) {
+              EntityTileAccelerator a = new EntityTileAccelerator(world, pos, (int) potency, (int) size);
+              world.spawnEntityInWorld(a);
+            }
+          }
+        }
+      }
+    }
+  }
 }

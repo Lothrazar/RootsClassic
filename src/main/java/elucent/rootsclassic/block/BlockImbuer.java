@@ -21,35 +21,36 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockImbuer extends TEBlockBase implements ITileEntityProvider {
-	public BlockImbuer(){
-		super(Material.GROUND);
-		setUnlocalizedName("imbuer");
-		setCreativeTab(Roots.tab);
-		setHardness(1.0f);
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public void initModel(){
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(),"inventory"));
-	}
-	
-	@Override
-	public boolean isOpaqueCube(IBlockState state){
-		return false;
-	}
-	
-	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos){
-		return new AxisAlignedBB(0.3125,0,0.3125,0.6875,0.125,0.6875);
-	}
-	
-	@Override
-	public boolean isFullCube(IBlockState state){
-		return false;
-	}
 
-	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityImbuer();
-	}
+  public BlockImbuer() {
+    super(Material.GROUND);
+    setUnlocalizedName("imbuer");
+    setCreativeTab(Roots.tab);
+    setHardness(1.0f);
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void initModel() {
+    ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+  }
+
+  @Override
+  public boolean isOpaqueCube(IBlockState state) {
+    return false;
+  }
+
+  @Override
+  public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+    return new AxisAlignedBB(0.3125, 0, 0.3125, 0.6875, 0.125, 0.6875);
+  }
+
+  @Override
+  public boolean isFullCube(IBlockState state) {
+    return false;
+  }
+
+  @Override
+  public TileEntity createNewTileEntity(World worldIn, int meta) {
+    return new TileEntityImbuer();
+  }
 }

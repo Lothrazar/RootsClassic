@@ -16,42 +16,41 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod(modid = Const.MODID, useMetadata = true)
-public class Roots
-{
+public class Roots {
 
   public static CreativeTabs tab = new CreativeTabs(Const.MODID) {
-    	@Override
-    	public String getTabLabel(){
+
+    @Override
+    public String getTabLabel() {
       return Const.MODID;
-    	}
-		@Override
-		@SideOnly(Side.CLIENT)
-		public Item getTabIconItem(){
-			return RegistryManager.dustPetal;
-		}
-	};
-    
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Item getTabIconItem() {
+      return RegistryManager.dustPetal;
+    }
+  };
   @SidedProxy(clientSide = "elucent." + Const.MODID + ".proxy.ClientProxy", serverSide = "elucent." + Const.MODID + ".proxy.ServerProxy")
-    public static CommonProxy proxy;
-    
+  public static CommonProxy proxy;
   @Instance(Const.MODID)
-    public static Roots instance;
-    
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event){
-    	ConfigManager.load(event);
-    	MinecraftForge.EVENT_BUS.register(new EventManager());
-    	MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
-    	proxy.preInit(event);
-    }
-    
-    @EventHandler
-    public void init(FMLInitializationEvent event){
-    	proxy.init(event);
-    }
-    
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event){
-    	proxy.postInit(event);
-    }
+  public static Roots instance;
+
+  @EventHandler
+  public void preInit(FMLPreInitializationEvent event) {
+    ConfigManager.load(event);
+    MinecraftForge.EVENT_BUS.register(new EventManager());
+    MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
+    proxy.preInit(event);
+  }
+
+  @EventHandler
+  public void init(FMLInitializationEvent event) {
+    proxy.init(event);
+  }
+
+  @EventHandler
+  public void postInit(FMLPostInitializationEvent event) {
+    proxy.postInit(event);
+  }
 }

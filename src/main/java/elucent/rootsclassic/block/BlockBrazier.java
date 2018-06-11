@@ -21,43 +21,44 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockBrazier extends TEBlockBase implements ITileEntityProvider {
-	public BlockBrazier(){
-		super(Material.GROUND);
-		setUnlocalizedName("brazier");
-		setCreativeTab(Roots.tab);
-		setHardness(1.0f);
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public void initModel(){
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(),"inventory"));
-	}
-	
-	@Override
-	public boolean isOpaqueCube(IBlockState state){
-		return false;
-	}
-	
-	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos){
-		return new AxisAlignedBB(0.1875,0,0.1875,0.8125,0.75,0.8125);
-	}
-	
-	@Override
-	public boolean isFullCube(IBlockState state){
-		return false;
-	}
-	
-	@Override
-	public boolean canRenderInLayer(BlockRenderLayer layer){
-		if (layer == BlockRenderLayer.CUTOUT){
-			return true;
-		}
-		return false;
-	}
 
-	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityBrazier();
-	}
+  public BlockBrazier() {
+    super(Material.GROUND);
+    setUnlocalizedName("brazier");
+    setCreativeTab(Roots.tab);
+    setHardness(1.0f);
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void initModel() {
+    ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+  }
+
+  @Override
+  public boolean isOpaqueCube(IBlockState state) {
+    return false;
+  }
+
+  @Override
+  public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+    return new AxisAlignedBB(0.1875, 0, 0.1875, 0.8125, 0.75, 0.8125);
+  }
+
+  @Override
+  public boolean isFullCube(IBlockState state) {
+    return false;
+  }
+
+  @Override
+  public boolean canRenderInLayer(BlockRenderLayer layer) {
+    if (layer == BlockRenderLayer.CUTOUT) {
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public TileEntity createNewTileEntity(World worldIn, int meta) {
+    return new TileEntityBrazier();
+  }
 }

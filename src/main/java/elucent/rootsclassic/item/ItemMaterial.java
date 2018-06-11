@@ -10,14 +10,15 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMaterial extends Item {
-	public ItemMaterial(String name){
-		super();
-		setUnlocalizedName(name);
-		setCreativeTab(Roots.tab);
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public void initModel(){
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(),"inventory"));
-	}
+
+  public ItemMaterial(String name) {
+    super();
+    setUnlocalizedName(name);
+    setCreativeTab(Roots.tab);
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void initModel() {
+    ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+  }
 }
