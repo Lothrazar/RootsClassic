@@ -207,7 +207,7 @@ public class RegistryManager {
     /**
      * REGISTERING BLOCKS
      */
-    //GameRegistry.registerBlock(druidChalice = new BlockDruidChalice(),"druidChalice");
+    //registerBlock(druidChalice = new BlockDruidChalice(), "druidChalice");
     registerBlock(mortar = new BlockMortar(), "mortar");
     registerBlock(altar = new BlockAltar(), "altar");
     registerBlock(brazier = new BlockBrazier(), "brazier");
