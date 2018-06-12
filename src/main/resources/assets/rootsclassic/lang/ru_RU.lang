@@ -1,0 +1,442 @@
+itemGroup.roots=Roots
+
+item.dustPetal.name=Лепестковая пыль
+item.pestle.name=Пестик
+item.staff.name=Посох
+item.oldRoot.name=Старый корень
+item.verdantSprig.name=Зеленеющий росток
+item.infernalStem.name=Адская колба
+item.dragonsEye.name=Глаз дракона
+item.acaciaTreeBark.name=Акациевая кора
+item.darkOakTreeBark.name=Кора тёмного дуба
+item.birchTreeBark.name=Берёзовая кора
+item.jungleTreeBark.name=Кора тропического дерева
+item.oakTreeBark.name=Дубовая кора
+item.spruceTreeBark.name=Еловая кора
+item.druidKnife.name=Скобель
+item.crystalStaff.name=Кристальный посох
+item.livingPickaxe.name=Живая кирка
+item.livingAxe.name=Живой топор
+item.livingSword.name=Живой меч
+item.livingHoe.name=Живая мотыга
+item.livingShovel.name=Живая лопата
+item.druidRobesHead.name=Лесной капюшон
+item.druidRobesChest.name=Лесная мантия
+item.druidRobesLegs.name=Лесные поножи
+item.druidRobesBoots.name=Лесные ботинки
+item.druidArmorHead.name=Дикодревесная маска
+item.druidArmorChest.name=Дикодревесная пластина
+item.druidArmorLegs.name=Дикодревесные поножи
+item.druidArmorBoots.name=Дикодревесные ботинки
+item.runedTablet.name=Рунический планшет
+item.growthSalve.name=Порошок роста
+item.mutagen.name=Порошок мутации
+item.nightshade.name=Паслён
+item.blackcurrant.name=Смородина чёрная
+item.redcurrant.name=Смородина красная
+item.whitecurrant.name=Смородина белая
+item.elderberry.name=Бузина
+item.healingPoultice.name=Лечебная припарка
+item.rootyStew.name=Тушёный корень
+item.engravedSword.name=Выгравированный клинок
+runicFocus_0.name=Рунический фокус
+runicFocus_1.name=Заряженный рунический фокус
+
+tile.mortar.name=Ступка
+tile.imbuer.name=Наполнитель
+tile.altar.name=Литейный алтарь
+tile.druidChalice.name=Чаша друидов [WIP]
+tile.standingStoneT1.name=Заурядный стоячий камень
+tile.brazier.name=Ароматический мангал
+tile.standingStoneT2.name=Настроенный стоячий камень
+tile.midnightBloom.name=Цветущая полночь
+tile.flareOrchid.name=Ослепительная орхидея
+tile.radiantDaisy.name=Лучезарная маргаритка
+tile.standingStoneRepulsor.name=Стоячий камень отталкивания
+tile.standingStoneVacuum.name=Стоячий камень вакуума
+tile.standingStoneEntangler.name=Стоячий камень запутывания
+tile.standingStoneAccelerator.name=Стоячий камень ускорения
+tile.standingStoneIgniter.name=Стоячий камень воспламенения
+tile.standingStoneGrower.name=Стоячий камень роста
+tile.standingStoneHealer.name=Стоячий камень исцеления
+
+roots.attribute.fullset.name=Когда надет полный комплект:
+roots.attribute.equipped.name=Когда надет:
+roots.attribute.increasedregen.name=Повышенная регенерация здоровья
+roots.attribute.increasedmanaregen.name=Повышенная регенерация земли
+roots.attribute.potency.name=Мощность
+
+roots.tooltip.spelltypeheading.name=Тип
+roots.tooltip.spellpotency.name=мощность
+roots.tooltip.spellefficiency.name=эффективность
+roots.tooltip.spellsize.name=размер
+roots.tooltip.usesremaining.name=использований осталось
+
+roots.error.noritual.name=Не найден действительный ритуал! 
+
+roots.component.allium.name=Раздирающий удар
+roots.component.apple.name=Лечение природы
+roots.component.azurebluet.name=Дробление
+roots.component.blueorchid.name=Земляной шип
+roots.component.chorus.name=Эндер-варп
+roots.component.dandelion.name=Одуванчиковый ветер
+roots.component.flareorchid.name=Горение
+roots.component.lilac.name=Рост
+roots.component.lilypad.name=Взрыв воды
+roots.component.midnightbloom.name=Остановка времени
+roots.component.netherwart.name=Инферно
+roots.component.orangetulip.name=Защита
+roots.component.oxeyedaisy.name=Ускорение
+roots.component.peony.name=Регенерация
+roots.component.pinktulip.name=Похищение жизни
+roots.component.poisonouspotato.name=Электрическая искра
+roots.component.poppy.name=Безумие
+roots.component.radiantdaisy.name=Сияющий луч
+roots.component.redtulip.name=Цветок дьявола
+roots.component.rosebush.name=Шипы розы
+roots.component.sunflower.name=Солнечный удар
+roots.component.whitetulip.name=Стремительный холод
+
+achievement.dust=Лепестковая пыль
+achievement.dust.desc=Сделать лепестковую пыль
+
+roots.research.disabled.name=Отключено в конфиге!
+
+roots.research.nature.name=Природные искусства
+
+roots.research.nature.barkharvesting.name=Сбор коры
+roots.research.nature.barkharvesting.page1title.name=Простые материалы
+roots.research.nature.barkharvesting.page1info=Деревья очень важны для естественной магии. Используя немного досок и ростков, вы создали нож, способный мягко собирать кору с деревьев, который может быть использован в рецептах и ритуалах. ПКМ по дереву, чтобы собрать с него кору, с шансом сломать блок дерева.
+
+roots.research.nature.magicalmaterials.name=Редкие материалы
+roots.research.nature.magicalmaterials.page1title.name=Корневая магия
+roots.research.nature.magicalmaterials.page1info=В окружающем Вас мире Вы можете найти несколько редких растений и трав, которые имеют решающее значение во многих аспектах естественной магии.
+roots.research.nature.magicalmaterials.page2title.name=Старый корень
+roots.research.nature.magicalmaterials.page2info=Старые корни могут быть найдены с шансом 1/40 при ломании высокой травы. Они нужны для множества ранней магии, так как они необходимы для заклинаний без модификаторов. Они могут быть также съедены для восстановления очень маленького количества голода.
+roots.research.nature.magicalmaterials.page3title.name=Зеленеющий росток
+roots.research.nature.magicalmaterials.page3info=Зеленеющий росток выпадает с шансом 1/30 при сборе полностью выращенных посевов всех видов. Они имеют врождённую жизненную силу, которая сохраняется после их сбора, поэтому их использование часто связано с приведением жизни объектам.
+roots.research.nature.magicalmaterials.page4title.name=Адская колба
+roots.research.nature.magicalmaterials.page4info=Адская колба выпадает с шансом 1/20 при сборе полностью выращенных наростов из Незера. Адские колбы пропитаны огнём своего дома в Незере, поэтому они полезны, когда требуется большое количество энергии. Они могут быть также использованы в качестве весьма эфективного топлива в печи, или отданы скелетам, чтобы иссушить их.
+roots.research.nature.magicalmaterials.page5title.name=Глаз дракона
+roots.research.nature.magicalmaterials.page5info=Глаз дракона выпадает с шансом 1/10 из цветков хоруса. Они пропитаны той же жуткой энергией, как и сам Эндер-дракон. В дополнении к использованию связанных заклинаний, они могут быть съедены для более мощного эффекта плода хоруса, или переплавлены для получения одного эндер-жемчуга.
+
+roots.research.nature.grassseeds.name=Порошок роста
+roots.research.nature.grassseeds.page1title.name=Уход за газоном
+roots.research.nature.grassseeds.page1info=This simple mixture can grow grass on dirt. Simply right-click to throw the powder at a block within 4 blocks of you, growing grass in a small area.
+
+roots.research.nature.mutagen.name=Порошок мутации
+roots.research.nature.mutagen.page1title.name=Новые растения
+roots.research.nature.mutagen.page1info=Using the power of a nether star, you have created a powder capable of mutating new kinds of flora. This powder is only used in very specific circumstances, specified in the Компонент заклинанияs section of this tablet.
+
+roots.research.nature.berries.name=Ягоды
+roots.research.nature.berries.page1title.name=Фуражировка
+roots.research.nature.berries.page1info=When breaking oak leaves by hand, you may occasionally find a random berry. There are five different kinds of berries, each one with different properties. Some may even be used in spells or rituals later on...
+
+roots.research.nature.stew.name=Тушёный корень
+roots.research.nature.stew.page1title.name=Суп для Вас
+roots.research.nature.stew.page1info=While Old Roots can be eaten alone, they're not very appetizing. By cooking it with some wheat in a bowl, you can create a delicious stew capable of replenishing much more hunger.
+
+roots.research.nature.poultice.name=Лечебная припарка
+roots.research.nature.poultice.page1title.name=Лекарственное средство
+roots.research.nature.poultice.page1info=Verdant Sprigs are commonly used for their life-related properties. By applying the pulp of a verdant sprig to your wounds with these poultices, you can heal a small amount of health.
+
+roots.research.spells.name=Колдовство
+
+roots.research.spells.mortar.name=Ступка
+roots.research.spells.mortar.page1title.name=Ступка
+roots.research.spells.mortar.page1info=The flora in the world around you seem to have vast untapped power. What better way to access that than mashing them into a pulp?
+roots.research.spells.mortar.page2title.name=Пестик
+roots.research.spells.mortar.page2info=Of course, to mash the aforementioned plants into a pulp, you're going to need something to mash with. This pestle, fashioned out of a smooth white stone, should do the task nicely.
+roots.research.spells.mortar.page3title.name=Использование
+roots.research.spells.mortar.page3info=Using the mortar and pestle is quite simple. Detailed in this tablet are many recipes for different spells. You will need all of these ingredients, as well as a particular base ingredient. To create the most basic possible spell, simply place in the spell's recipe, as well as an old root. This will allow for a spell with no modifiers.
+
+roots.research.spells.imbuer.name=Наполнение посоха
+roots.research.spells.imbuer.page1title.name=Наполнитель
+roots.research.spells.imbuer.page1info=Your mortar and pestle yield a fine petal dust for use in spells, but it can't really be used on its own. With this device, you channel natural energies from that powder into a branch of wood. Simply place in a stick, place in your powder, and wait for your staff to pop out.
+roots.research.spells.imbuer.page2title.name=Механики посоха
+roots.research.spells.imbuer.page2info=Magic staves are very simple to use. Imbued with the power of nature, all you need to do is hold right-click to charge up a spell, and after about a second release right-click to cast it. Staves have limited uses, and will be destroyed completely after their charges are used up. The number of charges can be increased with the use of the efficiency modifier.
+
+roots.research.spells.modifiers.name=Модификаторы
+roots.research.spells.modifiers.page1title.name=Больше отдачи от затраты
+roots.research.spells.modifiers.page1info=Mixing some modifiers into your spells can make them much more powerful. Potency modifiers (glowstone dust) will improve the strength of a spell's effects. Efficiency modifiers (redstone dust) will improve the casting cost and number of uses a spell has. Size modifiers (gunpowder) will improve the area a spell effects.
+roots.research.spells.modifiers.page2title.name=Базовые ингредиенты
+roots.research.spells.modifiers.page2info=For a spell to have modifiers, though, certain base ingredients are required. Old Roots will allow a spell to be crafted, but permit no modifiers. Verdant Sprigs can support one modifier slot, Infernal Bulbs can support two, and Dragon's Eyes can support three. These ingredients must be added first, before any other modifiers are added to the mortar.
+
+roots.research.spells.mana.name=Земля
+roots.research.spells.mana.page1title.name=Затраты на литьё
+roots.research.spells.mana.page1info=When you hold your new staff in your hand, you notice a power awakened within you, as well as a conveniently placed bar on your screen. These leaves represent a life force deep within you, called Terra, that powers your spells. All spells will cost a certain amount of this energy, but it will regenerate fairly quickly over time.
+
+roots.research.spells.poppy.name=Компонент заклинания: Безумие
+roots.research.spells.poppy.page1title.name=Предательство
+roots.research.spells.poppy.page1info=Poppies can naturally contain mind-altering compounds, so it follows that their abilities in a spell would involve the mind. Using the above recipe, you can create a spell that will cause nearby monsters to attack other nearby monsters.
+
+roots.research.spells.blueorchid.name=Компонент заклинания: Земляной шип
+roots.research.spells.blueorchid.page1title.name=Лучшее правонарушение...
+roots.research.spells.blueorchid.page1info=The blue orchid seems to be related to the earth and ground. Using the above recipe, you can create a spell that will create an earth spike on a nearby block that you look at. The spike will throw mobs into the air, but can also be used as a quick defensive wall or as a way to duplicate simple materials like dirt, stone, sand, or gravel.
+
+roots.research.spells.allium.name=Компонент заклинания: Раздирающий удар
+roots.research.spells.allium.page1title.name=Выключатель оборудования
+roots.research.spells.allium.page1info=Alliums contain a modicum of destructive energy. Using the above recipe, you can create a spell that will deal simple damage to its targets. In addition to this, if the target is holding a tool or wearing armor, their equipment will be damaged severely.
+
+roots.research.spells.azurebluet.name=Компонент заклинания: Дробление
+roots.research.spells.azurebluet.page1title.name=Добыча с магией
+roots.research.spells.azurebluet.page1info=The azure bluet contains latent energy capable of shattering stone. Using the above recipe, you create a spell capable of breaking a small area of blocks that you target. The spell has a mining level equivalent to an iron tool, increasable with potency modifiers.
+
+roots.research.spells.redtulip.name=Компонент заклинания: Цветок дьявола
+roots.research.spells.redtulip.page1title.name=Призыв
+roots.research.spells.redtulip.page1info=The allure of the red tulip seems to draw rather...sinister attention. Using the above recipe, you can summon a spectral skeleton to attack a nearby mob. 
+
+roots.research.spells.orangetulip.name=Компонент заклинания: Защита
+roots.research.spells.orangetulip.page1title.name=Силовое поле
+roots.research.spells.orangetulip.page1info=The orange tulip is associated with protection and resistance. Using the above recipe, you can create a spell that will repel mobs and stop projectiles while holding-right click on the spell.
+
+roots.research.spells.whitetulip.name=Компонент заклинания: Стремительный холод
+roots.research.spells.whitetulip.page1title.name=Цельная заморозка
+roots.research.spells.whitetulip.page1info=The white tulip contains magical essences of cold and ice. Using the above recipe, you can free this cold power, creating a spell that will both damage and slow hit targets.
+
+roots.research.spells.pinktulip.name=Компонент заклинания: Похищение жизни
+roots.research.spells.pinktulip.page1title.name=Вампиризм
+roots.research.spells.pinktulip.page1info=You have found that the pink tulip can closely link with the life force of living creatures. Using the above recipe, you can create a spell capable of damaging hit entities, while simultaneously stealing some of their life force to regenerate yours.
+
+roots.research.spells.oxeyedaisy.name=Компонент заклинания: Ускорение
+roots.research.spells.oxeyedaisy.page1title.name=Пропуск времени
+roots.research.spells.oxeyedaisy.page1info=The oxeye daisy is attuned to the passage of time itself. Using the above recipe, you can create a spell capable of skipping through a small amount of time. The world's time will progress somewhat, and the progress of a targeted tile entity will progress significantly.
+
+roots.research.spells.dandelion.name=Компонент заклинания: Одуванчиковый ветер
+roots.research.spells.dandelion.page1title.name=Порыв
+roots.research.spells.dandelion.page1info=You have discovered that the dandelion has powers relating to the wind. Using the above recipe, you can create a spell capable of blasting back entities in front of you.
+
+roots.research.spells.sunflower.name=Компонент заклинания: Солнечный удар
+roots.research.spells.sunflower.page1title.name=Отрава Нежити
+roots.research.spells.sunflower.page1info=A sunflower spends its entire life trying to absorb the sun's rays. Using the above recipe, you can tap into a bit of that stored sunlight, doing some damage to normal mobs, but dealing a massive amount of extra damage to undead monsters, as well as igniting them.
+
+roots.research.spells.lilac.name=Компонент заклинания: Рост
+roots.research.spells.lilac.page1title.name=Магическое удобрение
+roots.research.spells.lilac.page1info=You have discovered that lilacs contain a spark of growth energy deep within them. Using the above recipe, you can create a spell capable of growing nearby plant life. The spell will target a growable plants around the targeted block, and has a chance of applying a bonemeal effect to each one.
+
+roots.research.spells.rosebush.name=Компонент заклинания: Шипы розы
+roots.research.spells.rosebush.page1title.name=Природная защита
+roots.research.spells.rosebush.page1info=You have discovered a way to capture the prickliness of a rose bush in your spells. Using the above recipe, you can create a spell capable of dealing raw damage to targets. Do note that this spell will not cause knockback.
+
+roots.research.spells.peony.name=Компонент заклинания: Регенерация
+roots.research.spells.peony.page1title.name=Нежное прикосновение
+roots.research.spells.peony.page1info=You have found that peonies have a gentle healing character to them. Using the above recipe, you can create a spell that will simply heal you a small amount.
+
+roots.research.spells.apple.name=Компонент заклинания: Лечение природы
+roots.research.spells.apple.page1title.name=Лекарство
+roots.research.spells.apple.page1info=You have discovered that apples have some level of curative properties. Using the above recipe, you can create a spell that will take any negative effects currently on you and transform them to their positive variants, if such variants exist.
+
+roots.research.spells.lilypad.name=Компонент заклинания: Взрыв воды
+roots.research.spells.lilypad.page1title.name=Огнетушитель
+roots.research.spells.lilypad.page1info=Being an aquatic plant, you'd expect lily pads to have some kind of power relating to the water. Using the above recipe, you can create a spell that will create a burst of temporary water 4 blocks in front of you. This spell is quite useful for extinguishing fires, or pushing back nearby mobs.
+
+roots.research.spells.poisonouspotato.name=Компонент заклинания: Электрическая искра
+roots.research.spells.poisonouspotato.page1title.name=Удар молнии
+roots.research.spells.poisonouspotato.page1info=The innate charge of a potato combined with the harmfulness of its poison create a highly destructive spell. Using the above recipe, you can create a spell that will simply strike lightning on a nearby block you look at.
+
+roots.research.spells.netherwart.name=Компонент заклинания: Инферно
+roots.research.spells.netherwart.page1title.name=Огненный шар
+roots.research.spells.netherwart.page1info=Nether wart has absorbed a lot from its fiery home in the nether. Using the above recipe, you can create a spell that will both damage and ignite hit targets.
+
+roots.research.spells.chorus.name=Компонент заклинания: Эндер-варп
+roots.research.spells.chorus.page1title.name=Телепортация
+roots.research.spells.chorus.page1info=Just eating a chorus fruit on its own is enough to grant a random teleport. Using the above recipe, you can create a spell with greater control over this ability, letting the user teleport forward, even through walls or when falling.
+
+roots.research.spells.radiantdaisy.name=Компонент заклинания: Cияние
+roots.research.spells.radiantdaisy.page1title.name=Цветок света
+roots.research.spells.radiantdaisy.page1info=Using the mutating flower in the overworld, you create a shining white flower. To create, plant an oxeye daisy. At noon, toss down a glowstone block and one prismarine crystal next to it, and while under the night vision effect, use the powder on the flower.
+roots.research.spells.radiantdaisy.page2title.name=Пронзительные лучи
+roots.research.spells.radiantdaisy.page2info=The new flower you have created contains the very essence of the glowing daylight of the overworld. Using the above recipe, you can create a spell that will do very high damage to struck creatures in a large beam in front of you.
+
+roots.research.spells.flareorchid.name=Компонент заклинания: Горение
+roots.research.spells.flareorchid.page1title.name=Огненная флора
+roots.research.spells.flareorchid.page1info=Using the mutating powder in the nether, you create a burning red flower. To create, plant a blue orchid in the nether. Make a ring of netherrack around the flower. While under the fire resistance effect, toss a blaze rod and lava bucket near the flower, then use the powder on the flower.
+roots.research.spells.flareorchid.page2title.name=Разрушение
+roots.research.spells.flareorchid.page2info=The new flower you have created is bursting with the chaotic fire of the nether. Using the above recipe, you can use it to create a spell that will allow you to create large explosions on blocks that you look at.
+
+roots.research.spells.midnightbloom.name=Компонент заклинания: Остановка времени
+roots.research.spells.midnightbloom.page1title.name=Эндер-цветок
+roots.research.spells.midnightbloom.page1info=Using the mutating powder in the end, you create a flower black as night. To create, plant a poppy two blocks above obsidian in the end. While under the slowness effect, toss a coal block next to the flower and use the powder on the flower.
+roots.research.spells.midnightbloom.page2title.name=Хрономаг
+roots.research.spells.midnightbloom.page2info=The new flower you have created is bursting with powers beyond your control. Using the above recipe, you can create a spell that will stop time for all entities in an area around you. They will not update until the spell ends, during which time you can move, attack, or gloat at them.
+
+roots.research.ritual.name=Ритуалы
+
+roots.research.ritual.ritual.name=Базовая механика ритуалов
+roots.research.ritual.ritual.page1title.name=Алтарь
+roots.research.ritual.ritual.page1info=With your acquisition of materials from deep within the earth, you have created a new structure that allows you to cast more powerful magic than ever before. Different rituals may be performed at the altar, each one requiring different components and conditions to operate.
+roots.research.ritual.ritual.page2title.name=Ароматия
+roots.research.ritual.ritual.page2info=Most rituals, if not all, require incense to function. Incense braziers will only be counted if they are within a 9x9 area around the altar, and on the same level. Items may be placed within the brazier, and ignited with a flint and steel. An incense brazier can be extinguished by sneak-right-clicking with an empty hand.
+roots.research.ritual.ritual.page3title.name=Базовое литьё
+roots.research.ritual.ritual.page3info=A typical ritual is cast as follows: first, necessary items are placed on the altar, and necessary incense items are ignited. Make sure you don't have any extra ingredients in the altar, or extra incenses in the air, or the ritual will fail. Then, sneak-right-click the altar with an empty hand to begin the ritual.
+
+roots.research.ritual.livingtools.name=Живые инструменты
+roots.research.ritual.livingtools.page1title.name=Самовосстановление
+roots.research.ritual.livingtools.page1info=Your rituals are capable of channeling life energy into previously dead objects. Using this, you can grow newer, stronger forms for your wooden tools. Adding a little gold for reinforcement, as well as a verdant sprig to grow upon, will grant you tools of similar strength to iron that repair slowly over time.
+roots.research.ritual.livingtools.page2title.name=Ритуал: Живая кирка
+roots.research.ritual.livingtools.page3title.name=Ритуал: Живой топор
+roots.research.ritual.livingtools.page4title.name=Ритуал: Живая лопата
+roots.research.ritual.livingtools.page5title.name=Ритуал: Живой меч
+roots.research.ritual.livingtools.page6title.name=Ритуал: Живая мотыга
+
+roots.research.ritual.grow.name=Ритуал роста
+roots.research.ritual.grow.page1title.name=Искра жизни
+roots.research.ritual.grow.page1info=With the simple life-channeling abilities of the altar, you have devised a ritual that will aid the growth of your crops. This ritual will scan for crops in a 35x35x9 area and randomly apply a bonemeal-like effect to a few of them.
+roots.research.ritual.grow.page2title.name=Ритуал: Рост
+
+roots.research.ritual.standingstones.name=Стоячие камни
+roots.research.ritual.standingstones.page1title.name=Гравированные камни
+roots.research.ritual.standingstones.page1info=In order to gain access to more powerful rituals, you need a better way to channel life energy from the world around you. By carving runes into this stone structure, you give it the much-needed ability to draw in power from the world around it to fuel your magical desires.
+
+roots.research.ritual.animalsummoning.name=Реанимация животных
+roots.research.ritual.animalsummoning.page1title.name=Life Giver
+roots.research.ritual.animalsummoning.page1info=With the enhanced channeling abilities of the standing stones, you believe that you could imbue the corpse of a dead creature with enough healing energy to bring it back to life. Given the flesh and bones of a passive mob, these rituals will bring that mob back to life on top of the altar.
+roots.research.ritual.animalsummoning.page2title.name=Ритуал: Призыв свиньи
+roots.research.ritual.animalsummoning.page3title.name=Ритуал: Призыв коровы
+roots.research.ritual.animalsummoning.page4title.name=Ритуал: Призыв овцы
+roots.research.ritual.animalsummoning.page5title.name=Ритуал: Призыв курицы
+roots.research.ritual.animalsummoning.page6title.name=Ритуал: Призыв кролика
+
+roots.research.ritual.crystalstaff.name=Кристальный посох
+roots.research.ritual.crystalstaff.page1title.name=Многоразовая магия
+roots.research.ritual.crystalstaff.page1info=For too long, you have been bound by the limited number of uses of your typical staff. Using rare crystals from deep within the earth, you believe you have created a way to store spells indefinitely: the crystal staff. Not only can this staff keep spells indefinitely, it can also store up to four at a time.
+roots.research.ritual.crystalstaff.page2title.name=Ритуал: Ковка кристалла
+roots.research.ritual.crystalstaff.page3title.name=Добавление заклинаний
+roots.research.ritual.crystalstaff.page3info=Adding spells to the staff requires a separate ritual. In addition to this ritual's displayed components, you may add up to four additional petal dusts as incenses. Each of these will be added to the staff, overwriting previous spells if necessary. Simply sneak and right-click to cycle through the staff's spells.
+roots.research.ritual.crystalstaff.page4title.name=Ритуал: Наполнение кристалла
+roots.research.ritual.crystalstaff.page5title.name=Ограничения
+roots.research.ritual.crystalstaff.page5info=However, this new staff has one major limitation: it must be used while standing on natural blocks like dirt, grass, leaves, or log blocks. Otherwise, the staff will tap into the user's own life force to cast spells.
+
+roots.research.ritual.rainrituals.name=Управление падением
+roots.research.ritual.rainrituals.page1title.name=Погодная магия
+roots.research.ritual.rainrituals.page1info=With a few simple natural ingredients, you have discovered two rituals, one that will summon rain to the world and another to banish it.
+roots.research.ritual.rainrituals.page2title.name=Ритуал: Призыв дождя
+roots.research.ritual.rainrituals.page3title.name=Ритуал: Изгон дождя
+
+roots.research.ritual.flare.name=Огненный взрыв
+roots.research.ritual.flare.page1title.name=Наступательные ритуалы
+roots.research.ritual.flare.page1info=Not all of your rituals are for happy, fun purposes like toggling the rain or bringing your pet pig back to life. The flare ritual uses some fiery materials from the nether as well as some volatile fuels to burn mobs inside a 45x45x17 area around the altar, except for players immediately near the altar.
+roots.research.ritual.flare.page2title.name=Ритуал: Вспышка
+
+roots.research.ritual.standingstones2.name=Усовершенствованные стоячие камни
+roots.research.ritual.standingstones2.page1title.name=Следующий уровень
+roots.research.ritual.standingstones2.page1info=One again, you've hit a wall. Your standing stones are powerful, but you are sure that there is a lot of more powerful magic that still eludes you. With a trip to the nether, however, you have discovered that by using some more energetic materials, you can create stones far more effective at channeling life energy.
+
+roots.research.ritual.monstersummoning.name=Реанимация монстров
+roots.research.ritual.monstersummoning.page1title.name=Нежить
+roots.research.ritual.monstersummoning.page1info=With a more powerful altar, you think you might be able to apply your previous reanimation rituals to some more powerful and sinister targets. By supplying a bone and some related drops, you can summon forth a mob of your choice on top of the altar.
+roots.research.ritual.monstersummoning.page2title.name=Ритуал: Призыв зомби
+roots.research.ritual.monstersummoning.page3title.name=Ритуал: Призыв скелета
+roots.research.ritual.monstersummoning.page4title.name=Ритуал: Призыв паука
+roots.research.ritual.monstersummoning.page5title.name=Ритуал: Призыв крипера
+roots.research.ritual.monstersummoning.page6title.name=Ритуал: Призыв пещерного паука
+roots.research.ritual.monstersummoning.page7title.name=Ритуал: Призыв слизня
+roots.research.ritual.monstersummoning.page8title.name=Ритуал: Призыв эндермена
+
+roots.research.ritual.sylvanarmor.name=Лесная броня
+roots.research.ritual.sylvanarmor.page1title.name=Друидическое одеяние
+roots.research.ritual.sylvanarmor.page1info=With your new, stronger altar, you might want your apparel to follow suit. Using some leather armor as a base, you have managed to create a form of magically-cooperative robe. This equipment doesn't have the best protection, but it will auto-repair and boost the efficiency modifier of your spells by two.
+roots.research.ritual.sylvanarmor.page2title.name=Ритуал: Лесной капюшон
+roots.research.ritual.sylvanarmor.page3title.name=Ритуал: Лесная мантия
+roots.research.ritual.sylvanarmor.page4title.name=Ритуал: Лесные поножи
+roots.research.ritual.sylvanarmor.page5title.name=Ритуал: Лесные ботинки
+
+roots.research.ritual.wildwoodarmor.name=Дикодревесная броня
+roots.research.ritual.wildwoodarmor.page1title.name=Деревянная броня
+roots.research.ritual.wildwoodarmor.page1info=Fancy robes are nice and all, but sometimes you just want raw protection. The wildwood armor, built off of iron armor as a base, satisfies that purpose nicely. It has protection in-between iron and diamond armor, but also auto-repairs and increases your natural regeneration, even when out of food.
+roots.research.ritual.wildwoodarmor.page2title.name=Ритуал: Дикодревесная маска
+roots.research.ritual.wildwoodarmor.page3title.name=Ритуал: Дикодревесная пластина
+roots.research.ritual.wildwoodarmor.page4title.name=Ритуал: Дикодревесные поножи
+roots.research.ritual.wildwoodarmor.page5title.name=Ритуал: Дикодревесные ботинки
+
+roots.research.ritual.poweredstones.name=Энергетические камни
+roots.research.ritual.poweredstones.page1title.name=Простые, но эффективные
+roots.research.ritual.poweredstones.page1info=You've used standing stones to channel life energy before, but never on their own. However, using the innate power within an infernal bulb and the regenerative effects of a ritual, you have created standing stones that will perform a simple purpose in an area around them forever, without cost.
+roots.research.ritual.poweredstones.page2title.name=Ритуал: Камень ускорения
+roots.research.ritual.poweredstones.page3title.name=Ускорение
+roots.research.ritual.poweredstones.page3info=The accelerator stone will grant all nearby creatures the Speed II potion effect.
+roots.research.ritual.poweredstones.page4title.name=Ритуал: Камень запутывания
+roots.research.ritual.poweredstones.page5title.name=Запутывание
+roots.research.ritual.poweredstones.page5info=The Entangler stone will grant all nearby creatures the Slowness II potion effect.
+roots.research.ritual.poweredstones.page6title.name=Ритуал: Камень роста
+roots.research.ritual.poweredstones.page7title.name=Рост
+roots.research.ritual.poweredstones.page7info=The grower stone will slightly boost the growth speed of nearby crops.
+roots.research.ritual.poweredstones.page8title.name=Ритуал: Камень исцеления
+roots.research.ritual.poweredstones.page9title.name=Исцеление
+roots.research.ritual.poweredstones.page9info=The healer stone will grant the regeneration potion effect to all nearby creatures.
+roots.research.ritual.poweredstones.page10title.name=Ритуал: Камень воспламенения
+roots.research.ritual.poweredstones.page11title.name=Воспламенение
+roots.research.ritual.poweredstones.page11info=The igniter stone will light nearby creatures on fire for a few seconds.
+roots.research.ritual.poweredstones.page12title.name=Ритуал: Камень отталкивания
+roots.research.ritual.poweredstones.page13title.name=Отталкивание
+roots.research.ritual.poweredstones.page13info=The repulsor stone will push nearby dropped items away from itself.
+roots.research.ritual.poweredstones.page14title.name=Ритуал: Камень вакуума
+roots.research.ritual.poweredstones.page15title.name=Вакуум
+roots.research.ritual.poweredstones.page15info=The vacuum stone will pull nearby dropped items in towards itself.
+
+roots.research.ritual.massbreeding.name=Массовое размножение
+roots.research.ritual.massbreeding.page1title.name=Ферма животных
+roots.research.ritual.massbreeding.page1info=By burning common breeding items as incense, you have developed a ritual that will cause all breedable mobs within a 45x45x17 box to enter breeding mode.
+roots.research.ritual.massbreeding.page2title.name=Ритуал: Массовое размножение
+
+roots.research.ritual.lifedrain.name=Life Drain
+roots.research.ritual.lifedrain.page1title.name=Taking It Back
+roots.research.ritual.lifedrain.page1info=The life force present in hostile mobs is corrupt and tainted. With this ritual, you have developed a means of taking this life force for more beneficial purposes. This ritual will damage all hostile mobs in a large area, and divide the damage dealt evenly among nearby players in the form of healing.
+roots.research.ritual.lifedrain.page2title.name=Ритуал: Life Drain
+
+roots.research.ritual.sacrifice.name=Жертвоприношение
+roots.research.ritual.sacrifice.page1title.name=Сверхъестественная сделка
+roots.research.ritual.sacrifice.page1info=You are simply fed up with going on long adventures searching for specific plants to complete your spells. With this ritual, you have developed a sinister solution. When this ritual finishes its particle light show, it will instantly kill a mob placed near it. In exchange, a random plant may be dropped from the altar. The source of these drops remains unknown to you...
+roots.research.ritual.sacrifice.page2title.name=Ритуал: Жертвоприношение
+
+roots.research.ritual.runicFocus.name=Рунический фокус
+roots.research.ritual.runicFocus.page1title.name=Хранимая мощность
+roots.research.ritual.runicFocus.page1info=By engraving this stone with some runes, and placing a rare gem at its core, you have created an item that will store up life energy. It can be charged with a ritual at an altar, and then either discharged or incorporated into other items in rituals or other processes.
+roots.research.ritual.runicFocus.page2title.name=Ритуал: Рунический фокус
+roots.research.ritual.runicFocus.page3title.name=Заряди его
+roots.research.ritual.runicFocus.page3info=To actually charge the focus, you need some energetic dust from the overworld, as well as some energetic dust from the nether. Using the fiery energies of an infernal stem, you can force the energy from the dusts into the focus, along with the life energy that accompanies all rituals.
+roots.research.ritual.runicFocus.page4title.name=Ритуал: Заряженный рунический фокус
+
+roots.research.ritual.engravedSword.name=Выгравированный клинок
+roots.research.ritual.engravedSword.page1title.name=Модульное оружие
+roots.research.ritual.engravedSword.page1info=Using the properties of a Runic Focus, you have created a new weapon. During the crafting of this weapon you can burn up to four different kinds of barks as additional incenses to add different buffs to the sword. You can mix and match these buffs as you please, and they will stack if you put more than one on at a time.
+roots.research.ritual.engravedSword.page2title.name=Ритуал: Выгравированный клинок
+roots.research.ritual.engravedSword.page3title.name=Шипы
+roots.research.ritual.engravedSword.page3info=Each acacia bark you burn as incense during the sword's crafting will add 2 damage to the sword.
+roots.research.ritual.engravedSword.page4title.name=Forceful
+roots.research.ritual.engravedSword.page4info=Each spruce bark you burn as incense during the sword's crafting will add additional knockback to the sword's attacks.
+roots.research.ritual.engravedSword.page5title.name=Holy
+roots.research.ritual.engravedSword.page5info=Each birch bark you burn as incense during the sword's crafting will add 3 additional damage whenever the sword attacks undead creatures.
+roots.research.ritual.engravedSword.page6title.name=Aquatic
+roots.research.ritual.engravedSword.page6info=Each jungle bark you burn as incense during the sword's crafting will add 1 drowning damage to the sword's damage output.
+roots.research.ritual.engravedSword.page7title.name=Теневой шаг
+roots.research.ritual.engravedSword.page7info=Each dark oak bark you burn as incense during the sword's crafting will increase your chance to dodge attacks made against you when holding the sword.
+
+achievement.tablet=Кому нужны страницы?
+achievement.tablet.desc=Сделать рунический планшет.
+achievement.dust=Не требуется измельчитель!
+achievement.dust.desc=Используйте ступку для изготовления лепестковой пыли.
+achievement.spellRose=Оружие с любым другим именем...
+achievement.spellRose.desc=Нанести урон используя заклинание "Шипы розы".
+achievement.spellGrowth=Я оцениваю это заклинание на 10/10/10.
+achievement.spellGrowth.desc=Get maximum growth from a single growth spell.
+achievement.spellInsanity=Ты - избранный!
+achievement.spellInsanity.desc=Заставьте монстра предать своих друзей с заклинанием "Безумие".
+achievement.maxModifiers=Все модификации!
+achievement.maxModifiers.desc=Создать заклинание с любыми тремя одиночными модификаторами.
+achievement.lotsDamage=Понёрфите это!
+achievement.lotsDamage.desc=Нанести более 80 общего урона с одним из заклинаний.
+achievement.timeStop=「МИР」
+achievement.timeStop.desc=Убить существо во время остановки времени.
+achievement.altar=Другой оригинальный™ блок
+achievement.altar.desc=Сделать литейный алтарь.
+achievement.standingStone=Ваш собственный хендж
+achievement.standingStone.desc=Создать настроенный стоячий камень.
+achievement.wildwood=Я есть РУТ
+achievement.wildwood.desc=Надеть полный комплект дикодревесной брони
+achievement.shadow=Я ночь
+achievement.shadow.desc=Forge an engraved blade with Shadow Step IV.
+achievement.spellElements=Воплощение божества.
+achievement.spellElements.desc=Вооружить кристальный посох зачарованиями "Земляной шип", "Одуванчиковый ветер", "Взрыв воды", и "Огненный шар".
+achievement.vampire=Я отвергаю мою человечность!
+achievement.vampire.desc=Drain enough life using the Life Drain ritual to heal 10 hearts.

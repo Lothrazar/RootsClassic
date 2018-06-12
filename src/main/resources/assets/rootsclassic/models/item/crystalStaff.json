@@ -1,0 +1,8 @@
+{
+    "parent" : "item/handheld",
+    "textures" : {
+        "layer0" : "rootsclassic:items/crystalstaff",
+        "layer1" : "rootsclassic:items/crystalstaffglow1",
+        "layer2" : "rootsclassic:items/crystalstaffglow2"
+    }
+}
