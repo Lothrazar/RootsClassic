@@ -1,6 +1,6 @@
 {
     "parent" : "item/handheld",
     "textures" : {
-        "layer0" : "rootsclassic:items/livingAxe"
+        "layer0" : "rootsclassic:items/livingaxe"
     }
 }

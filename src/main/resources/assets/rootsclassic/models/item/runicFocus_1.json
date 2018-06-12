@@ -1,6 +1,6 @@
 {
     "parent" : "item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/runicFocusCharged"
+        "layer0" : "rootsclassic:items/runicfocuscharged"
     }
 }

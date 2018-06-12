@@ -2,9 +2,9 @@
     "parent": "block/block",
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "rootsclassic:blocks/standingStoneGrower",
-        "1": "rootsclassic:blocks/standingStoneT2Bottom",
-        "particle": "rootsclassic:blocks/standingStoneGrower"
+        "0": "rootsclassic:blocks/standingstonegrower",
+        "1": "rootsclassic:blocks/standingstonet2bottom",
+        "particle": "rootsclassic:blocks/standingstonegrower"
     },
     "elements": [
         {
