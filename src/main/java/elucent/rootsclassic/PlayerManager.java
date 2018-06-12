@@ -3,7 +3,6 @@ package elucent.rootsclassic;
 import java.util.ArrayList;
 import elucent.rootsclassic.component.ComponentEffect;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.stats.Achievement;
 
 public class PlayerManager {
 
@@ -39,9 +38,4 @@ public class PlayerManager {
     }
   }
 
-  public static void addAchievement(EntityPlayer player, Achievement ach) {
-    if (!player.getEntityWorld().isRemote) {
-      player.addStat(ach, 1);
-    }
-  }
 }

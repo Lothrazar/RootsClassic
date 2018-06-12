@@ -3,23 +3,13 @@ package elucent.rootsclassic.component.components;
 import java.util.ArrayList;
 import java.util.Random;
 import elucent.rootsclassic.ConfigManager;
-import elucent.rootsclassic.PlayerManager;
-import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
@@ -48,13 +38,13 @@ public class ComponentNetherWart extends ComponentBase {
           }
         }
       }
-      if (damageDealt > 80) {
-        if (caster instanceof EntityPlayer) {
-          if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveLotsDamage)) {
-            PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveLotsDamage);
-          }
-        }
-      }
+      //      if (damageDealt > 80) {
+      //        if (caster instanceof EntityPlayer) {
+      //          if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveLotsDamage)) {
+      //            PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveLotsDamage);
+      //          }
+      //        }
+      //      }
     }
   }
 }

@@ -1,17 +1,12 @@
 package elucent.rootsclassic.component.components;
 
 import java.util.ArrayList;
-import java.util.UUID;
 import elucent.rootsclassic.ConfigManager;
-import elucent.rootsclassic.PlayerManager;
-import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Util;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
@@ -33,11 +28,11 @@ public class ComponentRose extends ComponentBase {
         if (targets.get(i).getUniqueID() != caster.getUniqueID()) {
           if (targets.get(i) instanceof EntityPlayer && ConfigManager.disablePVP) {}
           else {
-            if (caster instanceof EntityPlayer) {
-              if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveSpellRose)) {
-                PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveSpellRose);
-              }
-            }
+            //            if (caster instanceof EntityPlayer) {
+            //              if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveSpellRose)) {
+            //                PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveSpellRose);
+            //              }
+            //            }
             targets.get(i).attackEntityFrom(DamageSource.cactus, (int) (9 + 2 * potency));
             Util.addTickTracking(targets.get(i));
             targets.get(i).getEntityData().setFloat("RMOD_thornsDamage", 2.0f + (float) potency);
@@ -47,13 +42,13 @@ public class ComponentRose extends ComponentBase {
           }
         }
       }
-      if (damageDealt > 80) {
-        if (caster instanceof EntityPlayer) {
-          if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveLotsDamage)) {
-            PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveLotsDamage);
-          }
-        }
-      }
+      //      if (damageDealt > 80) {
+      //        if (caster instanceof EntityPlayer) {
+      //          if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveLotsDamage)) {
+      //            PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveLotsDamage);
+      //          }
+      //        }
+      //      }
     }
   }
 }

@@ -3,27 +3,16 @@ package elucent.rootsclassic.item;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import elucent.rootsclassic.PlayerManager;
-import elucent.rootsclassic.RegistryManager;
-import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentManager;
-import elucent.rootsclassic.component.EnumCastType;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
-import net.minecraft.world.World;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -66,11 +55,7 @@ public class DustPetal extends Item {
         }
       }
     }
-    if (potency >= 3 || efficiency >= 3 || size >= 3) {
-      if (!(player).hasAchievement(RegistryManager.achieveMaxModifiers)) {
-        PlayerManager.addAchievement(player, RegistryManager.achieveMaxModifiers);
-      }
-    }
+
     stack.getTagCompound().setInteger("potency", potency);
     stack.getTagCompound().setInteger("efficiency", efficiency);
     stack.getTagCompound().setInteger("size", size);

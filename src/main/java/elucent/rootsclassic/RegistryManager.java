@@ -70,8 +70,6 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.stats.Achievement;
-import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -86,7 +84,6 @@ public class RegistryManager {
   public static Item runicFocus, rootyStew, healingPoultice, mutagen, growthSalve, runedTablet, druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots, livingPickaxe, livingSword, livingHoe, livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig, infernalStem, dragonsEye, druidKnife, oakTreeBark, spruceTreeBark, birchTreeBark, jungleTreeBark, acaciaTreeBark, darkOakTreeBark, nightshade, blackCurrant, redCurrant, whiteCurrant, elderBerry, engravedSword;
   public static Item manaResearchIcon;
   public static Block flareOrchid, radiantDaisy, standingStoneGrower, standingStoneHealer, standingStoneIgniter, standingStoneEntangler, standingStoneAccelerator, standingStoneAesthetic, standingStoneRepulsor, standingStoneVacuum, midnightBloom, mortar, imbuer, altar, druidChalice, standingStoneT1, standingStoneT2, brazier;
-  public static Achievement achieveDust, achieveTablet, achieveSpellRose, achieveSpellGrowth, achieveSpellInsanity, achieveMaxModifiers, achieveLotsDamage, achieveTimeStop, achieveAltar, achieveStandingStone, achieveWildwood, achieveShadow, achieveSpellElements, achieveVampire;
   public static ToolMaterial engravedMaterial = EnumHelper.addToolMaterial("engraved", 2, 1050, 5F, 8.0F, 5);
   public static ToolMaterial livingMaterial = EnumHelper.addToolMaterial("livingMaterial", 2, 192, 6.0f, 2.0f, 18);
   public static ArmorMaterial druidRobesMaterial = EnumHelper.addArmorMaterial("druidRobes", "roots:druidRobes", 10, new int[] { 1, 5, 6, 2 }, 20, null, 0);
@@ -198,52 +195,6 @@ public class RegistryManager {
     GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(RegistryManager.rootyStew, 1), new Object[] { new ItemStack(Items.WHEAT, 1), new ItemStack(Items.BOWL, 1), new ItemStack(RegistryManager.oldRoot, 1) }));
     GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(RegistryManager.healingPoultice, 2), new Object[] { new ItemStack(Items.DYE, 1, 1), new ItemStack(Items.PAPER, 1), new ItemStack(RegistryManager.pestle, 1), new ItemStack(RegistryManager.verdantSprig, 1) }));
     GameRegistry.addSmelting(RegistryManager.dragonsEye, new ItemStack(Items.ENDER_PEARL), 1F);
-  }
-
-  public static void registerAchievements() {
-    achieveTablet = new Achievement("achievement.tablet", "tablet", -2, -1, RegistryManager.runedTablet, null);
-    achieveTablet.registerStat();
-    achieveDust = new Achievement("achievement.dust", "dust", 0, 0, RegistryManager.dustPetal, achieveTablet);
-    achieveDust.registerStat();
-    achieveSpellRose = new Achievement("achievement.spellRose", "spellRose", 0, 3, new ItemStack(Blocks.DOUBLE_PLANT, 1, 4), achieveDust);
-    achieveSpellRose.registerStat();
-    achieveSpellGrowth = new Achievement("achievement.spellGrowth", "spellGrowth", -2, 3, new ItemStack(Blocks.DOUBLE_PLANT, 1, 1), achieveDust);
-    achieveSpellGrowth.registerStat();
-    achieveSpellInsanity = new Achievement("achievement.spellInsanity", "spellInsanity", 2, 3, new ItemStack(Blocks.RED_FLOWER, 1, 0), achieveDust);
-    achieveSpellInsanity.registerStat();
-    achieveMaxModifiers = new Achievement("achievement.maxModifiers", "maxModifiers", -4, 2, new ItemStack(Items.GLOWSTONE_DUST, 1), achieveDust);
-    achieveMaxModifiers.registerStat();
-    achieveLotsDamage = new Achievement("achievement.lotsDamage", "lotsDamage", -6, 2, new ItemStack(Items.BLAZE_POWDER, 1), achieveMaxModifiers).setSpecial();
-    achieveLotsDamage.registerStat();
-    achieveTimeStop = new Achievement("achievement.timeStop", "timeStop", -5, 4, new ItemStack(RegistryManager.midnightBloom, 1), achieveMaxModifiers).setSpecial();
-    achieveTimeStop.registerStat();
-    achieveAltar = new Achievement("achievement.altar", "altar", 0, -2, new ItemStack(RegistryManager.altar, 1), achieveTablet);
-    achieveAltar.registerStat();
-    achieveSpellElements = new Achievement("achievement.spellElements", "spellElements", -2, -4, new ItemStack(RegistryManager.crystalStaff, 1), achieveAltar).setSpecial();
-    achieveSpellElements.registerStat();
-    achieveStandingStone = new Achievement("achievement.standingStone", "standingStone", 2, -4, new ItemStack(RegistryManager.standingStoneT2, 1), achieveAltar);
-    achieveStandingStone.registerStat();
-    achieveWildwood = new Achievement("achievement.wildwood", "wildwood", 4, -6, new ItemStack(RegistryManager.druidArmorHead, 1), achieveStandingStone);
-    achieveWildwood.registerStat();
-    achieveShadow = new Achievement("achievement.shadow", "shadow", 4, -2, new ItemStack(RegistryManager.runicFocus, 1), achieveStandingStone);
-    achieveShadow.registerStat();
-    achieveVampire = new Achievement("achievement.vampire", "vampire", 6, -4, new ItemStack(Items.GHAST_TEAR, 1), achieveStandingStone).setSpecial();
-    achieveVampire.registerStat();
-    AchievementPage.registerAchievementPage(new AchievementPage("Roots",
-        achieveTablet,
-        achieveDust,
-        achieveSpellRose,
-        achieveSpellGrowth,
-        achieveSpellInsanity,
-        achieveMaxModifiers,
-        achieveLotsDamage,
-        achieveTimeStop,
-        achieveAltar,
-        achieveSpellElements,
-        achieveStandingStone,
-        achieveWildwood,
-        achieveShadow,
-        achieveVampire));
   }
 
   @SideOnly(Side.CLIENT)

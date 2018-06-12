@@ -1,9 +1,7 @@
 package elucent.rootsclassic.tileentity;
 
 import java.util.ArrayList;
-import elucent.rootsclassic.PlayerManager;
 import elucent.rootsclassic.RegistryManager;
-import elucent.rootsclassic.Util;
 import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.component.ComponentRecipe;
 import elucent.rootsclassic.item.DustPetal;
@@ -14,8 +12,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -66,6 +62,7 @@ public class TileEntityMortar extends TEBase {
     this.invalidate();
   }
 
+  @Override
   public boolean activate(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
     if (heldItem == null) {
       if (inventory.size() > 0) {
@@ -93,7 +90,7 @@ public class TileEntityMortar extends TEBase {
             inventory.clear();
             markDirty();
             this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-            PlayerManager.addAchievement(player, RegistryManager.achieveDust);
+
             return true;
           }
         }

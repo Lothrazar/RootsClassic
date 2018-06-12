@@ -21,7 +21,7 @@ public class CommonProxy {
     RegistryManager.init();
     RegistryManager.registerRecipes();
     RootsCapabilityManager.preInit();
-    RegistryManager.registerAchievements();
+
   }
 
   public void init(FMLInitializationEvent event) {
