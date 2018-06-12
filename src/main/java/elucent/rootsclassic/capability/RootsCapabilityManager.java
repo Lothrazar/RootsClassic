@@ -100,7 +100,7 @@ public class RootsCapabilityManager {
       }
     }
     ManaCapabilityProvider provider = new ManaCapabilityProvider(!e.getObject().hasCapability(manaCapability, null));
-      e.addCapability(new ResourceLocation(Const.MODID, "manaCapability"), provider);
+    e.addCapability(new ResourceLocation(Const.MODID, "manacapability"), provider);
 
   }
 }

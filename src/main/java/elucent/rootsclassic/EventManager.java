@@ -19,7 +19,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -167,13 +166,13 @@ public class EventManager {
     if (player.capabilities.isCreativeMode) {
       showBar = false;
     }
-    if (showBar) {
+    if (showBar && player.hasCapability(RootsCapabilityManager.manaCapability, null)) {
       if (player.getCapability(RootsCapabilityManager.manaCapability, null).getMaxMana() > 0) {
         if (e.getType() == ElementType.TEXT) {
           GlStateManager.disableDepth();
           GlStateManager.disableCull();
           GlStateManager.pushMatrix();
-          Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Const.MODID, "textures/gui/manaBar.png"));
+          Minecraft.getMinecraft().getTextureManager().bindTexture(Const.manaBar);
           Tessellator tess = Tessellator.getInstance();
           BufferBuilder b = tess.getBuffer();
           int w = e.getResolution().getScaledWidth();
@@ -345,7 +344,6 @@ public class EventManager {
   @SideOnly(Side.CLIENT)
   @SubscribeEvent
   public void onTextureStitch(TextureStitchEvent event) {
-    ResourceLocation magicParticleRL = new ResourceLocation(Const.MODID, "entity/magicParticle");
-    event.getMap().registerSprite(magicParticleRL);
+    event.getMap().registerSprite(Const.magicParticle);
   }
 }

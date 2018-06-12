@@ -98,7 +98,7 @@ public class GuiTabletPage extends GuiScreen {
     }
     cycle += 4.0;
     this.drawDefaultBackground();
-    Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Const.MODID, "textures/gui/tabletGui.png"));
+    Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletGui);
     this.mouseX = mouseX;
     this.mouseY = mouseY;
     float basePosX = (width / 2.0f) - 96;
@@ -106,7 +106,7 @@ public class GuiTabletPage extends GuiScreen {
     EnumRecipeType type = research.info.get(currentPage).recipe;
     GlStateManager.color(1, 1, 1, 1);
     if (type == EnumRecipeType.TYPE_NULL) {
-      Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Const.MODID, "textures/gui/tabletGui.png"));
+      Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletGui);
       this.drawTexturedModalRect(basePosX, basePosY, 64, 0, 192, 256);
       String title = I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name");
       fontRenderer.drawStringWithShadow(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255));
@@ -116,7 +116,7 @@ public class GuiTabletPage extends GuiScreen {
       }
     }
     if (type == EnumRecipeType.TYPE_CRAFTING) {
-      Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Const.MODID, "textures/gui/tabletCrafting.png"));
+      Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletCrafting);
       this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
       if (research.info.get(currentPage).craftingRecipe.get(0) != null) {
         this.itemRender.renderItemIntoGUI(research.info.get(currentPage).craftingRecipe.get(0), (int) basePosX + 32, (int) basePosY + 32);
@@ -156,7 +156,7 @@ public class GuiTabletPage extends GuiScreen {
       fontRenderer.drawStringWithShadow(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255));
     }
     if (type == EnumRecipeType.TYPE_SMELTING) {
-      Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Const.MODID, "textures/gui/tabletSmelting.png"));
+      Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletSmelting);
       this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
       if (research.info.get(currentPage).smeltingRecipe.get(0) != null) {
         this.itemRender.renderItemIntoGUI(research.info.get(currentPage).smeltingRecipe.get(0), (int) basePosX + 56, (int) basePosY + 40);
@@ -238,7 +238,7 @@ public class GuiTabletPage extends GuiScreen {
       }
       fontRenderer.drawStringWithShadow(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255));
     }
-    Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Const.MODID, "textures/gui/tabletGui.png"));
+    Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletGui);
     if (showLeftArrow) {
       if (mouseX >= basePosX + 16 && mouseX < basePosX + 48 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
         this.drawTexturedModalRect(basePosX + 16, basePosY + 224, 32, 80, 32, 16);

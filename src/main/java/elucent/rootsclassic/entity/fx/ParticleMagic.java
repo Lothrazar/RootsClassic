@@ -15,7 +15,7 @@ public class ParticleMagic extends Particle {
   public double colorG = 0;
   public double colorB = 0;
   public int lifetime = 8;
-  public ResourceLocation texture = new ResourceLocation(Const.MODID, "entity/magicParticle");
+  public ResourceLocation texture = Const.magicParticle;
 
   public ParticleMagic(World worldIn, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b) {
     super(worldIn, x, y, z, 0, 0, 0);
