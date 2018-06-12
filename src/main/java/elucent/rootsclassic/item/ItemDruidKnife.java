@@ -33,7 +33,9 @@ public class ItemDruidKnife extends Item {
     ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
   }
 
-  public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+  @Override
+  public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    ItemStack stack = playerIn.getHeldItem(hand);
     if (worldIn.getBlockState(pos).getBlock() == Blocks.LOG) {
       if (!worldIn.isRemote) {
         switch (worldIn.getBlockState(pos).getBlock().getMetaFromState(worldIn.getBlockState(pos))) {
