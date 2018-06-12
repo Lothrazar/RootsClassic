@@ -62,6 +62,12 @@ public class BlockStandingStoneRepulsor extends TEBlockBase implements ITileEnti
     }
   }
 
+  public BlockStandingStoneRepulsor() {
+    super(Material.ROCK);
+    setCreativeTab(Roots.tab);
+    setHardness(1.0f);
+  }
+
   @Override
   public BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, new IProperty[] { topState });
@@ -109,12 +115,6 @@ public class BlockStandingStoneRepulsor extends TEBlockBase implements ITileEnti
     }
   }
 
-  public BlockStandingStoneRepulsor() {
-    super(Material.ROCK);
-    setUnlocalizedName("standingStoneRepulsor");
-    setCreativeTab(Roots.tab);
-    setHardness(1.0f);
-  }
 
   @SideOnly(Side.CLIENT)
   public void initModel() {

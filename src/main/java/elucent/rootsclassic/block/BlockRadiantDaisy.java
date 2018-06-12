@@ -17,7 +17,6 @@ public class BlockRadiantDaisy extends BlockBush {
 
   public BlockRadiantDaisy() {
     super();
-    setUnlocalizedName("radiantDaisy");
     setCreativeTab(Roots.tab);
   }
 

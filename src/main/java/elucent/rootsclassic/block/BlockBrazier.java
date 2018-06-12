@@ -21,7 +21,6 @@ public class BlockBrazier extends TEBlockBase implements ITileEntityProvider {
 
   public BlockBrazier() {
     super(Material.GROUND);
-    setUnlocalizedName("brazier");
     setCreativeTab(Roots.tab);
     setHardness(1.0f);
   }

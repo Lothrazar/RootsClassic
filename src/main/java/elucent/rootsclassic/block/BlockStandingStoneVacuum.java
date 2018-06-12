@@ -62,6 +62,11 @@ public class BlockStandingStoneVacuum extends TEBlockBase implements ITileEntity
     }
   }
 
+  public BlockStandingStoneVacuum() {
+    super(Material.ROCK);
+    setCreativeTab(Roots.tab);
+    setHardness(1.0f);
+  }
   @Override
   public BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, new IProperty[] { topState });
@@ -109,12 +114,6 @@ public class BlockStandingStoneVacuum extends TEBlockBase implements ITileEntity
     }
   }
 
-  public BlockStandingStoneVacuum() {
-    super(Material.ROCK);
-    setUnlocalizedName("standingStoneVacuum");
-    setCreativeTab(Roots.tab);
-    setHardness(1.0f);
-  }
 
   @SideOnly(Side.CLIENT)
   public void initModel() {

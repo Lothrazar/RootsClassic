@@ -135,14 +135,13 @@ public class RegistryManager {
 
   private static void registerItem(Item item, String name) {
     item.setUnlocalizedName(name);
-    //  item.setCreativeTab(Roots.tab);
     item.setRegistryName(new ResourceLocation(Const.MODID, name));
     itemList.add(item);
   }
 
   private static void registerBlock(Block b, String name) {
     b.setRegistryName(new ResourceLocation(Const.MODID, name));
-    //    b.setUnlocalizedName(name);
+    b.setUnlocalizedName(name);
     ItemBlock ib = new ItemBlock(b);
     ib.setRegistryName(new ResourceLocation(Const.MODID, name)); // ok good this should work yes? yes! http://mcforge.readthedocs.io/en/latest/blocks/blocks/#registering-a-block
     itemList.add(ib);

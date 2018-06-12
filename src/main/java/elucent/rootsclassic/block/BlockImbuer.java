@@ -2,14 +2,10 @@ package elucent.rootsclassic.block;
 
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.tileentity.TileEntityImbuer;
-import elucent.rootsclassic.tileentity.TileEntityMortar;
-import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -24,7 +20,6 @@ public class BlockImbuer extends TEBlockBase implements ITileEntityProvider {
 
   public BlockImbuer() {
     super(Material.GROUND);
-    setUnlocalizedName("imbuer");
     setCreativeTab(Roots.tab);
     setHardness(1.0f);
   }

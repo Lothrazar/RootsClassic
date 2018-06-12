@@ -17,7 +17,6 @@ public class BlockFlareOrchid extends BlockBush {
 
   public BlockFlareOrchid() {
     super();
-    setUnlocalizedName("flareOrchid");
     setCreativeTab(Roots.tab);
   }
 

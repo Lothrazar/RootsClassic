@@ -62,6 +62,12 @@ public class BlockStandingStoneGrower extends TEBlockBase implements ITileEntity
     }
   }
 
+  public BlockStandingStoneGrower() {
+    super(Material.ROCK);
+    setCreativeTab(Roots.tab);
+    setHardness(1.0f);
+  }
+
   @Override
   public BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, new IProperty[] { topState });
@@ -108,14 +114,6 @@ public class BlockStandingStoneGrower extends TEBlockBase implements ITileEntity
       ((TEBase) world.getTileEntity(pos)).breakBlock(world, pos, state, player);
     }
   }
-
-  public BlockStandingStoneGrower() {
-    super(Material.ROCK);
-    setUnlocalizedName("standingStoneGrower");
-    setCreativeTab(Roots.tab);
-    setHardness(1.0f);
-  }
-
   @SideOnly(Side.CLIENT)
   public void initModel() {
     ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));

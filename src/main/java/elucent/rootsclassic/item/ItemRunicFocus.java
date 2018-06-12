@@ -27,12 +27,12 @@ public class ItemRunicFocus extends Item implements IManaRelatedItem {
   @Override
   public String getUnlocalizedName(ItemStack stack) {
     if (stack.getItemDamage() == 0) {
-      return "runicFocus_0";
+      return "runicfocus_0";
     }
     if (stack.getItemDamage() == 1) {
-      return "runicFocus_1";
+      return "runicfocus_1";
     }
-    return "runicFocus_0";
+    return "runicfocus_0";
   }
 
   @SideOnly(Side.CLIENT)

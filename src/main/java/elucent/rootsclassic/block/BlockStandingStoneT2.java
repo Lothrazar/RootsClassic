@@ -59,6 +59,13 @@ public class BlockStandingStoneT2 extends Block {
     }
   }
 
+  public BlockStandingStoneT2() {
+    super(Material.ROCK);
+    setCreativeTab(Roots.tab);
+    setHardness(1.0f);
+  }
+
+
   @Override
   public BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, new IProperty[] { topState });
@@ -109,13 +116,6 @@ public class BlockStandingStoneT2 extends Block {
       return true;
     }
     return false;
-  }
-
-  public BlockStandingStoneT2() {
-    super(Material.ROCK);
-    setUnlocalizedName("standingStoneT2");
-    setCreativeTab(Roots.tab);
-    setHardness(1.0f);
   }
 
   @SideOnly(Side.CLIENT)

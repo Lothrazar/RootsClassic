@@ -62,6 +62,13 @@ public class BlockStandingStoneHealer extends TEBlockBase implements ITileEntity
     }
   }
 
+  public BlockStandingStoneHealer() {
+    super(Material.ROCK);
+    setCreativeTab(Roots.tab);
+    setHardness(1.0f);
+  }
+
+
   @Override
   public BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, new IProperty[] { topState });
@@ -107,13 +114,6 @@ public class BlockStandingStoneHealer extends TEBlockBase implements ITileEntity
     if (world.getTileEntity(pos) instanceof TEBase) {
       ((TEBase) world.getTileEntity(pos)).breakBlock(world, pos, state, player);
     }
-  }
-
-  public BlockStandingStoneHealer() {
-    super(Material.ROCK);
-    setUnlocalizedName("standingStoneHealer");
-    setCreativeTab(Roots.tab);
-    setHardness(1.0f);
   }
 
   @SideOnly(Side.CLIENT)

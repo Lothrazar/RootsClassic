@@ -17,7 +17,6 @@ public class BlockMidnightBloom extends BlockBush {
 
   public BlockMidnightBloom() {
     super();
-    setUnlocalizedName("midnightBloom");
     setCreativeTab(Roots.tab);
   }
 
