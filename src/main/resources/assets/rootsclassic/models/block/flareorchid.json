@@ -1,0 +1,7 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "cross": "rootsclassic:blocks/flareorchid",
+        "particle": "rootsclassic:blocks/flareorchid"
+    }
+}
