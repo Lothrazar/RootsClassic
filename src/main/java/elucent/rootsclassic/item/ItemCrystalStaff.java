@@ -8,19 +8,12 @@ import elucent.rootsclassic.capability.RootsCapabilityManager;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.component.EnumCastType;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -29,8 +22,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -42,7 +35,7 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
 
   public ItemCrystalStaff() {
     super();
-    setUnlocalizedName("crystalStaff");
+    //    setUnlocalizedName("crystalStaff");
     setCreativeTab(Roots.tab);
   }
 
@@ -88,24 +81,24 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
                 potency += 1;
               }
             }
-            double xpCost = (comp.xpCost + potency) * (1.0 - 0.25 * (double) efficiency);
+            double xpCost = (comp.xpCost + potency) * (1.0 - 0.25 * efficiency);
             Random random = new Random();
             if (((EntityPlayer) player).hasCapability(RootsCapabilityManager.manaCapability, null) && ((EntityPlayer) player).getCapability(RootsCapabilityManager.manaCapability, null).getMana() >= ((float) comp.xpCost) / (efficiency + 1)) {
               ((EntityPlayer) player).getCapability(RootsCapabilityManager.manaCapability, null).setMana(((EntityPlayer) player).getCapability(RootsCapabilityManager.manaCapability, null).getMana() - (((float) comp.xpCost) / (efficiency + 1)));
-              comp.doEffect(world, player, EnumCastType.SPELL, player.posX + 3.0 * player.getLookVec().xCoord, player.posY + 3.0 * player.getLookVec().yCoord, player.posZ + 3.0 * player.getLookVec().zCoord, potency, efficiency, 3.0 + 2.0 * size);
+              comp.doEffect(world, player, EnumCastType.SPELL, player.posX + 3.0 * player.getLookVec().x, player.posY + 3.0 * player.getLookVec().y, player.posZ + 3.0 * player.getLookVec().z, potency, efficiency, 3.0 + 2.0 * size);
               for (int i = 0; i < 90; i++) {
                 double offX = random.nextFloat() * 0.5 - 0.25;
                 double offY = random.nextFloat() * 0.5 - 0.25;
                 double offZ = random.nextFloat() * 0.5 - 0.25;
                 double coeff = (offX + offY + offZ) / 1.5 + 0.5;
-                double dx = (player.getLookVec().xCoord + offX) * coeff;
-                double dy = (player.getLookVec().yCoord + offY) * coeff;
-                double dz = (player.getLookVec().zCoord + offZ) * coeff;
+                double dx = (player.getLookVec().x + offX) * coeff;
+                double dy = (player.getLookVec().y + offY) * coeff;
+                double dz = (player.getLookVec().z + offZ) * coeff;
                 if (random.nextBoolean()) {
-                  Roots.proxy.spawnParticleMagicFX(world, player.posX + dx, player.posY + 1.5 + dy, player.posZ + dz, dx, dy, dz, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+                  Roots.proxy.spawnParticleMagicFX(world, player.posX + dx, player.posY + 1.5 + dy, player.posZ + dz, dx, dy, dz, comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z);
                 }
                 else {
-                  Roots.proxy.spawnParticleMagicFX(world, player.posX + dx, player.posY + 1.5 + dy, player.posZ + dz, dx, dy, dz, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+                  Roots.proxy.spawnParticleMagicFX(world, player.posX + dx, player.posY + 1.5 + dy, player.posZ + dz, dx, dy, dz, comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z);
                 }
               }
             }
@@ -121,7 +114,8 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+    ItemStack stack = player.getHeldItem(hand);
     if (stack.hasTagCompound() && !player.isSneaking()) {
       if (world.isRemote && Minecraft.getMinecraft().currentScreen != null) {
         return new ActionResult(EnumActionResult.FAIL, stack);
@@ -161,10 +155,10 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
       if (comp != null) {
         comp.castingAction((EntityPlayer) player, count, potency, efficiency, size);
         if (random.nextBoolean()) {
-          Roots.proxy.spawnParticleMagicLineFX(player.getEntityWorld(), player.posX + 2.0 * (random.nextFloat() - 0.5), player.posY + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.posZ + 2.0 * (random.nextFloat() - 0.5), player.posX, player.posY + 1.0, player.posZ, comp.primaryColor.xCoord, comp.primaryColor.yCoord, comp.primaryColor.zCoord);
+          Roots.proxy.spawnParticleMagicLineFX(player.getEntityWorld(), player.posX + 2.0 * (random.nextFloat() - 0.5), player.posY + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.posZ + 2.0 * (random.nextFloat() - 0.5), player.posX, player.posY + 1.0, player.posZ, comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z);
         }
         else {
-          Roots.proxy.spawnParticleMagicLineFX(player.getEntityWorld(), player.posX + 2.0 * (random.nextFloat() - 0.5), player.posY + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.posZ + 2.0 * (random.nextFloat() - 0.5), player.posX, player.posY + 1.0, player.posZ, comp.secondaryColor.xCoord, comp.secondaryColor.yCoord, comp.secondaryColor.zCoord);
+          Roots.proxy.spawnParticleMagicLineFX(player.getEntityWorld(), player.posX + 2.0 * (random.nextFloat() - 0.5), player.posY + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.posZ + 2.0 * (random.nextFloat() - 0.5), player.posX, player.posY + 1.0, player.posZ, comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z);
         }
       }
     }
@@ -234,8 +228,9 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
     return null;
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+  public void addInformation(ItemStack stack, World player, List<String> tooltip, net.minecraft.client.util.ITooltipFlag advanced) {
     if (stack.hasTagCompound()) {
       ComponentBase comp = ComponentManager.getComponentFromName(this.getEffect(stack));
       if (comp != null) {
@@ -264,13 +259,13 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
         if (layer == 2) {
           ComponentBase comp = ComponentManager.getComponentFromName(ItemCrystalStaff.getEffect(stack));
           if (comp != null) {
-            return Util.intColor((int) comp.primaryColor.xCoord, (int) comp.primaryColor.yCoord, (int) comp.primaryColor.zCoord);
+            return Util.intColor((int) comp.primaryColor.x, (int) comp.primaryColor.y, (int) comp.primaryColor.z);
           }
         }
         if (layer == 1) {
           ComponentBase comp = ComponentManager.getComponentFromName(ItemCrystalStaff.getEffect(stack));
           if (comp != null) {
-            return Util.intColor((int) comp.secondaryColor.xCoord, (int) comp.secondaryColor.yCoord, (int) comp.secondaryColor.zCoord);
+            return Util.intColor((int) comp.secondaryColor.x, (int) comp.secondaryColor.y, (int) comp.secondaryColor.z);
           }
         }
       }

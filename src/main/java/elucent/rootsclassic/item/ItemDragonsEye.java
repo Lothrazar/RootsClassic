@@ -23,7 +23,7 @@ public class ItemDragonsEye extends RootsItemFood {
       double d2 = entityLiving.posZ;
       for (int i = 0; i < 32; ++i) {
         double d3 = entityLiving.posX + (entityLiving.getRNG().nextDouble() - 0.5D) * 32.0D;
-        double d4 = MathHelper.clamp_double(entityLiving.posY + (double) (entityLiving.getRNG().nextInt(32) - 8), 0.0D, (double) (worldIn.getActualHeight() - 1));
+        double d4 = MathHelper.clamp(entityLiving.posY + (entityLiving.getRNG().nextInt(32) - 8), 0.0D, worldIn.getActualHeight() - 1);
         double d5 = entityLiving.posZ + (entityLiving.getRNG().nextDouble() - 0.5D) * 32.0D;
         if (entityLiving.attemptTeleport(d3, d4, d5)) {
           worldIn.playSound((EntityPlayer) null, d0, d1, d2, SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);

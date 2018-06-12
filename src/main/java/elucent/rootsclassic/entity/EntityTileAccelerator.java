@@ -15,6 +15,9 @@ public class EntityTileAccelerator extends Entity {
   int lifetime = 0;
   int potency = 1;
 
+  public EntityTileAccelerator(World world) {
+    super(world);
+  }
   public EntityTileAccelerator(World world, BlockPos pos, int potency, int size) {
     super(world);
     this.pos = pos;
@@ -34,7 +37,7 @@ public class EntityTileAccelerator extends Entity {
       }
     }
     else {
-      this.kill();
+      this.setDead();
       this.getEntityWorld().removeEntity(this);
     }
     for (int i = 0; i < 2; i++) {
@@ -60,7 +63,7 @@ public class EntityTileAccelerator extends Entity {
     }
     lifetime--;
     if (lifetime <= 0) {
-      this.kill();
+      this.setDead();
       this.getEntityWorld().removeEntity(this);
     }
   }

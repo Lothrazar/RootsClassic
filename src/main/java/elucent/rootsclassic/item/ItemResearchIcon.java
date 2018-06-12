@@ -1,6 +1,5 @@
 package elucent.rootsclassic.item;
 
-import elucent.rootsclassic.Roots;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
@@ -11,7 +10,7 @@ public class ItemResearchIcon extends Item {
 
   public ItemResearchIcon(String name) {
     super();
-    setUnlocalizedName(name);
+
   }
 
   @SideOnly(Side.CLIENT)

@@ -1,6 +1,5 @@
 package elucent.rootsclassic.item;
 
-import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,7 +16,7 @@ public class ItemRootyStew extends ItemFood {
   public ItemRootyStew() {
     super(7, 1.0F, false);
     this.setCreativeTab(Roots.tab);
-    this.setUnlocalizedName("rootyStew");
+
   }
 
   @Override
@@ -28,8 +27,8 @@ public class ItemRootyStew extends ItemFood {
   @Override
   public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
     super.onItemUseFinish(stack, worldIn, entityLiving);
-    stack.stackSize = 1;
-    stack.setItem(Items.BOWL);
+    stack = new ItemStack(Items.BOWL);
+    stack.setCount(1);
     return stack;
   }
 

@@ -1,13 +1,9 @@
 package elucent.rootsclassic.ritual.rituals;
 
 import java.util.List;
-import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Util;
 import elucent.rootsclassic.ritual.RitualBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -36,7 +32,7 @@ public class RitualCrafting extends RitualBase {
       if (!world.isRemote) {
         EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
         item.forceSpawn = true;
-        world.spawnEntityInWorld(item);
+        world.spawnEntity(item);
       }
       inventory.clear();
       world.getTileEntity(pos).markDirty();

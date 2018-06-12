@@ -1,33 +1,18 @@
 package elucent.rootsclassic.component.components;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import com.google.common.collect.Lists;
-import elucent.rootsclassic.PlayerManager;
 import elucent.rootsclassic.Util;
 import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.ComponentEffect;
 import elucent.rootsclassic.component.EnumCastType;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockCrops;
-import net.minecraft.block.BlockFlower.EnumFlowerType;
-import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 public class ComponentBlueOrchid extends ComponentBase {
@@ -60,7 +45,7 @@ public class ComponentBlueOrchid extends ComponentBase {
           ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.getX() - size, pos.getY() - size, pos.getZ() - size, pos.getX() + size, pos.getY() + size, pos.getZ() + size));
           for (int i = 0; i < targets.size(); i++) {
             if (targets.get(i).getUniqueID() != caster.getUniqueID()) {
-              targets.get(i).moveEntity(0, 3, 0);
+              targets.get(i).addVelocity(0, 3, 0);
               targets.get(i).motionY = 0.65 + random.nextDouble() + 0.25 * potency;
               if (targets.get(i) instanceof EntityPlayer) {
                 ((EntityPlayer) targets.get(i)).velocityChanged = true;

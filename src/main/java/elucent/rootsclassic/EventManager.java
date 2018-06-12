@@ -8,9 +8,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockNetherWart;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -19,7 +19,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -84,7 +83,7 @@ public class EventManager {
     if (event.getEntityLiving() instanceof EntitySkeleton) {
       if (event.getEntityPlayer().getHeldItem(event.getHand()) != null) {
         if (event.getEntityPlayer().getHeldItem(event.getHand()).getItem() == RegistryManager.infernalStem) {
-          event.getEntityPlayer().getHeldItem(event.getHand()).stackSize--;
+          event.getEntityPlayer().getHeldItem(event.getHand()).shrink(1);
           event.getEntityLiving().getEntityData().setInteger("SkeletonType", 1);
         }
       }
@@ -140,7 +139,7 @@ public class EventManager {
   //  }
 
   @SideOnly(Side.CLIENT)
-  public void drawQuad(VertexBuffer vertexbuffer, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int minU, int minV, int maxU, int maxV) {
+  public void drawQuad(BufferBuilder vertexbuffer, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int minU, int minV, int maxU, int maxV) {
     float f = 0.00390625F;
     float f1 = 0.00390625F;
     vertexbuffer.pos(x1 + 0.0F, y1 + 0.0F, 0).tex((minU + 0) * f, (minV + maxV) * f1).endVertex();
@@ -152,7 +151,7 @@ public class EventManager {
   @SideOnly(Side.CLIENT)
   @SubscribeEvent
   public void onGameOverlayRender(RenderGameOverlayEvent.Post e) {
-    EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+    EntityPlayer player = Minecraft.getMinecraft().player;
     boolean showBar = false;
     if (player.getHeldItemMainhand() != null) {
       if (player.getHeldItemMainhand().getItem() instanceof IManaRelatedItem) {
@@ -167,15 +166,15 @@ public class EventManager {
     if (player.capabilities.isCreativeMode) {
       showBar = false;
     }
-    if (showBar) {
+    if (showBar && player.hasCapability(RootsCapabilityManager.manaCapability, null)) {
       if (player.getCapability(RootsCapabilityManager.manaCapability, null).getMaxMana() > 0) {
         if (e.getType() == ElementType.TEXT) {
           GlStateManager.disableDepth();
           GlStateManager.disableCull();
           GlStateManager.pushMatrix();
-          Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Const.MODID, "textures/gui/manaBar.png"));
+          Minecraft.getMinecraft().getTextureManager().bindTexture(Const.manaBar);
           Tessellator tess = Tessellator.getInstance();
-          VertexBuffer b = tess.getBuffer();
+          BufferBuilder b = tess.getBuffer();
           int w = e.getResolution().getScaledWidth();
           int h = e.getResolution().getScaledHeight();
           GlStateManager.color(1f, 1f, 1f, 1f);
@@ -256,7 +255,7 @@ public class EventManager {
       if (event.getEntityLiving().getEntityData().hasKey("RMOD_skipTicks")) {
         if (event.getEntityLiving().getEntityData().getInteger("RMOD_skipTicks") > 0) {
           if (event.getEntityLiving().getHealth() <= 0) {
-            if (event.getEntityLiving().getLastAttacker() instanceof EntityPlayer) {
+            if (event.getEntityLiving().getLastAttackedEntity() instanceof EntityPlayer) {
               //              if (!((EntityPlayer) event.getEntityLiving().getLastAttacker()).hasAchievement(RegistryManager.achieveTimeStop)) {
               //                PlayerManager.addAchievement((EntityPlayer) event.getEntityLiving().getLastAttacker(), RegistryManager.achieveTimeStop);
               //              }
@@ -297,8 +296,8 @@ public class EventManager {
       event.setAmount((float) (event.getAmount() * (1.0 + event.getEntityLiving().getEntityData().getDouble("RMOD_vuln"))));
       event.getEntityLiving().getEntityData().removeTag("RMOD_vuln");
     }
-    if (event.getEntityLiving().getEntityData().hasKey("RMOD_thornsDamage") && event.getSource().getEntity() instanceof EntityLivingBase) {
-      ((EntityLivingBase) event.getSource().getEntity()).attackEntityFrom(DamageSource.cactus, event.getEntityLiving().getEntityData().getFloat("RMOD_thornsDamage"));
+    if (event.getEntityLiving().getEntityData().hasKey("RMOD_thornsDamage") && event.getSource().getTrueSource() instanceof EntityLivingBase) {
+      ((EntityLivingBase) event.getSource().getTrueSource()).attackEntityFrom(DamageSource.CACTUS, event.getEntityLiving().getEntityData().getFloat("RMOD_thornsDamage"));
       event.getEntityLiving().getEntityData().removeTag("RMOD_thornsDamage");
       Util.decrementTickTracking(event.getEntityLiving());
     }
@@ -315,15 +314,15 @@ public class EventManager {
         }
       }
     }
-    if (event.getSource().getEntity() instanceof EntityPlayer) {
+    if (event.getSource().getTrueSource() instanceof EntityPlayer) {
       if (!event.getEntity().getEntityWorld().isRemote) {
-        EntityPlayer player = (EntityPlayer) event.getSource().getEntity();
+        EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
         if (player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() == RegistryManager.engravedSword) {
           ItemStack sword = player.inventory.getCurrentItem();
           if (sword.hasTagCompound() && sword.getTagCompound().hasKey("aquatic")) {
             int aquaLvl = sword.getTagCompound().getInteger("aquatic");
             float amount = aquaLvl * 0.5f;
-            event.getEntity().attackEntityFrom(DamageSource.drown, amount);
+            event.getEntity().attackEntityFrom(DamageSource.DROWN, amount);
           }
           if ((sword.hasTagCompound() && sword.getTagCompound().hasKey("holy")) && event.getEntityLiving().getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
             int holyLvl = sword.getTagCompound().getInteger("holy");
@@ -345,7 +344,6 @@ public class EventManager {
   @SideOnly(Side.CLIENT)
   @SubscribeEvent
   public void onTextureStitch(TextureStitchEvent event) {
-    ResourceLocation magicParticleRL = new ResourceLocation(Const.MODID, "entity/magicParticle");
-    event.getMap().registerSprite(magicParticleRL);
+    event.getMap().registerSprite(Const.magicParticle);
   }
 }

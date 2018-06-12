@@ -33,7 +33,7 @@ public class TileEntityMortar extends TEBase {
     if (tag.hasKey("modifiers")) {
       NBTTagList list = tag.getTagList("modifiers", Constants.NBT.TAG_COMPOUND);
       for (int i = 0; i < list.tagCount(); i++) {
-        inventory.add(ItemStack.loadItemStackFromNBT(list.getCompoundTagAt(i)));
+        inventory.add(new ItemStack(list.getCompoundTagAt(i)));
       }
     }
   }
@@ -56,7 +56,7 @@ public class TileEntityMortar extends TEBase {
   public void breakBlock(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
     for (int i = 0; i < inventory.size(); i++) {
       if (!world.isRemote) {
-        world.spawnEntityInWorld(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, inventory.get(i)));
+        world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, inventory.get(i)));
       }
     }
     this.invalidate();
@@ -67,7 +67,7 @@ public class TileEntityMortar extends TEBase {
     if (heldItem == null) {
       if (inventory.size() > 0) {
         if (!world.isRemote) {
-          world.spawnEntityInWorld(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, inventory.remove(inventory.size() - 1)));
+          world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, inventory.remove(inventory.size() - 1)));
         }
         else {
           inventory.remove(inventory.size() - 1);
@@ -85,7 +85,7 @@ public class TileEntityMortar extends TEBase {
             ItemStack drop = new ItemStack(RegistryManager.dustPetal, 1);
             DustPetal.createData(drop, player, recipe.effectResult, inventory);
             if (!world.isRemote) {
-              world.spawnEntityInWorld(new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, drop));
+              world.spawnEntity(new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, drop));
             }
             inventory.clear();
             markDirty();
@@ -103,7 +103,7 @@ public class TileEntityMortar extends TEBase {
           int modifierCount = ComponentRecipe.getModifierCount(inventory);
           if (modifierCount < maxCapacity) {
             inventory.add(new ItemStack(heldItem.getItem(), 1, heldItem.getMetadata()));
-            heldItem.stackSize--;
+            heldItem.shrink(1);
             markDirty();
             this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
             return true;
@@ -115,7 +115,7 @@ public class TileEntityMortar extends TEBase {
             oneItem.setTagCompound(heldItem.getTagCompound());
           }
           inventory.add(oneItem);
-          heldItem.stackSize--;
+          heldItem.shrink(1);
           markDirty();
           this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
           return true;

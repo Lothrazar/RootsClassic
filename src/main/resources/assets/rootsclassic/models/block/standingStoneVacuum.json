@@ -1,8 +1,8 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "rootsclassic:blocks/standingStoneVacuum",
-        "particle": "rootsclassic:blocks/standingStoneVacuum"
+        "0": "rootsclassic:blocks/standingstonevacuum",
+        "particle": "rootsclassic:blocks/standingstonevacuum"
     },
     "elements": [
         {

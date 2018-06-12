@@ -27,23 +27,13 @@ public class ItemDruidArmor extends ItemArmor {
 
   public ItemDruidArmor(int reduction, EntityEquipmentSlot slot) {
     super(RegistryManager.druidArmorMaterial, reduction, slot);
-    if (slot == EntityEquipmentSlot.HEAD) {
-      setUnlocalizedName("druidArmorHead");
-    }
-    if (slot == EntityEquipmentSlot.CHEST) {
-      setUnlocalizedName("druidArmorChest");
-    }
-    if (slot == EntityEquipmentSlot.LEGS) {
-      setUnlocalizedName("druidArmorLegs");
-    }
-    if (slot == EntityEquipmentSlot.FEET) {
-      setUnlocalizedName("druidArmorBoots");
-    }
+
     setCreativeTab(Roots.tab);
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+  public void addInformation(ItemStack stack, World player, List<String> tooltip, net.minecraft.client.util.ITooltipFlag advanced) {
     tooltip.add("");
     tooltip.add(TextFormatting.GRAY + I18n.format("roots.attribute.equipped.name"));
     tooltip.add(TextFormatting.BLUE + " " + I18n.format("roots.attribute.increasedregen.name"));

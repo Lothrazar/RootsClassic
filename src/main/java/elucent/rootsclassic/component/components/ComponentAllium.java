@@ -38,8 +38,8 @@ public class ComponentAllium extends ComponentBase {
           if (targets.get(i) instanceof EntityPlayer && ConfigManager.disablePVP) {}
           else {
             damageDealt += (int) (4 + 2 * potency);
-            targets.get(i).attackEntityFrom(DamageSource.generic, (int) (5 + 2 * potency));
-            targets.get(i).setLastAttacker(caster);
+            targets.get(i).attackEntityFrom(DamageSource.GENERIC, (int) (5 + 2 * potency));
+            targets.get(i).setLastAttackedEntity(caster);
             targets.get(i).setRevengeTarget((EntityLivingBase) caster);
             targets.get(i).getEntityData().setDouble("RMOD_vuln", 1.0 + 0.5 * potency);
           }

@@ -31,9 +31,9 @@ public class ComponentNetherWart extends ComponentBase {
           if (targets.get(i) instanceof EntityPlayer && ConfigManager.disablePVP) {}
           else {
             damageDealt += (int) (5 + 3 * potency);
-            targets.get(i).attackEntityFrom(DamageSource.inFire, (int) (5 + 3 * potency));
+            targets.get(i).attackEntityFrom(DamageSource.IN_FIRE, (int) (5 + 3 * potency));
             targets.get(i).setFire((int) (4 + 3 * potency));
-            targets.get(i).setLastAttacker(caster);
+            targets.get(i).setLastAttackedEntity(caster);
             targets.get(i).setRevengeTarget((EntityLivingBase) caster);
           }
         }

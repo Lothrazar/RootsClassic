@@ -1,6 +1,6 @@
 {
     "parent" : "item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/verdantSprig"
+        "layer0" : "rootsclassic:items/verdantsprig"
     }
 }

@@ -1,7 +1,7 @@
 {
     "parent": "block/cross",
     "textures": {
-        "cross": "rootsclassic:blocks/midnightBloom",
-        "particle": "rootsclassic:blocks/midnightBloom"
+        "cross": "rootsclassic:blocks/midnightbloom",
+        "particle": "rootsclassic:blocks/midnightbloom"
     }
 }

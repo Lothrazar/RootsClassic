@@ -1,8 +1,8 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "rootsclassic:blocks/standingStoneGrower",
-        "particle": "rootsclassic:blocks/standingStoneGrower"
+        "0": "rootsclassic:blocks/standingstonegrower",
+        "particle": "rootsclassic:blocks/standingstonegrower"
     },
     "elements": [
         {

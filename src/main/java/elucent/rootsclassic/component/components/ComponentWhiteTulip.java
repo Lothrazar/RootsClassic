@@ -32,10 +32,10 @@ public class ComponentWhiteTulip extends ComponentBase {
         if (targets.get(i).getUniqueID() != caster.getUniqueID()) {
           if (targets.get(i) instanceof EntityPlayer && ConfigManager.disablePVP) {}
           else {
-            targets.get(i).attackEntityFrom(DamageSource.generic, (int) (5 + 3 * potency));
+            targets.get(i).attackEntityFrom(DamageSource.GENERIC, (int) (5 + 3 * potency));
             damageDealt += (int) (5 + 3 * potency);
             targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("slowness"), 200 + 100 * (int) potency, (int) potency));
-            targets.get(i).setLastAttacker(caster);
+            targets.get(i).setLastAttackedEntity(caster);
             targets.get(i).setRevengeTarget((EntityLivingBase) caster);
           }
         }

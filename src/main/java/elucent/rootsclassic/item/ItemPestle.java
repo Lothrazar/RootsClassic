@@ -1,9 +1,7 @@
 package elucent.rootsclassic.item;
 
 import elucent.rootsclassic.Roots;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
@@ -14,7 +12,7 @@ public class ItemPestle extends Item {
 
   public ItemPestle() {
     super();
-    setUnlocalizedName("pestle");
+
     setCreativeTab(Roots.tab);
   }
 

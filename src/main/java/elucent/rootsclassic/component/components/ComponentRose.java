@@ -33,11 +33,11 @@ public class ComponentRose extends ComponentBase {
             //                PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveSpellRose);
             //              }
             //            }
-            targets.get(i).attackEntityFrom(DamageSource.cactus, (int) (9 + 2 * potency));
+            targets.get(i).attackEntityFrom(DamageSource.CACTUS, (int) (9 + 2 * potency));
             Util.addTickTracking(targets.get(i));
             targets.get(i).getEntityData().setFloat("RMOD_thornsDamage", 2.0f + (float) potency);
             targets.get(i).attackEntityAsMob(caster);
-            targets.get(i).setLastAttacker(caster);
+            targets.get(i).setLastAttackedEntity(caster);
             targets.get(i).setRevengeTarget((EntityLivingBase) caster);
           }
         }

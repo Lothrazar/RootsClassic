@@ -1,6 +1,6 @@
 {
     "parent" : "item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/barkJungle"
+        "layer0" : "rootsclassic:items/barkjungle"
     }
 }

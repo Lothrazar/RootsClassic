@@ -4,21 +4,13 @@ import java.util.List;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.tileentity.TEBase;
 import elucent.rootsclassic.tileentity.TileEntityAestheticStandingStone;
-import elucent.rootsclassic.tileentity.TileEntityAltar;
-import elucent.rootsclassic.tileentity.TileEntityMortar;
-import elucent.rootsclassic.tileentity.TileEntityStandingStoneAccelerator;
-import elucent.rootsclassic.tileentity.TileEntityStandingStoneEntangler;
-import elucent.rootsclassic.tileentity.TileEntityStandingStoneVacuum;
-import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -31,7 +23,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -105,7 +96,7 @@ public class BlockAestheticStandingStone extends TEBlockBase implements ITileEnt
   @Override
   public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
     if (!world.isRemote && !player.capabilities.isCreativeMode) {
-      world.spawnEntityInWorld(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(this, 1, 0)));
+      world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(this, 1, 0)));
     }
     if (this.getMetaFromState(state) == 0) {
       world.setBlockToAir(pos.up());

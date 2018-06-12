@@ -1,20 +1,11 @@
 package elucent.rootsclassic.component.components;
 
-import java.util.ArrayList;
 import java.util.Random;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
 public class ComponentChorus extends ComponentBase {
@@ -30,7 +21,7 @@ public class ComponentChorus extends ComponentBase {
     if (type == EnumCastType.SPELL) {
       if (caster instanceof EntityPlayer) {
         EntityPlayer player = (EntityPlayer) caster;
-        player.setPosition(player.posX + player.getLookVec().xCoord * (8.0 + 8.0 * potency), player.posY + player.getLookVec().yCoord * (8.0 + 8.0 * potency), player.posZ + player.getLookVec().zCoord * (8.0 + 8.0 * potency));
+        player.setPosition(player.posX + player.getLookVec().x * (8.0 + 8.0 * potency), player.posY + player.getLookVec().y * (8.0 + 8.0 * potency), player.posZ + player.getLookVec().z * (8.0 + 8.0 * potency));
       }
     }
   }

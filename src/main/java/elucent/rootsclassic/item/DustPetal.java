@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,7 +24,7 @@ public class DustPetal extends Item {
 
   public DustPetal() {
     super();
-    setUnlocalizedName("dustPetal");
+
   }
 
   @Override
@@ -66,8 +67,9 @@ public class DustPetal extends Item {
     return 1;
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+  public void addInformation(ItemStack stack, World player, List<String> tooltip, net.minecraft.client.util.ITooltipFlag advanced) {
     if (stack.hasTagCompound()) {
       ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
       tooltip.add(TextFormatting.GOLD + I18n.format("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
