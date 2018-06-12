@@ -34,7 +34,7 @@ public class EntityTileAccelerator extends Entity {
       }
     }
     else {
-      this.kill();
+      this.setDead();
       this.getEntityWorld().removeEntity(this);
     }
     for (int i = 0; i < 2; i++) {
@@ -60,7 +60,7 @@ public class EntityTileAccelerator extends Entity {
     }
     lifetime--;
     if (lifetime <= 0) {
-      this.kill();
+      this.setDead();
       this.getEntityWorld().removeEntity(this);
     }
   }

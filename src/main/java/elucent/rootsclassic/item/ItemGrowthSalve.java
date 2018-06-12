@@ -5,7 +5,6 @@ import elucent.rootsclassic.Util;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -26,12 +25,13 @@ public class ItemGrowthSalve extends Item {
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+    ItemStack stack = player.getHeldItem(hand);
     for (int i = 0; i < 40; i++) {
-      double velX = (player.getLookVec().xCoord * 0.75) + 0.5 * (itemRand.nextDouble() - 0.5);
-      double velY = (player.getLookVec().yCoord * 0.75) + 0.5 * (itemRand.nextDouble() - 0.5);
-      double velZ = (player.getLookVec().zCoord * 0.75) + 0.5 * (itemRand.nextDouble() - 0.5);
-      Roots.proxy.spawnParticleMagicFX(world, player.posX + 0.5 * player.getLookVec().xCoord, player.posY + 1.5 + 0.5 * player.getLookVec().yCoord, player.posZ + 0.5 * player.getLookVec().zCoord, velX, velY, velZ, 39, 232, 55);
+      double velX = (player.getLookVec().x * 0.75) + 0.5 * (itemRand.nextDouble() - 0.5);
+      double velY = (player.getLookVec().y * 0.75) + 0.5 * (itemRand.nextDouble() - 0.5);
+      double velZ = (player.getLookVec().z * 0.75) + 0.5 * (itemRand.nextDouble() - 0.5);
+      Roots.proxy.spawnParticleMagicFX(world, player.posX + 0.5 * player.getLookVec().x, player.posY + 1.5 + 0.5 * player.getLookVec().y, player.posZ + 0.5 * player.getLookVec().z, velX, velY, velZ, 39, 232, 55);
     }
     BlockPos pos = Util.getRayTrace(world, player, 4);
     for (int i = -2; i < 3; i++) {
@@ -48,7 +48,7 @@ public class ItemGrowthSalve extends Item {
       }
     }
     if (!player.capabilities.isCreativeMode) {
-      stack.stackSize--;
+      stack.shrink(1);
     }
     return new ActionResult(EnumActionResult.SUCCESS, stack);
   }

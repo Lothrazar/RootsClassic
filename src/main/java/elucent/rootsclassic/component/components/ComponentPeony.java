@@ -1,7 +1,5 @@
 package elucent.rootsclassic.component.components;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -9,15 +7,10 @@ import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.Util;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -32,7 +25,7 @@ public class ComponentPeony extends ComponentBase {
 
   @Override
   public void castingAction(EntityPlayer player, int count, int potency, int efficiency, int size) {
-    World world = player.worldObj;
+    World world = player.world;
     int x = player.getPosition().getX();
     int y = player.getPosition().getY();
     int z = player.getPosition().getZ();

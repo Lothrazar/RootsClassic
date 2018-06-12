@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import elucent.rootsclassic.component.ComponentRecipe;
 import elucent.rootsclassic.ritual.RitualBase;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 
 public class ResearchPage {
@@ -35,11 +34,11 @@ public class ResearchPage {
     words.add(temp);
     temp = "";
     for (int i = 0; i < words.size(); i++) {
-      counter += Minecraft.getMinecraft().fontRendererObj.getStringWidth(words.get(i));
+      counter += Minecraft.getMinecraft().fontRenderer.getStringWidth(words.get(i));
       if (counter > 160) {
         list.add(temp);
         temp = words.get(i);
-        counter = Minecraft.getMinecraft().fontRendererObj.getStringWidth(words.get(i));
+        counter = Minecraft.getMinecraft().fontRenderer.getStringWidth(words.get(i));
       }
       else {
         temp += words.get(i);

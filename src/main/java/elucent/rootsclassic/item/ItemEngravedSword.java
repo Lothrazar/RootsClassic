@@ -1,26 +1,18 @@
 package elucent.rootsclassic.item;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
-import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,8 +33,8 @@ public class ItemEngravedSword extends ItemSword {
   public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
     Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
     if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
-      multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName());
-      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -3.0D, 0));
+      multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getName());
+      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -3.0D, 0));
     }
     return multimap;
   }
@@ -52,9 +44,9 @@ public class ItemEngravedSword extends ItemSword {
     ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
   }
 
-  @Override
   @SideOnly(Side.CLIENT)
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
+  @Override
+  public void addInformation(ItemStack stack, World player, List<String> tooltip, net.minecraft.client.util.ITooltipFlag advanced) {
     if (stack.hasTagCompound()) {
       NBTTagCompound tag = stack.getTagCompound();
       if (tag.hasKey("spikes")) {

@@ -24,7 +24,7 @@ public class RootsCapabilityManager {
   }
 
   @SubscribeEvent
-  public void onAddCapabilities(AttachCapabilitiesEvent.Entity e) {
+  public void onAddCapabilities(AttachCapabilitiesEvent<EntityPlayer> e) {
     class ManaCapabilityProvider implements ICapabilityProvider, INBTSerializable, IManaCapability {
 
       private EntityPlayer player;
@@ -99,9 +99,8 @@ public class RootsCapabilityManager {
         }
       }
     }
-    if (e.getEntity() instanceof EntityPlayer) {
-      ManaCapabilityProvider provider = new ManaCapabilityProvider(!e.getEntity().hasCapability(manaCapability, null));
+    ManaCapabilityProvider provider = new ManaCapabilityProvider(!e.getObject().hasCapability(manaCapability, null));
       e.addCapability(new ResourceLocation(Const.MODID, "manaCapability"), provider);
-    }
+
   }
 }

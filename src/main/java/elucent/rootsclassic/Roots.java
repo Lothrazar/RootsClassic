@@ -3,7 +3,7 @@ package elucent.rootsclassic;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
 import elucent.rootsclassic.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -27,8 +27,8 @@ public class Roots {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Item getTabIconItem() {
-      return RegistryManager.dustPetal;
+    public ItemStack getTabIconItem() {
+      return new ItemStack(RegistryManager.dustPetal);
     }
   };
   @SidedProxy(clientSide = "elucent." + Const.MODID + ".proxy.ClientProxy", serverSide = "elucent." + Const.MODID + ".proxy.ServerProxy")

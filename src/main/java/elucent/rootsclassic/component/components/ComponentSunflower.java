@@ -31,12 +31,12 @@ public class ComponentSunflower extends ComponentBase {
         if (targets.get(i).getUniqueID() != caster.getUniqueID()) {
           if (targets.get(i) instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()) {}
           else {
-            targets.get(i).attackEntityFrom(DamageSource.inFire, (int) (3 + 2 * potency));
-            targets.get(i).setLastAttacker(caster);
+            targets.get(i).attackEntityFrom(DamageSource.IN_FIRE, (int) (3 + 2 * potency));
+            targets.get(i).setLastAttackedEntity(caster);
             targets.get(i).setRevengeTarget((EntityLivingBase) caster);
             damageDealt += (int) (3 + 2 * potency);
             if (targets.get(i).isEntityUndead()) {
-              targets.get(i).attackEntityFrom(DamageSource.inFire, (int) (5 + 4 * potency));
+              targets.get(i).attackEntityFrom(DamageSource.IN_FIRE, (int) (5 + 4 * potency));
               damageDealt += (int) (5 + 4 * potency);
               targets.get(i).setFire((int) (7 + 4 * potency));
               targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:weakness"), 15, 2 + (int) potency));

@@ -4,8 +4,6 @@ import java.util.Random;
 import elucent.rootsclassic.Roots;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityAccelerator extends Entity {
@@ -32,7 +30,7 @@ public class EntityAccelerator extends Entity {
     this.posY = (entity.getEntityBoundingBox().maxY + entity.getEntityBoundingBox().minY) / 2.0 - 0.5;
     this.posZ = (entity.getEntityBoundingBox().maxZ + entity.getEntityBoundingBox().minZ) / 2.0 - 0.5;
     if (entity == null) {
-      this.kill();
+      this.setDead();
       this.getEntityWorld().removeEntity(this);
     }
     else {
@@ -64,7 +62,7 @@ public class EntityAccelerator extends Entity {
     }
     lifetime--;
     if (lifetime <= 0) {
-      this.kill();
+      this.setDead();
       this.getEntityWorld().removeEntity(this);
     }
   }
@@ -74,7 +72,7 @@ public class EntityAccelerator extends Entity {
 
   @Override
   protected void readEntityFromNBT(NBTTagCompound compound) {
-    this.kill();
+    this.setDead();
     this.getEntityWorld().removeEntity(this);
     this.lifetime = compound.getInteger("lifetime");
     this.potency = compound.getInteger("potency");

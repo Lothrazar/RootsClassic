@@ -23,7 +23,7 @@ public class RitualLifeDrain extends RitualBase {
     float drainedHealth = 0;
     if (enemies.size() > 0) {
       for (int i = 0; i < enemies.size(); i++) {
-        enemies.get(i).attackEntityFrom(DamageSource.cactus, 9);
+        enemies.get(i).attackEntityFrom(DamageSource.CACTUS, 9);
         drainedHealth += 9;
       }
     }

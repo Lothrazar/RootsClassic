@@ -2,13 +2,10 @@ package elucent.rootsclassic.block;
 
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.tileentity.TileEntityBrazier;
-import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
@@ -49,12 +46,10 @@ public class BlockBrazier extends TEBlockBase implements ITileEntityProvider {
     return false;
   }
 
+
   @Override
-  public boolean canRenderInLayer(BlockRenderLayer layer) {
-    if (layer == BlockRenderLayer.CUTOUT) {
-      return true;
-    }
-    return false;
+  public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
+    return (layer == BlockRenderLayer.CUTOUT);
   }
 
   @Override

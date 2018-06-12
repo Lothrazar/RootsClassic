@@ -37,7 +37,7 @@ public class RitualEngravedSword extends RitualBase {
         int mods = 0;
         EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
         item.forceSpawn = true;
-        ItemStack stack = item.getEntityItem();
+        ItemStack stack = item.getItem();
         stack.setTagCompound(new NBTTagCompound());
         for (Item i : items) {
           if (i == (RegistryManager.acaciaTreeBark) && mods < 4) {
@@ -61,7 +61,7 @@ public class RitualEngravedSword extends RitualBase {
             mods++;
           }
         }
-        world.spawnEntityInWorld(item);
+        world.spawnEntity(item);
       }
       inventory.clear();
       world.getTileEntity(pos).markDirty();

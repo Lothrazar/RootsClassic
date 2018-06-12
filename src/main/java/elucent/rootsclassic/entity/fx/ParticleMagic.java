@@ -40,10 +40,11 @@ public class ParticleMagic extends Particle {
     this.setParticleTexture(sprite);
   }
 
-  @Override
-  public boolean isTransparent() {
-    return true;
-  }
+  //  @Override
+  //  public boolean isTransparent() {
+  //   
+  //    return true;
+  //  }
 
   @Override
   public int getFXLayer() {

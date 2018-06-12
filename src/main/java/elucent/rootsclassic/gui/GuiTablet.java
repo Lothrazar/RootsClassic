@@ -9,10 +9,10 @@ import elucent.rootsclassic.research.ResearchGroup;
 import elucent.rootsclassic.research.ResearchManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,7 +60,7 @@ public class GuiTablet extends GuiScreen {
     if (group != null && base != null) {
       player.getEntityData().setString("RMOD_researchGroup", group.name);
       player.getEntityData().setString("RMOD_researchBase", base.name);
-      player.openGui(Roots.instance, 2, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+      player.openGui(Roots.instance, 2, player.world, (int) player.posX, (int) player.posY, (int) player.posZ);
     }
     if (mouseX >= 32 && mouseX < 64 && mouseY >= height - 48 && mouseY < height - 32) {
       currentGroup--;
@@ -85,7 +85,7 @@ public class GuiTablet extends GuiScreen {
     }
   }
 
-  public void drawQuad(VertexBuffer vertexbuffer, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int minU, int minV, int maxU, int maxV) {
+  public void drawQuad(BufferBuilder vertexbuffer, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int minU, int minV, int maxU, int maxV) {
     float f = 0.00390625F;
     float f1 = 0.00390625F;
     vertexbuffer.pos(x4 + 0.0F, y4 + 0.0F, this.zLevel).tex((minU + 0) * f, (minV + maxV) * f1).endVertex();
@@ -120,7 +120,7 @@ public class GuiTablet extends GuiScreen {
       GlStateManager.enableBlend();
       GlStateManager.color(1, 1, 1, 1);
       Tessellator tessellator = Tessellator.getInstance();
-      VertexBuffer vertexbuffer = tessellator.getBuffer();
+      BufferBuilder vertexbuffer = tessellator.getBuffer();
       vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
       for (float i = 0; i < width; i += width / 32.0f) {
         float height1 = 12.0f * ((float) Math.cos(((cycle / 360.0) + (i / (width / 4.0))) * Math.PI) + 1.0f);
@@ -142,10 +142,10 @@ public class GuiTablet extends GuiScreen {
       }
       if (mouseX >= basePosX + 32 * xShift && mouseX < basePosX + 32 * xShift + 24 && mouseY >= 32 + 40 * yShift && mouseY < 32 + 40 * yShift + 24) {
         String name = I18n.format("roots.research." + ResearchManager.globalResearches.get(currentGroup).name + "." + ResearchManager.globalResearches.get(currentGroup).researches.get(i).name + ".name");
-        this.fontRendererObj.drawStringWithShadow(name, basePosX + 32 * xShift + 12 - (fontRendererObj.getStringWidth(name) / 2.0f), 32 + 40 * yShift + 25, Util.intColor(255, 255, 255));
+        this.fontRenderer.drawStringWithShadow(name, basePosX + 32 * xShift + 12 - (fontRenderer.getStringWidth(name) / 2.0f), 32 + 40 * yShift + 25, Util.intColor(255, 255, 255));
       }
     }
-    this.fontRendererObj.drawStringWithShadow(I18n.format("roots.research." + ResearchManager.globalResearches.get(currentGroup).name + ".name"), width / 2.0f - (fontRendererObj.getStringWidth(ResearchManager.globalResearches.get(currentGroup).properName) / 2.0f), height - 16.0f, Util.intColor(255, 255, 255));
+    this.fontRenderer.drawStringWithShadow(I18n.format("roots.research." + ResearchManager.globalResearches.get(currentGroup).name + ".name"), width / 2.0f - (fontRenderer.getStringWidth(ResearchManager.globalResearches.get(currentGroup).properName) / 2.0f), height - 16.0f, Util.intColor(255, 255, 255));
     Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Const.MODID, "textures/gui/tabletGui.png"));
     if (mouseX >= 32 && mouseX < 64 && mouseY >= height - 48 && mouseY < height - 32) {
       this.drawTexturedModalRect(32, height - 48, 32, 80, 32, 16);
