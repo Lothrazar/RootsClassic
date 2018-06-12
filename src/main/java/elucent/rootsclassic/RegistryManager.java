@@ -77,6 +77,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -143,7 +144,7 @@ public class RegistryManager {
     b.setRegistryName(new ResourceLocation(Const.MODID, name));
     //    b.setUnlocalizedName(name);
     ItemBlock ib = new ItemBlock(b);
-    ib.setRegistryName(b.getRegistryName()); // ok good this should work yes? yes! http://mcforge.readthedocs.io/en/latest/blocks/blocks/#registering-a-block
+    ib.setRegistryName(new ResourceLocation(Const.MODID, name)); // ok good this should work yes? yes! http://mcforge.readthedocs.io/en/latest/blocks/blocks/#registering-a-block
     itemList.add(ib);
     blocks.add(b);
   }
@@ -280,7 +281,8 @@ public class RegistryManager {
   }
 
   @SideOnly(Side.CLIENT)
-  public static void registerItemRenderers() {
+  @SubscribeEvent
+  public static void registerModels(ModelRegistryEvent event) {
     /**
      * REGISTERING TILE ENTITY RENDERERS
      */
@@ -291,6 +293,7 @@ public class RegistryManager {
     /**
      * REGISTERING ITEM MODELS
      */
+    //((BlockDruidChalice) druidChalice).initModel();
     ((ItemDruidKnife) druidKnife).initModel();
     ((DustPetal) dustPetal).initModel();
     ((ItemPestle) pestle).initModel();
@@ -332,7 +335,6 @@ public class RegistryManager {
     ((ItemRunicFocus) runicFocus).initModel();
     ((ItemEngravedSword) engravedSword).initModel();
     ((ItemResearchIcon) manaResearchIcon).initModel();
-    //((BlockDruidChalice)druidChalice).initModel();
     ((BlockMortar) mortar).initModel();
     ((BlockAltar) altar).initModel();
     ((BlockBrazier) brazier).initModel();

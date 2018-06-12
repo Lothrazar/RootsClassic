@@ -1,8 +1,8 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "rootsclassic:blocks/mortarTexture",
-        "particle": "rootsclassic:blocks/mortarTexture"
+        "0": "rootsclassic:blocks/mortartexture",
+        "particle": "rootsclassic:blocks/mortartexture"
     },
     "elements": [
         {

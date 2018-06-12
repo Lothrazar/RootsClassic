@@ -6,9 +6,7 @@ import elucent.rootsclassic.entity.fx.ParticleMagicAltar;
 import elucent.rootsclassic.entity.fx.ParticleMagicAltarLine;
 import elucent.rootsclassic.entity.fx.ParticleMagicAura;
 import elucent.rootsclassic.entity.fx.ParticleMagicLine;
-import elucent.rootsclassic.item.ItemStaff;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -16,16 +14,19 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ClientProxy extends CommonProxy {
 
+  @Override
   public void preInit(FMLPreInitializationEvent event) {
     super.preInit(event);
-    RegistryManager.registerItemRenderers();
+    // RegistryManager.registerItemRenderers();
   }
 
+  @Override
   public void init(FMLInitializationEvent event) {
     super.init(event);
     RegistryManager.registerColorHandlers();
   }
 
+  @Override
   public void postInit(FMLPostInitializationEvent event) {
     super.postInit(event);
   }
