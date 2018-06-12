@@ -430,3 +430,42 @@ roots.research.ritual.poweredstones.page16title.name=Ritual: Standing Stone
 roots.research.ritual.poweredstones.page17title.name=Standing Stone
 roots.research.ritual.poweredstones.page17info=A basic standing stone. Particles can be colored using Rose red, Lapis Lazuli, Cactus Green and reset using bone meal.
 
+item.druidknife.guide=Used to obtain bark from logs.  
+item.pestle.guide=Used with Mortar to create spells, see Runic Tablet.
+tile.mortar.guide=Used with Pestle to create spells, see Runic Tablet.
+tile.imbuer.guide=Create any magical Staff using Petal Dust, see Runic Tablet.
+item.oldroot.guide=Basic spell component; drops from tallgrass; see Runic Tablet.
+tile.midnightbloom.guide=Advanced spell component; see Runic Tablet.
+tile.flareorchid.guide=Advanced spell component; see Runic Tablet.
+tile.radiantdaisy.guide=Advanced spell component; see Runic Tablet.
+item.verdant.guide=Spell component; see Runic Tablet.
+item.infernalstem.guide=Spell component; see Runic Tablet.
+item.dragonseye.guide=Spell component; see Runic Tablet.
+item.redcurrant.guide=Spell component; see Runic Tablet.
+item.whitecurrant.guide=Spell component; see Runic Tablet.
+item.blackcurrant.guide=Spell component; see Runic Tablet.
+
+
+item.oaktreebark.guide=Use a Bark Knife on a log.
+item.birchtreebark.guide=Use a Bark Knife on a log.
+item.sprucetreebark.guide=Use a Bark Knife on a log.
+item.jungletreebark.guide=Use a Bark Knife on a log.
+item.acaciatreebark.guide=Use a Bark Knife on a log.
+item.darkoaktreebark.guide=Use a Bark Knife on a log.
+
+item.livingpickaxe.guide=Self-repairing tool; obtained using a magic ritual; see Runic Tablet.
+item.livingaxe.guide=Self-repairing tool; obtained using a magic ritual; see Runic Tablet.
+item.livingsword.guide=Self-repairing tool; obtained using a magic ritual; see Runic Tablet.
+item.livinghoe.guide=Self-repairing tool; obtained using a magic ritual; see Runic Tablet.
+item.livingshovel.guide=Self-repairing tool; obtained using a magic ritual; see Runic Tablet.
+
+
+item.druidrobeshead.guide=Obtained using a magic ritual; see Runic Tablet.
+item.druidrobeschest.guide=Obtained using a magic ritual; see Runic Tablet.
+item.druidrobeslegs.guide=Obtained using a magic ritual; see Runic Tablet.
+item.druidrobesboots.guide=Obtained using a magic ritual; see Runic Tablet.
+
+item.druidarmorhead.guide=Obtained using a magic ritual; see Runic Tablet.
+item.druidarmorchest.guide=Obtained using a magic ritual; see Runic Tablet.
+item.druidarmorlegs.guide=Obtained using a magic ritual; see Runic Tablet.
+item.druidarmorboots.guide=Obtained using a magic ritual; see Runic Tablet.
