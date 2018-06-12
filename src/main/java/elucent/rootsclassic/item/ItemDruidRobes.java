@@ -2,6 +2,7 @@ package elucent.rootsclassic.item;
 
 import java.util.List;
 import java.util.Random;
+import elucent.rootsclassic.Const;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
@@ -34,7 +35,7 @@ public class ItemDruidRobes extends ItemArmor {
   @SideOnly(Side.CLIENT)
   @Override
   public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-    return "roots:textures/models/armor/druidRobes.png";
+    return Const.MODID + ":textures/models/armor/druidrobes.png";
   }
 
   @SideOnly(Side.CLIENT)

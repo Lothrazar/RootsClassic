@@ -42,7 +42,7 @@ public class ItemDruidArmor extends ItemArmor {
   @SideOnly(Side.CLIENT)
   @Override
   public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-    return Const.MODID + ":textures/models/armor/druidArmor.png";
+    return Const.MODID + ":textures/models/armor/druidarmor.png";
   }
 
   @SideOnly(Side.CLIENT)

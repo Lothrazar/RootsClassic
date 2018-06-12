@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemTreeBark extends Item {
 
-  public ItemTreeBark(String type) {
+  public ItemTreeBark() {
     super();
 
     setCreativeTab(Roots.tab);

@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMaterial extends Item {
 
-  public ItemMaterial(String name) {
+  public ItemMaterial() {
     super();
 
     setCreativeTab(Roots.tab);

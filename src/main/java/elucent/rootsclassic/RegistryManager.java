@@ -71,6 +71,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.potion.Potion;
@@ -141,6 +142,9 @@ public class RegistryManager {
   private static void registerBlock(Block b, String name) {
     b.setRegistryName(new ResourceLocation(Const.MODID, name));
     //    b.setUnlocalizedName(name);
+    ItemBlock ib = new ItemBlock(b);
+    ib.setRegistryName(b.getRegistryName()); // ok good this should work yes? yes! http://mcforge.readthedocs.io/en/latest/blocks/blocks/#registering-a-block
+    itemList.add(ib);
     blocks.add(b);
   }
 
@@ -163,16 +167,16 @@ public class RegistryManager {
     registerItem(pestle = new ItemPestle(), "pestle");
     registerItem(staff = new ItemStaff(), "staff");
     registerItem(crystalStaff = new ItemCrystalStaff(), "crystalstaff");
-    registerItem(oldRoot = new RootsItemFood("oldRoot", 1, 0.1F, false), "oldroot");
-    registerItem(verdantSprig = new ItemMaterial("verdantsprig"), "verdantsprig");
-    registerItem(infernalStem = new ItemMaterial("infernalstem"), "infernalstem");
-    registerItem(dragonsEye = new ItemDragonsEye("dragonsEye", 2, 0.1F, false), "dragonseye");
-    registerItem(oakTreeBark = new ItemTreeBark("oaktreebark"), "oaktreebark");
-    registerItem(spruceTreeBark = new ItemTreeBark("sprucetreebark"), "sprucetreebark");
-    registerItem(birchTreeBark = new ItemTreeBark("birchtreebark"), "birchtreebark");
-    registerItem(jungleTreeBark = new ItemTreeBark("jungletreebark"), "jungletreebark");
-    registerItem(acaciaTreeBark = new ItemTreeBark("acaciatreebark"), "acaciatreebark");
-    registerItem(darkOakTreeBark = new ItemTreeBark("darkOaktreebark"), "darkOaktreebark");
+    registerItem(oldRoot = new RootsItemFood(1, 0.1F, false), "oldroot");
+    registerItem(verdantSprig = new ItemMaterial(), "verdantsprig");
+    registerItem(infernalStem = new ItemMaterial(), "infernalstem");
+    registerItem(dragonsEye = new ItemDragonsEye(2, 0.1F, false), "dragonseye");
+    registerItem(oakTreeBark = new ItemTreeBark(), "oaktreebark");
+    registerItem(spruceTreeBark = new ItemTreeBark(), "sprucetreebark");
+    registerItem(birchTreeBark = new ItemTreeBark(), "birchtreebark");
+    registerItem(jungleTreeBark = new ItemTreeBark(), "jungletreebark");
+    registerItem(acaciaTreeBark = new ItemTreeBark(), "acaciatreebark");
+    registerItem(darkOakTreeBark = new ItemTreeBark(), "darkoaktreebark");
     registerItem(livingPickaxe = new ItemLivingPickaxe(), "livingpickaxe");
     registerItem(livingAxe = new ItemLivingAxe(), "livingaxe");
     registerItem(livingSword = new ItemLivingSword(), "livingsword");
@@ -189,12 +193,12 @@ public class RegistryManager {
     registerItem(runedTablet = new ItemRunedTablet(), "runedtablet");
     registerItem(growthSalve = new ItemGrowthSalve(), "growthsalve");
     registerItem(mutagen = new ItemMutagen(), "mutagen");
-    registerItem(nightshade = new RootsItemFood("nightshade", 2, 0.1F, false).setPotionEffect(new PotionEffect(Potion.getPotionById(19), 320), 1F), "nightshade");
-    registerItem(blackCurrant = new RootsItemFood("blackcurrant", 4, 0.4F, false), "blackcurrant");
-    registerItem(redCurrant = new RootsItemFood("redcurrant", 4, 0.4F, false), "redcurrant");
-    registerItem(whiteCurrant = new RootsItemFood("whitecurrant", 4, 0.4F, false), "whitecurrant");
-    registerItem(elderBerry = new RootsItemFood("elderberry", 2, 0.1F, false), "elderberry");
-    registerItem(healingPoultice = new RootsItemFood("healingpoultice", 0, 0F, false).setAlwaysEdible().setMaxStackSize(8), "healingPoultice");
+    registerItem(nightshade = new RootsItemFood(2, 0.1F, false).setPotionEffect(new PotionEffect(Potion.getPotionById(19), 320), 1F), "nightshade");
+    registerItem(blackCurrant = new RootsItemFood(4, 0.4F, false), "blackcurrant");
+    registerItem(redCurrant = new RootsItemFood(4, 0.4F, false), "redcurrant");
+    registerItem(whiteCurrant = new RootsItemFood(4, 0.4F, false), "whitecurrant");
+    registerItem(elderBerry = new RootsItemFood(2, 0.1F, false), "elderberry");
+    registerItem(healingPoultice = new RootsItemFood(0, 0F, false).setAlwaysEdible().setMaxStackSize(8), "healingpoultice");
     registerItem(rootyStew = new ItemRootyStew(), "rootystew");
     registerItem(runicFocus = new ItemRunicFocus(), "runicfocus");
     registerItem(engravedSword = new ItemEngravedSword(engravedMaterial), "engravedsword");
@@ -223,19 +227,19 @@ public class RegistryManager {
     /**
      * REGISTERING TILE ENTITIES
      */
-    GameRegistry.registerTileEntity(TileEntityMortar.class, "mortar");
-    GameRegistry.registerTileEntity(TileEntityImbuer.class, "imbuer");
-    GameRegistry.registerTileEntity(TileEntityAltar.class, "altar");
-    GameRegistry.registerTileEntity(TileEntityDruidChalice.class, "chalice");
-    GameRegistry.registerTileEntity(TileEntityBrazier.class, "brazier");
-    GameRegistry.registerTileEntity(TileEntityStandingStoneVacuum.class, "vacuum");
-    GameRegistry.registerTileEntity(TileEntityStandingStoneRepulsor.class, "repulsor");
-    GameRegistry.registerTileEntity(TileEntityStandingStoneAccelerator.class, "accelerator");
-    GameRegistry.registerTileEntity(TileEntityAestheticStandingStone.class, "pretty");
-    GameRegistry.registerTileEntity(TileEntityStandingStoneEntangler.class, "entangler");
-    GameRegistry.registerTileEntity(TileEntityStandingStoneGrower.class, "grower");
-    GameRegistry.registerTileEntity(TileEntityStandingStoneIgniter.class, "igniter");
-    GameRegistry.registerTileEntity(TileEntityStandingStoneHealer.class, "healer");
+    GameRegistry.registerTileEntity(TileEntityMortar.class, "te_mortar");
+    GameRegistry.registerTileEntity(TileEntityImbuer.class, "te_imbuer");
+    GameRegistry.registerTileEntity(TileEntityAltar.class, "te_altar");
+    GameRegistry.registerTileEntity(TileEntityDruidChalice.class, "te_chalice");
+    GameRegistry.registerTileEntity(TileEntityBrazier.class, "te_brazier");
+    GameRegistry.registerTileEntity(TileEntityStandingStoneVacuum.class, "te_vacuum");
+    GameRegistry.registerTileEntity(TileEntityStandingStoneRepulsor.class, "te_repulsor");
+    GameRegistry.registerTileEntity(TileEntityStandingStoneAccelerator.class, "te_accelerator");
+    GameRegistry.registerTileEntity(TileEntityAestheticStandingStone.class, "te_pretty");
+    GameRegistry.registerTileEntity(TileEntityStandingStoneEntangler.class, "te_entangler");
+    GameRegistry.registerTileEntity(TileEntityStandingStoneGrower.class, "te_grower");
+    GameRegistry.registerTileEntity(TileEntityStandingStoneIgniter.class, "te_igniter");
+    GameRegistry.registerTileEntity(TileEntityStandingStoneHealer.class, "te_healer");
     GameRegistry.registerFuelHandler(new FuelManager());
   }
 

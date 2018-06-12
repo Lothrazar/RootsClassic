@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class RootsItemFood extends ItemFood {
 
-  public RootsItemFood(String name, int amount, float saturation, boolean isWolFFood) {
+  public RootsItemFood(int amount, float saturation, boolean isWolFFood) {
     super(amount, saturation, isWolFFood);
     this.setCreativeTab(Roots.tab);
 

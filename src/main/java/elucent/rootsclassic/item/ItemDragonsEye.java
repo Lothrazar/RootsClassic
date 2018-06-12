@@ -10,8 +10,8 @@ import net.minecraft.world.World;
 
 public class ItemDragonsEye extends RootsItemFood {
 
-  public ItemDragonsEye(String name, int amount, float saturation, boolean isWolFFood) {
-    super(name, amount, saturation, isWolFFood);
+  public ItemDragonsEye(int amount, float saturation, boolean isWolFFood) {
+    super(amount, saturation, isWolFFood);
   }
 
   @Override
