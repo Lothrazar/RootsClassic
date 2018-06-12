@@ -151,11 +151,17 @@ public class RegistryManager {
   @SubscribeEvent
   public static void onRegisterItemsEvent(RegistryEvent.Register<Item> event) {
     event.getRegistry().registerAll(itemList.toArray(new Item[0]));
+    registerRecipes();
   }
 
   @SubscribeEvent
   public static void onRegisterBlocksEvent(RegistryEvent.Register<Block> event) {
     event.getRegistry().registerAll(blocks.toArray(new Block[0]));
+  }
+
+  @SubscribeEvent
+  public static void onRegisterRecipesEvent(RegistryEvent.Register<IRecipe> event) {
+    event.getRegistry().registerAll(recipes.toArray(new IRecipe[0]));
   }
 
   public static void init() {
@@ -241,6 +247,7 @@ public class RegistryManager {
     GameRegistry.registerTileEntity(TileEntityStandingStoneIgniter.class, "te_igniter");
     GameRegistry.registerTileEntity(TileEntityStandingStoneHealer.class, "te_healer");
     GameRegistry.registerFuelHandler(new FuelManager());
+
   }
 
   public static void registerEntities() {
@@ -249,6 +256,7 @@ public class RegistryManager {
   }
 
   public static void registerRecipes() {
+
     addShapedRecipe(new ItemStack(RegistryManager.pestle, 1), true, new Object[] { "X  ", " XX", " XX", 'X', new ItemStack(Blocks.STONE, 1, 3) });
     addShapedRecipe(new ItemStack(RegistryManager.pestle, 1), true, new Object[] { "  X", "XX ", "XX ", 'X', new ItemStack(Blocks.STONE, 1, 3) });
     addShapedRecipe(new ItemStack(RegistryManager.mortar, 1), true, new Object[] { "X X", "X X", " X ", 'X', "stone" });
