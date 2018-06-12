@@ -25,7 +25,7 @@ public class ItemEngravedSword extends ItemSword {
   public ItemEngravedSword(ToolMaterial material) {
     super(material);
     this.material = material;
-    this.setUnlocalizedName("engravedSword");
+
     this.setCreativeTab(Roots.tab);
   }
 

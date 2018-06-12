@@ -41,6 +41,7 @@ public class Roots {
     ConfigManager.load(event);
     MinecraftForge.EVENT_BUS.register(new EventManager());
     MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
+    MinecraftForge.EVENT_BUS.register(RegistryManager.class);
     proxy.preInit(event);
   }
 

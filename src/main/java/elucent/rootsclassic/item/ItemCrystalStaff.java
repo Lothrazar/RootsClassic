@@ -35,7 +35,7 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
 
   public ItemCrystalStaff() {
     super();
-    setUnlocalizedName("crystalStaff");
+    //    setUnlocalizedName("crystalStaff");
     setCreativeTab(Roots.tab);
   }
 

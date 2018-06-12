@@ -20,7 +20,7 @@ public class ItemGrowthSalve extends Item {
 
   public ItemGrowthSalve() {
     super();
-    setUnlocalizedName("growthSalve");
+    //    setUnlocalizedName("growthSalve");
     setCreativeTab(Roots.tab);
   }
 

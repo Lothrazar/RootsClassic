@@ -17,7 +17,7 @@ public class ItemRunedTablet extends Item {
 
   public ItemRunedTablet() {
     super();
-    setUnlocalizedName("runedTablet");
+
     setCreativeTab(Roots.tab);
   }
 

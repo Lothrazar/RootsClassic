@@ -25,7 +25,7 @@ public class ItemMutagen extends Item {
 
   public ItemMutagen() {
     super();
-    setUnlocalizedName("mutagen");
+
     setCreativeTab(Roots.tab);
   }
 

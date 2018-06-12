@@ -1,9 +1,7 @@
 package elucent.rootsclassic.item;
 
 import elucent.rootsclassic.Roots;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -13,7 +11,7 @@ public class ItemMaterial extends Item {
 
   public ItemMaterial(String name) {
     super();
-    setUnlocalizedName(name);
+
     setCreativeTab(Roots.tab);
   }
 

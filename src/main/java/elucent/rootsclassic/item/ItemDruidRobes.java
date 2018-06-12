@@ -27,18 +27,7 @@ public class ItemDruidRobes extends ItemArmor {
 
   public ItemDruidRobes(int reduction, EntityEquipmentSlot slot) {
     super(RegistryManager.druidRobesMaterial, reduction, slot);
-    if (slot == EntityEquipmentSlot.HEAD) {
-      setUnlocalizedName("druidRobesHead");
-    }
-    if (slot == EntityEquipmentSlot.CHEST) {
-      setUnlocalizedName("druidRobesChest");
-    }
-    if (slot == EntityEquipmentSlot.LEGS) {
-      setUnlocalizedName("druidRobesLegs");
-    }
-    if (slot == EntityEquipmentSlot.FEET) {
-      setUnlocalizedName("druidRobesBoots");
-    }
+
     setCreativeTab(Roots.tab);
   }
 

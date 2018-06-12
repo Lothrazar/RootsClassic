@@ -16,7 +16,7 @@ public class ItemRootyStew extends ItemFood {
   public ItemRootyStew() {
     super(7, 1.0F, false);
     this.setCreativeTab(Roots.tab);
-    this.setUnlocalizedName("rootyStew");
+
   }
 
   @Override

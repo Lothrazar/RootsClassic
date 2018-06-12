@@ -2,7 +2,6 @@ package elucent.rootsclassic.item;
 
 import elucent.rootsclassic.Roots;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -12,7 +11,7 @@ public class ItemTreeBark extends Item {
 
   public ItemTreeBark(String type) {
     super();
-    setUnlocalizedName(type);
+
     setCreativeTab(Roots.tab);
   }
 

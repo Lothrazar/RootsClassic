@@ -35,7 +35,6 @@ public class ItemStaff extends Item implements IManaRelatedItem {
 
   public ItemStaff() {
     super();
-    setUnlocalizedName("staff");
   }
 
   @Override

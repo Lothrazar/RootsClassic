@@ -4,15 +4,9 @@ import java.util.Random;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemAxe;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,7 +18,7 @@ public class ItemLivingShovel extends ItemSpade {
 
   public ItemLivingShovel() {
     super(RegistryManager.livingMaterial);
-    setUnlocalizedName("livingShovel");
+
     setCreativeTab(Roots.tab);
   }
 

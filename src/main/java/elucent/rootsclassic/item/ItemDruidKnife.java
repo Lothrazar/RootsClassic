@@ -4,7 +4,6 @@ import java.util.Random;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -26,7 +25,6 @@ public class ItemDruidKnife extends Item {
 
   public ItemDruidKnife() {
     super();
-    setUnlocalizedName("druidKnife");
     setCreativeTab(Roots.tab);
   }
 

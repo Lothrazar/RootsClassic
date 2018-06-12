@@ -24,7 +24,7 @@ public class DustPetal extends Item {
 
   public DustPetal() {
     super();
-    setUnlocalizedName("dustPetal");
+
   }
 
   @Override
