@@ -1,6 +1,6 @@
 itemGroup.rootsclassic=Roots Classic
 
-item.dustpetal.name=Petal Dust
+item.dustpetal.name=Spell Powder
 item.pestle.name=Pestle
 item.staff.name=Staff
 item.oldroot.name=Old Root
@@ -161,7 +161,7 @@ roots.research.spells.mortar.page3info=Using the mortar and pestle is quite simp
 
 roots.research.spells.imbuer.name=Imbuing a Staff
 roots.research.spells.imbuer.page1title.name=The Imbuer
-roots.research.spells.imbuer.page1info=Your mortar and pestle yield a fine petal dust for use in spells, but it can't really be used on its own. With this device, you channel natural energies from that powder into a branch of wood. Simply place in a stick, place in your powder, and wait for your staff to pop out.
+roots.research.spells.imbuer.page1info=Your mortar and pestle yield a fine Spell Powder for use in spells, but it can't really be used on its own. With this device, you channel natural energies from that powder into a branch of wood. Simply place in a stick, place in your powder, and wait for your staff to pop out.
 roots.research.spells.imbuer.page2title.name=Staff Mechanics
 roots.research.spells.imbuer.page2info=Magic staves are very simple to use. Imbued with the power of nature, all you need to do is hold right-click to charge up a spell, and after about a second release right-click to cast it. Staves have limited uses, and will be destroyed completely after their charges are used up. The number of charges can be increased with the use of the efficiency modifier.
 
@@ -311,7 +311,7 @@ roots.research.ritual.crystalstaff.page1title.name=Reusable Magic
 roots.research.ritual.crystalstaff.page1info=For too long, you have been bound by the limited number of uses of your typical staff. Using rare crystals from deep within the earth, you believe you have created a way to store spells indefinitely: the crystal staff. Not only can this staff keep spells indefinitely, it can also store up to four at a time.
 roots.research.ritual.crystalstaff.page2title.name=Ritual: Crystal Forge
 roots.research.ritual.crystalstaff.page3title.name=Adding Spells
-roots.research.ritual.crystalstaff.page3info=Adding spells to the staff requires a separate ritual. In addition to this ritual's displayed components, you may add up to four additional petal dusts as incenses. Each of these will be added to the staff, overwriting previous spells if necessary. Simply sneak and right-click to cycle through the staff's spells.
+roots.research.ritual.crystalstaff.page3info=Adding spells to the staff requires a separate ritual. In addition to this ritual's displayed components, you may add up to four additional Spell Powders as incenses. Each of these will be added to the staff, overwriting previous spells if necessary. Simply sneak and right-click to cycle through the staff's spells.
 roots.research.ritual.crystalstaff.page4title.name=Ritual: Crystal Imbue
 roots.research.ritual.crystalstaff.page5title.name=Limitations
 roots.research.ritual.crystalstaff.page5info=However, this new staff has one major limitation: it must be used while standing on natural blocks like dirt, grass, leaves, or log blocks. Otherwise, the staff will tap into the user's own life force to cast spells.
@@ -433,7 +433,7 @@ roots.research.ritual.poweredstones.page17info=A basic standing stone. Particles
 item.druidknife.guide=Used to obtain bark from logs.  
 item.pestle.guide=Used with Mortar to create spells, see Runic Tablet.
 tile.mortar.guide=Used with Pestle to create spells, see Runic Tablet.
-tile.imbuer.guide=Create any magical Staff using Petal Dust, see Runic Tablet.
+tile.imbuer.guide=Create any magical Staff using Spell Powder, see Runic Tablet.
 item.oldroot.guide=Basic spell component; drops from tallgrass; see Runic Tablet.
 tile.midnightbloom.guide=Advanced spell component; see Runic Tablet.
 tile.flareorchid.guide=Advanced spell component; see Runic Tablet.
@@ -444,6 +444,20 @@ item.dragonseye.guide=Spell component; see Runic Tablet.
 item.redcurrant.guide=Spell component; see Runic Tablet.
 item.whitecurrant.guide=Spell component; see Runic Tablet.
 item.blackcurrant.guide=Spell component; see Runic Tablet.
+item.growthsalve.guide=Spell component; see Runic Tablet.
+item.mutagen.guide=Spell component; see Runic Tablet.
+
+item.nightshade.guide=A pugnant mysterious berry; see Runic Tablet.
+item.elderberry.guide=A pugnant mysterious berry; see Runic Tablet.
+
+
+item.healingpoultice.guide=Instant healing when eaten
+
+item.engravedsword.guide=A mysterious blade with unknown powers
+
+
+
+
 
 
 item.oaktreebark.guide=Use a Bark Knife on a log.
@@ -469,3 +483,9 @@ item.druidarmorhead.guide=Obtained using a magic ritual; see Runic Tablet.
 item.druidarmorchest.guide=Obtained using a magic ritual; see Runic Tablet.
 item.druidarmorlegs.guide=Obtained using a magic ritual; see Runic Tablet.
 item.druidarmorboots.guide=Obtained using a magic ritual; see Runic Tablet.
+
+item.staff.guide=Created using Spell Powder on the Imbuer, see Runic Tablet.
+item.dustpetal.guide=A combination of ingredients that makes up a spell, see Runic Tablet.
+
+item.crystalstaff.guide=See Runic Tablet
+
