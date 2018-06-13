@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 
 public class ComponentSunflower extends ComponentBase {
 
+  private static final int POTION_DURATION = 15;
   Random random = new Random();
 
   public ComponentSunflower() {
@@ -24,28 +25,32 @@ public class ComponentSunflower extends ComponentBase {
 
   @Override
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (type == EnumCastType.SPELL) {
+    if (type == EnumCastType.SPELL && caster instanceof EntityLivingBase) {
       int damageDealt = 0;
       ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
+      EntityLivingBase target;
       for (int i = 0; i < targets.size(); i++) {
-        if (targets.get(i).getUniqueID() != caster.getUniqueID()) {
-          if (targets.get(i) instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()) {}
-          else {
-            targets.get(i).attackEntityFrom(DamageSource.IN_FIRE, (int) (3 + 2 * potency));
-            targets.get(i).setLastAttackedEntity(caster);
-            targets.get(i).setRevengeTarget((EntityLivingBase) caster);
-            damageDealt += (int) (3 + 2 * potency);
-            if (targets.get(i).isEntityUndead()) {
-              targets.get(i).attackEntityFrom(DamageSource.IN_FIRE, (int) (5 + 4 * potency));
-              damageDealt += (int) (5 + 4 * potency);
-              targets.get(i).setFire((int) (7 + 4 * potency));
-              targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:weakness"), 15, 2 + (int) potency));
-              targets.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:slowness"), 15, 2 + (int) potency));
-            }
-          }
+        target = targets.get(i);
+        if (target.getUniqueID() == caster.getUniqueID()) {
+          continue;//dont hurt self
         }
+        if (target instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()) {
+          continue;//no pvp allowed
+        }
+        if (target.isEntityUndead()) {
+          damageDealt += (int) (5 + 4 * potency);
+          target.attackEntityFrom(DamageSource.IN_FIRE, damageDealt);
+          target.setFire(damageDealt);
+          target.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:weakness"), POTION_DURATION, 2 + (int) potency));
+          target.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("minecraft:slowness"), POTION_DURATION, 2 + (int) potency));
+        }
+        else {
+          damageDealt += (int) (3 + 2 * potency);
+        }
+        target.attackEntityFrom(DamageSource.IN_FIRE, damageDealt);
+        target.setLastAttackedEntity(caster);
+        target.setRevengeTarget((EntityLivingBase) caster);
       }
-
     }
   }
 }
