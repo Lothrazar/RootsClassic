@@ -78,6 +78,15 @@ public class GuiTabletPage extends GuiScreen {
     vertexbuffer.pos(x1 + 0.0F, y1 + 0.0F, this.zLevel).tex((minU + 0) * f, (minV + 0) * f1).endVertex();
   }
 
+  private String makeTitle() {
+    //    if (page.mortarRecipe.disabled) {
+    //      title = TextFormatting.RED + I18n.format("roots.research.disabled.name");
+    return I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name");
+  }
+
+  private String makeInfo() {
+    return I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "info");
+  }
   @Override
   public void drawScreen(int mouseX, int mouseY, float partialTicks) {
     GlStateManager.color(1, 1, 1, 1);
@@ -111,9 +120,9 @@ public class GuiTabletPage extends GuiScreen {
       case TYPE_NULL:
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletGui);
         this.drawTexturedModalRect(basePosX, basePosY, 64, 0, 192, 256);
-        title = I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name");
+        title = makeTitle();
         fontRenderer.drawStringWithShadow(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255));
-        info = page.makeLines(I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "info"));
+        info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           fontRenderer.drawStringWithShadow(info.get(i), basePosX + 16, basePosY + 32 + i * 11, Util.intColor(255, 255, 255));
         }
@@ -151,11 +160,12 @@ public class GuiTabletPage extends GuiScreen {
         if (page.craftingRecipe.get(9) != null) {
           this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(9), (int) basePosX + 144, (int) basePosY + 56);
         }
-        info = page.makeLines(I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "info"));
+        //"roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name"
+        info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           fontRenderer.drawStringWithShadow(info.get(i), basePosX + 16, basePosY + 104 + i * 11, Util.intColor(255, 255, 255));
         }
-        title = I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name");
+        title = makeTitle();
         fontRenderer.drawStringWithShadow(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255));
       break;
       case TYPE_SMELTING:
@@ -167,11 +177,11 @@ public class GuiTabletPage extends GuiScreen {
         if (page.smeltingRecipe.get(1) != null) {
           this.itemRender.renderItemIntoGUI(page.smeltingRecipe.get(1), (int) basePosX + 144, (int) basePosY + 56);
         }
-        info = page.makeLines(I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "info"));
+        info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           fontRenderer.drawStringWithShadow(info.get(i), basePosX + 16, basePosY + 104 + i * 11, Util.intColor(255, 255, 255));
         }
-        title = I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name");
+        title = makeTitle();
         fontRenderer.drawStringWithShadow(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255));
       break;
       case TYPE_DISPLAY:
@@ -180,11 +190,11 @@ public class GuiTabletPage extends GuiScreen {
         if (page.displayItem != null) {
           this.itemRender.renderItemIntoGUI(page.displayItem, (int) basePosX + 88, (int) basePosY + 48);
         }
-        info = page.makeLines(I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "info"));
+        info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           fontRenderer.drawStringWithShadow(info.get(i), basePosX + 16, basePosY + 80 + i * 11, Util.intColor(255, 255, 255));
         }
-        title = I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name");
+        title = makeTitle();
         fontRenderer.drawStringWithShadow(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255));
       break;
       case TYPE_ALTAR:
@@ -221,23 +231,27 @@ public class GuiTabletPage extends GuiScreen {
             this.itemRender.renderItemIntoGUI(page.altarRecipe.incenses.get(i), (int) basePosX + 76 + 16 * i, (int) basePosY + 88);
           }
         }
-        title = I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name");
+        title = makeTitle();
         fontRenderer.drawStringWithShadow(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255));
       break;
       case TYPE_MORTAR:
+        //  System.out.println("MORTAR : put a chat button here");
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletMortar);
         this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
         for (int i = 0; i < page.mortarRecipe.materials.size(); i++) {
           this.itemRender.renderItemIntoGUI(page.mortarRecipe.materials.get(i), (int) basePosX + 24 + i * 16, (int) basePosY + 56);
         }
         this.itemRender.renderItemIntoGUI(new ItemStack(RegistryManager.dustPetal), (int) basePosX + 144, (int) basePosY + 56);
-        info = page.makeLines(I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "info"));
+        info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           fontRenderer.drawStringWithShadow(info.get(i), basePosX + 16, basePosY + 96 + i * 11, Util.intColor(255, 255, 255));
         }
-        title = I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name");
+
         if (page.mortarRecipe.disabled) {
           title = TextFormatting.RED + I18n.format("roots.research.disabled.name");
+        }
+        else {
+          title = makeTitle();
         }
         fontRenderer.drawStringWithShadow(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255));
     }
