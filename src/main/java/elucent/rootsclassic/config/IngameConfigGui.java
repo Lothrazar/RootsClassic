@@ -28,13 +28,12 @@ import elucent.rootsclassic.Const;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.config.GuiConfig;
 
 public class IngameConfigGui extends GuiConfig {
 
   public IngameConfigGui(GuiScreen parent) {
-    super(parent, new ConfigElement(ConfigManager.getConfig().getCategory(Configuration.CATEGORY_GENERAL)).getChildElements(), Const.MODID,
+    super(parent, new ConfigElement(ConfigManager.getConfig().getCategory(Const.MODID)).getChildElements(), Const.MODID,
         false, false, "RootsClassic");
   }
 

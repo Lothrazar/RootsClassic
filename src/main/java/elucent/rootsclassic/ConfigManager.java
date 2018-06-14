@@ -23,22 +23,27 @@ public class ConfigManager {
   }
 
   public static void syncAllConfig() {
-    config.addCustomCategoryComment(Configuration.CATEGORY_CLIENT, "Settings that affect clientside graphical preferences.");
-    config.addCustomCategoryComment(Configuration.CATEGORY_GENERAL, "Settings related to actual gameplay-affecting features.");
-    oldRootDropChance = config.getInt("oldRootDropChance", Configuration.CATEGORY_GENERAL, 40, 0, 32767, "Old Roots will drop from tall grass with a 1/oldRootDropChance probability.");
-    verdantSprigDropChance = config.getInt("verdantSprigDropChance", Configuration.CATEGORY_GENERAL, 30, 0, 32767, "Verdant Sprigs will drop from grown crops with a 1/verdantSprigDropChance probability.");
-    infernalStemDropChance = config.getInt("infernalBulbDropChance", Configuration.CATEGORY_GENERAL, 20, 0, 32767, "Infernal Bulbs will drop from nether wart with a 1/infernalBulbDropChance probability.");
-    dragonsEyeDropChance = config.getInt("dragonsEyeDropChance", Configuration.CATEGORY_GENERAL, 10, 0, 32767, "Dragon's Eyes will drop from chorus flowers with a 1/dragonsEyeDropChance probability.");
-    berriesDropChance = config.getInt("berriesDropChance", Configuration.CATEGORY_GENERAL, 25, 0, 32767, "Berries will drop from oak leaves with a 1/berriesDropChance probability.");
-    showTabletWave = config.getBoolean("showTabletWave", Configuration.CATEGORY_CLIENT, true, "Toggles the wave effect in the Runic Tablet GUI.");
-    chargeTicks = config.getInt("staffChargeTicks", Configuration.CATEGORY_GENERAL, 20, 1, 32767, "The number of ticks required to prepare a spell with a staff.");
-    manaBarOffset = config.getInt("manaBarOffset", Configuration.CATEGORY_CLIENT, 49, 0, 32767, "The number of pixels above the bottom of the screen that the mana bar should be rendered. If it's conflicting with a bar from another mod, raising it by 10 will normally position it right.");
-    staffUses = config.getInt("staffUses", Configuration.CATEGORY_GENERAL, 65, 0, 32767, "The number of uses an unmodified staff will have upon being crafted.");
-    efficiencyBonus = config.getInt("efficiencyBonusUses", Configuration.CATEGORY_GENERAL, 32, 0, 32767, "The number of additional uses each efficiency modifier gives.");
-    //    disabledComponents = config.getStringList("disabledComponents", Configuration.CATEGORY_GENERAL, new String[] {
+    String category = Const.MODID + "." + Configuration.CATEGORY_CLIENT;
+    config.addCustomCategoryComment(category, "Settings that affect clientside graphical preferences.");
+    manaBarOffset = config.getInt("manaBarOffset", category, 49, 0, 32767, "The number of pixels above the bottom of the screen that the mana bar should be rendered. If it's conflicting with a bar from another mod, raising it by 10 will normally position it right.");
+    showTabletWave = config.getBoolean("showTabletWave", category, true, "Toggles the wave effect in the Runic Tablet GUI.");
+    category = Const.MODID + ".items";
+    config.addCustomCategoryComment(category, "Settings related to actual gameplay-affecting features.");
+    oldRootDropChance = config.getInt("oldRootDropChance", category, 40, 0, 32767, "Old Roots will drop from tall grass with a 1/oldRootDropChance probability.");
+    verdantSprigDropChance = config.getInt("verdantSprigDropChance", category, 30, 0, 32767, "Verdant Sprigs will drop from grown crops with a 1/verdantSprigDropChance probability.");
+    infernalStemDropChance = config.getInt("infernalBulbDropChance", category, 20, 0, 32767, "Infernal Bulbs will drop from nether wart with a 1/infernalBulbDropChance probability.");
+    dragonsEyeDropChance = config.getInt("dragonsEyeDropChance", category, 10, 0, 32767, "Dragon's Eyes will drop from chorus flowers with a 1/dragonsEyeDropChance probability.");
+    berriesDropChance = config.getInt("berriesDropChance", category, 25, 0, 32767, "Berries will drop from oak leaves with a 1/berriesDropChance probability.");
+    category = Const.MODID + ".magic";
+    chargeTicks = config.getInt("staffChargeTicks", category, 20, 1, 32767, "The number of ticks required to prepare a spell with a staff.");
+    staffUses = config.getInt("staffUses", category, 65, 0, 32767, "The number of uses an unmodified staff will have upon being crafted.");
+    efficiencyBonus = config.getInt("efficiencyBonusUses", category, 32, 0, 32767, "The number of additional uses each efficiency modifier gives.");
+    disablePVP = config.getBoolean("disablePVP", "spells", false, "Whether or not damaging spells can affect players.");
+    //TODO: spells category to disable component  on loop?
+    //    disabledComponents = config.getStringList("disabledComponents", category, new String[] {
     //        "<example>", "<another example>"
     //    }, "A string list of all disabled components. Valid component names include: \"allium\", \"apple\", \"azurebluet\", \"blueorchid\", \"chorus\", \"dandelion\", \"flareorchid\", \"lilac\", \"lilypad\", \"midnightbloom\", \"netherwart\", \"orangetulip\", \"oxeyedaisy\", \"peony\", \"pinktulip\", \"poisonouspotato\", \"poppy\", \"radiantdaisy\", \"redtulip\", \"rosebush\", \"sunflower\", \"whitetulip\"");
-    disablePVP = config.getBoolean("disablePVP", "spells", false, "Whether or not damaging spells can affect players.");
+    //TODO: rituals component to disable single on loop
     config.save();
   }
 
