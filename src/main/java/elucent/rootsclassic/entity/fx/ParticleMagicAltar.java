@@ -41,10 +41,10 @@ public class ParticleMagicAltar extends Particle {
     this.setParticleTexture(sprite);
   }
 
-  //  @Override
-  //  public boolean isTransparent() {
-  //    return true;
-  //  }
+  @Override
+  public boolean shouldDisableDepth() { //was isTransparent in 1.10 
+    return true;
+  }
 
   @Override
   public int getFXLayer() {
