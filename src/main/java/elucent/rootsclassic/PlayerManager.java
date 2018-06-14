@@ -10,9 +10,10 @@ public class PlayerManager {
 
   public static void addEffect(ComponentEffect effect) {
     for (int i = 0; i < playerEffects.size(); i++) {
-      if (playerEffects.get(i).player.getUniqueID() == effect.player.getUniqueID()) {
-        if (playerEffects.get(i).name == effect.name) {
-          playerEffects.get(i).duration = effect.duration;
+      ComponentEffect eff = playerEffects.get(i);
+      if (eff.player.getUniqueID() == effect.player.getUniqueID()) {
+        if (eff.name == effect.name) {
+          eff.duration = effect.duration;
           return;
         }
       }
@@ -22,7 +23,8 @@ public class PlayerManager {
 
   public static boolean hasEffect(EntityPlayer player, String name) {
     for (int i = 0; i < playerEffects.size(); i++) {
-      if (playerEffects.get(i).player.getUniqueID() == player.getUniqueID() && name == playerEffects.get(i).name) {
+      ComponentEffect eff = playerEffects.get(i);
+      if (eff.player.getUniqueID() == player.getUniqueID() && name == eff.name) {
         return true;
       }
     }
@@ -31,8 +33,9 @@ public class PlayerManager {
 
   public static void updateEffects() {
     for (int i = 0; i < playerEffects.size(); i++) {
-      playerEffects.get(i).duration--;
-      if (playerEffects.get(i).duration <= 0) {
+      ComponentEffect eff = playerEffects.get(i);
+      eff.duration--;
+      if (eff.duration <= 0) {
         playerEffects.remove(i);
       }
     }

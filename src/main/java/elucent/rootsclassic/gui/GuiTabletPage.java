@@ -5,10 +5,12 @@ import elucent.rootsclassic.Const;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.Util;
+import elucent.rootsclassic.research.EnumRecipeType;
 import elucent.rootsclassic.research.ResearchBase;
 import elucent.rootsclassic.research.ResearchGroup;
 import elucent.rootsclassic.research.ResearchPage;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -18,6 +20,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 
 public class GuiTabletPage extends GuiScreen {
@@ -54,6 +57,11 @@ public class GuiTabletPage extends GuiScreen {
   }
 
   @Override
+  public void initGui() {
+    this.addButton(new GuiButton(7, 20, 20, 20, 60, ""));
+  }
+
+  @Override
   public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
     float basePosX = (width / 2.0f) - 96;
     float basePosY = (height / 2.0f) - 128;
@@ -65,6 +73,15 @@ public class GuiTabletPage extends GuiScreen {
     if (showRightArrow) {
       if (mouseX >= basePosX + 144 && mouseX < basePosX + 176 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
         this.currentPage++;
+      }
+    }
+    if (player.world.isRemote && research.info.get(currentPage).recipe == EnumRecipeType.TYPE_MORTAR) {
+      if (mouseX >= (width / 2.0f) - 110 && mouseX < (width / 2.0f) + 40
+          && mouseY >= (height / 2.0f) - 138 && mouseY < (height / 2.0f) - 40) {
+
+        player.sendMessage(//TextFormatting.RED + 
+            new TextComponentString(//I18n.format("roots.recipe.chat") +
+                research.info.get(currentPage).mortarRecipe.toString()));
       }
     }
   }
@@ -87,6 +104,7 @@ public class GuiTabletPage extends GuiScreen {
   private String makeInfo() {
     return I18n.format("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "info");
   }
+
   @Override
   public void drawScreen(int mouseX, int mouseY, float partialTicks) {
     GlStateManager.color(1, 1, 1, 1);
@@ -238,16 +256,15 @@ public class GuiTabletPage extends GuiScreen {
         //  System.out.println("MORTAR : put a chat button here");
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletMortar);
         this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
-        for (int i = 0; i < page.mortarRecipe.materials.size(); i++) {
-          this.itemRender.renderItemIntoGUI(page.mortarRecipe.materials.get(i), (int) basePosX + 24 + i * 16, (int) basePosY + 56);
+        for (int i = 0; i < page.mortarRecipe.getMaterials().size(); i++) {
+          this.itemRender.renderItemIntoGUI(page.mortarRecipe.getMaterials().get(i), (int) basePosX + 24 + i * 16, (int) basePosY + 56);
         }
         this.itemRender.renderItemIntoGUI(new ItemStack(RegistryManager.dustPetal), (int) basePosX + 144, (int) basePosY + 56);
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           fontRenderer.drawStringWithShadow(info.get(i), basePosX + 16, basePosY + 96 + i * 11, Util.intColor(255, 255, 255));
         }
-
-        if (page.mortarRecipe.disabled) {
+        if (page.mortarRecipe.isDisabled()) {
           title = TextFormatting.RED + I18n.format("roots.research.disabled.name");
         }
         else {

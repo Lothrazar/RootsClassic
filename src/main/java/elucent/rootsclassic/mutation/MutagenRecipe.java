@@ -2,12 +2,10 @@ package elucent.rootsclassic.mutation;
 
 import java.util.ArrayList;
 import java.util.List;
-import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Util;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

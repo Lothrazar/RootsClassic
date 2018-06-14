@@ -18,6 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockDruidChalice extends TEBlockBase implements ITileEntityProvider {
 
+  private static final AxisAlignedBB AXIS_ALIGNED_BB = new AxisAlignedBB(0.4, 0, 0, 0.6, 0, 0.2);
   public BlockDruidChalice() {
     super(Material.WOOD);
     setHardness(0.5f);
@@ -36,7 +37,7 @@ public class BlockDruidChalice extends TEBlockBase implements ITileEntityProvide
 
   @Override
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-    return new AxisAlignedBB(0.4, 0, 0, 0.6, 0, 0.2);
+    return AXIS_ALIGNED_BB;
   }
 
   @Override

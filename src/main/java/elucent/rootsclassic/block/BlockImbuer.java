@@ -18,6 +18,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockImbuer extends TEBlockBase implements ITileEntityProvider {
 
+  private static final AxisAlignedBB AXIS_ALIGNED_BB = new AxisAlignedBB(0.3125, 0, 0.3125, 0.6875, 0.125, 0.6875);
+
   public BlockImbuer() {
     super(Material.GROUND);
     setCreativeTab(Roots.tab);
@@ -36,7 +38,7 @@ public class BlockImbuer extends TEBlockBase implements ITileEntityProvider {
 
   @Override
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-    return new AxisAlignedBB(0.3125, 0, 0.3125, 0.6875, 0.125, 0.6875);
+    return AXIS_ALIGNED_BB;
   }
 
   @Override

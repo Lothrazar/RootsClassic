@@ -15,6 +15,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockFlareOrchid extends BlockBush {
 
+  private static final AxisAlignedBB AXIS_ALIGNED_BB = new AxisAlignedBB(0.375, 0, 0.375, 0.625, 0.5, 0.625);
+
   public BlockFlareOrchid() {
     super();
     setCreativeTab(Roots.tab);
@@ -37,7 +39,7 @@ public class BlockFlareOrchid extends BlockBush {
   }
   @Override
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-    return new AxisAlignedBB(0.375, 0, 0.375, 0.625, 0.5, 0.625);
+    return AXIS_ALIGNED_BB;
   }
 
   @Override

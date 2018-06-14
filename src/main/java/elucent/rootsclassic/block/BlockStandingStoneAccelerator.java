@@ -28,6 +28,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockStandingStoneAccelerator extends TEBlockBase implements ITileEntityProvider {
 
+  private static final AxisAlignedBB AXIS_ALIGNED_BB_ONE = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 0.75, 0.75);
+  private static final AxisAlignedBB AXIS_ALIGNED_BB_ZERO = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1.0, 0.75);
   public static final PropertyEnum topState = PropertyEnum.create("topq", BlockStandingStoneAccelerator.isTop.class);
 
   public enum isTop implements IStringSerializable {
@@ -135,10 +137,10 @@ public class BlockStandingStoneAccelerator extends TEBlockBase implements ITileE
   @Override
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
     if (this.getMetaFromState(state) == 0) {
-      return new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1.0, 0.75);
+      return AXIS_ALIGNED_BB_ZERO;
     }
     else {
-      return new AxisAlignedBB(0.25, 0, 0.25, 0.75, 0.75, 0.75);
+      return AXIS_ALIGNED_BB_ONE;
     }
   }
 

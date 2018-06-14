@@ -19,6 +19,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockBrazier extends TEBlockBase implements ITileEntityProvider {
 
+  private static final AxisAlignedBB AXIS_ALIGNED_BB = new AxisAlignedBB(0.1875, 0, 0.1875, 0.8125, 0.75, 0.8125);
+
   public BlockBrazier() {
     super(Material.GROUND);
     setCreativeTab(Roots.tab);
@@ -37,7 +39,7 @@ public class BlockBrazier extends TEBlockBase implements ITileEntityProvider {
 
   @Override
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-    return new AxisAlignedBB(0.1875, 0, 0.1875, 0.8125, 0.75, 0.8125);
+    return AXIS_ALIGNED_BB;
   }
 
   @Override

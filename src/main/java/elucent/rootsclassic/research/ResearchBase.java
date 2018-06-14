@@ -1,7 +1,6 @@
 package elucent.rootsclassic.research;
 
 import java.util.ArrayList;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;
 
 public class ResearchBase {

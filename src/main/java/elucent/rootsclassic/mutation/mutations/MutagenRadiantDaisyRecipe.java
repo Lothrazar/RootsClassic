@@ -3,7 +3,6 @@ package elucent.rootsclassic.mutation.mutations;
 import java.util.List;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.mutation.MutagenRecipe;
-import net.minecraft.block.BlockBed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -13,7 +12,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
-import net.minecraftforge.common.DimensionManager;
 
 public class MutagenRadiantDaisyRecipe extends MutagenRecipe {
 

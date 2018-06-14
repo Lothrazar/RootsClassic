@@ -80,10 +80,10 @@ public class TileEntityMortar extends TEBase {
     else if (heldItem.getItem() == RegistryManager.pestle) {
       ComponentRecipe recipe = ComponentManager.getRecipe(inventory);
       if (recipe != null) {
-        if (!recipe.disabled && this.inventory.size() > 3) {
+        if (!recipe.isDisabled() && this.inventory.size() > 3) {
           if (recipe != null && ComponentRecipe.getModifierCapacity(inventory) != -1) {
             ItemStack drop = new ItemStack(RegistryManager.dustPetal, 1);
-            DustPetal.createData(drop, player, recipe.effectResult, inventory);
+            DustPetal.createData(drop, player, recipe.getEffectResult(), inventory);
             if (!world.isRemote) {
               world.spawnEntity(new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, drop));
             }

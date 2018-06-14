@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.ritual.RitualManager;
-import net.minecraft.block.BlockDaylightDetector;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

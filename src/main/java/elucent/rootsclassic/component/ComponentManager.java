@@ -29,7 +29,6 @@ import elucent.rootsclassic.component.components.ComponentWhiteTulip;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
 
 public class ComponentManager {
@@ -161,8 +160,8 @@ public class ComponentManager {
         .addIngredient(new ItemStack(Blocks.REDSTONE_BLOCK, 1)));
     for (int i = 0; i < recipes.size(); i++) {
       for (int j = 0; j < ConfigManager.disabledComponents.length; j++) {
-        if (recipes.get(i).effectResult.matches(ConfigManager.disabledComponents[j])) {
-          recipes.get(i).disabled = true;
+        if (recipes.get(i).getEffectResult().matches(ConfigManager.disabledComponents[j])) {
+          recipes.get(i).setDisabled(true);
         }
       }
     }
@@ -187,7 +186,7 @@ public class ComponentManager {
 
   public static ComponentRecipe getRecipe(String name) {
     for (int i = 0; i < recipes.size(); i++) {
-      if (recipes.get(i).effectResult == name) {
+      if (recipes.get(i).getEffectResult() == name) {
         return recipes.get(i);
       }
     }
