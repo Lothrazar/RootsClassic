@@ -1,6 +1,7 @@
 package elucent.rootsclassic;
 
 import elucent.rootsclassic.capability.RootsCapabilityManager;
+import elucent.rootsclassic.config.EventConfigChanged;
 import elucent.rootsclassic.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -15,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = Const.MODID, useMetadata = true, updateJSON = "https://raw.githubusercontent.com/PrinceOfAmber/RootsClassic/develop/update.json")
+@Mod(modid = Const.MODID, useMetadata = true, updateJSON = "https://raw.githubusercontent.com/PrinceOfAmber/RootsClassic/develop/update.json", acceptableRemoteVersions = "*", acceptedMinecraftVersions = "[1.12,)", guiFactory = "elucent." + Const.MODID + ".config.IngameConfigFactory")
 public class Roots {
 
   public static CreativeTabs tab = new CreativeTabs(Const.MODID) {
@@ -41,6 +42,7 @@ public class Roots {
     ConfigManager.load(event);
     MinecraftForge.EVENT_BUS.register(new EventManager());
     MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
+    MinecraftForge.EVENT_BUS.register(new EventConfigChanged());
     MinecraftForge.EVENT_BUS.register(RegistryManager.class);
     proxy.preInit(event);
   }

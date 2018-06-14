@@ -14,10 +14,15 @@ public class ConfigManager {
   public static int chargeTicks, staffUses, efficiencyBonus;
   public static int manaBarOffset;
   public static boolean disablePVP;
+  private static Configuration config;
 
   public static void load(FMLPreInitializationEvent event) {
-    Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+    config = new Configuration(event.getSuggestedConfigurationFile());
     config.load();
+    syncAllConfig();
+  }
+
+  public static void syncAllConfig() {
     config.addCustomCategoryComment(Configuration.CATEGORY_CLIENT, "Settings that affect clientside graphical preferences.");
     config.addCustomCategoryComment(Configuration.CATEGORY_GENERAL, "Settings related to actual gameplay-affecting features.");
     oldRootDropChance = config.getInt("oldRootDropChance", Configuration.CATEGORY_GENERAL, 40, 0, 32767, "Old Roots will drop from tall grass with a 1/oldRootDropChance probability.");
@@ -30,10 +35,14 @@ public class ConfigManager {
     manaBarOffset = config.getInt("manaBarOffset", Configuration.CATEGORY_CLIENT, 49, 0, 32767, "The number of pixels above the bottom of the screen that the mana bar should be rendered. If it's conflicting with a bar from another mod, raising it by 10 will normally position it right.");
     staffUses = config.getInt("staffUses", Configuration.CATEGORY_GENERAL, 65, 0, 32767, "The number of uses an unmodified staff will have upon being crafted.");
     efficiencyBonus = config.getInt("efficiencyBonusUses", Configuration.CATEGORY_GENERAL, 32, 0, 32767, "The number of additional uses each efficiency modifier gives.");
-    disabledComponents = config.getStringList("disabledComponents", Configuration.CATEGORY_GENERAL, new String[] {
-        "<example>", "<another example>"
-    }, "A string list of all disabled components. Valid component names include: \"allium\", \"apple\", \"azurebluet\", \"blueorchid\", \"chorus\", \"dandelion\", \"flareorchid\", \"lilac\", \"lilypad\", \"midnightbloom\", \"netherwart\", \"orangetulip\", \"oxeyedaisy\", \"peony\", \"pinktulip\", \"poisonouspotato\", \"poppy\", \"radiantdaisy\", \"redtulip\", \"rosebush\", \"sunflower\", \"whitetulip\"");
+    //    disabledComponents = config.getStringList("disabledComponents", Configuration.CATEGORY_GENERAL, new String[] {
+    //        "<example>", "<another example>"
+    //    }, "A string list of all disabled components. Valid component names include: \"allium\", \"apple\", \"azurebluet\", \"blueorchid\", \"chorus\", \"dandelion\", \"flareorchid\", \"lilac\", \"lilypad\", \"midnightbloom\", \"netherwart\", \"orangetulip\", \"oxeyedaisy\", \"peony\", \"pinktulip\", \"poisonouspotato\", \"poppy\", \"radiantdaisy\", \"redtulip\", \"rosebush\", \"sunflower\", \"whitetulip\"");
     disablePVP = config.getBoolean("disablePVP", "spells", false, "Whether or not damaging spells can affect players.");
     config.save();
+  }
+
+  public static Configuration getConfig() {
+    return config;
   }
 }
