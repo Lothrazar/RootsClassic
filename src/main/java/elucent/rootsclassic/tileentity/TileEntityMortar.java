@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.component.ComponentRecipe;
-import elucent.rootsclassic.item.DustPetal;
+import elucent.rootsclassic.item.ItemDustPetal;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -83,7 +83,7 @@ public class TileEntityMortar extends TEBase {
         if (!recipe.isDisabled() && this.inventory.size() > 3) {
           if (recipe != null && ComponentRecipe.getModifierCapacity(inventory) != -1) {
             ItemStack drop = new ItemStack(RegistryManager.dustPetal, 1);
-            DustPetal.createData(drop, player, recipe.getEffectResult(), inventory);
+            ItemDustPetal.createData(drop, player, recipe.getEffectResult(), inventory);
             if (!world.isRemote) {
               world.spawnEntity(new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, drop));
             }

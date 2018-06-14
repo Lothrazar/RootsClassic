@@ -157,32 +157,13 @@ public class ComponentManager {
         .addIngredient(new ItemStack(Blocks.GLOWSTONE, 1))
         .addIngredient(new ItemStack(Blocks.GLOWSTONE, 1))
         .addIngredient(new ItemStack(Blocks.REDSTONE_BLOCK, 1)));
-    //    for (int i = 0; i < recipes.size(); i++) {
-    //      for (int j = 0; j < ConfigManager.disabledComponents.length; j++) {
-    //        if (recipes.get(i).getEffectResult().matches(ConfigManager.disabledComponents[j])) {
-    //          recipes.get(i).setDisabled(true);
-    //        }
-    //      }
-    //    }
+
   }
 
-  public static void addComponent(ComponentBase component, ComponentRecipe recipe) {
-    components.add(component);
-    recipes.add(recipe);
-  }
-
-  public static boolean isValidEffectItem(ItemStack stack) {
-    for (int i = 0; i < components.size(); i++) {
-      if (components.get(i).getItem() != null && stack != null) {
-        if (components.get(i).getItem().getItem() == stack.getItem()
-            && components.get(i).getItem().getMetadata() == stack.getMetadata()) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-
+  /* //TODO: reject invalid stuff from the bowl??!??! the mortar??
+   * 
+   * public static boolean isValidEffectItem(ItemStack stack) { for (int i = 0; i < components.size(); i++) { if (components.get(i).getItem() != null && stack != null) { if
+   * (components.get(i).getItem().getItem() == stack.getItem() && components.get(i).getItem().getMetadata() == stack.getMetadata()) { return true; } } } return false; } */
   public static ComponentRecipe getRecipe(String name) {
     for (int i = 0; i < recipes.size(); i++) {
       if (recipes.get(i).getEffectResult() == name) {
@@ -193,41 +174,21 @@ public class ComponentManager {
   }
 
   public static ComponentRecipe getRecipe(List<ItemStack> items) {
-    for (int i = 0; i < recipes.size(); i++) {
-      if (recipes.get(i).matches(items)) {
-        return recipes.get(i);
+    for (ComponentRecipe r : recipes) {
+      if (r.matches(items)) {
+        return r;
       }
     }
     return null;
   }
-
-  public static ItemStack getItemFromComponent(ComponentBase component) {
-    for (int i = 0; i < components.size(); i++) {
-      if (components.get(i).getName() == component.getName()) {
-        return components.get(i).getItem();
-      }
-    }
-    return null;
-  }
-
+ 
   public static ComponentBase getComponentFromName(String name) {
-    for (int i = 0; i < components.size(); i++) {
-      if (components.get(i).getName().equals(name)) {
-        return components.get(i);
+    for (ComponentBase c : components) {
+      if (c.getName().equals(name)) {
+        return c;
       }
     }
     return null;
   }
-
-  public static ComponentBase getComponentFromItem(ItemStack stack) {
-    for (int i = 0; i < components.size(); i++) {
-      if (components.get(i).getItem() != null && stack != null) {
-        if (components.get(i).getItem().getItem() == stack.getItem()
-            && components.get(i).getItem().getMetadata() == stack.getMetadata()) {
-          return components.get(i);
-        }
-      }
-    }
-    return null;
-  }
+ 
 }

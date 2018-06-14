@@ -19,12 +19,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemEngravedSword extends ItemSword {
 
-  private ToolMaterial material;
   private String[] numerals = { "0", "I", "II", "III", "IIII" };
 
   public ItemEngravedSword(ToolMaterial material) {
     super(material);
-    this.material = material;
+
 
     this.setCreativeTab(Roots.tab);
   }

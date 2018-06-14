@@ -18,23 +18,18 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class DustPetal extends Item {
+public class ItemDustPetal extends Item {
 
   Random random = new Random();
 
-  public DustPetal() {
+  public ItemDustPetal() {
     super();
 
   }
 
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldS, ItemStack newS, boolean slotChanged) {
-    if (slotChanged) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    return slotChanged;
   }
 
   public static void createData(ItemStack stack, EntityPlayer player, String effect, ArrayList<ItemStack> items) {

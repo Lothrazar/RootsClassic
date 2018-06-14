@@ -23,7 +23,7 @@ import elucent.rootsclassic.block.BlockStandingStoneT2;
 import elucent.rootsclassic.block.BlockStandingStoneVacuum;
 import elucent.rootsclassic.entity.EntityAccelerator;
 import elucent.rootsclassic.entity.EntityTileAccelerator;
-import elucent.rootsclassic.item.DustPetal;
+import elucent.rootsclassic.item.ItemDustPetal;
 import elucent.rootsclassic.item.ItemCrystalStaff;
 import elucent.rootsclassic.item.ItemDragonsEye;
 import elucent.rootsclassic.item.ItemDruidArmor;
@@ -169,7 +169,7 @@ public class RegistryManager {
      * REGISTERING ITEMS
      */
     registerItem(druidKnife = new ItemDruidKnife(), "druidknife");
-    registerItem(dustPetal = new DustPetal(), "dustpetal");
+    registerItem(dustPetal = new ItemDustPetal(), "dustpetal");
     registerItem(pestle = new ItemPestle(), "pestle");
     registerItem(staff = new ItemStaff(), "staff");
     registerItem(crystalStaff = new ItemCrystalStaff(), "crystalstaff");
@@ -302,7 +302,7 @@ public class RegistryManager {
      */
     //((BlockDruidChalice) druidChalice).initModel();
     ((ItemDruidKnife) druidKnife).initModel();
-    ((DustPetal) dustPetal).initModel();
+    ((ItemDustPetal) dustPetal).initModel();
     ((ItemPestle) pestle).initModel();
     ((ItemStaff) staff).initModel();
     ((ItemCrystalStaff) crystalStaff).initModel();

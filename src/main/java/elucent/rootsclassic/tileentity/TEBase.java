@@ -14,10 +14,6 @@ import net.minecraft.world.World;
 
 public class TEBase extends TileEntity {
 
-  public TEBase() {
-    super();
-  }
-
   @Override
   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
     readFromNBT(packet.getNbtCompound());
