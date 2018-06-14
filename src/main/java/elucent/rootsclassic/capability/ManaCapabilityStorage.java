@@ -8,11 +8,14 @@ import net.minecraftforge.common.capabilities.Capability.IStorage;
 
 public class ManaCapabilityStorage implements IStorage<IManaCapability> {
 
+  public static final String NBT_MAX_MANA = "maxMana";
+  public static final String NBT_MANA = "mana";
+
   @Override
   public NBTBase writeNBT(Capability<IManaCapability> capability, IManaCapability instance, EnumFacing side) {
     NBTTagCompound tag = new NBTTagCompound();
-    tag.setFloat("maxMana", instance.getMaxMana());
-    tag.setFloat("mana", instance.getMana());
+    tag.setFloat(NBT_MAX_MANA, instance.getMaxMana());
+    tag.setFloat(NBT_MANA, instance.getMana());
     return tag;
   }
 
@@ -21,11 +24,11 @@ public class ManaCapabilityStorage implements IStorage<IManaCapability> {
       NBTBase nbt) {
     if (nbt instanceof NBTTagCompound) {
       NBTTagCompound tag = (NBTTagCompound) nbt;
-      if (tag.hasKey("mana")) {
-        instance.setMana(tag.getFloat("mana"));
+      if (tag.hasKey(NBT_MANA)) {
+        instance.setMana(tag.getFloat(NBT_MANA));
       }
-      if (tag.hasKey("maxMana")) {
-        instance.setMaxMana(tag.getFloat("maxMana"));
+      if (tag.hasKey(NBT_MAX_MANA)) {
+        instance.setMaxMana(tag.getFloat(NBT_MAX_MANA));
       }
     }
   }

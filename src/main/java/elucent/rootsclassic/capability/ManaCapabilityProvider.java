@@ -9,7 +9,6 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 public class ManaCapabilityProvider implements ICapabilityProvider, INBTSerializable, IManaCapability {
 
-  // private EntityPlayer player;
   float mana;
   float maxMana;
 
@@ -62,8 +61,8 @@ public class ManaCapabilityProvider implements ICapabilityProvider, INBTSerializ
   @Override
   public NBTBase serializeNBT() {
     NBTTagCompound tag = new NBTTagCompound();
-    tag.setFloat("maxMana", getMaxMana());
-    tag.setFloat("mana", getMana());
+    tag.setFloat(ManaCapabilityStorage.NBT_MAX_MANA, getMaxMana());
+    tag.setFloat(ManaCapabilityStorage.NBT_MANA, getMana());
     return tag;
   }
 
@@ -72,11 +71,11 @@ public class ManaCapabilityProvider implements ICapabilityProvider, INBTSerializ
     if (nbt instanceof NBTTagCompound) {
       NBTTagCompound tag = (NBTTagCompound) nbt;
       //System.out.println("Loading NBT! Mana=" + tag.getFloat("mana") + "/" + tag.getFloat("maxMana"));
-      if (tag.hasKey("maxMana")) {
-        setMaxMana(tag.getFloat("maxMana"));
+      if (tag.hasKey(ManaCapabilityStorage.NBT_MAX_MANA)) {
+        setMaxMana(tag.getFloat(ManaCapabilityStorage.NBT_MAX_MANA));
       }
-      if (tag.hasKey("mana")) {
-        setMana(tag.getFloat("mana"));
+      if (tag.hasKey(ManaCapabilityStorage.NBT_MANA)) {
+        setMana(tag.getFloat(ManaCapabilityStorage.NBT_MANA));
       }
     }
   }
