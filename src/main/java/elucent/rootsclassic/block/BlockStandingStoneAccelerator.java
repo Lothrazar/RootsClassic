@@ -17,7 +17,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -30,39 +29,7 @@ public class BlockStandingStoneAccelerator extends TEBlockBase implements ITileE
 
   private static final AxisAlignedBB AXIS_ALIGNED_BB_ONE = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 0.75, 0.75);
   private static final AxisAlignedBB AXIS_ALIGNED_BB_ZERO = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1.0, 0.75);
-  public static final PropertyEnum topState = PropertyEnum.create("topq", BlockStandingStoneAccelerator.isTop.class);
-
-  public enum isTop implements IStringSerializable {
-    enumBottom(0, "bottom"), enumTop(1, "top");
-
-    private int ID;
-    private String name;
-
-    private isTop(int ID, String name) {
-      this.ID = ID;
-      this.name = name;
-    }
-
-    public static isTop fromMeta(int meta) {
-      switch (meta) {
-        default:
-          return enumBottom;
-        case 0:
-          return enumBottom;
-        case 1:
-          return enumTop;
-      }
-    }
-
-    @Override
-    public String getName() {
-      return name;
-    }
-
-    public int getID() {
-      return ID;
-    }
-  }
+  public static final PropertyEnum<BlockstateIsTop> topState = PropertyEnum.create("topq", BlockstateIsTop.class);
 
   public BlockStandingStoneAccelerator() {
     super(Material.ROCK);
@@ -77,19 +44,19 @@ public class BlockStandingStoneAccelerator extends TEBlockBase implements ITileE
 
   @Override
   public int getMetaFromState(IBlockState state) {
-    isTop TYPE = (isTop) state.getValue(topState);
+    BlockstateIsTop TYPE = state.getValue(topState);
     return TYPE.getID();
   }
 
   @Override
   public IBlockState getStateFromMeta(int meta) {
-    return getDefaultState().withProperty(topState, isTop.fromMeta(meta));
+    return getDefaultState().withProperty(topState, BlockstateIsTop.fromMeta(meta));
   }
 
   @Override
   public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
     if (this.getMetaFromState(state) == 0) {
-      world.setBlockState(pos.up(), this.getDefaultState().withProperty(topState, isTop.enumTop));
+      world.setBlockState(pos.up(), this.getDefaultState().withProperty(topState, BlockstateIsTop.enumTop));
     }
     else {
       world.setBlockState(pos.down(), this.getStateFromMeta(0));

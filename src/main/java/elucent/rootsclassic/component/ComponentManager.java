@@ -2,7 +2,6 @@ package elucent.rootsclassic.component;
 
 import java.util.ArrayList;
 import java.util.List;
-import elucent.rootsclassic.ConfigManager;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.component.components.ComponentAllium;
 import elucent.rootsclassic.component.components.ComponentApple;
@@ -158,13 +157,13 @@ public class ComponentManager {
         .addIngredient(new ItemStack(Blocks.GLOWSTONE, 1))
         .addIngredient(new ItemStack(Blocks.GLOWSTONE, 1))
         .addIngredient(new ItemStack(Blocks.REDSTONE_BLOCK, 1)));
-    for (int i = 0; i < recipes.size(); i++) {
-      for (int j = 0; j < ConfigManager.disabledComponents.length; j++) {
-        if (recipes.get(i).getEffectResult().matches(ConfigManager.disabledComponents[j])) {
-          recipes.get(i).setDisabled(true);
-        }
-      }
-    }
+    //    for (int i = 0; i < recipes.size(); i++) {
+    //      for (int j = 0; j < ConfigManager.disabledComponents.length; j++) {
+    //        if (recipes.get(i).getEffectResult().matches(ConfigManager.disabledComponents[j])) {
+    //          recipes.get(i).setDisabled(true);
+    //        }
+    //      }
+    //    }
   }
 
   public static void addComponent(ComponentBase component, ComponentRecipe recipe) {

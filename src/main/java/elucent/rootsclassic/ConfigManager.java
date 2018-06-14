@@ -10,7 +10,7 @@ public class ConfigManager {
   //CLIENT
   public static boolean showTabletWave;
   //SPELLS
-  public static String[] disabledComponents;
+  //  public static String[] disabledComponents;
   public static int chargeTicks, staffUses, efficiencyBonus;
   public static int manaBarOffset;
   public static boolean disablePVP;
