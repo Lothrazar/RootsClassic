@@ -38,7 +38,7 @@ public class ConfigManager {
     chargeTicks = config.getInt("staffChargeTicks", category, 20, 1, 32767, "The number of ticks required to prepare a spell with a staff.");
     staffUses = config.getInt("staffUses", category, 65, 0, 32767, "The number of uses an unmodified staff will have upon being crafted.");
     efficiencyBonus = config.getInt("efficiencyBonusUses", category, 32, 0, 32767, "The number of additional uses each efficiency modifier gives.");
-    disablePVP = config.getBoolean("disablePVP", "spells", false, "Whether or not damaging spells can affect players.");
+    disablePVP = config.getBoolean("disablePVP", category, false, "Whether or not damaging spells can affect players.");
     //TODO: spells category to disable component  on loop?
     //    disabledComponents = config.getStringList("disabledComponents", category, new String[] {
     //        "<example>", "<another example>"
