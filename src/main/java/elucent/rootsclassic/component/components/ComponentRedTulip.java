@@ -18,7 +18,7 @@ public class ComponentRedTulip extends ComponentBase {
   Random random = new Random();
 
   public ComponentRedTulip() {
-    super("redtulip", "Devil's Flower", Blocks.RED_FLOWER, 6);
+    super("redtulip", Blocks.RED_FLOWER, 6);
   }
 
   @Override

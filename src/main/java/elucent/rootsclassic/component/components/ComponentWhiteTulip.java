@@ -20,7 +20,7 @@ public class ComponentWhiteTulip extends ComponentBase {
   Random random = new Random();
 
   public ComponentWhiteTulip() {
-    super("whitetulip", "Blistering Cold", Blocks.RED_FLOWER, 6, 10);
+    super("whitetulip", Blocks.RED_FLOWER, 6, 10);
   }
 
   @Override

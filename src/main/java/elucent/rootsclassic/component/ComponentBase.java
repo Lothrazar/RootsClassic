@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 public class ComponentBase {
 
   String name = "";
-  String effectName = "";
+  //  String effectName = "";
   ItemStack itemSource = null;
   public Vec3d primaryColor = new Vec3d(0, 0, 0);
   public Vec3d secondaryColor = new Vec3d(0, 0, 0);
@@ -38,38 +38,34 @@ public class ComponentBase {
     return this;
   }
 
-  public ComponentBase(String name, String effectName, ItemStack item, int cost) {
+  public ComponentBase(String name, ItemStack item, int cost) {
     this.name = name;
     this.xpCost = cost;
-    this.effectName = effectName;
     itemSource = item;
   }
 
-  public ComponentBase(String name, String effectName, Item item, int cost) {
+  public ComponentBase(String name, Item item, int cost) {
     this.name = name;
     this.xpCost = cost;
-    this.effectName = effectName;
     itemSource = new ItemStack(item);
   }
 
-  public ComponentBase(String name, String effectName, Block item, int cost) {
+  public ComponentBase(String name, Block item, int cost) {
     this.name = name;
     this.xpCost = cost;
-    this.effectName = effectName;
+
     itemSource = new ItemStack(item);
   }
 
-  public ComponentBase(String name, String effectName, Item item, int meta, int cost) {
+  public ComponentBase(String name, Item item, int meta, int cost) {
     this.name = name;
     this.xpCost = cost;
-    this.effectName = effectName;
     itemSource = new ItemStack(item, 1, meta);
   }
 
-  public ComponentBase(String name, String effectName, Block item, int meta, int cost) {
+  public ComponentBase(String name, Block item, int meta, int cost) {
     this.name = name;
     this.xpCost = cost;
-    this.effectName = effectName;
     itemSource = new ItemStack(item, 1, meta);
   }
 

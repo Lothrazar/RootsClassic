@@ -16,7 +16,7 @@ public class ComponentApple extends ComponentBase {
   Random random = new Random();
 
   public ComponentApple() {
-    super("apple", "Nature's Cure", Items.APPLE, 16);
+    super("apple", Items.APPLE, 16);
   }
 
   @Override

@@ -14,7 +14,7 @@ public class ComponentLilac extends ComponentBase {
   Random random = new Random();
 
   public ComponentLilac() {
-    super("lilac", "Growth", Blocks.DOUBLE_PLANT, 1, 14);
+    super("lilac", Blocks.DOUBLE_PLANT, 1, 14);
   }
 
   public boolean growBlockSafe(World world, BlockPos pos, int potency) {

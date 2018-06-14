@@ -15,7 +15,7 @@ public class ComponentPoppy extends ComponentBase {
   Random random = new Random();
 
   public ComponentPoppy() {
-    super("poppy", "Insanity", Blocks.RED_FLOWER, 0, 8);
+    super("poppy", Blocks.RED_FLOWER, 0, 8);
   }
 
   @Override

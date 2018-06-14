@@ -16,7 +16,7 @@ public class ComponentDandelion extends ComponentBase {
   Random rnd = new Random();
 
   public ComponentDandelion() {
-    super("dandelion", "Dandelion Winds", Blocks.YELLOW_FLOWER, 8);
+    super("dandelion", Blocks.YELLOW_FLOWER, 8);
   }
 
   @Override

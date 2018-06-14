@@ -20,7 +20,7 @@ public class ComponentBlueOrchid extends ComponentBase {
   Random random = new Random();
 
   public ComponentBlueOrchid() {
-    super("blueorchid", "Earthen Roots", Blocks.RED_FLOWER, 14);
+    super("blueorchid", Blocks.RED_FLOWER, 14);
   }
 
   public void destroyBlockSafe(World world, BlockPos pos, int potency) {

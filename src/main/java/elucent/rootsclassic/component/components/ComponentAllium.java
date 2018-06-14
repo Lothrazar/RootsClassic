@@ -19,7 +19,7 @@ public class ComponentAllium extends ComponentBase {
   Random random = new Random();
 
   public ComponentAllium() {
-    super("allium", "Allium's Ruin", Blocks.RED_FLOWER, 8);
+    super("allium", Blocks.RED_FLOWER, 8);
   }
 
   public void destroyBlockSafe(World world, BlockPos pos, int potency) {

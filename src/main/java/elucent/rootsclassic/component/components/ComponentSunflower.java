@@ -20,7 +20,7 @@ public class ComponentSunflower extends ComponentBase {
   Random random = new Random();
 
   public ComponentSunflower() {
-    super("sunflower", "Solar Smite", Blocks.DOUBLE_PLANT, 0, 16);
+    super("sunflower", Blocks.DOUBLE_PLANT, 0, 16);
   }
 
   @Override

@@ -15,7 +15,7 @@ public class ComponentAzureBluet extends ComponentBase {
   Random random = new Random();
 
   public ComponentAzureBluet() {
-    super("azurebluet", "Shatter", Blocks.RED_FLOWER, 6);
+    super("azurebluet", Blocks.RED_FLOWER, 6);
   }
 
   public void destroyBlockSafe(World world, BlockPos pos, int potency) {

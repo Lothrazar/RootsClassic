@@ -18,7 +18,7 @@ public class ComponentNetherWart extends ComponentBase {
   Random random = new Random();
 
   public ComponentNetherWart() {
-    super("netherwart", "Inferno", Items.NETHER_WART, 10);
+    super("netherwart", Items.NETHER_WART, 10);
   }
 
   @Override

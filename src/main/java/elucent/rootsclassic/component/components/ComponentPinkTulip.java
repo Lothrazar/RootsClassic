@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 public class ComponentPinkTulip extends ComponentBase {
 
   public ComponentPinkTulip() {
-    super("pinktulip", "Vampiric Burst", Blocks.RED_FLOWER, 7, 10);
+    super("pinktulip", Blocks.RED_FLOWER, 7, 10);
   }
 
   @Override

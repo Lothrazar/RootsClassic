@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 public class ComponentRose extends ComponentBase {
 
   public ComponentRose() {
-    super("rosebush", "Rose's Thorns", Blocks.DOUBLE_PLANT, 4, 14);
+    super("rosebush", Blocks.DOUBLE_PLANT, 4, 14);
   }
 
   @Override

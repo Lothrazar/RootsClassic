@@ -20,7 +20,7 @@ public class ComponentPeony extends ComponentBase {
   Random random = new Random();
 
   public ComponentPeony() {
-    super("peony", "Regeneration", Blocks.DOUBLE_PLANT, 5, 24);
+    super("peony", Blocks.DOUBLE_PLANT, 5, 24);
   }
 
   @Override

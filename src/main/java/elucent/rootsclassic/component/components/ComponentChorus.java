@@ -13,7 +13,7 @@ public class ComponentChorus extends ComponentBase {
   Random random = new Random();
 
   public ComponentChorus() {
-    super("chorus", "Ender Warp", Items.CHORUS_FRUIT, 12);
+    super("chorus", Items.CHORUS_FRUIT, 12);
   }
 
   @Override

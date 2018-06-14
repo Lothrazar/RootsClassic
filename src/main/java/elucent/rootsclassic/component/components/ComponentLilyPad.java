@@ -16,7 +16,7 @@ public class ComponentLilyPad extends ComponentBase {
   Random random = new Random();
 
   public ComponentLilyPad() {
-    super("lilypad", "Water Blast", Blocks.WATERLILY, 8);
+    super("lilypad", Blocks.WATERLILY, 8);
   }
 
   @Override
