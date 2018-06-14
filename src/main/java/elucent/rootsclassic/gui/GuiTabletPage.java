@@ -129,6 +129,10 @@ public class GuiTabletPage extends GuiScreen {
     this.mouseY = mouseY;
     float basePosX = (width / 2.0f) - 96;
     float basePosY = (height / 2.0f) - 128;
+    if (research == null || research.info == null || research.info.size() <= currentPage) {
+      //in case current page out of sync with recipe, dont error out and crash
+      return;
+    }
     ResearchPage page = research.info.get(currentPage);
 
     ArrayList<String> info;
