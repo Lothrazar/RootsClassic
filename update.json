@@ -1,5 +1,13 @@
-"TODO: fix and seutp this file"
+{
+  "homepage": "http://minecraft.curseforge.com/projects/cyclic",
+  "promos": {
+    "1.12.2-latest": "1.0.1",
+    "1.12.2-recommended": "1.0.1"
+  },
+  "1.12.2":{
 
-
-"1.0.0":"Initial Release",
-"1.0.1":"Clicking a Mortar recipe now displays it in chat as a helpful reminder.  "
+	"1.0.0":"Initial Release",
+	"1.0.1":"Clicking a Mortar recipe now displays it in chat as a helpful reminder.  Fixed particle transparency.  Added forge update checker hook. "
+  
+  }
+}

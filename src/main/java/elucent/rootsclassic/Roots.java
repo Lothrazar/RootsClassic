@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = Const.MODID, useMetadata = true)
+@Mod(modid = Const.MODID, useMetadata = true, updateJSON = "https://raw.githubusercontent.com/PrinceOfAmber/RootsClassic/develop/update.json")
 public class Roots {
 
   public static CreativeTabs tab = new CreativeTabs(Const.MODID) {
