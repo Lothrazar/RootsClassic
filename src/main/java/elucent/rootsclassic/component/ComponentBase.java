@@ -1,6 +1,5 @@
 package elucent.rootsclassic.component;
 
-import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -13,15 +12,14 @@ import net.minecraft.world.World;
 
 public class ComponentBase {
 
-  String name = "";
-  //  String effectName = "";
-  ItemStack itemSource = null;
+  private String name = "";
+
+  private ItemStack itemSource = null;
   public Vec3d primaryColor = new Vec3d(0, 0, 0);
   public Vec3d secondaryColor = new Vec3d(0, 0, 0);
-  public int xpCost = 0;
-  public boolean singleCast = true;
-  Random random = new Random();
-  TextFormatting textColor = TextFormatting.WHITE;
+  private int manaCost = 0;
+
+ private  TextFormatting textColor = TextFormatting.WHITE;
 
   public ComponentBase setPrimaryColor(double r, double g, double b) {
     this.primaryColor = new Vec3d(r, g, b);
@@ -40,33 +38,24 @@ public class ComponentBase {
 
   public ComponentBase(String name, ItemStack item, int cost) {
     this.name = name;
-    this.xpCost = cost;
+    this.setManaCost(cost);
     itemSource = item;
   }
 
   public ComponentBase(String name, Item item, int cost) {
-    this.name = name;
-    this.xpCost = cost;
-    itemSource = new ItemStack(item);
+    this(name, new ItemStack(item), cost);
   }
 
   public ComponentBase(String name, Block item, int cost) {
-    this.name = name;
-    this.xpCost = cost;
-
-    itemSource = new ItemStack(item);
+    this(name, new ItemStack(item), cost);
   }
 
   public ComponentBase(String name, Item item, int meta, int cost) {
-    this.name = name;
-    this.xpCost = cost;
-    itemSource = new ItemStack(item, 1, meta);
+    this(name, new ItemStack(item, 1, meta), cost);
   }
 
   public ComponentBase(String name, Block item, int meta, int cost) {
-    this.name = name;
-    this.xpCost = cost;
-    itemSource = new ItemStack(item, 1, meta);
+    this(name, new ItemStack(item, 1, meta), cost);
   }
 
   public String getName() {
@@ -90,4 +79,12 @@ public class ComponentBase {
   public void doEffect(World world, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {}
 
   public void castingAction(EntityPlayer player, int count, int potency, int efficiency, int size) {}
+
+  public int getManaCost() {
+    return manaCost;
+  }
+
+  public void setManaCost(int manaCost) {
+    this.manaCost = manaCost;
+  }
 }

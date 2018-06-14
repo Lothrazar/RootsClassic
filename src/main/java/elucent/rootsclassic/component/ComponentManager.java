@@ -204,7 +204,7 @@ public class ComponentManager {
   public static ItemStack getItemFromComponent(ComponentBase component) {
     for (int i = 0; i < components.size(); i++) {
       if (components.get(i).getName() == component.getName()) {
-        return components.get(i).itemSource;
+        return components.get(i).getItem();
       }
     }
     return null;
