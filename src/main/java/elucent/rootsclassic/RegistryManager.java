@@ -91,7 +91,13 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class RegistryManager {
 
-  public static Item runicFocus, rootyStew, healingPoultice, mutagen, growthSalve, runedTablet, druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots, livingPickaxe, livingSword, livingHoe, livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig, infernalStem, dragonsEye, druidKnife, oakTreeBark, spruceTreeBark, birchTreeBark, jungleTreeBark, acaciaTreeBark, darkOakTreeBark, nightshade, blackCurrant, redCurrant, whiteCurrant, elderBerry, engravedSword;
+  public static Item runicFocus, rootyStew, healingPoultice, mutagen, growthSalve, runedTablet,
+      druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots,
+      livingPickaxe, livingSword, livingHoe,
+      livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig,
+      infernalStem, dragonsEye, druidKnife,
+      oakTreeBark, spruceTreeBark, birchTreeBark, jungleTreeBark, acaciaTreeBark, darkOakTreeBark,
+      nightshade, blackCurrant, redCurrant, whiteCurrant, elderBerry, engravedSword;
   public static Item manaResearchIcon;
   public static Block flareOrchid, radiantDaisy, standingStoneGrower, standingStoneHealer, standingStoneIgniter, standingStoneEntangler, standingStoneAccelerator, standingStoneAesthetic, standingStoneRepulsor, standingStoneVacuum, midnightBloom, mortar, imbuer, altar, druidChalice, standingStoneT1, standingStoneT2, brazier;
   public static ToolMaterial engravedMaterial = EnumHelper.addToolMaterial("engraved", 2, 1050, 5F, 8.0F, 5);

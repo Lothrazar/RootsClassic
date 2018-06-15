@@ -61,11 +61,13 @@ public class ComponentManager {
     recipes.add(new ComponentRecipe("rosebush")
         .addIngredient(new ItemStack(Blocks.DOUBLE_PLANT, 1, 4))
         .addIngredient(new ItemStack(Items.FERMENTED_SPIDER_EYE, 1))
+        .addIngredient(new ItemStack(Items.IRON_NUGGET))
         .addIngredient(new ItemStack(Items.BONE, 1)));
     recipes.add(new ComponentRecipe("dandelion")
         .addIngredient(new ItemStack(Blocks.YELLOW_FLOWER, 1))
         .addIngredient(new ItemStack(Items.STRING, 1))
-        .addIngredient(new ItemStack(Items.FEATHER, 1)));
+        .addIngredient(new ItemStack(Items.FEATHER, 1))
+        .addIngredient(new ItemStack(RegistryManager.whiteCurrant)));
     recipes.add(new ComponentRecipe("chorus")
         .addIngredient(new ItemStack(Items.CHORUS_FRUIT, 1))
         .addIngredient(new ItemStack(Items.ENDER_PEARL, 1))
@@ -79,19 +81,23 @@ public class ComponentManager {
     recipes.add(new ComponentRecipe("peony")
         .addIngredient(new ItemStack(Blocks.DOUBLE_PLANT, 1, 5))
         .addIngredient(new ItemStack(Items.MELON, 1))
-        .addIngredient(new ItemStack(Items.DYE, 1, 1)));
+        .addIngredient(new ItemStack(Items.DYE, 1, 1))
+        .addIngredient(new ItemStack(RegistryManager.nightshade)));
     recipes.add(new ComponentRecipe("sunflower")
         .addIngredient(new ItemStack(Blocks.DOUBLE_PLANT, 1, 0))
         .addIngredient(new ItemStack(Blocks.LIT_PUMPKIN, 1))
-        .addIngredient(new ItemStack(Items.DYE, 1, 15)));
+        .addIngredient(new ItemStack(Items.DYE, 1, 15))
+        .addIngredient(new ItemStack(RegistryManager.elderBerry)));
     recipes.add(new ComponentRecipe("azurebluet")
         .addIngredient(new ItemStack(Blocks.RED_FLOWER, 1, 3))
         .addIngredient(new ItemStack(Items.IRON_INGOT, 1))
-        .addIngredient(new ItemStack(Blocks.SAPLING, 1, 1)));
+        .addIngredient(new ItemStack(Blocks.SAPLING, 1, 1))
+        .addIngredient(new ItemStack(RegistryManager.whiteCurrant)));
     recipes.add(new ComponentRecipe("allium")
         .addIngredient(new ItemStack(Blocks.RED_FLOWER, 1, 2))
         .addIngredient(new ItemStack(Blocks.SOUL_SAND, 1))
-        .addIngredient(new ItemStack(Blocks.BROWN_MUSHROOM, 1)));
+        .addIngredient(new ItemStack(Blocks.BROWN_MUSHROOM, 1))
+        .addIngredient(new ItemStack(RegistryManager.elderBerry)));
     recipes.add(new ComponentRecipe("lilac")
         .addIngredient(new ItemStack(Blocks.DOUBLE_PLANT, 1, 1))
         .addIngredient(new ItemStack(Items.WHEAT, 1))
@@ -100,7 +106,8 @@ public class ComponentManager {
     recipes.add(new ComponentRecipe("whitetulip")
         .addIngredient(new ItemStack(Blocks.RED_FLOWER, 1, 6))
         .addIngredient(new ItemStack(Items.SNOWBALL, 1))
-        .addIngredient(new ItemStack(Blocks.SAPLING, 1, 2)));
+        .addIngredient(new ItemStack(Blocks.SAPLING, 1, 2))
+        .addIngredient(new ItemStack(RegistryManager.whiteCurrant)));
     recipes.add(new ComponentRecipe("redtulip")
         .addIngredient(new ItemStack(Blocks.RED_FLOWER, 1, 4))
         .addIngredient(new ItemStack(Items.NETHERBRICK, 1))
@@ -114,7 +121,8 @@ public class ComponentManager {
     recipes.add(new ComponentRecipe("poppy")
         .addIngredient(new ItemStack(Blocks.RED_FLOWER, 1, 0))
         .addIngredient(new ItemStack(Blocks.RED_MUSHROOM, 1))
-        .addIngredient(new ItemStack(Items.BEEF, 1)));
+        .addIngredient(new ItemStack(Items.BEEF, 1))
+        .addIngredient(new ItemStack(RegistryManager.redCurrant)));
     recipes.add(new ComponentRecipe("poisonouspotato")
         .addIngredient(new ItemStack(Items.POISONOUS_POTATO, 1, 0))
         .addIngredient(new ItemStack(Blocks.GLASS, 1))
@@ -123,7 +131,8 @@ public class ComponentManager {
     recipes.add(new ComponentRecipe("orangetulip")
         .addIngredient(new ItemStack(Blocks.RED_FLOWER, 1, 5))
         .addIngredient(new ItemStack(Blocks.SPONGE, 1))
-        .addIngredient(new ItemStack(Items.LEATHER, 1)));
+        .addIngredient(new ItemStack(Items.LEATHER, 1))
+        .addIngredient(new ItemStack(RegistryManager.redCurrant)));
     recipes.add(new ComponentRecipe("pinktulip")
         .addIngredient(new ItemStack(Blocks.RED_FLOWER, 1, 7))
         .addIngredient(new ItemStack(Items.MELON_SEEDS, 1))
@@ -137,11 +146,13 @@ public class ComponentManager {
     recipes.add(new ComponentRecipe("lilypad")
         .addIngredient(new ItemStack(Blocks.WATERLILY, 1))
         .addIngredient(new ItemStack(Blocks.SPONGE, 1, 1))
-        .addIngredient(new ItemStack(Items.BEETROOT, 1)));
+        .addIngredient(new ItemStack(Items.BEETROOT, 1))
+        .addIngredient(new ItemStack(RegistryManager.blackCurrant)));
     recipes.add(new ComponentRecipe("apple")
         .addIngredient(new ItemStack(Items.APPLE, 1))
         .addIngredient(new ItemStack(Items.SPECKLED_MELON, 1))
-        .addIngredient(new ItemStack(Items.GOLDEN_APPLE, 1)));
+        .addIngredient(new ItemStack(Items.GOLDEN_APPLE, 1))
+        .addIngredient(new ItemStack(RegistryManager.blackCurrant)));
     recipes.add(new ComponentRecipe("midnightbloom")
         .addIngredient(new ItemStack(RegistryManager.midnightBloom, 1))
         .addIngredient(new ItemStack(Blocks.OBSIDIAN, 1))
@@ -155,7 +166,7 @@ public class ComponentManager {
     recipes.add(new ComponentRecipe("radiantdaisy")
         .addIngredient(new ItemStack(RegistryManager.radiantDaisy, 1))
         .addIngredient(new ItemStack(Blocks.GLOWSTONE, 1))
-        .addIngredient(new ItemStack(Blocks.GLOWSTONE, 1))
+        .addIngredient(new ItemStack(RegistryManager.nightshade))
         .addIngredient(new ItemStack(Blocks.REDSTONE_BLOCK, 1)));
 
   }

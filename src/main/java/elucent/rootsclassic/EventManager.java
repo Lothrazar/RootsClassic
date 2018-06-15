@@ -64,7 +64,7 @@ public class EventManager {
         event.getDrops().add(new ItemStack(RegistryManager.dragonsEye, 1));
       }
     }
-    if (block == Blocks.LEAVES && block.getMetaFromState(event.getState()) == 8) {
+    if (block == Blocks.LEAVES || block == Blocks.LEAVES2) {
       if (random.nextInt(ConfigManager.berriesDropChance) == 0) {
         event.getDrops().add(new ItemStack(Util.berries.get(random.nextInt(Util.berries.size())), 1));
       }

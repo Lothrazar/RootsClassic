@@ -13,6 +13,7 @@ public class ResearchManager {
   public static ArrayList<ResearchGroup> globalResearches = new ArrayList<ResearchGroup>();
 
   public static void init() {
+    //create first page of tablet book
     globalResearches.add(new ResearchGroup("nature", "Natural Arts")
         .addResearch(new ResearchBase("barkharvesting", new ItemStack(RegistryManager.druidKnife))
             .addPage(new ResearchPage()
@@ -42,6 +43,7 @@ public class ResearchManager {
         .addResearch(new ResearchBase("poultice", new ItemStack(RegistryManager.healingPoultice))
             .addPage(new ResearchPage()
                 .addCraftingRecipe(new ItemStack(RegistryManager.pestle), new ItemStack(Items.DYE, 1, 1), null, new ItemStack(RegistryManager.verdantSprig), new ItemStack(Items.PAPER), null, null, null, null, new ItemStack(RegistryManager.healingPoultice, 2)))));
+    //second page of tablet book
     globalResearches.add(new ResearchGroup("spells", "Spellcraft")
         .addResearch(new ResearchBase("mortar", new ItemStack(RegistryManager.mortar))
             .addPage(new ResearchPage()
@@ -130,6 +132,7 @@ public class ResearchManager {
                 .addDisplayItem(new ItemStack(RegistryManager.midnightBloom)))
             .addPage(new ResearchPage()
                 .addMortarRecipe(ComponentManager.getRecipe("midnightbloom")))));
+    //third page of tablet book
     globalResearches.add(new ResearchGroup("ritual", "Rituals")
         .addResearch(new ResearchBase("ritual", new ItemStack(RegistryManager.altar))
             .addPage(new ResearchPage()

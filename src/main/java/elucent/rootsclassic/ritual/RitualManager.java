@@ -420,35 +420,35 @@ public class RitualManager {
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIngredient(new ItemStack(Items.WOODEN_PICKAXE, 1))
         .addIngredient(new ItemStack(RegistryManager.verdantSprig, 1))
-        .addIngredient(new ItemStack(Items.GOLD_INGOT, 1)));
+        .addIngredient(new ItemStack(Items.GOLD_NUGGET)));
     rituals.add(new RitualCrafting("livingAxeCrafting", 146, 214, 43)
         .setResult(new ItemStack(RegistryManager.livingAxe, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIngredient(new ItemStack(Items.WOODEN_AXE, 1))
         .addIngredient(new ItemStack(RegistryManager.verdantSprig, 1))
-        .addIngredient(new ItemStack(Items.GOLD_INGOT, 1)));
+        .addIngredient(new ItemStack(Items.GOLD_NUGGET, 1)));
     rituals.add(new RitualCrafting("livingSwordCrafting", 146, 214, 43)
         .setResult(new ItemStack(RegistryManager.livingSword, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIngredient(new ItemStack(Items.WOODEN_SWORD, 1))
         .addIngredient(new ItemStack(RegistryManager.verdantSprig, 1))
-        .addIngredient(new ItemStack(Items.GOLD_INGOT, 1)));
+        .addIngredient(new ItemStack(Items.GOLD_NUGGET, 1)));
     rituals.add(new RitualCrafting("livingHoeCrafting", 146, 214, 43)
         .setResult(new ItemStack(RegistryManager.livingHoe, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIngredient(new ItemStack(Items.WOODEN_HOE, 1))
         .addIngredient(new ItemStack(RegistryManager.verdantSprig, 1))
-        .addIngredient(new ItemStack(Items.GOLD_INGOT, 1)));
+        .addIngredient(new ItemStack(Items.GOLD_NUGGET, 1)));
     rituals.add(new RitualCrafting("livingShovelCrafting", 146, 214, 43)
         .setResult(new ItemStack(RegistryManager.livingShovel, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIngredient(new ItemStack(Items.WOODEN_SHOVEL, 1))
         .addIngredient(new ItemStack(RegistryManager.verdantSprig, 1))
-        .addIngredient(new ItemStack(Items.GOLD_INGOT, 1)));
+        .addIngredient(new ItemStack(Items.GOLD_NUGGET, 1)));
     rituals.add(new RitualCauseRain("causerain", 23, 0, 138)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)

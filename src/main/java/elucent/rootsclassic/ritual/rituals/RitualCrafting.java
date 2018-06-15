@@ -28,7 +28,6 @@ public class RitualCrafting extends RitualBase {
   public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses) {
     // if (Util.itemListsMatchWithSize(inventory, this.ingredients)) {
       ItemStack toSpawn = result.copy();
-    System.out.println(" ritual do crafting " + toSpawn.getUnlocalizedName());
       if (!world.isRemote) {
         EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
         item.forceSpawn = true;
@@ -36,6 +35,6 @@ public class RitualCrafting extends RitualBase {
       }
       inventory.clear();
       world.getTileEntity(pos).markDirty();
-    // }
+    //}
   }
 }

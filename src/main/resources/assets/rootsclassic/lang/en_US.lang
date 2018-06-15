@@ -138,7 +138,7 @@ roots.research.nature.mutagen.page1info=Using the power of a nether star, you ha
 
 roots.research.nature.berries.name=Berries
 roots.research.nature.berries.page1title.name=Foraging
-roots.research.nature.berries.page1info=When breaking oak leaves by hand, you may occasionally find a random berry. There are five different kinds of berries, each one with different properties. Some may even be used in spells or rituals later on...
+roots.research.nature.berries.page1info=When breaking some leaves by hand, you may occasionally find a random berry. There are five different kinds of berries, each one with different properties. Some may even be used in spells or rituals later on...
 
 roots.research.nature.stew.name=Rooty Stew
 roots.research.nature.stew.page1title.name=Soup For You
@@ -492,3 +492,5 @@ item.crystalstaff.guide=See Runic Tablet
 roots.clearpotionsitem.tooltip=Clears potions when eaten
 roots.healingitem.tooltip=Heals player when eaten
 roots.poisonitem.tooltip=Poisonous when eaten
+
+tile.standingstonet1.guide=Basic ritual stone, used to create ritual patterns as shown in the Runic Tablet. 
