@@ -128,16 +128,15 @@ public class EventManager {
   //          spells.add(ItemCrystalStaff.getEffect(event.pickedUp.getEntityItem(), 2));
   //          spells.add(ItemCrystalStaff.getEffect(event.pickedUp.getEntityItem(), 3));
   //          spells.add(ItemCrystalStaff.getEffect(event.pickedUp.getEntityItem(), 4));
-//          if (spells.contains("netherwart") && spells.contains("dandelion") && spells.contains("blueorchid") && spells.contains("lilypad")) {
-//            if (!event.player.hasAchievement(RegistryManager.achieveSpellElements)) {
-//              PlayerManager.addAchievement(event.player, RegistryManager.achieveSpellElements);
-//            }
-//          }
+  //          if (spells.contains("netherwart") && spells.contains("dandelion") && spells.contains("blueorchid") && spells.contains("lilypad")) {
+  //            if (!event.player.hasAchievement(RegistryManager.achieveSpellElements)) {
+  //              PlayerManager.addAchievement(event.player, RegistryManager.achieveSpellElements);
+  //            }
+  //          }
   //        }
   //      }
   //    }
   //  }
-
   @SideOnly(Side.CLIENT)
   public void drawQuad(BufferBuilder vertexbuffer, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int minU, int minV, int maxU, int maxV) {
     float f = 0.00390625F;
@@ -153,19 +152,15 @@ public class EventManager {
   public void onGameOverlayRender(RenderGameOverlayEvent.Post e) {
     EntityPlayer player = Minecraft.getMinecraft().player;
     boolean showBar = false;
-    if (player.getHeldItemMainhand() != null) {
-      if (player.getHeldItemMainhand().getItem() instanceof IManaRelatedItem) {
-        showBar = true;
-      }
+    if (player.getHeldItemMainhand().getItem() instanceof IManaRelatedItem) {
+      showBar = true;
     }
-    if (player.getHeldItemOffhand() != null) {
-      if (player.getHeldItemOffhand().getItem() instanceof IManaRelatedItem) {
-        showBar = true;
-      }
+    if (player.getHeldItemOffhand().getItem() instanceof IManaRelatedItem) {
+      showBar = true;
     }
-    if (player.capabilities.isCreativeMode) {
-      showBar = false;
-    }
+    //    if (player.capabilities.isCreativeMode) {
+    //      showBar = false;
+    //    }
     if (showBar && player.hasCapability(RootsCapabilityManager.manaCapability, null)) {
       if (player.getCapability(RootsCapabilityManager.manaCapability, null).getMaxMana() > 0) {
         if (e.getType() == ElementType.TEXT) {
@@ -241,7 +236,6 @@ public class EventManager {
   //      }
   //    }
   //  }
-
   @SubscribeEvent
   public void onLivingTick(LivingUpdateEvent event) {
     if (event.getEntityLiving() instanceof EntityPlayer) {
