@@ -45,7 +45,6 @@ runicfocus_1.name=Charged Runic Focus
 tile.mortar.name=Mortar
 tile.imbuer.name=Imbuer
 tile.altar.name=Casting Altar
-tile.druidchalice.name=Druidic Chalice [WIP]
 tile.standingstonet1.name=Mundane Standing Stone
 tile.brazier.name=Incense Brazier
 tile.standingstonet2.name=Attuned Standing Stone
@@ -78,7 +77,7 @@ roots.tooltip.holy.name=Holy
 roots.tooltip.aquatic.name=Aquatic
 roots.tooltip.shadowstep.name=Shadow Step
 
-roots.error.noritual.name=No valid ritual found!
+roots.error.noritual.name=No valid ritual found!  Check ingredients, lit braziers, and placements. 
 
 roots.component.allium.name=Rending Strike
 roots.component.apple.name=Nature's Cure
