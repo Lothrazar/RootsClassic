@@ -489,3 +489,7 @@ item.dustpetal.guide=A combination of ingredients that makes up a spell, see Run
 
 item.crystalstaff.guide=See Runic Tablet
 
+
+roots.clearpotionsitem.tooltip=Clears potions when eaten
+roots.healingitem.tooltip=Heals player when eaten
+roots.poisonitem.tooltip=Poisonous when eaten

@@ -65,21 +65,17 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
           }
         }
         if (doEffect) {
-          ComponentBase comp = ComponentManager.getComponentFromName(this.getEffect(stack));
+          ComponentBase comp = ComponentManager.getComponentFromName(ItemCrystalStaff.getEffect(stack));
           if (comp != null) {
-            int potency = this.getPotency(stack) + 1;
-            int efficiency = this.getEfficiency(stack);
-            int size = this.getSize(stack);
-            if (((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null
-                && ((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
-                && ((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.LEGS) != null
-                && ((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.FEET) != null) {
-              if (((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemDruidRobes
-                  && ((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemDruidRobes
-                  && ((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemDruidRobes
-                  && ((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemDruidRobes) {
-                potency += 1;
-              }
+            EntityPlayer pl = (EntityPlayer) player;
+            int potency = getPotency(stack) + 1;
+            int efficiency = ItemCrystalStaff.getEfficiency(stack);
+            int size = ItemCrystalStaff.getSize(stack);
+            if (pl.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemDruidRobes
+                && pl.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemDruidRobes
+                && pl.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemDruidRobes
+                && pl.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemDruidRobes) {
+              potency += 1;
             }
             double xpCost = (comp.getManaCost() + potency) * (1.0 - 0.25 * efficiency);
             Random random = new Random();
@@ -118,11 +114,11 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
     ItemStack stack = player.getHeldItem(hand);
     if (stack.hasTagCompound() && !player.isSneaking()) {
       if (world.isRemote && Minecraft.getMinecraft().currentScreen != null) {
-        return new ActionResult(EnumActionResult.FAIL, stack);
+        return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
       }
       else {
         player.setActiveHand(hand);
-        return new ActionResult(EnumActionResult.PASS, stack);
+        return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
       }
     }
     else if (stack.hasTagCompound()) {
@@ -130,15 +126,15 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
       if (stack.getTagCompound().getInteger("selected") > 4) {
         stack.getTagCompound().setInteger("selected", 1);
       }
-      return new ActionResult(EnumActionResult.FAIL, stack);
+      return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
     }
-    return new ActionResult(EnumActionResult.FAIL, stack);
+    return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
   }
 
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldS, ItemStack newS, boolean slotChanged) {
     if (oldS.hasTagCompound() && newS.hasTagCompound()) {
-      if (this.getEffect(oldS) != this.getEffect(newS) || oldS.getTagCompound().getInteger("selected") != newS.getTagCompound().getInteger("selected") || slotChanged) {
+      if (ItemCrystalStaff.getEffect(oldS) != ItemCrystalStaff.getEffect(newS) || oldS.getTagCompound().getInteger("selected") != newS.getTagCompound().getInteger("selected") || slotChanged) {
         return true;
       }
     }
@@ -232,12 +228,12 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
   @Override
   public void addInformation(ItemStack stack, World player, List<String> tooltip, net.minecraft.client.util.ITooltipFlag advanced) {
     if (stack.hasTagCompound()) {
-      ComponentBase comp = ComponentManager.getComponentFromName(this.getEffect(stack));
+      ComponentBase comp = ComponentManager.getComponentFromName(ItemCrystalStaff.getEffect(stack));
       if (comp != null) {
         tooltip.add(TextFormatting.GOLD + I18n.format("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
-        tooltip.add(TextFormatting.RED + "  +" + this.getPotency(stack) + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
-        tooltip.add(TextFormatting.RED + "  +" + this.getEfficiency(stack) + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
-        tooltip.add(TextFormatting.RED + "  +" + this.getSize(stack) + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
+        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getPotency(stack) + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
+        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getEfficiency(stack) + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
+        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getSize(stack) + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
       }
     }
   }

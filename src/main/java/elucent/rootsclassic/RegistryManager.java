@@ -23,12 +23,12 @@ import elucent.rootsclassic.block.BlockStandingStoneT2;
 import elucent.rootsclassic.block.BlockStandingStoneVacuum;
 import elucent.rootsclassic.entity.EntityAccelerator;
 import elucent.rootsclassic.entity.EntityTileAccelerator;
-import elucent.rootsclassic.item.ItemDustPetal;
 import elucent.rootsclassic.item.ItemCrystalStaff;
 import elucent.rootsclassic.item.ItemDragonsEye;
 import elucent.rootsclassic.item.ItemDruidArmor;
 import elucent.rootsclassic.item.ItemDruidKnife;
 import elucent.rootsclassic.item.ItemDruidRobes;
+import elucent.rootsclassic.item.ItemDustPetal;
 import elucent.rootsclassic.item.ItemEngravedSword;
 import elucent.rootsclassic.item.ItemGrowthSalve;
 import elucent.rootsclassic.item.ItemLivingAxe;
@@ -283,7 +283,11 @@ public class RegistryManager {
         new ItemStack(Items.NETHER_WART, 1), new ItemStack(RegistryManager.pestle, 1) });
     addShapedRecipe(new ItemStack(RegistryManager.runedTablet, 1), true, new Object[] { " R ", "SBS", " S ", 'S', Items.WHEAT_SEEDS, 'B', "stone", 'R', RegistryManager.oldRoot });
     addShapelessOreRecipe(new ItemStack(RegistryManager.rootyStew, 1), new Object[] { new ItemStack(Items.WHEAT, 1), new ItemStack(Items.BOWL, 1), new ItemStack(RegistryManager.oldRoot, 1) });
-    addShapelessOreRecipe(new ItemStack(RegistryManager.healingPoultice, 2), new Object[] { new ItemStack(Items.DYE, 1, 1), new ItemStack(Items.PAPER, 1), new ItemStack(RegistryManager.pestle, 1), new ItemStack(RegistryManager.verdantSprig, 1) });
+    addShapelessOreRecipe(new ItemStack(RegistryManager.healingPoultice, 2), new Object[] {
+        RegistryManager.redCurrant, // new ItemStack(Items.DYE, 1, 1), 
+        new ItemStack(Items.PAPER, 1),
+        new ItemStack(RegistryManager.pestle),
+        new ItemStack(RegistryManager.verdantSprig) });
     GameRegistry.addSmelting(RegistryManager.dragonsEye, new ItemStack(Items.ENDER_PEARL), 1F);
   }
 
