@@ -63,7 +63,7 @@ public class ItemMutagen extends Item {
     if (!player.capabilities.isCreativeMode) {
       stack.shrink(1);
     }
-    return new ActionResult(EnumActionResult.SUCCESS, stack);
+    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
   }
 
   @SideOnly(Side.CLIENT)

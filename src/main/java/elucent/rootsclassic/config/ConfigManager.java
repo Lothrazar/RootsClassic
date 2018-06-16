@@ -1,5 +1,6 @@
-package elucent.rootsclassic;
+package elucent.rootsclassic.config;
 
+import elucent.rootsclassic.Const;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 

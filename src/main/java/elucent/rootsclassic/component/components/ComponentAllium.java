@@ -2,9 +2,9 @@ package elucent.rootsclassic.component.components;
 
 import java.util.ArrayList;
 import java.util.Random;
-import elucent.rootsclassic.ConfigManager;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
+import elucent.rootsclassic.config.ConfigManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

@@ -3,6 +3,7 @@ package elucent.rootsclassic;
 import java.util.Random;
 import org.lwjgl.opengl.GL11;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
+import elucent.rootsclassic.config.ConfigManager;
 import elucent.rootsclassic.item.IManaRelatedItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;

@@ -1,6 +1,7 @@
 package elucent.rootsclassic;
 
 import elucent.rootsclassic.capability.RootsCapabilityManager;
+import elucent.rootsclassic.config.ConfigManager;
 import elucent.rootsclassic.config.EventConfigChanged;
 import elucent.rootsclassic.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
