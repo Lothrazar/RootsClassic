@@ -72,18 +72,12 @@ public class EventManager {
   }
 
   @SubscribeEvent
-  public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
-    if (PlayerManager.hasEffect(event.getEntityPlayer(), "allium") && random.nextInt(4) != 0) {
-      event.setCanceled(true);
-    }
-  }
-
-  @SubscribeEvent
   public void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
     if (event.getEntityLiving() instanceof EntitySkeleton) {
       if (event.getEntityPlayer().getHeldItem(event.getHand()) != null) {
         if (event.getEntityPlayer().getHeldItem(event.getHand()).getItem() == RegistryManager.infernalStem) {
           event.getEntityPlayer().getHeldItem(event.getHand()).shrink(1);
+
           event.getEntityLiving().getEntityData().setInteger("SkeletonType", 1);
         }
       }
@@ -103,40 +97,7 @@ public class EventManager {
     }
   }
 
-  //  @SubscribeEvent
-  //  public void onItemPickup(PlayerEvent.ItemPickupEvent event) {
-  //    if (event.pickedUp != null) {
-  //      if (event.player != null) {
-  //        if (event.pickedUp.getEntityItem().getItem() == RegistryManager.dustPetal) {
-  //          if (!event.player.hasAchievement(RegistryManager.achieveDust)) {
-  //            PlayerManager.addAchievement(event.player, RegistryManager.achieveDust);
-  //          }
-  //        }
-  //        if (event.pickedUp.getEntityItem().getItem() == Item.getItemFromBlock(RegistryManager.altar)) {
-  //          if (!event.player.hasAchievement(RegistryManager.achieveAltar)) {
-  //            PlayerManager.addAchievement(event.player, RegistryManager.achieveAltar);
-  //          }
-  //        }
-  //        if (event.pickedUp.getEntityItem().getItem() == Item.getItemFromBlock(RegistryManager.standingStoneT2)) {
-  //          if (!event.player.hasAchievement(RegistryManager.achieveStandingStone)) {
-  //            PlayerManager.addAchievement(event.player, RegistryManager.achieveStandingStone);
-  //          }
-  //        }
-  //        if (event.pickedUp.getEntityItem().getItem() == RegistryManager.crystalStaff) {
-  //          ArrayList<String> spells = new ArrayList<String>();
-  //          spells.add(ItemCrystalStaff.getEffect(event.pickedUp.getEntityItem(), 1));
-  //          spells.add(ItemCrystalStaff.getEffect(event.pickedUp.getEntityItem(), 2));
-  //          spells.add(ItemCrystalStaff.getEffect(event.pickedUp.getEntityItem(), 3));
-  //          spells.add(ItemCrystalStaff.getEffect(event.pickedUp.getEntityItem(), 4));
-  //          if (spells.contains("netherwart") && spells.contains("dandelion") && spells.contains("blueorchid") && spells.contains("lilypad")) {
-  //            if (!event.player.hasAchievement(RegistryManager.achieveSpellElements)) {
-  //              PlayerManager.addAchievement(event.player, RegistryManager.achieveSpellElements);
-  //            }
-  //          }
-  //        }
-  //      }
-  //    }
-  //  }
+
   @SideOnly(Side.CLIENT)
   public void drawQuad(BufferBuilder vertexbuffer, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int minU, int minV, int maxU, int maxV) {
     float f = 0.00390625F;
