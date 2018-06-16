@@ -3,14 +3,10 @@ package elucent.rootsclassic.item;
 import java.util.Random;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemLivingShovel extends ItemSpade {
 
@@ -31,8 +27,5 @@ public class ItemLivingShovel extends ItemSpade {
     }
   }
 
-  @SideOnly(Side.CLIENT)
-  public void initModel() {
-    ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-  }
+
 }

@@ -10,7 +10,6 @@ import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.component.EnumCastType;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,7 +24,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -225,11 +223,6 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
         tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getSize(stack) + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
       }
     }
-  }
-
-  @SideOnly(Side.CLIENT)
-  public void initModel() {
-    ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
   }
 
   public static class ColorHandler implements IItemColor {

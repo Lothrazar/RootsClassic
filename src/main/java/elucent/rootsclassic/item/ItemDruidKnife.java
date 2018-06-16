@@ -3,7 +3,6 @@ package elucent.rootsclassic.item;
 import java.util.Random;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -15,9 +14,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemDruidKnife extends Item {
 
@@ -26,11 +22,6 @@ public class ItemDruidKnife extends Item {
   public ItemDruidKnife() {
     super();
     setCreativeTab(Roots.tab);
-  }
-
-  @SideOnly(Side.CLIENT)
-  public void initModel() {
-    ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
   }
 
   @Override

@@ -65,6 +65,7 @@ import elucent.rootsclassic.tileentity.TileEntityStandingStoneRepulsor;
 import elucent.rootsclassic.tileentity.TileEntityStandingStoneVacuum;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -78,6 +79,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -99,6 +101,7 @@ public class RegistryManager {
       oakTreeBark, spruceTreeBark, birchTreeBark, jungleTreeBark, acaciaTreeBark, darkOakTreeBark,
       nightshade, blackCurrant, redCurrant, whiteCurrant, elderBerry, engravedSword;
   public static Item manaResearchIcon;
+
   public static Block flareOrchid, radiantDaisy, standingStoneGrower, standingStoneHealer, standingStoneIgniter, standingStoneEntangler, standingStoneAccelerator, standingStoneAesthetic, standingStoneRepulsor, standingStoneVacuum, midnightBloom, mortar, imbuer, altar, druidChalice, standingStoneT1, standingStoneT2, brazier;
   public static ToolMaterial engravedMaterial = EnumHelper.addToolMaterial("engraved", 2, 1050, 5F, 8.0F, 5);
   public static ToolMaterial livingMaterial = EnumHelper.addToolMaterial("livingMaterial", 2, 192, 6.0f, 2.0f, 18);
@@ -310,65 +313,15 @@ public class RegistryManager {
     /**
      * REGISTERING ITEM MODELS
      */
-    //((BlockDruidChalice) druidChalice).initModel();
-    ((ItemDruidKnife) druidKnife).initModel();
-    ((ItemDustPetal) dustPetal).initModel();
-    ((ItemPestle) pestle).initModel();
+    for (Item item : itemList) {
+      ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+    }
+    for (Block item : blocks) {
+      ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(item), 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+    }
     ((ItemStaff) staff).initModel();
-    ((ItemCrystalStaff) crystalStaff).initModel();
-    ((RootsItemFood) oldRoot).initModel();
-    ((ItemMaterial) verdantSprig).initModel();
-    ((ItemMaterial) infernalStem).initModel();
-    ((ItemDragonsEye) dragonsEye).initModel();
-    ((ItemTreeBark) oakTreeBark).initModel();
-    ((ItemTreeBark) spruceTreeBark).initModel();
-    ((ItemTreeBark) birchTreeBark).initModel();
-    ((ItemTreeBark) jungleTreeBark).initModel();
-    ((ItemTreeBark) acaciaTreeBark).initModel();
-    ((ItemTreeBark) darkOakTreeBark).initModel();
-    ((ItemLivingPickaxe) livingPickaxe).initModel();
-    ((ItemLivingAxe) livingAxe).initModel();
-    ((ItemLivingSword) livingSword).initModel();
-    ((ItemLivingHoe) livingHoe).initModel();
-    ((ItemLivingShovel) livingShovel).initModel();
-    ((ItemDruidRobes) druidRobesHead).initModel();
-    ((ItemDruidRobes) druidRobesChest).initModel();
-    ((ItemDruidRobes) druidRobesLegs).initModel();
-    ((ItemDruidRobes) druidRobesBoots).initModel();
-    ((ItemDruidArmor) druidArmorHead).initModel();
-    ((ItemDruidArmor) druidArmorChest).initModel();
-    ((ItemDruidArmor) druidArmorLegs).initModel();
-    ((ItemDruidArmor) druidArmorBoots).initModel();
-    ((ItemRunedTablet) runedTablet).initModel();
-    ((ItemGrowthSalve) growthSalve).initModel();
-    ((ItemMutagen) mutagen).initModel();
-    ((RootsItemFood) nightshade).initModel();
-    ((RootsItemFood) blackCurrant).initModel();
-    ((RootsItemFood) redCurrant).initModel();
-    ((RootsItemFood) whiteCurrant).initModel();
-    ((RootsItemFood) elderBerry).initModel();
-    ((RootsItemFood) healingPoultice).initModel();
-    ((ItemRootyStew) rootyStew).initModel();
     ((ItemRunicFocus) runicFocus).initModel();
-    ((ItemEngravedSword) engravedSword).initModel();
-    ((ItemResearchIcon) manaResearchIcon).initModel();
-    ((BlockMortar) mortar).initModel();
-    ((BlockAltar) altar).initModel();
-    ((BlockBrazier) brazier).initModel();
-    ((BlockImbuer) imbuer).initModel();
-    ((BlockStandingStoneT1) standingStoneT1).initModel();
-    ((BlockStandingStoneT2) standingStoneT2).initModel();
-    ((BlockStandingStoneVacuum) standingStoneVacuum).initModel();
-    ((BlockStandingStoneRepulsor) standingStoneRepulsor).initModel();
-    ((BlockStandingStoneAccelerator) standingStoneAccelerator).initModel();
-    ((BlockAestheticStandingStone) standingStoneAesthetic).initModel();
-    ((BlockStandingStoneEntangler) standingStoneEntangler).initModel();
-    ((BlockStandingStoneGrower) standingStoneGrower).initModel();
-    ((BlockStandingStoneIgniter) standingStoneIgniter).initModel();
-    ((BlockStandingStoneHealer) standingStoneHealer).initModel();
-    ((BlockMidnightBloom) midnightBloom).initModel();
-    ((BlockFlareOrchid) flareOrchid).initModel();
-    ((BlockRadiantDaisy) radiantDaisy).initModel();
+
   }
 
   @SideOnly(Side.CLIENT)
