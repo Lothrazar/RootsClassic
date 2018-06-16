@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -27,7 +26,6 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -72,19 +70,6 @@ public class EventManager {
   }
 
   @SubscribeEvent
-  public void onRightClickEntity(PlayerInteractEvent.EntityInteract event) {
-    if (event.getEntityLiving() instanceof EntitySkeleton) {
-      if (event.getEntityPlayer().getHeldItem(event.getHand()) != null) {
-        if (event.getEntityPlayer().getHeldItem(event.getHand()).getItem() == RegistryManager.infernalStem) {
-          event.getEntityPlayer().getHeldItem(event.getHand()).shrink(1);
-
-          event.getEntityLiving().getEntityData().setInteger("SkeletonType", 1);
-        }
-      }
-    }
-  }
-
-  @SubscribeEvent
   public void onLivingTarget(LivingSetAttackTargetEvent event) {
     if (event.getTarget() instanceof EntityPlayer) {
       if (event.getEntity().getEntityData().hasKey("RMOD_dontTarget")) {
@@ -96,7 +81,6 @@ public class EventManager {
       }
     }
   }
-
 
   @SideOnly(Side.CLIENT)
   public void drawQuad(BufferBuilder vertexbuffer, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int minU, int minV, int maxU, int maxV) {
@@ -110,7 +94,7 @@ public class EventManager {
 
   @SideOnly(Side.CLIENT)
   @SubscribeEvent
-  public void onGameOverlayRender(RenderGameOverlayEvent.Post e) {
+  public void onGameOverlayRender(RenderGameOverlayEvent.Post event) {
     EntityPlayer player = Minecraft.getMinecraft().player;
     boolean showBar = false;
     if (player.getHeldItemMainhand().getItem() instanceof IManaRelatedItem) {
@@ -122,81 +106,65 @@ public class EventManager {
     //    if (player.capabilities.isCreativeMode) {
     //      showBar = false;
     //    }
-    if (showBar && player.hasCapability(RootsCapabilityManager.manaCapability, null)) {
-      if (player.getCapability(RootsCapabilityManager.manaCapability, null).getMaxMana() > 0) {
-        if (e.getType() == ElementType.TEXT) {
-          GlStateManager.disableDepth();
-          GlStateManager.disableCull();
-          GlStateManager.pushMatrix();
-          Minecraft.getMinecraft().getTextureManager().bindTexture(Const.manaBar);
-          Tessellator tess = Tessellator.getInstance();
-          BufferBuilder b = tess.getBuffer();
-          int w = e.getResolution().getScaledWidth();
-          int h = e.getResolution().getScaledHeight();
-          GlStateManager.color(1f, 1f, 1f, 1f);
-          int manaNumber = Math.round(player.getCapability(RootsCapabilityManager.manaCapability, null).getMana());
-          int maxManaNumber = Math.round(player.getCapability(RootsCapabilityManager.manaCapability, null).getMaxMana());
-          int offsetX = 0;
-          b.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-          while (maxManaNumber > 0) {
-            this.drawQuad(b, w / 2 + 10 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - ConfigManager.manaBarOffset, w / 2 + 10 + offsetX, h - ConfigManager.manaBarOffset, 0, 0, 9, 9);
-            if (maxManaNumber > 4) {
-              maxManaNumber -= 4;
-              offsetX += 8;
-            }
-            else {
-              maxManaNumber = 0;
-            }
-          }
-          offsetX = 0;
-          while (manaNumber > 0) {
-            if (manaNumber > 4) {
-              this.drawQuad(b, w / 2 + 10 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - ConfigManager.manaBarOffset, w / 2 + 10 + offsetX, h - ConfigManager.manaBarOffset, 0, 16, 9, 9);
-              manaNumber -= 4;
-              offsetX += 8;
-            }
-            else {
-              if (manaNumber == 4) {
-                this.drawQuad(b, w / 2 + 10 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - ConfigManager.manaBarOffset, w / 2 + 10 + offsetX, h - ConfigManager.manaBarOffset, 0, 16, 9, 9);
-              }
-              if (manaNumber == 3) {
-                this.drawQuad(b, w / 2 + 10 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - ConfigManager.manaBarOffset, w / 2 + 10 + offsetX, h - ConfigManager.manaBarOffset, 16, 16, 9, 9);
-              }
-              if (manaNumber == 2) {
-                this.drawQuad(b, w / 2 + 10 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - ConfigManager.manaBarOffset, w / 2 + 10 + offsetX, h - ConfigManager.manaBarOffset, 32, 16, 9, 9);
-              }
-              if (manaNumber == 1) {
-                this.drawQuad(b, w / 2 + 10 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - ConfigManager.manaBarOffset, w / 2 + 10 + offsetX, h - ConfigManager.manaBarOffset, 48, 16, 9, 9);
-              }
-              manaNumber = 0;
-            }
-          }
-          tess.draw();
-          GlStateManager.popMatrix();
-          GlStateManager.enableCull();
-          GlStateManager.enableDepth();
-        }
-      }
+    if (showBar && event.getType() == ElementType.TEXT && player.hasCapability(RootsCapabilityManager.manaCapability, null)
+        && player.getCapability(RootsCapabilityManager.manaCapability, null).getMaxMana() > 0) {
+      drawManaBar(event, player);
     }
   }
 
-  //  @SubscribeEvent
-  //  public void onItemCraft(ItemCraftedEvent event) {
-  //    if (event.player != null) {
-  //      if (event.crafting != null) {
-  //        if (event.crafting.getItem() == Item.getItemFromBlock(RegistryManager.altar)) {
-  //          if (!event.player.hasAchievement(RegistryManager.achieveAltar)) {
-  //            PlayerManager.addAchievement(event.player, RegistryManager.achieveAltar);
-  //          }
-  //        }
-  //        if (event.crafting.getItem() == Item.getItemFromBlock(RegistryManager.standingStoneT2)) {
-  //          if (!event.player.hasAchievement(RegistryManager.achieveStandingStone)) {
-  //            PlayerManager.addAchievement(event.player, RegistryManager.achieveStandingStone);
-  //          }
-  //        }
-  //      }
-  //    }
-  //  }
+  private void drawManaBar(RenderGameOverlayEvent.Post event, EntityPlayer player) {
+    GlStateManager.disableDepth();
+    GlStateManager.disableCull();
+    GlStateManager.pushMatrix();
+    Minecraft.getMinecraft().getTextureManager().bindTexture(Const.manaBar);
+    Tessellator tess = Tessellator.getInstance();
+    BufferBuilder b = tess.getBuffer();
+    int w = event.getResolution().getScaledWidth();
+    int h = event.getResolution().getScaledHeight();
+    GlStateManager.color(1f, 1f, 1f, 1f);
+    int manaNumber = Math.round(player.getCapability(RootsCapabilityManager.manaCapability, null).getMana());
+    int maxManaNumber = Math.round(player.getCapability(RootsCapabilityManager.manaCapability, null).getMaxMana());
+    int offsetX = 0;
+    b.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+    while (maxManaNumber > 0) {
+      this.drawQuad(b, w / 2 + 10 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - ConfigManager.manaBarOffset, w / 2 + 10 + offsetX, h - ConfigManager.manaBarOffset, 0, 0, 9, 9);
+      if (maxManaNumber > 4) {
+        maxManaNumber -= 4;
+        offsetX += 8;
+      }
+      else {
+        maxManaNumber = 0;
+      }
+    }
+    offsetX = 0;
+    while (manaNumber > 0) {
+      if (manaNumber > 4) {
+        this.drawQuad(b, w / 2 + 10 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - ConfigManager.manaBarOffset, w / 2 + 10 + offsetX, h - ConfigManager.manaBarOffset, 0, 16, 9, 9);
+        manaNumber -= 4;
+        offsetX += 8;
+      }
+      else {
+        if (manaNumber == 4) {
+          this.drawQuad(b, w / 2 + 10 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - ConfigManager.manaBarOffset, w / 2 + 10 + offsetX, h - ConfigManager.manaBarOffset, 0, 16, 9, 9);
+        }
+        if (manaNumber == 3) {
+          this.drawQuad(b, w / 2 + 10 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - ConfigManager.manaBarOffset, w / 2 + 10 + offsetX, h - ConfigManager.manaBarOffset, 16, 16, 9, 9);
+        }
+        if (manaNumber == 2) {
+          this.drawQuad(b, w / 2 + 10 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - ConfigManager.manaBarOffset, w / 2 + 10 + offsetX, h - ConfigManager.manaBarOffset, 32, 16, 9, 9);
+        }
+        if (manaNumber == 1) {
+          this.drawQuad(b, w / 2 + 10 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - (ConfigManager.manaBarOffset - 9), w / 2 + 19 + offsetX, h - ConfigManager.manaBarOffset, w / 2 + 10 + offsetX, h - ConfigManager.manaBarOffset, 48, 16, 9, 9);
+        }
+        manaNumber = 0;
+      }
+    }
+    tess.draw();
+    GlStateManager.popMatrix();
+    GlStateManager.enableCull();
+    GlStateManager.enableDepth();
+  }
+
   @SubscribeEvent
   public void onLivingTick(LivingUpdateEvent event) {
     if (event.getEntityLiving() instanceof EntityPlayer) {

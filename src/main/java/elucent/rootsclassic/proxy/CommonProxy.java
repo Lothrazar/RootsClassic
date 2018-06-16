@@ -32,8 +32,6 @@ public class CommonProxy {
   }
 
   public void postInit(FMLPostInitializationEvent event) {
-    Util.initOres();
-    Util.initNaturalBlocks();
     Util.initBerries();
     NetworkRegistry.INSTANCE.registerGuiHandler(Roots.instance, new GuiHandler());
     ResearchManager.init();
