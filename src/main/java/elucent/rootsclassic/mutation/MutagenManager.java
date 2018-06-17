@@ -20,7 +20,6 @@ public class MutagenManager {
     recipes.add(new MutagenRadiantDaisyRecipe());
   }
 
-
   public static MutagenRecipe getRecipe(List<ItemStack> items, World world, BlockPos pos, EntityPlayer player) {
     for (int i = 0; i < recipes.size(); i++) {
       if (recipes.get(i).matches(items, world, pos, player)) {

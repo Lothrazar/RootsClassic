@@ -11,13 +11,10 @@ public class ItemLivingSword extends ItemSword {
 
   public ItemLivingSword() {
     super(RegistryManager.livingMaterial);
-
   }
 
   @Override
   public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
     Util.randomlyRepair(world.rand, stack);
   }
-
-
 }

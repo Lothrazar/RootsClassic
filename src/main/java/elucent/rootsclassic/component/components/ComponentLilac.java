@@ -34,7 +34,6 @@ public class ComponentLilac extends ComponentBase {
     }
     return false;
   }
-
   //  @Override
   //  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
   //    if (type == EnumCastType.SPELL) {

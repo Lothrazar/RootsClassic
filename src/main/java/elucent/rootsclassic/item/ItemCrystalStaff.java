@@ -51,7 +51,6 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
     if (timeLeft < (72000 - 12) && stack.hasTagCompound()) {
       //BlockPos pos = new BlockPos(player.posX, player.posY, player.posZ);
       EntityPlayer pl = (EntityPlayer) player;
-
       ComponentBase comp = ComponentManager.getComponentFromName(ItemCrystalStaff.getEffect(stack));
       if (comp == null || !pl.hasCapability(RootsCapabilityManager.manaCapability, null)) {
         return;
@@ -140,7 +139,6 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
         }
       }
     }
-
   }
 
   public static void createData(ItemStack stack) {

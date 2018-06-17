@@ -24,8 +24,6 @@ public class BlockStandingStoneGrower extends TEBlockBase implements ITileEntity
 
   public static final PropertyEnum<BlockstateIsTop> topState = PropertyEnum.create("topq", BlockstateIsTop.class);
 
-
-
   public BlockStandingStoneGrower() {
     super(Material.ROCK);
     setCreativeTab(Roots.tab);
@@ -78,7 +76,6 @@ public class BlockStandingStoneGrower extends TEBlockBase implements ITileEntity
       ((TEBase) world.getTileEntity(pos)).breakBlock(world, pos, state, player);
     }
   }
-
 
   @Override
   public boolean isOpaqueCube(IBlockState state) {

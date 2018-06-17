@@ -168,7 +168,6 @@ public class ComponentManager {
         .addIngredient(new ItemStack(Blocks.GLOWSTONE, 1))
         .addIngredient(new ItemStack(RegistryManager.nightshade))
         .addIngredient(new ItemStack(Blocks.REDSTONE_BLOCK, 1)));
-
   }
 
   /* //TODO: reject invalid stuff from the bowl??!??! the mortar??
@@ -192,7 +191,7 @@ public class ComponentManager {
     }
     return null;
   }
- 
+
   public static ComponentBase getComponentFromName(String name) {
     for (ComponentBase c : components) {
       if (c.getName().equals(name)) {
@@ -201,5 +200,4 @@ public class ComponentManager {
     }
     return null;
   }
- 
 }

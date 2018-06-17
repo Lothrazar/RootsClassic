@@ -31,7 +31,6 @@ public class RitualLifeDrain extends RitualBase {
     float numPlayers = players.size();
     for (int i = 0; i < numPlayers; i++) {
       players.get(i).heal(drainedHealth / (numPlayers * 2.5f));
-
     }
   }
 }

@@ -45,7 +45,6 @@ public class ComponentAllium extends ComponentBase {
           }
         }
       }
-
     }
   }
 }

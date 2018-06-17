@@ -17,7 +17,6 @@ public class BlockMidnightBloom extends BlockBush {
     setCreativeTab(Roots.tab);
   }
 
-
   @Override
   public boolean isOpaqueCube(IBlockState state) {
     return false;

@@ -16,7 +16,6 @@ public class ItemLivingAxe extends ItemTool {
 
   public ItemLivingAxe() {
     super(RegistryManager.livingMaterial, Sets.newHashSet(new Block[] { Blocks.PLANKS }));
-
     setHarvestLevel("axe", this.toolMaterial.getHarvestLevel());
     this.damageVsEntity = this.toolMaterial.getDamageVsEntity() + 6.0f;
     this.attackSpeed = -3.1f;
@@ -32,5 +31,4 @@ public class ItemLivingAxe extends ItemTool {
   public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
     Util.randomlyRepair(world.rand, stack);
   }
-
 }

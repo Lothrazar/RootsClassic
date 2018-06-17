@@ -22,11 +22,11 @@ public class BlockFlareOrchid extends BlockBush {
     return false;
   }
 
-
   @Override
   public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
     return (layer == BlockRenderLayer.CUTOUT);
   }
+
   @Override
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
     return AXIS_ALIGNED_BB;

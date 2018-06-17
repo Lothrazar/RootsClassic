@@ -23,12 +23,13 @@ import net.minecraft.world.World;
 public class BlockStandingStoneVacuum extends TEBlockBase implements ITileEntityProvider {
 
   public static final PropertyEnum<BlockstateIsTop> topState = PropertyEnum.create("topq", BlockstateIsTop.class);
- 
+
   public BlockStandingStoneVacuum() {
     super(Material.ROCK);
     setCreativeTab(Roots.tab);
     setHardness(1.0f);
   }
+
   @Override
   public BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, new IProperty[] { topState });
@@ -75,9 +76,6 @@ public class BlockStandingStoneVacuum extends TEBlockBase implements ITileEntity
       ((TEBase) world.getTileEntity(pos)).breakBlock(world, pos, state, player);
     }
   }
-
-
-
 
   @Override
   public boolean isOpaqueCube(IBlockState state) {

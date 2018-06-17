@@ -48,5 +48,4 @@ public class ItemGrowthSalve extends Item {
     }
     return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
   }
-
 }

@@ -52,5 +52,4 @@ public class ItemRootsFood extends ItemFood {
       tooltip.add(I18n.format("roots.poisonitem.tooltip"));
     }
   }
-
 }

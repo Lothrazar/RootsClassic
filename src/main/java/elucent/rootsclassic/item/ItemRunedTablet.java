@@ -13,7 +13,6 @@ public class ItemRunedTablet extends Item {
 
   public ItemRunedTablet() {
     super();
-
     this.setMaxStackSize(1);
   }
 
@@ -21,11 +20,8 @@ public class ItemRunedTablet extends Item {
   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
     ItemStack stack = player.getHeldItem(hand);
     if (hand == EnumHand.MAIN_HAND) {
-
       player.openGui(Roots.instance, 1, world, (int) player.posX, (int) player.posY, (int) player.posZ);
     }
     return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
   }
-
-
 }

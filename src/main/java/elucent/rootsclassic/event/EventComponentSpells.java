@@ -20,13 +20,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EventComponentSpells {
 
-
   private static final String NBT_THORNS = "RMOD_thornsDamage";
   private static final String NBT_VULN = "RMOD_vuln";
   private static final String NBT_DONT_DROP = "RMOD_dropItems";
   private static final String NBT_SKIP_TICKS = "RMOD_skipTicks";
   public static int TICKS_PER_MANA_REGEN = 5;
-
 
   @SubscribeEvent
   public void onLivingTick(LivingUpdateEvent event) {
@@ -41,7 +39,6 @@ public class EventComponentSpells {
     if (entity.getEntityData().hasKey(Util.NBT_TRACK_TICKS)) {
       if (entity.getEntityData().hasKey(NBT_SKIP_TICKS)) {
         if (entity.getEntityData().getInteger(NBT_SKIP_TICKS) > 0) {
-
           entity.getEntityData().setInteger(NBT_SKIP_TICKS, entity.getEntityData().getInteger(NBT_SKIP_TICKS) - 1);
           if (entity.getEntityData().getInteger(NBT_SKIP_TICKS) <= 0) {
             entity.getEntityData().removeTag(NBT_SKIP_TICKS);

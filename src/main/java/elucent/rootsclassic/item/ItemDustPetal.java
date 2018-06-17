@@ -22,7 +22,6 @@ public class ItemDustPetal extends Item {
   public ItemDustPetal() {
     super();
     this.setMaxStackSize(1);
-
   }
 
   @Override
@@ -49,12 +48,10 @@ public class ItemDustPetal extends Item {
         }
       }
     }
-
     stack.getTagCompound().setInteger("potency", potency);
     stack.getTagCompound().setInteger("efficiency", efficiency);
     stack.getTagCompound().setInteger("size", size);
   }
-
 
   @SideOnly(Side.CLIENT)
   @Override
@@ -68,5 +65,4 @@ public class ItemDustPetal extends Item {
       tooltip.add(TextFormatting.RED + "  +" + tags.getInteger("size") + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
     }
   }
-
 }

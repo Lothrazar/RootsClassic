@@ -102,7 +102,6 @@ public class RegistryManager {
       oakTreeBark, spruceTreeBark, birchTreeBark, jungleTreeBark, acaciaTreeBark, darkOakTreeBark,
       nightshade, blackCurrant, redCurrant, whiteCurrant, elderBerry, engravedSword;
   public static Item manaResearchIcon;
-
   public static Block flareOrchid, radiantDaisy, standingStoneGrower, standingStoneHealer, standingStoneIgniter, standingStoneEntangler, standingStoneAccelerator, standingStoneAesthetic, standingStoneRepulsor, standingStoneVacuum, midnightBloom, mortar, imbuer, altar, druidChalice, standingStoneT1, standingStoneT2, brazier;
   public static ToolMaterial engravedMaterial = EnumHelper.addToolMaterial("engraved", 2, 1050, 5F, 8.0F, 5);
   public static ToolMaterial livingMaterial = EnumHelper.addToolMaterial("livingMaterial", 2, 192, 6.0f, 2.0f, 18);
@@ -113,7 +112,6 @@ public class RegistryManager {
   public static List<Block> blocks = new ArrayList<Block>();
   private static Map<String, Boolean> usedRecipeNames = new HashMap<String, Boolean>();
 
-
   private static void addShapelessOreRecipe(ItemStack stack, Object... recipeComponents) {
     ResourceLocation location = buildName(stack);
     IRecipe recipe = new ShapelessOreRecipe(location, stack, recipeComponents);
@@ -122,7 +120,6 @@ public class RegistryManager {
   }
 
   private static void addShapedRecipe(ItemStack output, Object... params) {
-
     ResourceLocation location = buildName(output);
     ShapedOreRecipe recipe = new ShapedOreRecipe(location, output, params);
     recipe.setRegistryName(location);
@@ -257,7 +254,6 @@ public class RegistryManager {
     GameRegistry.registerTileEntity(TileEntityStandingStoneIgniter.class, "te_igniter");
     GameRegistry.registerTileEntity(TileEntityStandingStoneHealer.class, "te_healer");
     GameRegistry.registerFuelHandler(new FuelManager());
-
   }
 
   public static void registerEntities() {
@@ -268,20 +264,19 @@ public class RegistryManager {
   }
 
   public static void registerRecipes() {
-
     addShapedRecipe(new ItemStack(RegistryManager.pestle, 1), true, new Object[] { "X  ", " XX", " XX", 'X', new ItemStack(Blocks.STONE, 1, 3) });
     addShapedRecipe(new ItemStack(RegistryManager.pestle, 1), true, new Object[] { "  X", "XX ", "XX ", 'X', new ItemStack(Blocks.STONE, 1, 3) });
     addShapedRecipe(new ItemStack(RegistryManager.mortar, 1), true, new Object[] { "X X", "X X", " X ", 'X', "stone" });
     addShapedRecipe(new ItemStack(RegistryManager.imbuer, 1), true, new Object[] { "X X", "LSL", 'X', "stickWood", 'L', "logWood", 'S', new ItemStack(Blocks.STONEBRICK, 1, 3) });
     addShapedRecipe(new ItemStack(RegistryManager.standingStoneT1, 1), true, new Object[] { "SBS", "BLB", "SBS", 'S', "stone", 'B', new ItemStack(Blocks.STONEBRICK, 1), 'L', "blockLapis" });
     addShapedRecipe(new ItemStack(RegistryManager.standingStoneT2, 1), true, new Object[] { "SNS", "NDN", "SNS", 'S', "stone", 'N', "ingotBrickNether", 'D', "gemDiamond" });
-    addShapedRecipe(new ItemStack(RegistryManager.brazier, 1), true, new Object[] { 
+    addShapedRecipe(new ItemStack(RegistryManager.brazier, 1), true, new Object[] {
         "ISI", "ICI", "IXI",
-        'I', "ingotIron", 
-        'S', "string", 
+        'I', "ingotIron",
+        'S', "string",
         'C', Items.CAULDRON,
         'X', "stickWood"
-        });
+    });
     addShapedRecipe(new ItemStack(RegistryManager.altar, 1), true, new Object[] { "BFB", "SGS", " C ", 'S', "stone", 'F', new ItemStack(Blocks.RED_FLOWER, 1, 0), 'B', RegistryManager.verdantSprig, 'G', "blockGold", 'C', new ItemStack(Blocks.STONEBRICK, 1, 3) });
     addShapedRecipe(new ItemStack(RegistryManager.druidKnife, 1), true, new Object[] { " VV", "VPV", "SV ", 'S', "stickWood", 'V', "treeSapling", 'P', "plankWood" });
     addShapelessOreRecipe(new ItemStack(RegistryManager.growthSalve, 4),
@@ -326,7 +321,6 @@ public class RegistryManager {
     ((ItemRunicFocus) runicFocus).initModel();
     //living entities 
     RenderingRegistry.registerEntityRenderingHandler(EntityFrozenKnight.class, new RenderFrozenKnight.Factory());
-
   }
 
   @SideOnly(Side.CLIENT)

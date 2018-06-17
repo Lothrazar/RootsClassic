@@ -27,7 +27,6 @@ public class BlockStandingStoneT2 extends Block {
     setHardness(1.0f);
   }
 
-
   @Override
   public BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, new IProperty[] { topState });
@@ -79,8 +78,6 @@ public class BlockStandingStoneT2 extends Block {
     }
     return false;
   }
-
-
 
   @Override
   public boolean isOpaqueCube(IBlockState state) {

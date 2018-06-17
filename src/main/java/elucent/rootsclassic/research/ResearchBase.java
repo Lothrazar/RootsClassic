@@ -21,5 +21,4 @@ public class ResearchBase {
     info.add(page);
     return this;
   }
-
 }

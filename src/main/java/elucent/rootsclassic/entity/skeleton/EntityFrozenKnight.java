@@ -28,7 +28,6 @@ import net.minecraftforge.common.util.FakePlayer;
 public class EntityFrozenKnight extends EntitySkeleton {
 
   public static final String NAME = "skeleton_frozen";
-
   public static boolean appliesSlowPotion = true;
 
   public EntityFrozenKnight(World world) {
@@ -38,7 +37,6 @@ public class EntityFrozenKnight extends EntitySkeleton {
   @Override
   protected void applyEntityAttributes() {
     super.applyEntityAttributes();
-
   }
 
   @Override
@@ -47,8 +45,6 @@ public class EntityFrozenKnight extends EntitySkeleton {
     this.tasks.addTask(1, new EntityAISwimming(this));
     this.tasks.addTask(2, new EntityAIRestrictSun(this));
     this.tasks.addTask(3, new EntityAIFleeSun(this, 1.0D));
-
-
     this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
     this.tasks.addTask(6, new EntityAILookIdle(this));
     //   this.tasks.addTask(3, new EntityAIAvoidEntity<EntityFrozenKnight>(this, EntityFrozenKnight.class, 6.0F, 1.0D, 1.2D));
@@ -58,7 +54,6 @@ public class EntityFrozenKnight extends EntitySkeleton {
     this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityZombie>(this, EntityZombie.class, true));
     this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityEnderman>(this, EntityEnderman.class, true));
     this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntitySkeleton>(this, EntitySkeleton.class, true));
-
   }
 
   @Override

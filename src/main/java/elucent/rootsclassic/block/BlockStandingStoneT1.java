@@ -16,8 +16,6 @@ public class BlockStandingStoneT1 extends Block {
     setHardness(1.0f);
   }
 
-
-
   @Override
   public boolean isOpaqueCube(IBlockState state) {
     return false;

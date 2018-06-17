@@ -25,7 +25,6 @@ public class ItemDruidRobes extends ItemArmor {
 
   public ItemDruidRobes(int reduction, EntityEquipmentSlot slot) {
     super(RegistryManager.druidRobesMaterial, reduction, slot);
-
   }
 
   @SideOnly(Side.CLIENT)
@@ -62,5 +61,4 @@ public class ItemDruidRobes extends ItemArmor {
     tooltip.add(TextFormatting.GRAY + I18n.format("roots.attribute.fullset.name"));
     tooltip.add(TextFormatting.BLUE + " +1 " + I18n.format("roots.attribute.potency.name"));
   }
-
 }

@@ -11,7 +11,6 @@ public class TileEntityMortarRenderer extends TileEntitySpecialRenderer<TileEnti
 
   @Override
   public void render(TileEntityMortar tem, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
- 
     for (ItemStack stack : tem.inventory) {
       GL11.glPushMatrix();
       EntityItem item = new EntityItem(Minecraft.getMinecraft().world, x, y, z, stack);

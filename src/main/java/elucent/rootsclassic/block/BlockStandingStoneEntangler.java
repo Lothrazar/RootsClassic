@@ -26,7 +26,6 @@ public class BlockStandingStoneEntangler extends TEBlockBase implements ITileEnt
   private static final AxisAlignedBB AXIS_ALIGNED_BB_ZERO = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1.0, 0.75);
   public static final PropertyEnum<BlockstateIsTop> topState = PropertyEnum.create("topq", BlockstateIsTop.class);
 
-
   @Override
   public BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, new IProperty[] { topState });
@@ -80,7 +79,6 @@ public class BlockStandingStoneEntangler extends TEBlockBase implements ITileEnt
     setCreativeTab(Roots.tab);
     setHardness(1.0f);
   }
-
 
   @Override
   public boolean isOpaqueCube(IBlockState state) {

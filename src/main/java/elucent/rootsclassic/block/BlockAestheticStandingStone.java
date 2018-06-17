@@ -77,8 +77,6 @@ public class BlockAestheticStandingStone extends TEBlockBase implements ITileEnt
     setHardness(1.0f);
   }
 
-
-
   @Override
   public boolean canPlaceBlockAt(World world, BlockPos pos) {
     if (world.getBlockState(pos.up()) == Blocks.AIR.getDefaultState()) {

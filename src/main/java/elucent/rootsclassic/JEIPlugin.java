@@ -13,7 +13,6 @@ public class JEIPlugin implements mezz.jei.api.IModPlugin {
       //YES its deprecated. but the official wiki says to do this 
       //https://github.com/mezz/JustEnoughItems/wiki/Recipes-Overview
       registry.addDescription(new ItemStack(item), item.getUnlocalizedName() + ".guide");
-
     }
   }
 }

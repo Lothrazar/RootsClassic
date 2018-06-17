@@ -70,7 +70,6 @@ public class TileEntityMortar extends TEBase {
     }
   }
 
-
   @Override
   public boolean activate(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
     if (heldItem.isEmpty() && hand == EnumHand.MAIN_HAND) {
@@ -148,7 +147,6 @@ public class TileEntityMortar extends TEBase {
         }
       }
     }
-
     return false;
   }
 }

@@ -37,7 +37,6 @@ public class BlockBrazier extends TEBlockBase implements ITileEntityProvider {
     return false;
   }
 
-
   @Override
   public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
     return (layer == BlockRenderLayer.CUTOUT);

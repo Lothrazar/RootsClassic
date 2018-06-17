@@ -24,14 +24,11 @@ public class BlockStandingStoneIgniter extends TEBlockBase implements ITileEntit
 
   public static final PropertyEnum<BlockstateIsTop> topState = PropertyEnum.create("topq", BlockstateIsTop.class);
 
-
-
   public BlockStandingStoneIgniter() {
     super(Material.ROCK);
     setCreativeTab(Roots.tab);
     setHardness(1.0f);
   }
-
 
   @Override
   public BlockStateContainer createBlockState() {

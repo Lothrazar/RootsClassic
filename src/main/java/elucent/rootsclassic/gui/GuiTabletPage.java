@@ -78,7 +78,6 @@ public class GuiTabletPage extends GuiScreen {
     if (player.world.isRemote && research.info.get(currentPage).recipe == EnumRecipeType.TYPE_MORTAR) {
       if (mouseX >= (width / 2.0f) - 110 && mouseX < (width / 2.0f) + 40
           && mouseY >= (height / 2.0f) - 138 && mouseY < (height / 2.0f) - 40) {
-
         player.sendMessage(//TextFormatting.RED + 
             new TextComponentString(//I18n.format("roots.recipe.chat") +
                 research.info.get(currentPage).mortarRecipe.toString()));
@@ -134,7 +133,6 @@ public class GuiTabletPage extends GuiScreen {
       return;
     }
     ResearchPage page = research.info.get(currentPage);
-
     ArrayList<String> info;
     String title;
     GlStateManager.color(1, 1, 1, 1);

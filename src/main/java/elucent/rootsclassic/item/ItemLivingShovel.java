@@ -10,13 +10,8 @@ public class ItemLivingShovel extends ItemSpade {
 
   public ItemLivingShovel() {
     super(RegistryManager.livingMaterial);
-
   }
 
   @Override
-  public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-
-  }
-
-
+  public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {}
 }

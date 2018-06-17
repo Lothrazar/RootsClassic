@@ -21,7 +21,6 @@ public class ItemEngravedSword extends ItemSword {
 
   public ItemEngravedSword() {
     super(RegistryManager.engravedMaterial);
-
   }
 
   @Override

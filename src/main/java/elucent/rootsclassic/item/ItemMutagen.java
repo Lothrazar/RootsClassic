@@ -21,7 +21,6 @@ public class ItemMutagen extends Item {
 
   public ItemMutagen() {
     super();
-
   }
 
   @Override
@@ -60,6 +59,4 @@ public class ItemMutagen extends Item {
     }
     return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
   }
-
-
 }

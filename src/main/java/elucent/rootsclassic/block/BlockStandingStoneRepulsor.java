@@ -24,8 +24,6 @@ public class BlockStandingStoneRepulsor extends TEBlockBase implements ITileEnti
 
   public static final PropertyEnum<BlockstateIsTop> topState = PropertyEnum.create("topq", BlockstateIsTop.class);
 
-
-
   public BlockStandingStoneRepulsor() {
     super(Material.ROCK);
     setCreativeTab(Roots.tab);
@@ -78,9 +76,6 @@ public class BlockStandingStoneRepulsor extends TEBlockBase implements ITileEnti
       ((TEBase) world.getTileEntity(pos)).breakBlock(world, pos, state, player);
     }
   }
-
-
-
 
   @Override
   public boolean isOpaqueCube(IBlockState state) {

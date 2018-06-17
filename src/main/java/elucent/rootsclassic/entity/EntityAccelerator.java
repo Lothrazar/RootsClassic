@@ -16,6 +16,7 @@ public class EntityAccelerator extends Entity {
   public EntityAccelerator(World world) {
     super(world);
   }
+
   public EntityAccelerator(World world, Entity entity, int potency, int size) {
     super(world);
     this.entity = entity;

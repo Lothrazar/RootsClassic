@@ -79,7 +79,6 @@ public class BlockStandingStoneAccelerator extends TEBlockBase implements ITileE
     }
   }
 
-
   @Override
   public boolean canPlaceBlockAt(World world, BlockPos pos) {
     if (world.getBlockState(pos.up()) == Blocks.AIR.getDefaultState()) {

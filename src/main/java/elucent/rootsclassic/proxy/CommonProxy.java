@@ -19,9 +19,7 @@ public class CommonProxy {
 
   public void preInit(FMLPreInitializationEvent event) {
     RegistryManager.init();
-
     RootsCapabilityManager.preInit();
-
   }
 
   public void init(FMLInitializationEvent event) {

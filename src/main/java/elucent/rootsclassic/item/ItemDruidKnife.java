@@ -33,7 +33,6 @@ public class ItemDruidKnife extends Item {
     ItemStack stack = playerIn.getHeldItem(hand);
     Item itemToDrop = null;
     IBlockState blockState = worldIn.getBlockState(pos);
-
     BlockPlanks.EnumType type = null;
     if (blockState.getBlock() == Blocks.LOG) {
       type = blockState.getValue(BlockOldLog.VARIANT);
@@ -67,7 +66,6 @@ public class ItemDruidKnife extends Item {
       default:
       break;
     }
-
     if (itemToDrop != null) {
       playerIn.entityDropItem(new ItemStack(itemToDrop), 1.f);
       stack.damageItem(1, playerIn);

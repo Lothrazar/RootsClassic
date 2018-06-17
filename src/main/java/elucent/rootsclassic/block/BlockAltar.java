@@ -22,7 +22,6 @@ public class BlockAltar extends TEBlockBase implements ITileEntityProvider {
     setHardness(1.0f);
   }
 
-
   @Override
   public boolean isOpaqueCube(IBlockState state) {
     return false;

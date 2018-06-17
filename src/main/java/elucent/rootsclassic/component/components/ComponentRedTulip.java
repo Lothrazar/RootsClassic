@@ -34,7 +34,7 @@ public class ComponentRedTulip extends ComponentBase {
         skeleton.setPosition(x, y + 2.0, z);
         //        skeleton.setAttackTarget(targets.get(random.nextInt(targets.size())));
         // if (skeleton.getAttackTarget().getUniqueID() != caster.getUniqueID()) {
-          world.spawnEntity(skeleton);
+        world.spawnEntity(skeleton);
         // }
       }
     }
