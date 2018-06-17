@@ -142,7 +142,7 @@ public class ItemStaff extends Item implements IManaRelatedItem {
     if (stack.hasTagCompound()) {
       if (stack.getTagCompound().getInteger(NBT_USES) <= 0) {
         if (entity instanceof EntityPlayer) {
-          ((EntityPlayer) entity).inventory.setInventorySlotContents(slot, null);
+          ((EntityPlayer) entity).inventory.setInventorySlotContents(slot, ItemStack.EMPTY);
         }
       }
     }

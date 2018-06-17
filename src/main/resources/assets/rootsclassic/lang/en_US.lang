@@ -496,3 +496,5 @@ roots.poisonitem.tooltip=Poisonous when eaten
 tile.standingstonet1.guide=Basic ritual stone, used to create ritual patterns as shown in the Runic Tablet. 
 
 roots.mortar.invalid=Recipe invalid; verify items and order
+
+entity.skeleton_frozen.name=Phantom Skeleton

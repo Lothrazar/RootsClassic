@@ -23,6 +23,8 @@ import elucent.rootsclassic.block.BlockStandingStoneT2;
 import elucent.rootsclassic.block.BlockStandingStoneVacuum;
 import elucent.rootsclassic.entity.EntityAccelerator;
 import elucent.rootsclassic.entity.EntityTileAccelerator;
+import elucent.rootsclassic.entity.skeleton.EntityFrozenKnight;
+import elucent.rootsclassic.entity.skeleton.RenderFrozenKnight;
 import elucent.rootsclassic.item.ItemCrystalStaff;
 import elucent.rootsclassic.item.ItemDragonsEye;
 import elucent.rootsclassic.item.ItemDruidArmor;
@@ -81,6 +83,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -258,8 +261,10 @@ public class RegistryManager {
   }
 
   public static void registerEntities() {
-    EntityRegistry.registerModEntity(new ResourceLocation(Const.MODID, "tileaccelerator"), EntityTileAccelerator.class, "tileaccelerator", 0, Roots.instance, 64, 20, true);
-    EntityRegistry.registerModEntity(new ResourceLocation(Const.MODID, "entityaccelerator"), EntityAccelerator.class, "entityaccelerator", 0, Roots.instance, 64, 20, true);
+    EntityRegistry.registerModEntity(new ResourceLocation(Const.MODID, "tileaccelerator"), EntityTileAccelerator.class, "tileaccelerator", 119, Roots.instance, 64, 20, true);
+    EntityRegistry.registerModEntity(new ResourceLocation(Const.MODID, "entityaccelerator"), EntityAccelerator.class, "entityaccelerator", 110, Roots.instance, 64, 20, true);
+    EntityRegistry.registerModEntity(new ResourceLocation(Const.MODID, EntityFrozenKnight.NAME), EntityFrozenKnight.class, EntityFrozenKnight.NAME, 111, Roots.instance, 64, 1, true);
+    EntityRegistry.registerEgg(new ResourceLocation(Const.MODID, EntityFrozenKnight.NAME), Util.intColor(87, 58, 134), 0xA0A0A0);
   }
 
   public static void registerRecipes() {
@@ -319,6 +324,8 @@ public class RegistryManager {
     }
     ((ItemStaff) staff).initModel();
     ((ItemRunicFocus) runicFocus).initModel();
+    //living entities 
+    RenderingRegistry.registerEntityRenderingHandler(EntityFrozenKnight.class, new RenderFrozenKnight.Factory());
 
   }
 

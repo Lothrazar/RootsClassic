@@ -4,7 +4,6 @@ import elucent.rootsclassic.Const;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Util;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,7 +14,6 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,24 +25,8 @@ public class EventComponentSpells {
   private static final String NBT_VULN = "RMOD_vuln";
   private static final String NBT_DONT_DROP = "RMOD_dropItems";
   private static final String NBT_SKIP_TICKS = "RMOD_skipTicks";
-  private static final String NBT_DONT_TARGET = "RMOD_dontTarget";
   public static int TICKS_PER_MANA_REGEN = 5;
 
-  @SubscribeEvent
-  public void onLivingTarget(LivingSetAttackTargetEvent event) {
-    EntityLivingBase attackTarget = event.getTarget();
-    if (attackTarget instanceof EntityPlayer) {
-      Entity entityAttacker = event.getEntity();
-      if (entityAttacker.getEntityData().hasKey(NBT_DONT_TARGET)) {
-        if (attackTarget.getUniqueID().toString().equals(
-            entityAttacker.getEntityData().getString(NBT_DONT_TARGET))) {
-          if (event.isCancelable()) {
-            event.setCanceled(true);
-          }
-        }
-      }
-    }
-  }
 
   @SubscribeEvent
   public void onLivingTick(LivingUpdateEvent event) {
