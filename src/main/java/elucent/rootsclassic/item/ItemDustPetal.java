@@ -6,7 +6,6 @@ import java.util.Random;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,7 +30,7 @@ public class ItemDustPetal extends Item {
     return slotChanged;
   }
 
-  public static void createData(ItemStack stack, EntityPlayer player, String effect, ArrayList<ItemStack> items) {
+  public static void createData(ItemStack stack, String effect, ArrayList<ItemStack> items) {
     stack.setTagCompound(new NBTTagCompound());
     int potency = 0;
     int efficiency = 0;
