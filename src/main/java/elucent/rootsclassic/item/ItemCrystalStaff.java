@@ -144,7 +144,7 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
         }
       }
     }
-    EntityPlayer p;
+
   }
 
   public static void createData(ItemStack stack) {

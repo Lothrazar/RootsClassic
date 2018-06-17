@@ -164,4 +164,10 @@ public class Util {
     }
     return recipe.size() == 0;
   }
+
+  public static void randomlyRepair(Random rnd, ItemStack stack) {
+    if (stack.isItemDamaged() && rnd.nextInt(80) == 0) {
+      stack.setItemDamage(stack.getItemDamage() - 1);
+    }
+  }
 }

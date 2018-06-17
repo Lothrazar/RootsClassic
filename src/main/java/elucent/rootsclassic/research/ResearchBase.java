@@ -22,8 +22,4 @@ public class ResearchBase {
     return this;
   }
 
-  public ResearchGroup addResearch(ResearchBase addPage) {
-    // TODO Auto-generated method stub
-    return null;
-  }
 }

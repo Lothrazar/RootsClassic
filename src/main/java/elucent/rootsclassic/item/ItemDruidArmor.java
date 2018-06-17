@@ -1,9 +1,9 @@
 package elucent.rootsclassic.item;
 
 import java.util.List;
-import java.util.Random;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.RegistryManager;
+import elucent.rootsclassic.Util;
 import elucent.rootsclassic.model.ModelDruidArmor;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.resources.I18n;
@@ -20,11 +20,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemDruidArmor extends ItemArmor {
 
-  Random rnd = new Random();
-
   public ItemDruidArmor(int reduction, EntityEquipmentSlot slot) {
     super(RegistryManager.druidArmorMaterial, reduction, slot);
-
   }
 
   @SideOnly(Side.CLIENT)
@@ -49,11 +46,6 @@ public class ItemDruidArmor extends ItemArmor {
 
   @Override
   public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-    if (stack.isItemDamaged() && rnd.nextInt(80) == 0) {
-      stack.setItemDamage(stack.getItemDamage() - 1);
-    }
-
+    Util.randomlyRepair(world.rand, stack);
   }
-
-
 }
