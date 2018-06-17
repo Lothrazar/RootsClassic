@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -28,15 +29,15 @@ public class ComponentRedTulip extends ComponentBase {
       if (targets.size() > 0 && !world.isRemote) {
         EntitySkeleton skeleton = new EntitySkeleton(world);
         skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(x, y, z)), null);
-        skeleton.setHeldItem(EnumHand.MAIN_HAND, null);
+        skeleton.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
         skeleton.setDropItemsWhenDead(false);
         skeleton.getEntityData().setBoolean("RMOD_dropItems", false);
-        skeleton.getEntityData().setLong("RMOD_dontTarget", caster.getUniqueID().getMostSignificantBits());
+        skeleton.getEntityData().setString("RMOD_dontTarget", caster.getUniqueID().toString());
         skeleton.setPosition(x, y + 2.0, z);
         skeleton.setAttackTarget(targets.get(random.nextInt(targets.size())));
-        if (skeleton.getAttackTarget().getUniqueID() != caster.getUniqueID()) {
+        // if (skeleton.getAttackTarget().getUniqueID() != caster.getUniqueID()) {
           world.spawnEntity(skeleton);
-        }
+        // }
       }
     }
   }

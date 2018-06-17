@@ -33,9 +33,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemStaff extends Item implements IManaRelatedItem {
 
-  private static final double RANGE = 3.0;
-  private static final double SIZE_PER_LEVEL = 2.0;
-  private static final double SIZE_BASE = 3.0;
+  public static int MAX_USES_PER_EFFICIENCY = 32;
+  public static int MAX_USES_BASE = 65;
+  private static double RANGE = 3.0;//dont change needs code support
+  private static double SIZE_PER_LEVEL = 2.0;
+  private static double SIZE_BASE = 3.0;
   Random random = new Random();
 
   public ItemStaff() {
@@ -73,44 +75,43 @@ public class ItemStaff extends Item implements IManaRelatedItem {
 
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase caster, int timeLeft) {
-    if (timeLeft < (72000 - 12)) {
-      if (stack.hasTagCompound()) {
-        if (stack.getTagCompound().getInteger("uses") >= 0 && caster.hasCapability(RootsCapabilityManager.manaCapability, null)) {
-          stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
-          ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
-          int potency = stack.getTagCompound().getInteger("potency");
-          int efficiency = stack.getTagCompound().getInteger("efficiency");
-          int size = stack.getTagCompound().getInteger("size");
-          EntityPlayer player = (EntityPlayer) caster;
-          if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemDruidRobes
-              && player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemDruidRobes
-              && player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemDruidRobes
-              && player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemDruidRobes) {
-            potency += 1;
-          }
-          IManaCapability manaCap = player.getCapability(RootsCapabilityManager.manaCapability, null);
-          if (manaCap.getMana() >= ((float) comp.getManaCost()) / (efficiency + 1)) {
-            manaCap.setMana(manaCap.getMana() - (((float) comp.getManaCost()) / (efficiency + 1)));
-            Vec3d lookVec = caster.getLookVec();
-            comp.doEffect(world, caster, EnumCastType.SPELL,
-                caster.posX + RANGE * lookVec.x,
-                caster.posY + RANGE * lookVec.y,
-                caster.posZ + RANGE * lookVec.z, potency, efficiency,
-                SIZE_BASE + SIZE_PER_LEVEL * size);
-            for (int i = 0; i < 90; i++) {
-              double offX = world.rand.nextFloat() * 0.5 - 0.25;
-              double offY = world.rand.nextFloat() * 0.5 - 0.25;
-              double offZ = world.rand.nextFloat() * 0.5 - 0.25;
-              double coeff = (offX + offY + offZ) / 1.5 + 0.5;
-              double dx = (lookVec.x + offX) * coeff;
-              double dy = (lookVec.y + offY) * coeff;
-              double dz = (lookVec.z + offZ) * coeff;
-              if (world.rand.nextBoolean()) {
-                Roots.proxy.spawnParticleMagicFX(world, caster.posX + dx, caster.posY + 1.5 + dy, caster.posZ + dz, dx, dy, dz, comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z);
-              }
-              else {
-                Roots.proxy.spawnParticleMagicFX(world, caster.posX + dx, caster.posY + 1.5 + dy, caster.posZ + dz, dx, dy, dz, comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z);
-              }
+    if (timeLeft < (72000 - 12) && stack.hasTagCompound() && caster.hasCapability(RootsCapabilityManager.manaCapability, null)) {
+      NBTTagCompound stackTags = stack.getTagCompound();
+      if (stackTags.getInteger("uses") >= 0) {
+        stackTags.setInteger("uses", stackTags.getInteger("uses") - 1);
+        ComponentBase comp = ComponentManager.getComponentFromName(stackTags.getString("effect"));
+        int potency = stackTags.getInteger("potency");
+        int efficiency = stackTags.getInteger("efficiency");
+        int size = stackTags.getInteger("size");
+        EntityPlayer player = (EntityPlayer) caster;
+        if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemDruidRobes
+            && player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemDruidRobes
+            && player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemDruidRobes
+            && player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemDruidRobes) {
+          potency += 1;
+        }
+        IManaCapability manaCap = player.getCapability(RootsCapabilityManager.manaCapability, null);
+        if (manaCap.getMana() >= comp.getManaCost() / (efficiency + 1)) {
+          manaCap.setMana(manaCap.getMana() - (comp.getManaCost() / (efficiency + 1)));
+          Vec3d lookVec = caster.getLookVec();
+          comp.doEffect(world, caster, EnumCastType.SPELL,
+              caster.posX + RANGE * lookVec.x,
+              caster.posY + RANGE * lookVec.y,
+              caster.posZ + RANGE * lookVec.z, potency, efficiency,
+              SIZE_BASE + SIZE_PER_LEVEL * size);
+          for (int i = 0; i < 90; i++) {
+            double offX = world.rand.nextFloat() * 0.5 - 0.25;
+            double offY = world.rand.nextFloat() * 0.5 - 0.25;
+            double offZ = world.rand.nextFloat() * 0.5 - 0.25;
+            double coeff = (offX + offY + offZ) / 1.5 + 0.5;
+            double dx = (lookVec.x + offX) * coeff;
+            double dy = (lookVec.y + offY) * coeff;
+            double dz = (lookVec.z + offZ) * coeff;
+            if (world.rand.nextBoolean()) {
+              Roots.proxy.spawnParticleMagicFX(world, caster.posX + dx, caster.posY + 1.5 + dy, caster.posZ + dz, dx, dy, dz, comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z);
+            }
+            else {
+              Roots.proxy.spawnParticleMagicFX(world, caster.posX + dx, caster.posY + 1.5 + dy, caster.posZ + dz, dx, dy, dz, comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z);
             }
           }
         }
@@ -176,21 +177,23 @@ public class ItemStaff extends Item implements IManaRelatedItem {
     stack.getTagCompound().setInteger("potency", potency);
     stack.getTagCompound().setInteger("efficiency", efficiency);
     stack.getTagCompound().setInteger("size", size);
-    stack.getTagCompound().setInteger("uses", 65 + 32 * efficiency);
-    stack.getTagCompound().setInteger("maxUses", 65 + 32 * efficiency);
+    int uses = MAX_USES_BASE + MAX_USES_PER_EFFICIENCY * efficiency;
+    stack.getTagCompound().setInteger("maxUses", uses);
+    stack.getTagCompound().setInteger("uses", uses);
   }
 
   @SideOnly(Side.CLIENT)
   @Override
   public void addInformation(ItemStack stack, World player, List<String> tooltip, net.minecraft.client.util.ITooltipFlag advanced) {
     if (stack.hasTagCompound()) {
-      ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
+      NBTTagCompound tagCompound = stack.getTagCompound();
+      ComponentBase comp = ComponentManager.getComponentFromName(tagCompound.getString("effect"));
       tooltip.add(TextFormatting.GOLD + I18n.format("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
-      tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("potency") + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
-      tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("efficiency") + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
-      tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("size") + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
+      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger("potency") + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
+      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger("efficiency") + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
+      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger("size") + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
       tooltip.add("");
-      tooltip.add(TextFormatting.GOLD + Integer.toString(stack.getTagCompound().getInteger("uses")) + " " + I18n.format("roots.tooltip.usesremaining.name") + ".");
+      tooltip.add(TextFormatting.GOLD + Integer.toString(tagCompound.getInteger("uses")) + " " + I18n.format("roots.tooltip.usesremaining.name") + ".");
     }
   }
 

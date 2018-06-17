@@ -1,7 +1,9 @@
 package elucent.rootsclassic.config;
 
 import elucent.rootsclassic.Const;
+import elucent.rootsclassic.event.EventComponentSpells;
 import elucent.rootsclassic.item.ItemDruidKnife;
+import elucent.rootsclassic.item.ItemStaff;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
@@ -42,6 +44,10 @@ public class ConfigManager {
     staffUses = config.getInt("staffUses", category, 65, 0, 32767, "The number of uses an unmodified staff will have upon being crafted.");
     efficiencyBonus = config.getInt("efficiencyBonusUses", category, 32, 0, 32767, "The number of additional uses each efficiency modifier gives.");
     disablePVP = config.getBoolean("disablePVP", category, false, "Whether or not damaging spells can affect players.");
+    //default was 5 in elucent land
+    EventComponentSpells.TICKS_PER_MANA_REGEN = config.getInt("ticksPerManaRegen", category, 15, 1, 100, "Number of ticks between each mana regeneration (20 ticks = 1 second).");
+    ItemStaff.MAX_USES_BASE = config.getInt("staffUsesBasic", category, 15, 1, 100, "Number of basic uses for one spell staff.");
+    ItemStaff.MAX_USES_PER_EFFICIENCY = config.getInt("staffUsesEfficiency", category, 15, 1, 100, "Number of uses added by each efficiency level on a spell .");
     //TODO: spells category to disable component  on loop?
     //    disabledComponents = config.getStringList("disabledComponents", category, new String[] {
     //        "<example>", "<another example>"

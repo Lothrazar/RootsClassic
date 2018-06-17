@@ -17,7 +17,7 @@ public class ComponentBase {
   private ItemStack itemSource = null;
   public Vec3d primaryColor = new Vec3d(0, 0, 0);
   public Vec3d secondaryColor = new Vec3d(0, 0, 0);
-  private int manaCost = 0;
+  private float manaCost = 0;
 
  private  TextFormatting textColor = TextFormatting.WHITE;
 
@@ -80,11 +80,11 @@ public class ComponentBase {
 
   public void castingAction(EntityPlayer player, int count, int potency, int efficiency, int size) {}
 
-  public int getManaCost() {
+  public float getManaCost() {
     return manaCost;
   }
 
-  public void setManaCost(int manaCost) {
+  public void setManaCost(float manaCost) {
     this.manaCost = manaCost;
   }
 }

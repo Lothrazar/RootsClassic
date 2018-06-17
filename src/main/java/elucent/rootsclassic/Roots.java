@@ -3,6 +3,9 @@ package elucent.rootsclassic;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
 import elucent.rootsclassic.config.ConfigManager;
 import elucent.rootsclassic.config.EventConfigChanged;
+import elucent.rootsclassic.event.EventHarvestDrops;
+import elucent.rootsclassic.event.EventManaBar;
+import elucent.rootsclassic.event.EventComponentSpells;
 import elucent.rootsclassic.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -41,7 +44,9 @@ public class Roots {
   @EventHandler
   public void preInit(FMLPreInitializationEvent event) {
     ConfigManager.load(event);
-    MinecraftForge.EVENT_BUS.register(new EventManager());
+    MinecraftForge.EVENT_BUS.register(new EventComponentSpells());
+    MinecraftForge.EVENT_BUS.register(new EventHarvestDrops());
+    MinecraftForge.EVENT_BUS.register(new EventManaBar());
     MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
     MinecraftForge.EVENT_BUS.register(new EventConfigChanged());
     MinecraftForge.EVENT_BUS.register(RegistryManager.class);
