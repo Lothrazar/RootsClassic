@@ -2,7 +2,6 @@ package elucent.rootsclassic.item;
 
 import java.util.Random;
 import elucent.rootsclassic.RegistryManager;
-import elucent.rootsclassic.Roots;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -21,7 +20,6 @@ public class ItemDruidKnife extends Item {
 
   public ItemDruidKnife() {
     super();
-    setCreativeTab(Roots.tab);
   }
 
   @Override

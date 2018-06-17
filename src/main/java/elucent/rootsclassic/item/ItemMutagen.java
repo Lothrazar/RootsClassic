@@ -22,7 +22,6 @@ public class ItemMutagen extends Item {
   public ItemMutagen() {
     super();
 
-    setCreativeTab(Roots.tab);
   }
 
   @Override

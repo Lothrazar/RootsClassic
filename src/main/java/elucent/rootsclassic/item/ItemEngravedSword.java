@@ -2,7 +2,7 @@ package elucent.rootsclassic.item;
 
 import java.util.List;
 import com.google.common.collect.Multimap;
-import elucent.rootsclassic.Roots;
+import elucent.rootsclassic.RegistryManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -19,11 +19,9 @@ public class ItemEngravedSword extends ItemSword {
 
   private String[] numerals = { "0", "I", "II", "III", "IIII" };
 
-  public ItemEngravedSword(ToolMaterial material) {
-    super(material);
+  public ItemEngravedSword() {
+    super(RegistryManager.engravedMaterial);
 
-
-    this.setCreativeTab(Roots.tab);
   }
 
   @Override

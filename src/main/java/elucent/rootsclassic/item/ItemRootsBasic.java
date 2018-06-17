@@ -2,12 +2,10 @@ package elucent.rootsclassic.item;
 
 import net.minecraft.item.Item;
 
-public class ItemResearchIcon extends Item {
+public class ItemRootsBasic extends Item {
 
-  public ItemResearchIcon(String name) {
+  public ItemRootsBasic() {
     super();
-
   }
-
 
 }

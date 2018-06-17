@@ -16,8 +16,6 @@ public class ItemGrowthSalve extends Item {
 
   public ItemGrowthSalve() {
     super();
-    //    setUnlocalizedName("growthSalve");
-    setCreativeTab(Roots.tab);
   }
 
   @Override

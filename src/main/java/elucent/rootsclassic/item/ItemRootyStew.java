@@ -1,6 +1,5 @@
 package elucent.rootsclassic.item;
 
-import elucent.rootsclassic.Roots;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemFood;
@@ -11,8 +10,6 @@ public class ItemRootyStew extends ItemFood {
 
   public ItemRootyStew() {
     super(7, 1.0F, false);
-    this.setCreativeTab(Roots.tab);
-
   }
 
   @Override

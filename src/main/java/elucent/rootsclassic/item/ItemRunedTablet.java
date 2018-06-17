@@ -14,7 +14,6 @@ public class ItemRunedTablet extends Item {
   public ItemRunedTablet() {
     super();
 
-    setCreativeTab(Roots.tab);
   }
 
   @Override

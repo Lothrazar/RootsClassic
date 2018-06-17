@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Random;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.RegistryManager;
-import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
 import elucent.rootsclassic.model.ModelDruidRobes;
 import net.minecraft.client.model.ModelBiped;
@@ -27,7 +26,6 @@ public class ItemDruidRobes extends ItemArmor {
   public ItemDruidRobes(int reduction, EntityEquipmentSlot slot) {
     super(RegistryManager.druidRobesMaterial, reduction, slot);
 
-    setCreativeTab(Roots.tab);
   }
 
   @SideOnly(Side.CLIENT)

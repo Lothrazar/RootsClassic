@@ -33,7 +33,6 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
 
   public ItemCrystalStaff() {
     super();
-    setCreativeTab(Roots.tab);
   }
 
   @Override

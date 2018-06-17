@@ -2,7 +2,6 @@ package elucent.rootsclassic.item;
 
 import java.util.Random;
 import elucent.rootsclassic.RegistryManager;
-import elucent.rootsclassic.Roots;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -15,7 +14,6 @@ public class ItemLivingSword extends ItemSword {
   public ItemLivingSword() {
     super(RegistryManager.livingMaterial);
 
-    setCreativeTab(Roots.tab);
   }
 
   @Override

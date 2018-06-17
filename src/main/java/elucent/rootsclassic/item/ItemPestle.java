@@ -1,6 +1,5 @@
 package elucent.rootsclassic.item;
 
-import elucent.rootsclassic.Roots;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -8,8 +7,6 @@ public class ItemPestle extends Item {
 
   public ItemPestle() {
     super();
-
-    setCreativeTab(Roots.tab);
   }
 
   @Override

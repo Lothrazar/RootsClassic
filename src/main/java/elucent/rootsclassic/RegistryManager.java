@@ -36,16 +36,14 @@ import elucent.rootsclassic.item.ItemLivingHoe;
 import elucent.rootsclassic.item.ItemLivingPickaxe;
 import elucent.rootsclassic.item.ItemLivingShovel;
 import elucent.rootsclassic.item.ItemLivingSword;
-import elucent.rootsclassic.item.ItemMaterial;
 import elucent.rootsclassic.item.ItemMutagen;
 import elucent.rootsclassic.item.ItemPestle;
-import elucent.rootsclassic.item.ItemResearchIcon;
+import elucent.rootsclassic.item.ItemRootsBasic;
+import elucent.rootsclassic.item.ItemRootsFood;
 import elucent.rootsclassic.item.ItemRootyStew;
 import elucent.rootsclassic.item.ItemRunedTablet;
 import elucent.rootsclassic.item.ItemRunicFocus;
 import elucent.rootsclassic.item.ItemStaff;
-import elucent.rootsclassic.item.ItemTreeBark;
-import elucent.rootsclassic.item.RootsItemFood;
 import elucent.rootsclassic.tileentity.TileEntityAestheticStandingStone;
 import elucent.rootsclassic.tileentity.TileEntityAltar;
 import elucent.rootsclassic.tileentity.TileEntityAltarRenderer;
@@ -105,16 +103,14 @@ public class RegistryManager {
   public static Block flareOrchid, radiantDaisy, standingStoneGrower, standingStoneHealer, standingStoneIgniter, standingStoneEntangler, standingStoneAccelerator, standingStoneAesthetic, standingStoneRepulsor, standingStoneVacuum, midnightBloom, mortar, imbuer, altar, druidChalice, standingStoneT1, standingStoneT2, brazier;
   public static ToolMaterial engravedMaterial = EnumHelper.addToolMaterial("engraved", 2, 1050, 5F, 8.0F, 5);
   public static ToolMaterial livingMaterial = EnumHelper.addToolMaterial("livingMaterial", 2, 192, 6.0f, 2.0f, 18);
-  public static ArmorMaterial druidRobesMaterial = EnumHelper.addArmorMaterial("druidRobes", "roots:druidRobes", 10, new int[] { 1, 5, 6, 2 }, 20, null, 0);
-  public static ArmorMaterial druidArmorMaterial = EnumHelper.addArmorMaterial("druidArmor", "roots:druidArmor", 15, new int[] { 2, 5, 7, 3 }, 10, null, 1.0f);
+  public static ArmorMaterial druidRobesMaterial = EnumHelper.addArmorMaterial("druidRobes", "rootsclassic:druidrobes", 10, new int[] { 1, 5, 6, 2 }, 20, null, 0);
+  public static ArmorMaterial druidArmorMaterial = EnumHelper.addArmorMaterial("druidArmor", "rootsclassic:druidarmor", 15, new int[] { 2, 5, 7, 3 }, 10, null, 1.0f);
   public static List<Item> itemList = new ArrayList<Item>();
   public static List<IRecipe> recipes = new ArrayList<IRecipe>();
   public static List<Block> blocks = new ArrayList<Block>();
   private static Map<String, Boolean> usedRecipeNames = new HashMap<String, Boolean>();
 
-  //  private static void addRecipe(IRecipe recipe) {//buildName(recipe.getRecipeOutput())
-  //    recipes.add(recipe);
-  //  }
+
   private static void addShapelessOreRecipe(ItemStack stack, Object... recipeComponents) {
     ResourceLocation location = buildName(stack);
     IRecipe recipe = new ShapelessOreRecipe(location, stack, recipeComponents);
@@ -123,7 +119,7 @@ public class RegistryManager {
   }
 
   private static void addShapedRecipe(ItemStack output, Object... params) {
-    //    CraftingHelper.ShapedPrimer primer = CraftingHelper.parseShaped(params);
+
     ResourceLocation location = buildName(output);
     ShapedOreRecipe recipe = new ShapedOreRecipe(location, output, params);
     recipe.setRegistryName(location);
@@ -145,6 +141,7 @@ public class RegistryManager {
   private static void registerItem(Item item, String name) {
     item.setUnlocalizedName(name);
     item.setRegistryName(new ResourceLocation(Const.MODID, name));
+    item.setCreativeTab(Roots.tab);
     itemList.add(item);
   }
 
@@ -153,6 +150,7 @@ public class RegistryManager {
     b.setUnlocalizedName(name);
     ItemBlock ib = new ItemBlock(b);
     ib.setRegistryName(new ResourceLocation(Const.MODID, name)); // ok good this should work yes? yes! http://mcforge.readthedocs.io/en/latest/blocks/blocks/#registering-a-block
+    ib.setCreativeTab(Roots.tab);
     itemList.add(ib);
     blocks.add(b);
   }
@@ -182,16 +180,16 @@ public class RegistryManager {
     registerItem(pestle = new ItemPestle(), "pestle");
     registerItem(staff = new ItemStaff(), "staff");
     registerItem(crystalStaff = new ItemCrystalStaff(), "crystalstaff");
-    registerItem(oldRoot = new RootsItemFood(1, 0.1F, false), "oldroot");
-    registerItem(verdantSprig = new ItemMaterial(), "verdantsprig");
-    registerItem(infernalStem = new ItemMaterial(), "infernalstem");
+    registerItem(oldRoot = new ItemRootsFood(1, 0.1F, false), "oldroot");
+    registerItem(verdantSprig = new ItemRootsBasic(), "verdantsprig");
+    registerItem(infernalStem = new ItemRootsBasic(), "infernalstem");
     registerItem(dragonsEye = new ItemDragonsEye(2, 0.1F, false), "dragonseye");
-    registerItem(oakTreeBark = new ItemTreeBark(), "oaktreebark");
-    registerItem(spruceTreeBark = new ItemTreeBark(), "sprucetreebark");
-    registerItem(birchTreeBark = new ItemTreeBark(), "birchtreebark");
-    registerItem(jungleTreeBark = new ItemTreeBark(), "jungletreebark");
-    registerItem(acaciaTreeBark = new ItemTreeBark(), "acaciatreebark");
-    registerItem(darkOakTreeBark = new ItemTreeBark(), "darkoaktreebark");
+    registerItem(oakTreeBark = new ItemRootsBasic(), "oaktreebark");
+    registerItem(spruceTreeBark = new ItemRootsBasic(), "sprucetreebark");
+    registerItem(birchTreeBark = new ItemRootsBasic(), "birchtreebark");
+    registerItem(jungleTreeBark = new ItemRootsBasic(), "jungletreebark");
+    registerItem(acaciaTreeBark = new ItemRootsBasic(), "acaciatreebark");
+    registerItem(darkOakTreeBark = new ItemRootsBasic(), "darkoaktreebark");
     registerItem(livingPickaxe = new ItemLivingPickaxe(), "livingpickaxe");
     registerItem(livingAxe = new ItemLivingAxe(), "livingaxe");
     registerItem(livingSword = new ItemLivingSword(), "livingsword");
@@ -208,16 +206,16 @@ public class RegistryManager {
     registerItem(runedTablet = new ItemRunedTablet(), "runedtablet");
     registerItem(growthSalve = new ItemGrowthSalve(), "growthsalve");
     registerItem(mutagen = new ItemMutagen(), "mutagen");
-    registerItem(nightshade = new RootsItemFood(2, 0.1F, false).setPotionEffect(new PotionEffect(Potion.getPotionById(19), 320), 1F), "nightshade");
-    registerItem(blackCurrant = new RootsItemFood(4, 0.4F, false), "blackcurrant");
-    registerItem(redCurrant = new RootsItemFood(4, 0.4F, false), "redcurrant");
-    registerItem(whiteCurrant = new RootsItemFood(4, 0.4F, false), "whitecurrant");
-    registerItem(elderBerry = new RootsItemFood(2, 0.1F, false), "elderberry");
-    registerItem(healingPoultice = new RootsItemFood(0, 0F, false).setAlwaysEdible().setMaxStackSize(8), "healingpoultice");
+    registerItem(nightshade = new ItemRootsFood(2, 0.1F, false).setPotionEffect(new PotionEffect(Potion.getPotionById(19), 320), 1F), "nightshade");
+    registerItem(blackCurrant = new ItemRootsFood(4, 0.4F, false), "blackcurrant");
+    registerItem(redCurrant = new ItemRootsFood(4, 0.4F, false), "redcurrant");
+    registerItem(whiteCurrant = new ItemRootsFood(4, 0.4F, false), "whitecurrant");
+    registerItem(elderBerry = new ItemRootsFood(2, 0.1F, false), "elderberry");
+    registerItem(healingPoultice = new ItemRootsFood(0, 0F, false).setAlwaysEdible().setMaxStackSize(8), "healingpoultice");
     registerItem(rootyStew = new ItemRootyStew(), "rootystew");
     registerItem(runicFocus = new ItemRunicFocus(), "runicfocus");
-    registerItem(engravedSword = new ItemEngravedSword(engravedMaterial), "engravedsword");
-    registerItem(manaResearchIcon = new ItemResearchIcon("manaresearchicon"), "manaresearchicon");
+    registerItem(engravedSword = new ItemEngravedSword(), "engravedsword");
+    registerItem(manaResearchIcon = new ItemRootsBasic(), "manaresearchicon");
     /**
      * REGISTERING BLOCKS
      */

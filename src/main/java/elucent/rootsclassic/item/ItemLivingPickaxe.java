@@ -2,7 +2,6 @@ package elucent.rootsclassic.item;
 
 import java.util.Random;
 import elucent.rootsclassic.RegistryManager;
-import elucent.rootsclassic.Roots;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
@@ -15,7 +14,6 @@ public class ItemLivingPickaxe extends ItemPickaxe {
   public ItemLivingPickaxe() {
     super(RegistryManager.livingMaterial);
 
-    setCreativeTab(Roots.tab);
   }
 
   @Override

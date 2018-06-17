@@ -3,7 +3,6 @@ package elucent.rootsclassic.item;
 import java.util.List;
 import javax.annotation.Nullable;
 import elucent.rootsclassic.RegistryManager;
-import elucent.rootsclassic.Roots;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,14 +12,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class RootsItemFood extends ItemFood {
+public class ItemRootsFood extends ItemFood {
 
   private static final int HEAL_LARGE = 5;
   private static final int HEAL_SMALL = 2;
 
-  public RootsItemFood(int amount, float saturation, boolean isWolFFood) {
+  public ItemRootsFood(int amount, float saturation, boolean isWolFFood) {
     super(amount, saturation, isWolFFood);
-    this.setCreativeTab(Roots.tab);
   }
 
   @Override
