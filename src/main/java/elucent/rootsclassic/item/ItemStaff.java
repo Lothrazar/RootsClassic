@@ -33,6 +33,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemStaff extends Item implements IManaRelatedItem {
 
+  private static final String NBT_EFFICIENCY = "efficiency";
+  private static final String NBT_SIZE = "size";
+  private static final String NBT_POT = "potency";
+  private static final String NBT_EFFECT = "effect";
+  private static final String NBT_USES = "uses";
+  private static final String NBT_MAX = "maxUses";
   public static int MAX_USES_PER_EFFICIENCY = 32;
   public static int MAX_USES_BASE = 65;
   private static double RANGE = 3.0;//dont change needs code support
@@ -58,7 +64,7 @@ public class ItemStaff extends Item implements IManaRelatedItem {
   @Override
   public double getDurabilityForDisplay(ItemStack stack) {
     if (stack.hasTagCompound()) {
-      return 1.0 - (double) stack.getTagCompound().getInteger("uses") / (double) stack.getTagCompound().getInteger("maxUses");
+      return 1.0 - (double) stack.getTagCompound().getInteger(NBT_USES) / (double) stack.getTagCompound().getInteger(NBT_MAX);
     }
     return 1.0;
   }
@@ -66,7 +72,7 @@ public class ItemStaff extends Item implements IManaRelatedItem {
   @Override
   public boolean showDurabilityBar(ItemStack stack) {
     if (stack.hasTagCompound()) {
-      if (stack.getTagCompound().getInteger("uses") < stack.getTagCompound().getInteger("maxUses")) {
+      if (stack.getTagCompound().getInteger(NBT_USES) < stack.getTagCompound().getInteger(NBT_MAX)) {
         return true;
       }
     }
@@ -77,12 +83,12 @@ public class ItemStaff extends Item implements IManaRelatedItem {
   public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase caster, int timeLeft) {
     if (timeLeft < (72000 - 12) && stack.hasTagCompound() && caster.hasCapability(RootsCapabilityManager.manaCapability, null)) {
       NBTTagCompound stackTags = stack.getTagCompound();
-      if (stackTags.getInteger("uses") >= 0) {
-        stackTags.setInteger("uses", stackTags.getInteger("uses") - 1);
-        ComponentBase comp = ComponentManager.getComponentFromName(stackTags.getString("effect"));
-        int potency = stackTags.getInteger("potency");
-        int efficiency = stackTags.getInteger("efficiency");
-        int size = stackTags.getInteger("size");
+      if (stackTags.getInteger(NBT_USES) >= 0) {
+        stackTags.setInteger(NBT_USES, stackTags.getInteger(NBT_USES) - 1);
+        ComponentBase comp = ComponentManager.getComponentFromName(stackTags.getString(NBT_EFFECT));
+        int potency = stackTags.getInteger(NBT_POT);
+        int efficiency = stackTags.getInteger(NBT_EFFICIENCY);
+        int size = stackTags.getInteger(NBT_SIZE);
         EntityPlayer player = (EntityPlayer) caster;
         if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemDruidRobes
             && player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemDruidRobes
@@ -134,7 +140,7 @@ public class ItemStaff extends Item implements IManaRelatedItem {
   @Override
   public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
     if (stack.hasTagCompound()) {
-      if (stack.getTagCompound().getInteger("uses") <= 0) {
+      if (stack.getTagCompound().getInteger(NBT_USES) <= 0) {
         if (entity instanceof EntityPlayer) {
           ((EntityPlayer) entity).inventory.setInventorySlotContents(slot, null);
         }
@@ -145,7 +151,7 @@ public class ItemStaff extends Item implements IManaRelatedItem {
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldS, ItemStack newS, boolean slotChanged) {
     if (oldS.hasTagCompound() && newS.hasTagCompound()) {
-      if (oldS.getTagCompound().getString("effect") != newS.getTagCompound().getString("effect")) {
+      if (oldS.getTagCompound().getString(NBT_EFFECT) != newS.getTagCompound().getString(NBT_EFFECT)) {
         return true;
       }
     }
@@ -155,10 +161,10 @@ public class ItemStaff extends Item implements IManaRelatedItem {
   @Override
   public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
     if (stack.hasTagCompound()) {
-      ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
-      int potency = stack.getTagCompound().getInteger("potency");
-      int efficiency = stack.getTagCompound().getInteger("efficiency");
-      int size = stack.getTagCompound().getInteger("size");
+      ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString(NBT_EFFECT));
+      int potency = stack.getTagCompound().getInteger(NBT_POT);
+      int efficiency = stack.getTagCompound().getInteger(NBT_EFFICIENCY);
+      int size = stack.getTagCompound().getInteger(NBT_SIZE);
       if (comp != null) {
         comp.castingAction((EntityPlayer) player, count, potency, efficiency, size);
         if (random.nextBoolean()) {
@@ -173,13 +179,13 @@ public class ItemStaff extends Item implements IManaRelatedItem {
 
   public static void createData(ItemStack stack, String effect, int potency, int efficiency, int size) {
     stack.setTagCompound(new NBTTagCompound());
-    stack.getTagCompound().setString("effect", effect);
-    stack.getTagCompound().setInteger("potency", potency);
-    stack.getTagCompound().setInteger("efficiency", efficiency);
-    stack.getTagCompound().setInteger("size", size);
+    stack.getTagCompound().setString(NBT_EFFECT, effect);
+    stack.getTagCompound().setInteger(NBT_POT, potency);
+    stack.getTagCompound().setInteger(NBT_EFFICIENCY, efficiency);
+    stack.getTagCompound().setInteger(NBT_SIZE, size);
     int uses = MAX_USES_BASE + MAX_USES_PER_EFFICIENCY * efficiency;
-    stack.getTagCompound().setInteger("maxUses", uses);
-    stack.getTagCompound().setInteger("uses", uses);
+    stack.getTagCompound().setInteger(NBT_MAX, uses);
+    stack.getTagCompound().setInteger(NBT_USES, uses);
   }
 
   @SideOnly(Side.CLIENT)
@@ -187,13 +193,13 @@ public class ItemStaff extends Item implements IManaRelatedItem {
   public void addInformation(ItemStack stack, World player, List<String> tooltip, net.minecraft.client.util.ITooltipFlag advanced) {
     if (stack.hasTagCompound()) {
       NBTTagCompound tagCompound = stack.getTagCompound();
-      ComponentBase comp = ComponentManager.getComponentFromName(tagCompound.getString("effect"));
+      ComponentBase comp = ComponentManager.getComponentFromName(tagCompound.getString(NBT_EFFECT));
       tooltip.add(TextFormatting.GOLD + I18n.format("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
-      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger("potency") + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
-      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger("efficiency") + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
-      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger("size") + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
+      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger(NBT_POT) + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
+      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger(NBT_EFFICIENCY) + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
+      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger(NBT_SIZE) + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
       tooltip.add("");
-      tooltip.add(TextFormatting.GOLD + Integer.toString(tagCompound.getInteger("uses")) + " " + I18n.format("roots.tooltip.usesremaining.name") + ".");
+      tooltip.add(TextFormatting.GOLD + Integer.toString(tagCompound.getInteger(NBT_USES)) + " " + I18n.format("roots.tooltip.usesremaining.name") + ".");
     }
   }
 
@@ -213,11 +219,11 @@ public class ItemStaff extends Item implements IManaRelatedItem {
     public int getColorFromItemstack(ItemStack stack, int layer) {
       if (stack.hasTagCompound() && stack.getItem() instanceof ItemStaff) {
         if (layer == 2) {
-          ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
+          ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString(NBT_EFFECT));
           return Util.intColor((int) comp.primaryColor.x, (int) comp.primaryColor.y, (int) comp.primaryColor.z);
         }
         if (layer == 1) {
-          ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
+          ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString(NBT_EFFECT));
           return Util.intColor((int) comp.secondaryColor.x, (int) comp.secondaryColor.y, (int) comp.secondaryColor.z);
         }
       }
