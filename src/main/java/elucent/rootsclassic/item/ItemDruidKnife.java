@@ -1,6 +1,7 @@
 package elucent.rootsclassic.item;
 
 import elucent.rootsclassic.RegistryManager;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -29,8 +30,9 @@ public class ItemDruidKnife extends Item {
     }
     ItemStack stack = playerIn.getHeldItem(hand);
     Item itemToDrop = null;
-    if (worldIn.getBlockState(pos).getBlock() == Blocks.LOG) {
-      switch (worldIn.getBlockState(pos).getBlock().getMetaFromState(worldIn.getBlockState(pos))) {
+    IBlockState blockState = worldIn.getBlockState(pos);
+    if (blockState.getBlock() == Blocks.LOG) {
+      switch (blockState.getBlock().getMetaFromState(blockState)) {
         case 0:
         case 4:
         case 8:
@@ -53,8 +55,8 @@ public class ItemDruidKnife extends Item {
         break;
       }
     }
-    else if (worldIn.getBlockState(pos).getBlock() == Blocks.LOG2) {
-      switch (worldIn.getBlockState(pos).getBlock().getMetaFromState(worldIn.getBlockState(pos))) {
+    else if (blockState.getBlock() == Blocks.LOG2) {
+      switch (blockState.getBlock().getMetaFromState(blockState)) {
         case 0:
         case 4:
         case 8:
