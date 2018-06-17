@@ -37,15 +37,15 @@ public class ItemDustPetal extends Item {
     int efficiency = 0;
     int size = 0;
     stack.getTagCompound().setString("effect", effect);
-    for (int i = 0; i < items.size(); i++) {
-      if (items.get(i) != null) {
-        if (items.get(i).getItem() == Items.GLOWSTONE_DUST) {
+    for (ItemStack itemStack : items) {
+      if (itemStack.isEmpty() == false) {
+        if (itemStack.getItem() == Items.GLOWSTONE_DUST) {
           potency++;
         }
-        if (items.get(i).getItem() == Items.REDSTONE) {
+        if (itemStack.getItem() == Items.REDSTONE) {
           efficiency++;
         }
-        if (items.get(i).getItem() == Items.GUNPOWDER) {
+        if (itemStack.getItem() == Items.GUNPOWDER) {
           size++;
         }
       }

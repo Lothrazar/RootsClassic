@@ -15,6 +15,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class Util {
 
+  public static final String NBT_TRACK_TICKS = "RMOD_trackTicks";
   public static Random random = new Random();
   public static ArrayList<Item> berries = new ArrayList<Item>();
 
@@ -41,19 +42,19 @@ public class Util {
   }
 
   public static void addTickTracking(Entity entity) {
-    if (entity.getEntityData().hasKey("RMOD_trackTicks")) {
-      entity.getEntityData().setInteger("RMOD_trackTicks", entity.getEntityData().getInteger("RMOD_trackTicks") + 1);
+    if (entity.getEntityData().hasKey(NBT_TRACK_TICKS)) {
+      entity.getEntityData().setInteger(NBT_TRACK_TICKS, entity.getEntityData().getInteger(NBT_TRACK_TICKS) + 1);
     }
     else {
-      entity.getEntityData().setInteger("RMOD_trackTicks", 1);
+      entity.getEntityData().setInteger(NBT_TRACK_TICKS, 1);
     }
   }
 
   public static void decrementTickTracking(Entity entity) {
-    if (entity.getEntityData().hasKey("RMOD_trackTicks")) {
-      entity.getEntityData().setInteger("RMOD_trackTicks", entity.getEntityData().getInteger("RMOD_trackTicks") - 1);
-      if (entity.getEntityData().getInteger("RMOD_trackTicks") == 0) {
-        entity.removeTag("RMOD_trackTicks");
+    if (entity.getEntityData().hasKey(NBT_TRACK_TICKS)) {
+      entity.getEntityData().setInteger(NBT_TRACK_TICKS, entity.getEntityData().getInteger(NBT_TRACK_TICKS) - 1);
+      if (entity.getEntityData().getInteger(NBT_TRACK_TICKS) == 0) {
+        entity.removeTag(NBT_TRACK_TICKS);
       }
     }
   }

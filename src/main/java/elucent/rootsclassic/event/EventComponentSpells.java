@@ -22,6 +22,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EventComponentSpells {
 
+
+  private static final String NBT_THORNS = "RMOD_thornsDamage";
+  private static final String NBT_VULN = "RMOD_vuln";
+  private static final String NBT_DONT_DROP = "RMOD_dropItems";
+  private static final String NBT_SKIP_TICKS = "RMOD_skipTicks";
+  private static final String NBT_DONT_TARGET = "RMOD_dontTarget";
   public static int TICKS_PER_MANA_REGEN = 5;
 
   @SubscribeEvent
@@ -29,9 +35,9 @@ public class EventComponentSpells {
     EntityLivingBase attackTarget = event.getTarget();
     if (attackTarget instanceof EntityPlayer) {
       Entity entityAttacker = event.getEntity();
-      if (entityAttacker.getEntityData().hasKey("RMOD_dontTarget")) {
+      if (entityAttacker.getEntityData().hasKey(NBT_DONT_TARGET)) {
         if (attackTarget.getUniqueID().toString().equals(
-            entityAttacker.getEntityData().getString("RMOD_dontTarget"))) {
+            entityAttacker.getEntityData().getString(NBT_DONT_TARGET))) {
           if (event.isCancelable()) {
             event.setCanceled(true);
           }
@@ -50,19 +56,13 @@ public class EventComponentSpells {
         }
       }
     }
-    if (entity.getEntityData().hasKey("RMOD_trackTicks")) {
-      if (entity.getEntityData().hasKey("RMOD_skipTicks")) {
-        if (entity.getEntityData().getInteger("RMOD_skipTicks") > 0) {
-          //          if (entity.getHealth() <= 0) {
-          //            if (entity.getLastAttackedEntity() instanceof EntityPlayer) {
-          //              //              if (!((EntityPlayer) event.getEntityLiving().getLastAttacker()).hasAchievement(RegistryManager.achieveTimeStop)) {
-          //              //                PlayerManager.addAchievement((EntityPlayer) event.getEntityLiving().getLastAttacker(), RegistryManager.achieveTimeStop);
-          //              //              }
-          //            }
-          //          }
-          entity.getEntityData().setInteger("RMOD_skipTicks", entity.getEntityData().getInteger("RMOD_skipTicks") - 1);
-          if (entity.getEntityData().getInteger("RMOD_skipTicks") <= 0) {
-            entity.getEntityData().removeTag("RMOD_skipTicks");
+    if (entity.getEntityData().hasKey(Util.NBT_TRACK_TICKS)) {
+      if (entity.getEntityData().hasKey(NBT_SKIP_TICKS)) {
+        if (entity.getEntityData().getInteger(NBT_SKIP_TICKS) > 0) {
+
+          entity.getEntityData().setInteger(NBT_SKIP_TICKS, entity.getEntityData().getInteger(NBT_SKIP_TICKS) - 1);
+          if (entity.getEntityData().getInteger(NBT_SKIP_TICKS) <= 0) {
+            entity.getEntityData().removeTag(NBT_SKIP_TICKS);
             Util.decrementTickTracking(entity);
           }
           event.setCanceled(true);
@@ -73,8 +73,8 @@ public class EventComponentSpells {
 
   @SubscribeEvent
   public void onLivingDrops(LivingDropsEvent event) {
-    if (event.getEntityLiving().getEntityData().hasKey("RMOD_dropItems")) {
-      if (!event.getEntityLiving().getEntityData().getBoolean("RMOD_dropItems")) {
+    if (event.getEntityLiving().getEntityData().hasKey(NBT_DONT_DROP)) {
+      if (!event.getEntityLiving().getEntityData().getBoolean(NBT_DONT_DROP)) {
         event.setCanceled(true);
       }
     }
@@ -82,8 +82,8 @@ public class EventComponentSpells {
 
   @SubscribeEvent
   public void onLivingXP(LivingExperienceDropEvent event) {
-    if (event.getEntityLiving().getEntityData().hasKey("RMOD_dropItems")) {
-      if (!event.getEntityLiving().getEntityData().getBoolean("RMOD_dropItems")) {
+    if (event.getEntityLiving().getEntityData().hasKey(NBT_DONT_DROP)) {
+      if (!event.getEntityLiving().getEntityData().getBoolean(NBT_DONT_DROP)) {
         event.setCanceled(true);
       }
     }
@@ -92,13 +92,13 @@ public class EventComponentSpells {
   @SubscribeEvent
   public void onLivingDamage(LivingHurtEvent event) {
     EntityLivingBase entityLiving = event.getEntityLiving();
-    if (entityLiving.getEntityData().hasKey("RMOD_vuln")) {
-      event.setAmount((float) (event.getAmount() * (1.0 + entityLiving.getEntityData().getDouble("RMOD_vuln"))));
-      entityLiving.getEntityData().removeTag("RMOD_vuln");
+    if (entityLiving.getEntityData().hasKey(NBT_VULN)) {
+      event.setAmount((float) (event.getAmount() * (1.0 + entityLiving.getEntityData().getDouble(NBT_VULN))));
+      entityLiving.getEntityData().removeTag(NBT_VULN);
     }
-    if (entityLiving.getEntityData().hasKey("RMOD_thornsDamage") && event.getSource().getTrueSource() instanceof EntityLivingBase) {
-      ((EntityLivingBase) event.getSource().getTrueSource()).attackEntityFrom(DamageSource.CACTUS, entityLiving.getEntityData().getFloat("RMOD_thornsDamage"));
-      entityLiving.getEntityData().removeTag("RMOD_thornsDamage");
+    if (entityLiving.getEntityData().hasKey(NBT_THORNS) && event.getSource().getTrueSource() instanceof EntityLivingBase) {
+      ((EntityLivingBase) event.getSource().getTrueSource()).attackEntityFrom(DamageSource.CACTUS, entityLiving.getEntityData().getFloat(NBT_THORNS));
+      entityLiving.getEntityData().removeTag(NBT_THORNS);
       Util.decrementTickTracking(entityLiving);
     }
     if (entityLiving instanceof EntityPlayer) {
