@@ -494,3 +494,5 @@ roots.healingitem.tooltip=Heals player when eaten
 roots.poisonitem.tooltip=Poisonous when eaten
 
 tile.standingstonet1.guide=Basic ritual stone, used to create ritual patterns as shown in the Runic Tablet. 
+
+roots.mortar.invalid=Recipe invalid; verify items and order

@@ -6,6 +6,7 @@ import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.component.ComponentRecipe;
 import elucent.rootsclassic.item.ItemDustPetal;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -15,6 +16,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
@@ -71,16 +73,19 @@ public class TileEntityMortar extends TEBase {
 
   @Override
   public boolean activate(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-    if (heldItem.isEmpty()) {
+    if (heldItem.isEmpty() && hand == EnumHand.MAIN_HAND) {
       return tryDropSingleItem(world, pos, state);
     }
     else if (heldItem.getItem() == RegistryManager.pestle) {
-      return tryActivateRecipe(state);
+      boolean success = tryActivateRecipe(state);
+      if (!success) {
+        player.sendStatusMessage(new TextComponentString(I18n.format("roots.mortar.invalid")), true);
+      }
+      return success;
     }
     else {
       return tryInsertItem(world, pos, state, heldItem);
     }
-    //    return false;
   }
 
   private boolean tryInsertItem(World world, BlockPos pos, IBlockState state, ItemStack heldItem) {
@@ -143,6 +148,7 @@ public class TileEntityMortar extends TEBase {
         }
       }
     }
+
     return false;
   }
 }
