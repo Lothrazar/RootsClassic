@@ -1,6 +1,5 @@
 package elucent.rootsclassic.item;
 
-import java.util.Random;
 import elucent.rootsclassic.RegistryManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -14,7 +13,8 @@ import net.minecraft.world.World;
 
 public class ItemDruidKnife extends Item {
 
-  Random rnd = new Random();
+  // TODO: config
+  private static final double BLOCK_DESTROY_ODDS = 0.3;
 
   public ItemDruidKnife() {
     super();
@@ -24,75 +24,57 @@ public class ItemDruidKnife extends Item {
 
   @Override
   public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    if (worldIn.isRemote) {
+      return EnumActionResult.SUCCESS;
+    }
     ItemStack stack = playerIn.getHeldItem(hand);
+    Item itemToDrop = null;
     if (worldIn.getBlockState(pos).getBlock() == Blocks.LOG) {
-      if (!worldIn.isRemote) {
-        switch (worldIn.getBlockState(pos).getBlock().getMetaFromState(worldIn.getBlockState(pos))) {
-          case 0:
-          case 4:
-          case 8:
-            playerIn.entityDropItem(new ItemStack(RegistryManager.oakTreeBark), 1.f);
-            stack.damageItem(1, playerIn);
-            if (rnd.nextDouble() < 0.3) {
-              worldIn.destroyBlock(pos, false);
-            }
-          break;
-          case 1:
-          case 5:
-          case 9:
-            playerIn.entityDropItem(new ItemStack(RegistryManager.spruceTreeBark), 1.f);
-            stack.damageItem(1, playerIn);
-            if (rnd.nextDouble() < 0.3) {
-              worldIn.destroyBlock(pos, false);
-            }
-          break;
-          case 2:
-          case 6:
-          case 10:
-            playerIn.entityDropItem(new ItemStack(RegistryManager.birchTreeBark), 1.f);
-            stack.damageItem(1, playerIn);
-            if (rnd.nextDouble() < 0.3) {
-              worldIn.destroyBlock(pos, false);
-            }
-          break;
-          case 3:
-          case 7:
-          case 11:
-            playerIn.entityDropItem(new ItemStack(RegistryManager.jungleTreeBark), 1.f);
-            stack.damageItem(1, playerIn);
-            if (rnd.nextDouble() < 0.3) {
-              worldIn.destroyBlock(pos, false);
-            }
-          break;
-        }
+      switch (worldIn.getBlockState(pos).getBlock().getMetaFromState(worldIn.getBlockState(pos))) {
+        case 0:
+        case 4:
+        case 8:
+          itemToDrop = RegistryManager.oakTreeBark;
+        break;
+        case 1:
+        case 5:
+        case 9:
+          itemToDrop = RegistryManager.spruceTreeBark;
+        break;
+        case 2:
+        case 6:
+        case 10:
+          itemToDrop = RegistryManager.birchTreeBark;
+        break;
+        case 3:
+        case 7:
+        case 11:
+          itemToDrop = RegistryManager.jungleTreeBark;
+        break;
       }
     }
     else if (worldIn.getBlockState(pos).getBlock() == Blocks.LOG2) {
-      if (!worldIn.isRemote) {
-        switch (worldIn.getBlockState(pos).getBlock().getMetaFromState(worldIn.getBlockState(pos))) {
-          case 0:
-          case 4:
-          case 8:
-            playerIn.entityDropItem(new ItemStack(RegistryManager.acaciaTreeBark), 1.f);
-            stack.damageItem(1, playerIn);
-            if (rnd.nextDouble() < 0.3) {
-              worldIn.destroyBlock(pos, false);
-            }
-          break;
-          case 1:
-          case 5:
-          case 9:
-            playerIn.entityDropItem(new ItemStack(RegistryManager.darkOakTreeBark), 1.f);
-            stack.damageItem(1, playerIn);
-            if (rnd.nextDouble() < 0.3) {
-              worldIn.destroyBlock(pos, false);
-            }
-          break;
-        }
+      switch (worldIn.getBlockState(pos).getBlock().getMetaFromState(worldIn.getBlockState(pos))) {
+        case 0:
+        case 4:
+        case 8:
+          itemToDrop = RegistryManager.acaciaTreeBark;
+        break;
+        case 1:
+        case 5:
+        case 9:
+          itemToDrop = RegistryManager.darkOakTreeBark;
+        break;
       }
     }
-    return EnumActionResult.SUCCESS;
+    if (itemToDrop != null) {
+      playerIn.entityDropItem(new ItemStack(itemToDrop), 1.f);
+      stack.damageItem(1, playerIn);
+      if (worldIn.rand.nextDouble() < BLOCK_DESTROY_ODDS) {
+        worldIn.destroyBlock(pos, false);
+      }
+      return EnumActionResult.SUCCESS;
+    }
+    return EnumActionResult.PASS;
   }
-
-
 }
