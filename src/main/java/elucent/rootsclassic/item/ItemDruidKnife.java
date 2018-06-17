@@ -1,6 +1,9 @@
 package elucent.rootsclassic.item;
 
 import elucent.rootsclassic.RegistryManager;
+import net.minecraft.block.BlockNewLog;
+import net.minecraft.block.BlockOldLog;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -31,52 +34,48 @@ public class ItemDruidKnife extends Item {
     ItemStack stack = playerIn.getHeldItem(hand);
     Item itemToDrop = null;
     IBlockState blockState = worldIn.getBlockState(pos);
+
+    BlockPlanks.EnumType type = null;
     if (blockState.getBlock() == Blocks.LOG) {
-      switch (blockState.getBlock().getMetaFromState(blockState)) {
-        case 0:
-        case 4:
-        case 8:
-          itemToDrop = RegistryManager.oakTreeBark;
-        break;
-        case 1:
-        case 5:
-        case 9:
-          itemToDrop = RegistryManager.spruceTreeBark;
-        break;
-        case 2:
-        case 6:
-        case 10:
-          itemToDrop = RegistryManager.birchTreeBark;
-        break;
-        case 3:
-        case 7:
-        case 11:
-          itemToDrop = RegistryManager.jungleTreeBark;
-        break;
-      }
+      type = blockState.getValue(BlockOldLog.VARIANT);
     }
     else if (blockState.getBlock() == Blocks.LOG2) {
-      switch (blockState.getBlock().getMetaFromState(blockState)) {
-        case 0:
-        case 4:
-        case 8:
-          itemToDrop = RegistryManager.acaciaTreeBark;
-        break;
-        case 1:
-        case 5:
-        case 9:
-          itemToDrop = RegistryManager.darkOakTreeBark;
-        break;
-      }
+      type = blockState.getValue(BlockNewLog.VARIANT);
     }
+    if (type == null) {
+      return EnumActionResult.SUCCESS;
+    }
+    //its a log so it has a type  
+    switch (type) {
+      case ACACIA:
+        itemToDrop = RegistryManager.acaciaTreeBark;
+      break;
+      case BIRCH:
+        itemToDrop = RegistryManager.birchTreeBark;
+      break;
+      case DARK_OAK:
+        itemToDrop = RegistryManager.darkOakTreeBark;
+      break;
+      case JUNGLE:
+        itemToDrop = RegistryManager.jungleTreeBark;
+      break;
+      case OAK:
+        itemToDrop = RegistryManager.oakTreeBark;
+      break;
+      case SPRUCE:
+        itemToDrop = RegistryManager.spruceTreeBark;
+      break;
+      default:
+      break;
+    }
+
     if (itemToDrop != null) {
       playerIn.entityDropItem(new ItemStack(itemToDrop), 1.f);
       stack.damageItem(1, playerIn);
       if (worldIn.rand.nextDouble() < BLOCK_DESTROY_ODDS) {
         worldIn.destroyBlock(pos, false);
       }
-      return EnumActionResult.SUCCESS;
     }
-    return EnumActionResult.PASS;
+    return EnumActionResult.SUCCESS;
   }
 }
