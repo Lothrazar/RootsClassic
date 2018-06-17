@@ -33,6 +33,7 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
 
   public ItemCrystalStaff() {
     super();
+    this.setMaxStackSize(1);
   }
 
   @Override
@@ -88,11 +89,6 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
         }
       }
     }
-  }
-
-  @Override
-  public int getItemStackLimit() {
-    return 1;
   }
 
   @Override

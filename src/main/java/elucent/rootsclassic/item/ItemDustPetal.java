@@ -22,6 +22,7 @@ public class ItemDustPetal extends Item {
 
   public ItemDustPetal() {
     super();
+    this.setMaxStackSize(1);
 
   }
 
@@ -55,20 +56,17 @@ public class ItemDustPetal extends Item {
     stack.getTagCompound().setInteger("size", size);
   }
 
-  @Override
-  public int getItemStackLimit() {
-    return 1;
-  }
 
   @SideOnly(Side.CLIENT)
   @Override
   public void addInformation(ItemStack stack, World player, List<String> tooltip, net.minecraft.client.util.ITooltipFlag advanced) {
     if (stack.hasTagCompound()) {
-      ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
+      NBTTagCompound tags = stack.getTagCompound();
+      ComponentBase comp = ComponentManager.getComponentFromName(tags.getString("effect"));
       tooltip.add(TextFormatting.GOLD + I18n.format("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
-      tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("potency") + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
-      tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("efficiency") + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
-      tooltip.add(TextFormatting.RED + "  +" + stack.getTagCompound().getInteger("size") + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
+      tooltip.add(TextFormatting.RED + "  +" + tags.getInteger("potency") + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
+      tooltip.add(TextFormatting.RED + "  +" + tags.getInteger("efficiency") + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
+      tooltip.add(TextFormatting.RED + "  +" + tags.getInteger("size") + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
     }
   }
 

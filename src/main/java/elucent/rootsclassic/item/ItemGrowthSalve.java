@@ -10,6 +10,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class ItemGrowthSalve extends Item {
@@ -22,10 +23,11 @@ public class ItemGrowthSalve extends Item {
   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
     ItemStack stack = player.getHeldItem(hand);
     for (int i = 0; i < 40; i++) {
-      double velX = (player.getLookVec().x * 0.75) + 0.5 * (itemRand.nextDouble() - 0.5);
-      double velY = (player.getLookVec().y * 0.75) + 0.5 * (itemRand.nextDouble() - 0.5);
-      double velZ = (player.getLookVec().z * 0.75) + 0.5 * (itemRand.nextDouble() - 0.5);
-      Roots.proxy.spawnParticleMagicFX(world, player.posX + 0.5 * player.getLookVec().x, player.posY + 1.5 + 0.5 * player.getLookVec().y, player.posZ + 0.5 * player.getLookVec().z, velX, velY, velZ, 39, 232, 55);
+      Vec3d lookVec = player.getLookVec();
+      double velX = (lookVec.x * 0.75) + 0.5 * (itemRand.nextDouble() - 0.5);
+      double velY = (lookVec.y * 0.75) + 0.5 * (itemRand.nextDouble() - 0.5);
+      double velZ = (lookVec.z * 0.75) + 0.5 * (itemRand.nextDouble() - 0.5);
+      Roots.proxy.spawnParticleMagicFX(world, player.posX + 0.5 * lookVec.x, player.posY + 1.5 + 0.5 * lookVec.y, player.posZ + 0.5 * lookVec.z, velX, velY, velZ, 39, 232, 55);
     }
     BlockPos pos = Util.getRayTrace(world, player, 4);
     for (int i = -2; i < 3; i++) {

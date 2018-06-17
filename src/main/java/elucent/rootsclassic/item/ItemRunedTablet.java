@@ -14,11 +14,7 @@ public class ItemRunedTablet extends Item {
   public ItemRunedTablet() {
     super();
 
-  }
-
-  @Override
-  public int getItemStackLimit() {
-    return 1;
+    this.setMaxStackSize(1);
   }
 
   @Override

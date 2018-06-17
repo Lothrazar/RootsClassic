@@ -14,12 +14,10 @@ public class ItemRunicFocus extends Item implements IManaRelatedItem {
 
   public ItemRunicFocus() {
     super();
+
+    this.setMaxStackSize(1);
   }
 
-  @Override
-  public int getItemStackLimit() {
-    return 1;
-  }
 
   @Override
   public String getUnlocalizedName(ItemStack stack) {

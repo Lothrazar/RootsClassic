@@ -35,6 +35,7 @@ public class ItemStaff extends Item implements IManaRelatedItem {
 
   public ItemStaff() {
     super();
+    this.setMaxStackSize(1);
   }
 
   @Override
@@ -110,20 +111,16 @@ public class ItemStaff extends Item implements IManaRelatedItem {
     }
   }
 
-  @Override
-  public int getItemStackLimit() {
-    return 1;
-  }
 
   @Override
   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
     ItemStack stack = player.getHeldItem(hand);
     if (world.isRemote && Minecraft.getMinecraft().currentScreen != null) {
-      return new ActionResult(EnumActionResult.FAIL, stack);
+      return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
     }
     else {
       player.setActiveHand(hand);
-      return new ActionResult(EnumActionResult.PASS, stack);
+      return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
     }
   }
 

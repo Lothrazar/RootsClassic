@@ -10,12 +10,10 @@ public class ItemRootyStew extends ItemFood {
 
   public ItemRootyStew() {
     super(7, 1.0F, false);
+
+    this.setMaxStackSize(1);
   }
 
-  @Override
-  public int getItemStackLimit() {
-    return 1;
-  }
 
   @Override
   public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {

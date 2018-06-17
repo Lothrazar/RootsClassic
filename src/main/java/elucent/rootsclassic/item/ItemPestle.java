@@ -7,6 +7,7 @@ public class ItemPestle extends Item {
 
   public ItemPestle() {
     super();
+    this.setMaxStackSize(1);
   }
 
   @Override
@@ -19,8 +20,4 @@ public class ItemPestle extends Item {
     return true;
   }
 
-  @Override
-  public int getItemStackLimit() {
-    return 1;
-  }
 }
