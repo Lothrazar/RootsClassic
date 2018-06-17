@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.Util;
+import elucent.rootsclassic.capability.IManaCapability;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentManager;
@@ -23,6 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -31,6 +33,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemStaff extends Item implements IManaRelatedItem {
 
+  private static final double RANGE = 3.0;
+  private static final double SIZE_PER_LEVEL = 2.0;
+  private static final double SIZE_BASE = 3.0;
   Random random = new Random();
 
   public ItemStaff() {
@@ -67,42 +72,44 @@ public class ItemStaff extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft) {
+  public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase caster, int timeLeft) {
     if (timeLeft < (72000 - 12)) {
       if (stack.hasTagCompound()) {
-        if (stack.getTagCompound().getInteger("uses") >= 0) {
+        if (stack.getTagCompound().getInteger("uses") >= 0 && caster.hasCapability(RootsCapabilityManager.manaCapability, null)) {
           stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
           ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString("effect"));
           int potency = stack.getTagCompound().getInteger("potency");
           int efficiency = stack.getTagCompound().getInteger("efficiency");
           int size = stack.getTagCompound().getInteger("size");
-          if (((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null
-              && ((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null
-              && ((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.LEGS) != null
-              && ((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.FEET) != null) {
-            if (((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemDruidRobes
-                && ((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemDruidRobes
-                && ((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemDruidRobes
-                && ((EntityPlayer) player).getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemDruidRobes) {
-              potency += 1;
-            }
+          EntityPlayer player = (EntityPlayer) caster;
+          if (player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemDruidRobes
+              && player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemDruidRobes
+              && player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemDruidRobes
+              && player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemDruidRobes) {
+            potency += 1;
           }
-          if (((EntityPlayer) player).hasCapability(RootsCapabilityManager.manaCapability, null) && ((EntityPlayer) player).getCapability(RootsCapabilityManager.manaCapability, null).getMana() >= ((float) comp.getManaCost()) / (efficiency + 1)) {
-            ((EntityPlayer) player).getCapability(RootsCapabilityManager.manaCapability, null).setMana(((EntityPlayer) player).getCapability(RootsCapabilityManager.manaCapability, null).getMana() - (((float) comp.getManaCost()) / (efficiency + 1)));
-            comp.doEffect(world, player, EnumCastType.SPELL, player.posX + 3.0 * player.getLookVec().x, player.posY + 3.0 * player.getLookVec().y, player.posZ + 3.0 * player.getLookVec().z, potency, efficiency, 3.0 + 2.0 * size);
+          IManaCapability manaCap = player.getCapability(RootsCapabilityManager.manaCapability, null);
+          if (manaCap.getMana() >= ((float) comp.getManaCost()) / (efficiency + 1)) {
+            manaCap.setMana(manaCap.getMana() - (((float) comp.getManaCost()) / (efficiency + 1)));
+            Vec3d lookVec = caster.getLookVec();
+            comp.doEffect(world, caster, EnumCastType.SPELL,
+                caster.posX + RANGE * lookVec.x,
+                caster.posY + RANGE * lookVec.y,
+                caster.posZ + RANGE * lookVec.z, potency, efficiency,
+                SIZE_BASE + SIZE_PER_LEVEL * size);
             for (int i = 0; i < 90; i++) {
-              double offX = random.nextFloat() * 0.5 - 0.25;
-              double offY = random.nextFloat() * 0.5 - 0.25;
-              double offZ = random.nextFloat() * 0.5 - 0.25;
+              double offX = world.rand.nextFloat() * 0.5 - 0.25;
+              double offY = world.rand.nextFloat() * 0.5 - 0.25;
+              double offZ = world.rand.nextFloat() * 0.5 - 0.25;
               double coeff = (offX + offY + offZ) / 1.5 + 0.5;
-              double dx = (player.getLookVec().x + offX) * coeff;
-              double dy = (player.getLookVec().y + offY) * coeff;
-              double dz = (player.getLookVec().z + offZ) * coeff;
-              if (random.nextBoolean()) {
-                Roots.proxy.spawnParticleMagicFX(world, player.posX + dx, player.posY + 1.5 + dy, player.posZ + dz, dx, dy, dz, comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z);
+              double dx = (lookVec.x + offX) * coeff;
+              double dy = (lookVec.y + offY) * coeff;
+              double dz = (lookVec.z + offZ) * coeff;
+              if (world.rand.nextBoolean()) {
+                Roots.proxy.spawnParticleMagicFX(world, caster.posX + dx, caster.posY + 1.5 + dy, caster.posZ + dz, dx, dy, dz, comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z);
               }
               else {
-                Roots.proxy.spawnParticleMagicFX(world, player.posX + dx, player.posY + 1.5 + dy, player.posZ + dz, dx, dy, dz, comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z);
+                Roots.proxy.spawnParticleMagicFX(world, caster.posX + dx, caster.posY + 1.5 + dy, caster.posZ + dz, dx, dy, dz, comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z);
               }
             }
           }
@@ -110,7 +117,6 @@ public class ItemStaff extends Item implements IManaRelatedItem {
       }
     }
   }
-
 
   @Override
   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {

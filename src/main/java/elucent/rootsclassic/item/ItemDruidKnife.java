@@ -17,8 +17,7 @@ import net.minecraft.world.World;
 
 public class ItemDruidKnife extends Item {
 
-  // TODO: config
-  private static final double BLOCK_DESTROY_ODDS = 0.3;
+  public static double BLOCK_DESTROY_ODDS = 0.3;
 
   public ItemDruidKnife() {
     super();

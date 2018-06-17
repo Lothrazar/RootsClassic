@@ -1,6 +1,7 @@
 package elucent.rootsclassic.config;
 
 import elucent.rootsclassic.Const;
+import elucent.rootsclassic.item.ItemDruidKnife;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
@@ -35,6 +36,7 @@ public class ConfigManager {
     infernalStemDropChance = config.getInt("infernalBulbDropChance", category, 20, 0, 32767, "Infernal Bulbs will drop from nether wart with a 1/infernalBulbDropChance probability.");
     dragonsEyeDropChance = config.getInt("dragonsEyeDropChance", category, 10, 0, 32767, "Dragon's Eyes will drop from chorus flowers with a 1/dragonsEyeDropChance probability.");
     berriesDropChance = config.getInt("berriesDropChance", category, 25, 0, 32767, "Berries will drop from oak leaves with a 1/berriesDropChance probability.");
+    ItemDruidKnife.BLOCK_DESTROY_ODDS = config.getFloat("barkKnifeBlockDestroyChance", category, 0.3F, 0.1F, 1.0F, "Chance that the bark knife will destroy the log, 1 is always destroy on first harvest. ");
     category = Const.MODID + ".magic";
     chargeTicks = config.getInt("staffChargeTicks", category, 20, 1, 32767, "The number of ticks required to prepare a spell with a staff.");
     staffUses = config.getInt("staffUses", category, 65, 0, 32767, "The number of uses an unmodified staff will have upon being crafted.");

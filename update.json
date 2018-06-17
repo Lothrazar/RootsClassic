@@ -7,6 +7,6 @@
   "1.12.2":{
 	"1.0.0":"Initial Release"
 	,"1.0.1":"Clicking a Mortar recipe now displays it in chat as a helpful reminder.  Fixed particle transparency.  Added forge update checker hook.  Added in-game Config GUI setup; 1.0.0 config file is no longer compatible, (suggested you delete config from 1.0.0 to avoid duplicate entries.  This will not happen again in future releases).  Added tooltips to a few items.   Casting Altar now correctly triggers from player sneak-activating, and gives warning message if ritual invalid.  Fixed some berries not having a use.  Living tools now use gold nugget instead of ingot.  Berries now drop from all six vanilla tree leaves not just oak.  "
-  	,"1.0.2":"Infernal bulbs no longer get eaten when used on a skeleton.  Removed restriction of Crystal Staff only working on vanilla grass blocks.   "
+  	,"1.0.2":"Infernal bulbs no longer get eaten when used on a skeleton.  Removed restriction of Crystal Staff only working on vanilla grass blocks.   More config controls added.    "
   }
 }
