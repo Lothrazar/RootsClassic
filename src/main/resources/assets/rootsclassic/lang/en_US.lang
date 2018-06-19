@@ -497,4 +497,4 @@ tile.standingstonet1.guide=Basic ritual stone, used to create ritual patterns as
 
 roots.mortar.invalid=Recipe invalid; verify items and order
 
-entity.skeleton_frozen.name=Phantom Skeleton
+entity.skeleton_phantom.name=Phantom Skeleton

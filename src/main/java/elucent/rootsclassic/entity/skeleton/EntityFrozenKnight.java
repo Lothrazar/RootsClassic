@@ -27,7 +27,7 @@ import net.minecraftforge.common.util.FakePlayer;
 
 public class EntityFrozenKnight extends EntitySkeleton {
 
-  public static final String NAME = "skeleton_frozen";
+  public static final String NAME = "skeleton_phantom";
   public static boolean appliesSlowPotion = true;
 
   public EntityFrozenKnight(World world) {
