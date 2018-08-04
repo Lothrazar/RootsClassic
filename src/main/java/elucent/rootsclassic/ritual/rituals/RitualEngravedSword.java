@@ -31,7 +31,7 @@ public class RitualEngravedSword extends RitualBase {
     for (ItemStack i : incenses) {
       items.add(i.getItem());
     }
-    if (Util.itemListsMatchWithSize(inventory, this.ingredients)) {
+    if (Util.itemListsMatchWithSize(inventory, this.getIngredients())) {
       ItemStack toSpawn = result.copy();
       if (!world.isRemote) {
         int mods = 0;

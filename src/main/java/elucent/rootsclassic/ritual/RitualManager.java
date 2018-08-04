@@ -2,6 +2,7 @@ package elucent.rootsclassic.ritual;
 
 import java.util.ArrayList;
 import elucent.rootsclassic.RegistryManager;
+import elucent.rootsclassic.Util;
 import elucent.rootsclassic.ritual.rituals.RitualCauseRain;
 import elucent.rootsclassic.ritual.rituals.RitualCrafting;
 import elucent.rootsclassic.ritual.rituals.RitualEngravedSword;
@@ -36,8 +37,20 @@ public class RitualManager {
 
   public static ArrayList<RitualBase> rituals = new ArrayList<RitualBase>();
 
+  public static void addRitual(RitualBase ritual) {
+    //make sure its unique
+    for (RitualBase existing : rituals) {
+      //ingredients must be unique 
+      if (Util.itemListsMatch(ritual.getIngredients(), existing.getIngredients())) {
+        throw new IllegalArgumentException("Duplicate ingredients are not allowed for incoming ritual : " + ritual.getName()
+            + " and existing ritual " + existing.getName());
+      }
+    }
+    rituals.add(ritual);
+  }
+
   public static void init() {
-    rituals.add(new RitualCrafting("staffCrafting", 205, 86, 0)
+    addRitual(new RitualCrafting("staffCrafting", 205, 86, 0)
         .setResult(new ItemStack(RegistryManager.crystalStaff, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -54,7 +67,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Blocks.DIAMOND_BLOCK, 1))
         .addIngredient(new ItemStack(Items.STICK, 1))
         .addIngredient(new ItemStack(Items.BLAZE_POWDER, 1)));
-    rituals.add(new RitualCrafting("sylvanHoodCrafting", 62, 138, 62)
+    addRitual(new RitualCrafting("sylvanHoodCrafting", 62, 138, 62)
         .setResult(new ItemStack(RegistryManager.druidRobesHead, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -75,7 +88,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.DIAMOND, 1))
         .addIngredient(new ItemStack(Items.LEATHER_HELMET, 1))
         .addIngredient(new ItemStack(Blocks.VINE, 1)));
-    rituals.add(new RitualCrafting("sylvanChestCrafting", 62, 138, 62)
+    addRitual(new RitualCrafting("sylvanChestCrafting", 62, 138, 62)
         .setResult(new ItemStack(RegistryManager.druidRobesChest, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -96,7 +109,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.DIAMOND, 1))
         .addIngredient(new ItemStack(Items.LEATHER_CHESTPLATE, 1))
         .addIngredient(new ItemStack(Blocks.VINE, 1)));
-    rituals.add(new RitualCrafting("sylvanLegsCrafting", 62, 138, 62)
+    addRitual(new RitualCrafting("sylvanLegsCrafting", 62, 138, 62)
         .setResult(new ItemStack(RegistryManager.druidRobesLegs, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -117,7 +130,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.DIAMOND, 1))
         .addIngredient(new ItemStack(Items.LEATHER_LEGGINGS, 1))
         .addIngredient(new ItemStack(Blocks.VINE, 1)));
-    rituals.add(new RitualCrafting("sylvanBootsCrafting", 62, 138, 62)
+    addRitual(new RitualCrafting("sylvanBootsCrafting", 62, 138, 62)
         .setResult(new ItemStack(RegistryManager.druidRobesBoots, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -138,7 +151,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.DIAMOND, 1))
         .addIngredient(new ItemStack(Items.LEATHER_BOOTS, 1))
         .addIngredient(new ItemStack(Blocks.VINE, 1)));
-    rituals.add(new RitualCrafting("wildwoodHeadCrafting", 145, 115, 65)
+    addRitual(new RitualCrafting("wildwoodHeadCrafting", 145, 115, 65)
         .setResult(new ItemStack(RegistryManager.druidArmorHead, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -159,7 +172,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.DIAMOND, 1))
         .addIngredient(new ItemStack(Items.IRON_HELMET, 1))
         .addIngredient(new ItemStack(Blocks.PLANKS, 1, 0)));
-    rituals.add(new RitualCrafting("wildwoodChestCrafting", 145, 115, 65)
+    addRitual(new RitualCrafting("wildwoodChestCrafting", 145, 115, 65)
         .setResult(new ItemStack(RegistryManager.druidArmorChest, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -180,7 +193,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.DIAMOND, 1))
         .addIngredient(new ItemStack(Items.IRON_CHESTPLATE, 1))
         .addIngredient(new ItemStack(Blocks.PLANKS, 1)));
-    rituals.add(new RitualCrafting("wildwoodLegsCrafting", 145, 115, 65)
+    addRitual(new RitualCrafting("wildwoodLegsCrafting", 145, 115, 65)
         .setResult(new ItemStack(RegistryManager.druidArmorLegs, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -201,7 +214,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.DIAMOND, 1))
         .addIngredient(new ItemStack(Items.IRON_LEGGINGS, 1))
         .addIngredient(new ItemStack(Blocks.PLANKS, 1)));
-    rituals.add(new RitualCrafting("wildwoodBootsCrafting", 145, 115, 65)
+    addRitual(new RitualCrafting("wildwoodBootsCrafting", 145, 115, 65)
         .setResult(new ItemStack(RegistryManager.druidArmorBoots, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -222,7 +235,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.DIAMOND, 1))
         .addIngredient(new ItemStack(Items.IRON_BOOTS, 1))
         .addIngredient(new ItemStack(Blocks.PLANKS, 1)));
-    rituals.add(new RitualCrafting("acceleratorStoneCrafting", 0, 105, 73)
+    addRitual(new RitualCrafting("acceleratorStoneCrafting", 0, 105, 73)
         .setResult(new ItemStack(RegistryManager.standingStoneAccelerator, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -242,8 +255,8 @@ public class RitualManager {
         .addIncense(new ItemStack(RegistryManager.jungleTreeBark, 1, 0))
         .addIngredient(new ItemStack(RegistryManager.standingStoneT2, 1))
         .addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1))
-        .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 3)));
-    rituals.add(new RitualCrafting("standingStone", 0, 105, 73)
+        .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 0)));
+    addRitual(new RitualCrafting("standingStone", 0, 105, 73)
         .setResult(new ItemStack(RegistryManager.standingStoneAesthetic, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -259,8 +272,8 @@ public class RitualManager {
         .addBlock(RegistryManager.standingStoneT2, 0, 1, -5)
         .addIngredient(new ItemStack(RegistryManager.standingStoneT2, 1))
         .addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1))
-        .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 3)));
-    rituals.add(new RitualCrafting("entanglerStoneCrafting", 0, 105, 73)
+        .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 1)));
+    addRitual(new RitualCrafting("entanglerStoneCrafting", 0, 105, 73)
         .setResult(new ItemStack(RegistryManager.standingStoneEntangler, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -280,8 +293,8 @@ public class RitualManager {
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1, 0))
         .addIngredient(new ItemStack(RegistryManager.standingStoneT2, 1))
         .addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1))
-        .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 3)));
-    rituals.add(new RitualCrafting("growerStoneCrafting", 0, 105, 73)
+        .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 2)));
+    addRitual(new RitualCrafting("growerStoneCrafting", 0, 105, 73)
         .setResult(new ItemStack(RegistryManager.standingStoneGrower, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -301,8 +314,8 @@ public class RitualManager {
         .addIncense(new ItemStack(RegistryManager.birchTreeBark, 1, 0))
         .addIngredient(new ItemStack(RegistryManager.standingStoneT2, 1))
         .addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1))
-        .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 3)));
-    rituals.add(new RitualCrafting("healerStoneCrafting", 0, 105, 73)
+        .addIngredient(new ItemStack(Blocks.STONE, 1, 0)));
+    addRitual(new RitualCrafting("healerStoneCrafting", 0, 105, 73)
         .setResult(new ItemStack(RegistryManager.standingStoneHealer, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -321,9 +334,9 @@ public class RitualManager {
         .addIncense(new ItemStack(Items.WHEAT, 1))
         .addIncense(new ItemStack(Items.GHAST_TEAR, 1, 0))
         .addIngredient(new ItemStack(RegistryManager.standingStoneT2, 1))
-        .addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1))
+        .addIngredient(new ItemStack(Items.REDSTONE, 1))
         .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 3)));
-    rituals.add(new RitualCrafting("igniterStoneCrafting", 0, 105, 73)
+    addRitual(new RitualCrafting("igniterStoneCrafting", 0, 105, 73)
         .setResult(new ItemStack(RegistryManager.standingStoneIgniter, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -342,9 +355,9 @@ public class RitualManager {
         .addIncense(new ItemStack(Items.WHEAT, 1))
         .addIncense(new ItemStack(RegistryManager.acaciaTreeBark, 1, 0))
         .addIngredient(new ItemStack(RegistryManager.standingStoneT2, 1))
-        .addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1))
-        .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 3)));
-    rituals.add(new RitualCrafting("repulsorStoneCrafting", 0, 105, 73)
+        .addIngredient(new ItemStack(Items.REDSTONE, 1))
+        .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 2)));
+    addRitual(new RitualCrafting("repulsorStoneCrafting", 0, 105, 73)
         .setResult(new ItemStack(RegistryManager.standingStoneRepulsor, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -365,7 +378,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(RegistryManager.standingStoneT2, 1))
         .addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1))
         .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 3)));
-    rituals.add(new RitualCrafting("vacuumStoneCrafting", 0, 105, 73)
+    addRitual(new RitualCrafting("vacuumStoneCrafting", 0, 105, 73)
         .setResult(new ItemStack(RegistryManager.standingStoneVacuum, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -385,8 +398,8 @@ public class RitualManager {
         .addIncense(new ItemStack(RegistryManager.darkOakTreeBark, 1, 0))
         .addIngredient(new ItemStack(RegistryManager.standingStoneT2, 1))
         .addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1))
-        .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 3)));
-    rituals.add(new RitualCrafting("runicFocusCrafting", 109, 242, 109)
+        .addIngredient(new ItemStack(Blocks.STONE, 1, 3)));
+    addRitual(new RitualCrafting("runicFocusCrafting", 109, 242, 109)
         .setResult(new ItemStack(RegistryManager.runicFocus, 1, 0))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -407,49 +420,49 @@ public class RitualManager {
         .addIngredient(new ItemStack(RegistryManager.verdantSprig, 1))
         .addIngredient(new ItemStack(Items.DIAMOND, 1))
         .addIngredient(new ItemStack(Blocks.STONE, 1)));
-    rituals.add(new RitualCrafting("runicFocusCharging", 109, 242, 109)
+    addRitual(new RitualCrafting("runicFocusCharging", 109, 242, 109)
         .setResult(new ItemStack(RegistryManager.runicFocus, 1, 1))
         .addIncense(new ItemStack(RegistryManager.infernalStem, 1))
         .addIncense(new ItemStack(Items.WHEAT, 1))
         .addIngredient(new ItemStack(RegistryManager.runicFocus, 1, 0))
         .addIngredient(new ItemStack(Items.REDSTONE, 1))
         .addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1)));
-    rituals.add(new RitualCrafting("livingPickaxeCrafting", 146, 214, 43)
+    addRitual(new RitualCrafting("livingPickaxeCrafting", 146, 214, 43)
         .setResult(new ItemStack(RegistryManager.livingPickaxe, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIngredient(new ItemStack(Items.WOODEN_PICKAXE, 1))
         .addIngredient(new ItemStack(RegistryManager.verdantSprig, 1))
         .addIngredient(new ItemStack(Items.GOLD_NUGGET)));
-    rituals.add(new RitualCrafting("livingAxeCrafting", 146, 214, 43)
+    addRitual(new RitualCrafting("livingAxeCrafting", 146, 214, 43)
         .setResult(new ItemStack(RegistryManager.livingAxe, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIngredient(new ItemStack(Items.WOODEN_AXE, 1))
         .addIngredient(new ItemStack(RegistryManager.verdantSprig, 1))
         .addIngredient(new ItemStack(Items.GOLD_NUGGET, 1)));
-    rituals.add(new RitualCrafting("livingSwordCrafting", 146, 214, 43)
+    addRitual(new RitualCrafting("livingSwordCrafting", 146, 214, 43)
         .setResult(new ItemStack(RegistryManager.livingSword, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIngredient(new ItemStack(Items.WOODEN_SWORD, 1))
         .addIngredient(new ItemStack(RegistryManager.verdantSprig, 1))
         .addIngredient(new ItemStack(Items.GOLD_NUGGET, 1)));
-    rituals.add(new RitualCrafting("livingHoeCrafting", 146, 214, 43)
+    addRitual(new RitualCrafting("livingHoeCrafting", 146, 214, 43)
         .setResult(new ItemStack(RegistryManager.livingHoe, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIngredient(new ItemStack(Items.WOODEN_HOE, 1))
         .addIngredient(new ItemStack(RegistryManager.verdantSprig, 1))
         .addIngredient(new ItemStack(Items.GOLD_NUGGET, 1)));
-    rituals.add(new RitualCrafting("livingShovelCrafting", 146, 214, 43)
+    addRitual(new RitualCrafting("livingShovelCrafting", 146, 214, 43)
         .setResult(new ItemStack(RegistryManager.livingShovel, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIncense(new ItemStack(RegistryManager.oakTreeBark, 1))
         .addIngredient(new ItemStack(Items.WOODEN_SHOVEL, 1))
         .addIngredient(new ItemStack(RegistryManager.verdantSprig, 1))
         .addIngredient(new ItemStack(Items.GOLD_NUGGET, 1)));
-    rituals.add(new RitualCauseRain("causerain", 23, 0, 138)
+    addRitual(new RitualCauseRain("causerain", 23, 0, 138)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
         .addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
@@ -461,7 +474,7 @@ public class RitualManager {
         .addIncense(new ItemStack(Blocks.VINE, 1))
         .addIncense(new ItemStack(RegistryManager.oldRoot, 1))
         .addIngredient(new ItemStack(Blocks.WATERLILY, 1)));
-    rituals.add(new RitualCauseRain("banishrain", 204, 159, 35)
+    addRitual(new RitualCauseRain("banishrain", 204, 159, 35)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
         .addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
@@ -473,7 +486,7 @@ public class RitualManager {
         .addIncense(new ItemStack(Blocks.VINE, 1))
         .addIncense(new ItemStack(RegistryManager.oldRoot, 1))
         .addIngredient(new ItemStack(Items.WHEAT, 1)));
-    rituals.add(new RitualMassBreed("massbreeding", 148, 61, 81)
+    addRitual(new RitualMassBreed("massbreeding", 148, 61, 81)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
         .addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
@@ -490,8 +503,9 @@ public class RitualManager {
         .addIncense(new ItemStack(Items.WHEAT, 1))
         .addIncense(new ItemStack(Items.WHEAT_SEEDS, 1))
         .addIncense(new ItemStack(Items.FISH, 1))
-        .addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1)));
-    rituals.add(new RitualLifeDrain("lifedrain", 139, 22, 40)
+        .addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1))
+        .addIngredient(new ItemStack(Items.BONE)));
+    addRitual(new RitualLifeDrain("lifedrain", 139, 22, 40)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
         .addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
@@ -508,8 +522,9 @@ public class RitualManager {
         .addIncense(new ItemStack(Items.WOODEN_AXE, 1))
         .addIncense(new ItemStack(RegistryManager.darkOakTreeBark, 1))
         .addIncense(new ItemStack(RegistryManager.birchTreeBark, 1))
-        .addIngredient(new ItemStack(Items.BLAZE_POWDER, 1)));
-    rituals.add(new RitualImbuer()
+        .addIngredient(new ItemStack(Items.BLAZE_POWDER, 1))
+        .addIngredient(new ItemStack(Items.BONE, 1)));
+    addRitual(new RitualImbuer()
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
         .addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
@@ -520,7 +535,7 @@ public class RitualManager {
         .addBlock(RegistryManager.standingStoneT1, 0, 0, -3)
         .addIngredient(new ItemStack(RegistryManager.crystalStaff, 1))
         .addIngredient(new ItemStack(RegistryManager.verdantSprig, 1)));
-    rituals.add(new RitualSummoning("cowSummoning", 199, 105, 193)
+    addRitual(new RitualSummoning("cowSummoning", 199, 105, 193)
         .setResult(EntityCow.class)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -535,7 +550,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.BEEF, 1))
         .addIngredient(new ItemStack(Items.LEATHER, 1))
         .addIngredient(new ItemStack(Items.BONE, 1)));
-    rituals.add(new RitualSummoning("pigSummoning", 199, 105, 193)
+    addRitual(new RitualSummoning("pigSummoning", 199, 105, 193)
         .setResult(EntityPig.class)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -550,7 +565,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.PORKCHOP, 1))
         .addIngredient(new ItemStack(Items.PORKCHOP, 1))
         .addIngredient(new ItemStack(Items.BONE, 1)));
-    rituals.add(new RitualSummoning("sheepSummoning", 199, 105, 193)
+    addRitual(new RitualSummoning("sheepSummoning", 199, 105, 193)
         .setResult(EntitySheep.class)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -565,7 +580,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.MUTTON, 1))
         .addIngredient(new ItemStack(Blocks.WOOL, 1))
         .addIngredient(new ItemStack(Items.BONE, 1)));
-    rituals.add(new RitualSummoning("chickenSummoning", 199, 105, 193)
+    addRitual(new RitualSummoning("chickenSummoning", 199, 105, 193)
         .setResult(EntityChicken.class)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -580,7 +595,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.CHICKEN, 1))
         .addIngredient(new ItemStack(Items.FEATHER, 1))
         .addIngredient(new ItemStack(Items.BONE, 1)));
-    rituals.add(new RitualSummoning("rabbitSummoning", 199, 105, 193)
+    addRitual(new RitualSummoning("rabbitSummoning", 199, 105, 193)
         .setResult(EntityRabbit.class)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -595,7 +610,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.RABBIT, 1))
         .addIngredient(new ItemStack(Items.RABBIT_HIDE, 1))
         .addIngredient(new ItemStack(Items.BONE, 1)));
-    rituals.add(new RitualSummoning("zombieSummoning", 58, 2, 84)
+    addRitual(new RitualSummoning("zombieSummoning", 58, 2, 84)
         .setResult(EntityZombie.class)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -614,7 +629,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.ROTTEN_FLESH, 1))
         .addIngredient(new ItemStack(Items.ROTTEN_FLESH, 1))
         .addIngredient(new ItemStack(Items.BONE, 1)));
-    rituals.add(new RitualSummoning("skeletonSummoning", 58, 2, 84)
+    addRitual(new RitualSummoning("skeletonSummoning", 58, 2, 84)
         .setResult(EntitySkeleton.class)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -633,7 +648,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.ARROW, 1))
         .addIngredient(new ItemStack(Items.BONE, 1))
         .addIngredient(new ItemStack(Items.BONE, 1)));
-    rituals.add(new RitualSummoning("spiderSummoning", 58, 2, 84)
+    addRitual(new RitualSummoning("spiderSummoning", 58, 2, 84)
         .setResult(EntitySpider.class)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -652,7 +667,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.STRING, 1))
         .addIngredient(new ItemStack(Items.SPIDER_EYE, 1))
         .addIngredient(new ItemStack(Items.BONE, 1)));
-    rituals.add(new RitualSummoning("caveSpiderSummoning", 58, 2, 84)
+    addRitual(new RitualSummoning("caveSpiderSummoning", 58, 2, 84)
         .setResult(EntityCaveSpider.class)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -671,7 +686,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.STRING, 1))
         .addIngredient(new ItemStack(Items.FERMENTED_SPIDER_EYE, 1))
         .addIngredient(new ItemStack(Items.BONE, 1)));
-    rituals.add(new RitualSummoning("slimeSummoning", 58, 2, 84)
+    addRitual(new RitualSummoning("slimeSummoning", 58, 2, 84)
         .setResult(EntitySlime.class)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -690,7 +705,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.SLIME_BALL, 1))
         .addIngredient(new ItemStack(Items.SLIME_BALL, 1))
         .addIngredient(new ItemStack(Items.SLIME_BALL, 1)));
-    rituals.add(new RitualSummoning("creeperSummoning", 58, 2, 84)
+    addRitual(new RitualSummoning("creeperSummoning", 58, 2, 84)
         .setResult(EntityCreeper.class)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -709,7 +724,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.GUNPOWDER, 1))
         .addIngredient(new ItemStack(Items.GUNPOWDER, 1))
         .addIngredient(new ItemStack(Items.BONE, 1)));
-    rituals.add(new RitualSummoning("endermanSummoning", 58, 2, 84)
+    addRitual(new RitualSummoning("endermanSummoning", 58, 2, 84)
         .setResult(EntityEnderman.class)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -728,7 +743,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.ENDER_PEARL, 1))
         .addIngredient(new ItemStack(Items.ENDER_PEARL, 1))
         .addIngredient(new ItemStack(Items.BONE, 1)));
-    rituals.add(new RitualSacrifice("sacrifice", 94, 9, 56)
+    addRitual(new RitualSacrifice("sacrifice", 94, 9, 56)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
         .addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
@@ -746,7 +761,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.FLINT, 1))
         .addIngredient(new ItemStack(Items.IRON_SWORD, 1))
         .addIngredient(new ItemStack(Items.BONE, 1)));
-    rituals.add(new RitualFlare("flare", 255, 91, 25)
+    addRitual(new RitualFlare("flare", 255, 91, 25)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
         .addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
@@ -760,7 +775,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.FLINT, 1))
         .addIngredient(new ItemStack(Items.COAL, 1))
         .addIngredient(new ItemStack(Items.COAL, 1, 1)));
-    rituals.add(new RitualGrow("grow", 82, 212, 47)
+    addRitual(new RitualGrow("grow", 82, 212, 47)
         .addIncense(new ItemStack(Items.WHEAT, 1))
         .addIncense(new ItemStack(Items.BEETROOT, 1))
         .addIncense(new ItemStack(Items.POTATO, 1))
@@ -768,7 +783,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.REDSTONE, 1))
         .addIngredient(new ItemStack(Items.DYE, 1, 15))
         .addIngredient(new ItemStack(RegistryManager.verdantSprig, 1)));
-    rituals.add(new RitualEngravedSword("engravedCrafting", 104, 106, 107)
+    addRitual(new RitualEngravedSword("engravedCrafting", 104, 106, 107)
         .setResult(new ItemStack(RegistryManager.engravedSword))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
@@ -787,7 +802,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.STONE_SWORD))
         .addIngredient(new ItemStack(RegistryManager.runicFocus))
         .addIngredient(new ItemStack(Items.GLOWSTONE_DUST)));
-    rituals.add(new RitualTimeShift("timeshift", 240, 245, 88, 252, 162, 35)
+    addRitual(new RitualTimeShift("timeshift", 240, 245, 88, 252, 162, 35)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
         .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
         .addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
@@ -802,7 +817,7 @@ public class RitualManager {
 
   public static RitualBase getRitualFromName(String name) {
     for (int i = 0; i < rituals.size(); i++) {
-      if (rituals.get(i).name == name) {
+      if (rituals.get(i).getName() == name) {
         return rituals.get(i);
       }
     }

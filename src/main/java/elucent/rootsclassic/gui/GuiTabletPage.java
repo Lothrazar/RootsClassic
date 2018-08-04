@@ -220,35 +220,35 @@ public class GuiTabletPage extends GuiScreen {
       case TYPE_ALTAR:
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletAltar);
         this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
-        for (int i = 0; i < page.altarRecipe.blocks.size(); i++) {
+        for (int i = 0; i < page.altarRecipe.getBlocks().size(); i++) {
           Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletAltar);
           int u = 192;
           int v = 240;
           int xShift = 0;
           int yShift = 0;
           this.drawTexturedModalRect(basePosX + 93, basePosY + 153, 192, 32, 16, 16);
-          if (page.altarRecipe.blocks.get(i) == RegistryManager.standingStoneT1) {
+          if (page.altarRecipe.getBlocks().get(i) == RegistryManager.standingStoneT1) {
             u = 192;
             v = 48;
-            xShift = 8 * page.altarRecipe.positions.get(i).getX();
-            yShift = 8 * page.altarRecipe.positions.get(i).getZ();
+            xShift = 8 * page.altarRecipe.getPositionsRelative().get(i).getX();
+            yShift = 8 * page.altarRecipe.getPositionsRelative().get(i).getZ();
           }
-          if (page.altarRecipe.blocks.get(i) == RegistryManager.standingStoneT2) {
+          if (page.altarRecipe.getBlocks().get(i) == RegistryManager.standingStoneT2) {
             u = 192;
             v = 64;
-            xShift = 8 * page.altarRecipe.positions.get(i).getX();
-            yShift = 8 * page.altarRecipe.positions.get(i).getZ();
+            xShift = 8 * page.altarRecipe.getPositionsRelative().get(i).getX();
+            yShift = 8 * page.altarRecipe.getPositionsRelative().get(i).getZ();
           }
           this.drawTexturedModalRect(basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16);
         }
-        for (int i = 0; i < page.altarRecipe.ingredients.size(); i++) {
-          if (page.altarRecipe.ingredients.get(i) != null) {
-            this.itemRender.renderItemIntoGUI(page.altarRecipe.ingredients.get(i), (int) basePosX + 64 + 24 * i, (int) basePosY + 56);
+        for (int i = 0; i < page.altarRecipe.getIngredients().size(); i++) {
+          if (page.altarRecipe.getIngredients().get(i) != null) {
+            this.itemRender.renderItemIntoGUI(page.altarRecipe.getIngredients().get(i), (int) basePosX + 64 + 24 * i, (int) basePosY + 56);
           }
         }
-        for (int i = 0; i < page.altarRecipe.incenses.size(); i++) {
-          if (page.altarRecipe.incenses.get(i) != null) {
-            this.itemRender.renderItemIntoGUI(page.altarRecipe.incenses.get(i), (int) basePosX + 76 + 16 * i, (int) basePosY + 88);
+        for (int i = 0; i < page.altarRecipe.getIncenses().size(); i++) {
+          if (page.altarRecipe.getIncenses().get(i) != null) {
+            this.itemRender.renderItemIntoGUI(page.altarRecipe.getIncenses().get(i), (int) basePosX + 76 + 16 * i, (int) basePosY + 88);
           }
         }
         title = makeTitle();
