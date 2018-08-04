@@ -498,3 +498,12 @@ tile.standingstonet1.guide=Basic ritual stone, used to create ritual patterns as
 roots.mortar.invalid=Recipe invalid; verify items and order
 
 entity.skeleton_phantom.name=Phantom Skeleton
+
+brazier.burning.added=Item added
+brazier.burning.empty=Empty
+brazier.burning.off=Not Burning
+brazier.burning.on=Brazier is now burning
+
+
+
+

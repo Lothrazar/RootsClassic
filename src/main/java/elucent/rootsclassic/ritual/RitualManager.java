@@ -816,8 +816,8 @@ public class RitualManager {
         if (world.getBlockState(pos.add(i, 0, j)).getBlock() == RegistryManager.brazier) {
           if (world.getTileEntity(pos.add(i, 0, j)) != null) {
             TileEntityBrazier teb = (TileEntityBrazier) world.getTileEntity(pos.add(i, 0, j));
-            if (teb.burning) {
-              test.add(teb.heldItem);
+            if (teb.isBurning()) {
+              test.add(teb.getHeldItem());
             }
           }
         }

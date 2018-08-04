@@ -12,13 +12,13 @@ public class TileEntityBrazierRenderer extends TileEntitySpecialRenderer<TileEnt
   @Override
   public void render(TileEntityBrazier teb, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
     ArrayList<ItemStack> renderItems = new ArrayList<ItemStack>();
-    if (teb.heldItem != null) {
+    if (teb.getHeldItem() != null) {
       GL11.glPushMatrix();
-      EntityItem item = new EntityItem(Minecraft.getMinecraft().world, x, y, z, teb.heldItem);
+      EntityItem item = new EntityItem(Minecraft.getMinecraft().world, x, y, z, teb.getHeldItem());
       item.hoverStart = 0;
       GL11.glTranslated(x + 0.5, y + 0.1, z + 0.5);
       GL11.glScaled(0.5, 0.5, 0.5);
-      GL11.glRotated(teb.ticker, 0, 1, 0);
+      GL11.glRotated(teb.getTicker(), 0, 1, 0);
       Minecraft.getMinecraft().getRenderManager().doRenderEntity(item, 0, 0, 0, 0, 0, true);
       GL11.glPopMatrix();
     }

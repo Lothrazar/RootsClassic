@@ -66,8 +66,12 @@ public class RitualBase {
         if (world.getBlockState(pos.add(i, 0, j)).getBlock() == RegistryManager.brazier) {
           if (world.getTileEntity(pos.add(i, 0, j)) != null) {
             TileEntityBrazier teb = (TileEntityBrazier) world.getTileEntity(pos.add(i, 0, j));
-            if (teb.burning) {
-              test.add(teb.heldItem);
+            if (teb.isBurning()) {
+              System.out.println("found brazier item " + teb.getHeldItem());
+              test.add(teb.getHeldItem());
+            }
+            else {
+              System.out.println("A brazier is not burning");
             }
           }
         }

@@ -6,7 +6,6 @@ import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.ritual.RitualBase;
 import elucent.rootsclassic.ritual.RitualManager;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,8 +15,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
@@ -126,17 +123,16 @@ public class TileEntityAltar extends TEBase implements ITickable {
           ritualName = ritual.name;
           incenses = RitualManager.getIncenses(world, getPos());
           progress = 200;
-          System.out.println(" ritual STARTED " + ritual.name);
+          //          System.out.println(" ritual STARTED " + ritual.name);
           markDirty();
           this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
           return true;
         }
       }
       if (ritualName == null) {
-        if (world.isRemote) {
           // but wait tho, maybe its valid but its not lit on fire yet
-          player.sendMessage(new TextComponentString(TextFormatting.RED + I18n.format("roots.error.noritual.name")));
-        }
+          Roots.statusMessage(player, "roots.error.noritual.name");
+
         markDirty();
         this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
         return true;
