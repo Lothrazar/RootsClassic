@@ -79,11 +79,11 @@ roots.tooltip.shadowstep.name=Shadow Step
 
 roots.error.noritual.ingredients=No ritual found with these central ingredients
 
-roots.error.noritual.stones=Ritual found but stones are not placed correctly
+roots.error.noritual.stones= Ritual found but stones are not placed correctly
 
-roots.error.noritual.incense=Ritual found, but brazier ingredients are missing or not lit
+roots.error.noritual.incense= Ritual found, but brazier ingredients are missing or not lit
 
-roots.ritual.started=Ritual started
+roots.ritual.started= Ritual started
 
 roots.component.allium.name=Rending Strike
 roots.component.apple.name=Nature's Cure

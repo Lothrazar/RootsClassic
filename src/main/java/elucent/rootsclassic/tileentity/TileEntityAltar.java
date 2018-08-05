@@ -20,6 +20,7 @@ import net.minecraftforge.common.util.Constants;
 
 public class TileEntityAltar extends TEBase implements ITickable {
 
+  private static final int RECIPE_PROGRESS_TIME = 200;
   private ArrayList<ItemStack> inventory = new ArrayList<ItemStack>();
   private ArrayList<ItemStack> incenses = new ArrayList<ItemStack>();
   private Random random = new Random();
@@ -114,7 +115,8 @@ public class TileEntityAltar extends TEBase implements ITickable {
         return true;
       }
     }
-    else if (player.isSneaking() && heldItem.isEmpty() && this.getProgress() == 0) {//
+    else if (player.isSneaking() && heldItem.isEmpty() && this.getProgress() == 0) {
+      // Try to start a new ritual
       setRitualName(null);
       setRitualCurrent(null);
       RitualBase ritual = RitualManager.findMatchingByIngredients(this);
@@ -123,7 +125,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
         return false;
       }
       if (!ritual.verifyPositionBlocks(world, pos)) {
-        Roots.statusMessage(player, ritual.getName() + "roots.error.noritual.stones");
+        Roots.statusMessage(player, "roots.error.noritual.stones");
         return false;
       }
       //does it match everything else? 
@@ -132,15 +134,22 @@ public class TileEntityAltar extends TEBase implements ITickable {
         setRitualName(ritual.getName());
         Roots.logger.info("found " + ritual.getName());
         setIncenses(RitualManager.getIncenses(world, getPos()));
-        setProgress(200);
+
+        setProgress(RECIPE_PROGRESS_TIME);
+        for (TileEntityBrazier brazier : ritual.getRecipeBraziers(world, pos)) {
+          brazier.setBurning(true);
+          brazier.setHeldItem(ItemStack.EMPTY);
+        }
+//        this.emptyNearbyBraziers();
         //          System.out.println(" ritual STARTED " + ritual.name);
         markDirty();
         this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-        Roots.statusMessage(player, ritual.getName() + Roots.lang("roots.ritual.started"));
+        Roots.statusMessage(player, "roots.ritual.started");
         return true;
       }
       else {
-        Roots.statusMessage(player, ritual.getName() + "roots.error.noritual.incense");
+        Roots.logger.info("found but empty incense  " + ritual.getName());
+        Roots.statusMessage(player, "roots.error.noritual.incense");
         return false;
       }
       //      if (getRitualName() == null) {
@@ -153,6 +162,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
       //      }
     }
     else {
+      //try to insert an item into the altar 
       if (getInventory().size() < 3 && getProgress() == 0) {
         ItemStack toAdd = new ItemStack(heldItem.getItem(), 1, heldItem.getItemDamage());
         if (heldItem.hasTagCompound()) {
@@ -211,29 +221,39 @@ public class TileEntityAltar extends TEBase implements ITickable {
           Roots.proxy.spawnParticleMagicAltarFX(getWorld(), getPos().getX() + 0.5, getPos().getY() + 0.875, getPos().getZ() + 0.5, 0.125 * Math.sin(Math.toRadians(270.0 + 360.0 * (getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(270.0 + 360.0 * (getProgress() % 100) / 100.0)), getRitualCurrent().getSecondaryColor().x, getRitualCurrent().getSecondaryColor().y, getRitualCurrent().getSecondaryColor().z);
         }
       }
-      if (getProgress() % 40 == 0) {
-        setIncenses(RitualManager.getIncenses(getWorld(), getPos()));
-        boolean doesMatch = false;
-        for (int i = 0; i < RitualManager.rituals.size(); i++) {
-          if (RitualManager.rituals.get(i).incesceMatches(getWorld(), getPos())) {
-            doesMatch = true;
-          }
-        }
-        if (!doesMatch) {
-          setRitualCurrent(null);
-          setRitualName(null);
-        }
-      }
+      //      if (getProgress() % 40 == 0) {
+      //        setIncenses(RitualManager.getIncenses(getWorld(), getPos()));
+      //        boolean doesMatch = false;
+      //        for (int i = 0; i < RitualManager.rituals.size(); i++) {
+      //          if (RitualManager.rituals.get(i).incesceMatches(getWorld(), getPos())) {
+      //            doesMatch = true;
+      //          }
+      //        }
+      //        if (!doesMatch) {
+      //          setRitualCurrent(null);
+      //          setRitualName(null);
+      //        }
+      //      }
       if (getProgress() == 0 && getRitualCurrent() != null) {
-        System.out.println(" ritual do effect ok");
+        Roots.logger.info("RITUAL has completed " + getRitualCurrent().getName());
+
         getRitualCurrent().doEffect(getWorld(), getPos(), getInventory(), getIncenses());
+
         setRitualName(null);
         setRitualCurrent(null);
+
         markDirty();
         this.getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
       }
     }
   }
+
+  //  private void emptyNearbyBraziers() {
+  //    for (TileEntityBrazier brazier : getRitualCurrent().getRecipeBraziers(world, pos)) {
+  //      brazier.setHeldItem(ItemStack.EMPTY);
+  //      brazier.setBurning(false);
+  //    }
+  //  }
 
   public ArrayList<ItemStack> getInventory() {
     return inventory;

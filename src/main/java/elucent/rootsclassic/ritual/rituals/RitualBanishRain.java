@@ -12,15 +12,15 @@ public class RitualBanishRain extends RitualBase {
     super(name, r, g, b);
   }
 
-  @Override
-  public boolean incesceMatches(World world, BlockPos pos) {
-    if (super.incesceMatches(world, pos)) {
-      if (world.getWorldInfo().isRaining() == true) {
-        return true;
-      }
-    }
-    return false;
-  }
+  //  @Override
+  //  public boolean incesceMatches(World world, BlockPos pos) {
+  //    if (super.incesceMatches(world, pos)) {
+  //      if (world.getWorldInfo().isRaining() == true) {
+  //        return true;
+  //      }
+  //    }
+  //    return false;
+  //  }
 
   @Override
   public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses) {

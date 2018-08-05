@@ -94,7 +94,7 @@ public abstract class RitualBase {
     ArrayList<ItemStack> incenceFromNearby = new ArrayList<ItemStack>();
     List<TileEntityBrazier> braziers = getRecipeBraziers(world, pos);
     for (TileEntityBrazier brazier : braziers) {
-      if (brazier.isBurning() && !brazier.getHeldItem().isEmpty()) {
+      if (!brazier.getHeldItem().isEmpty()) {
         //              Roots.logger.info("found brazier item " + brazier.getHeldItem());
         incenceFromNearby.add(brazier.getHeldItem());
       }
