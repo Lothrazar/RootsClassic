@@ -272,12 +272,7 @@ public class GuiTabletPage extends GuiScreen {
       else
         fontRenderer.drawString(line.getLine(), (int) line.getX(), (int) line.getY(), line.getColor());
     }
-    //tooltips must be after 
-    for (GuiSlotInstance s : slots) {
-      if (s.isMouseover(mouseX, mouseY)) {
-        this.renderToolTip(s.getStack(), mouseX, mouseY);
-      }
-    }
+
     //TODO: arrows go black on rituals
     Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletGui);
     if (showLeftArrow) {
@@ -294,6 +289,11 @@ public class GuiTabletPage extends GuiScreen {
       }
       else {
         this.drawTexturedModalRect(basePosX + 144, basePosY + 224, 0, 64, 32, 16);
+      }
+    } //tooltips must be AFTER rendering arrow images 
+    for (GuiSlotInstance s : slots) {
+      if (s.isMouseover(mouseX, mouseY)) {
+        this.renderToolTip(s.getStack(), mouseX, mouseY);
       }
     }
     GlStateManager.enableBlend();
