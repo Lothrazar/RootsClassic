@@ -71,11 +71,15 @@ public class Roots {
 
   public static void chatMessage(EntityPlayer player, String message) {
     if (player.world.isRemote)
-      player.sendMessage(new TextComponentString(I18n.format(message)));
+      player.sendMessage(new TextComponentString(lang(message)));
   }
 
   public static void statusMessage(EntityPlayer player, String message) {
     if (player.world.isRemote)
-      player.sendStatusMessage(new TextComponentString(I18n.format(message)), true);
+      player.sendStatusMessage(new TextComponentString(lang(message)), true);
+  }
+
+  public static String lang(String message) {
+    return I18n.format(message);
   }
 }

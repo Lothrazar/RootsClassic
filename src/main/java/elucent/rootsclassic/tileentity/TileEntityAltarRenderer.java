@@ -15,14 +15,14 @@ public class TileEntityAltarRenderer extends TileEntitySpecialRenderer<TileEntit
     if (te instanceof TileEntityAltar) {
       TileEntityAltar tem = te;
       ArrayList<ItemStack> renderItems = new ArrayList<ItemStack>();
-      for (int i = 0; i < tem.inventory.size(); i++) {
-        renderItems.add(tem.inventory.get(i));
+      for (int i = 0; i < tem.getInventory().size(); i++) {
+        renderItems.add(tem.getInventory().get(i));
       }
       for (int i = 0; i < renderItems.size(); i++) {
         GL11.glPushMatrix();
         EntityItem item = new EntityItem(Minecraft.getMinecraft().world, x, y, z, renderItems.get(i));
         item.hoverStart = 0;
-        double shifted = tem.ticker + i * (360.0 / renderItems.size());
+        double shifted = tem.getTicker() + i * (360.0 / renderItems.size());
         Random random = new Random();
         random.setSeed(item.getItem().hashCode());
         GL11.glTranslated(x + 0.5, y + 1.0 + 0.1 * Math.sin(Math.toRadians((shifted * 4.0))), z + 0.5);

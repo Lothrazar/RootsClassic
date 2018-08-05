@@ -5,16 +5,17 @@ import java.util.List;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.Util;
-import elucent.rootsclassic.tileentity.TileEntityAltar;
 import elucent.rootsclassic.tileentity.TileEntityBrazier;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public abstract class RitualBase {
 
+  private static final int RADIUS = 4;
   private ArrayList<Block> blocks = new ArrayList<Block>();
   private ArrayList<BlockPos> positionsRelative = new ArrayList<BlockPos>();
   private ArrayList<ItemStack> incenses = new ArrayList<ItemStack>();
@@ -51,6 +52,10 @@ public abstract class RitualBase {
     return this;
   }
 
+  public boolean doIngredientsMatch(RitualBase ritual) {
+    return Util.itemListsMatch(this.getIngredients(), ritual.getIngredients());
+  }
+
   public abstract void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses);
 
   public boolean verifyPositionBlocks(World world, BlockPos pos) {
@@ -68,28 +73,33 @@ public abstract class RitualBase {
     return true;
   }
 
-  public boolean matches(World world, BlockPos pos) {
-    //    if (!verifyPositionBlocks(world, pos)) {
-    //      return false;
-    //    }
-    ArrayList<ItemStack> test = new ArrayList<ItemStack>();
-    for (int i = -4; i < 5; i++) {
-      for (int j = -4; j < 5; j++) {
+  public List<TileEntityBrazier> getRecipeBraziers(World world, BlockPos pos) {
+    List<TileEntityBrazier> links = new ArrayList<>();
+    TileEntity tileHere;
+
+    for (int i = -1 * RADIUS; i <= RADIUS; i++) {
+      for (int j = -1 * RADIUS; j <= RADIUS; j++) {
         if (world.getBlockState(pos.add(i, 0, j)).getBlock() == RegistryManager.brazier) {
-          if (world.getTileEntity(pos.add(i, 0, j)) != null) {
-            TileEntityBrazier teb = (TileEntityBrazier) world.getTileEntity(pos.add(i, 0, j));
-            if (teb.isBurning()) {
-              Roots.logger.info("found brazier item " + teb.getHeldItem());
-              test.add(teb.getHeldItem());
-            }
-            else {
-              Roots.logger.info("A brazier is not burning");
-            }
+          tileHere = world.getTileEntity(pos.add(i, 0, j));
+          if (tileHere != null && tileHere instanceof TileEntityBrazier) {
+            links.add((TileEntityBrazier) tileHere);
           }
         }
       }
     }
-    return Util.itemListsMatch(getIncenses(), test) && Util.itemListsMatchWithSize(getIngredients(), ((TileEntityAltar) world.getTileEntity(pos)).inventory);
+    return links;
+  }
+
+  public boolean incesceMatches(World world, BlockPos pos) {
+    ArrayList<ItemStack> incenceFromNearby = new ArrayList<ItemStack>();
+    List<TileEntityBrazier> braziers = getRecipeBraziers(world, pos);
+    for (TileEntityBrazier brazier : braziers) {
+      if (brazier.isBurning() && !brazier.getHeldItem().isEmpty()) {
+        //              Roots.logger.info("found brazier item " + brazier.getHeldItem());
+        incenceFromNearby.add(brazier.getHeldItem());
+      }
+    }
+    return Util.itemListsMatch(getIncenses(), incenceFromNearby);
   }
 
   public ArrayList<ItemStack> getIngredients() {

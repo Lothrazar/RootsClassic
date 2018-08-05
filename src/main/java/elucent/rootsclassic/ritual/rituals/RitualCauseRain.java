@@ -13,8 +13,8 @@ public class RitualCauseRain extends RitualBase {
   }
 
   @Override
-  public boolean matches(World world, BlockPos pos) {
-    if (super.matches(world, pos)) {
+  public boolean incesceMatches(World world, BlockPos pos) {
+    if (super.incesceMatches(world, pos)) {
       if (world.getWorldInfo().isRaining() == false) {
         return true;
       }

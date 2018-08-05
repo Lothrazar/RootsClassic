@@ -14,6 +14,7 @@ import elucent.rootsclassic.ritual.rituals.RitualMassBreed;
 import elucent.rootsclassic.ritual.rituals.RitualSacrifice;
 import elucent.rootsclassic.ritual.rituals.RitualSummoning;
 import elucent.rootsclassic.ritual.rituals.RitualTimeShift;
+import elucent.rootsclassic.tileentity.TileEntityAltar;
 import elucent.rootsclassic.tileentity.TileEntityBrazier;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -37,11 +38,32 @@ public class RitualManager {
 
   public static ArrayList<RitualBase> rituals = new ArrayList<RitualBase>();
 
-  public static void addRitual(RitualBase ritual) {
+  public static RitualBase findMatchingByIngredients(TileEntityAltar altar) {
+
+    for (RitualBase ritual : RitualManager.rituals) {
+      //      if (ritual.getName().equals("healerStoneCrafting")) {
+      //        Roots.logger.info("healer stone?");
+      //        for (ItemStack s : ritual.getIngredients()) {
+      //          Roots.logger.info(s.getDisplayName());
+      //        }
+      //        Roots.logger.info("==== ");
+      //        for (ItemStack s : altar.getInventory()) {
+      //          Roots.logger.info(s.getDisplayName());
+      //        }
+      //        Roots.logger.info("----");
+      //      }
+      if (Util.itemListsMatchWithSize(ritual.getIngredients(), altar.getInventory())) {
+        return ritual;
+      }
+    }
+    return null;
+  }
+
+  public static void addRitual(RitualBase ritual) throws IllegalArgumentException {
     //make sure its unique
     for (RitualBase existing : rituals) {
       //ingredients must be unique 
-      if (Util.itemListsMatch(ritual.getIngredients(), existing.getIngredients())) {
+      if (ritual.doIngredientsMatch(existing)) {
         throw new IllegalArgumentException("Duplicate ingredients are not allowed for incoming ritual : " + ritual.getName()
             + " and existing ritual " + existing.getName());
       }
@@ -333,8 +355,8 @@ public class RitualManager {
         .addIncense(new ItemStack(RegistryManager.infernalStem, 1))
         .addIncense(new ItemStack(Items.WHEAT, 1))
         .addIncense(new ItemStack(Items.GHAST_TEAR, 1, 0))
-        .addIngredient(new ItemStack(RegistryManager.standingStoneT2, 1))
-        .addIngredient(new ItemStack(Items.REDSTONE, 1))
+        .addIngredient(new ItemStack(RegistryManager.standingStoneT2))
+        .addIngredient(new ItemStack(Items.REDSTONE))
         .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 3)));
     addRitual(new RitualCrafting("igniterStoneCrafting", 0, 105, 73)
         .setResult(new ItemStack(RegistryManager.standingStoneIgniter, 1))
