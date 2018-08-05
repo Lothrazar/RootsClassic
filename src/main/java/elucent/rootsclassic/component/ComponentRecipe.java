@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 public class ComponentRecipe {
 
   private String effectResult = "";
-  private ArrayList<ItemStack> materials = new ArrayList<ItemStack>();
+  private List<ItemStack> materials = new ArrayList<ItemStack>();
   private boolean disabled = false;
 
   public ComponentRecipe(String result) {
@@ -115,11 +115,11 @@ public class ComponentRecipe {
     this.disabled = disabled;
   }
 
-  public ArrayList<ItemStack> getMaterials() {
+  public List<ItemStack> getMaterials() {
     return materials;
   }
 
-  public void setMaterials(ArrayList<ItemStack> materials) {
+  public void setMaterials(List<ItemStack> materials) {
     this.materials = materials;
   }
 }

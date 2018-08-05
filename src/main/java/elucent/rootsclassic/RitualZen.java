@@ -24,14 +24,14 @@ public class RitualZen {
   @ZenMethod
   public static void setRitualItems(String name, IItemStack altar[], IItemStack[] incense) {
     //
-    ComponentRecipe found = ComponentManager.getRecipe("name");
+    ComponentRecipe found = ComponentManager.getRecipe(name);
     if (found == null) {
       String names = "";
       for (RitualBase c : RitualManager.rituals) {
         names += c.getName() + ",";
       }
-      Roots.logger.info(names);
-      throw new IllegalArgumentException("Invalid ritual, names must be one of: " + names);
+      //    Roots.logger.info(names);
+      throw new IllegalArgumentException("Invalid ritual[" + name + "], names must be one of: " + names);
     }
   }
 }
