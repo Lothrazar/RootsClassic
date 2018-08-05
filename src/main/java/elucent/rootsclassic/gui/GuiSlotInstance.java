@@ -2,13 +2,13 @@ package elucent.rootsclassic.gui;
 
 import net.minecraft.item.ItemStack;
 
-public class GuiSlotTablet {
+public class GuiSlotInstance {
 
   private int x;
   private int y;
   private ItemStack stack;
 
-  public GuiSlotTablet(ItemStack s, int x, int y) {
+  public GuiSlotInstance(ItemStack s, int x, int y) {
     setStack(s);
     this.setX(x);
     this.setY(y);
