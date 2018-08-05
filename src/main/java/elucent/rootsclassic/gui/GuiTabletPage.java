@@ -179,6 +179,8 @@ public class GuiTabletPage extends GuiScreen {
         slots.add(new GuiSlotTablet(page.craftingRecipe.get(9), (int) basePosX + 144, (int) basePosY + 56));
         for (GuiSlotTablet s : slots) {
           this.itemRender.renderItemIntoGUI(s.getStack(), s.getX(), s.getY());
+        }
+        for (GuiSlotTablet s : slots) {
           if (s.isMouseover(mouseX, mouseY)) {
             this.renderToolTip(s.getStack(), mouseX, mouseY);
           }
