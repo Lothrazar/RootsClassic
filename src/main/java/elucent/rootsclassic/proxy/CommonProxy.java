@@ -4,11 +4,9 @@ import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.Util;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
-import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.gui.GuiHandler;
 import elucent.rootsclassic.mutation.MutagenManager;
 import elucent.rootsclassic.research.ResearchManager;
-import elucent.rootsclassic.ritual.RitualManager;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -18,14 +16,12 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 public class CommonProxy {
 
   public void preInit(FMLPreInitializationEvent event) {
-    RegistryManager.init();
+    RegistryManager.init();//items/blocks
     RootsCapabilityManager.preInit();
   }
 
   public void init(FMLInitializationEvent event) {
-    ComponentManager.init();
     RegistryManager.registerEntities();
-    RitualManager.init();
     MutagenManager.init();
   }
 

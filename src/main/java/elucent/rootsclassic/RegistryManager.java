@@ -21,6 +21,7 @@ import elucent.rootsclassic.block.BlockStandingStoneRepulsor;
 import elucent.rootsclassic.block.BlockStandingStoneT1;
 import elucent.rootsclassic.block.BlockStandingStoneT2;
 import elucent.rootsclassic.block.BlockStandingStoneVacuum;
+import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.entity.EntityAccelerator;
 import elucent.rootsclassic.entity.EntityTileAccelerator;
 import elucent.rootsclassic.entity.skeleton.EntityFrozenKnight;
@@ -46,6 +47,7 @@ import elucent.rootsclassic.item.ItemRootyStew;
 import elucent.rootsclassic.item.ItemRunedTablet;
 import elucent.rootsclassic.item.ItemRunicFocus;
 import elucent.rootsclassic.item.ItemStaff;
+import elucent.rootsclassic.ritual.RitualManager;
 import elucent.rootsclassic.tileentity.TileEntityAestheticStandingStone;
 import elucent.rootsclassic.tileentity.TileEntityAltar;
 import elucent.rootsclassic.tileentity.TileEntityAltarRenderer;
@@ -169,6 +171,13 @@ public class RegistryManager {
   @SubscribeEvent
   public static void onRegisterRecipesEvent(RegistryEvent.Register<IRecipe> event) {
     event.getRegistry().registerAll(recipes.toArray(new IRecipe[0]));
+  }
+
+  @SubscribeEvent
+  public static void onRegisterRecipeEvent(RegistryEvent.Register<IRecipe> event) {
+    //    event.getRegistry().registerAll(blocks.toArray(new Block[0]));
+    ComponentManager.init();
+    RitualManager.init();
   }
 
   public static void init() {
