@@ -88,8 +88,6 @@ public class GuiTabletPage extends GuiScreen {
         Roots.chatMessage(player, research.info.get(currentPage).altarRecipe.toString());
       }
     }
-
-
   }
 
   public void drawQuad(BufferBuilder vertexbuffer, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int minU, int minV, int maxU, int maxV) {
@@ -113,6 +111,7 @@ public class GuiTabletPage extends GuiScreen {
 
   @Override
   public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    //   super.drawScreen(mouseX, mouseY, partialTicks);
     GlStateManager.color(1, 1, 1, 1);
     RenderHelper.disableStandardItemLighting();
     RenderHelper.enableGUIStandardItemLighting();
@@ -157,36 +156,17 @@ public class GuiTabletPage extends GuiScreen {
       case TYPE_CRAFTING:
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletCrafting);
         this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
-        if (page.craftingRecipe.get(0) != null) {
-          this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(0), (int) basePosX + 32, (int) basePosY + 32);
-        }
-        if (page.craftingRecipe.get(1) != null) {
-          this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(1), (int) basePosX + 56, (int) basePosY + 32);
-        }
-        if (page.craftingRecipe.get(2) != null) {
-          this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(2), (int) basePosX + 80, (int) basePosY + 32);
-        }
-        if (page.craftingRecipe.get(3) != null) {
-          this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(3), (int) basePosX + 32, (int) basePosY + 56);
-        }
-        if (page.craftingRecipe.get(4) != null) {
-          this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(4), (int) basePosX + 56, (int) basePosY + 56);
-        }
-        if (page.craftingRecipe.get(5) != null) {
-          this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(5), (int) basePosX + 80, (int) basePosY + 56);
-        }
-        if (page.craftingRecipe.get(6) != null) {
-          this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(6), (int) basePosX + 32, (int) basePosY + 80);
-        }
-        if (page.craftingRecipe.get(7) != null) {
-          this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(7), (int) basePosX + 56, (int) basePosY + 80);
-        }
-        if (page.craftingRecipe.get(8) != null) {
-          this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(8), (int) basePosX + 80, (int) basePosY + 80);
-        }
-        if (page.craftingRecipe.get(9) != null) {
-          this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(9), (int) basePosX + 144, (int) basePosY + 56);
-        }
+        //        this.renderToolTip(page.craftingRecipe.get(1), mouseX, mouseY);
+        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(0), (int) basePosX + 32, (int) basePosY + 32);
+        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(1), (int) basePosX + 56, (int) basePosY + 32);
+        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(2), (int) basePosX + 80, (int) basePosY + 32);
+        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(3), (int) basePosX + 32, (int) basePosY + 56);
+        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(4), (int) basePosX + 56, (int) basePosY + 56);
+        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(5), (int) basePosX + 80, (int) basePosY + 56);
+        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(6), (int) basePosX + 32, (int) basePosY + 80);
+        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(7), (int) basePosX + 56, (int) basePosY + 80);
+        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(8), (int) basePosX + 80, (int) basePosY + 80);
+        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(9), (int) basePosX + 144, (int) basePosY + 56);
         //"roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name"
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {

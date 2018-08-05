@@ -109,6 +109,7 @@ public abstract class RitualBase {
 
   @Override
   public String toString() {
+    //this.getName() + System.lineSeparator() +
     String s = "[A] ";
     for (ItemStack mat : this.getIngredients()) {
       s += mat.getDisplayName() + "; ";
