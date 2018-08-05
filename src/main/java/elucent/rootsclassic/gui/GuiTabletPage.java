@@ -1,6 +1,7 @@
 package elucent.rootsclassic.gui;
 
 import java.util.ArrayList;
+import java.util.List;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
@@ -156,24 +157,36 @@ public class GuiTabletPage extends GuiScreen {
       case TYPE_CRAFTING:
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletCrafting);
         this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
-        //        this.renderToolTip(page.craftingRecipe.get(1), mouseX, mouseY);
-        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(0), (int) basePosX + 32, (int) basePosY + 32);
-        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(1), (int) basePosX + 56, (int) basePosY + 32);
-        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(2), (int) basePosX + 80, (int) basePosY + 32);
-        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(3), (int) basePosX + 32, (int) basePosY + 56);
-        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(4), (int) basePosX + 56, (int) basePosY + 56);
-        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(5), (int) basePosX + 80, (int) basePosY + 56);
-        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(6), (int) basePosX + 32, (int) basePosY + 80);
-        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(7), (int) basePosX + 56, (int) basePosY + 80);
-        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(8), (int) basePosX + 80, (int) basePosY + 80);
-        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(9), (int) basePosX + 144, (int) basePosY + 56);
-        //"roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name"
+        List<GuiSlotTablet> slots = new ArrayList<>();
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           fontRenderer.drawStringWithShadow(info.get(i), basePosX + 16, basePosY + 104 + i * 11, Util.intColor(255, 255, 255));
         }
         title = makeTitle();
         fontRenderer.drawStringWithShadow(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255));
+        //
+        //add all by hand        
+        //        this.renderToolTip(page.craftingRecipe.get(1), mouseX, mouseY);
+        slots.add(new GuiSlotTablet(page.craftingRecipe.get(0), (int) basePosX + 32, (int) basePosY + 32));
+        slots.add(new GuiSlotTablet(page.craftingRecipe.get(1), (int) basePosX + 56, (int) basePosY + 32));
+        slots.add(new GuiSlotTablet(page.craftingRecipe.get(2), (int) basePosX + 80, (int) basePosY + 32));
+        slots.add(new GuiSlotTablet(page.craftingRecipe.get(3), (int) basePosX + 32, (int) basePosY + 56));
+        slots.add(new GuiSlotTablet(page.craftingRecipe.get(4), (int) basePosX + 56, (int) basePosY + 56));
+        slots.add(new GuiSlotTablet(page.craftingRecipe.get(5), (int) basePosX + 80, (int) basePosY + 56));
+        slots.add(new GuiSlotTablet(page.craftingRecipe.get(6), (int) basePosX + 32, (int) basePosY + 80));
+        slots.add(new GuiSlotTablet(page.craftingRecipe.get(7), (int) basePosX + 56, (int) basePosY + 80));
+        slots.add(new GuiSlotTablet(page.craftingRecipe.get(8), (int) basePosX + 80, (int) basePosY + 80));
+        slots.add(new GuiSlotTablet(page.craftingRecipe.get(9), (int) basePosX + 144, (int) basePosY + 56));
+        for (GuiSlotTablet s : slots) {
+          this.itemRender.renderItemIntoGUI(s.getStack(), s.getX(), s.getY());
+          if (s.isMouseover(mouseX, mouseY)) {
+            this.renderToolTip(s.getStack(), mouseX, mouseY);
+          }
+        }
+        ///
+        ///
+        //        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(9), (int) basePosX + 144, (int) basePosY + 56);
+        //"roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name"
       break;
       case TYPE_SMELTING:
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletSmelting);
