@@ -174,7 +174,7 @@ public class ComponentManager {
    * 
    * public static boolean isValidEffectItem(ItemStack stack) { for (int i = 0; i < components.size(); i++) { if (components.get(i).getItem() != null && stack != null) { if
    * (components.get(i).getItem().getItem() == stack.getItem() && components.get(i).getItem().getMetadata() == stack.getMetadata()) { return true; } } } return false; } */
-  public static ComponentRecipe getRecipe(String name) {
+  public static ComponentRecipe getSpellFromName(String name) {
     for (int i = 0; i < recipes.size(); i++) {
       if (recipes.get(i).getEffectResult() == name) {
         return recipes.get(i);

@@ -18,8 +18,8 @@ public abstract class RitualBase {
   private static final int RADIUS = 4;
   private ArrayList<Block> blocks = new ArrayList<Block>();
   private ArrayList<BlockPos> positionsRelative = new ArrayList<BlockPos>();
-  private ArrayList<ItemStack> incenses = new ArrayList<ItemStack>();
-  private ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
+  private List<ItemStack> incenses = new ArrayList<ItemStack>();
+  private List<ItemStack> ingredients = new ArrayList<ItemStack>();
   private Vec3d color = new Vec3d(255, 255, 255);
   private Vec3d secondaryColor = new Vec3d(255, 255, 255);
   private String name = "";
@@ -119,19 +119,20 @@ public abstract class RitualBase {
     }
     return s;
   }
-  public ArrayList<ItemStack> getIngredients() {
+
+  public List<ItemStack> getIngredients() {
     return ingredients;
   }
 
-  public void setIngredients(ArrayList<ItemStack> ingredients) {
+  public void setIngredients(List<ItemStack> ingredients) {
     this.ingredients = ingredients;
   }
 
-  public ArrayList<ItemStack> getIncenses() {
+  public List<ItemStack> getIncenses() {
     return incenses;
   }
 
-  public void setIncenses(ArrayList<ItemStack> incenses) {
+  public void setIncenses(List<ItemStack> incenses) {
     this.incenses = incenses;
   }
 

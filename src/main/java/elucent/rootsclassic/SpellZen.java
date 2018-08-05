@@ -24,7 +24,7 @@ public class SpellZen {
   @ZenMethod
   public static void setSpellItems(String name, IItemStack items[]) {
     //
-    ComponentRecipe found = ComponentManager.getRecipe(name);
+    ComponentRecipe found = ComponentManager.getSpellFromName(name);
     if (found == null) {
       String names = "";
       for (ComponentRecipe c : ComponentManager.recipes) {
