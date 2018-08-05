@@ -139,6 +139,7 @@ public class GuiTabletPage extends GuiScreen {
       //in case current page out of sync with recipe, dont error out and crash
       return;
     }
+    List<GuiSlotTablet> slots = new ArrayList<>();
     ResearchPage page = research.info.get(currentPage);
     ArrayList<String> info;
     String title;
@@ -157,7 +158,6 @@ public class GuiTabletPage extends GuiScreen {
       case TYPE_CRAFTING:
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletCrafting);
         this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
-        List<GuiSlotTablet> slots = new ArrayList<>();
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           fontRenderer.drawStringWithShadow(info.get(i), basePosX + 16, basePosY + 104 + i * 11, Util.intColor(255, 255, 255));
@@ -177,28 +177,14 @@ public class GuiTabletPage extends GuiScreen {
         slots.add(new GuiSlotTablet(page.craftingRecipe.get(7), (int) basePosX + 56, (int) basePosY + 80));
         slots.add(new GuiSlotTablet(page.craftingRecipe.get(8), (int) basePosX + 80, (int) basePosY + 80));
         slots.add(new GuiSlotTablet(page.craftingRecipe.get(9), (int) basePosX + 144, (int) basePosY + 56));
-        for (GuiSlotTablet s : slots) {
-          this.itemRender.renderItemIntoGUI(s.getStack(), s.getX(), s.getY());
-        }
-        for (GuiSlotTablet s : slots) {
-          if (s.isMouseover(mouseX, mouseY)) {
-            this.renderToolTip(s.getStack(), mouseX, mouseY);
-          }
-        }
-        ///
-        ///
-        //        this.itemRender.renderItemIntoGUI(page.craftingRecipe.get(9), (int) basePosX + 144, (int) basePosY + 56);
-        //"roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name"
       break;
       case TYPE_SMELTING:
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletSmelting);
         this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
-        if (page.smeltingRecipe.get(0) != null) {
-          this.itemRender.renderItemIntoGUI(page.smeltingRecipe.get(0), (int) basePosX + 56, (int) basePosY + 40);
-        }
-        if (page.smeltingRecipe.get(1) != null) {
-          this.itemRender.renderItemIntoGUI(page.smeltingRecipe.get(1), (int) basePosX + 144, (int) basePosY + 56);
-        }
+
+        slots.add(new GuiSlotTablet(page.smeltingRecipe.get(0), (int) basePosX + 56, (int) basePosY + 40));
+        slots.add(new GuiSlotTablet(page.smeltingRecipe.get(1), (int) basePosX + 144, (int) basePosY + 56));
+
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           fontRenderer.drawStringWithShadow(info.get(i), basePosX + 16, basePosY + 104 + i * 11, Util.intColor(255, 255, 255));
@@ -209,9 +195,9 @@ public class GuiTabletPage extends GuiScreen {
       case TYPE_DISPLAY:
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletDisplay);
         this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
-        if (page.displayItem != null) {
+
           this.itemRender.renderItemIntoGUI(page.displayItem, (int) basePosX + 88, (int) basePosY + 48);
-        }
+
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           fontRenderer.drawStringWithShadow(info.get(i), basePosX + 16, basePosY + 80 + i * 11, Util.intColor(255, 255, 255));
@@ -244,15 +230,12 @@ public class GuiTabletPage extends GuiScreen {
           this.drawTexturedModalRect(basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16);
         }
         for (int i = 0; i < page.altarRecipe.getIngredients().size(); i++) {
-          if (page.altarRecipe.getIngredients().get(i) != null) {
-            this.itemRender.renderItemIntoGUI(page.altarRecipe.getIngredients().get(i), (int) basePosX + 64 + 24 * i, (int) basePosY + 56);
-          }
+          slots.add(new GuiSlotTablet(page.altarRecipe.getIngredients().get(i), (int) basePosX + 64 + 24 * i, (int) basePosY + 56));
         }
         for (int i = 0; i < page.altarRecipe.getIncenses().size(); i++) {
-          if (page.altarRecipe.getIncenses().get(i) != null) {
-            this.itemRender.renderItemIntoGUI(page.altarRecipe.getIncenses().get(i), (int) basePosX + 76 + 16 * i, (int) basePosY + 88);
-          }
+          slots.add(new GuiSlotTablet(page.altarRecipe.getIncenses().get(i), (int) basePosX + 76 + 16 * i, (int) basePosY + 88));
         }
+
         title = makeTitle();
         fontRenderer.drawStringWithShadow(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255));
       break;
@@ -261,9 +244,10 @@ public class GuiTabletPage extends GuiScreen {
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletMortar);
         this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
         for (int i = 0; i < page.mortarRecipe.getMaterials().size(); i++) {
-          this.itemRender.renderItemIntoGUI(page.mortarRecipe.getMaterials().get(i), (int) basePosX + 24 + i * 16, (int) basePosY + 56);
+          slots.add(new GuiSlotTablet(page.mortarRecipe.getMaterials().get(i), (int) basePosX + 24 + i * 16, (int) basePosY + 56));
         }
-        this.itemRender.renderItemIntoGUI(new ItemStack(RegistryManager.dustPetal), (int) basePosX + 144, (int) basePosY + 56);
+        Roots.logger.info("TODO get nbt spellpowder from ComponentRecipe ");
+        slots.add(new GuiSlotTablet(new ItemStack(RegistryManager.dustPetal), (int) basePosX + 144, (int) basePosY + 56));
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           fontRenderer.drawStringWithShadow(info.get(i), basePosX + 16, basePosY + 96 + i * 11, Util.intColor(255, 255, 255));
@@ -275,6 +259,15 @@ public class GuiTabletPage extends GuiScreen {
           title = makeTitle();
         }
         fontRenderer.drawStringWithShadow(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255));
+    }//end of big switch
+    for (GuiSlotTablet s : slots) {
+      this.itemRender.renderItemIntoGUI(s.getStack(), s.getX(), s.getY());
+    }
+    //tooltips must be after 
+    for (GuiSlotTablet s : slots) {
+      if (s.isMouseover(mouseX, mouseY)) {
+        this.renderToolTip(s.getStack(), mouseX, mouseY);
+      }
     }
     Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletGui);
     if (showLeftArrow) {
