@@ -102,6 +102,18 @@ public abstract class RitualBase {
     return Util.itemListsMatch(getIncenses(), incenceFromNearby);
   }
 
+  @Override
+  public String toString() {
+    String s = "[A] ";//TODO : getLocalizedName
+    for (ItemStack mat : this.getIngredients()) {
+      s += mat.getDisplayName() + "; ";
+    }
+    s += System.lineSeparator() + "[I] ";
+    for (ItemStack mat : this.getIncenses()) {
+      s += mat.getDisplayName() + "; ";
+    }
+    return s;
+  }
   public ArrayList<ItemStack> getIngredients() {
     return ingredients;
   }

@@ -75,14 +75,21 @@ public class GuiTabletPage extends GuiScreen {
         this.currentPage++;
       }
     }
-    if (player.world.isRemote && research.info.get(currentPage).recipe == EnumRecipeType.TYPE_MORTAR) {
-      if (mouseX >= (width / 2.0f) - 110 && mouseX < (width / 2.0f) + 40
-          && mouseY >= (height / 2.0f) - 138 && mouseY < (height / 2.0f) - 40) {
-        player.sendMessage(//TextFormatting.RED + 
-            new TextComponentString(//I18n.format("roots.recipe.chat") +
+    if (player.world.isRemote
+        && mouseX >= (width / 2.0f) - 110 && mouseX < (width / 2.0f) + 40
+        && mouseY >= (height / 2.0f) - 138 && mouseY < (height / 2.0f) - 40) {
+      if (research.info.get(currentPage).recipe == EnumRecipeType.TYPE_MORTAR) {
+        //I18n.format("roots.recipe.chat") +
+        player.sendMessage(
+            new TextComponentString(
                 research.info.get(currentPage).mortarRecipe.toString()));
       }
+      else if (research.info.get(currentPage).recipe == EnumRecipeType.TYPE_ALTAR) {
+        Roots.chatMessage(player, research.info.get(currentPage).altarRecipe.toString());
+      }
     }
+
+
   }
 
   public void drawQuad(BufferBuilder vertexbuffer, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int minU, int minV, int maxU, int maxV) {
