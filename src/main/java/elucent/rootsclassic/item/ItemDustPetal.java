@@ -1,6 +1,5 @@
 package elucent.rootsclassic.item;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import elucent.rootsclassic.component.ComponentBase;
@@ -29,7 +28,7 @@ public class ItemDustPetal extends Item {
     return slotChanged;
   }
 
-  public static void createData(ItemStack stack, String effect, ArrayList<ItemStack> items) {
+  public static void createData(ItemStack stack, String effect, List<ItemStack> items) {
     stack.setTagCompound(new NBTTagCompound());
     int potency = 0;
     int efficiency = 0;

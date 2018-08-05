@@ -1,10 +1,10 @@
 package elucent.rootsclassic.tileentity;
 
 import java.util.ArrayList;
+import java.util.List;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.component.ComponentRecipe;
-import elucent.rootsclassic.item.ItemDustPetal;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
@@ -24,7 +24,7 @@ public class TileEntityMortar extends TEBase {
 
   private static final int MAX_INVO_SIZE = 8;
   private static final String NBT_MODIFIERS = "modifiers";
-  public ArrayList<ItemStack> inventory = new ArrayList<ItemStack>();
+  public List<ItemStack> inventory = new ArrayList<ItemStack>();
 
   public TileEntityMortar() {
     super();
@@ -132,20 +132,16 @@ public class TileEntityMortar extends TEBase {
 
   private boolean tryActivateRecipe(IBlockState state) {
     ComponentRecipe recipe = ComponentManager.getRecipe(inventory);
-    if (recipe != null) {
-      if (!recipe.isDisabled() && this.inventory.size() > 3) {
-        if (recipe != null && ComponentRecipe.getModifierCapacity(inventory) != -1) {
-          ItemStack drop = new ItemStack(RegistryManager.dustPetal, 1);
-          ItemDustPetal.createData(drop, recipe.getEffectResult(), inventory);
-          if (!world.isRemote) {
-            world.spawnEntity(new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, drop));
-          }
-          inventory.clear();
-          markDirty();
-          this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-          return true;
-        }
+    if (recipe != null && !recipe.isDisabled() && this.inventory.size() > 3
+        && ComponentRecipe.getModifierCapacity(inventory) != -1) {
+
+      if (!world.isRemote) {
+        world.spawnEntity(new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, recipe.getRecipeResult(inventory)));
       }
+      inventory.clear();
+      markDirty();
+      this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+      return true;
     }
     return false;
   }

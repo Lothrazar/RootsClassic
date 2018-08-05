@@ -243,14 +243,13 @@ public class GuiTabletPage extends GuiScreen {
         textLines.add(new GuiTextInstance(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255)));
       break;
       case TYPE_MORTAR:
-        //  System.out.println("MORTAR : put a chat button here");
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletMortar);
         this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
         for (int i = 0; i < page.mortarRecipe.getMaterials().size(); i++) {
           slots.add(new GuiSlotInstance(page.mortarRecipe.getMaterials().get(i), (int) basePosX + 24 + i * 16, (int) basePosY + 56));
         }
-        Roots.logger.info("TODO get nbt spellpowder from ComponentRecipe ");
-        slots.add(new GuiSlotInstance(new ItemStack(RegistryManager.dustPetal), (int) basePosX + 144, (int) basePosY + 56));
+
+        slots.add(new GuiSlotInstance(page.mortarRecipe.getRecipeResult(new ArrayList<ItemStack>()), (int) basePosX + 144, (int) basePosY + 56));
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           textLines.add(new GuiTextInstance(info.get(i), basePosX + 16, basePosY + 96 + i * 11, Util.intColor(255, 255, 255)));
