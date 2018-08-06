@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class TileEntityStandingStoneGrower extends TEBase implements ITickable {
 
+  private static final int RADIUS = 10;
   int ticker = 0;
   Random random = new Random();
 
@@ -38,9 +39,9 @@ public class TileEntityStandingStoneGrower extends TEBase implements ITickable {
       }
     }
     if (ticker % 100 == 0) {
-      for (int i = -9; i < 10; i++) {
-        for (int j = -9; j < 10; j++) {
-          BlockPos pos = this.getPos().add(i, -1, j);
+      for (int xp = RADIUS; xp <= RADIUS; xp++) {
+        for (int zp = RADIUS; zp <= RADIUS; zp++) {
+          BlockPos pos = this.getPos().add(xp, -1, zp);
           if (this.getWorld().getBlockState(pos).getBlock() instanceof BlockCrops && random.nextInt(40) == 0) {
             int age = this.getWorld().getBlockState(pos).getBlock().getMetaFromState(this.getWorld().getBlockState(pos));
             if (age < ((BlockCrops) this.getWorld().getBlockState(pos).getBlock()).getMaxAge()) {
@@ -49,6 +50,9 @@ public class TileEntityStandingStoneGrower extends TEBase implements ITickable {
           }
         }
       }
+    }
+    if (ticker >= 2000) {
+      ticker = 0;
     }
   }
 }
