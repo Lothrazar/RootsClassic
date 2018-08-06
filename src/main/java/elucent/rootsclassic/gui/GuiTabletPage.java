@@ -6,7 +6,7 @@ import elucent.rootsclassic.Const;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.Util;
-import elucent.rootsclassic.research.EnumRecipeType;
+import elucent.rootsclassic.research.EnumPageType;
 import elucent.rootsclassic.research.ResearchBase;
 import elucent.rootsclassic.research.ResearchGroup;
 import elucent.rootsclassic.research.ResearchPage;
@@ -79,13 +79,13 @@ public class GuiTabletPage extends GuiScreen {
     if (player.world.isRemote
         && mouseX >= (width / 2.0f) - 110 && mouseX < (width / 2.0f) + 40
         && mouseY >= (height / 2.0f) - 138 && mouseY < (height / 2.0f) - 40) {
-      if (research.info.get(currentPage).recipe == EnumRecipeType.TYPE_MORTAR) {
+      if (research.info.get(currentPage).recipe == EnumPageType.TYPE_MORTAR) {
         //I18n.format("roots.recipe.chat") +
         player.sendMessage(
             new TextComponentString(
                 research.info.get(currentPage).mortarRecipe.toString()));
       }
-      else if (research.info.get(currentPage).recipe == EnumRecipeType.TYPE_ALTAR) {
+      else if (research.info.get(currentPage).recipe == EnumPageType.TYPE_ALTAR) {
         Roots.chatMessage(player, research.info.get(currentPage).altarRecipe.toString());
       }
     }
@@ -157,29 +157,7 @@ public class GuiTabletPage extends GuiScreen {
           textLines.add(new GuiTextInstance(info.get(i), basePosX + 16, basePosY + 32 + i * 11));
         }
       break;
-      case TYPE_CRAFTING:
-        Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletCrafting);
-        this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
-        info = page.makeLines(makeInfo());
-        for (int i = 0; i < info.size(); i++) {
-          textLines.add(new GuiTextInstance(info.get(i), basePosX + 16, basePosY + 104 + i * 11, Util.intColor(255, 255, 255)));
-        }
-        title = makeTitle();
-        textLines.add(new GuiTextInstance(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255)));
-        //
-        //add all by hand        
-        //        this.renderToolTip(page.craftingRecipe.get(1), mouseX, mouseY);
-        slots.add(new GuiSlotInstance(page.craftingRecipe.get(0), (int) basePosX + 32, (int) basePosY + 32));
-        slots.add(new GuiSlotInstance(page.craftingRecipe.get(1), (int) basePosX + 56, (int) basePosY + 32));
-        slots.add(new GuiSlotInstance(page.craftingRecipe.get(2), (int) basePosX + 80, (int) basePosY + 32));
-        slots.add(new GuiSlotInstance(page.craftingRecipe.get(3), (int) basePosX + 32, (int) basePosY + 56));
-        slots.add(new GuiSlotInstance(page.craftingRecipe.get(4), (int) basePosX + 56, (int) basePosY + 56));
-        slots.add(new GuiSlotInstance(page.craftingRecipe.get(5), (int) basePosX + 80, (int) basePosY + 56));
-        slots.add(new GuiSlotInstance(page.craftingRecipe.get(6), (int) basePosX + 32, (int) basePosY + 80));
-        slots.add(new GuiSlotInstance(page.craftingRecipe.get(7), (int) basePosX + 56, (int) basePosY + 80));
-        slots.add(new GuiSlotInstance(page.craftingRecipe.get(8), (int) basePosX + 80, (int) basePosY + 80));
-        slots.add(new GuiSlotInstance(page.craftingRecipe.get(9), (int) basePosX + 144, (int) basePosY + 56));
-      break;
+
       case TYPE_SMELTING:
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletSmelting);
         this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
