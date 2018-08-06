@@ -35,6 +35,7 @@ import elucent.rootsclassic.entity.EntityTileAccelerator;
 import elucent.rootsclassic.entity.skeleton.EntityFrozenKnight;
 import elucent.rootsclassic.entity.skeleton.RenderFrozenKnight;
 import elucent.rootsclassic.item.FuelManager;
+import elucent.rootsclassic.item.ItemBowlFood;
 import elucent.rootsclassic.item.ItemCrystalStaff;
 import elucent.rootsclassic.item.ItemDragonsEye;
 import elucent.rootsclassic.item.ItemDruidArmor;
@@ -52,7 +53,6 @@ import elucent.rootsclassic.item.ItemMutagen;
 import elucent.rootsclassic.item.ItemPestle;
 import elucent.rootsclassic.item.ItemRootsBasic;
 import elucent.rootsclassic.item.ItemRootsFood;
-import elucent.rootsclassic.item.ItemRootyStew;
 import elucent.rootsclassic.item.ItemRunedTablet;
 import elucent.rootsclassic.item.ItemRunicFocus;
 import elucent.rootsclassic.item.ItemStaff;
@@ -97,7 +97,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class RegistryManager {
 
-  public static Item runicFocus, rootyStew, healingPoultice, mutagen, growthSalve, runedTablet,
+  public static Item runicFocus, rootyStew, fruitSalad, healingPoultice, mutagen, growthSalve, runedTablet,
       druidArmorHead, druidArmorChest, druidArmorLegs, druidArmorBoots, druidRobesHead, druidRobesChest, druidRobesLegs, druidRobesBoots,
       livingPickaxe, livingSword, livingHoe,
       livingAxe, livingShovel, dustPetal, pestle, staff, oldRoot, crystalStaff, verdantSprig,
@@ -233,7 +233,8 @@ public class RegistryManager {
     registerItem(whiteCurrant = new ItemRootsFood(4, 0.4F, false), "whitecurrant");
     registerItem(elderBerry = new ItemRootsFood(2, 0.1F, false), "elderberry");
     registerItem(healingPoultice = new ItemRootsFood(0, 0F, false).setAlwaysEdible().setMaxStackSize(8), "healingpoultice");
-    registerItem(rootyStew = new ItemRootyStew(), "rootystew");
+    registerItem(rootyStew = new ItemBowlFood(7, 5.0F), "rootystew");//7 means 3.5 nuggets (steak gives 4) 1 is saturation
+    registerItem(fruitSalad = new ItemBowlFood(8, 14.0F), "fruitsalad");
     registerItem(runicFocus = new ItemRunicFocus(), "runicfocus");
     registerItem(engravedSword = new ItemEngravedSword(), "engravedsword");
     registerItem(manaResearchIcon = new ItemRootsBasic(), "manaresearchicon");
@@ -309,7 +310,12 @@ public class RegistryManager {
         new ItemStack(RegistryManager.growthSalve), new ItemStack(Items.NETHER_STAR, 1),
         new ItemStack(Items.NETHER_WART, 1), new ItemStack(RegistryManager.pestle, 1) });
     addShapedRecipe(new ItemStack(RegistryManager.runedTablet, 1), true, new Object[] { " R ", "SBS", " S ", 'S', Items.WHEAT_SEEDS, 'B', "stone", 'R', RegistryManager.oldRoot });
-    addShapelessOreRecipe(new ItemStack(RegistryManager.rootyStew, 1), new Object[] { new ItemStack(Items.WHEAT, 1), new ItemStack(Items.BOWL, 1), new ItemStack(RegistryManager.oldRoot, 1) });
+    addShapelessOreRecipe(new ItemStack(RegistryManager.rootyStew), new Object[] { new ItemStack(Items.WHEAT, 1), new ItemStack(Items.BOWL, 1), new ItemStack(RegistryManager.oldRoot, 1) });
+    addShapelessOreRecipe(new ItemStack(RegistryManager.fruitSalad), new Object[] {
+        new ItemStack(Items.MELON), new ItemStack(Items.MELON), new ItemStack(Items.MELON),
+        new ItemStack(Items.APPLE), new ItemStack(Items.BOWL), new ItemStack(RegistryManager.elderBerry),
+        new ItemStack(RegistryManager.whiteCurrant), new ItemStack(RegistryManager.blackCurrant),
+        new ItemStack(RegistryManager.redCurrant) });
     addShapelessOreRecipe(new ItemStack(RegistryManager.healingPoultice, 2), new Object[] {
         RegistryManager.redCurrant, // new ItemStack(Items.DYE, 1, 1), 
         new ItemStack(Items.PAPER, 1),

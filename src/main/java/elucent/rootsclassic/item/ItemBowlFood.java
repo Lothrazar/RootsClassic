@@ -6,10 +6,10 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class ItemRootyStew extends ItemFood {
+public class ItemBowlFood extends ItemFood {
 
-  public ItemRootyStew() {
-    super(7, 1.0F, false);
+  public ItemBowlFood(int amount, float saturation) {
+    super(amount, saturation, false);
     this.setMaxStackSize(1);
   }
 

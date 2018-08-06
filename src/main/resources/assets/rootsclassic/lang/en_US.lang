@@ -46,7 +46,8 @@ item.engravedsword.name=Engraved Blade
 item.runicfocus.guide=Stores energy for Roots Rituals; see Runic Tablet
 runicfocus_0.name=Runic Focus
 runicfocus_1.name=Charged Runic Focus
-
+item.fruitsalad.name=Fruit Salad
+item.fruitsalad.guide=Delicious and filling
 tile.mortar.name=Mortar
 tile.imbuer.name=Imbuer
 tile.altar.name=Casting Altar
