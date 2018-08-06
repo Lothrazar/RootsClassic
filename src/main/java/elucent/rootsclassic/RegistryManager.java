@@ -91,6 +91,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -160,6 +161,16 @@ public class RegistryManager {
   @SubscribeEvent
   public static void onRegisterItemsEvent(RegistryEvent.Register<Item> event) {
     event.getRegistry().registerAll(itemList.toArray(new Item[0]));
+    OreDictionary.registerOre("barkWood", oakTreeBark);
+    OreDictionary.registerOre("barkOak", oakTreeBark);
+    OreDictionary.registerOre("barkWood", spruceTreeBark);
+    OreDictionary.registerOre("barkSpruce", spruceTreeBark);
+    OreDictionary.registerOre("barkWood", jungleTreeBark);
+    OreDictionary.registerOre("barkJungle", jungleTreeBark);
+    OreDictionary.registerOre("barkWood", acaciaTreeBark);
+    OreDictionary.registerOre("barkAcacia", acaciaTreeBark);
+    OreDictionary.registerOre("barkWood", birchTreeBark);
+    OreDictionary.registerOre("barkBirch", birchTreeBark);
     registerRecipes();
   }
 
@@ -199,6 +210,7 @@ public class RegistryManager {
     registerItem(jungleTreeBark = new ItemRootsBasic(), "jungletreebark");
     registerItem(acaciaTreeBark = new ItemRootsBasic(), "acaciatreebark");
     registerItem(darkOakTreeBark = new ItemRootsBasic(), "darkoaktreebark");
+
     registerItem(livingPickaxe = new ItemLivingPickaxe(), "livingpickaxe");
     registerItem(livingAxe = new ItemLivingAxe(), "livingaxe");
     registerItem(livingSword = new ItemLivingSword(), "livingsword");
