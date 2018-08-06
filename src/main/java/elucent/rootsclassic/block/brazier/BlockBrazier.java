@@ -1,7 +1,7 @@
-package elucent.rootsclassic.block;
+package elucent.rootsclassic.block.brazier;
 
 import elucent.rootsclassic.Roots;
-import elucent.rootsclassic.tileentity.TileEntityBrazier;
+import elucent.rootsclassic.block.TEBlockBase;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

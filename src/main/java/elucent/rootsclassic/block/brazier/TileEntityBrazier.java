@@ -1,7 +1,8 @@
-package elucent.rootsclassic.tileentity;
+package elucent.rootsclassic.block.brazier;
 
 import java.util.Random;
 import elucent.rootsclassic.Roots;
+import elucent.rootsclassic.tileentity.TEBase;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;

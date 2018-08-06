@@ -1,8 +1,9 @@
-package elucent.rootsclassic;
+package elucent.rootsclassic.compat;
 
 import java.util.Arrays;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
+import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.ritual.RitualBase;
 import elucent.rootsclassic.ritual.RitualManager;
 import net.minecraftforge.fml.common.Optional;

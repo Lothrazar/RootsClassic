@@ -1,4 +1,4 @@
-package elucent.rootsclassic.tileentity;
+package elucent.rootsclassic.block.mortar;
 
 import java.util.Random;
 import org.lwjgl.opengl.GL11;

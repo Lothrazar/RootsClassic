@@ -1,4 +1,4 @@
-package elucent.rootsclassic.tileentity;
+package elucent.rootsclassic.block.imbuer;
 
 import java.util.Random;
 import elucent.rootsclassic.RegistryManager;
@@ -6,6 +6,7 @@ import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.item.ItemStaff;
+import elucent.rootsclassic.tileentity.TEBase;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;

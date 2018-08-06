@@ -1,8 +1,9 @@
-package elucent.rootsclassic;
+package elucent.rootsclassic.compat;
 
 import java.util.Arrays;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
+import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.component.ComponentRecipe;
 import net.minecraft.item.ItemStack;

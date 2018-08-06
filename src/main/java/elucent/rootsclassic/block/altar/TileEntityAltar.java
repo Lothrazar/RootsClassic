@@ -1,10 +1,12 @@
-package elucent.rootsclassic.tileentity;
+package elucent.rootsclassic.block.altar;
 
 import java.util.ArrayList;
 import java.util.Random;
 import elucent.rootsclassic.Roots;
+import elucent.rootsclassic.block.brazier.TileEntityBrazier;
 import elucent.rootsclassic.ritual.RitualBase;
 import elucent.rootsclassic.ritual.RitualManager;
+import elucent.rootsclassic.tileentity.TEBase;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;

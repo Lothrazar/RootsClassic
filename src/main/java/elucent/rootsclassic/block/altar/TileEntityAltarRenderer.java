@@ -1,4 +1,4 @@
-package elucent.rootsclassic.tileentity;
+package elucent.rootsclassic.block.altar;
 
 import java.util.ArrayList;
 import java.util.Random;

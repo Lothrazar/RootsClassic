@@ -1,4 +1,4 @@
-package elucent.rootsclassic.tileentity;
+package elucent.rootsclassic.block.brazier;
 
 import org.lwjgl.opengl.GL11;
 import net.minecraft.client.Minecraft;

@@ -5,7 +5,7 @@ import java.util.List;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.Util;
-import elucent.rootsclassic.tileentity.TileEntityBrazier;
+import elucent.rootsclassic.block.brazier.TileEntityBrazier;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

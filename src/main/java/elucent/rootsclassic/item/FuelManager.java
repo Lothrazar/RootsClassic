@@ -1,5 +1,6 @@
-package elucent.rootsclassic;
+package elucent.rootsclassic.item;
 
+import elucent.rootsclassic.RegistryManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.IFuelHandler;
 

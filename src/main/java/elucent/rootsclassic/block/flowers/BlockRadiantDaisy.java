@@ -1,4 +1,4 @@
-package elucent.rootsclassic.block;
+package elucent.rootsclassic.block.flowers;
 
 import elucent.rootsclassic.Roots;
 import net.minecraft.block.BlockBush;
@@ -8,11 +8,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockMidnightBloom extends BlockBush {
+public class BlockRadiantDaisy extends BlockBush {
 
   private static final AxisAlignedBB AXIS_ALIGNED_BB = new AxisAlignedBB(0.375, 0, 0.375, 0.625, 0.5, 0.625);
 
-  public BlockMidnightBloom() {
+  public BlockRadiantDaisy() {
     super();
     setCreativeTab(Roots.tab);
   }

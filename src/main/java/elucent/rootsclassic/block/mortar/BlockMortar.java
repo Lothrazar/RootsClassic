@@ -1,7 +1,7 @@
-package elucent.rootsclassic.block;
+package elucent.rootsclassic.block.mortar;
 
 import elucent.rootsclassic.Roots;
-import elucent.rootsclassic.tileentity.TileEntityImbuer;
+import elucent.rootsclassic.block.TEBlockBase;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -11,11 +11,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockImbuer extends TEBlockBase implements ITileEntityProvider {
+public class BlockMortar extends TEBlockBase implements ITileEntityProvider {
 
-  private static final AxisAlignedBB AXIS_ALIGNED_BB = new AxisAlignedBB(0.3125, 0, 0.3125, 0.6875, 0.125, 0.6875);
+  private static final AxisAlignedBB AXIS_ALIGNED_BB = new AxisAlignedBB(0.3125, 0, 0.3125, 0.6875, 0.3125, 0.6875);
 
-  public BlockImbuer() {
+  public BlockMortar() {
     super(Material.GROUND);
     setCreativeTab(Roots.tab);
     setHardness(1.0f);
@@ -38,6 +38,6 @@ public class BlockImbuer extends TEBlockBase implements ITileEntityProvider {
 
   @Override
   public TileEntity createNewTileEntity(World worldIn, int meta) {
-    return new TileEntityImbuer();
+    return new TileEntityMortar();
   }
 }

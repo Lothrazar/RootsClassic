@@ -1,5 +1,6 @@
-package elucent.rootsclassic;
+package elucent.rootsclassic.compat;
 
+import elucent.rootsclassic.RegistryManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
