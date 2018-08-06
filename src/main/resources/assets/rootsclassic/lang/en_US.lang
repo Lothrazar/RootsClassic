@@ -5,6 +5,7 @@ item.pestle.name=Pestle
 item.staff.name=Staff
 item.oldroot.name=Old Root
 item.verdantsprig.name=Verdant Sprig
+item.verdantsprig.guide=Spell component; see Runic Tablet.
 item.infernalstem.name=Infernal Bulb
 item.dragonseye.name=Dragon's Eye
 item.acaciatreebark.name=Acacia Bark
@@ -15,6 +16,7 @@ item.oaktreebark.name=Oak Bark
 item.sprucetreebark.name=Spruce Bark
 item.druidknife.name=Bark Knife
 item.crystalstaff.name=Crystal Staff
+item.crystalstaff.guide=Advanced spellcasting staff for the most powerful of magi.  See Runic Tablet for crafting instructions
 item.livingpickaxe.name=Living Pickaxe
 item.livingaxe.name=Living Axe
 item.livingsword.name=Living Sword
@@ -29,6 +31,7 @@ item.druidarmorchest.name=Wildwood Plate
 item.druidarmorlegs.name=Wildwood Leggings
 item.druidarmorboots.name=Wildwood Boots
 item.runedtablet.name=Runic Tablet
+item.runedtablet.guide=The guidebook for Roots Classic that explains all spells and rituals.
 item.growthsalve.name=Growth Powder
 item.mutagen.name=Mutating Powder
 item.nightshade.name=Nightshade
@@ -38,13 +41,18 @@ item.whitecurrant.name=Whitecurrant
 item.elderberry.name=Elderberry
 item.healingpoultice.name=Healing Poultice
 item.rootystew.name=Rooty Stew
+item.rootystew.guide=Hearty Food
 item.engravedsword.name=Engraved Blade
+item.runicfocus.guide=Stores energy for Roots Rituals; see Runic Tablet
 runicfocus_0.name=Runic Focus
 runicfocus_1.name=Charged Runic Focus
 
 tile.mortar.name=Mortar
 tile.imbuer.name=Imbuer
 tile.altar.name=Casting Altar
+tile.altar.guide=Center piece for casting rituals; see Runic Tablet
+tile.brazier.guide=Holds incense to burn during rituals; see Runic Tablet
+
 tile.standingstonet1.name=Mundane Standing Stone
 tile.brazier.name=Incense Brazier
 tile.standingstonet2.name=Attuned Standing Stone
@@ -59,6 +67,15 @@ tile.standingstoneigniter.name=Igniting Standing Stone
 tile.standingstonegrower.name=Growing Standing Stone
 tile.standingstonehealer.name=Healing Standing Stone
 tile.standingstoneaesthetic.name=Standing Stone
+
+tile.standingstonerepulsor.guide=Repulse nearby stuff, crafting ritual defined in Runic Tablet
+tile.standingstonevacuum.guide=Vacuum nearby stuff, crafting ritual defined in Runic Tablet
+tile.standingstoneentangler.guide=Slowness beacon, crafting ritual defined in Runic Tablet
+tile.standingstoneaccelerator.guide=Speed beacon, crafting ritual defined in Runic Tablet
+tile.standingstoneigniter.guide=Burn your enemies, crafting ritual defined in Runic Tablet
+tile.standingstonegrower.guide=Growth booster for your plants, crafting ritual defined in Runic Tablet
+tile.standingstonehealer.guide=Regeneration beacon, crafting ritual defined in Runic Tablet
+tile.standingstoneaesthetic.guide=Standing Stone for decoration
 
 roots.attribute.fullset.name=When full set equipped:
 roots.attribute.equipped.name=When equipped:
@@ -449,8 +466,8 @@ item.dragonseye.guide=Spell component; see Runic Tablet.
 item.redcurrant.guide=Spell component; see Runic Tablet.
 item.whitecurrant.guide=Spell component; see Runic Tablet.
 item.blackcurrant.guide=Spell component; see Runic Tablet.
-item.growthsalve.guide=Spell component; see Runic Tablet.
-item.mutagen.guide=Spell component; see Runic Tablet.
+item.growthsalve.guide=Use to grow grass on dirt.
+item.mutagen.guide=Mutates flora in magical ways; see Runic Tablet.
 
 item.nightshade.guide=A pugnant mysterious berry; see Runic Tablet.
 item.elderberry.guide=A pugnant mysterious berry; see Runic Tablet.
@@ -492,14 +509,12 @@ item.druidarmorboots.guide=Obtained using a magic ritual; see Runic Tablet.
 item.staff.guide=Created using Spell Powder on the Imbuer, see Runic Tablet.
 item.dustpetal.guide=A combination of ingredients that makes up a spell, see Runic Tablet.
 
-item.crystalstaff.guide=See Runic Tablet
-
-
 roots.clearpotionsitem.tooltip=Clears potions when eaten
 roots.healingitem.tooltip=Heals player when eaten
 roots.poisonitem.tooltip=Poisonous when eaten
 
 tile.standingstonet1.guide=Basic ritual stone, used to create ritual patterns as shown in the Runic Tablet. 
+tile.standingstonet2.guide=Advanced ritual stone, used to create ritual patterns as shown in the Runic Tablet. 
 
 roots.mortar.invalid=Recipe invalid; verify items and order
 
