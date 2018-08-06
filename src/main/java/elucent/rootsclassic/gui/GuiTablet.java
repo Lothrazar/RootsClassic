@@ -1,9 +1,9 @@
 package elucent.rootsclassic.gui;
 
-import elucent.rootsclassic.ConfigManager;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.Util;
+import elucent.rootsclassic.config.ConfigManager;
 import elucent.rootsclassic.research.ResearchBase;
 import elucent.rootsclassic.research.ResearchGroup;
 import elucent.rootsclassic.research.ResearchManager;

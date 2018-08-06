@@ -23,7 +23,6 @@
  ******************************************************************************/
 package elucent.rootsclassic.config;
 
-import elucent.rootsclassic.ConfigManager;
 import elucent.rootsclassic.Const;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

@@ -168,14 +168,13 @@ public class ComponentManager {
         .addIngredient(new ItemStack(Blocks.GLOWSTONE, 1))
         .addIngredient(new ItemStack(RegistryManager.nightshade))
         .addIngredient(new ItemStack(Blocks.REDSTONE_BLOCK, 1)));
-
   }
 
   /* //TODO: reject invalid stuff from the bowl??!??! the mortar??
    * 
    * public static boolean isValidEffectItem(ItemStack stack) { for (int i = 0; i < components.size(); i++) { if (components.get(i).getItem() != null && stack != null) { if
    * (components.get(i).getItem().getItem() == stack.getItem() && components.get(i).getItem().getMetadata() == stack.getMetadata()) { return true; } } } return false; } */
-  public static ComponentRecipe getRecipe(String name) {
+  public static ComponentRecipe getSpellFromName(String name) {
     for (int i = 0; i < recipes.size(); i++) {
       if (recipes.get(i).getEffectResult() == name) {
         return recipes.get(i);
@@ -192,7 +191,7 @@ public class ComponentManager {
     }
     return null;
   }
- 
+
   public static ComponentBase getComponentFromName(String name) {
     for (ComponentBase c : components) {
       if (c.getName().equals(name)) {
@@ -201,5 +200,4 @@ public class ComponentManager {
     }
     return null;
   }
- 
 }

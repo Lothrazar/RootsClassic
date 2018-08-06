@@ -21,9 +21,4 @@ public class ResearchBase {
     info.add(page);
     return this;
   }
-
-  public ResearchGroup addResearch(ResearchBase addPage) {
-    // TODO Auto-generated method stub
-    return null;
-  }
 }

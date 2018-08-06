@@ -8,7 +8,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class ItemDragonsEye extends RootsItemFood {
+public class ItemDragonsEye extends ItemRootsFood {
 
   public ItemDragonsEye(int amount, float saturation, boolean isWolFFood) {
     super(amount, saturation, isWolFFood);

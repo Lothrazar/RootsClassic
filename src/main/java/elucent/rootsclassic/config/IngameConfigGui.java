@@ -23,7 +23,6 @@
  ******************************************************************************/
 package elucent.rootsclassic.config;
 
-import elucent.rootsclassic.ConfigManager;
 import elucent.rootsclassic.Const;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

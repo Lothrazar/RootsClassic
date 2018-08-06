@@ -1,146 +1,78 @@
 package elucent.rootsclassic.item;
 
-import java.util.Random;
 import elucent.rootsclassic.RegistryManager;
-import elucent.rootsclassic.Roots;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.entity.Entity;
+import net.minecraft.block.BlockNewLog;
+import net.minecraft.block.BlockOldLog;
+import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemDruidKnife extends Item {
 
-  Random rnd = new Random();
+  public static double BLOCK_DESTROY_ODDS = 0.3;
 
   public ItemDruidKnife() {
     super();
-    setCreativeTab(Roots.tab);
-  }
-
-  @SideOnly(Side.CLIENT)
-  public void initModel() {
-    ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+    this.setMaxDamage(64);
+    this.setMaxStackSize(1);
   }
 
   @Override
   public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-    ItemStack stack = playerIn.getHeldItem(hand);
-    if (worldIn.getBlockState(pos).getBlock() == Blocks.LOG) {
-      if (!worldIn.isRemote) {
-        switch (worldIn.getBlockState(pos).getBlock().getMetaFromState(worldIn.getBlockState(pos))) {
-          case 0:
-          case 4:
-          case 8:
-            playerIn.entityDropItem(new ItemStack(RegistryManager.oakTreeBark), 1.f);
-            stack.getTagCompound().setInteger("durability", stack.getTagCompound().getInteger("durability") + 1);
-            if (rnd.nextDouble() < 0.3) {
-              worldIn.destroyBlock(pos, false);
-            }
-          break;
-          case 1:
-          case 5:
-          case 9:
-            playerIn.entityDropItem(new ItemStack(RegistryManager.spruceTreeBark), 1.f);
-            stack.getTagCompound().setInteger("durability", stack.getTagCompound().getInteger("durability") + 1);
-            if (rnd.nextDouble() < 0.3) {
-              worldIn.destroyBlock(pos, false);
-            }
-          break;
-          case 2:
-          case 6:
-          case 10:
-            playerIn.entityDropItem(new ItemStack(RegistryManager.birchTreeBark), 1.f);
-            stack.getTagCompound().setInteger("durability", stack.getTagCompound().getInteger("durability") + 1);
-            if (rnd.nextDouble() < 0.3) {
-              worldIn.destroyBlock(pos, false);
-            }
-          break;
-          case 3:
-          case 7:
-          case 11:
-            playerIn.entityDropItem(new ItemStack(RegistryManager.jungleTreeBark), 1.f);
-            stack.getTagCompound().setInteger("durability", stack.getTagCompound().getInteger("durability") + 1);
-            if (rnd.nextDouble() < 0.3) {
-              worldIn.destroyBlock(pos, false);
-            }
-          break;
-        }
-      }
+    if (worldIn.isRemote) {
+      return EnumActionResult.SUCCESS;
     }
-    else if (worldIn.getBlockState(pos).getBlock() == Blocks.LOG2) {
-      if (!worldIn.isRemote) {
-        switch (worldIn.getBlockState(pos).getBlock().getMetaFromState(worldIn.getBlockState(pos))) {
-          case 0:
-          case 4:
-          case 8:
-            playerIn.entityDropItem(new ItemStack(RegistryManager.acaciaTreeBark), 1.f);
-            stack.getTagCompound().setInteger("durability", stack.getTagCompound().getInteger("durability") + 1);
-            if (rnd.nextDouble() < 0.3) {
-              worldIn.destroyBlock(pos, false);
-            }
-          break;
-          case 1:
-          case 5:
-          case 9:
-            playerIn.entityDropItem(new ItemStack(RegistryManager.darkOakTreeBark), 1.f);
-            stack.getTagCompound().setInteger("durability", stack.getTagCompound().getInteger("durability") + 1);
-            if (rnd.nextDouble() < 0.3) {
-              worldIn.destroyBlock(pos, false);
-            }
-          break;
-        }
+    ItemStack stack = playerIn.getHeldItem(hand);
+    Item itemToDrop = null;
+    IBlockState blockState = worldIn.getBlockState(pos);
+    BlockPlanks.EnumType type = null;
+    if (blockState.getBlock() == Blocks.LOG) {
+      type = blockState.getValue(BlockOldLog.VARIANT);
+    }
+    else if (blockState.getBlock() == Blocks.LOG2) {
+      type = blockState.getValue(BlockNewLog.VARIANT);
+    }
+    if (type == null) {
+      return EnumActionResult.SUCCESS;
+    }
+    //its a log so it has a type  
+    switch (type) {
+      case ACACIA:
+        itemToDrop = RegistryManager.acaciaTreeBark;
+      break;
+      case BIRCH:
+        itemToDrop = RegistryManager.birchTreeBark;
+      break;
+      case DARK_OAK:
+        itemToDrop = RegistryManager.darkOakTreeBark;
+      break;
+      case JUNGLE:
+        itemToDrop = RegistryManager.jungleTreeBark;
+      break;
+      case OAK:
+        itemToDrop = RegistryManager.oakTreeBark;
+      break;
+      case SPRUCE:
+        itemToDrop = RegistryManager.spruceTreeBark;
+      break;
+      default:
+      break;
+    }
+    if (itemToDrop != null) {
+      playerIn.entityDropItem(new ItemStack(itemToDrop), 1.f);
+      stack.damageItem(1, playerIn);
+      if (worldIn.rand.nextDouble() < BLOCK_DESTROY_ODDS) {
+        worldIn.destroyBlock(pos, false);
       }
     }
     return EnumActionResult.SUCCESS;
-  }
-
-  @Override
-  public int getItemStackLimit() {
-    return 1;
-  }
-
-  @Override
-  public double getDurabilityForDisplay(ItemStack stack) {
-    if (stack.hasTagCompound()) {
-      if (stack.getTagCompound().hasKey("durability")) {
-        return stack.getTagCompound().getInteger("durability") == 0 ? 1.D : (double) (stack.getTagCompound().getInteger("durability")) * 100 / 64 / 100;
-      }
-      else {
-        return 1.D;
-      }
-    }
-    else {
-      return 1.D;
-    }
-  }
-
-  @Override
-  public boolean showDurabilityBar(ItemStack stack) {
-    return this.getDurabilityForDisplay(stack) == 1.D ? false : true;
-  }
-
-  @Override
-  public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-    if (!stack.hasTagCompound()) {
-      stack.setTagCompound(new NBTTagCompound());
-      stack.getTagCompound().setInteger("durability", 0);
-    }
-    if (stack.getTagCompound().getInteger("durability") == 64) {
-      EntityPlayer playerIn = (EntityPlayer) entityIn;
-      if (playerIn != null) {
-        playerIn.inventory.deleteStack(stack);
-      }
-    }
   }
 }

@@ -18,6 +18,7 @@ public class EntityTileAccelerator extends Entity {
   public EntityTileAccelerator(World world) {
     super(world);
   }
+
   public EntityTileAccelerator(World world, BlockPos pos, int potency, int size) {
     super(world);
     this.pos = pos;

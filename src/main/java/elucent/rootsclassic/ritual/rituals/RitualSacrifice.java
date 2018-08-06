@@ -42,15 +42,15 @@ public class RitualSacrifice extends RitualBase {
     potentialDrops.add(new ItemStack(Blocks.WATERLILY, 1));
   }
 
-  @Override
-  public boolean matches(World world, BlockPos pos) {
-    if (super.matches(world, pos)) {
-      if (world.getWorldInfo().isRaining() == false) {
-        return true;
-      }
-    }
-    return false;
-  }
+  //  @Override
+  //  public boolean incesceMatches(World world, BlockPos pos) {
+  //    if (super.incesceMatches(world, pos)) {
+  //      if (world.getWorldInfo().isRaining() == false) {
+  //        return true;
+  //      }
+  //    }
+  //    return false;
+  //  }
 
   @Override
   public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses) {

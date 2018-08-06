@@ -1,10 +1,18 @@
 package elucent.rootsclassic;
 
+import org.apache.logging.log4j.Logger;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
+import elucent.rootsclassic.config.ConfigManager;
 import elucent.rootsclassic.config.EventConfigChanged;
+import elucent.rootsclassic.event.EventComponentSpells;
+import elucent.rootsclassic.event.EventHarvestDrops;
+import elucent.rootsclassic.event.EventManaBar;
 import elucent.rootsclassic.proxy.CommonProxy;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -36,11 +44,15 @@ public class Roots {
   public static CommonProxy proxy;
   @Instance(Const.MODID)
   public static Roots instance;
+  public static Logger logger;
 
   @EventHandler
   public void preInit(FMLPreInitializationEvent event) {
+    logger = event.getModLog();
     ConfigManager.load(event);
-    MinecraftForge.EVENT_BUS.register(new EventManager());
+    MinecraftForge.EVENT_BUS.register(new EventComponentSpells());
+    MinecraftForge.EVENT_BUS.register(new EventHarvestDrops());
+    MinecraftForge.EVENT_BUS.register(new EventManaBar());
     MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
     MinecraftForge.EVENT_BUS.register(new EventConfigChanged());
     MinecraftForge.EVENT_BUS.register(RegistryManager.class);
@@ -55,5 +67,19 @@ public class Roots {
   @EventHandler
   public void postInit(FMLPostInitializationEvent event) {
     proxy.postInit(event);
+  }
+
+  public static void chatMessage(EntityPlayer player, String message) {
+    if (player.world.isRemote)
+      player.sendMessage(new TextComponentString(lang(message)));
+  }
+
+  public static void statusMessage(EntityPlayer player, String message) {
+    if (player.world.isRemote)
+      player.sendStatusMessage(new TextComponentString(lang(message)), true);
+  }
+
+  public static String lang(String message) {
+    return I18n.format(message);
   }
 }

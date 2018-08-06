@@ -11,16 +11,16 @@ public class RitualCauseRain extends RitualBase {
   public RitualCauseRain(String name, double r, double g, double b) {
     super(name, r, g, b);
   }
-
-  @Override
-  public boolean matches(World world, BlockPos pos) {
-    if (super.matches(world, pos)) {
-      if (world.getWorldInfo().isRaining() == false) {
-        return true;
-      }
-    }
-    return false;
-  }
+  //
+  //  @Override
+  //  public boolean incesceMatches(World world, BlockPos pos) {
+  //    if (super.incesceMatches(world, pos)) {
+  //      if (world.getWorldInfo().isRaining() == false) {
+  //        return true;
+  //      }
+  //    }
+  //    return false;
+  //  }
 
   @Override
   public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses) {

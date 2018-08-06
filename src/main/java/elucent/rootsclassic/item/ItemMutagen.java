@@ -6,7 +6,6 @@ import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.Util;
 import elucent.rootsclassic.mutation.MutagenManager;
 import elucent.rootsclassic.mutation.MutagenRecipe;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -17,16 +16,11 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMutagen extends Item {
 
   public ItemMutagen() {
     super();
-
-    setCreativeTab(Roots.tab);
   }
 
   @Override
@@ -63,11 +57,6 @@ public class ItemMutagen extends Item {
     if (!player.capabilities.isCreativeMode) {
       stack.shrink(1);
     }
-    return new ActionResult(EnumActionResult.SUCCESS, stack);
-  }
-
-  @SideOnly(Side.CLIENT)
-  public void initModel() {
-    ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
   }
 }

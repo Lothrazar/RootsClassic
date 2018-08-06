@@ -1,7 +1,6 @@
 package elucent.rootsclassic.item;
 
 import java.util.Random;
-import elucent.rootsclassic.Roots;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,13 +14,7 @@ public class ItemRunicFocus extends Item implements IManaRelatedItem {
 
   public ItemRunicFocus() {
     super();
-
-    this.setCreativeTab(Roots.tab);
-  }
-
-  @Override
-  public int getItemStackLimit() {
-    return 1;
+    this.setMaxStackSize(1);
   }
 
   @Override

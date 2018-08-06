@@ -43,7 +43,6 @@ public class ParticleMagicAltarLine extends Particle {
     this.setParticleTexture(sprite);
   }
 
-
   @Override
   public boolean shouldDisableDepth() { //was isTransparent in 1.10 
     return true;

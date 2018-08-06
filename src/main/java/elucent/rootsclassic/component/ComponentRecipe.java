@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Util;
+import elucent.rootsclassic.item.ItemDustPetal;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -11,7 +12,7 @@ import net.minecraft.item.ItemStack;
 public class ComponentRecipe {
 
   private String effectResult = "";
-  private ArrayList<ItemStack> materials = new ArrayList<ItemStack>();
+  private List<ItemStack> materials = new ArrayList<ItemStack>();
   private boolean disabled = false;
 
   public ComponentRecipe(String result) {
@@ -99,6 +100,7 @@ public class ComponentRecipe {
     return tempItems.size() == 0;
   }
 
+
   public String getEffectResult() {
     return effectResult;
   }
@@ -115,11 +117,17 @@ public class ComponentRecipe {
     this.disabled = disabled;
   }
 
-  public ArrayList<ItemStack> getMaterials() {
+  public List<ItemStack> getMaterials() {
     return materials;
   }
 
-  public void setMaterials(ArrayList<ItemStack> materials) {
+  public void setMaterials(List<ItemStack> materials) {
     this.materials = materials;
+  }
+
+  public ItemStack getRecipeResult(List<ItemStack> inventory) {
+    ItemStack drop = new ItemStack(RegistryManager.dustPetal);
+    ItemDustPetal.createData(drop, this.getEffectResult(), inventory);
+    return drop;
   }
 }

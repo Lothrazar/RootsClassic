@@ -10,27 +10,21 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockStandingStoneEntangler extends TEBlockBase implements ITileEntityProvider {
 
   private static final AxisAlignedBB AXIS_ALIGNED_BB_ONE = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 0.75, 0.75);
   private static final AxisAlignedBB AXIS_ALIGNED_BB_ZERO = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1.0, 0.75);
   public static final PropertyEnum<BlockstateIsTop> topState = PropertyEnum.create("topq", BlockstateIsTop.class);
-
 
   @Override
   public BlockStateContainer createBlockState() {
@@ -84,11 +78,6 @@ public class BlockStandingStoneEntangler extends TEBlockBase implements ITileEnt
     setUnlocalizedName("standingStoneEntangler");
     setCreativeTab(Roots.tab);
     setHardness(1.0f);
-  }
-
-  @SideOnly(Side.CLIENT)
-  public void initModel() {
-    ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
   }
 
   @Override

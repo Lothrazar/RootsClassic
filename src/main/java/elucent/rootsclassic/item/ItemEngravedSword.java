@@ -2,8 +2,7 @@ package elucent.rootsclassic.item;
 
 import java.util.List;
 import com.google.common.collect.Multimap;
-import elucent.rootsclassic.Roots;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import elucent.rootsclassic.RegistryManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -13,7 +12,6 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -21,11 +19,8 @@ public class ItemEngravedSword extends ItemSword {
 
   private String[] numerals = { "0", "I", "II", "III", "IIII" };
 
-  public ItemEngravedSword(ToolMaterial material) {
-    super(material);
-
-
-    this.setCreativeTab(Roots.tab);
+  public ItemEngravedSword() {
+    super(RegistryManager.engravedMaterial);
   }
 
   @Override
@@ -36,11 +31,6 @@ public class ItemEngravedSword extends ItemSword {
       multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -3.0D, 0));
     }
     return multimap;
-  }
-
-  @SideOnly(Side.CLIENT)
-  public void initModel() {
-    ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
   }
 
   @SideOnly(Side.CLIENT)

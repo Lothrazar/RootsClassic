@@ -10,7 +10,6 @@ import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.component.EnumCastType;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,10 +22,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -36,7 +33,7 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
 
   public ItemCrystalStaff() {
     super();
-    setCreativeTab(Roots.tab);
+    this.setMaxStackSize(1);
   }
 
   @Override
@@ -52,60 +49,45 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft) {
     if (timeLeft < (72000 - 12) && stack.hasTagCompound()) {
-      BlockPos pos = new BlockPos(player.posX, player.posY, player.posZ);
-      boolean doEffect = false;
-      if (Util.isNaturalBlock(world.getBlockState(pos).getBlock()) || Util.isNaturalBlock(world.getBlockState(pos.down()).getBlock()) || Util.isNaturalBlock(world.getBlockState(pos.down(2)).getBlock())) {
-        doEffect = true;
+      //BlockPos pos = new BlockPos(player.posX, player.posY, player.posZ);
+      EntityPlayer pl = (EntityPlayer) player;
+      ComponentBase comp = ComponentManager.getComponentFromName(ItemCrystalStaff.getEffect(stack));
+      if (comp == null || !pl.hasCapability(RootsCapabilityManager.manaCapability, null)) {
+        return;
       }
-      else if (player.getHealth() > 1.0) {
-        player.setHealth(player.getHealth() - 1.0f);
-        doEffect = true;
+      int potency = getPotency(stack) + 1;
+      int efficiency = ItemCrystalStaff.getEfficiency(stack);
+      int size = ItemCrystalStaff.getSize(stack);
+      if (pl.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemDruidRobes
+          && pl.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemDruidRobes
+          && pl.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemDruidRobes
+          && pl.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemDruidRobes) {
+        potency += 1;
       }
-      if (doEffect) {
-        EntityPlayer pl = (EntityPlayer) player;
-        ComponentBase comp = ComponentManager.getComponentFromName(ItemCrystalStaff.getEffect(stack));
-        if (comp == null || !pl.hasCapability(RootsCapabilityManager.manaCapability, null)) {
-          return;
-        }
-        int potency = getPotency(stack) + 1;
-        int efficiency = ItemCrystalStaff.getEfficiency(stack);
-        int size = ItemCrystalStaff.getSize(stack);
-        if (pl.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemDruidRobes
-            && pl.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemDruidRobes
-            && pl.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemDruidRobes
-            && pl.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemDruidRobes) {
-          potency += 1;
-        }
-        //        double xpCost = (comp.getManaCost() + potency) * (1.0 - 0.25 * efficiency);
-        Random random = new Random();
-        IManaCapability manaCap = pl.getCapability(RootsCapabilityManager.manaCapability, null);
-        if (manaCap.getMana() >= ((float) comp.getManaCost()) / (efficiency + 1)) {
-          //pay mana cost
-          manaCap.setMana(manaCap.getMana() - (((float) comp.getManaCost()) / (efficiency + 1)));
-          comp.doEffect(world, player, EnumCastType.SPELL, player.posX + 3.0 * player.getLookVec().x, player.posY + 3.0 * player.getLookVec().y, player.posZ + 3.0 * player.getLookVec().z, potency, efficiency, 3.0 + 2.0 * size);
-          for (int i = 0; i < 90; i++) {
-            double offX = random.nextFloat() * 0.5 - 0.25;
-            double offY = random.nextFloat() * 0.5 - 0.25;
-            double offZ = random.nextFloat() * 0.5 - 0.25;
-            double coeff = (offX + offY + offZ) / 1.5 + 0.5;
-            double dx = (player.getLookVec().x + offX) * coeff;
-            double dy = (player.getLookVec().y + offY) * coeff;
-            double dz = (player.getLookVec().z + offZ) * coeff;
-            if (random.nextBoolean()) {
-              Roots.proxy.spawnParticleMagicFX(world, player.posX + dx, player.posY + 1.5 + dy, player.posZ + dz, dx, dy, dz, comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z);
-            }
-            else {
-              Roots.proxy.spawnParticleMagicFX(world, player.posX + dx, player.posY + 1.5 + dy, player.posZ + dz, dx, dy, dz, comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z);
-            }
+      //        double xpCost = (comp.getManaCost() + potency) * (1.0 - 0.25 * efficiency);
+      Random random = new Random();
+      IManaCapability manaCap = pl.getCapability(RootsCapabilityManager.manaCapability, null);
+      if (manaCap.getMana() >= ((float) comp.getManaCost()) / (efficiency + 1)) {
+        //pay mana cost
+        manaCap.setMana(manaCap.getMana() - (((float) comp.getManaCost()) / (efficiency + 1)));
+        comp.doEffect(world, player, EnumCastType.SPELL, player.posX + 3.0 * player.getLookVec().x, player.posY + 3.0 * player.getLookVec().y, player.posZ + 3.0 * player.getLookVec().z, potency, efficiency, 3.0 + 2.0 * size);
+        for (int i = 0; i < 90; i++) {
+          double offX = random.nextFloat() * 0.5 - 0.25;
+          double offY = random.nextFloat() * 0.5 - 0.25;
+          double offZ = random.nextFloat() * 0.5 - 0.25;
+          double coeff = (offX + offY + offZ) / 1.5 + 0.5;
+          double dx = (player.getLookVec().x + offX) * coeff;
+          double dy = (player.getLookVec().y + offY) * coeff;
+          double dz = (player.getLookVec().z + offZ) * coeff;
+          if (random.nextBoolean()) {
+            Roots.proxy.spawnParticleMagicFX(world, player.posX + dx, player.posY + 1.5 + dy, player.posZ + dz, dx, dy, dz, comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z);
+          }
+          else {
+            Roots.proxy.spawnParticleMagicFX(world, player.posX + dx, player.posY + 1.5 + dy, player.posZ + dz, dx, dy, dz, comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z);
           }
         }
       }
     }
-  }
-
-  @Override
-  public int getItemStackLimit() {
-    return 1;
   }
 
   @Override
@@ -157,7 +139,6 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
         }
       }
     }
-    EntityPlayer p;
   }
 
   public static void createData(ItemStack stack) {
@@ -235,11 +216,6 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
         tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getSize(stack) + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
       }
     }
-  }
-
-  @SideOnly(Side.CLIENT)
-  public void initModel() {
-    ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
   }
 
   public static class ColorHandler implements IItemColor {
