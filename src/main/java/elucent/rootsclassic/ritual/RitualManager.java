@@ -2,6 +2,7 @@ package elucent.rootsclassic.ritual;
 
 import java.util.ArrayList;
 import elucent.rootsclassic.RegistryManager;
+import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.Util;
 import elucent.rootsclassic.block.altar.TileEntityAltar;
 import elucent.rootsclassic.block.brazier.TileEntityBrazier;
@@ -64,7 +65,7 @@ public class RitualManager {
     for (RitualBase existing : rituals) {
       //ingredients must be unique 
       if (ritual.doIngredientsMatch(existing)) {
-        throw new IllegalArgumentException("Duplicate ingredients are not allowed for incoming ritual : " + ritual.getName()
+        Roots.logger.error("Duplicate ingredients are not allowed for incoming ritual : " + ritual.getName()
             + " and existing ritual " + existing.getName());
       }
     }
@@ -400,6 +401,7 @@ public class RitualManager {
         .addIngredient(new ItemStack(RegistryManager.standingStoneT2, 1))
         .addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1))
         .addIngredient(new ItemStack(Blocks.STONEBRICK, 1, 3)));
+    //just to move 403 wtf
     addRitual(new RitualCrafting("vacuumStoneCrafting", 0, 105, 73)
         .setResult(new ItemStack(RegistryManager.standingStoneVacuum, 1))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
@@ -420,7 +422,7 @@ public class RitualManager {
         .addIncense(new ItemStack(RegistryManager.darkOakTreeBark, 1, 0))
         .addIngredient(new ItemStack(RegistryManager.standingStoneT2, 1))
         .addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1))
-        .addIngredient(new ItemStack(Blocks.STONE, 1, 3)));
+        .addIngredient(new ItemStack(Blocks.NETHER_BRICK)));
     addRitual(new RitualCrafting("runicFocusCrafting", 109, 242, 109)
         .setResult(new ItemStack(RegistryManager.runicFocus, 1, 0))
         .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
