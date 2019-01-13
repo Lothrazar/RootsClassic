@@ -30,45 +30,39 @@ public abstract class RitualBase {
       throw new IllegalArgumentException("No duplicate names for rituals");
     }
     this.name = parName;
-    setPrimaryColor(new Vec3d(r, g, b));
-    setSecondaryColor(new Vec3d(r, g, b));
+    setPrimaryColor(r, g, b);
+    setSecondaryColor(r, g, b);
     setLevel(level);
-
   }
 
-  private void setLevel(int level) {
+  public void setLevel(int level) {
+    if (level < 0 || level > 2) {
+      throw new IllegalArgumentException("Level must be 0, 1 or 2");
+    }
+    this.blocks = new ArrayList<Block>();
     this.level = level;
-    if (level == 0) {
-      // no pillars needed EX RitualCauseRain
+    //level 0 has no stones 
+    if (level == 1 || level == 2) {
+      //the first circle of tier 1 stones
+      this.addRitualPillar(RegistryManager.standingStoneT1, -3, 0, -3);
+      this.addRitualPillar(RegistryManager.standingStoneT1, -3, 0, 3);
+      this.addRitualPillar(RegistryManager.standingStoneT1, 3, 0, -3);
+      this.addRitualPillar(RegistryManager.standingStoneT1, 3, 0, 3);
+      this.addRitualPillar(RegistryManager.standingStoneT1, 3, 0, 0);
+      this.addRitualPillar(RegistryManager.standingStoneT1, -3, 0, 0);
+      this.addRitualPillar(RegistryManager.standingStoneT1, 0, 0, 3);
+      this.addRitualPillar(RegistryManager.standingStoneT1, 0, 0, -3);
     }
     else if (level == 2) {
-      this.addBlock(RegistryManager.standingStoneT1, -3, 0, -3);
-      this.addBlock(RegistryManager.standingStoneT1, -3, 0, 3);
-      this.addBlock(RegistryManager.standingStoneT1, 3, 0, -3);
-      this.addBlock(RegistryManager.standingStoneT1, 3, 0, 3);
-      this.addBlock(RegistryManager.standingStoneT1, 3, 0, 0);
-      this.addBlock(RegistryManager.standingStoneT1, -3, 0, 0);
-      this.addBlock(RegistryManager.standingStoneT1, 0, 0, 3);
-      this.addBlock(RegistryManager.standingStoneT1, 0, 0, -3);
-      this.addBlock(RegistryManager.standingStoneT2, 5, 1, 0);
-      this.addBlock(RegistryManager.standingStoneT2, -5, 1, 0);
-      this.addBlock(RegistryManager.standingStoneT2, 0, 1, 5);
-      this.addBlock(RegistryManager.standingStoneT2, 0, 1, -5);
+      //the outer tier 2 stones 
+      this.addRitualPillar(RegistryManager.standingStoneT2, 5, 1, 0);
+      this.addRitualPillar(RegistryManager.standingStoneT2, -5, 1, 0);
+      this.addRitualPillar(RegistryManager.standingStoneT2, 0, 1, 5);
+      this.addRitualPillar(RegistryManager.standingStoneT2, 0, 1, -5);
     }
-    else if (level == 1) {
-      this.addBlock(RegistryManager.standingStoneT1, -3, 0, -3);
-      this.addBlock(RegistryManager.standingStoneT1, -3, 0, 3);
-      this.addBlock(RegistryManager.standingStoneT1, 3, 0, -3);
-      this.addBlock(RegistryManager.standingStoneT1, 3, 0, 3);
-      this.addBlock(RegistryManager.standingStoneT1, 3, 0, 0);
-      this.addBlock(RegistryManager.standingStoneT1, -3, 0, 0);
-      this.addBlock(RegistryManager.standingStoneT1, 0, 0, 3);
-      this.addBlock(RegistryManager.standingStoneT1, 0, 0, -3);
-    }
-    else throw new IllegalArgumentException("Level must be 0, 1 or 2");
   }
 
-  public RitualBase addBlock(Block b, int x, int y, int z) {
+  public RitualBase addRitualPillar(Block b, int x, int y, int z) {
     getBlocks().add(b);
     getPositionsRelative().add(new BlockPos(x, y, z));
     return this;
@@ -155,7 +149,8 @@ public abstract class RitualBase {
     return ingredients;
   }
 
-  public void setIngredients(List<ItemStack> ingredients) {
+  public void setIngredients(List<ItemStack> ingredients)
+      throws IllegalArgumentException {
     if (ingredients.size() == 0 || ingredients.size() > 3) {
       throw new IllegalArgumentException("Invalid ritual ingredients, must be in range [1,3]");
     }
@@ -166,7 +161,8 @@ public abstract class RitualBase {
     return incenses;
   }
 
-  public void setIncenses(List<ItemStack> incenses) {
+  public void setIncenses(List<ItemStack> incenses)
+      throws IllegalArgumentException {
     if (incenses.size() == 0 || incenses.size() > 4) {
       throw new IllegalArgumentException("Invalid ritual incense, must be in range [1,4]");
     }
@@ -193,22 +189,29 @@ public abstract class RitualBase {
     return color;
   }
 
-  public void setPrimaryColor(Vec3d color) {
-    this.color = color;
+  public void setPrimaryColor(double r, double g, double b) {
+    this.color = buildColor(r, g, b);
   }
 
   public Vec3d getSecondaryColor() {
     return secondaryColor;
   }
 
-  public RitualBase setSecondaryColor(Vec3d secondaryColor) {
-    this.secondaryColor = secondaryColor;
+  public RitualBase setSecondaryColor(double r, double g, double b) {
+    this.secondaryColor = buildColor(r, g, b);
     return this;
+  }
+
+  private Vec3d buildColor(double r, double g, double b) throws IllegalArgumentException {
+    if (r < 0 || r > 255 ||
+        g < 0 || g > 255 ||
+        b < 0 || b > 255) {
+      throw new IllegalArgumentException("Invalid colour value use [0, 255]");
+    }
+    return new Vec3d(r, g, b);
   }
 
   public String getName() {
     return name;
   }
-
-
 }

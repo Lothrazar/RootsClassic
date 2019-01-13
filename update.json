@@ -11,6 +11,6 @@
   	,"1.0.3":"Fixed a startup crash compatibility issue with ERZ.  "
   	,"1.1.0":"Status messages while setting up rituals for ease of use.  Ritual ingredients are now unique.  If your ritual is invalid, you get status-bar messages to get a better idea of what is missing.  When you start a ritual, if all ingredients are valid it will auto-light the braziers for you.  Clicking a Ritual Altar recipe page now sends ingredients to chat to match how other recipes do it.  Full CraftTweaker (zenscript) support to change items used by all spells and rituals.  Item Tooltips added to all items rendered in the Runic Tablet GUI screens.  Vanilla crafting recipes are no longer shown in the Runic Tablet; this was changed to stay consistent with Craft Tweaker and JEI.  New Fruit salad food item to give berries more uses. "
  	,"1.1.1":"Fix crash on startup.  Duplicate items from zenscript reported to log.  "
-  	,"1.1.2":"Zenscript support added for custom recipe crafting rituals, see the example file.  "
+  	,"1.1.2":"Zenscript support added for custom recipe crafting rituals, see the example files (https://github.com/Lothrazar/RootsClassic/tree/develop/scripts_zen_example).  Also more support for customizing exisiting rituals.  Updated saturation of food items.  "
   }
 }

@@ -27,6 +27,27 @@ public class RitualZen {
     RitualManager.addRitual(newCraft);
   }
 
+  @Optional.Method(modid = "crafttweaker")
+  @ZenMethod
+  public static void setPrimaryColor(String name, double r, double g, double b) {
+    RitualBase found = findRitualByName(name);
+    found.setPrimaryColor(r, g, b);
+  }
+
+  @Optional.Method(modid = "crafttweaker")
+  @ZenMethod
+  public static void setSecondaryColor(String name, double r, double g, double b) {
+    RitualBase found = findRitualByName(name);
+    found.setSecondaryColor(r, g, b);
+  }
+
+  @Optional.Method(modid = "crafttweaker")
+  @ZenMethod
+  public static void setLevel(String name, int level) {
+    RitualBase found = findRitualByName(name);
+    found.setLevel(level);
+  }
+
   /**
    * Invalid ritual, names must be one of: staffCrafting,sylvanHoodCrafting,sylvanChestCrafting,sylvanLegsCrafting,sylvanBootsCrafting,
    * wildwoodHeadCrafting,wildwoodChestCrafting,wildwoodLegsCrafting,wildwoodBootsCrafting, acceleratorStoneCrafting,standingStone,entanglerStoneCrafting,growerStoneCrafting,
@@ -37,24 +58,21 @@ public class RitualZen {
   @Optional.Method(modid = "crafttweaker")
   @ZenMethod
   public static void setRitualIngredients(String name, IItemStack items[]) {
-    //
-    RitualBase found = RitualManager.getRitualFromName(name);
-    if (found == null) {
-      String names = "";
-      for (RitualBase c : RitualManager.rituals) {
-        names += c.getName() + ",";
-      }
-      Roots.logger.info(names);
-      throw new IllegalArgumentException("Invalid ritual[" + name + "], names must be one of: " + names);
-    }
+    RitualBase found = findRitualByName(name);
     Roots.logger.info("[ZenScript:Ritual] changing ingredients " + found.getName());
     found.setIngredients(Arrays.asList(SpellZen.toStacks(items)));
   }
 
+
   @Optional.Method(modid = "crafttweaker")
   @ZenMethod
   public static void setRitualIncense(String name, IItemStack[] items) {
-    //
+    RitualBase found = findRitualByName(name);
+    Roots.logger.info("[ZenScript:Ritual] changing incense " + found.getName());
+    found.setIncenses(Arrays.asList(SpellZen.toStacks(items)));
+  }
+
+  private static RitualBase findRitualByName(String name) {
     RitualBase found = RitualManager.getRitualFromName(name);
     if (found == null) {
       String names = "";
@@ -64,8 +82,7 @@ public class RitualZen {
       Roots.logger.info(names);
       throw new IllegalArgumentException("Invalid ritual[" + name + "], names must be one of: " + names);
     }
-
-    Roots.logger.info("[ZenScript:Ritual] changing incense " + found.getName());
-    found.setIncenses(Arrays.asList(SpellZen.toStacks(items)));
+    return found;
   }
+
 }

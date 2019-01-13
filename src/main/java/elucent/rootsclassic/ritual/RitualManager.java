@@ -33,7 +33,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class RitualManager {
@@ -75,14 +74,14 @@ public class RitualManager {
   public static void init() {
     addRitual(new RitualCrafting("staffCrafting", 2, 205, 86, 0)
         .setResult(new ItemStack(RegistryManager.crystalStaff, 1))
-        .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
-        .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
-        .addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
-        .addBlock(RegistryManager.standingStoneT1, 3, 0, 3)
-        .addBlock(RegistryManager.standingStoneT1, 3, 0, 0)
-        .addBlock(RegistryManager.standingStoneT1, -3, 0, 0)
-        .addBlock(RegistryManager.standingStoneT1, 0, 0, 3)
-        .addBlock(RegistryManager.standingStoneT1, 0, 0, -3)
+        .addRitualPillar(RegistryManager.standingStoneT1, -3, 0, -3)
+        .addRitualPillar(RegistryManager.standingStoneT1, -3, 0, 3)
+        .addRitualPillar(RegistryManager.standingStoneT1, 3, 0, -3)
+        .addRitualPillar(RegistryManager.standingStoneT1, 3, 0, 3)
+        .addRitualPillar(RegistryManager.standingStoneT1, 3, 0, 0)
+        .addRitualPillar(RegistryManager.standingStoneT1, -3, 0, 0)
+        .addRitualPillar(RegistryManager.standingStoneT1, 0, 0, 3)
+        .addRitualPillar(RegistryManager.standingStoneT1, 0, 0, -3)
         .addIncense(new ItemStack(Blocks.COAL_BLOCK, 1))
         .addIncense(new ItemStack(RegistryManager.acaciaTreeBark, 1))
         .addIncense(new ItemStack(RegistryManager.verdantSprig, 1))
@@ -92,18 +91,18 @@ public class RitualManager {
         .addIngredient(new ItemStack(Items.BLAZE_POWDER, 1)));
     addRitual(new RitualCrafting("sylvanHoodCrafting", 2, 62, 138, 62)
         .setResult(new ItemStack(RegistryManager.druidRobesHead, 1))
-        .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
-        .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
-        .addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
-        .addBlock(RegistryManager.standingStoneT1, 3, 0, 3)
-        .addBlock(RegistryManager.standingStoneT1, 3, 0, 0)
-        .addBlock(RegistryManager.standingStoneT1, -3, 0, 0)
-        .addBlock(RegistryManager.standingStoneT1, 0, 0, 3)
-        .addBlock(RegistryManager.standingStoneT1, 0, 0, -3)
-        .addBlock(RegistryManager.standingStoneT2, 5, 1, 0)
-        .addBlock(RegistryManager.standingStoneT2, -5, 1, 0)
-        .addBlock(RegistryManager.standingStoneT2, 0, 1, 5)
-        .addBlock(RegistryManager.standingStoneT2, 0, 1, -5)
+        .addRitualPillar(RegistryManager.standingStoneT1, -3, 0, -3)
+        .addRitualPillar(RegistryManager.standingStoneT1, -3, 0, 3)
+        .addRitualPillar(RegistryManager.standingStoneT1, 3, 0, -3)
+        .addRitualPillar(RegistryManager.standingStoneT1, 3, 0, 3)
+        .addRitualPillar(RegistryManager.standingStoneT1, 3, 0, 0)
+        .addRitualPillar(RegistryManager.standingStoneT1, -3, 0, 0)
+        .addRitualPillar(RegistryManager.standingStoneT1, 0, 0, 3)
+        .addRitualPillar(RegistryManager.standingStoneT1, 0, 0, -3)
+        .addRitualPillar(RegistryManager.standingStoneT2, 5, 1, 0)
+        .addRitualPillar(RegistryManager.standingStoneT2, -5, 1, 0)
+        .addRitualPillar(RegistryManager.standingStoneT2, 0, 1, 5)
+        .addRitualPillar(RegistryManager.standingStoneT2, 0, 1, -5)
         .addIncense(new ItemStack(RegistryManager.birchTreeBark, 1))
         .addIncense(new ItemStack(RegistryManager.birchTreeBark, 1))
         .addIncense(new ItemStack(Items.GOLDEN_APPLE, 1))
@@ -113,18 +112,18 @@ public class RitualManager {
         .addIngredient(new ItemStack(Blocks.VINE, 1)));
     addRitual(new RitualCrafting("sylvanChestCrafting", 2, 62, 138, 62)
         .setResult(new ItemStack(RegistryManager.druidRobesChest, 1))
-        .addBlock(RegistryManager.standingStoneT1, -3, 0, -3)
-        .addBlock(RegistryManager.standingStoneT1, -3, 0, 3)
-        .addBlock(RegistryManager.standingStoneT1, 3, 0, -3)
-        .addBlock(RegistryManager.standingStoneT1, 3, 0, 3)
-        .addBlock(RegistryManager.standingStoneT1, 3, 0, 0)
-        .addBlock(RegistryManager.standingStoneT1, -3, 0, 0)
-        .addBlock(RegistryManager.standingStoneT1, 0, 0, 3)
-        .addBlock(RegistryManager.standingStoneT1, 0, 0, -3)
-        .addBlock(RegistryManager.standingStoneT2, 5, 1, 0)
-        .addBlock(RegistryManager.standingStoneT2, -5, 1, 0)
-        .addBlock(RegistryManager.standingStoneT2, 0, 1, 5)
-        .addBlock(RegistryManager.standingStoneT2, 0, 1, -5)
+        .addRitualPillar(RegistryManager.standingStoneT1, -3, 0, -3)
+        .addRitualPillar(RegistryManager.standingStoneT1, -3, 0, 3)
+        .addRitualPillar(RegistryManager.standingStoneT1, 3, 0, -3)
+        .addRitualPillar(RegistryManager.standingStoneT1, 3, 0, 3)
+        .addRitualPillar(RegistryManager.standingStoneT1, 3, 0, 0)
+        .addRitualPillar(RegistryManager.standingStoneT1, -3, 0, 0)
+        .addRitualPillar(RegistryManager.standingStoneT1, 0, 0, 3)
+        .addRitualPillar(RegistryManager.standingStoneT1, 0, 0, -3)
+        .addRitualPillar(RegistryManager.standingStoneT2, 5, 1, 0)
+        .addRitualPillar(RegistryManager.standingStoneT2, -5, 1, 0)
+        .addRitualPillar(RegistryManager.standingStoneT2, 0, 1, 5)
+        .addRitualPillar(RegistryManager.standingStoneT2, 0, 1, -5)
         .addIncense(new ItemStack(RegistryManager.birchTreeBark, 1))
         .addIncense(new ItemStack(RegistryManager.birchTreeBark, 1))
         .addIncense(new ItemStack(Items.GOLDEN_APPLE, 1))
@@ -445,7 +444,7 @@ public class RitualManager {
     addRitual(new RitualTimeShift("timeshift", 1, 240, 245, 88)
         .addIngredient(new ItemStack(Items.CLOCK))
         .addIngredient(new ItemStack(Items.IRON_INGOT))
-        .setSecondaryColor(new Vec3d(252, 162, 35)));
+        .setSecondaryColor(252, 162, 35));
   }
 
   public static RitualBase getRitualFromName(String name) {

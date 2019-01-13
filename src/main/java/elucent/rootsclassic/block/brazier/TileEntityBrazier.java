@@ -96,7 +96,6 @@ public class TileEntityBrazier extends TEBase implements ITickable {
         if (player.isSneaking()) {
           Roots.statusMessage(player, "brazier.burning.off");
           stopBurning();
-          //          heldItem = ItemStack.EMPTY;
           notifyUpdate(state);
           return true;
         }
