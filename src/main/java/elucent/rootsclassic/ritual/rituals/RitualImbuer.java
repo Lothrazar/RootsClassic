@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 public class RitualImbuer extends RitualBase {
 
   public RitualImbuer() {
-    super("imbuer", 255, 255, 255);
+    super("imbuer", 1, 255, 255, 255);
   }
 
   @Override

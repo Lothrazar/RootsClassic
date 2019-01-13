@@ -19,8 +19,8 @@ public class RitualSacrifice extends RitualBase {
   public ArrayList<ItemStack> potentialDrops = new ArrayList<ItemStack>();
   Random random = new Random();
 
-  public RitualSacrifice(String name, double r, double g, double b) {
-    super(name, r, g, b);
+  public RitualSacrifice(String name, int level, double r, double g, double b) {
+    super(name, level, r, g, b);
     potentialDrops.add(new ItemStack(Items.WHEAT_SEEDS, 1));
     potentialDrops.add(new ItemStack(Items.WHEAT_SEEDS, 1));
     potentialDrops.add(new ItemStack(Items.PUMPKIN_SEEDS, 1));
@@ -42,15 +42,6 @@ public class RitualSacrifice extends RitualBase {
     potentialDrops.add(new ItemStack(Blocks.WATERLILY, 1));
   }
 
-  //  @Override
-  //  public boolean incesceMatches(World world, BlockPos pos) {
-  //    if (super.incesceMatches(world, pos)) {
-  //      if (world.getWorldInfo().isRaining() == false) {
-  //        return true;
-  //      }
-  //    }
-  //    return false;
-  //  }
 
   @Override
   public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses) {
