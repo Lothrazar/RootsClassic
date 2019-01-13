@@ -26,10 +26,22 @@ minecraft {
    makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
-dependencies {
-
-
+repositories {
+    maven { // JEI & Tinkers
+        name 'DVS1 Maven FS'
+        url 'http://dvs1.progwml6.com/files/maven'
+    }
+    maven { // CraftTweaker (aka MineTweaker3), Immersive Engineering
+        name 'jared maven'
+        url "http://blamejared.com/maven"
+    }
 }
+
+dependencies {
+    compileOnly "mezz.jei:jei_1.12.2:4.11.+"
+    compileOnly "CraftTweaker2:CraftTweaker2-API:4.1.9.+"
+}
+
 
 processResources
 {
