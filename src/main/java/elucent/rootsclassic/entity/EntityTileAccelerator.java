@@ -32,6 +32,13 @@ public class EntityTileAccelerator extends Entity {
   @Override
   public void onUpdate() {
     super.onUpdate();
+    if (pos == null) {
+      if (!world.isRemote) {
+        this.setDead();
+        this.getEntityWorld().removeEntity(this);
+      }
+      return;
+    }
     if (this.getEntityWorld().getTileEntity(this.pos) instanceof ITickable) {
       for (int i = 0; i < potency; i++) {
         ((ITickable) this.getEntityWorld().getTileEntity(this.pos)).update();
