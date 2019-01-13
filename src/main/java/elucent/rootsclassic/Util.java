@@ -19,7 +19,6 @@ public class Util {
   public static Random random = new Random();
   public static ArrayList<Item> berries = new ArrayList<Item>();
 
-
   public static double randomDouble(double min, double max) {
     double range = max - min;
     double scale = random.nextDouble() * range;

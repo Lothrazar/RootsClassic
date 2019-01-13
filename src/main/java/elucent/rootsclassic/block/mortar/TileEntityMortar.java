@@ -135,7 +135,6 @@ public class TileEntityMortar extends TEBase {
     ComponentRecipe recipe = ComponentManager.getRecipe(inventory);
     if (recipe != null && !recipe.isDisabled() && this.inventory.size() > 3
         && ComponentRecipe.getModifierCapacity(inventory) != -1) {
-
       if (!world.isRemote) {
         world.spawnEntity(new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, recipe.getRecipeResult(inventory)));
       }

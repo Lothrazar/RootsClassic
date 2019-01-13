@@ -24,7 +24,6 @@ public class SpellZen {
   @Optional.Method(modid = "crafttweaker")
   @ZenMethod
   public static void setSpellItems(String name, IItemStack items[]) {
-
     if (items.length == 0 || items.length > 4) {
       throw new IllegalArgumentException("Invalid spell ingredients, must be in range [1,4]");
     }

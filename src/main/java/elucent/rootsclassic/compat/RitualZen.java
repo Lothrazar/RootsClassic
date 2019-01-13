@@ -19,7 +19,6 @@ public class RitualZen {
   @ZenMethod
   public static void addCraftingRitual(String uniqueName, IItemStack output, int level, double r, double g, double b,
       IItemStack incenses[], IItemStack ingredients[]) {
-
     RitualCrafting newCraft = new RitualCrafting(uniqueName, level, r, g, b);
     newCraft.setResult(SpellZen.toStack(output));
     newCraft.setIngredients(Arrays.asList(SpellZen.toStacks(ingredients)));
@@ -63,7 +62,6 @@ public class RitualZen {
     found.setIngredients(Arrays.asList(SpellZen.toStacks(items)));
   }
 
-
   @Optional.Method(modid = "crafttweaker")
   @ZenMethod
   public static void setRitualIncense(String name, IItemStack[] items) {
@@ -84,5 +82,4 @@ public class RitualZen {
     }
     return found;
   }
-
 }

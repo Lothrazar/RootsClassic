@@ -210,7 +210,6 @@ public class RegistryManager {
     registerItem(jungleTreeBark = new ItemRootsBasic(), "jungletreebark");
     registerItem(acaciaTreeBark = new ItemRootsBasic(), "acaciatreebark");
     registerItem(darkOakTreeBark = new ItemRootsBasic(), "darkoaktreebark");
-
     registerItem(livingPickaxe = new ItemLivingPickaxe(), "livingpickaxe");
     registerItem(livingAxe = new ItemLivingAxe(), "livingaxe");
     registerItem(livingSword = new ItemLivingSword(), "livingsword");

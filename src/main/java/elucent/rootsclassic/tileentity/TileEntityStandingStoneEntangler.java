@@ -43,7 +43,6 @@ public class TileEntityStandingStoneEntangler extends TEBase implements ITickabl
     }
     if (ticker % 20 == 0) {
       List<EntityLivingBase> nearbyCreatures = this.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.getX() - RADIUS, pos.getY() - RADIUS, pos.getZ() - RADIUS, pos.getX() + RADIUS, pos.getY() + RADIUS, pos.getZ() + RADIUS));
-
       if (nearbyCreatures.size() > 0) {
         for (int i = 0; i < nearbyCreatures.size(); i++) {
           nearbyCreatures.get(i).addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("slowness"), 25, 1));

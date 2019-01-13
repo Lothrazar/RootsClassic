@@ -42,7 +42,6 @@ public class RitualSacrifice extends RitualBase {
     potentialDrops.add(new ItemStack(Blocks.WATERLILY, 1));
   }
 
-
   @Override
   public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses) {
     inventory.clear();

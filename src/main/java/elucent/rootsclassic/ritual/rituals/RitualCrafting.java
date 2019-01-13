@@ -14,11 +14,11 @@ public class RitualCrafting extends RitualBase {
   public RitualCrafting(String name, int level, double r, double g, double b) {
     super(name, level, r, g, b);
   }
+
   public RitualCrafting setResult(ItemStack stack) {
     this.result = stack;
     return this;
   }
-
 
   @Override
   public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses) {

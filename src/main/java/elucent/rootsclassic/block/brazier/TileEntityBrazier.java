@@ -79,13 +79,11 @@ public class TileEntityBrazier extends TEBase implements ITickable {
   @Override
   public boolean activate(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack playerItem, EnumFacing side, float hitX, float hitY, float hitZ) {
     if (playerItem.isEmpty()) {
-
       if (!getHeldItem().isEmpty() && !isBurning()) {
         if (player.isSneaking()) {
           Roots.statusMessage(player, getHeldItem().getDisplayName());
         }
         else {
-
           dropContaining(state);
           notifyUpdate(state);
           Roots.statusMessage(player, "brazier.burning.empty");
@@ -100,13 +98,11 @@ public class TileEntityBrazier extends TEBase implements ITickable {
           return true;
         }
       }
-
     }
     else if (playerItem.getItem() == Items.FLINT_AND_STEEL) {
       if (!getHeldItem().isEmpty()) {
         startBurning();
         Roots.statusMessage(player, "brazier.burning.on");
-
         notifyUpdate(state);
         return true;
       }
