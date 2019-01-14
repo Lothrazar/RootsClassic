@@ -10,14 +10,14 @@ import net.minecraft.world.World;
 
 public class RitualMassBreed extends RitualBase {
 
-  public RitualMassBreed(String name, double r, double g, double b) {
-    super(name, r, g, b);
+  public RitualMassBreed(String name, int level, double r, double g, double b) {
+    super(name, level, r, g, b);
   }
 
   @Override
   public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses) {
     inventory.clear();
-    List<EntityAnimal> animals = (List<EntityAnimal>) world.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22, pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
+    List<EntityAnimal> animals = world.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22, pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
     if (animals.size() > 0) {
       for (int i = 0; i < animals.size(); i++) {
         animals.get(i).setInLove(world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 5, false));

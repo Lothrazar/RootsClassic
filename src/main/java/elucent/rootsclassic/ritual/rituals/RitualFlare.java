@@ -15,8 +15,8 @@ public class RitualFlare extends RitualBase {
 
   Random random = new Random();
 
-  public RitualFlare(String name, double r, double g, double b) {
-    super(name, r, g, b);
+  public RitualFlare(String name, int level, double r, double g, double b) {
+    super(name, level, r, g, b);
   }
 
   @Override

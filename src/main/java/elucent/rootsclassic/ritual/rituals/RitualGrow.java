@@ -12,8 +12,8 @@ public class RitualGrow extends RitualBase {
 
   Random random = new Random();
 
-  public RitualGrow(String name, double r, double g, double b) {
-    super(name, r, g, b);
+  public RitualGrow(String name, int level, double r, double g, double b) {
+    super(name, level, r, g, b);
   }
 
   @Override

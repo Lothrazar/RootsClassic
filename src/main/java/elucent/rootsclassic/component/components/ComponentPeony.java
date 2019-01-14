@@ -49,7 +49,6 @@ public class ComponentPeony extends ComponentBase {
         Roots.proxy.spawnParticleMagicAuraFX(world, fX + Util.randomDouble(0.0, 0.5), fY + Util.randomDouble(0.1, 0.5), fZ + Util.randomDouble(0.0, 0.5), (player.posX - fX) * factor, (player.posY - fY) * factor, (player.posZ - fZ) * factor, 138, 42, 235);
       }
     });
-    player.setVelocity(0, 0, 0);
   }
 
   @Override

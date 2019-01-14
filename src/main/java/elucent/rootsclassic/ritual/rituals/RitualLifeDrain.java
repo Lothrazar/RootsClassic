@@ -12,8 +12,8 @@ import net.minecraft.world.World;
 
 public class RitualLifeDrain extends RitualBase {
 
-  public RitualLifeDrain(String name, double r, double g, double b) {
-    super(name, r, g, b);
+  public RitualLifeDrain(String name, int level, double r, double g, double b) {
+    super(name, level, r, g, b);
   }
 
   @Override

@@ -24,7 +24,15 @@ public class SpellZen {
   @Optional.Method(modid = "crafttweaker")
   @ZenMethod
   public static void setSpellItems(String name, IItemStack items[]) {
-    //
+    if (items.length == 0 || items.length > 4) {
+      throw new IllegalArgumentException("Invalid spell ingredients, must be in range [1,4]");
+    }
+    ComponentRecipe found = findSpellByName(name);
+    Roots.logger.info("[ZenScript:Spell] changing recipe " + found.getLocalizedName());
+    found.setMaterials(Arrays.asList(toStacks(items)));
+  }
+
+  private static ComponentRecipe findSpellByName(String name) {
     ComponentRecipe found = ComponentManager.getSpellFromName(name);
     if (found == null) {
       String names = "";
@@ -34,11 +42,7 @@ public class SpellZen {
       //  Roots.logger.info(names);
       throw new IllegalArgumentException("Invalid spell [" + name + "], names must be one of: " + names);
     }
-    if (items.length == 0 || items.length > 4) {
-      throw new IllegalArgumentException("Invalid spell ingredients, must be in range [1,4]");
-    }
-    Roots.logger.info("[ZenScript:Spell] changing recipe " + found.getLocalizedName());
-    found.setMaterials(Arrays.asList(toStacks(items)));
+    return found;
   }
 
   /**

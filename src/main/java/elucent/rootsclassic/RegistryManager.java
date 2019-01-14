@@ -210,7 +210,6 @@ public class RegistryManager {
     registerItem(jungleTreeBark = new ItemRootsBasic(), "jungletreebark");
     registerItem(acaciaTreeBark = new ItemRootsBasic(), "acaciatreebark");
     registerItem(darkOakTreeBark = new ItemRootsBasic(), "darkoaktreebark");
-
     registerItem(livingPickaxe = new ItemLivingPickaxe(), "livingpickaxe");
     registerItem(livingAxe = new ItemLivingAxe(), "livingaxe");
     registerItem(livingSword = new ItemLivingSword(), "livingsword");
@@ -233,11 +232,13 @@ public class RegistryManager {
     registerItem(whiteCurrant = new ItemRootsFood(4, 0.4F, false), "whitecurrant");
     registerItem(elderBerry = new ItemRootsFood(2, 0.1F, false), "elderberry");
     registerItem(healingPoultice = new ItemRootsFood(0, 0F, false).setAlwaysEdible().setMaxStackSize(8), "healingpoultice");
-    registerItem(rootyStew = new ItemBowlFood(7, 5.0F), "rootystew");//7 means 3.5 nuggets (steak gives 4) 1 is saturation
-    registerItem(fruitSalad = new ItemBowlFood(8, 14.0F), "fruitsalad");
+    float cookedBeefSat = 0.8F;
+    registerItem(rootyStew = new ItemBowlFood(7, 0.2F + cookedBeefSat), "rootystew");//7 means 3.5 nuggets (steak gives 4) 1 is saturation
+    registerItem(fruitSalad = new ItemBowlFood(8, 0.1F + cookedBeefSat), "fruitsalad");
     registerItem(runicFocus = new ItemRunicFocus(), "runicfocus");
     registerItem(engravedSword = new ItemEngravedSword(), "engravedsword");
     registerItem(manaResearchIcon = new ItemRootsBasic(), "manaresearchicon");
+    Item apple;
     /**
      * REGISTERING BLOCKS
      */

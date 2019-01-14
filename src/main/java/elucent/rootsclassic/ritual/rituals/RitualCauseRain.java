@@ -8,8 +8,8 @@ import net.minecraft.world.World;
 
 public class RitualCauseRain extends RitualBase {
 
-  public RitualCauseRain(String name, double r, double g, double b) {
-    super(name, r, g, b);
+  public RitualCauseRain(String name, int level, double r, double g, double b) {
+    super(name, level, r, g, b);
   }
   //
   //  @Override

@@ -11,8 +11,8 @@ import net.minecraft.world.World;
 
 public class RitualTimeShift extends RitualBase {
 
-  public RitualTimeShift(String parName, double r, double g, double b, double r2, double g2, double b2) {
-    super(parName, r, g, b, r2, g2, b2);
+  public RitualTimeShift(String parName, int level, double r, double g, double b) {
+    super(parName, level, r, g, b);
   }
 
   @Override

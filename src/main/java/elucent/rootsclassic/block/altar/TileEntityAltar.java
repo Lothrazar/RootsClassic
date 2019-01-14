@@ -69,7 +69,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
       NBTTagList list = new NBTTagList();
       for (int i = 0; i < getInventory().size(); i++) {
         //        if (getInventory().get(i) != null) {
-          list.appendTag(getInventory().get(i).writeToNBT(new NBTTagCompound()));
+        list.appendTag(getInventory().get(i).writeToNBT(new NBTTagCompound()));
         //        }
       }
       tag.setTag("inventory", list);
@@ -79,7 +79,7 @@ public class TileEntityAltar extends TEBase implements ITickable {
       for (int i = 0; i < getIncenses().size(); i++) {
         //  ;
         //        if (getIncenses().get(i) != null) {
-          list.appendTag(getIncenses().get(i).writeToNBT(new NBTTagCompound()));
+        list.appendTag(getIncenses().get(i).writeToNBT(new NBTTagCompound()));
         //        } 
       }
       tag.setTag("incenses", list);
@@ -136,13 +136,12 @@ public class TileEntityAltar extends TEBase implements ITickable {
         setRitualName(ritual.getName());
         Roots.logger.info("found " + ritual.getName());
         setIncenses(RitualManager.getIncenses(world, getPos()));
-
         setProgress(RECIPE_PROGRESS_TIME);
         for (TileEntityBrazier brazier : ritual.getRecipeBraziers(world, pos)) {
           brazier.setBurning(true);
           brazier.setHeldItem(ItemStack.EMPTY);
         }
-//        this.emptyNearbyBraziers();
+        //        this.emptyNearbyBraziers();
         //          System.out.println(" ritual STARTED " + ritual.name);
         markDirty();
         this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
@@ -238,12 +237,9 @@ public class TileEntityAltar extends TEBase implements ITickable {
       //      }
       if (getProgress() == 0 && getRitualCurrent() != null) {
         Roots.logger.info("RITUAL has completed " + getRitualCurrent().getName());
-
         getRitualCurrent().doEffect(getWorld(), getPos(), getInventory(), getIncenses());
-
         setRitualName(null);
         setRitualCurrent(null);
-
         markDirty();
         this.getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
       }
@@ -256,7 +252,6 @@ public class TileEntityAltar extends TEBase implements ITickable {
   //      brazier.setBurning(false);
   //    }
   //  }
-
   public ArrayList<ItemStack> getInventory() {
     return inventory;
   }

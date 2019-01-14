@@ -100,7 +100,6 @@ public class ComponentRecipe {
     return tempItems.size() == 0;
   }
 
-
   public String getEffectResult() {
     return effectResult;
   }

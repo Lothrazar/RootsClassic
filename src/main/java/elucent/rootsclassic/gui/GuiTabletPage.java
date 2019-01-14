@@ -157,14 +157,11 @@ public class GuiTabletPage extends GuiScreen {
           textLines.add(new GuiTextInstance(info.get(i), basePosX + 16, basePosY + 32 + i * 11));
         }
       break;
-
       case TYPE_SMELTING:
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletSmelting);
         this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
-
         slots.add(new GuiSlotInstance(page.smeltingRecipe.get(0), (int) basePosX + 56, (int) basePosY + 40));
         slots.add(new GuiSlotInstance(page.smeltingRecipe.get(1), (int) basePosX + 144, (int) basePosY + 56));
-
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           textLines.add(new GuiTextInstance(info.get(i), basePosX + 16, basePosY + 104 + i * 11, Util.intColor(255, 255, 255)));
@@ -175,15 +172,12 @@ public class GuiTabletPage extends GuiScreen {
       case TYPE_DISPLAY:
         Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletDisplay);
         this.drawTexturedModalRect(basePosX, basePosY, 0, 0, 192, 256);
-
         slots.add(new GuiSlotInstance(page.displayItem, (int) basePosX + 88, (int) basePosY + 48));
-
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           textLines.add(new GuiTextInstance(info.get(i), basePosX + 16, basePosY + 80 + i * 11, Util.intColor(255, 255, 255)));
         }
         title = makeTitle();
-
         textLines.add(new GuiTextInstance(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255)));
       break;
       case TYPE_ALTAR:
@@ -216,7 +210,6 @@ public class GuiTabletPage extends GuiScreen {
         for (int i = 0; i < page.altarRecipe.getIncenses().size(); i++) {
           slots.add(new GuiSlotInstance(page.altarRecipe.getIncenses().get(i), (int) basePosX + 76 + 16 * i, (int) basePosY + 88));
         }
-
         title = makeTitle();
         textLines.add(new GuiTextInstance(title, basePosX + 96 - (this.fontRenderer.getStringWidth(title) / 2.0f), basePosY + 12, Util.intColor(255, 255, 255)));
       break;
@@ -226,7 +219,6 @@ public class GuiTabletPage extends GuiScreen {
         for (int i = 0; i < page.mortarRecipe.getMaterials().size(); i++) {
           slots.add(new GuiSlotInstance(page.mortarRecipe.getMaterials().get(i), (int) basePosX + 24 + i * 16, (int) basePosY + 56));
         }
-
         slots.add(new GuiSlotInstance(page.mortarRecipe.getRecipeResult(new ArrayList<ItemStack>()), (int) basePosX + 144, (int) basePosY + 56));
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
@@ -249,7 +241,6 @@ public class GuiTabletPage extends GuiScreen {
       else
         fontRenderer.drawString(line.getLine(), (int) line.getX(), (int) line.getY(), line.getColor());
     }
-
     //TODO: arrows go black on rituals
     Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletGui);
     if (showLeftArrow) {

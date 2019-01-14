@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.RegistryManager;
+import elucent.rootsclassic.Util;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
 import elucent.rootsclassic.model.ModelDruidRobes;
 import net.minecraft.client.model.ModelBiped;
@@ -41,9 +42,7 @@ public class ItemDruidRobes extends ItemArmor {
 
   @Override
   public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-    if (stack.isItemDamaged() && rnd.nextInt(80) == 0) {
-      stack.setItemDamage(stack.getItemDamage() - 1);
-    }
+    Util.randomlyRepair(world.rand, stack);
     if (rnd.nextInt(40) == 0) {
       if (player.hasCapability(RootsCapabilityManager.manaCapability, null)) {
         player.getCapability(RootsCapabilityManager.manaCapability, null).setMana(player.getCapability(RootsCapabilityManager.manaCapability, null).getMana() + 1.0f);

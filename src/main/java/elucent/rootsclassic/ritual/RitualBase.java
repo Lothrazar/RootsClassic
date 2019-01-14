@@ -23,20 +23,46 @@ public abstract class RitualBase {
   private Vec3d color = new Vec3d(255, 255, 255);
   private Vec3d secondaryColor = new Vec3d(255, 255, 255);
   private String name = "";
+  private int level;
 
-  public RitualBase(String parName, double r, double g, double b) {
-    setName(parName);
-    setColor(new Vec3d(r, g, b));
-    setSecondaryColor(new Vec3d(r, g, b));
+  public RitualBase(String parName, int level, double r, double g, double b) {
+    if (RitualManager.getRitualFromName(name) != null) {
+      throw new IllegalArgumentException("No duplicate names for rituals");
+    }
+    this.name = parName;
+    setPrimaryColor(r, g, b);
+    setSecondaryColor(r, g, b);
+    setLevel(level);
   }
 
-  public RitualBase(String parName, double r, double g, double b, double r2, double g2, double b2) {
-    setName(parName);
-    setColor(new Vec3d(r, g, b));
-    setSecondaryColor(new Vec3d(r2, g2, b2));
+  public void setLevel(int level) {
+    if (level < 0 || level > 2) {
+      throw new IllegalArgumentException("Level must be 0, 1 or 2");
+    }
+    this.blocks = new ArrayList<Block>();
+    this.level = level;
+    //level 0 has no stones 
+    if (level == 1 || level == 2) {
+      //the first circle of tier 1 stones
+      this.addRitualPillar(RegistryManager.standingStoneT1, -3, 0, -3);
+      this.addRitualPillar(RegistryManager.standingStoneT1, -3, 0, 3);
+      this.addRitualPillar(RegistryManager.standingStoneT1, 3, 0, -3);
+      this.addRitualPillar(RegistryManager.standingStoneT1, 3, 0, 3);
+      this.addRitualPillar(RegistryManager.standingStoneT1, 3, 0, 0);
+      this.addRitualPillar(RegistryManager.standingStoneT1, -3, 0, 0);
+      this.addRitualPillar(RegistryManager.standingStoneT1, 0, 0, 3);
+      this.addRitualPillar(RegistryManager.standingStoneT1, 0, 0, -3);
+    }
+    else if (level == 2) {
+      //the outer tier 2 stones 
+      this.addRitualPillar(RegistryManager.standingStoneT2, 5, 1, 0);
+      this.addRitualPillar(RegistryManager.standingStoneT2, -5, 1, 0);
+      this.addRitualPillar(RegistryManager.standingStoneT2, 0, 1, 5);
+      this.addRitualPillar(RegistryManager.standingStoneT2, 0, 1, -5);
+    }
   }
 
-  public RitualBase addBlock(Block b, int x, int y, int z) {
+  public RitualBase addRitualPillar(Block b, int x, int y, int z) {
     getBlocks().add(b);
     getPositionsRelative().add(new BlockPos(x, y, z));
     return this;
@@ -65,7 +91,7 @@ public abstract class RitualBase {
         Block loopBlock = getBlocks().get(i);
         BlockPos loopPosOffset = pos.add(loopPos.getX(), loopPos.getY(), loopPos.getZ());
         if (world.getBlockState(loopPosOffset).getBlock() != loopBlock) {
-          Roots.logger.info("Missing block " + loopBlock + " at position " + loopPosOffset);
+          Roots.logger.info(this.level + " level recipe has Missing block " + loopBlock + " at position " + loopPosOffset);
           return false;
         }
       }
@@ -76,7 +102,6 @@ public abstract class RitualBase {
   public List<TileEntityBrazier> getRecipeBraziers(World world, BlockPos pos) {
     List<TileEntityBrazier> links = new ArrayList<>();
     TileEntity tileHere;
-
     for (int i = -1 * RADIUS; i <= RADIUS; i++) {
       for (int j = -1 * RADIUS; j <= RADIUS; j++) {
         if (world.getBlockState(pos.add(i, 0, j)).getBlock() == RegistryManager.brazier) {
@@ -106,7 +131,6 @@ public abstract class RitualBase {
   //    //TODO: use this somewhere?
   //    return I18n.format("roots.ritual." + getName() + ".name");
   //  }
-
   @Override
   public String toString() {
     //this.getName() + System.lineSeparator() +
@@ -125,7 +149,11 @@ public abstract class RitualBase {
     return ingredients;
   }
 
-  public void setIngredients(List<ItemStack> ingredients) {
+  public void setIngredients(List<ItemStack> ingredients)
+      throws IllegalArgumentException {
+    if (ingredients.size() == 0 || ingredients.size() > 3) {
+      throw new IllegalArgumentException("Invalid ritual ingredients, must be in range [1,3]");
+    }
     this.ingredients = ingredients;
   }
 
@@ -133,7 +161,11 @@ public abstract class RitualBase {
     return incenses;
   }
 
-  public void setIncenses(List<ItemStack> incenses) {
+  public void setIncenses(List<ItemStack> incenses)
+      throws IllegalArgumentException {
+    if (incenses.size() == 0 || incenses.size() > 4) {
+      throw new IllegalArgumentException("Invalid ritual incense, must be in range [1,4]");
+    }
     this.incenses = incenses;
   }
 
@@ -157,23 +189,29 @@ public abstract class RitualBase {
     return color;
   }
 
-  public void setColor(Vec3d color) {
-    this.color = color;
+  public void setPrimaryColor(double r, double g, double b) {
+    this.color = buildColor(r, g, b);
   }
 
   public Vec3d getSecondaryColor() {
     return secondaryColor;
   }
 
-  public void setSecondaryColor(Vec3d secondaryColor) {
-    this.secondaryColor = secondaryColor;
+  public RitualBase setSecondaryColor(double r, double g, double b) {
+    this.secondaryColor = buildColor(r, g, b);
+    return this;
+  }
+
+  private Vec3d buildColor(double r, double g, double b) throws IllegalArgumentException {
+    if (r < 0 || r > 255 ||
+        g < 0 || g > 255 ||
+        b < 0 || b > 255) {
+      throw new IllegalArgumentException("Invalid colour value use [0, 255]");
+    }
+    return new Vec3d(r, g, b);
   }
 
   public String getName() {
     return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 }

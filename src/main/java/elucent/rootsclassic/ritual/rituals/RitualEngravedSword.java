@@ -21,8 +21,8 @@ public class RitualEngravedSword extends RitualBase {
     return this;
   }
 
-  public RitualEngravedSword(String name, double r, double g, double b) {
-    super(name, r, g, b);
+  public RitualEngravedSword(String name, int level, double r, double g, double b) {
+    super(name, level, r, g, b);
   }
 
   @Override
