@@ -1,6 +1,7 @@
 package elucent.rootsclassic.item;
 
 import elucent.rootsclassic.RegistryManager;
+import elucent.rootsclassic.Util;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
@@ -13,5 +14,7 @@ public class ItemLivingShovel extends ItemSpade {
   }
 
   @Override
-  public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {}
+  public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+    Util.randomlyRepair(world.rand, stack);
+  }
 }
