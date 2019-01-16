@@ -55,7 +55,6 @@ public class ItemGrowthSalve extends Item {
     return false;
   }
 
-
   public static void spawnGrowthParticle(World world, EntityPlayer player) {
     Vec3d lookVec = player.getLookVec();
     for (int i = 0; i < 40; i++) {

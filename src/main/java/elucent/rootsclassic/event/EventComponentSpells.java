@@ -30,7 +30,6 @@ public class EventComponentSpells {
   @SubscribeEvent
   public void onLivingTick(LivingUpdateEvent event) {
     EntityLivingBase entity = event.getEntityLiving();
-
     if (entity instanceof EntityPlayer) {
       // armor regen if full set 
       this.druidArmorRegenFullset((EntityPlayer) entity);
