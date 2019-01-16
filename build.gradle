@@ -31,7 +31,7 @@ minecraft {
     replace '@FINGERPRINT@', project.findProperty('signSHA1')
     //Makes those replacement changes to the main mod class.
     //My mod class is set in my project's gradle.properties file.
-    replaceIn "ModCyclic.java"
+    replaceIn "Roots.java"
 }
 task signJar(type: SignJar, dependsOn: reobfJar) {
 
