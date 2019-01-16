@@ -7,6 +7,7 @@ import elucent.rootsclassic.capability.RootsCapabilityManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -29,13 +30,16 @@ public class EventComponentSpells {
   @SubscribeEvent
   public void onLivingTick(LivingUpdateEvent event) {
     EntityLivingBase entity = event.getEntityLiving();
+
     if (entity instanceof EntityPlayer) {
-      if (entity.ticksExisted % TICKS_PER_MANA_REGEN == 0) {
-        if (entity.hasCapability(RootsCapabilityManager.manaCapability, null)) {
-          entity.getCapability(RootsCapabilityManager.manaCapability, null).setMana(entity.getCapability(RootsCapabilityManager.manaCapability, null).getMana() + 1.0f);
-        }
-      }
+      // armor regen if full set 
+      this.druidArmorRegenFullset((EntityPlayer) entity);
+      tickManaRegen(entity);
     }
+    tickSkipMovementCurse(event, entity);
+  }
+
+  private void tickSkipMovementCurse(LivingUpdateEvent event, EntityLivingBase entity) {
     if (entity.getEntityData().hasKey(Util.NBT_TRACK_TICKS)) {
       if (entity.getEntityData().hasKey(NBT_SKIP_TICKS)) {
         if (entity.getEntityData().getInteger(NBT_SKIP_TICKS) > 0) {
@@ -46,6 +50,30 @@ public class EventComponentSpells {
           }
           event.setCanceled(true);
         }
+      }
+    }
+  }
+
+  private void tickManaRegen(EntityLivingBase entity) {
+    if (entity.ticksExisted % TICKS_PER_MANA_REGEN == 0) {
+      if (entity.hasCapability(RootsCapabilityManager.manaCapability, null)) {
+        entity.getCapability(RootsCapabilityManager.manaCapability, null).setMana(entity.getCapability(RootsCapabilityManager.manaCapability, null).getMana() + 1.0f);
+      }
+    }
+  }
+
+  private void druidArmorRegenFullset(EntityPlayer entity) {
+    ItemStack head = entity.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+    ItemStack chest = entity.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+    ItemStack legs = entity.getItemStackFromSlot(EntityEquipmentSlot.LEGS);
+    ItemStack feet = entity.getItemStackFromSlot(EntityEquipmentSlot.FEET);
+    if (head.getItem() == RegistryManager.druidArmorHead &&
+        chest.getItem() == RegistryManager.druidArmorChest &&
+        legs.getItem() == RegistryManager.druidArmorLegs &&
+        feet.getItem() == RegistryManager.druidArmorBoots) {
+      //
+      if (entity.world.rand.nextDouble() < 0.02 && entity.getHealth() < entity.getMaxHealth()) {
+        entity.heal(1);//1 half heart 
       }
     }
   }
