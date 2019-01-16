@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -69,6 +70,18 @@ public class Roots {
     proxy.postInit(event);
   }
 
+  @EventHandler
+  public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
+    // https://tutorials.darkhax.net/tutorials/jar_signing/
+    String source = (event.getSource() == null) ? "" : event.getSource().getName() + " ";
+    String msg = "Roots Classic: Invalid fingerprint detected! The file " + source + "may have been tampered with. This version will NOT be supported by the author!";
+    if (logger == null) {
+      System.out.println(msg);
+    }
+    else {
+      logger.error(msg);
+    }
+  }
   public static void chatMessage(EntityPlayer player, String message) {
     if (player.world.isRemote)
       player.sendMessage(new TextComponentString(lang(message)));
