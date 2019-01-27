@@ -49,7 +49,6 @@ public class TileEntityMortar extends TEBase {
     if (inventory.size() > 0) {
       NBTTagList list = new NBTTagList();
       for (int i = 0; i < inventory.size(); i++) {
-
         list.appendTag(inventory.get(i).writeToNBT(new NBTTagCompound()));
       }
       tag.setTag(NBT_MODIFIERS, list);
@@ -85,7 +84,6 @@ public class TileEntityMortar extends TEBase {
   }
 
   private boolean tryInsertItem(World world, BlockPos pos, IBlockState state, ItemStack heldItem) {
-
     if (inventory.size() < MAX_INVO_SIZE) {
       if (heldItem.getItem() == Items.GLOWSTONE_DUST || heldItem.getItem() == Items.REDSTONE || heldItem.getItem() == Items.GUNPOWDER) {
         int maxCapacity = ComponentRecipe.getModifierCapacity(inventory);
@@ -129,7 +127,7 @@ public class TileEntityMortar extends TEBase {
   }
 
   private boolean tryActivateRecipe(EntityPlayer player, IBlockState state) {
-    ComponentRecipe recipe = ComponentManager.getRecipe(inventory);
+    ComponentRecipe recipe = ComponentManager.getRecipeFromInput(inventory);
     if (recipe == null) {
       player.sendStatusMessage(new TextComponentString(I18n.format("roots.mortar.invalid")), true);
       return false;
@@ -138,7 +136,7 @@ public class TileEntityMortar extends TEBase {
       player.sendStatusMessage(new TextComponentString(I18n.format("roots.mortar.disabled")), true);
       return false;
     }
-    else if (ComponentRecipe.getModifierCapacity(inventory) < 0) {
+    else if (recipe.needsMixin() && ComponentRecipe.getModifierCapacity(inventory) < 0) {
       player.sendStatusMessage(new TextComponentString(I18n.format("roots.mortar.mixin")), true);
       return false;
     }

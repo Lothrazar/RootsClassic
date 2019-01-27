@@ -183,7 +183,7 @@ public class ComponentManager {
     return null;
   }
 
-  public static ComponentRecipe getRecipe(List<ItemStack> items) {
+  public static ComponentRecipe getRecipeFromInput(List<ItemStack> items) {
     for (ComponentRecipe r : recipes) {
       if (r.matches(items)) {
         return r;

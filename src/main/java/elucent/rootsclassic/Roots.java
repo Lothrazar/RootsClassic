@@ -82,6 +82,7 @@ public class Roots {
       logger.error(msg);
     }
   }
+
   public static void chatMessage(EntityPlayer player, String message) {
     if (player.world.isRemote)
       player.sendMessage(new TextComponentString(lang(message)));

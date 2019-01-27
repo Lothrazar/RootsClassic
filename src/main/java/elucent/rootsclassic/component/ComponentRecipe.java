@@ -14,6 +14,7 @@ public class ComponentRecipe {
   private String effectResult = "";
   private List<ItemStack> materials = new ArrayList<ItemStack>();
   private boolean disabled = false;
+  private boolean needsMixin = true;
 
   public ComponentRecipe(String result) {
     this.setEffectResult(result);
@@ -74,7 +75,6 @@ public class ComponentRecipe {
 
   public boolean matches(List<ItemStack> items) {
     ArrayList<ItemStack> tempItems = new ArrayList<ItemStack>();
-
     for (ItemStack stackIn : items) {
       if (stackIn.isEmpty() == false && isSupplimentItem(stackIn) == false) {
         tempItems.add(stackIn);
@@ -90,7 +90,6 @@ public class ComponentRecipe {
         return false;
       }
     }
-
     return true;
   }
 
@@ -138,5 +137,18 @@ public class ComponentRecipe {
     ItemStack drop = new ItemStack(RegistryManager.dustPetal);
     ItemDustPetal.createData(drop, this.getEffectResult(), inventory);
     return drop;
+  }
+
+  /**
+   * if a Rare Material is required to finish, in addition to recipe list. IE: old root, etc
+   * 
+   * @return
+   */
+  public boolean needsMixin() {
+    return needsMixin;
+  }
+
+  public void setNeedsMixin(boolean mix) {
+    needsMixin = mix;
   }
 }
