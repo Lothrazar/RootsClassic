@@ -86,6 +86,7 @@ public class Util {
   }
 
   public static boolean oreDictMatches(ItemStack stack1, ItemStack stack2) {
+
     if (OreDictionary.itemMatches(stack1, stack2, true)) {
       return true;
     }

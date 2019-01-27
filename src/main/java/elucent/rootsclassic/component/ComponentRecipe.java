@@ -74,30 +74,40 @@ public class ComponentRecipe {
 
   public boolean matches(List<ItemStack> items) {
     ArrayList<ItemStack> tempItems = new ArrayList<ItemStack>();
-    tempItems.addAll(items);
-    for (int i = 0; i < tempItems.size(); i++) {
-      ItemStack it = tempItems.get(i);
-      if (it.getItem() == RegistryManager.oldRoot ||
-          it.getItem() == RegistryManager.verdantSprig ||
-          it.getItem() == RegistryManager.infernalStem ||
-          it.getItem() == RegistryManager.dragonsEye ||
-          it.getItem() == Items.GLOWSTONE_DUST ||
-          it.getItem() == Items.REDSTONE ||
-          it.getItem() == Items.GUNPOWDER) {
-        tempItems.remove(i);
-        i--;
+
+    for (ItemStack stackIn : items) {
+      if (stackIn.isEmpty() == false && isSupplimentItem(stackIn) == false) {
+        tempItems.add(stackIn);
       }
     }
-    for (int i = 0; i < getMaterials().size(); i++) {
-      boolean endIteration = false;
-      for (int j = 0; j < tempItems.size() && !endIteration; j++) {
-        if (Util.oreDictMatches(getMaterials().get(i), tempItems.get(j))) {
-          tempItems.remove(j);
-          endIteration = true;
-        }
+    for (int i = 0; i < materials.size(); i++) {
+      if (i >= tempItems.size()) {
+        return false;
+      }
+      ItemStack mat = materials.get(i);
+      ItemStack input = tempItems.get(i);
+      if (Util.oreDictMatches(mat, input) == false) {
+        return false;
       }
     }
-    return tempItems.size() == 0;
+
+    return true;
+  }
+
+  /**
+   * True if not part of a recipe but just a recipe booster
+   * 
+   * @param it
+   * @return
+   */
+  private boolean isSupplimentItem(ItemStack it) {
+    return it.getItem() == RegistryManager.oldRoot ||
+        it.getItem() == RegistryManager.verdantSprig ||
+        it.getItem() == RegistryManager.infernalStem ||
+        it.getItem() == RegistryManager.dragonsEye ||
+        it.getItem() == Items.GLOWSTONE_DUST ||
+        it.getItem() == Items.REDSTONE ||
+        it.getItem() == Items.GUNPOWDER;
   }
 
   public String getEffectResult() {

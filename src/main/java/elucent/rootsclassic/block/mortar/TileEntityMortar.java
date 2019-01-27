@@ -49,7 +49,7 @@ public class TileEntityMortar extends TEBase {
     if (inventory.size() > 0) {
       NBTTagList list = new NBTTagList();
       for (int i = 0; i < inventory.size(); i++) {
-        ;
+
         list.appendTag(inventory.get(i).writeToNBT(new NBTTagCompound()));
       }
       tag.setTag(NBT_MODIFIERS, list);
@@ -77,11 +77,7 @@ public class TileEntityMortar extends TEBase {
       return tryDropSingleItem(world, pos, state);
     }
     else if (heldItem.getItem() == RegistryManager.pestle) {
-      boolean success = tryActivateRecipe(state);
-      if (!success) {
-        player.sendStatusMessage(new TextComponentString(I18n.format("roots.mortar.invalid")), true);
-      }
-      return success;
+      return tryActivateRecipe(player, state);
     }
     else {
       return tryInsertItem(world, pos, state, heldItem);
@@ -89,6 +85,7 @@ public class TileEntityMortar extends TEBase {
   }
 
   private boolean tryInsertItem(World world, BlockPos pos, IBlockState state, ItemStack heldItem) {
+
     if (inventory.size() < MAX_INVO_SIZE) {
       if (heldItem.getItem() == Items.GLOWSTONE_DUST || heldItem.getItem() == Items.REDSTONE || heldItem.getItem() == Items.GUNPOWDER) {
         int maxCapacity = ComponentRecipe.getModifierCapacity(inventory);
@@ -131,18 +128,26 @@ public class TileEntityMortar extends TEBase {
     return false;
   }
 
-  private boolean tryActivateRecipe(IBlockState state) {
+  private boolean tryActivateRecipe(EntityPlayer player, IBlockState state) {
     ComponentRecipe recipe = ComponentManager.getRecipe(inventory);
-    if (recipe != null && !recipe.isDisabled() && this.inventory.size() > 3
-        && ComponentRecipe.getModifierCapacity(inventory) != -1) {
-      if (!world.isRemote) {
-        world.spawnEntity(new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, recipe.getRecipeResult(inventory)));
-      }
-      inventory.clear();
-      markDirty();
-      this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-      return true;
+    if (recipe == null) {
+      player.sendStatusMessage(new TextComponentString(I18n.format("roots.mortar.invalid")), true);
+      return false;
     }
-    return false;
+    else if (recipe.isDisabled()) {
+      player.sendStatusMessage(new TextComponentString(I18n.format("roots.mortar.disabled")), true);
+      return false;
+    }
+    else if (ComponentRecipe.getModifierCapacity(inventory) < 0) {
+      player.sendStatusMessage(new TextComponentString(I18n.format("roots.mortar.mixin")), true);
+      return false;
+    }
+    if (!world.isRemote) {
+      world.spawnEntity(new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, recipe.getRecipeResult(inventory)));
+    }
+    inventory.clear();
+    markDirty();
+    world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+    return true;
   }
 }
