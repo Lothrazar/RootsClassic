@@ -1,8 +1,8 @@
 {
   "homepage": "https://minecraft.curseforge.com/projects/roots-classic",
   "promos": {
-    "1.12.2-latest": "1.1.4",
-    "1.12.2-recommended": "1.1.4"
+    "1.12.2-latest": "1.1.5",
+    "1.12.2-recommended": "1.1.5"
   },
   "1.12.2":{
 	"1.0.0":"Initial Release"
@@ -14,5 +14,6 @@
   	,"1.1.2":"Zenscript support added for custom recipe crafting rituals, see the example files (https://github.com/Lothrazar/RootsClassic/tree/develop/scripts_zen_example).  Also more support for customizing existing  rituals.  Updated saturation of food items.  Regeneration spell no longer tries to set player movement to zero (also fixes server issue).  "
   	,"1.1.3":"Fixed Living Shovel not repairing.  Fixed healing not triggering on full set of Wildwood Armor.  Fixed Growth powder.  Fixed Growing Stone not affecting lily pads or crops.  Growth stone radius reduced, speed reduced, locations randomized and power increased.     "
   	,"1.1.4":"Fixed mortar recipes not activating.  Added two new text responses from mortar if the recipe is invalid, or if its invalid but is missing a rare material (such as old root).  Fixed Mortar not saving its contents on world reload.  "
+  	,"1.1.5":"Growth Powder and Growth Standing Stone no longer act as bonemeal to spam tallgrass on grass blocks.  Growth Powder and Growth Standing Stone updated growth strategy to be more compatible with other mods such as Restrictions: https://www.curseforge.com/minecraft/mc-mods/plant-biomes  "
   }
 }

@@ -1,6 +1,7 @@
 package elucent.rootsclassic.item;
 
 import elucent.rootsclassic.Roots;
+import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +30,8 @@ public class ItemGrowthSalve extends Item {
     return EnumActionResult.PASS;
   }
 
+  private static final int TICKS = 30;
+
   public static boolean applyGrowthHere(World world, BlockPos pos) {
     IBlockState iblockstate = world.getBlockState(pos);
     if (iblockstate.getBlock() == Blocks.DIRT) {
@@ -42,14 +45,16 @@ public class ItemGrowthSalve extends Item {
     else {
       if (iblockstate.getBlock() instanceof IGrowable) {
         IGrowable igrowable = (IGrowable) iblockstate.getBlock();
-        if (igrowable.canGrow(world, pos, iblockstate, world.isRemote)) {
-          if (!world.isRemote) {
-            if (igrowable.canUseBonemeal(world, world.rand, pos, iblockstate)) {
-              igrowable.grow(world, world.rand, pos, iblockstate);
-            }
-          }
-          return true;
+        if (igrowable.canGrow(world, pos, iblockstate, world.isRemote) == false) {
+          return false;
         }
+        Block block = iblockstate.getBlock();
+        //no need to literally increase internal growth numbers, just force more  update ticks
+        world.scheduleBlockUpdate(pos, block, world.rand.nextInt(TICKS) + 20, 1);
+        if (!world.isRemote) {
+          block.updateTick(world, pos, iblockstate, world.rand);
+        }
+        return true;
       }
     }
     return false;
