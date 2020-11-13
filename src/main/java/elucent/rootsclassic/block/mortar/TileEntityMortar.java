@@ -7,7 +7,7 @@ import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.component.ComponentRecipe;
 import elucent.rootsclassic.tileentity.TEBase;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -129,15 +129,15 @@ public class TileEntityMortar extends TEBase {
   private boolean tryActivateRecipe(EntityPlayer player, IBlockState state) {
     ComponentRecipe recipe = ComponentManager.getRecipeFromInput(inventory);
     if (recipe == null) {
-      player.sendStatusMessage(new TextComponentString(I18n.format("roots.mortar.invalid")), true);
+      player.sendStatusMessage(new TextComponentString(I18n.translateToLocalFormatted("roots.mortar.invalid")), true);
       return false;
     }
     else if (recipe.isDisabled()) {
-      player.sendStatusMessage(new TextComponentString(I18n.format("roots.mortar.disabled")), true);
+      player.sendStatusMessage(new TextComponentString(I18n.translateToLocalFormatted("roots.mortar.disabled")), true);
       return false;
     }
     else if (recipe.needsMixin() && ComponentRecipe.getModifierCapacity(inventory) < 0) {
-      player.sendStatusMessage(new TextComponentString(I18n.format("roots.mortar.mixin")), true);
+      player.sendStatusMessage(new TextComponentString(I18n.translateToLocalFormatted("roots.mortar.mixin")), true);
       return false;
     }
     if (!world.isRemote) {
