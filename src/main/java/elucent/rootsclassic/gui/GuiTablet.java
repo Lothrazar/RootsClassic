@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
@@ -140,11 +140,11 @@ public class GuiTablet extends GuiScreen {
         this.itemRender.renderItemIntoGUI(ResearchManager.globalResearches.get(currentGroup).researches.get(i).icon, (int) (basePosX + xShift * 32 + 4), (int) (32 + 40 * yShift + 4));
       }
       if (mouseX >= basePosX + 32 * xShift && mouseX < basePosX + 32 * xShift + 24 && mouseY >= 32 + 40 * yShift && mouseY < 32 + 40 * yShift + 24) {
-        String name = I18n.format("roots.research." + ResearchManager.globalResearches.get(currentGroup).name + "." + ResearchManager.globalResearches.get(currentGroup).researches.get(i).name + ".name");
+        String name = I18n.translateToLocalFormatted("roots.research." + ResearchManager.globalResearches.get(currentGroup).name + "." + ResearchManager.globalResearches.get(currentGroup).researches.get(i).name + ".name");
         this.fontRenderer.drawStringWithShadow(name, basePosX + 32 * xShift + 12 - (fontRenderer.getStringWidth(name) / 2.0f), 32 + 40 * yShift + 25, Util.intColor(255, 255, 255));
       }
     }
-    this.fontRenderer.drawStringWithShadow(I18n.format("roots.research." + ResearchManager.globalResearches.get(currentGroup).name + ".name"), width / 2.0f - (fontRenderer.getStringWidth(ResearchManager.globalResearches.get(currentGroup).properName) / 2.0f), height - 16.0f, Util.intColor(255, 255, 255));
+    this.fontRenderer.drawStringWithShadow(I18n.translateToLocalFormatted("roots.research." + ResearchManager.globalResearches.get(currentGroup).name + ".name"), width / 2.0f - (fontRenderer.getStringWidth(ResearchManager.globalResearches.get(currentGroup).properName) / 2.0f), height - 16.0f, Util.intColor(255, 255, 255));
     Minecraft.getMinecraft().getTextureManager().bindTexture(Const.tabletGui);
     if (mouseX >= 32 && mouseX < 64 && mouseY >= height - 48 && mouseY < height - 32) {
       this.drawTexturedModalRect(32, height - 48, 32, 80, 32, 16);

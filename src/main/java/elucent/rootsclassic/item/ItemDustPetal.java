@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentManager;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -58,10 +58,10 @@ public class ItemDustPetal extends Item {
     if (stack.hasTagCompound()) {
       NBTTagCompound tags = stack.getTagCompound();
       ComponentBase comp = ComponentManager.getComponentFromName(tags.getString("effect"));
-      tooltip.add(TextFormatting.GOLD + I18n.format("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
-      tooltip.add(TextFormatting.RED + "  +" + tags.getInteger("potency") + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
-      tooltip.add(TextFormatting.RED + "  +" + tags.getInteger("efficiency") + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
-      tooltip.add(TextFormatting.RED + "  +" + tags.getInteger("size") + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
+      tooltip.add(TextFormatting.GOLD + I18n.translateToLocalFormatted("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
+      tooltip.add(TextFormatting.RED + "  +" + tags.getInteger("potency") + " " + I18n.translateToLocalFormatted("roots.tooltip.spellpotency.name") + ".");
+      tooltip.add(TextFormatting.RED + "  +" + tags.getInteger("efficiency") + " " + I18n.translateToLocalFormatted("roots.tooltip.spellefficiency.name") + ".");
+      tooltip.add(TextFormatting.RED + "  +" + tags.getInteger("size") + " " + I18n.translateToLocalFormatted("roots.tooltip.spellsize.name") + ".");
     }
   }
 }

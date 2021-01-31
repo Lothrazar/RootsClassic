@@ -6,7 +6,7 @@ import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Util;
 import elucent.rootsclassic.model.ModelDruidArmor;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,8 +28,8 @@ public class ItemDruidArmor extends ItemArmor {
   @Override
   public void addInformation(ItemStack stack, World player, List<String> tooltip, net.minecraft.client.util.ITooltipFlag advanced) {
     tooltip.add("");
-    tooltip.add(TextFormatting.GRAY + I18n.format("roots.attribute.equipped.name"));
-    tooltip.add(TextFormatting.BLUE + " " + I18n.format("roots.attribute.increasedregen.name"));
+    tooltip.add(TextFormatting.GRAY + I18n.translateToLocalFormatted("roots.attribute.equipped.name"));
+    tooltip.add(TextFormatting.BLUE + " " + I18n.translateToLocalFormatted("roots.attribute.increasedregen.name"));
   }
 
   @SideOnly(Side.CLIENT)

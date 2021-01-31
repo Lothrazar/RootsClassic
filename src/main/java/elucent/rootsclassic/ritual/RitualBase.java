@@ -129,7 +129,7 @@ public abstract class RitualBase {
 
   //  public String getLocalizedName() {
   //    //TODO: use this somewhere?
-  //    return I18n.format("roots.ritual." + getName() + ".name");
+  //    return I18n.translateToLocalFormatted("roots.ritual." + getName() + ".name");
   //  }
   @Override
   public String toString() {
