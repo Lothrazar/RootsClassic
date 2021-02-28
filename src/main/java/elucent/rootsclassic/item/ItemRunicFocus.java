@@ -1,6 +1,5 @@
 package elucent.rootsclassic.item;
 
-import java.util.Random;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,8 +8,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemRunicFocus extends Item implements IManaRelatedItem {
-
-  Random random = new Random();
 
   public ItemRunicFocus() {
     super();
