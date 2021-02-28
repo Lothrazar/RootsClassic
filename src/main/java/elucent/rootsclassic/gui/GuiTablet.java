@@ -121,10 +121,10 @@ public class GuiTablet extends GuiScreen {
       Tessellator tessellator = Tessellator.getInstance();
       BufferBuilder vertexbuffer = tessellator.getBuffer();
       vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-      for (float i = 0; i < width; i += width / 32.0f) {
+      for (float i = 0; i < width; i += unit) {
         float height1 = 12.0f * ((float) Math.cos(((cycle / 360.0) + (i / (width / 4.0))) * Math.PI) + 1.0f);
-        float height2 = 12.0f * ((float) Math.cos(((cycle / 360.0) + ((i + width / 32.0) / (width / 4.0))) * Math.PI) + 1.0f);
-        this.drawQuad(vertexbuffer, i, height - (24.0f + height1), i + width / 32.0f, height - (24.0f + height2), i + width / 32.0f, height, i, height, 16, 96, 16, 64);
+        float height2 = 12.0f * ((float) Math.cos(((cycle / 360.0) + ((i + unit) / (width / 4.0))) * Math.PI) + 1.0f);
+        this.drawQuad(vertexbuffer, i, height - (24.0f + height1), i + unit, height - (24.0f + height2), i + unit, height, i, height, 16, 96, 16, 64);
       }
       tessellator.draw();
       GlStateManager.disableBlend();

@@ -17,7 +17,7 @@ public class TileEntityBrazierRenderer extends TileEntitySpecialRenderer<TileEnt
       GL11.glTranslated(x + 0.5, y + 0.1, z + 0.5);
       GL11.glScaled(0.5, 0.5, 0.5);
       GL11.glRotated(teb.getTicker(), 0, 1, 0);
-      Minecraft.getMinecraft().getRenderManager().doRenderEntity(item, 0, 0, 0, 0, 0, true);
+      Minecraft.getMinecraft().getRenderManager().renderEntity(item, 0, 0, 0, 0, 0, true);
       GL11.glPopMatrix();
     }
   }

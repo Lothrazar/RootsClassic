@@ -7,6 +7,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 
+@SuppressWarnings("rawtypes")
 public class ManaCapabilityProvider implements ICapabilityProvider, INBTSerializable, IManaCapability {
 
   float mana;

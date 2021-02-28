@@ -4,6 +4,7 @@ import elucent.rootsclassic.RegistryManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.IFuelHandler;
 
+@SuppressWarnings("deprecation")
 public class FuelManager implements IFuelHandler {
 
   @Override

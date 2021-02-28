@@ -130,19 +130,19 @@ public class RegistryManager {
   }
 
   private static ResourceLocation buildName(ItemStack output) {
-    ResourceLocation firstTry = new ResourceLocation(Const.MODID, output.getUnlocalizedName());
+    ResourceLocation firstTry = new ResourceLocation(Const.MODID, output.getTranslationKey());
     int limit = 999;
     int index = 0;
     while (usedRecipeNames.containsKey(firstTry.toString()) || index > limit) {
       index++;
-      firstTry = new ResourceLocation(Const.MODID, firstTry.getResourcePath() + "_" + index);
+      firstTry = new ResourceLocation(Const.MODID, firstTry.getPath() + "_" + index);
     }
     usedRecipeNames.put(firstTry.toString(), true);
     return firstTry;
   }
 
   private static void registerItem(Item item, String name) {
-    item.setUnlocalizedName(name);
+    item.setTranslationKey(name);
     item.setRegistryName(new ResourceLocation(Const.MODID, name));
     item.setCreativeTab(Roots.tab);
     itemList.add(item);
@@ -150,7 +150,7 @@ public class RegistryManager {
 
   private static void registerBlock(Block b, String name) {
     b.setRegistryName(new ResourceLocation(Const.MODID, name));
-    b.setUnlocalizedName(name);
+    b.setTranslationKey(name);
     ItemBlock ib = new ItemBlock(b);
     ib.setRegistryName(new ResourceLocation(Const.MODID, name)); // ok good this should work yes? yes! http://mcforge.readthedocs.io/en/latest/blocks/blocks/#registering-a-block
     ib.setCreativeTab(Roots.tab);
@@ -191,6 +191,7 @@ public class RegistryManager {
     RitualManager.init();
   }
 
+  @SuppressWarnings("deprecation")
   public static void init() {
     /**
      * REGISTERING ITEMS
@@ -238,7 +239,6 @@ public class RegistryManager {
     registerItem(runicFocus = new ItemRunicFocus(), "runicfocus");
     registerItem(engravedSword = new ItemEngravedSword(), "engravedsword");
     registerItem(manaResearchIcon = new ItemRootsBasic(), "manaresearchicon");
-    Item apple;
     /**
      * REGISTERING BLOCKS
      */

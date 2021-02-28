@@ -211,12 +211,8 @@ public class ItemStaff extends Item implements IManaRelatedItem {
 
   public static class ColorHandler implements IItemColor {
 
-    public ColorHandler() {
-      //
-    }
-
     @Override
-    public int getColorFromItemstack(ItemStack stack, int layer) {
+    public int colorMultiplier(ItemStack stack, int layer) {
       if (stack.hasTagCompound() && stack.getItem() instanceof ItemStaff) {
         if (layer == 2) {
           ComponentBase comp = ComponentManager.getComponentFromName(stack.getTagCompound().getString(NBT_EFFECT));

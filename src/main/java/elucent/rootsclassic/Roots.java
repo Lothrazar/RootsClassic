@@ -37,7 +37,7 @@ public class Roots {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public ItemStack getTabIconItem() {
+    public ItemStack createIcon() {
       return new ItemStack(RegistryManager.dustPetal);
     }
   };

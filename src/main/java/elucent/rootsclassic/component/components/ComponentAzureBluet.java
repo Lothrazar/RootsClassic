@@ -18,6 +18,7 @@ public class ComponentAzureBluet extends ComponentBase {
     super("azurebluet", Blocks.RED_FLOWER, 6);
   }
 
+  @SuppressWarnings("deprecation")
   public void destroyBlockSafe(World world, BlockPos pos, int potency) {
     if (world.getBlockState(pos).getBlock().getHarvestLevel(world.getBlockState(pos)) <= 2 + potency && world.getBlockState(pos).getBlock().getBlockHardness(world.getBlockState(pos), world, pos) != -1) {
       world.destroyBlock(pos, true);

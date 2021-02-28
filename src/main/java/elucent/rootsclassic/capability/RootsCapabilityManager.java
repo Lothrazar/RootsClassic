@@ -14,12 +14,13 @@ public class RootsCapabilityManager {
   @CapabilityInject(IManaCapability.class)
   public static final Capability<IManaCapability> manaCapability = null;
 
+  @SuppressWarnings("deprecation")
   public static void preInit() {
     CapabilityManager.INSTANCE.register(IManaCapability.class, new ManaCapabilityStorage(), DefaultManaCapability.class);
   }
 
   @SubscribeEvent
-  public void onAddCapabilities(AttachCapabilitiesEvent e) {
+  public void onAddCapabilities(AttachCapabilitiesEvent<?> e) {
     if (e.getObject() instanceof EntityPlayer) {
       //  ManaCapabilityProvider provider = new ManaCapabilityProvider(!e.getObject().hasCapability(manaCapability, null));
       e.addCapability(new ResourceLocation(Const.MODID, "manacapability"),

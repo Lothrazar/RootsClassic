@@ -23,11 +23,11 @@ public class ComponentLilac extends ComponentBase {
       return true;
     }
     if (world.getBlockState(pos).getBlock() == Blocks.NETHER_WART && random.nextInt(5 - potency) < 2) {
-      BlockNetherWart wart = (BlockNetherWart) world.getBlockState(pos).getBlock();
+      //      BlockNetherWart wart = (BlockNetherWart) world.getBlockState(pos).getBlock();
       IBlockState state = world.getBlockState(pos);
-      int age = state.getValue(wart.AGE).intValue();
+      int age = state.getValue(BlockNetherWart.AGE).intValue();
       if (age < 3) {
-        state = state.withProperty(wart.AGE, Integer.valueOf(age + 1));
+        state = state.withProperty(BlockNetherWart.AGE, Integer.valueOf(age + 1));
         world.setBlockState(pos, state, 2);
         return true;
       }

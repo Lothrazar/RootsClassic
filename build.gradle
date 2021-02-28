@@ -1,5 +1,3 @@
-
-// For those who want the bleeding edge
 buildscript {
     repositories {
         jcenter()
@@ -18,11 +16,17 @@ version = "${mc_version}-${mod_version}"
 group= "elucent.roots" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "RootsClassic"
 
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+
 minecraft {
     version = "${mc_version}-${forge_version}"
     runDir = "run"
 
-    mappings = "snapshot_20170624"
+    mappings = project.mappings_version
     makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
 
@@ -51,7 +55,8 @@ task signJar(type: SignJar, dependsOn: reobfJar) {
     outputFile = jar.archivePath
 }
 // Runs this task automatically when build is ran. 
-build.dependsOn signJar
+// build.dependsOn signJar
+
 repositories {
     maven { // JEI & Tinkers
         name 'DVS1 Maven FS'
@@ -61,16 +66,47 @@ repositories {
         name 'jared maven'
         url "http://blamejared.com/maven"
     }
+	maven {
+		url "https://maven.mcmoddev.com"
+	}
+    maven {
+        url "http://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+		url 'http://maven.blamejared.com'
+	}
+	maven {
+		url 'https://maven.mcmoddev.com/'
+	}
+	maven {
+        url = "http://minecraft.curseforge.com/api/maven/"
+    }
+    maven {
+    	name = "Progwml6 maven"
+        url "http://dvs1.progwml6.com/files/maven"
+    }
+   // maven { //Guide API
+	//	url "http://tehnut.info/maven/"
+	//}
+	maven {
+	    // location of a maven mirror for JEI files, as a fallback
+	    name = "ModMaven"
+	    url = "modmaven.k-4u.nl"
+	}
+	maven { url "http://maven.amadornes.com/" }
+	ivy {
+		name 'asie dependency mirror'
+		artifactPattern "http://asie.pl/javadeps/[module]-[revision](-[classifier]).[ext]"
+	}
 }
 
 dependencies {
-    compileOnly "mezz.jei:jei_1.12.2:4.11.+"
-    compileOnly "CraftTweaker2:CraftTweaker2-API:4.1.9.+"
+  deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
+  deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:${crt_version}"
 }
 
 
-processResources
-{
+processResources {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version

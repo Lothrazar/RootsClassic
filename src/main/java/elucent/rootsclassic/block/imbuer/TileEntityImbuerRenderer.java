@@ -15,7 +15,7 @@ public class TileEntityImbuerRenderer extends TileEntitySpecialRenderer<TileEnti
       item.hoverStart = 0;
       GL11.glTranslated(x + 0.5, y + 0.3125, z + 0.5);
       GL11.glRotated(tei.spin, 0, 1.0, 0);
-      Minecraft.getMinecraft().getRenderManager().doRenderEntity(item, 0, 0, 0, 0, 0, true);
+      Minecraft.getMinecraft().getRenderManager().renderEntity(item, 0, 0, 0, 0, 0, true);
       GL11.glPopMatrix();
     }
     if (tei.dust != null) {
@@ -24,7 +24,7 @@ public class TileEntityImbuerRenderer extends TileEntitySpecialRenderer<TileEnti
       item.hoverStart = 0;
       GL11.glTranslated(x + 0.5, y + 0.125, z);
       GL11.glRotated(90, 1.0, 0, 0);
-      Minecraft.getMinecraft().getRenderManager().doRenderEntity(item, 0, 0, 0, 0, 0, true);
+      Minecraft.getMinecraft().getRenderManager().renderEntity(item, 0, 0, 0, 0, 0, true);
       GL11.glPopMatrix();
     }
   }

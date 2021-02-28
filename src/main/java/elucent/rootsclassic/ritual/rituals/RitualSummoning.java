@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+@SuppressWarnings("rawtypes")
 public class RitualSummoning extends RitualBase {
 
   public Class result = null;
@@ -22,6 +23,7 @@ public class RitualSummoning extends RitualBase {
     super(name, level, r, g, b);
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses) {
     if (Util.itemListsMatchWithSize(inventory, this.getIngredients())) {

@@ -67,9 +67,9 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
       //        double xpCost = (comp.getManaCost() + potency) * (1.0 - 0.25 * efficiency);
       Random random = new Random();
       IManaCapability manaCap = pl.getCapability(RootsCapabilityManager.manaCapability, null);
-      if (manaCap.getMana() >= ((float) comp.getManaCost()) / (efficiency + 1)) {
+      if (manaCap.getMana() >= (comp.getManaCost()) / (efficiency + 1)) {
         //pay mana cost
-        manaCap.setMana(manaCap.getMana() - (((float) comp.getManaCost()) / (efficiency + 1)));
+        manaCap.setMana(manaCap.getMana() - ((comp.getManaCost()) / (efficiency + 1)));
         comp.doEffect(world, player, EnumCastType.SPELL, player.posX + 3.0 * player.getLookVec().x, player.posY + 3.0 * player.getLookVec().y, player.posZ + 3.0 * player.getLookVec().z, potency, efficiency, 3.0 + 2.0 * size);
         for (int i = 0; i < 90; i++) {
           double offX = random.nextFloat() * 0.5 - 0.25;
@@ -220,12 +220,8 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
 
   public static class ColorHandler implements IItemColor {
 
-    public ColorHandler() {
-      //
-    }
-
     @Override
-    public int getColorFromItemstack(ItemStack stack, int layer) {
+    public int colorMultiplier(ItemStack stack, int layer) {
       if (stack.hasTagCompound()) {
         if (layer == 2) {
           ComponentBase comp = ComponentManager.getComponentFromName(ItemCrystalStaff.getEffect(stack));

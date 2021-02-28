@@ -18,7 +18,7 @@ public class ItemRunicFocus extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public String getUnlocalizedName(ItemStack stack) {
+  public String getTranslationKey(ItemStack stack) {
     if (stack.getItemDamage() == 0) {
       return "runicfocus_0";
     }

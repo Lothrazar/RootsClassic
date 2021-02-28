@@ -75,7 +75,7 @@ public class BlockStandingStoneEntangler extends TEBlockBase implements ITileEnt
 
   public BlockStandingStoneEntangler() {
     super(Material.ROCK);
-    setUnlocalizedName("standingStoneEntangler");
+    this.setTranslationKey("standingStoneEntangler");
     setCreativeTab(Roots.tab);
     setHardness(1.0f);
   }
