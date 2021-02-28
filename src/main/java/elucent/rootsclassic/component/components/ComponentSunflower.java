@@ -1,6 +1,6 @@
 package elucent.rootsclassic.component.components;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
@@ -27,15 +27,17 @@ public class ComponentSunflower extends ComponentBase {
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL && caster instanceof EntityLivingBase) {
       int damageDealt = 0;
-      ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
+      List<EntityLivingBase> targets = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
       EntityLivingBase target;
       for (int i = 0; i < targets.size(); i++) {
         target = targets.get(i);
         if (target.getUniqueID() == caster.getUniqueID()) {
           continue;//dont hurt self
         }
-        if (target instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()) {
-          continue;//no pvp allowed
+        if (world.getMinecraftServer() != null) {
+          if (target instanceof EntityPlayer && !world.getMinecraftServer().isPVPEnabled()) {
+            continue;//no pvp allowed
+          }
         }
         if (target.isEntityUndead()) {
           damageDealt += (int) (5 + 4 * potency);
