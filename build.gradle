@@ -124,3 +124,13 @@ processResources {
         exclude 'mcmod.info'
     }
 }
+
+task copyJar(type: Copy) {
+    from jar
+    into "${dist_folder}"
+}
+
+cleanJar {
+  delete 'build/libs'
+}
+
