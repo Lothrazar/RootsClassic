@@ -11,7 +11,7 @@ import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.component.EnumCastType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -210,10 +210,10 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
     if (stack.hasTagCompound()) {
       ComponentBase comp = ComponentManager.getComponentFromName(ItemCrystalStaff.getEffect(stack));
       if (comp != null) {
-        tooltip.add(TextFormatting.GOLD + I18n.format("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
-        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getPotency(stack) + " " + I18n.format("roots.tooltip.spellpotency.name") + ".");
-        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getEfficiency(stack) + " " + I18n.format("roots.tooltip.spellefficiency.name") + ".");
-        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getSize(stack) + " " + I18n.format("roots.tooltip.spellsize.name") + ".");
+        tooltip.add(TextFormatting.GOLD + I18n.translateToLocalFormatted("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
+        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getPotency(stack) + " " + I18n.translateToLocalFormatted("roots.tooltip.spellpotency.name") + ".");
+        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getEfficiency(stack) + " " + I18n.translateToLocalFormatted("roots.tooltip.spellefficiency.name") + ".");
+        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getSize(stack) + " " + I18n.translateToLocalFormatted("roots.tooltip.spellsize.name") + ".");
       }
     }
   }

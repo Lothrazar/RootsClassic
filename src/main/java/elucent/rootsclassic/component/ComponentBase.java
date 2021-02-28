@@ -1,7 +1,7 @@
 package elucent.rootsclassic.component;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -61,7 +61,7 @@ public class ComponentBase {
   }
 
   public String getEffectName() {
-    return I18n.format("roots.component." + name + ".name");
+    return I18n.translateToLocalFormatted("roots.component." + name + ".name");
   }
 
   public TextFormatting getTextColor() {

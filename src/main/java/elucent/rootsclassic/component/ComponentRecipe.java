@@ -5,7 +5,7 @@ import java.util.List;
 import elucent.rootsclassic.RegistryManager;
 import elucent.rootsclassic.Util;
 import elucent.rootsclassic.item.ItemDustPetal;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -21,7 +21,7 @@ public class ComponentRecipe {
   }
 
   public String getLocalizedName() {
-    return I18n.format("roots.component." + this.getEffectResult() + ".name");
+    return I18n.translateToLocalFormatted("roots.component." + this.getEffectResult() + ".name");
   }
 
   @Override

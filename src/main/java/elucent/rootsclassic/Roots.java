@@ -1,5 +1,6 @@
 package elucent.rootsclassic;
 
+import net.minecraft.util.text.translation.I18n;
 import org.apache.logging.log4j.Logger;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
 import elucent.rootsclassic.config.ConfigManager;
@@ -8,7 +9,6 @@ import elucent.rootsclassic.event.EventComponentSpells;
 import elucent.rootsclassic.event.EventHarvestDrops;
 import elucent.rootsclassic.event.EventManaBar;
 import elucent.rootsclassic.proxy.CommonProxy;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -94,6 +94,6 @@ public class Roots {
   }
 
   public static String lang(String message) {
-    return I18n.format(message);
+    return I18n.translateToLocalFormatted(message);
   }
 }
