@@ -12,7 +12,6 @@ import elucent.rootsclassic.component.EnumCastType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -194,12 +193,12 @@ public class ItemStaff extends Item implements IManaRelatedItem {
     if (stack.hasTagCompound()) {
       NBTTagCompound tagCompound = stack.getTagCompound();
       ComponentBase comp = ComponentManager.getComponentFromName(tagCompound.getString(NBT_EFFECT));
-      tooltip.add(TextFormatting.GOLD + I18n.translateToLocalFormatted("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
-      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger(NBT_POT) + " " + I18n.translateToLocalFormatted("roots.tooltip.spellpotency.name") + ".");
-      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger(NBT_EFFICIENCY) + " " + I18n.translateToLocalFormatted("roots.tooltip.spellefficiency.name") + ".");
-      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger(NBT_SIZE) + " " + I18n.translateToLocalFormatted("roots.tooltip.spellsize.name") + ".");
+      tooltip.add(TextFormatting.GOLD + Roots.lang("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
+      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger(NBT_POT) + " " + Roots.lang("roots.tooltip.spellpotency.name") + ".");
+      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger(NBT_EFFICIENCY) + " " + Roots.lang("roots.tooltip.spellefficiency.name") + ".");
+      tooltip.add(TextFormatting.RED + "  +" + tagCompound.getInteger(NBT_SIZE) + " " + Roots.lang("roots.tooltip.spellsize.name") + ".");
       tooltip.add("");
-      tooltip.add(TextFormatting.GOLD + Integer.toString(tagCompound.getInteger(NBT_USES)) + " " + I18n.translateToLocalFormatted("roots.tooltip.usesremaining.name") + ".");
+      tooltip.add(TextFormatting.GOLD + Integer.toString(tagCompound.getInteger(NBT_USES)) + " " + Roots.lang("roots.tooltip.usesremaining.name") + ".");
     }
   }
 

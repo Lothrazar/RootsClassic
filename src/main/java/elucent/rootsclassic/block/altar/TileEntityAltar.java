@@ -134,7 +134,6 @@ public class TileEntityAltar extends TEBase implements ITickable {
       if (ritual.incesceMatches(getWorld(), getPos())) {
         setRitualCurrent(ritual);
         setRitualName(ritual.getName());
-        Roots.logger.info("found " + ritual.getName());
         setIncenses(RitualManager.getIncenses(world, getPos()));
         setProgress(RECIPE_PROGRESS_TIME);
         for (TileEntityBrazier brazier : ritual.getRecipeBraziers(world, pos)) {
@@ -149,7 +148,6 @@ public class TileEntityAltar extends TEBase implements ITickable {
         return true;
       }
       else {
-        Roots.logger.info("found but empty incense  " + ritual.getName());
         Roots.statusMessage(player, "roots.error.noritual.incense");
         return false;
       }
@@ -236,7 +234,6 @@ public class TileEntityAltar extends TEBase implements ITickable {
       //        }
       //      }
       if (getProgress() == 0 && getRitualCurrent() != null) {
-        Roots.logger.info("RITUAL has completed " + getRitualCurrent().getName());
         getRitualCurrent().doEffect(getWorld(), getPos(), getInventory(), getIncenses());
         setRitualName(null);
         setRitualCurrent(null);

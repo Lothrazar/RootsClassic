@@ -1,8 +1,8 @@
 {
   "homepage": "https://minecraft.curseforge.com/projects/roots-classic",
   "promos": {
-    "1.12.2-latest": "1.1.6",
-    "1.12.2-recommended": "1.1.6"
+    "1.12.2-latest": "1.1.7",
+    "1.12.2-recommended": "1.1.7"
   },
   "1.12.2":{
 	"1.0.0":"Initial Release"
@@ -16,5 +16,6 @@
   	,"1.1.4":"Fixed mortar recipes not activating.  Added two new text responses from mortar if the recipe is invalid, or if its invalid but is missing a rare material (such as old root).  Fixed Mortar not saving its contents on world reload.  "
   	,"1.1.5":"Growth Powder and Growth Standing Stone no longer act as bonemeal to spam tallgrass on grass blocks.  Growth Powder and Growth Standing Stone updated growth strategy to be more compatible with other mods such as Restrictions: https://www.curseforge.com/minecraft/mc-mods/plant-biomes  "
   	,"1.1.6":"Updated to latest forge and forge-mappings (14.23.5.2847).  Fixed log spam from some rituals.  Fixed Texture error in Growing standing stone.    by Laike-Endaril : Fix Calling client code on a server ; applies to all decayable leaves; fix Mortor not crafting spell recipe due to ghost item, Fix Berries only drop from vanilla leaves, Fix no whitelist/blacklist  "
-  }
+  	,"1.1.7":"Fixed mana bar not visible"
+  }	
 }

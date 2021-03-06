@@ -11,7 +11,6 @@ import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.component.EnumCastType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -67,7 +66,7 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
       //        double xpCost = (comp.getManaCost() + potency) * (1.0 - 0.25 * efficiency);
       Random random = new Random();
       IManaCapability manaCap = pl.getCapability(RootsCapabilityManager.manaCapability, null);
-      if (manaCap.getMana() >= (comp.getManaCost()) / (efficiency + 1)) {
+      if (manaCap.getMana() >= comp.getManaCost() / (efficiency + 1)) {
         //pay mana cost
         manaCap.setMana(manaCap.getMana() - ((comp.getManaCost()) / (efficiency + 1)));
         comp.doEffect(world, player, EnumCastType.SPELL, player.posX + 3.0 * player.getLookVec().x, player.posY + 3.0 * player.getLookVec().y, player.posZ + 3.0 * player.getLookVec().z, potency, efficiency, 3.0 + 2.0 * size);
@@ -210,10 +209,10 @@ public class ItemCrystalStaff extends Item implements IManaRelatedItem {
     if (stack.hasTagCompound()) {
       ComponentBase comp = ComponentManager.getComponentFromName(ItemCrystalStaff.getEffect(stack));
       if (comp != null) {
-        tooltip.add(TextFormatting.GOLD + I18n.translateToLocalFormatted("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
-        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getPotency(stack) + " " + I18n.translateToLocalFormatted("roots.tooltip.spellpotency.name") + ".");
-        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getEfficiency(stack) + " " + I18n.translateToLocalFormatted("roots.tooltip.spellefficiency.name") + ".");
-        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getSize(stack) + " " + I18n.translateToLocalFormatted("roots.tooltip.spellsize.name") + ".");
+        tooltip.add(TextFormatting.GOLD + Roots.lang("roots.tooltip.spelltypeheading.name") + ": " + comp.getTextColor() + comp.getEffectName());
+        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getPotency(stack) + " " + Roots.lang("roots.tooltip.spellpotency.name") + ".");
+        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getEfficiency(stack) + " " + Roots.lang("roots.tooltip.spellefficiency.name") + ".");
+        tooltip.add(TextFormatting.RED + "  +" + ItemCrystalStaff.getSize(stack) + " " + Roots.lang("roots.tooltip.spellsize.name") + ".");
       }
     }
   }

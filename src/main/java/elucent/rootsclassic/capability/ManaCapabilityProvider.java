@@ -22,7 +22,7 @@ public class ManaCapabilityProvider implements ICapabilityProvider, INBTSerializ
 
   @Override
   public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-    return RootsCapabilityManager.manaCapability != null && capability == RootsCapabilityManager.manaCapability;
+    return capability == RootsCapabilityManager.manaCapability;
   }
 
   @Override

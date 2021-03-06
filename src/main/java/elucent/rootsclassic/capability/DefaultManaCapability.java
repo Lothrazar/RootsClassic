@@ -4,6 +4,8 @@ public class DefaultManaCapability implements IManaCapability {
   public float maxMana = 40;
   public float mana = 40;
 
+  public DefaultManaCapability() {}
+
   public DefaultManaCapability(float maxMana, float mana) {
     this.maxMana = maxMana;
     this.mana = mana;

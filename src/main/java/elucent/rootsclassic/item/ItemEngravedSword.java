@@ -3,7 +3,7 @@ package elucent.rootsclassic.item;
 import java.util.List;
 import com.google.common.collect.Multimap;
 import elucent.rootsclassic.RegistryManager;
-import net.minecraft.util.text.translation.I18n;
+import elucent.rootsclassic.Roots;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -39,19 +39,19 @@ public class ItemEngravedSword extends ItemSword {
     if (stack.hasTagCompound()) {
       NBTTagCompound tag = stack.getTagCompound();
       if (tag.hasKey("spikes")) {
-        tooltip.add(TextFormatting.WHITE + I18n.translateToLocalFormatted("roots.tooltip.spikes.name") + " " + numerals[tag.getInteger("spikes")]);
+        tooltip.add(TextFormatting.WHITE + Roots.lang("roots.tooltip.spikes.name") + " " + numerals[tag.getInteger("spikes")]);
       }
       if (tag.hasKey("forceful")) {
-        tooltip.add(TextFormatting.DARK_GRAY + I18n.translateToLocalFormatted("roots.mod.forceful.name") + numerals[tag.getInteger("forceful")]);
+        tooltip.add(TextFormatting.DARK_GRAY + Roots.lang("roots.mod.forceful.name") + numerals[tag.getInteger("forceful")]);
       }
       if (tag.hasKey("holy")) {
-        tooltip.add(TextFormatting.GOLD + I18n.translateToLocalFormatted("roots.mod.holy.name") + numerals[tag.getInteger("holy")]);
+        tooltip.add(TextFormatting.GOLD + Roots.lang("roots.mod.holy.name") + numerals[tag.getInteger("holy")]);
       }
       if (tag.hasKey("aquatic")) {
-        tooltip.add(TextFormatting.AQUA + I18n.translateToLocalFormatted("roots.mod.aquatic.name") + numerals[tag.getInteger("aquatic")]);
+        tooltip.add(TextFormatting.AQUA + Roots.lang("roots.mod.aquatic.name") + numerals[tag.getInteger("aquatic")]);
       }
       if (tag.hasKey("shadowstep")) {
-        tooltip.add(TextFormatting.DARK_PURPLE + I18n.translateToLocalFormatted("roots.mod.shadowstep.name") + numerals[tag.getInteger("shadowstep")]);
+        tooltip.add(TextFormatting.DARK_PURPLE + Roots.lang("roots.mod.shadowstep.name") + numerals[tag.getInteger("shadowstep")]);
       }
     }
   }

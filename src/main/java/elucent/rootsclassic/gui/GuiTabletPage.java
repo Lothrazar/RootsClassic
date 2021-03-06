@@ -18,7 +18,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentString;
@@ -80,7 +79,7 @@ public class GuiTabletPage extends GuiScreen {
         && mouseX >= (width / 2.0f) - 110 && mouseX < (width / 2.0f) + 40
         && mouseY >= (height / 2.0f) - 138 && mouseY < (height / 2.0f) - 40) {
       if (research.info.get(currentPage).recipe == EnumPageType.TYPE_MORTAR) {
-        //I18n.translateToLocalFormatted("roots.recipe.chat") +
+        //Roots.lang("roots.recipe.chat") +
         player.sendMessage(
             new TextComponentString(
                 research.info.get(currentPage).mortarRecipe.toString()));
@@ -102,12 +101,12 @@ public class GuiTabletPage extends GuiScreen {
 
   private String makeTitle() {
     //    if (page.mortarRecipe.disabled) {
-    //      title = TextFormatting.RED + I18n.translateToLocalFormatted("roots.research.disabled.name");
-    return I18n.translateToLocalFormatted("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name");
+    //      title = TextFormatting.RED + Roots.lang("roots.research.disabled.name");
+    return Roots.lang("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "title.name");
   }
 
   private String makeInfo() {
-    return I18n.translateToLocalFormatted("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "info");
+    return Roots.lang("roots.research." + group.name + "." + research.name + ".page" + (this.currentPage + 1) + "info");
   }
 
   @Override
@@ -225,7 +224,7 @@ public class GuiTabletPage extends GuiScreen {
           textLines.add(new GuiTextInstance(info.get(i), basePosX + 16, basePosY + 96 + i * 11, Util.intColor(255, 255, 255)));
         }
         if (page.mortarRecipe.isDisabled()) {
-          title = TextFormatting.RED + I18n.translateToLocalFormatted("roots.research.disabled.name");
+          title = TextFormatting.RED + Roots.lang("roots.research.disabled.name");
         }
         else {
           title = makeTitle();

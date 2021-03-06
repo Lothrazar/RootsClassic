@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Random;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.RegistryManager;
+import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.Util;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
 import elucent.rootsclassic.model.ModelDruidRobes;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -54,10 +54,10 @@ public class ItemDruidRobes extends ItemArmor {
   @Override
   public void addInformation(ItemStack stack, World player, List<String> tooltip, net.minecraft.client.util.ITooltipFlag advanced) {
     tooltip.add("");
-    tooltip.add(TextFormatting.GRAY + I18n.translateToLocalFormatted("roots.attribute.equipped.name"));
-    tooltip.add(TextFormatting.BLUE + " " + I18n.translateToLocalFormatted("roots.attribute.increasedmanaregen.name"));
+    tooltip.add(TextFormatting.GRAY + Roots.lang("roots.attribute.equipped.name"));
+    tooltip.add(TextFormatting.BLUE + " " + Roots.lang("roots.attribute.increasedmanaregen.name"));
     tooltip.add("");
-    tooltip.add(TextFormatting.GRAY + I18n.translateToLocalFormatted("roots.attribute.fullset.name"));
-    tooltip.add(TextFormatting.BLUE + " +1 " + I18n.translateToLocalFormatted("roots.attribute.potency.name"));
+    tooltip.add(TextFormatting.GRAY + Roots.lang("roots.attribute.fullset.name"));
+    tooltip.add(TextFormatting.BLUE + " +1 " + Roots.lang("roots.attribute.potency.name"));
   }
 }

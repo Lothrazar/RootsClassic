@@ -3,15 +3,17 @@ package elucent.rootsclassic.item;
 import java.util.List;
 import javax.annotation.Nullable;
 import elucent.rootsclassic.RegistryManager;
-import net.minecraft.util.text.translation.I18n;
+import elucent.rootsclassic.Roots;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SuppressWarnings("deprecation")
 public class ItemRootsFood extends ItemFood {
 
   private static final int HEAL_LARGE = 5;
@@ -40,16 +42,16 @@ public class ItemRootsFood extends ItemFood {
   @SideOnly(Side.CLIENT)
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
     if (stack.getItem() == RegistryManager.redCurrant) {
-      tooltip.add(I18n.translateToLocalFormatted("roots.healingitem.tooltip"));
+      tooltip.add(Roots.lang("roots.healingitem.tooltip"));
     }
     if (stack.getItem() == RegistryManager.elderBerry) {
-      tooltip.add(I18n.translateToLocalFormatted("roots.clearpotionsitem.tooltip"));
+      tooltip.add(Roots.lang("roots.clearpotionsitem.tooltip"));
     }
     if (stack.getItem() == RegistryManager.healingPoultice) {
       tooltip.add(I18n.translateToLocalFormatted("roots.healingitem.tooltip", HEAL_LARGE));
     }
     if (stack.getItem() == RegistryManager.nightshade) {
-      tooltip.add(I18n.translateToLocalFormatted("roots.poisonitem.tooltip"));
+      tooltip.add(Roots.lang("roots.poisonitem.tooltip"));
     }
   }
 }

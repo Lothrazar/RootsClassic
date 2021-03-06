@@ -32,6 +32,9 @@ public class EventManaBar {
   @SideOnly(Side.CLIENT)
   @SubscribeEvent
   public void onGameOverlayRender(RenderGameOverlayEvent.Post event) {
+    if (event.getType() != ElementType.TEXT) {
+      return;
+    }
     EntityPlayer player = Minecraft.getMinecraft().player;
     boolean showBar = false;
     if (player.getHeldItemMainhand().getItem() instanceof IManaRelatedItem) {
@@ -43,8 +46,10 @@ public class EventManaBar {
     //    if (player.capabilities.isCreativeMode) {
     //      showBar = false;
     //    }
-    if (showBar && event.getType() == ElementType.TEXT && player.hasCapability(RootsCapabilityManager.manaCapability, null)
-        && player.getCapability(RootsCapabilityManager.manaCapability, null).getMaxMana() > 0) {
+    if (!showBar || !player.hasCapability(RootsCapabilityManager.manaCapability, null)) {
+      return;
+    }
+    if (player.getCapability(RootsCapabilityManager.manaCapability, null).getMaxMana() > 0) {
       drawManaBar(event, player);
     }
   }

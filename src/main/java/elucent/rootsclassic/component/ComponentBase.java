@@ -1,5 +1,6 @@
 package elucent.rootsclassic.component;
 
+import elucent.rootsclassic.Roots;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -7,7 +8,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 public class ComponentBase {
@@ -61,7 +61,7 @@ public class ComponentBase {
   }
 
   public String getEffectName() {
-    return I18n.translateToLocalFormatted("roots.component." + name + ".name");
+    return Roots.lang("roots.component." + name + ".name");
   }
 
   public TextFormatting getTextColor() {

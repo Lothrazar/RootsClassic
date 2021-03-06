@@ -1,6 +1,7 @@
 package elucent.rootsclassic.capability;
 
 import elucent.rootsclassic.Const;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
@@ -14,17 +15,21 @@ public class RootsCapabilityManager {
   @CapabilityInject(IManaCapability.class)
   public static final Capability<IManaCapability> manaCapability = null;
 
-  @SuppressWarnings("deprecation")
   public static void preInit() {
-    CapabilityManager.INSTANCE.register(IManaCapability.class, new ManaCapabilityStorage(), DefaultManaCapability.class);
+    //yes this breakpoint gets hit on game start
+    //    CapabilityManager.INSTANCE.register(IManaCapability.class, new ManaCapabilityStorage(), DefaultManaCapability.class);
+    CapabilityManager.INSTANCE.register(IManaCapability.class, new ManaCapabilityStorage(), DefaultManaCapability::new);
   }
 
   @SubscribeEvent
-  public void onAddCapabilities(AttachCapabilitiesEvent<?> e) {
+  public void onEntityConstruct(AttachCapabilitiesEvent<Entity> e) {
     if (e.getObject() instanceof EntityPlayer) {
-      //  ManaCapabilityProvider provider = new ManaCapabilityProvider(!e.getObject().hasCapability(manaCapability, null));
-      e.addCapability(new ResourceLocation(Const.MODID, "manacapability"),
-          new ManaCapabilityProvider(true));
+      try {
+        e.addCapability(new ResourceLocation(Const.MODID, "manacapability"), new ManaCapabilityProvider(true));
+      }
+      catch (Exception e1) {
+        //        Roots.logger.error("Capability", e1);
+      }
     }
   }
 }
