@@ -148,7 +148,7 @@ public class TabletScreen extends Screen {
 		for (int i = 0; i < ResearchManager.globalResearches.get(currentGroup).researches.size(); i++) {
 			minecraft.getTextureManager().bindTexture(Const.tabletGui);
 			int yShift = (int)(float) Math.floor(i / 6);
-			int xShift = (int)i % 6;
+			int xShift = (int)(i % 6);
 			this.blit(matrixStack, basePosX + 32 * xShift, 32 + 40 * yShift, 16, 0, 24, 24);
 			if (ResearchManager.globalResearches.get(currentGroup).researches.get(i).getIcon() != null) {
 				this.itemRenderer.renderItemIntoGUI(ResearchManager.globalResearches.get(currentGroup).researches.get(i).getIcon(), (int) (basePosX + xShift * 32 + 4), (int) (32 + 40 * yShift + 4));
@@ -158,7 +158,8 @@ public class TabletScreen extends Screen {
 				this.font.drawStringWithShadow(matrixStack, name, basePosX + 32 * xShift + 12 - (font.getStringWidth(name) / 2.0f), 32 + 40 * yShift + 25, RootsUtil.intColor(255, 255, 255));
 			}
 		}
-		this.font.drawStringWithShadow(matrixStack, researchName, width / 2.0f - (font.getStringWidth(researchName) / 2.0f), height - 16.0f, RootsUtil.intColor(255, 255, 255));
+		String formattedName = I18n.format(researchName);
+		this.font.drawStringWithShadow(matrixStack, formattedName, width / 2.0f - (font.getStringWidth(formattedName) / 2.0f), height - 16.0f, RootsUtil.intColor(255, 255, 255));
 		minecraft.getTextureManager().bindTexture(Const.tabletGui);
 		if (mouseX >= 32 && mouseX < 64 && mouseY >= height - 48 && mouseY < height - 32) {
 			this.blit(matrixStack, 32, height - 48, 32, 80, 32, 16);
