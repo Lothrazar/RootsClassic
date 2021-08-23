@@ -1,51 +1,43 @@
 package elucent.rootsclassic.component.components;
 
-import java.util.ArrayList;
-import java.util.Random;
+import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
-import elucent.rootsclassic.config.ConfigManager;
+import elucent.rootsclassic.config.RootsConfig;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
 
 public class ComponentAllium extends ComponentBase {
 
-  Random random = new Random();
+	public ComponentAllium() {
+		super(new ResourceLocation(Const.MODID, "allium"), Blocks.ALLIUM, 8);
+	}
 
-  public ComponentAllium() {
-    super("allium", Blocks.RED_FLOWER, 8);
-  }
-
-  @SuppressWarnings("deprecation")
-  public void destroyBlockSafe(World world, BlockPos pos, int potency) {
-    if (world.getBlockState(pos).getBlock().getHarvestLevel(world.getBlockState(pos)) <= 2 + potency && world.getBlockState(pos).getBlock().getBlockHardness(world.getBlockState(pos), world, pos) != -1) {
-      world.destroyBlock(pos, true);
-    }
-  }
-
-  @Override
-  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (type == EnumCastType.SPELL) {
-      //      int damageDealt = 0;
-      ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
-      for (int i = 0; i < targets.size(); i++) {
-        if (targets.get(i).getUniqueID() != caster.getUniqueID()) {
-          if (targets.get(i) instanceof EntityPlayer && ConfigManager.disablePVP) {}
-          else {
-            //            damageDealt += (int) (4 + 2 * potency);
-            targets.get(i).attackEntityFrom(DamageSource.GENERIC, (int) (5 + 2 * potency));
-            targets.get(i).setLastAttackedEntity(caster);
-            targets.get(i).setRevengeTarget((EntityLivingBase) caster);
-            targets.get(i).getEntityData().setDouble("RMOD_vuln", 1.0 + 0.5 * potency);
-          }
-        }
-      }
-    }
-  }
+	@Override
+	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+		if (type == EnumCastType.SPELL) {
+			//      int damageDealt = 0;
+			ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
+			for (LivingEntity target : targets) {
+				if (target.getUniqueID() != caster.getUniqueID()) {
+					if (target instanceof PlayerEntity && RootsConfig.COMMON.disablePVP.get()) {
+					} else {
+						//            damageDealt += (int) (4 + 2 * potency);
+						target.attackEntityFrom(DamageSource.GENERIC, (int) (5 + 2 * potency));
+						target.setLastAttackedEntity(caster);
+						target.setRevengeTarget((LivingEntity) caster);
+						target.getPersistentData().putDouble("RMOD_vuln", 1.0 + 0.5 * potency);
+					}
+				}
+			}
+		}
+	}
 }

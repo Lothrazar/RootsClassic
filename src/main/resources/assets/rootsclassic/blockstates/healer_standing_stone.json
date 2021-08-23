@@ -1,0 +1,6 @@
+{
+    "variants":{
+        "half=lower":{"model": "rootsclassic:block/attuned_standing_stone_bottom"},
+        "half=upper":{"model": "rootsclassic:block/healer_standing_stone"}
+    }
+}

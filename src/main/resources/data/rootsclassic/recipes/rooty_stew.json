@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:crops/wheat"
+    },
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "rootsclassic:old_root"
+    }
+  ],
+  "result": {
+    "item": "rootsclassic:rooty_stew"
+  }
+}

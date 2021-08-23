@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "minecraft:rose_bush"
+    },
+	{
+	  "item": "minecraft:fermented_spider_eye"
+	},
+	{
+	  "item": "minecraft:iron_nugget"
+	},
+	{
+	  "item": "minecraft:bone"
+	}
+  ],
+  "effect": "rootsclassic:rose_bush"
+}

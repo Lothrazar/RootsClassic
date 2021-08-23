@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "minecraft:blue_orchid"
+    },
+	{
+	  "item": "minecraft:prismarine_shard"
+	},
+	{
+	  "item": "minecraft:lapis_lazuli"
+	},
+	{
+	  "item": "minecraft:vine"
+	}
+  ],
+  "effect": "rootsclassic:blue_orchid"
+}

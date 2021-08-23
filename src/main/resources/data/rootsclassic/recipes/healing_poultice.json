@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "rootsclassic:redcurrant"
+    },
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "rootsclassic:pestle"
+    },
+    {
+      "item": "rootsclassic:verdant_sprig"
+    }
+  ],
+  "result": {
+    "item": "rootsclassic:healing_poultice",
+    "count": 2
+  }
+}

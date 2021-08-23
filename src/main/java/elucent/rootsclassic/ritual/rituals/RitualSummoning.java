@@ -1,62 +1,49 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import elucent.rootsclassic.Util;
 import elucent.rootsclassic.ritual.RitualBase;
-import net.minecraft.entity.EntityCreature;
+import elucent.rootsclassic.util.RootsUtil;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
-@SuppressWarnings("rawtypes")
+import java.util.List;
+
 public class RitualSummoning extends RitualBase {
 
-  public Class result = null;
+	public EntityType<? extends MobEntity> entityType = null;
 
-  public RitualSummoning setResult(Class entity) {
-    this.result = entity;
-    return this;
-  }
+	public RitualSummoning setEntityType(EntityType<? extends MobEntity> entity) {
+		this.entityType = entity;
+		return this;
+	}
 
-  public RitualSummoning(String name, int level, double r, double g, double b) {
-    super(name, level, r, g, b);
-  }
+	public RitualSummoning(ResourceLocation name, int level, double r, double g, double b) {
+		super(name, level, r, g, b);
+	}
 
-  @SuppressWarnings("unchecked")
-  @Override
-  public void doEffect(World world, BlockPos pos, List<ItemStack> inventory, List<ItemStack> incenses) {
-    if (Util.itemListsMatchWithSize(inventory, this.getIngredients())) {
-      EntityCreature toSpawn;
-      try {
-        toSpawn = (EntityCreature) result.getConstructor(World.class).newInstance(world);
-        toSpawn.setWorld(world);
-        toSpawn.onInitialSpawn(world.getDifficultyForLocation(pos), null);
-        toSpawn.setPosition(pos.getX() + 0.5, pos.getY() + 2.0, pos.getZ() + 0.5);
-        inventory.clear();
-        if (!world.isRemote) {
-          world.spawnEntity(toSpawn);
-        }
-        world.getTileEntity(pos).markDirty();
-      }
-      catch (InstantiationException e) {
-        e.printStackTrace();
-      }
-      catch (IllegalAccessException e) {
-        e.printStackTrace();
-      }
-      catch (IllegalArgumentException e) {
-        e.printStackTrace();
-      }
-      catch (InvocationTargetException e) {
-        e.printStackTrace();
-      }
-      catch (NoSuchMethodException e) {
-        e.printStackTrace();
-      }
-      catch (SecurityException e) {
-        e.printStackTrace();
-      }
-    }
-  }
+	@Override
+	public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
+		if (RootsUtil.itemListMatchInventoryWithSize(inventory, this.getIngredients()) && !world.isRemote) {
+			MobEntity toSpawn = entityType.create(world);
+			if(toSpawn != null) {
+				toSpawn.onInitialSpawn((ServerWorld)world, world.getDifficultyForLocation(pos), SpawnReason.MOB_SUMMONED, (ILivingEntityData)null, (CompoundNBT)null);
+				toSpawn.setPosition(pos.getX() + 0.5, pos.getY() + 2.0, pos.getZ() + 0.5);
+				inventory.clear();
+				world.addEntity(toSpawn);
+				TileEntity tile = world.getTileEntity(pos);
+				if(tile != null) {
+					tile.markDirty();
+				}
+			}
+		}
+	}
 }

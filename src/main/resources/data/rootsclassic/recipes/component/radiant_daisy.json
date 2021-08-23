@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "rootsclassic:radiant_daisy"
+    },
+	{
+	  "item": "minecraft:glowstone"
+	},
+	{
+	  "item": "rootsclassic:nightshade"
+	},
+	{
+	  "item": "minecraft:redstone_block"
+	}
+  ],
+  "effect": "rootsclassic:radiant_daisy"
+}

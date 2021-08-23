@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:melon"
+    },
+    {
+      "item": "minecraft:melon"
+    },
+    {
+      "item": "minecraft:melon"
+    },
+    {
+      "item": "minecraft:apple"
+    },
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "rootsclassic:elderberry"
+    },
+    {
+      "item": "rootsclassic:whitecurrant"
+    },
+    {
+      "item": "rootsclassic:blackcurrant"
+    },
+    {
+      "item": "rootsclassic:redcurrant"
+    }
+  ],
+  "result": {
+    "item": "rootsclassic:fruit_salad"
+  }
+}

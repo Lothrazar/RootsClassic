@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "rootsclassic:dragons_eye"
+  },
+  "result": "minecraft:ender_pearl",
+  "experience": 1.0,
+  "cookingtime": 200
+}

@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "minecraft:peony"
+    },
+	{
+	  "item": "minecraft:melon"
+	},
+	{
+	  "item": "minecraft:red_dye"
+	},
+	{
+	  "item": "rootsclassic:nightshade"
+	}
+  ],
+  "effect": "rootsclassic:peony"
+}

@@ -1,97 +1,110 @@
 package elucent.rootsclassic.entity;
 
-import java.util.Random;
-import elucent.rootsclassic.Roots;
+import elucent.rootsclassic.client.particles.MagicAuraParticleData;
+import elucent.rootsclassic.registry.RootsEntities;
 import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ITickable;
+import net.minecraft.entity.EntityType;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.IPacket;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
+
+import java.util.Random;
 
 public class EntityTileAccelerator extends Entity {
+	BlockPos pos;
+	Random random = new Random();
+	int lifetime = 0;
+	int potency = 1;
 
-  BlockPos pos;
-  Random random = new Random();
-  int lifetime = 0;
-  int potency = 1;
+	public EntityTileAccelerator(EntityType<? extends EntityTileAccelerator> type, World worldIn) {
+		super(type, worldIn);
+	}
 
-  public EntityTileAccelerator(World world) {
-    super(world);
-  }
+	public EntityTileAccelerator(World world, BlockPos pos, int potency, int size) {
+		this(RootsEntities.TILE_ACCELERATOR.get(), world);
+		this.pos = pos;
+		this.potency = potency + 2;
+		this.lifetime = 200 + 200 * size;
+		this.setRawPosition(pos.getX(), pos.getY(), pos.getZ());
+	}
 
-  public EntityTileAccelerator(World world, BlockPos pos, int potency, int size) {
-    super(world);
-    this.pos = pos;
-    this.potency = potency + 2;
-    this.lifetime = 200 + 200 * size;
-    this.posX = pos.getX();
-    this.posY = pos.getY();
-    this.posZ = pos.getZ();
-  }
+	@Override
+	public void tick() {
+		super.tick();
+		if (pos == null) {
+			if (!world.isRemote) {
+				this.world.setEntityState(this, (byte)3);
+				this.remove();
+			}
+			return;
+		}
+		if (this.getEntityWorld().getTileEntity(this.pos) instanceof ITickableTileEntity) {
+			for (int i = 0; i < potency; i++) {
+				((ITickableTileEntity) this.getEntityWorld().getTileEntity(this.pos)).tick();
+			}
+		} else {
+			this.world.setEntityState(this, (byte)3);
+			this.remove();
+		}
+		for (int i = 0; i < 2; i++) {
+			int side = random.nextInt(6);
+			if (side == 0) {
+				world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+						getPosX(), getPosY() + random.nextDouble(), getPosZ() + random.nextDouble(), 0, 0, 0);
+			}
+			if (side == 1) {
+				world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+						getPosX() + 1.0, getPosY() + random.nextDouble(), getPosZ() + random.nextDouble(), 0, 0, 0);
+			}
+			if (side == 2) {
+				world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+						getPosX() + random.nextDouble(), getPosY(), getPosZ() + random.nextDouble(), 0, 0, 0);
+			}
+			if (side == 3) {
+				world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+						getPosX() + random.nextDouble(), getPosY() + 1.0, getPosZ() + random.nextDouble(), 0, 0, 0);
+			}
+			if (side == 4) {
+				world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+						getPosX() + random.nextDouble(), getPosY() + random.nextDouble(), getPosZ(), 0, 0, 0);
+			}
+			if (side == 5) {
+				world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+						getPosX() + random.nextDouble(), getPosY() + random.nextDouble(), getPosZ() + 1.0, 0, 0, 0);
+			}
+		}
+		lifetime--;
+		if (lifetime <= 0) {
+			this.world.setEntityState(this, (byte)3);
+			this.remove();
+		}
+	}
 
-  @Override
-  public void onUpdate() {
-    super.onUpdate();
-    if (pos == null) {
-      if (!world.isRemote) {
-        this.setDead();
-        this.getEntityWorld().removeEntity(this);
-      }
-      return;
-    }
-    if (this.getEntityWorld().getTileEntity(this.pos) instanceof ITickable) {
-      for (int i = 0; i < potency; i++) {
-        ((ITickable) this.getEntityWorld().getTileEntity(this.pos)).update();
-      }
-    }
-    else {
-      this.setDead();
-      this.getEntityWorld().removeEntity(this);
-    }
-    for (int i = 0; i < 2; i++) {
-      int side = random.nextInt(6);
-      if (side == 0) {
-        Roots.proxy.spawnParticleMagicAuraFX(this.getEntityWorld(), pos.getX(), pos.getY() + random.nextDouble(), pos.getZ() + random.nextDouble(), 0, 0, 0, 255, 255, 255);
-      }
-      if (side == 1) {
-        Roots.proxy.spawnParticleMagicAuraFX(this.getEntityWorld(), pos.getX() + 1.0, pos.getY() + random.nextDouble(), pos.getZ() + random.nextDouble(), 0, 0, 0, 255, 255, 255);
-      }
-      if (side == 2) {
-        Roots.proxy.spawnParticleMagicAuraFX(this.getEntityWorld(), pos.getX() + random.nextDouble(), pos.getY(), pos.getZ() + random.nextDouble(), 0, 0, 0, 255, 255, 255);
-      }
-      if (side == 3) {
-        Roots.proxy.spawnParticleMagicAuraFX(this.getEntityWorld(), pos.getX() + random.nextDouble(), pos.getY() + 1.0, pos.getZ() + random.nextDouble(), 0, 0, 0, 255, 255, 255);
-      }
-      if (side == 4) {
-        Roots.proxy.spawnParticleMagicAuraFX(this.getEntityWorld(), pos.getX() + random.nextDouble(), pos.getY() + random.nextDouble(), pos.getZ(), 0, 0, 0, 255, 255, 255);
-      }
-      if (side == 5) {
-        Roots.proxy.spawnParticleMagicAuraFX(this.getEntityWorld(), pos.getX() + random.nextDouble(), pos.getY() + random.nextDouble(), pos.getZ() + 1.0, 0, 0, 0, 255, 255, 255);
-      }
-    }
-    lifetime--;
-    if (lifetime <= 0) {
-      this.setDead();
-      this.getEntityWorld().removeEntity(this);
-    }
-  }
+	@Override
+	protected void registerData() {
+	}
 
-  @Override
-  protected void entityInit() {}
+	@Override
+	protected void readAdditional(CompoundNBT compound) {
+		this.pos = new BlockPos(compound.getInt("posX"), compound.getInt("posY"), compound.getInt("posZ"));
+		this.lifetime = compound.getInt("lifetime");
+		this.potency = compound.getInt("potency");
+	}
 
-  @Override
-  protected void readEntityFromNBT(NBTTagCompound compound) {
-    this.pos = new BlockPos(compound.getInteger("posX"), compound.getInteger("posY"), compound.getInteger("posZ"));
-    this.lifetime = compound.getInteger("lifetime");
-    this.potency = compound.getInteger("potency");
-  }
+	@Override
+	protected void writeAdditional(CompoundNBT compound) {
+		compound.putInt("posX", pos.getX());
+		compound.putInt("posY", pos.getY());
+		compound.putInt("posZ", pos.getZ());
+		compound.putInt("lifetime", lifetime);
+		compound.putInt("potency", potency);
+	}
 
-  @Override
-  protected void writeEntityToNBT(NBTTagCompound compound) {
-    compound.setInteger("posX", pos.getX());
-    compound.setInteger("posY", pos.getY());
-    compound.setInteger("posZ", pos.getZ());
-    compound.setInteger("lifetime", lifetime);
-    compound.setInteger("potency", potency);
-  }
+	@Override
+	public IPacket<?> createSpawnPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
+	}
 }

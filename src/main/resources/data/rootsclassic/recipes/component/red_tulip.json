@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "minecraft:red_tulip"
+    },
+	{
+	  "item": "minecraft:nether_brick"
+	},
+	{
+	  "item": "minecraft:quartz"
+	},
+	{
+	  "item": "minecraft:red_sand"
+	}
+  ],
+  "effect": "rootsclassic:red_tulip"
+}

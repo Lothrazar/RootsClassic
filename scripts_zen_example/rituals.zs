@@ -1,38 +1,30 @@
 import mods.rootsclassic.Ritual;
 
-
-Ritual.setRitualIngredients("livingSwordCrafting", [<minecraft:dirt>,<minecraft:stone>]);
-Ritual.setRitualIncense("livingSwordCrafting", [<minecraft:grass>,<minecraft:sand>]);
+Ritual.setRitualIngredients(<resource:rootsclassic:living_sword_crafting>, [<item:minecraft:dirt>,<item:minecraft:stone>]);
+Ritual.setRitualIncense(<resource:rootsclassic:living_sword_crafting>, [<item:minecraft:grass>,<item:minecraft:sand>]);
 
 //unique name, recipe output, level
 // r,g,b colours
 // incense list, ingredient list
 
 //level zero means no standing stones, only Altar+Brazier
-Ritual.addCraftingRitual("simple", <minecraft:prismarine_shard>, 0, 
+Ritual.addCraftingRitual("simple", <item:minecraft:prismarine_shard>, 0,
 		 51,51,255,
- [<minecraft:dirt>,<minecraft:dirt>], [<minecraft:string>,<minecraft:emerald>] );
+ [<item:minecraft:dirt>,<item:minecraft:dirt>], [<item:minecraft:string>,<item:minecraft:emerald>] );
 
 //level 1 means the 
-Ritual.addCraftingRitual("test1", <minecraft:netherrack>, 1, 
+Ritual.addCraftingRitual("test1", <item:minecraft:netherrack>, 1,
 		 255,255,0,
- [<minecraft:grass>,<minecraft:grass>], [<minecraft:dye:4>,<minecraft:string>,<minecraft:emerald> ] );
+ [<item:minecraft:grass>,<item:minecraft:grass>], [<item:minecraft:dye:4>,<item:minecraft:string>,<item:minecraft:emerald> ] );
 
 //level 2 is the biggest ritual with the Attuned stones
-Ritual.addCraftingRitual("test2", <minecraft:ghast_tear>, 2, 
+Ritual.addCraftingRitual("test2", <item:minecraft:ghast_tear>, 2,
 		 255,0,0,
- [<minecraft:feather>,<minecraft:egg>], [<minecraft:diamond>,<minecraft:string>,<minecraft:emerald> ] );
+ [<item:minecraft:feather>,<item:minecraft:egg>], [<item:minecraft:diamond>,<item:minecraft:string>,<item:minecraft:emerald> ] );
  
- // other examples
- Ritual.setPrimaryColor("test2",255,0,0); 
- Ritual.setSecondaryColor("igniterStoneCrafting",255,0,100); 
- 
- //change level for the standing stone requirements
- Ritual.setLevel("igniterStoneCrafting",0); 
- 
- 
- 
- 
- 
- 
- 
+// other examples
+Ritual.setPrimaryColor(<resource:crafttweaker:test2>, 255,0,0); 
+Ritual.setSecondaryColor(<resource:rootsclassic:igniter_stone_crafting>, 255,0,100);
+
+//change level for the standing stone requirements
+Ritual.setLevel(<resource:rootsclassic:igniter_stone_crafting>, 0);

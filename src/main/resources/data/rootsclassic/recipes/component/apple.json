@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "minecraft:apple"
+    },
+	{
+	  "item": "minecraft:glistering_melon_slice"
+	},
+	{
+	  "item": "minecraft:golden_apple"
+	},
+	{
+	  "item": "rootsclassic:blackcurrant"
+	}
+  ],
+  "effect": "rootsclassic:apple"
+}

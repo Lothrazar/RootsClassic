@@ -1,83 +1,90 @@
 package elucent.rootsclassic.compat;
 
-import java.util.Arrays;
-import crafttweaker.annotations.ZenRegister;
-import crafttweaker.api.item.IItemStack;
-import elucent.rootsclassic.Roots;
+import com.blamejared.crafttweaker.api.CraftTweakerAPI;
+import com.blamejared.crafttweaker.api.annotations.ZenRegister;
+import com.blamejared.crafttweaker.api.item.IIngredient;
+import com.blamejared.crafttweaker.api.item.IItemStack;
+import com.blamejared.crafttweaker.api.managers.IRecipeManager;
+import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
+import com.blamejared.crafttweaker.impl.actions.recipes.ActionRemoveRecipeByName;
+import com.blamejared.crafttweaker.impl.managers.CTCraftingTableManager;
+import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentManager;
-import elucent.rootsclassic.component.ComponentRecipe;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Optional;
-import stanhebben.zenscript.annotations.ZenClass;
-import stanhebben.zenscript.annotations.ZenMethod;
+import elucent.rootsclassic.recipe.ComponentRecipe;
+import elucent.rootsclassic.registry.RootsRecipes;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import org.openzen.zencode.java.ZenCodeGlobals.Global;
+import org.openzen.zencode.java.ZenCodeType.Method;
+import org.openzen.zencode.java.ZenCodeType.Name;
 
-@ZenClass("mods.rootsclassic.Spell")
 @ZenRegister
-public class SpellZen {
+@Name("mods.rootsclassic.Spell")
+public class SpellZen implements IRecipeManager {
 
-  /**
-   * Invalid spell, names must be one of:
-   * rosebush,dandelion,chorus,netherwart,peony,sunflower,azurebluet,allium,lilac,whitetulip,redtulip,blueorchid,poppy,poisonouspotato,orangetulip,pinktulip,oxeyedaisy,lilypad,apple,midnightbloom,
-   * flareorchid,radiantdaisy,
-   * 
-   */
-  @Optional.Method(modid = "crafttweaker")
-  @ZenMethod
-  public static void setSpellItems(String name, IItemStack items[]) {
-    if (items.length == 0 || items.length > 4) {
-      throw new IllegalArgumentException("Invalid spell ingredients, must be in range [1,4]");
-    }
-    ComponentRecipe found = findSpellByName(name);
-    Roots.logger.info("[ZenScript:Spell] changing recipe " + found.getLocalizedName());
-    found.setMaterials(Arrays.asList(toStacks(items)));
-  }
+	@Global("spell")
+	public static final SpellZen INSTANCE = new SpellZen();
 
-  private static ComponentRecipe findSpellByName(String name) {
-    ComponentRecipe found = ComponentManager.getSpellFromName(name);
-    if (found == null) {
-      String names = "";
-      for (ComponentRecipe c : ComponentManager.recipes) {
-        names += c.getEffectResult() + ",";
-      }
-      //  Roots.logger.info(names);
-      throw new IllegalArgumentException("Invalid spell [" + name + "], names must be one of: " + names);
-    }
-    return found;
-  }
+	private SpellZen() {}
 
-  /**
-   * THANKS TO https://github.com/jaredlll08/MTLib/blob/1.12/src/main/java/com/blamejared/mtlib/helpers/InputHelper.java @ https://github.com/jaredlll08/MTLib which is MIT license
-   * https://github.com/jaredlll08/MTLib/blob/1.12/LICENSE.md
-   */
-  @Optional.Method(modid = "crafttweaker")
-  public static ItemStack toStack(IItemStack iStack) {
-    if (iStack == null) {
-      return ItemStack.EMPTY;
-    }
-    else {
-      Object internal = iStack.getInternal();
-      if (!(internal instanceof ItemStack)) {
-        return ItemStack.EMPTY;
-      }
-      return (ItemStack) internal;
-    }
-  }
+	/**
+	 * Invalid spell, names must be one of:
+	 * rose_bush, dandelion, chorus, nether_wart, peony, sunflower, azure_bluet, allium, lilac, white_tulip, red_tulip, blue_orchid,
+	 * poppy, poisonous_potato, orange_tulip, pink_tulip, oxeye_daisy, lily_pad, apple, midnight_bloom,  flare_orchid, radiant_daisy
+	 *
+	 * Starting with rootsclassic (Example: "rootsclassic:rose_bush")
+	 */
+	@Method
+	public void setSpellIngredients(ResourceLocation name, IItemStack[] ingredients) {
+		if (ingredients.length == 0 || ingredients.length > 4) {
+			throw new IllegalArgumentException("Invalid spell ingredients, must be in range [1,4]");
+		}
+		ComponentRecipe found = findSpellByName(name);
+		CraftTweakerAPI.logInfo("Changing spell ingredients of " + found.getEffectResult());
+		NonNullList<Ingredient> ingredientList = NonNullList.create();
+		for(IIngredient ingredient : ingredients) {
+			ingredientList.add(ingredient.asVanillaIngredient());
+		}
+		ComponentRecipe newRecipe = new ComponentRecipe(found.getId(), found.getEffectResult(), found.getGroup(), found.getRecipeOutput(), ingredientList, found.needsMixin());
 
-  /**
-   * THANKS TO https://github.com/jaredlll08/MTLib/blob/1.12/src/main/java/com/blamejared/mtlib/helpers/InputHelper.java @ https://github.com/jaredlll08/MTLib which is MIT license
-   * https://github.com/jaredlll08/MTLib/blob/1.12/LICENSE.md
-   */
-  @Optional.Method(modid = "crafttweaker")
-  public static ItemStack[] toStacks(IItemStack[] iStack) {
-    if (iStack == null) {
-      return null;
-    }
-    else {
-      ItemStack[] output = new ItemStack[iStack.length];
-      for (int i = 0; i < iStack.length; i++) {
-        output[i] = toStack(iStack[i]);
-      }
-      return output;
-    }
-  }
+		CraftTweakerAPI.apply(new ActionRemoveRecipeByName(INSTANCE, found.getId()));
+		CraftTweakerAPI.apply(new ActionAddRecipe(INSTANCE, newRecipe));
+	}
+
+	@Method
+	public void addMortarCrafting(String uniqueName, IItemStack[] items, IItemStack output) {
+		if (items.length == 0 || items.length > 4) {
+			throw new IllegalArgumentException("Invalid ingredient size, must be in range [1,4]");
+		}
+//		CraftTweakerAPI.logInfo("Adding mortar crafting of " + found.getEffectResult());
+		NonNullList<Ingredient> ingredients = NonNullList.create();
+		for(IItemStack stack : items) {
+			ingredients.add(stack.asVanillaIngredient());
+		}
+		ComponentRecipe craftingRecipe = new ComponentRecipe(new ResourceLocation("crafttweaker", uniqueName),
+				new ResourceLocation(Const.MODID, "none"), "crafttweaker", output.getInternal(), ingredients, true);
+		CraftTweakerAPI.apply(new ActionAddRecipe(INSTANCE, craftingRecipe));
+	}
+
+	private ComponentRecipe findSpellByName(ResourceLocation name) {
+		ComponentRecipe found = ComponentManager.getSpellFromName(CTCraftingTableManager.recipeManager, name);
+		if(found == null) {
+			StringBuilder names = new StringBuilder();
+			for (ComponentRecipe recipe : CTCraftingTableManager.recipeManager.getRecipesForType(RootsRecipes.COMPONENT_RECIPE_TYPE)) {
+				if(name.getNamespace().equals(Const.MODID) && !name.getPath().equals("none")) {
+					names.append(recipe.getEffectResult()).append(", ");
+				}
+			}
+
+			throw new IllegalArgumentException("Invalid spell [" + name + "], names must be one of: " + names);
+		}
+		return found;
+	}
+
+	@Override
+	public IRecipeType getRecipeType() {
+		return RootsRecipes.COMPONENT_RECIPE_TYPE;
+	}
 }

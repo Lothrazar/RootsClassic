@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "minecraft:azure_bluet"
+    },
+	{
+	  "item": "minecraft:iron_ingot"
+	},
+	{
+	  "item": "minecraft:spruce_sapling"
+	},
+	{
+	  "item": "rootsclassic:whitecurrant"
+	}
+  ],
+  "effect": "rootsclassic:azure_bluet"
+}

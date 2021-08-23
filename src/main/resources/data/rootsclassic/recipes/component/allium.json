@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "minecraft:allium"
+    },
+	{
+	  "item": "minecraft:soul_sand"
+	},
+	{
+	  "item": "minecraft:brown_mushroom"
+	},
+	{
+	  "item": "rootsclassic:elderberry"
+	}
+  ],
+  "effect": "rootsclassic:allium"
+}

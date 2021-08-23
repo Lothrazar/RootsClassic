@@ -1,83 +1,37 @@
 package elucent.rootsclassic.capability;
 
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.INBT;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.util.LazyOptional;
 
-@SuppressWarnings("rawtypes")
-public class ManaCapabilityProvider implements ICapabilityProvider, INBTSerializable, IManaCapability {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-  float mana;
-  float maxMana;
+public class ManaCapabilityProvider implements ICapabilitySerializable<INBT> {
 
-  ManaCapabilityProvider(boolean isNew) {
-    if (isNew) {
-      mana = 40;
-      maxMana = 40;
-    }
-  }
+	private LazyOptional<IManaCapability> instance;
+	private IManaCapability manaCapability;
 
-  @Override
-  public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-    return capability == RootsCapabilityManager.manaCapability;
-  }
+	ManaCapabilityProvider() {
+		this.manaCapability = RootsCapabilityManager.MANA_CAPABILITY.getDefaultInstance();
+		this.instance = LazyOptional.of(() -> manaCapability);
+	}
 
-  @Override
-  public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-    if (capability == RootsCapabilityManager.manaCapability) {
-      return RootsCapabilityManager.manaCapability.cast(this);
-    }
-    return null;
-  }
+	@Nonnull
+	@Override
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+		return RootsCapabilityManager.MANA_CAPABILITY.orEmpty(cap, instance);
+	}
 
-  @Override
-  public float getMana() {
-    return mana;
-  }
+	@Override
+	public INBT serializeNBT() {
+		return RootsCapabilityManager.MANA_CAPABILITY.writeNBT(manaCapability, null);
+	}
 
-  @Override
-  public float getMaxMana() {
-    return maxMana;
-  }
-
-  @Override
-  public void setMana(float mana) {
-    this.mana = mana;
-    if (mana < 0) {
-      this.mana = 0;
-    }
-    if (mana > getMaxMana()) {
-      this.mana = getMaxMana();
-    }
-  }
-
-  @Override
-  public void setMaxMana(float maxMana) {
-    this.maxMana = maxMana;
-  }
-
-  @Override
-  public NBTBase serializeNBT() {
-    NBTTagCompound tag = new NBTTagCompound();
-    tag.setFloat(ManaCapabilityStorage.NBT_MAX_MANA, getMaxMana());
-    tag.setFloat(ManaCapabilityStorage.NBT_MANA, getMana());
-    return tag;
-  }
-
-  @Override
-  public void deserializeNBT(NBTBase nbt) {
-    if (nbt instanceof NBTTagCompound) {
-      NBTTagCompound tag = (NBTTagCompound) nbt;
-      //System.out.println("Loading NBT! Mana=" + tag.getFloat("mana") + "/" + tag.getFloat("maxMana"));
-      if (tag.hasKey(ManaCapabilityStorage.NBT_MAX_MANA)) {
-        setMaxMana(tag.getFloat(ManaCapabilityStorage.NBT_MAX_MANA));
-      }
-      if (tag.hasKey(ManaCapabilityStorage.NBT_MANA)) {
-        setMana(tag.getFloat(ManaCapabilityStorage.NBT_MANA));
-      }
-    }
-  }
+	@Override
+	public void deserializeNBT(INBT nbt) {
+		RootsCapabilityManager.MANA_CAPABILITY.readNBT(manaCapability, null, nbt);
+	}
 }

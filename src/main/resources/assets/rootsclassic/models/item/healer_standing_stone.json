@@ -1,0 +1,7 @@
+{
+    "parent": "rootsclassic:item/standing_stone_item",
+	"textures": {
+        "0": "rootsclassic:blocks/healer_standing_stone",
+        "particle": "rootsclassic:blocks/healer_standing_stone"
+	}
+}

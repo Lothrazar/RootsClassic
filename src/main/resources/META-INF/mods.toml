@@ -1,0 +1,20 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+issueTrackerURL="https://github.com/Lothrazar/RootsClassic/issues"
+license="MIT"
+
+[[mods]]
+modId="rootsclassic"
+version="${file.jarVersion}"
+displayName="Roots Classic"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/roots-classic"
+authors="Elucent, Lothrazar, Mrbysco"
+description='''
+Classic port of Roots, the Druidic Magic Mod
+'''
+[[dependencies.rootsclassic]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.16.5,1.17)"
+ordering="NONE"
+side="BOTH"

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SNS",
+    "NDN",
+    "SNS"
+  ],
+  "key": {
+    "S": {
+      "tag": "forge:stone"
+    },
+    "N": {
+      "tag": "forge:ingots/nether_brick"
+    },
+    "D": {
+      "tag": "forge:gems/diamond"
+    }
+  },
+  "result": {
+    "item": "rootsclassic:attuned_standing_stone"
+  }
+}

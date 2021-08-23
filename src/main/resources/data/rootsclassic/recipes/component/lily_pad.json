@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "minecraft:lily_pad"
+    },
+	{
+	  "item": "minecraft:wet_sponge"
+	},
+	{
+	  "item": "minecraft:beetroot"
+	},
+	{
+	  "item": "rootsclassic:blackcurrant"
+	}
+  ],
+  "effect": "rootsclassic:lily_pad"
+}

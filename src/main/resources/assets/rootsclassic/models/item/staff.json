@@ -1,0 +1,10 @@
+{
+    "parent": "minecraft:item/handheld",
+    "textures": {
+        "layer0": "rootsclassic:items/staff_base"
+    },
+    "overrides": [
+        { "predicate": { "active": 0.0 }, "model": "rootsclassic:item/staff_0" },
+        { "predicate": { "active": 1.0 }, "model": "rootsclassic:item/staff_1" }
+    ]
+}

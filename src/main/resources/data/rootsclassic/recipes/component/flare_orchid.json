@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "rootsclassic:flare_orchid"
+    },
+	{
+	  "item": "minecraft:netherrack"
+	},
+	{
+	  "item": "minecraft:magma_cream"
+	},
+	{
+	  "item": "minecraft:blaze_rod"
+	}
+  ],
+  "effect": "rootsclassic:flare_orchid"
+}

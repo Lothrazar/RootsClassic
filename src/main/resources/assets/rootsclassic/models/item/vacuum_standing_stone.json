@@ -1,0 +1,7 @@
+{
+    "parent": "rootsclassic:item/standing_stone_item",
+	"textures": {
+        "0": "rootsclassic:blocks/vacuum_standing_stone",
+        "particle": "rootsclassic:blocks/vacuum_standing_stone"
+	}
+}

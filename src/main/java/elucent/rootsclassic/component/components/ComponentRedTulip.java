@@ -1,42 +1,46 @@
 package elucent.rootsclassic.component.components;
 
-import java.util.ArrayList;
-import java.util.Random;
+import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
-import elucent.rootsclassic.entity.skeleton.EntityFrozenKnight;
+import elucent.rootsclassic.entity.skeleton.PhantomSkeletonEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+
+import java.util.ArrayList;
 
 public class ComponentRedTulip extends ComponentBase {
 
-  Random random = new Random();
+	public ComponentRedTulip() {
+		super(new ResourceLocation(Const.MODID, "red_tulip"), Blocks.RED_TULIP, 6);
+	}
 
-  public ComponentRedTulip() {
-    super("redtulip", Blocks.RED_FLOWER, 6);
-  }
+	@Override
+	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+		if (type == EnumCastType.SPELL && !world.isRemote) {
+			ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x - size * 2.4, y - size * 2.4, z - size * 2.4, x + size * 2.4, y + size * 2.4, z + size * 2.4));
+			if (targets.size() > 0) {
+				PhantomSkeletonEntity skeleton = new PhantomSkeletonEntity(world);
+				skeleton.onInitialSpawn((ServerWorld)world, world.getDifficultyForLocation(new BlockPos(x, y, z)), SpawnReason.MOB_SUMMONED, (ILivingEntityData)null, (CompoundNBT)null);
 
-  @Override
-  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (type == EnumCastType.SPELL) {
-      ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x - size * 2.4, y - size * 2.4, z - size * 2.4, x + size * 2.4, y + size * 2.4, z + size * 2.4));
-      if (targets.size() > 0 && !world.isRemote) {
-        EntityFrozenKnight skeleton = new EntityFrozenKnight(world);
-        skeleton.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(x, y, z)), null);
-        //        skeleton.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
-        skeleton.setDropItemsWhenDead(false);
-        //        skeleton.getEntityData().setBoolean("RMOD_dropItems", false);
-        //        skeleton.getEntityData().setString("RMOD_dontTarget", caster.getUniqueID().toString());
-        skeleton.setPosition(x, y + 2.0, z);
-        //        skeleton.setAttackTarget(targets.get(random.nextInt(targets.size())));
-        // if (skeleton.getAttackTarget().getUniqueID() != caster.getUniqueID()) {
-        world.spawnEntity(skeleton);
-        // }
-      }
-    }
-  }
+//				skeleton.setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
+//				skeleton.getPersistentData().putBoolean(Const.NBT_DONT_DROP, false);
+//				skeleton.getPersistentData().putUniqueId("RMOD_dontTarget", caster.getUniqueID());
+				skeleton.setPosition(x, y + 2.0, z);
+				//        skeleton.setAttackTarget(targets.get(random.nextInt(targets.size())));
+				// if (skeleton.getAttackTarget().getUniqueID() != caster.getUniqueID()) {
+				world.addEntity(skeleton);
+				// }
+			}
+		}
+	}
 }

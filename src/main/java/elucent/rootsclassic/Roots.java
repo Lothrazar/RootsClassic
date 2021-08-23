@@ -1,100 +1,87 @@
 package elucent.rootsclassic;
 
-import org.apache.logging.log4j.Logger;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
-import elucent.rootsclassic.config.ConfigManager;
-import elucent.rootsclassic.config.EventConfigChanged;
-import elucent.rootsclassic.event.EventComponentSpells;
-import elucent.rootsclassic.event.EventHarvestDrops;
-import elucent.rootsclassic.event.EventManaBar;
-import elucent.rootsclassic.proxy.CommonProxy;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import elucent.rootsclassic.client.ClientHandler;
+import elucent.rootsclassic.component.ComponentManager;
+import elucent.rootsclassic.config.RootsConfig;
+import elucent.rootsclassic.event.ComponentSpellsEvent;
+import elucent.rootsclassic.client.ui.ManaBarEvent;
+import elucent.rootsclassic.mutation.MutagenManager;
+import elucent.rootsclassic.recipe.RootsReloadManager;
+import elucent.rootsclassic.registry.ParticleRegistry;
+import elucent.rootsclassic.registry.RootsEntities;
+import elucent.rootsclassic.registry.RootsRecipes;
+import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.research.ResearchManager;
+import elucent.rootsclassic.ritual.RitualManager;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-@SuppressWarnings("deprecation")
-@Mod(modid = Const.MODID, useMetadata = true, certificateFingerprint = "@FINGERPRINT@", updateJSON = "https://raw.githubusercontent.com/Lothrazar/RootsClassic/master/update.json", acceptableRemoteVersions = "*", acceptedMinecraftVersions = "[1.12,)", guiFactory = "elucent." + Const.MODID + ".config.IngameConfigFactory")
+@Mod(Const.MODID)
 public class Roots {
 
-  public static CreativeTabs tab = new CreativeTabs(Const.MODID) {
+	public static ItemGroup tab = new ItemGroup(Const.MODID) {
+		@Override
+		public ItemStack createIcon() {
+			return new ItemStack(RootsRegistry.SPELL_POWDER.get());
+		}
+	};
 
-    @Override
-    public String getTabLabel() {
-      return Const.MODID;
-    }
+	public static final Logger LOGGER = LogManager.getLogger();
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public ItemStack createIcon() {
-      return new ItemStack(RegistryManager.dustPetal);
-    }
-  };
-  @SidedProxy(clientSide = "elucent." + Const.MODID + ".proxy.ClientProxy", serverSide = "elucent." + Const.MODID + ".proxy.ServerProxy")
-  public static CommonProxy proxy;
-  @Instance(Const.MODID)
-  public static Roots instance;
-  public static Logger logger;
+	public Roots() {
+		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, RootsConfig.clientSpec);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, RootsConfig.commonSpec);
+		eventBus.register(RootsConfig.class);
 
-  @EventHandler
-  public void preInit(FMLPreInitializationEvent event) {
-    logger = event.getModLog();
-    ConfigManager.load(event);
-    MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
-    MinecraftForge.EVENT_BUS.register(new EventComponentSpells());
-    MinecraftForge.EVENT_BUS.register(new EventHarvestDrops());
-    MinecraftForge.EVENT_BUS.register(new EventManaBar());
-    MinecraftForge.EVENT_BUS.register(new EventConfigChanged());
-    MinecraftForge.EVENT_BUS.register(RegistryManager.class);
-    proxy.preInit(event);
-  }
+		eventBus.addListener(this::setup);
 
-  @EventHandler
-  public void init(FMLInitializationEvent event) {
-    proxy.init(event);
-  }
+		RootsRegistry.BLOCKS.register(eventBus);
+		RootsRegistry.ITEMS.register(eventBus);
+		RootsRegistry.TILE_ENTITIES.register(eventBus);
+		RootsEntities.ENTITIES.register(eventBus);
+		RootsRecipes.RECIPE_SERIALIZERS.register(eventBus);
 
-  @EventHandler
-  public void postInit(FMLPostInitializationEvent event) {
-    proxy.postInit(event);
-  }
+		ParticleRegistry.PARTICLE_TYPES.register(eventBus);
 
-  @EventHandler
-  public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
-    // https://tutorials.darkhax.net/tutorials/jar_signing/
-    String source = (event.getSource() == null) ? "" : event.getSource().getName() + " ";
-    String msg = "Roots Classic: Invalid fingerprint detected! The file " + source + "may have been tampered with. This version will NOT be supported by the author!";
-    if (logger == null) {
-      System.out.println(msg);
-    }
-    else {
-      logger.error(msg);
-    }
-  }
+		MinecraftForge.EVENT_BUS.register(new RootsReloadManager());
+		MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
+		MinecraftForge.EVENT_BUS.register(new ComponentSpellsEvent());
 
-  public static void chatMessage(EntityPlayer player, String message) {
-    if (player.world.isRemote)
-      player.sendMessage(new TextComponentString(lang(message)));
-  }
+		MinecraftForge.EVENT_BUS.addListener(RootsEntities::addSpawns);
+		eventBus.addListener(RootsEntities::registerEntityAttributes);
 
-  public static void statusMessage(EntityPlayer player, String message) {
-    if (player.world.isRemote)
-      player.sendStatusMessage(new TextComponentString(lang(message)), true);
-  }
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+			MinecraftForge.EVENT_BUS.register(new ManaBarEvent());
 
-  public static String lang(String message) {
-    return I18n.translateToLocalFormatted(message);
-  }
+			eventBus.addListener(ClientHandler::onClientSetup);
+			eventBus.addListener(ClientHandler::registerItemColors);
+
+			MinecraftForge.EVENT_BUS.addListener(ResearchManager::onRecipesUpdated);
+		});
+	}
+
+	private void setup(final FMLCommonSetupEvent event) {
+		RootsCapabilityManager.register();
+		RootsEntities.registerSpawnPlacement();
+
+		event.enqueueWork(() -> {
+			//Initialize
+			MutagenManager.reload();
+			ComponentManager.reload();
+			RitualManager.reload();
+		});
+	}
 }

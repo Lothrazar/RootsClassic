@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BFB",
+    "SGS",
+    " C "
+  ],
+  "key": {
+    "S": {
+      "tag": "forge:stone"
+    },
+    "F": {
+      "item": "minecraft:poppy"
+    },
+    "B": {
+      "item": "rootsclassic:verdant_sprig"
+    },
+    "G": {
+      "tag": "forge:storage_blocks/gold"
+    },
+    "C": {
+      "item": "minecraft:chiseled_stone_bricks"
+    }
+  },
+  "result": {
+    "item": "rootsclassic:altar"
+  }
+}

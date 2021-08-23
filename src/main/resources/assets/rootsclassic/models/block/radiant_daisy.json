@@ -1,0 +1,7 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "cross": "rootsclassic:blocks/radiant_daisy",
+        "particle": "rootsclassic:blocks/radiant_daisy"
+    }
+}

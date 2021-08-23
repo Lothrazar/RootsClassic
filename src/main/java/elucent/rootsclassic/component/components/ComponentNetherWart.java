@@ -1,50 +1,51 @@
 package elucent.rootsclassic.component.components;
 
-import java.util.ArrayList;
-import java.util.Random;
+import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
-import elucent.rootsclassic.config.ConfigManager;
+import elucent.rootsclassic.config.RootsConfig;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+
 public class ComponentNetherWart extends ComponentBase {
 
-  Random random = new Random();
+	public ComponentNetherWart() {
+		super(new ResourceLocation(Const.MODID, "nether_wart"), Items.NETHER_WART, 10);
+	}
 
-  public ComponentNetherWart() {
-    super("netherwart", Items.NETHER_WART, 10);
-  }
+	@Override
+	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+		if (type == EnumCastType.SPELL) {
+			//   int damageDealt = 0;
+			ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
+			for (LivingEntity target : targets) {
+				if (target.getUniqueID() != caster.getUniqueID()) {
+					if (target instanceof PlayerEntity && RootsConfig.COMMON.disablePVP.get()) {
 
-  @Override
-  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (type == EnumCastType.SPELL) {
-      //   int damageDealt = 0;
-      ArrayList<EntityLivingBase> targets = (ArrayList<EntityLivingBase>) world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
-      for (int i = 0; i < targets.size(); i++) {
-        if (targets.get(i).getUniqueID() != caster.getUniqueID()) {
-          if (targets.get(i) instanceof EntityPlayer && ConfigManager.disablePVP) {}
-          else {
-            //    damageDealt += (int) (5 + 3 * potency);
-            targets.get(i).attackEntityFrom(DamageSource.IN_FIRE, (int) (5 + 3 * potency));
-            targets.get(i).setFire((int) (4 + 3 * potency));
-            targets.get(i).setLastAttackedEntity(caster);
-            targets.get(i).setRevengeTarget((EntityLivingBase) caster);
-          }
-        }
-      }
-      //      if (damageDealt > 80) {
-      //        if (caster instanceof EntityPlayer) {
-      //          if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveLotsDamage)) {
-      //            PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveLotsDamage);
-      //          }
-      //        }
-      //      }
-    }
-  }
+					} else {
+						//    damageDealt += (int) (5 + 3 * potency);
+						target.attackEntityFrom(DamageSource.IN_FIRE, (int) (5 + 3 * potency));
+						target.setFire((int) (4 + 3 * potency));
+						target.setLastAttackedEntity(caster);
+						target.setRevengeTarget((LivingEntity) caster);
+					}
+				}
+			}
+			//      if (damageDealt > 80) {
+			//        if (caster instanceof EntityPlayer) {
+			//          if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveLotsDamage)) {
+			//            PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveLotsDamage);
+			//          }
+			//        }
+			//      }
+		}
+	}
 }

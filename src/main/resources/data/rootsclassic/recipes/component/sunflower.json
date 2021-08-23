@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "minecraft:sunflower"
+    },
+	{
+	  "item": "minecraft:jack_o_lantern"
+	},
+	{
+	  "item": "minecraft:bone_meal"
+	},
+	{
+	  "item": "rootsclassic:elderberry"
+	}
+  ],
+  "effect": "rootsclassic:sunflower"
+}

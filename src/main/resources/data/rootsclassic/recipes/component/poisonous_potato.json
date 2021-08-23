@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "minecraft:poisonous_potato"
+    },
+	{
+	  "item": "minecraft:glass"
+	},
+	{
+	  "item": "minecraft:glowstone"
+	},
+	{
+	  "item": "minecraft:sugar_cane"
+	}
+  ],
+  "effect": "rootsclassic:poisonous_potato"
+}

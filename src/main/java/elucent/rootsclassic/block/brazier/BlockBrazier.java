@@ -1,49 +1,36 @@
 package elucent.rootsclassic.block.brazier;
 
-import elucent.rootsclassic.Roots;
-import elucent.rootsclassic.block.TEBlockBase;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import elucent.rootsclassic.block.BaseTEBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
 
-public class BlockBrazier extends TEBlockBase implements ITileEntityProvider {
+import javax.annotation.Nullable;
 
-  private static final AxisAlignedBB AXIS_ALIGNED_BB = new AxisAlignedBB(0.1875, 0, 0.1875, 0.8125, 0.75, 0.8125);
+public class BlockBrazier extends BaseTEBlock {
+	private static final VoxelShape SHAPE = Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 12.0D, 13.0D);
 
-  public BlockBrazier() {
-    super(Material.GROUND);
-    setCreativeTab(Roots.tab);
-    setHardness(1.0f);
-  }
+	public BlockBrazier(Properties properties) {
+		super(properties);
+	}
 
-  @Override
-  public boolean isOpaqueCube(IBlockState state) {
-    return false;
-  }
+	@Override
+	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+		return SHAPE;
+	}
 
-  @Override
-  public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-    return AXIS_ALIGNED_BB;
-  }
+	@Override
+	public boolean hasTileEntity(BlockState state) {
+		return true;
+	}
 
-  @Override
-  public boolean isFullCube(IBlockState state) {
-    return false;
-  }
-
-  @Override
-  public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
-    return (layer == BlockRenderLayer.CUTOUT);
-  }
-
-  @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
-    return new TileEntityBrazier();
-  }
+	@Nullable
+	@Override
+	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+		return new BrazierTile();
+	}
 }

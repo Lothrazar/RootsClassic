@@ -1,38 +1,38 @@
 package elucent.rootsclassic.mutation.mutations;
 
-import java.util.List;
-import elucent.rootsclassic.RegistryManager;
+import elucent.rootsclassic.Const;
 import elucent.rootsclassic.mutation.MutagenRecipe;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import elucent.rootsclassic.registry.RootsRegistry;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.item.Items;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class MutagenRadiantDaisyRecipe extends MutagenRecipe {
 
-  public MutagenRadiantDaisyRecipe() {
-    super("radiantDaisy", Blocks.RED_FLOWER.getStateFromMeta(8), RegistryManager.radiantDaisy.getDefaultState());
-    addIngredient(new ItemStack(Blocks.GLOWSTONE, 1));
-    addIngredient(new ItemStack(Items.PRISMARINE_CRYSTALS, 1));
-  }
+	public MutagenRadiantDaisyRecipe() {
+		super(new ResourceLocation(Const.MODID, "radiant_daisy"), Blocks.OXEYE_DAISY.getDefaultState(), RootsRegistry.RADIANT_DAISY.get().getDefaultState());
+		addIngredient(new ItemStack(Blocks.GLOWSTONE, 1));
+		addIngredient(new ItemStack(Items.PRISMARINE_CRYSTALS, 1));
+	}
 
-  @Override
-  public void onCrafted(World world, BlockPos pos, EntityPlayer player) {
-    player.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("blindness"), 1200, 0));
-  }
+	@Override
+	public void onCrafted(World world, BlockPos pos, PlayerEntity player) {
+		player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 1200, 0));
+	}
 
-  @Override
-  public boolean matches(List<ItemStack> items, World world, BlockPos pos, EntityPlayer player) {
-    if (super.matches(items, world, pos, player)) {
-      if (world.provider.getDimensionType() == DimensionType.OVERWORLD && player.getActivePotionEffect(Potion.getPotionFromResourceLocation("night_vision")) != null && player.getEntityWorld().getWorldTime() > 5000 && player.getEntityWorld().getWorldTime() < 7000) {
-        return true;
-      }
-    }
-    return false;
-  }
+	@Override
+	public boolean matches(List<ItemStack> items, World world, BlockPos pos, PlayerEntity player) {
+		if (super.matches(items, world, pos, player)) {
+			return world.getDimensionKey() == World.OVERWORLD && player.getActivePotionEffect(Effects.NIGHT_VISION) != null && player.getEntityWorld().getDayTime() > 5000 && player.getEntityWorld().getDayTime() < 7000;
+		}
+		return false;
+	}
 }

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+	"#rootsclassic:bark/acacia",
+	"#rootsclassic:bark/birch",
+	"#rootsclassic:bark/dark_oak",
+	"#rootsclassic:bark/jungle",
+	"#rootsclassic:bark/oak",
+	"#rootsclassic:bark/spruce"
+  ]
+}

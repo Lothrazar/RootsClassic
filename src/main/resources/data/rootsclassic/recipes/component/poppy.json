@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "minecraft:poppy"
+    },
+	{
+	  "item": "minecraft:red_mushroom"
+	},
+	{
+	  "item": "minecraft:beef"
+	},
+	{
+	  "item": "rootsclassic:redcurrant"
+	}
+  ],
+  "effect": "rootsclassic:poppy"
+}

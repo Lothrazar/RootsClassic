@@ -1,0 +1,7 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "cross": "rootsclassic:blocks/midnight_bloom",
+        "particle": "rootsclassic:blocks/midnight_bloom"
+    }
+}

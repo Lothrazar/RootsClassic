@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "minecraft:white_tulip"
+    },
+	{
+	  "item": "minecraft:snowball"
+	},
+	{
+	  "item": "minecraft:birch_sapling"
+	},
+	{
+	  "item": "rootsclassic:whitecurrant"
+	}
+  ],
+  "effect": "rootsclassic:white_tulip"
+}

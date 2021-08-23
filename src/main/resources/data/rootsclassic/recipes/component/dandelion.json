@@ -1,0 +1,18 @@
+{
+  "type": "rootsclassic:component",
+  "ingredients": [
+    {
+      "item": "minecraft:dandelion"
+    },
+	{
+	  "item": "minecraft:string"
+	},
+	{
+	  "item": "minecraft:feather"
+	},
+	{
+	  "item": "rootsclassic:whitecurrant"
+	}
+  ],
+  "effect": "rootsclassic:dandelion"
+}
