@@ -144,7 +144,7 @@ public class TabletScreen extends Screen {
 		}
 		RenderSystem.color4f(1, 1, 1, 1);
 		int basePosX = (int)((width / 2.0f) - 108);
-		String formattedTitle = I18n.format("rootsclassic.research." + ResearchManager.globalResearches.get(currentGroup).getName());
+		String researchName = "rootsclassic.research." + ResearchManager.globalResearches.get(currentGroup).getName();
 		for (int i = 0; i < ResearchManager.globalResearches.get(currentGroup).researches.size(); i++) {
 			minecraft.getTextureManager().bindTexture(Const.tabletGui);
 			int yShift = (int)(float) Math.floor(i / 6);
@@ -154,11 +154,11 @@ public class TabletScreen extends Screen {
 				this.itemRenderer.renderItemIntoGUI(ResearchManager.globalResearches.get(currentGroup).researches.get(i).getIcon(), (int) (basePosX + xShift * 32 + 4), (int) (32 + 40 * yShift + 4));
 			}
 			if (mouseX >= basePosX + 32 * xShift && mouseX < basePosX + 32 * xShift + 24 && mouseY >= 32 + 40 * yShift && mouseY < 32 + 40 * yShift + 24) {
-				String name = I18n.format(formattedTitle + "." + ResearchManager.globalResearches.get(currentGroup).researches.get(i).getName());
+				String name = I18n.format(researchName + "." + ResearchManager.globalResearches.get(currentGroup).researches.get(i).getName());
 				this.font.drawStringWithShadow(matrixStack, name, basePosX + 32 * xShift + 12 - (font.getStringWidth(name) / 2.0f), 32 + 40 * yShift + 25, RootsUtil.intColor(255, 255, 255));
 			}
 		}
-		this.font.drawStringWithShadow(matrixStack, formattedTitle, width / 2.0f - (font.getStringWidth(formattedTitle) / 2.0f), height - 16.0f, RootsUtil.intColor(255, 255, 255));
+		this.font.drawStringWithShadow(matrixStack, researchName, width / 2.0f - (font.getStringWidth(researchName) / 2.0f), height - 16.0f, RootsUtil.intColor(255, 255, 255));
 		minecraft.getTextureManager().bindTexture(Const.tabletGui);
 		if (mouseX >= 32 && mouseX < 64 && mouseY >= height - 48 && mouseY < height - 32) {
 			this.blit(matrixStack, 32, height - 48, 32, 80, 32, 16);
