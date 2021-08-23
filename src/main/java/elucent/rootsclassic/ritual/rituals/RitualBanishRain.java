@@ -14,16 +14,16 @@ public class RitualBanishRain extends RitualBase {
 	public RitualBanishRain(ResourceLocation name, int level, double r, double g, double b) {
 		super(name, level, r, g, b);
 	}
-	//
-	//  @Override
-	//  public boolean incenseMatches(World world, BlockPos pos) {
-	//    if (super.incesceMatches(world, pos)) {
-	//      if (world.getWorldInfo().isRaining() == false) {
-	//        return true;
-	//      }
-	//    }
-	//    return false;
-	//  }
+
+//	@Override
+//	public boolean incenseMatches(World world, BlockPos pos) {
+//		if (super.incenseMatches(world, pos)) {
+//			if (world.getWorldInfo().isRaining() == false) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 
 	@Override
 	public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
