@@ -91,8 +91,7 @@ public class AttunedStandingStoneBlock extends Block {
 	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
 		BlockPos blockpos = pos.down();
 		BlockState blockstate = worldIn.getBlockState(blockpos);
-		//blockstate.isSolidSide(worldIn, blockpos, Direction.UP)
-		return state.get(HALF) == DoubleBlockHalf.LOWER ? true : blockstate.matchesBlock(this);
+		return state.get(HALF) == DoubleBlockHalf.LOWER ? blockstate.isSolidSide(worldIn, blockpos, Direction.UP) : blockstate.matchesBlock(this);
 	}
 
 	@Override

@@ -89,13 +89,13 @@ public class RootsUtil {
 		}
 		ArrayList<ItemStack> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
-			if (recipe.get(i) == null) {
+			if (recipe.get(i).isEmpty()) {
 				recipe.remove(i);
 				i--;
 			}
 		}
 		for (int i = 0; i < available.size(); i++) {
-			if (available.get(i) == null) {
+			if (available.get(i).isEmpty()) {
 				available.remove(i);
 				i--;
 			}
@@ -121,13 +121,13 @@ public class RootsUtil {
 		}
 		ArrayList<ItemStack> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
-			if (recipe.get(i) == null) {
+			if (recipe.get(i).isEmpty()) {
 				recipe.remove(i);
 				i--;
 			}
 		}
 		for (int i = 0; i < available.size(); i++) {
-			if (available.get(i) == null) {
+			if (available.get(i).isEmpty()) {
 				available.remove(i);
 				i--;
 			}
@@ -150,13 +150,13 @@ public class RootsUtil {
 		ArrayList<Ingredient> recipe = new ArrayList<>(i1);
 		ArrayList<ItemStack> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
-			if (recipe.get(i) == null) {
+			if (recipe.get(i).hasNoMatchingItems()) {
 				recipe.remove(i);
 				i--;
 			}
 		}
 		for (int i = 0; i < available.size(); i++) {
-			if (available.get(i) == null) {
+			if (available.get(i).isEmpty()) {
 				available.remove(i);
 				i--;
 			}
@@ -179,13 +179,13 @@ public class RootsUtil {
 		ArrayList<Ingredient> recipe = new ArrayList<>(i1);
 		ArrayList<ItemStack> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
-			if (recipe.get(i) == null) {
+			if (recipe.get(i).hasNoMatchingItems()) {
 				recipe.remove(i);
 				i--;
 			}
 		}
 		for (int i = 0; i < available.size(); i++) {
-			if (available.get(i) == null) {
+			if (available.get(i).isEmpty()) {
 				available.remove(i);
 				i--;
 			}
@@ -208,13 +208,13 @@ public class RootsUtil {
 		ArrayList<ItemStack> recipe = new ArrayList<>(i1);
 		ArrayList<ItemStack> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
-			if (recipe.get(i) == null) {
+			if (recipe.get(i).isEmpty()) {
 				recipe.remove(i);
 				i--;
 			}
 		}
 		for (int i = 0; i < available.size(); i++) {
-			if (available.get(i) == null) {
+			if (available.get(i).isEmpty()) {
 				available.remove(i);
 				i--;
 			}
@@ -237,13 +237,13 @@ public class RootsUtil {
 		ArrayList<ItemStack> recipe = new ArrayList<>(i1);
 		ArrayList<ItemStack> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
-			if (recipe.get(i) == null) {
+			if (recipe.get(i).isEmpty()) {
 				recipe.remove(i);
 				i--;
 			}
 		}
 		for (int i = 0; i < available.size(); i++) {
-			if (available.get(i) == null) {
+			if (available.get(i).isEmpty()) {
 				available.remove(i);
 				i--;
 			}
@@ -266,13 +266,13 @@ public class RootsUtil {
 		ArrayList<Ingredient> recipe = new ArrayList<>(i1);
 		ArrayList<Ingredient> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
-			if (recipe.get(i) == null) {
+			if (recipe.get(i).hasNoMatchingItems()) {
 				recipe.remove(i);
 				i--;
 			}
 		}
 		for (int i = 0; i < available.size(); i++) {
-			if (available.get(i) == null) {
+			if (available.get(i).hasNoMatchingItems()) {
 				available.remove(i);
 				i--;
 			}
@@ -281,8 +281,7 @@ public class RootsUtil {
 			for (Ingredient ingredient : available) {
 				boolean endIteration = false;
 				for (int i = 0; i < recipe.size() && !endIteration; i++) {
-					if (ingredient.hasNoMatchingItems() || recipe.get(i).hasNoMatchingItems() ||
-							ingredient.getMatchingStacks()[0].isItemEqual(recipe.get(i).getMatchingStacks()[0])) {
+					if (ingredient.getMatchingStacks()[0].isItemEqual(recipe.get(i).getMatchingStacks()[0])) {
 						recipe.remove(i);
 						endIteration = true;
 					}

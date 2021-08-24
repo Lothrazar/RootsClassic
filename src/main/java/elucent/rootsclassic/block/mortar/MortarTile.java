@@ -31,6 +31,12 @@ public class MortarTile extends TEBase {
 		protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
 			return 1;
 		}
+
+		@Override
+		protected void onContentsChanged(int slot) {
+			super.onContentsChanged(slot);
+			calculateRotations();
+		}
 	};
 	private LazyOptional<IItemHandler> inventoryHolder = LazyOptional.of(() -> inventory);
 
@@ -63,27 +69,21 @@ public class MortarTile extends TEBase {
 		this.remove();
 	}
 
-	private void dropAllItems(World world, BlockPos pos) {
-		for (int i = 0; i < inventory.getSlots(); i++) {
-			ItemStack stack = inventory.getStackInSlot(i);
-			if (!world.isRemote && !stack.isEmpty()) {
-				world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack));
-			}
-		}
-	}
-
 	@Override
 	public ActionResultType activate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, ItemStack heldItem, BlockRayTraceResult hit) {
-		if (heldItem.isEmpty() && hand == Hand.MAIN_HAND) {
-			return tryDropSingleItem(world, pos, state);
-		} else if (heldItem.getItem() == RootsRegistry.PESTLE.get()) {
-			return tryActivateRecipe(player, state);
-		} else {
-			return tryInsertItem(world, pos, state, heldItem);
+		if(hand == Hand.MAIN_HAND) {
+			if (heldItem.isEmpty()) {
+				return tryDropSingleItem(world, pos, state);
+			} else if (heldItem.getItem() == RootsRegistry.PESTLE.get()) {
+				return tryActivateRecipe(player, state);
+			} else {
+				return tryInsertItem(world, pos, state, heldItem);
+			}
 		}
+		return ActionResultType.PASS;
 	}
 	private ActionResultType tryInsertItem(World world, BlockPos pos, BlockState state, ItemStack heldItem) {
-		if (!InventoryUtil.isFull(inventory)) {
+		if (!heldItem.isEmpty() && !InventoryUtil.isFull(inventory)) {
 			ItemStack heldCopy = heldItem.copy();
 			heldCopy.setCount(1);
 
@@ -119,10 +119,10 @@ public class MortarTile extends TEBase {
 	private ActionResultType tryDropSingleItem(World world, BlockPos pos, BlockState state) {
 		if(!InventoryUtil.isEmpty(inventory)) {
 			ItemStack lastStack = InventoryUtil.getLastStack(inventory);
-			if (!world.isRemote) {
-				world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, lastStack));
+			if(!lastStack.isEmpty()) {
+				dropItem(lastStack, 0.5F);
+				lastStack.shrink(1);
 			}
-			lastStack.shrink(1);
 			markDirty();
 			world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 			return ActionResultType.SUCCESS;
@@ -146,6 +146,37 @@ public class MortarTile extends TEBase {
 		markDirty();
 		world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
 		return ActionResultType.SUCCESS;
+	}
+
+	public ItemEntity dropItem(ItemStack stack, float offsetY) {
+		ItemStack copyStack = stack.copy();
+		if (copyStack.isEmpty()) {
+			return null;
+		} else if (world.isRemote) {
+			return null;
+		} else {
+			BlockPos pos = getPos();
+			ItemEntity itementity = new ItemEntity(this.world, pos.getX(), pos.getY() + (double)offsetY, this.pos.getZ(), copyStack);
+			itementity.setDefaultPickupDelay();
+			this.world.addEntity(itementity);
+			return itementity;
+		}
+	}
+
+	private void dropAllItems(World world, BlockPos pos) {
+		for (int i = 0; i < inventory.getSlots(); i++) {
+			ItemStack stack = inventory.getStackInSlot(i);
+			dropItem(stack, 0F);
+		}
+	}
+
+	private void calculateRotations() {
+		for(int i = 0; i < inventory.getSlots(); i++) {
+			ItemStack stack = inventory.getStackInSlot(i);
+			if(!stack.isEmpty()) {
+
+			}
+		}
 	}
 
 	@Override

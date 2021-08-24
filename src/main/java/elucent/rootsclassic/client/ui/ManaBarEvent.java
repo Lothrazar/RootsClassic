@@ -53,6 +53,7 @@ public class ManaBarEvent {
 		RenderSystem.disableDepthTest();
 		RenderSystem.disableCull();
 		RenderSystem.pushMatrix();
+		RenderSystem.enableBlend();
 		Minecraft.getInstance().getTextureManager().bindTexture(Const.manaBar);
 		Tessellator tess = Tessellator.getInstance();
 		BufferBuilder b = tess.getBuffer();
@@ -96,6 +97,7 @@ public class ManaBarEvent {
 			}
 		}
 		tess.draw();
+		RenderSystem.disableBlend();
 		RenderSystem.popMatrix();
 		RenderSystem.enableCull();
 		RenderSystem.enableDepthTest();
