@@ -12,6 +12,7 @@ import net.minecraft.block.CropsBlock;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.NetherWartBlock;
 import net.minecraft.block.TallGrassBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
@@ -19,39 +20,20 @@ import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-@EventBusSubscriber(modid = Const.MODID, bus = Bus.MOD)
 public class DropModifier {
-	@SubscribeEvent
-	public static void registerModifiers(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
-		event.getRegistry().register(
-				new LeavesDropSerializer().setRegistryName(Const.MODID, "rootsclassic_drops")
-		);
-	}
+	public static final DeferredRegister<GlobalLootModifierSerializer<?>> GLM = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, Const.MODID);
+	public static final RegistryObject<BlockDropModifier.Serializer> ROOTSCLASSIC_DROPS = GLM.register("rootsclassic_drops", BlockDropModifier.Serializer::new);
 
-	public static class LeavesDropSerializer extends GlobalLootModifierSerializer<LeavesDropModifier> {
-
-		@Override
-		public LeavesDropModifier read(ResourceLocation location, JsonObject jsonObject, ILootCondition[] lootConditions) {
-			return new LeavesDropModifier(lootConditions);
-		}
-
-		@Override
-		public JsonObject write(LeavesDropModifier instance) {
-			return new JsonObject();
-		}
-	}
-
-	private static class LeavesDropModifier extends LootModifier {
-		protected LeavesDropModifier(ILootCondition[] lootConditions) {
+	public static class BlockDropModifier extends LootModifier {
+		public BlockDropModifier(ILootCondition[] lootConditions) {
 			super(lootConditions);
 		}
 
@@ -88,13 +70,27 @@ public class DropModifier {
 					}
 				}
 				if(block instanceof LeavesBlock) {
-					if (rand.nextInt(RootsConfig.COMMON.berriesDropChance.get()) == 0) {
-						generatedLoot.add(new ItemStack(RootsTags.BERRIES.getRandomElement(rand)));
+					if(!generatedLoot.stream().anyMatch((stack) -> stack.getItem() instanceof BlockItem && ((BlockItem)stack.getItem()).getBlock() == block)) {
+						if (rand.nextInt(RootsConfig.COMMON.berriesDropChance.get()) == 0) {
+							generatedLoot.add(new ItemStack(RootsTags.BERRIES.getRandomElement(rand)));
+						}
 					}
 				}
 			}
 
 			return generatedLoot;
+		}
+
+		private static class Serializer extends GlobalLootModifierSerializer<BlockDropModifier> {
+			@Override
+			public BlockDropModifier read(ResourceLocation location, JsonObject jsonObject, ILootCondition[] lootConditions) {
+				return new BlockDropModifier(lootConditions);
+			}
+
+			@Override
+			public JsonObject write(BlockDropModifier instance) {
+				return makeConditions(instance.conditions);
+			}
 		}
 	}
 }

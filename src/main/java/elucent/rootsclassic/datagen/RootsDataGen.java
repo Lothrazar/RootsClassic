@@ -3,9 +3,13 @@ package elucent.rootsclassic.datagen;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
+import elucent.rootsclassic.Const;
 import elucent.rootsclassic.block.AttunedStandingStoneBlock;
+import elucent.rootsclassic.lootmodifiers.DropModifier;
+import elucent.rootsclassic.lootmodifiers.DropModifier.BlockDropModifier;
 import elucent.rootsclassic.registry.RootsEntities;
 import elucent.rootsclassic.registry.RootsRegistry;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.CookingRecipeBuilder;
@@ -27,12 +31,16 @@ import net.minecraft.loot.LootParameterSets;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.LootTableManager;
 import net.minecraft.loot.ValidationTracker;
+import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.loot.conditions.Inverted;
+import net.minecraft.loot.conditions.MatchTool;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
@@ -59,6 +67,7 @@ public class RootsDataGen {
 		if (event.includeServer()) {
 			generator.addProvider(new Loots(generator));
 			generator.addProvider(new Recipes(generator));
+			generator.addProvider(new GLMProvider(generator));
 		}
 		if (event.includeClient()) {
 //			generator.addProvider(new Language(generator));
@@ -133,6 +142,21 @@ public class RootsDataGen {
 		}
 	}
 
+	private static class GLMProvider extends GlobalLootModifierProvider {
+
+		public GLMProvider(DataGenerator gen) {
+			super(gen, Const.MODID);
+		}
+
+		@Override
+		protected void start() {
+			add("rootsclassic_drops", DropModifier.ROOTSCLASSIC_DROPS.get(), new BlockDropModifier(
+					new ILootCondition[] {
+							Inverted.builder(MatchTool.builder(ItemPredicate.Builder.create().tag(Tags.Items.SHEARS))).build()
+					})
+			);
+		}
+	}
 
 	private static class Recipes extends RecipeProvider {
 		public Recipes(DataGenerator gen) {

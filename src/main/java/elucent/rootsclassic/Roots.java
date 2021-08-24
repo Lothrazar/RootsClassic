@@ -2,10 +2,11 @@ package elucent.rootsclassic;
 
 import elucent.rootsclassic.capability.RootsCapabilityManager;
 import elucent.rootsclassic.client.ClientHandler;
+import elucent.rootsclassic.client.ui.ManaBarEvent;
 import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.event.ComponentSpellsEvent;
-import elucent.rootsclassic.client.ui.ManaBarEvent;
+import elucent.rootsclassic.lootmodifiers.DropModifier;
 import elucent.rootsclassic.mutation.MutagenManager;
 import elucent.rootsclassic.recipe.RootsReloadManager;
 import elucent.rootsclassic.registry.ParticleRegistry;
@@ -53,6 +54,7 @@ public class Roots {
 		RootsRegistry.TILE_ENTITIES.register(eventBus);
 		RootsEntities.ENTITIES.register(eventBus);
 		RootsRecipes.RECIPE_SERIALIZERS.register(eventBus);
+		DropModifier.GLM.register(eventBus);
 
 		ParticleRegistry.PARTICLE_TYPES.register(eventBus);
 

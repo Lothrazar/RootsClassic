@@ -1,0 +1,14 @@
+{
+  "conditions": [
+    {
+      "condition": "minecraft:inverted",
+      "term": {
+        "condition": "minecraft:match_tool",
+        "predicate": {
+          "tag": "forge:shears"
+        }
+      }
+    }
+  ],
+  "type": "rootsclassic:rootsclassic_drops"
+}
