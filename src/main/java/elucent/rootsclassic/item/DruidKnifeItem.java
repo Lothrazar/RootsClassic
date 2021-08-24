@@ -78,6 +78,9 @@ public class DruidKnifeItem extends Item {
 	}
 
 	public static ItemStack getBarkDrop(BlockState originalState) {
+    if (!BLOCK_BARK_MAP.containsKey(originalState.getBlock())) {
+      return ItemStack.EMPTY;
+    }
 		Item bark = BLOCK_BARK_MAP.get(originalState.getBlock()).get();
 		return bark != null ? new ItemStack(bark) : ItemStack.EMPTY;
 	}
