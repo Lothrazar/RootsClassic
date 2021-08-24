@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " r ",
+    "sts",
+    " s "
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:wheat_seeds"
+    },
+    "t": {
+      "item": "minecraft:stone"
+    },
+    "r": {
+      "item": "rootsclassic:old_root"
+    }
+  },
+  "result": {
+    "item": "rootsclassic:runic_tablet"
+  }
+}

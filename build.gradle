@@ -11,13 +11,12 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 
-version = "${version}"
-group= "elucent.roots" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "${mc_version}-${version}"
+group = "elucent.roots" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "RootsClassic"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 
-println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
     mappings  channel: "${mcp_channel}", version: "${mcp_mappings}"
 
