@@ -56,7 +56,7 @@ public class ImbuerTile extends TEBase implements ITickableTileEntity {
 	}
 
 	public ImbuerTile() {
-		super(RootsRegistry.MORTAR_TILE.get());
+		super(RootsRegistry.IMBUER_TILE.get());
 	}
 
 	public ItemStack getStick() {
@@ -95,8 +95,8 @@ public class ImbuerTile extends TEBase implements ITickableTileEntity {
 
 	@Override
 	public ActionResultType activate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, ItemStack heldItem, BlockRayTraceResult hit) {
-		if (progress == 0) {
-			if (heldItem == null) {
+		if (progress == 0 && hand == Hand.MAIN_HAND) {
+			if (heldItem.isEmpty()) {
 				if (!getStick().isEmpty()) {
 					if (!world.isRemote) {
 						world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, getStick()));

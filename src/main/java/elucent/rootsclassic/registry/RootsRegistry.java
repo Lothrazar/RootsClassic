@@ -19,6 +19,7 @@ import elucent.rootsclassic.block.brazier.BrazierTile;
 import elucent.rootsclassic.block.flowers.FlareOrchidBlock;
 import elucent.rootsclassic.block.flowers.MidnightBloomBlock;
 import elucent.rootsclassic.block.flowers.RadiantDaisyBlock;
+import elucent.rootsclassic.block.imbuer.ImbuerBlock;
 import elucent.rootsclassic.block.imbuer.ImbuerTile;
 import elucent.rootsclassic.block.mortar.MortarBlock;
 import elucent.rootsclassic.block.mortar.MortarTile;
@@ -74,21 +75,25 @@ public class RootsRegistry {
 
 	public static final RegistryObject<Block> MORTAR = BLOCKS.register("mortar", () ->
 			new MortarBlock(AbstractBlock.Properties.create(Material.CLAY).hardnessAndResistance(1.0F)));
-	public static final RegistryObject<TileEntityType<MortarTile>> MORTAR_TILE = TILE_ENTITIES.register("mortar", () -> TileEntityType.Builder.create(MortarTile::new, RootsRegistry.MORTAR.get()).build(null));
+	public static final RegistryObject<TileEntityType<MortarTile>> MORTAR_TILE = TILE_ENTITIES.register("mortar", () -> TileEntityType.Builder.create(MortarTile::new,
+			RootsRegistry.MORTAR.get()).build(null));
 
 
 	public static final RegistryObject<Block> ALTAR = BLOCKS.register("altar", () ->
 			new AltarBlock(AbstractBlock.Properties.create(Material.CLAY).hardnessAndResistance(1.0F)));
-	public static final RegistryObject<TileEntityType<AltarTile>> ALTAR_TILE = TILE_ENTITIES.register("altar", () -> TileEntityType.Builder.create(AltarTile::new, RootsRegistry.ALTAR.get()).build(null));
+	public static final RegistryObject<TileEntityType<AltarTile>> ALTAR_TILE = TILE_ENTITIES.register("altar", () -> TileEntityType.Builder.create(AltarTile::new,
+			RootsRegistry.ALTAR.get()).build(null));
 
 	public static final RegistryObject<Block> BRAZIER = BLOCKS.register("brazier", () ->
 			new BlockBrazier(AbstractBlock.Properties.create(Material.CLAY).hardnessAndResistance(1.0F)));
-	public static final RegistryObject<TileEntityType<BrazierTile>> BRAZIER_TILE = TILE_ENTITIES.register("brazier", () -> TileEntityType.Builder.create(BrazierTile::new, RootsRegistry.BRAZIER.get()).build(null));
+	public static final RegistryObject<TileEntityType<BrazierTile>> BRAZIER_TILE = TILE_ENTITIES.register("brazier", () -> TileEntityType.Builder.create(BrazierTile::new,
+			RootsRegistry.BRAZIER.get()).build(null));
 
 
 	public static final RegistryObject<Block> IMBUER = BLOCKS.register("imbuer", () ->
-			new MortarBlock(AbstractBlock.Properties.create(Material.CLAY).hardnessAndResistance(1.0F)));
-	public static final RegistryObject<TileEntityType<ImbuerTile>> IMBUER_TILE = TILE_ENTITIES.register("imbuer", () -> TileEntityType.Builder.create(ImbuerTile::new, RootsRegistry.IMBUER.get()).build(null));
+			new ImbuerBlock(AbstractBlock.Properties.create(Material.CLAY).hardnessAndResistance(1.0F)));
+	public static final RegistryObject<TileEntityType<ImbuerTile>> IMBUER_TILE = TILE_ENTITIES.register("imbuer", () -> TileEntityType.Builder.create(ImbuerTile::new,
+			RootsRegistry.IMBUER.get()).build(null));
 
 
 	public static final RegistryObject<Block> MUNDANE_STANDING_STONE = BLOCKS.register("mundane_standing_stone", () ->
