@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " r ",
-    "sts",
-    " s "
+    " R ",
+    "SBS",
+    " S "
   ],
   "key": {
-    "s": {
-      "item": "minecraft:wheat_seeds"
+    "S": {
+      "tag": "forge:seeds/wheat"
     },
-    "t": {
-      "item": "minecraft:stone"
+    "B": {
+      "tag": "forge:stone"
     },
-    "r": {
+    "R": {
       "item": "rootsclassic:old_root"
     }
   },

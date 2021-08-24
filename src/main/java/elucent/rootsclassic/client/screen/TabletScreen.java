@@ -3,6 +3,7 @@ package elucent.rootsclassic.client.screen;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import elucent.rootsclassic.Const;
+import elucent.rootsclassic.client.ClientInfo;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.research.ResearchBase;
 import elucent.rootsclassic.research.ResearchGroup;
@@ -23,7 +24,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.StringTextComponent;
 
 public class TabletScreen extends Screen {
-	private double cycle = 0;
 	private int currentGroup = 0;
 	private final PlayerEntity player;
 
@@ -109,15 +109,15 @@ public class TabletScreen extends Screen {
 		vertexbuffer.pos(x1 + 0.0F, y1 + 0.0F, this.itemRenderer.zLevel).tex((minU + 0) * f, (minV + 0) * f1).endVertex();
 	}
 
-	public float getRadiusX(float degrees, float radius) {
-		float magnitude = radius + 16.0f * ((float) Math.cos(((degrees + (cycle / 8.0f)) / 45.0) * Math.PI));
-		return magnitude * (float) Math.cos((degrees / 360.0f) * Math.PI);
-	}
-
-	public float getRadiusY(float degrees, float radius) {
-		float magnitude = radius + 16.0f * ((float) Math.cos(((degrees + (cycle / 8.0f)) / 45.0) * Math.PI));
-		return magnitude * (float) Math.sin((degrees / 360.0f) * Math.PI);
-	}
+//	public float getRadiusX(float degrees, float radius) {
+//		float magnitude = radius + 16.0f * ((float) Math.cos(((degrees + (cycle / 8.0f)) / 45.0) * Math.PI));
+//		return magnitude * (float) Math.cos((degrees / 360.0f) * Math.PI);
+//	}
+//
+//	public float getRadiusY(float degrees, float radius) {
+//		float magnitude = radius + 16.0f * ((float) Math.cos(((degrees + (cycle / 8.0f)) / 45.0) * Math.PI));
+//		return magnitude * (float) Math.sin((degrees / 360.0f) * Math.PI);
+//	}
 
 	@Override
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
@@ -125,19 +125,18 @@ public class TabletScreen extends Screen {
 		this.player.stopActiveHand();
 		RenderSystem.pushMatrix();
 		RenderSystem.color4f(1, 1, 1, 1);
-		cycle += 4.0;
 		minecraft.getTextureManager().bindTexture(Const.tabletGui);
 		float unit = width / 32.0f;
 		if (RootsConfig.CLIENT.showTabletWave.get()) {
 			RenderSystem.enableBlend();
 			RenderSystem.color4f(1, 1, 1, 1);
 			Tessellator tessellator = Tessellator.getInstance();
-			BufferBuilder vertexbuffer = tessellator.getBuffer();
-			vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
+			BufferBuilder bufferBuilder = tessellator.getBuffer();
+			bufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 			for (float i = 0; i < width; i += unit) {
-				float height1 = 12.0f * ((float) Math.cos(((cycle / 360.0) + (i / (width / 4.0))) * Math.PI) + 1.0f);
-				float height2 = 12.0f * ((float) Math.cos(((cycle / 360.0) + ((i + unit) / (width / 4.0))) * Math.PI) + 1.0f);
-				this.drawQuad(vertexbuffer, i, height - (24.0f + height1), i + unit, height - (24.0f + height2), i + unit, height, i, height, 16, 96, 16, 64);
+				float height1 = 12.0f * ((float) Math.cos(((ClientInfo.ticksInGame / 36.0) + (i / (width / 4.0))) * Math.PI) + 1.0f);
+				float height2 = 12.0f * ((float) Math.cos(((ClientInfo.ticksInGame / 36.0) + ((i + unit) / (width / 4.0))) * Math.PI) + 1.0f);
+				this.drawQuad(bufferBuilder, i, height - (24.0f + height1), i + unit, height - (24.0f + height2), i + unit, height, i, height, 16, 96, 16, 64);
 			}
 			tessellator.draw();
 			RenderSystem.disableBlend();
