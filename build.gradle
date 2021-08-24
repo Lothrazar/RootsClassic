@@ -1,7 +1,7 @@
 buildscript {
     repositories {
+        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
         maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://files.minecraftforge.net/maven' }
         mavenCentral()
     }
     dependencies {
@@ -17,6 +17,7 @@ archivesBaseName = "RootsClassic"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
     mappings  channel: "${mcp_channel}", version: "${mcp_mappings}"
 
@@ -113,12 +114,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-                "Specification-Title": "rootsclassic",
-                "Specification-Vendor": "elucent",
-                "Specification-Version": "1", // We are version 1 of ourselves
-                "Implementation-Title": project.name,
-                "Implementation-Version": "${version}",
-                "Implementation-Vendor" :"elucent",
+                "Specification-Title"     : "rootsclassic",
+                "Specification-Vendor"    : "elucent",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : "elucent",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
