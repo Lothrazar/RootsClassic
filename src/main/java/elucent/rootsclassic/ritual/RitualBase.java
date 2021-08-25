@@ -129,20 +129,15 @@ public abstract class RitualBase {
 		return RootsUtil.itemListsMatch(getIncenses(), incenseFromNearby);
 	}
 
-	//  public String getLocalizedName() {
-	//    //TODO: use this somewhere?
-	//    return I18n.translateToLocalFormatted("rootsclassic.ritual." + getName());
-	//  }
 	@Override
 	public String toString() {
-		//this.getName() + System.lineSeparator() +
 		StringBuilder s = new StringBuilder("[A] ");
 		for (ItemStack mat : this.getIngredients()) {
-			s.append(mat.getDisplayName()).append("; ");
+			s.append(mat.getDisplayName().getString()).append("; ");
 		}
-		s.append(System.lineSeparator()).append("[I] ");
+		s.append("[I] ");
 		for (ItemStack mat : this.getIncenses()) {
-			s.append(mat.getDisplayName()).append("; ");
+			s.append(mat.getDisplayName().getString()).append("; ");
 		}
 		return s.toString();
 	}
