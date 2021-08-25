@@ -17,7 +17,7 @@ public class RunicTabletItem extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if (hand == Hand.MAIN_HAND) {
+		if (hand == Hand.MAIN_HAND && world.isRemote) {
 			elucent.rootsclassic.client.screen.TabletScreen.openScreen(player);
 		}
 		return new ActionResult<>(ActionResultType.PASS, stack);
