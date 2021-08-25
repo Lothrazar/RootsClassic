@@ -108,7 +108,9 @@ public class ComponentRecipe implements IRecipe<IInventory> {
 		StringBuilder s = new StringBuilder();
 		for (Ingredient mat : getIngredients()) {
 			if(!mat.hasNoMatchingItems()) {
-				s.append(mat.getMatchingStacks()[0].getDisplayName().getString()).append(" ");
+				for(ItemStack matchingStack : mat.getMatchingStacks()) {
+					s.append(matchingStack.getDisplayName().getString()).append(" ");
+				}
 			} else {
 				s.append("One of the ingredients has no matching ItemStack's");
 			}
