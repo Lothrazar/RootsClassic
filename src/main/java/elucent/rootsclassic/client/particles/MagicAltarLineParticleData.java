@@ -9,22 +9,23 @@ import elucent.rootsclassic.client.particles.factory.MagicParticleTypeData;
 import elucent.rootsclassic.registry.ParticleRegistry;
 
 public class MagicAltarLineParticleData implements IParticleFactory<MagicParticleTypeData> {
-	private final IAnimatedSprite spriteSet;
 
-	public MagicAltarLineParticleData(IAnimatedSprite sprite) {
-		this.spriteSet = sprite;
-	}
+  private final IAnimatedSprite spriteSet;
 
-	@Override
-	public Particle makeParticle(MagicParticleTypeData data, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-		return new MagicAltarLineParticle(worldIn, x,y,z, xSpeed, ySpeed, zSpeed, data.color.getRed(), data.color.getGreen(), data.color.getBlue(), this.spriteSet);
-	}
+  public MagicAltarLineParticleData(IAnimatedSprite sprite) {
+    this.spriteSet = sprite;
+  }
 
-	public static IParticleData createData(ParticleColor color) {
-		return new MagicParticleTypeData(ParticleRegistry.MAGIC_ALTAR_TYPE.get(), color);
-	}
+  @Override
+  public Particle makeParticle(MagicParticleTypeData data, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    return new MagicAltarLineParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, data.color.getRed(), data.color.getGreen(), data.color.getBlue(), this.spriteSet);
+  }
 
-	public static IParticleData createData(double r, double g, double b) {
-		return new MagicParticleTypeData(ParticleRegistry.MAGIC_ALTAR_TYPE.get(), new ParticleColor(r,g,b));
-	}
+  public static IParticleData createData(ParticleColor color) {
+    return new MagicParticleTypeData(ParticleRegistry.MAGIC_ALTAR_TYPE.get(), color);
+  }
+
+  public static IParticleData createData(double r, double g, double b) {
+    return new MagicParticleTypeData(ParticleRegistry.MAGIC_ALTAR_TYPE.get(), new ParticleColor(r, g, b));
+  }
 }

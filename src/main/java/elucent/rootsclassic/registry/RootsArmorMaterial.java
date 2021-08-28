@@ -11,67 +11,67 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public enum RootsArmorMaterial implements IArmorMaterial {
-	SYLVAN("rootsclassic:sylvan", 10, new int[]{1, 5, 6, 2}, 20, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
-		return null;
-	}),
-	WILDWOOD("rootsclassic:wildwood", 15, new int[]{2, 5, 7, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.0f, 0.0F, () -> {
-		return null;
-	});
 
-	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
-	private final String name;
-	private final int maxDamageFactor;
-	private final int[] damageReductionAmountArray;
-	private final int enchantability;
-	private final SoundEvent soundEvent;
-	private final float toughness;
-	private final float knockbackResistance;
-	private final LazyValue<Ingredient> repairMaterial;
+  SYLVAN("rootsclassic:sylvan", 10, new int[] { 1, 5, 6, 2 }, 20, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+    return null;
+  }), WILDWOOD("rootsclassic:wildwood", 15, new int[] { 2, 5, 7, 3 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.0f, 0.0F, () -> {
+    return null;
+  });
 
-	RootsArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairMaterial) {
-		this.name = name;
-		this.maxDamageFactor = maxDamageFactor;
-		this.damageReductionAmountArray = damageReductionAmountArray;
-		this.enchantability = enchantability;
-		this.soundEvent = soundEvent;
-		this.toughness = toughness;
-		this.knockbackResistance = knockbackResistance;
-		this.repairMaterial = new LazyValue<>(repairMaterial);
-	}
+  private static final int[] MAX_DAMAGE_ARRAY = new int[] { 13, 15, 16, 11 };
+  private final String name;
+  private final int maxDamageFactor;
+  private final int[] damageReductionAmountArray;
+  private final int enchantability;
+  private final SoundEvent soundEvent;
+  private final float toughness;
+  private final float knockbackResistance;
+  private final LazyValue<Ingredient> repairMaterial;
 
-	public int getDurability(EquipmentSlotType slotIn) {
-		return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
-	}
+  RootsArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairMaterial) {
+    this.name = name;
+    this.maxDamageFactor = maxDamageFactor;
+    this.damageReductionAmountArray = damageReductionAmountArray;
+    this.enchantability = enchantability;
+    this.soundEvent = soundEvent;
+    this.toughness = toughness;
+    this.knockbackResistance = knockbackResistance;
+    this.repairMaterial = new LazyValue<>(repairMaterial);
+  }
 
-	public int getDamageReductionAmount(EquipmentSlotType slotIn) {
-		return this.damageReductionAmountArray[slotIn.getIndex()];
-	}
+  public int getDurability(EquipmentSlotType slotIn) {
+    return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
+  }
 
-	public int getEnchantability() {
-		return this.enchantability;
-	}
+  public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+    return this.damageReductionAmountArray[slotIn.getIndex()];
+  }
 
-	public SoundEvent getSoundEvent() {
-		return this.soundEvent;
-	}
+  public int getEnchantability() {
+    return this.enchantability;
+  }
 
-	public Ingredient getRepairMaterial() {
-		return this.repairMaterial.getValue();
-	}
+  public SoundEvent getSoundEvent() {
+    return this.soundEvent;
+  }
 
-	@OnlyIn(Dist.CLIENT)
-	public String getName() {
-		return this.name;
-	}
+  public Ingredient getRepairMaterial() {
+    return this.repairMaterial.getValue();
+  }
 
-	public float getToughness() {
-		return this.toughness;
-	}
+  @OnlyIn(Dist.CLIENT)
+  public String getName() {
+    return this.name;
+  }
 
-	/**
-	 * Gets the percentage of knockback resistance provided by armor of the material.
-	 */
-	public float getKnockbackResistance() {
-		return this.knockbackResistance;
-	}
+  public float getToughness() {
+    return this.toughness;
+  }
+
+  /**
+   * Gets the percentage of knockback resistance provided by armor of the material.
+   */
+  public float getKnockbackResistance() {
+    return this.knockbackResistance;
+  }
 }

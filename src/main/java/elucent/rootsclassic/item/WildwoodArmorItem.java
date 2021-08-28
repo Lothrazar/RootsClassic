@@ -26,41 +26,42 @@ import elucent.rootsclassic.client.model.WildwoodArmorModel;
 import elucent.rootsclassic.util.RootsUtil;
 
 public class WildwoodArmorItem extends ArmorItem {
-	private final LazyValue<BipedModel<?>> model;
 
-	public WildwoodArmorItem(IArmorMaterial materialIn, EquipmentSlotType slot, Item.Properties builderIn) {
-		super(materialIn, slot, builderIn);
-		this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyValue<>(() -> this.provideArmorModelForSlot(slot)),
-				() -> () -> null);
-	}
+  private final LazyValue<BipedModel<?>> model;
 
-	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
-		return Const.MODID + ":textures/models/armor/wildwood.png";
-	}
+  public WildwoodArmorItem(IArmorMaterial materialIn, EquipmentSlotType slot, Item.Properties builderIn) {
+    super(materialIn, slot, builderIn);
+    this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyValue<>(() -> this.provideArmorModelForSlot(slot)),
+        () -> () -> null);
+  }
 
-	@OnlyIn(Dist.CLIENT)
-	@Nullable
-	@Override
-	public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
-		return (A) model.getValue();
-	}
+  @Override
+  public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+    return Const.MODID + ":textures/models/armor/wildwood.png";
+  }
 
-	@OnlyIn(Dist.CLIENT)
-	public BipedModel<?> provideArmorModelForSlot(EquipmentSlotType slot) {
-		return new WildwoodArmorModel(slot);
-	}
+  @OnlyIn(Dist.CLIENT)
+  @Nullable
+  @Override
+  public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
+    return (A) model.getValue();
+  }
 
-	@Override
-	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-		RootsUtil.randomlyRepair(world.rand, stack);
-	}
+  @OnlyIn(Dist.CLIENT)
+  public BipedModel<?> provideArmorModelForSlot(EquipmentSlotType slot) {
+    return new WildwoodArmorModel(slot);
+  }
 
-	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		super.addInformation(stack, worldIn, tooltip, flagIn);
-		tooltip.add(StringTextComponent.EMPTY);
-		tooltip.add(new TranslationTextComponent("rootsclassic.attribute.equipped").mergeStyle(TextFormatting.GRAY));
-		tooltip.add(new StringTextComponent(" ").appendSibling(new TranslationTextComponent("rootsclassic.attribute.increasedmanaregen")).mergeStyle(TextFormatting.BLUE));
-	}
+  @Override
+  public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
+    RootsUtil.randomlyRepair(world.rand, stack);
+  }
+
+  @Override
+  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    super.addInformation(stack, worldIn, tooltip, flagIn);
+    tooltip.add(StringTextComponent.EMPTY);
+    tooltip.add(new TranslationTextComponent("rootsclassic.attribute.equipped").mergeStyle(TextFormatting.GRAY));
+    tooltip.add(new StringTextComponent(" ").appendSibling(new TranslationTextComponent("rootsclassic.attribute.increasedmanaregen")).mergeStyle(TextFormatting.BLUE));
+  }
 }

@@ -11,25 +11,26 @@ import net.minecraft.world.IBlockReader;
 import elucent.rootsclassic.block.BaseTEBlock;
 
 public class MortarBlock extends BaseTEBlock {
-	private static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 5.0D, 11.0D);
 
-	public MortarBlock(Properties properties) {
-		super(properties);
-	}
+  private static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 5.0D, 11.0D);
 
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-		return SHAPE;
-	}
+  public MortarBlock(Properties properties) {
+    super(properties);
+  }
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
+  @Override
+  public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    return SHAPE;
+  }
 
-	@Nullable
-	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return new MortarTile();
-	}
+  @Override
+  public boolean hasTileEntity(BlockState state) {
+    return true;
+  }
+
+  @Nullable
+  @Override
+  public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    return new MortarTile();
+  }
 }

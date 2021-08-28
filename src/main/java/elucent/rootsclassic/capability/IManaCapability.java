@@ -1,12 +1,11 @@
 package elucent.rootsclassic.capability;
-
 public interface IManaCapability {
 
-	float getMana();
+  float getMana();
 
-	float getMaxMana();
+  float getMaxMana();
 
-	void setMana(float mana);
+  void setMana(float mana);
 
-	void setMaxMana(float maxMana);
+  void setMaxMana(float maxMana);
 }

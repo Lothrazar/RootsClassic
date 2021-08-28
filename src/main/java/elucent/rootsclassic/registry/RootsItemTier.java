@@ -6,46 +6,46 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyValue;
 
 public enum RootsItemTier implements IItemTier {
-	LIVING(2, 192, 6.0f, 2.0f, 18, () -> null),
-	ENGRAVED(2, 1050, 5F, 8.0F, 5, () -> null);
 
-	private final int harvestLevel;
-	private final int maxUses;
-	private final float efficiency;
-	private final float attackDamage;
-	private final int enchantability;
-	private final LazyValue<Ingredient> repairMaterial;
+  LIVING(2, 192, 6.0f, 2.0f, 18, () -> null), ENGRAVED(2, 1050, 5F, 8.0F, 5, () -> null);
 
-	RootsItemTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn, int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
-		this.harvestLevel = harvestLevelIn;
-		this.maxUses = maxUsesIn;
-		this.efficiency = efficiencyIn;
-		this.attackDamage = attackDamageIn;
-		this.enchantability = enchantabilityIn;
-		this.repairMaterial = new LazyValue<>(repairMaterialIn);
-	}
+  private final int harvestLevel;
+  private final int maxUses;
+  private final float efficiency;
+  private final float attackDamage;
+  private final int enchantability;
+  private final LazyValue<Ingredient> repairMaterial;
 
-	public int getMaxUses() {
-		return this.maxUses;
-	}
+  RootsItemTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn, int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
+    this.harvestLevel = harvestLevelIn;
+    this.maxUses = maxUsesIn;
+    this.efficiency = efficiencyIn;
+    this.attackDamage = attackDamageIn;
+    this.enchantability = enchantabilityIn;
+    this.repairMaterial = new LazyValue<>(repairMaterialIn);
+  }
 
-	public float getEfficiency() {
-		return this.efficiency;
-	}
+  public int getMaxUses() {
+    return this.maxUses;
+  }
 
-	public float getAttackDamage() {
-		return this.attackDamage;
-	}
+  public float getEfficiency() {
+    return this.efficiency;
+  }
 
-	public int getHarvestLevel() {
-		return this.harvestLevel;
-	}
+  public float getAttackDamage() {
+    return this.attackDamage;
+  }
 
-	public int getEnchantability() {
-		return this.enchantability;
-	}
+  public int getHarvestLevel() {
+    return this.harvestLevel;
+  }
 
-	public Ingredient getRepairMaterial() {
-		return this.repairMaterial.getValue();
-	}
+  public int getEnchantability() {
+    return this.enchantability;
+  }
+
+  public Ingredient getRepairMaterial() {
+    return this.repairMaterial.getValue();
+  }
 }

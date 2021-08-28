@@ -16,22 +16,22 @@ import elucent.rootsclassic.registry.RootsRegistry;
 
 public class MutagenRadiantDaisyRecipe extends MutagenRecipe {
 
-	public MutagenRadiantDaisyRecipe() {
-		super(new ResourceLocation(Const.MODID, "radiant_daisy"), Blocks.OXEYE_DAISY.getDefaultState(), RootsRegistry.RADIANT_DAISY.get().getDefaultState());
-		addIngredient(new ItemStack(Blocks.GLOWSTONE, 1));
-		addIngredient(new ItemStack(Items.PRISMARINE_CRYSTALS, 1));
-	}
+  public MutagenRadiantDaisyRecipe() {
+    super(new ResourceLocation(Const.MODID, "radiant_daisy"), Blocks.OXEYE_DAISY.getDefaultState(), RootsRegistry.RADIANT_DAISY.get().getDefaultState());
+    addIngredient(new ItemStack(Blocks.GLOWSTONE, 1));
+    addIngredient(new ItemStack(Items.PRISMARINE_CRYSTALS, 1));
+  }
 
-	@Override
-	public void onCrafted(World world, BlockPos pos, PlayerEntity player) {
-		player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 1200, 0));
-	}
+  @Override
+  public void onCrafted(World world, BlockPos pos, PlayerEntity player) {
+    player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 1200, 0));
+  }
 
-	@Override
-	public boolean matches(List<ItemStack> items, World world, BlockPos pos, PlayerEntity player) {
-		if (super.matches(items, world, pos, player)) {
-			return world.getDimensionKey() == World.OVERWORLD && player.getActivePotionEffect(Effects.NIGHT_VISION) != null && player.getEntityWorld().getDayTime() > 5000 && player.getEntityWorld().getDayTime() < 7000;
-		}
-		return false;
-	}
+  @Override
+  public boolean matches(List<ItemStack> items, World world, BlockPos pos, PlayerEntity player) {
+    if (super.matches(items, world, pos, player)) {
+      return world.getDimensionKey() == World.OVERWORLD && player.getActivePotionEffect(Effects.NIGHT_VISION) != null && player.getEntityWorld().getDayTime() > 5000 && player.getEntityWorld().getDayTime() < 7000;
+    }
+    return false;
+  }
 }

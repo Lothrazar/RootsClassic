@@ -16,30 +16,30 @@ import net.minecraft.world.World;
 
 public class TEBase extends TileEntity {
 
-	public TEBase(TileEntityType<?> tileEntityTypeIn) {
-		super(tileEntityTypeIn);
-	}
+  public TEBase(TileEntityType<?> tileEntityTypeIn) {
+    super(tileEntityTypeIn);
+  }
 
-	@Override
-	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
-		read(getBlockState(), packet.getNbtCompound());
-	}
+  @Override
+  public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
+    read(getBlockState(), packet.getNbtCompound());
+  }
 
-	@Override
-	public CompoundNBT getUpdateTag() {
-		return write(new CompoundNBT());
-	}
+  @Override
+  public CompoundNBT getUpdateTag() {
+    return write(new CompoundNBT());
+  }
 
-	@Override
-	public SUpdateTileEntityPacket getUpdatePacket() {
-		return new SUpdateTileEntityPacket(getPos(), 0, getUpdateTag());
-	}
+  @Override
+  public SUpdateTileEntityPacket getUpdatePacket() {
+    return new SUpdateTileEntityPacket(getPos(), 0, getUpdateTag());
+  }
 
-	public void breakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		this.remove();
-	}
+  public void breakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    this.remove();
+  }
 
-	public ActionResultType activate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, ItemStack heldItem, BlockRayTraceResult hit) {
-		return ActionResultType.PASS;
-	}
+  public ActionResultType activate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, ItemStack heldItem, BlockRayTraceResult hit) {
+    return ActionResultType.PASS;
+  }
 }

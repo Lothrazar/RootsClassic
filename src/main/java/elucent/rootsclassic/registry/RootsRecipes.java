@@ -11,9 +11,8 @@ import elucent.rootsclassic.recipe.ComponentRecipe;
 import elucent.rootsclassic.recipe.ComponentRecipe.SerializeComponentRecipe;
 
 public class RootsRecipes {
-	public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Const.MODID);
 
-	public static final IRecipeType<ComponentRecipe> COMPONENT_RECIPE_TYPE = IRecipeType.register(new ResourceLocation(Const.MODID, "component").toString());
-
-	public static final RegistryObject<SerializeComponentRecipe> COMPONENT_SERIALIZER = RECIPE_SERIALIZERS.register("component", SerializeComponentRecipe::new);
+  public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, Const.MODID);
+  public static final IRecipeType<ComponentRecipe> COMPONENT_RECIPE_TYPE = IRecipeType.register(new ResourceLocation(Const.MODID, "component").toString());
+  public static final RegistryObject<SerializeComponentRecipe> COMPONENT_SERIALIZER = RECIPE_SERIALIZERS.register("component", SerializeComponentRecipe::new);
 }

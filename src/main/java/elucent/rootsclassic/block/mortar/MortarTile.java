@@ -25,162 +25,168 @@ import elucent.rootsclassic.tile.TEBase;
 import elucent.rootsclassic.util.InventoryUtil;
 
 public class MortarTile extends TEBase {
-	public final ItemStackHandler inventory = new ItemStackHandler(8) {
-		@Override
-		protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
-			return 1;
-		}
 
-		@Override
-		protected void onContentsChanged(int slot) {
-			super.onContentsChanged(slot);
-			calculateRotations();
-		}
-	};
-	private LazyOptional<IItemHandler> inventoryHolder = LazyOptional.of(() -> inventory);
+  public final ItemStackHandler inventory = new ItemStackHandler(8) {
 
-	public MortarTile(TileEntityType<?> tileEntityTypeIn) {
-		super(tileEntityTypeIn);
-	}
+    @Override
+    protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+      return 1;
+    }
 
-	public MortarTile() {
-		this(RootsRegistry.MORTAR_TILE.get());
-	}
+    @Override
+    protected void onContentsChanged(int slot) {
+      super.onContentsChanged(slot);
+      calculateRotations();
+    }
+  };
+  private LazyOptional<IItemHandler> inventoryHolder = LazyOptional.of(() -> inventory);
 
-	@Override
-	public void read(BlockState state, CompoundNBT nbt) {
-		super.read(state, nbt);
-		inventory.deserializeNBT(nbt.getCompound("InventoryHandler"));
-	}
+  public MortarTile(TileEntityType<?> tileEntityTypeIn) {
+    super(tileEntityTypeIn);
+  }
 
-	@Override
-	public CompoundNBT write(CompoundNBT tag) {
-		tag = super.write(tag);
+  public MortarTile() {
+    this(RootsRegistry.MORTAR_TILE.get());
+  }
 
-		tag.put("InventoryHandler", inventory.serializeNBT());
+  @Override
+  public void read(BlockState state, CompoundNBT nbt) {
+    super.read(state, nbt);
+    inventory.deserializeNBT(nbt.getCompound("InventoryHandler"));
+  }
 
-		return tag;
-	}
+  @Override
+  public CompoundNBT write(CompoundNBT tag) {
+    tag = super.write(tag);
+    tag.put("InventoryHandler", inventory.serializeNBT());
+    return tag;
+  }
 
-	@Override
-	public void breakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		dropAllItems(world, pos);
-		this.remove();
-	}
+  @Override
+  public void breakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    dropAllItems(world, pos);
+    this.remove();
+  }
 
-	@Override
-	public ActionResultType activate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, ItemStack heldItem, BlockRayTraceResult hit) {
-		if(hand == Hand.MAIN_HAND) {
-			if (heldItem.isEmpty()) {
-				return tryDropSingleItem(world, pos, state);
-			} else if (heldItem.getItem() == RootsRegistry.PESTLE.get()) {
-				return tryActivateRecipe(player, state);
-			} else {
-				return tryInsertItem(world, pos, state, heldItem);
-			}
-		}
-		return ActionResultType.PASS;
-	}
-	private ActionResultType tryInsertItem(World world, BlockPos pos, BlockState state, ItemStack heldItem) {
-		if (!heldItem.isEmpty() && !InventoryUtil.isFull(inventory)) {
-			ItemStack heldCopy = heldItem.copy();
-			heldCopy.setCount(1);
+  @Override
+  public ActionResultType activate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, ItemStack heldItem, BlockRayTraceResult hit) {
+    if (hand == Hand.MAIN_HAND) {
+      if (heldItem.isEmpty()) {
+        return tryDropSingleItem(world, pos, state);
+      }
+      else if (heldItem.getItem() == RootsRegistry.PESTLE.get()) {
+        return tryActivateRecipe(player, state);
+      }
+      else {
+        return tryInsertItem(world, pos, state, heldItem);
+      }
+    }
+    return ActionResultType.PASS;
+  }
 
-			if (heldItem.getItem() == Items.GLOWSTONE_DUST || heldItem.getItem() == Items.REDSTONE || heldItem.getItem() == Items.GUNPOWDER) {
-				int maxCapacity = ComponentRecipe.getModifierCapacity(InventoryUtil.createIInventory(inventory));
-				int modifierCount = ComponentRecipe.getModifierCount(InventoryUtil.createIInventory(inventory));
-				if (modifierCount < maxCapacity) {
-					ItemStack restStack = ItemHandlerHelper.insertItem(inventory, heldCopy, false);
-					if(restStack.isEmpty()) {
-						heldItem.shrink(1);
-						markDirty();
-						world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-						return ActionResultType.SUCCESS;
-					} else {
-						return ActionResultType.FAIL;
-					}
-				}
-			} else {
-				ItemStack restStack = ItemHandlerHelper.insertItem(inventory, heldCopy, false);
-				if(restStack.isEmpty()) {
-					heldItem.shrink(1);
-					markDirty();
-					world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-					return ActionResultType.SUCCESS;
-				} else {
-					return ActionResultType.FAIL;
-				}
-			}
-		}
-		return ActionResultType.PASS;
-	}
+  private ActionResultType tryInsertItem(World world, BlockPos pos, BlockState state, ItemStack heldItem) {
+    if (!heldItem.isEmpty() && !InventoryUtil.isFull(inventory)) {
+      ItemStack heldCopy = heldItem.copy();
+      heldCopy.setCount(1);
+      if (heldItem.getItem() == Items.GLOWSTONE_DUST || heldItem.getItem() == Items.REDSTONE || heldItem.getItem() == Items.GUNPOWDER) {
+        int maxCapacity = ComponentRecipe.getModifierCapacity(InventoryUtil.createIInventory(inventory));
+        int modifierCount = ComponentRecipe.getModifierCount(InventoryUtil.createIInventory(inventory));
+        if (modifierCount < maxCapacity) {
+          ItemStack restStack = ItemHandlerHelper.insertItem(inventory, heldCopy, false);
+          if (restStack.isEmpty()) {
+            heldItem.shrink(1);
+            markDirty();
+            world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+            return ActionResultType.SUCCESS;
+          }
+          else {
+            return ActionResultType.FAIL;
+          }
+        }
+      }
+      else {
+        ItemStack restStack = ItemHandlerHelper.insertItem(inventory, heldCopy, false);
+        if (restStack.isEmpty()) {
+          heldItem.shrink(1);
+          markDirty();
+          world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+          return ActionResultType.SUCCESS;
+        }
+        else {
+          return ActionResultType.FAIL;
+        }
+      }
+    }
+    return ActionResultType.PASS;
+  }
 
-	private ActionResultType tryDropSingleItem(World world, BlockPos pos, BlockState state) {
-		if(!InventoryUtil.isEmpty(inventory)) {
-			ItemStack lastStack = InventoryUtil.getLastStack(inventory);
-			if(!lastStack.isEmpty()) {
-				dropItem(lastStack, 0.5F);
-				lastStack.shrink(1);
-			}
-			markDirty();
-			world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-			return ActionResultType.SUCCESS;
-		}
-		return ActionResultType.PASS;
-	}
+  private ActionResultType tryDropSingleItem(World world, BlockPos pos, BlockState state) {
+    if (!InventoryUtil.isEmpty(inventory)) {
+      ItemStack lastStack = InventoryUtil.getLastStack(inventory);
+      if (!lastStack.isEmpty()) {
+        dropItem(lastStack, 0.5F);
+        lastStack.shrink(1);
+      }
+      markDirty();
+      world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+      return ActionResultType.SUCCESS;
+    }
+    return ActionResultType.PASS;
+  }
 
-	private ActionResultType tryActivateRecipe(PlayerEntity player, BlockState state) {
-		ComponentRecipe recipe = world.getRecipeManager().getRecipe(RootsRecipes.COMPONENT_RECIPE_TYPE, InventoryUtil.createIInventory(inventory), world).orElse(null);
-		if (recipe == null) {
-			player.sendStatusMessage(new TranslationTextComponent("rootsclassic.mortar.invalid"), true);
-			return ActionResultType.PASS;
-		} else if (recipe.needsMixin() && ComponentRecipe.getModifierCapacity(InventoryUtil.createIInventory(inventory)) < 0) {
-			player.sendStatusMessage(new TranslationTextComponent("rootsclassic.mortar.mixin"), true);
-			return ActionResultType.PASS;
-		}
-		if (!world.isRemote) {
-			world.addEntity(new ItemEntity(world, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, recipe.getCraftingResult(InventoryUtil.createIInventory(inventory))));
-		}
-		InventoryUtil.clearInventory(inventory);
-		markDirty();
-		world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-		return ActionResultType.SUCCESS;
-	}
+  private ActionResultType tryActivateRecipe(PlayerEntity player, BlockState state) {
+    ComponentRecipe recipe = world.getRecipeManager().getRecipe(RootsRecipes.COMPONENT_RECIPE_TYPE, InventoryUtil.createIInventory(inventory), world).orElse(null);
+    if (recipe == null) {
+      player.sendStatusMessage(new TranslationTextComponent("rootsclassic.mortar.invalid"), true);
+      return ActionResultType.PASS;
+    }
+    else if (recipe.needsMixin() && ComponentRecipe.getModifierCapacity(InventoryUtil.createIInventory(inventory)) < 0) {
+      player.sendStatusMessage(new TranslationTextComponent("rootsclassic.mortar.mixin"), true);
+      return ActionResultType.PASS;
+    }
+    if (!world.isRemote) {
+      world.addEntity(new ItemEntity(world, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, recipe.getCraftingResult(InventoryUtil.createIInventory(inventory))));
+    }
+    InventoryUtil.clearInventory(inventory);
+    markDirty();
+    world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+    return ActionResultType.SUCCESS;
+  }
 
-	public ItemEntity dropItem(ItemStack stack, float offsetY) {
-		ItemStack copyStack = stack.copy();
-		if (copyStack.isEmpty()) {
-			return null;
-		} else if (world.isRemote) {
-			return null;
-		} else {
-			BlockPos pos = getPos();
-			ItemEntity itementity = new ItemEntity(this.world, pos.getX(), pos.getY() + (double)offsetY, this.pos.getZ(), copyStack);
-			itementity.setDefaultPickupDelay();
-			this.world.addEntity(itementity);
-			return itementity;
-		}
-	}
+  public ItemEntity dropItem(ItemStack stack, float offsetY) {
+    ItemStack copyStack = stack.copy();
+    if (copyStack.isEmpty()) {
+      return null;
+    }
+    else if (world.isRemote) {
+      return null;
+    }
+    else {
+      BlockPos pos = getPos();
+      ItemEntity itementity = new ItemEntity(this.world, pos.getX(), pos.getY() + (double) offsetY, this.pos.getZ(), copyStack);
+      itementity.setDefaultPickupDelay();
+      this.world.addEntity(itementity);
+      return itementity;
+    }
+  }
 
-	private void dropAllItems(World world, BlockPos pos) {
-		for (int i = 0; i < inventory.getSlots(); i++) {
-			ItemStack stack = inventory.getStackInSlot(i);
-			dropItem(stack, 0F);
-		}
-	}
+  private void dropAllItems(World world, BlockPos pos) {
+    for (int i = 0; i < inventory.getSlots(); i++) {
+      ItemStack stack = inventory.getStackInSlot(i);
+      dropItem(stack, 0F);
+    }
+  }
 
-	private void calculateRotations() {
-		for(int i = 0; i < inventory.getSlots(); i++) {
-			ItemStack stack = inventory.getStackInSlot(i);
-			if(!stack.isEmpty()) {
+  private void calculateRotations() {
+    for (int i = 0; i < inventory.getSlots(); i++) {
+      ItemStack stack = inventory.getStackInSlot(i);
+      if (!stack.isEmpty()) {}
+    }
+  }
 
-			}
-		}
-	}
-
-	@Override
-	protected void invalidateCaps() {
-		super.invalidateCaps();
-		inventoryHolder.invalidate();
-	}
+  @Override
+  protected void invalidateCaps() {
+    super.invalidateCaps();
+    inventoryHolder.invalidate();
+  }
 }

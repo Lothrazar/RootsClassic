@@ -14,21 +14,21 @@ import elucent.rootsclassic.registry.RootsRegistry;
 
 public class MutagenMidnightBloomRecipe extends MutagenRecipe {
 
-	public MutagenMidnightBloomRecipe() {
-		super(new ResourceLocation(Const.MODID, "midnight_bloom"), Blocks.POPPY.getDefaultState(), RootsRegistry.MIDNIGHT_BLOOM.get().getDefaultState());
-		addIngredient(new ItemStack(Blocks.COAL_BLOCK, 1));
-	}
+  public MutagenMidnightBloomRecipe() {
+    super(new ResourceLocation(Const.MODID, "midnight_bloom"), Blocks.POPPY.getDefaultState(), RootsRegistry.MIDNIGHT_BLOOM.get().getDefaultState());
+    addIngredient(new ItemStack(Blocks.COAL_BLOCK, 1));
+  }
 
-	@Override
-	public void onCrafted(World world, BlockPos pos, PlayerEntity player) {
-		player.getPersistentData().putInt("RMOD_skipTicks", 200);
-	}
+  @Override
+  public void onCrafted(World world, BlockPos pos, PlayerEntity player) {
+    player.getPersistentData().putInt("RMOD_skipTicks", 200);
+  }
 
-	@Override
-	public boolean matches(List<ItemStack> items, World world, BlockPos pos, PlayerEntity player) {
-		if (super.matches(items, world, pos, player)) {
-			return world.getDimensionKey() == World.THE_END && world.getBlockState(pos.down(2)).getBlock() == Blocks.OBSIDIAN && player.getActivePotionEffect(Effects.SLOWNESS) != null;
-		}
-		return false;
-	}
+  @Override
+  public boolean matches(List<ItemStack> items, World world, BlockPos pos, PlayerEntity player) {
+    if (super.matches(items, world, pos, player)) {
+      return world.getDimensionKey() == World.THE_END && world.getBlockState(pos.down(2)).getBlock() == Blocks.OBSIDIAN && player.getActivePotionEffect(Effects.SLOWNESS) != null;
+    }
+    return false;
+  }
 }

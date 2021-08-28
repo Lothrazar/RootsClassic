@@ -15,37 +15,36 @@ import net.minecraft.world.World;
 
 public class EngravedBladeItem extends SwordItem {
 
-	private final String[] numerals = { "0", "I", "II", "III", "IIII" };
+  private final String[] numerals = { "0", "I", "II", "III", "IIII" };
 
-	public EngravedBladeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
-		super(tier, attackDamageIn, attackSpeedIn, builderIn);
-	}
+  public EngravedBladeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builderIn) {
+    super(tier, attackDamageIn, attackSpeedIn, builderIn);
+  }
 
-	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		super.addInformation(stack, worldIn, tooltip, flagIn);
-		if (stack.hasTag()) {
-			CompoundNBT tag = stack.getTag();
-			if (tag.contains("spikes")) {
-				tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.spikes").
-						appendString(" " + numerals[tag.getInt("spikes")]).mergeStyle(TextFormatting.WHITE));
-			}
-			if (tag.contains("forceful")) {
-				tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.forceful")
-						.appendString(" " + numerals[tag.getInt("forceful")]).mergeStyle(TextFormatting.DARK_GRAY));
-			}
-			if (tag.contains("holy")) {
-				tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.holy")
-						.appendString(" " + numerals[tag.getInt("holy")]).mergeStyle(TextFormatting.GOLD));
-			}
-			if (tag.contains("aquatic")) {
-				tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.aquatic")
-						.appendString(" " + numerals[tag.getInt("aquatic")]).mergeStyle(TextFormatting.AQUA));
-			}
-			if (tag.contains("shadowstep")) {
-				tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.shadowstep")
-						.appendString(" " + numerals[tag.getInt("shadowstep")]).mergeStyle(TextFormatting.DARK_PURPLE));
-			}
-		}
-	}
+  @Override
+  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    super.addInformation(stack, worldIn, tooltip, flagIn);
+    if (stack.hasTag()) {
+      CompoundNBT tag = stack.getTag();
+      if (tag.contains("spikes")) {
+        tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.spikes").appendString(" " + numerals[tag.getInt("spikes")]).mergeStyle(TextFormatting.WHITE));
+      }
+      if (tag.contains("forceful")) {
+        tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.forceful")
+            .appendString(" " + numerals[tag.getInt("forceful")]).mergeStyle(TextFormatting.DARK_GRAY));
+      }
+      if (tag.contains("holy")) {
+        tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.holy")
+            .appendString(" " + numerals[tag.getInt("holy")]).mergeStyle(TextFormatting.GOLD));
+      }
+      if (tag.contains("aquatic")) {
+        tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.aquatic")
+            .appendString(" " + numerals[tag.getInt("aquatic")]).mergeStyle(TextFormatting.AQUA));
+      }
+      if (tag.contains("shadowstep")) {
+        tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.shadowstep")
+            .appendString(" " + numerals[tag.getInt("shadowstep")]).mergeStyle(TextFormatting.DARK_PURPLE));
+      }
+    }
+  }
 }

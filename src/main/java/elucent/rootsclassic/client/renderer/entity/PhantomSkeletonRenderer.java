@@ -11,21 +11,22 @@ import net.minecraft.util.ResourceLocation;
 import elucent.rootsclassic.Const;
 
 public class PhantomSkeletonRenderer extends SkeletonRenderer {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(Const.MODID, "textures/entity/skeleton_ghost.png");
 
-	public PhantomSkeletonRenderer(EntityRendererManager rendererManager) {
-		super(rendererManager);
-	}
+  private static final ResourceLocation TEXTURE = new ResourceLocation(Const.MODID, "textures/entity/skeleton_ghost.png");
 
-	@Override
-	public ResourceLocation getEntityTexture(AbstractSkeletonEntity entity) {
-		return TEXTURE;
-	}
+  public PhantomSkeletonRenderer(EntityRendererManager rendererManager) {
+    super(rendererManager);
+  }
 
-	@Override
-	protected void preRenderCallback(AbstractSkeletonEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
-		//allow transparency in textures to be rendered
-		RenderSystem.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_CONSTANT_ALPHA);
-		RenderSystem.enableBlend();
-	}
+  @Override
+  public ResourceLocation getEntityTexture(AbstractSkeletonEntity entity) {
+    return TEXTURE;
+  }
+
+  @Override
+  protected void preRenderCallback(AbstractSkeletonEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+    //allow transparency in textures to be rendered
+    RenderSystem.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_CONSTANT_ALPHA);
+    RenderSystem.enableBlend();
+  }
 }

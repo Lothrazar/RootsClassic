@@ -14,33 +14,33 @@ import elucent.rootsclassic.ritual.RitualBase;
 
 public class RitualFlare extends RitualBase {
 
-	public RitualFlare(ResourceLocation name, int level, double r, double g, double b) {
-		super(name, level, r, g, b);
-	}
+  public RitualFlare(ResourceLocation name, int level, double r, double g, double b) {
+    super(name, level, r, g, b);
+  }
 
-	@Override
-	public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
-		for (int i = 0; i < inventory.getSizeInventory(); i++) {
-			if (!inventory.getStackInSlot(i).isEmpty()) {
-				ItemStack stack = inventory.getStackInSlot(i);
-				if (stack.getItem() == Items.FLINT_AND_STEEL && stack.getDamage() < stack.getDamage() - 1) {
-					if (!world.isRemote) {
-						ItemStack flintStack = new ItemStack(Items.FLINT_AND_STEEL, 1);
-						flintStack.setDamage(stack.getDamage() + 1);
-						ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, flintStack);
-						item.forceSpawn = true;
-						world.addEntity(item);
-					}
-				}
-			}
-		}
-		inventory.clear();
-		List<LivingEntity> enemies = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
-				pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
-		if (enemies.size() > 0) {
-			for (LivingEntity enemy : enemies) {
-				enemy.setFire(world.rand.nextInt(5) + 14);
-			}
-		}
-	}
+  @Override
+  public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
+    for (int i = 0; i < inventory.getSizeInventory(); i++) {
+      if (!inventory.getStackInSlot(i).isEmpty()) {
+        ItemStack stack = inventory.getStackInSlot(i);
+        if (stack.getItem() == Items.FLINT_AND_STEEL && stack.getDamage() < stack.getDamage() - 1) {
+          if (!world.isRemote) {
+            ItemStack flintStack = new ItemStack(Items.FLINT_AND_STEEL, 1);
+            flintStack.setDamage(stack.getDamage() + 1);
+            ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, flintStack);
+            item.forceSpawn = true;
+            world.addEntity(item);
+          }
+        }
+      }
+    }
+    inventory.clear();
+    List<LivingEntity> enemies = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
+        pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
+    if (enemies.size() > 0) {
+      for (LivingEntity enemy : enemies) {
+        enemy.setFire(world.rand.nextInt(5) + 14);
+      }
+    }
+  }
 }

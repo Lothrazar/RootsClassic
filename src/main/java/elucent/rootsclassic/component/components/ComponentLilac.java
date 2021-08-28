@@ -17,44 +17,44 @@ import elucent.rootsclassic.util.RootsUtil;
 
 public class ComponentLilac extends ComponentBase {
 
-	public ComponentLilac() {
-		super(new ResourceLocation(Const.MODID, "lilac"), Blocks.LILAC, 14);
-	}
+  public ComponentLilac() {
+    super(new ResourceLocation(Const.MODID, "lilac"), Blocks.LILAC, 14);
+  }
 
-	@Override
-	public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-		if(!world.isRemote && type == EnumCastType.SPELL && caster instanceof PlayerEntity) {
-			BlockPos pos = RootsUtil.getRayTrace(world, (PlayerEntity) caster, 4 + 2 * (int) size);
-			boolean fullEfficiency = growBlockSafe(world, pos, (int) potency) && growBlockSafe(world, pos.east(), (int) potency) && growBlockSafe(world, pos.west(), (int) potency) && growBlockSafe(world, pos.north(), (int) potency) && growBlockSafe(world, pos.south(), (int) potency);
-//			if (fullEfficiency) { TODO: Re-implement the advancements maybe?
-//				ServerPlayerEntity player = (ServerPlayerEntity)caster;
-//				Advancement advancementIn = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation(Const.MODID + ":achieve_spell_growth"));
-//				if (advancementIn != null) {
-//					AdvancementProgress advancementprogress = player.getAdvancements().getProgress(advancementIn);
-//					if(!advancementprogress.isDone()) {
-//						for(String s : advancementprogress.getRemaningCriteria()) {
-//							player.getAdvancements().grantCriterion(advancementIn, s);
-//						}
-//					}
-//				}
-//			}
-		}
-	}
+  @Override
+  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+    if (!world.isRemote && type == EnumCastType.SPELL && caster instanceof PlayerEntity) {
+      BlockPos pos = RootsUtil.getRayTrace(world, (PlayerEntity) caster, 4 + 2 * (int) size);
+      boolean fullEfficiency = growBlockSafe(world, pos, (int) potency) && growBlockSafe(world, pos.east(), (int) potency) && growBlockSafe(world, pos.west(), (int) potency) && growBlockSafe(world, pos.north(), (int) potency) && growBlockSafe(world, pos.south(), (int) potency);
+      //			if (fullEfficiency) { TODO: Re-implement the advancements maybe?
+      //				ServerPlayerEntity player = (ServerPlayerEntity)caster;
+      //				Advancement advancementIn = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation(Const.MODID + ":achieve_spell_growth"));
+      //				if (advancementIn != null) {
+      //					AdvancementProgress advancementprogress = player.getAdvancements().getProgress(advancementIn);
+      //					if(!advancementprogress.isDone()) {
+      //						for(String s : advancementprogress.getRemaningCriteria()) {
+      //							player.getAdvancements().grantCriterion(advancementIn, s);
+      //						}
+      //					}
+      //				}
+      //			}
+    }
+  }
 
-	public boolean growBlockSafe(World world, BlockPos pos, int potency) {
-		BlockState state = world.getBlockState(pos);
-		if (state.getBlock() instanceof IGrowable && world.rand.nextInt(5 - potency) < 2) {
-			((IGrowable) state.getBlock()).grow((ServerWorld) world, world.rand, pos, state);
-			return true;
-		}
-		if (state.getBlock() == Blocks.NETHER_WART && world.rand.nextInt(5 - potency) < 2) {
-			int age = state.get(NetherWartBlock.AGE).intValue();
-			if (age < 3) {
-				state = state.with(NetherWartBlock.AGE, Integer.valueOf(age + 1));
-				world.setBlockState(pos, state, 2);
-				return true;
-			}
-		}
-		return false;
-	}
+  public boolean growBlockSafe(World world, BlockPos pos, int potency) {
+    BlockState state = world.getBlockState(pos);
+    if (state.getBlock() instanceof IGrowable && world.rand.nextInt(5 - potency) < 2) {
+      ((IGrowable) state.getBlock()).grow((ServerWorld) world, world.rand, pos, state);
+      return true;
+    }
+    if (state.getBlock() == Blocks.NETHER_WART && world.rand.nextInt(5 - potency) < 2) {
+      int age = state.get(NetherWartBlock.AGE).intValue();
+      if (age < 3) {
+        state = state.with(NetherWartBlock.AGE, Integer.valueOf(age + 1));
+        world.setBlockState(pos, state, 2);
+        return true;
+      }
+    }
+    return false;
+  }
 }

@@ -10,12 +10,12 @@ import elucent.rootsclassic.util.RootsUtil;
 
 public class LivingAxeItem extends AxeItem {
 
-	public LivingAxeItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builder) {
-		super(tier, attackDamageIn, attackSpeedIn, builder);
-	}
+  public LivingAxeItem(IItemTier tier, float attackDamageIn, float attackSpeedIn, Item.Properties builder) {
+    super(tier, attackDamageIn, attackSpeedIn, builder);
+  }
 
-	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		RootsUtil.randomlyRepair(random, stack);
-	}
+  @Override
+  public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+    RootsUtil.randomlyRepair(random, stack);
+  }
 }

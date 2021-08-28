@@ -13,30 +13,29 @@ import elucent.rootsclassic.tile.TEBase;
 
 public class IgniterStandingStoneBlock extends AttunedStandingStoneBlock {
 
-	public IgniterStandingStoneBlock(Properties properties) {
-		super(properties);
-	}
+  public IgniterStandingStoneBlock(Properties properties) {
+    super(properties);
+  }
 
-	@Override
-	public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		super.onBlockHarvested(world, pos, state, player);
+  @Override
+  public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    super.onBlockHarvested(world, pos, state, player);
+    if (world.getTileEntity(pos) instanceof TEBase) {
+      ((TEBase) world.getTileEntity(pos)).breakBlock(world, pos, state, player);
+    }
+  }
 
-		if (world.getTileEntity(pos) instanceof TEBase) {
-			((TEBase) world.getTileEntity(pos)).breakBlock(world, pos, state, player);
-		}
-	}
+  @Override
+  public boolean hasTileEntity(BlockState state) {
+    return state.get(HALF) == DoubleBlockHalf.UPPER;
+  }
 
-	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return state.get(HALF) == DoubleBlockHalf.UPPER;
-	}
-
-	@Nullable
-	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		if(state.get(HALF) == DoubleBlockHalf.UPPER) {
-			return new IgniterStandingStoneTile();
-		}
-		return super.createTileEntity(state, world);
-	}
+  @Nullable
+  @Override
+  public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    if (state.get(HALF) == DoubleBlockHalf.UPPER) {
+      return new IgniterStandingStoneTile();
+    }
+    return super.createTileEntity(state, world);
+  }
 }

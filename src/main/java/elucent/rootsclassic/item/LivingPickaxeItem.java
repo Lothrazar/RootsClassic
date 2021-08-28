@@ -10,17 +10,17 @@ import elucent.rootsclassic.util.RootsUtil;
 
 public class LivingPickaxeItem extends PickaxeItem {
 
-	public LivingPickaxeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builder) {
-		super(tier, attackDamageIn, attackSpeedIn, builder);
-	}
+  public LivingPickaxeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builder) {
+    super(tier, attackDamageIn, attackSpeedIn, builder);
+  }
 
-	@Override
-	public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-		RootsUtil.randomlyRepair(random, stack);
-	}
+  @Override
+  public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+    RootsUtil.randomlyRepair(random, stack);
+  }
 
-	@Override
-	public boolean isRepairable(ItemStack stack) {
-		return false;
-	}
+  @Override
+  public boolean isRepairable(ItemStack stack) {
+    return false;
+  }
 }

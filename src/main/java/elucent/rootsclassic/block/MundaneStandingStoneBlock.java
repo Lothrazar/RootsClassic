@@ -8,19 +8,19 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
 public class MundaneStandingStoneBlock extends Block {
-	private static final VoxelShape SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
 
-	public MundaneStandingStoneBlock(Properties properties) {
-		super(properties);
-	}
+  private static final VoxelShape SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
 
-//	@Override
-//	public boolean isOpaqueCube(BlockState state) {
-//		return false;
-//	}
+  public MundaneStandingStoneBlock(Properties properties) {
+    super(properties);
+  }
+  //	@Override
+  //	public boolean isOpaqueCube(BlockState state) {
+  //		return false;
+  //	}
 
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-		return SHAPE;
-	}
+  @Override
+  public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    return SHAPE;
+  }
 }
