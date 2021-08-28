@@ -1,7 +1,6 @@
 package elucent.rootsclassic.block;
 
-import elucent.rootsclassic.tile.AcceleratorStandingStoneTile;
-import elucent.rootsclassic.tile.TEBase;
+import javax.annotation.Nullable;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.properties.DoubleBlockHalf;
@@ -9,8 +8,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
+import elucent.rootsclassic.tile.AcceleratorStandingStoneTile;
+import elucent.rootsclassic.tile.TEBase;
 
 public class AcceleratorStandingStoneBlock extends AttunedStandingStoneBlock {
 

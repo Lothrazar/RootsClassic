@@ -1,17 +1,16 @@
 package elucent.rootsclassic.tile;
 
-import elucent.rootsclassic.client.particles.MagicAuraParticleData;
-import elucent.rootsclassic.item.GrowthPowderItem;
-import elucent.rootsclassic.registry.RootsRegistry;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import elucent.rootsclassic.client.particles.MagicAuraParticleData;
+import elucent.rootsclassic.item.GrowthPowderItem;
+import elucent.rootsclassic.registry.RootsRegistry;
 
 public class GrowerStandingStoneTile extends TEBase implements ITickableTileEntity {
 

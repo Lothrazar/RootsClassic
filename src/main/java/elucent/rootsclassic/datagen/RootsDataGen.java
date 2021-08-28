@@ -1,14 +1,48 @@
 package elucent.rootsclassic.datagen;
 
+import static elucent.rootsclassic.registry.RootsRegistry.ACCELERATOR_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.AESTHETIC_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.ALTAR;
+import static elucent.rootsclassic.registry.RootsRegistry.ATTUNED_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.BARK_KNIFE;
+import static elucent.rootsclassic.registry.RootsRegistry.BLACKCURRANT;
+import static elucent.rootsclassic.registry.RootsRegistry.BRAZIER;
+import static elucent.rootsclassic.registry.RootsRegistry.DRAGONS_EYE;
+import static elucent.rootsclassic.registry.RootsRegistry.ELDERBERRY;
+import static elucent.rootsclassic.registry.RootsRegistry.ENTANGLER_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.FLARE_ORCHID;
+import static elucent.rootsclassic.registry.RootsRegistry.FRUIT_SALAD;
+import static elucent.rootsclassic.registry.RootsRegistry.GROWER_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.GROWTH_POWDER;
+import static elucent.rootsclassic.registry.RootsRegistry.HEALER_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.HEALING_POULTICE;
+import static elucent.rootsclassic.registry.RootsRegistry.IGNITER_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.IMBUER;
+import static elucent.rootsclassic.registry.RootsRegistry.MIDNIGHT_BLOOM;
+import static elucent.rootsclassic.registry.RootsRegistry.MORTAR;
+import static elucent.rootsclassic.registry.RootsRegistry.MUNDANE_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.MUTATING_POWDER;
+import static elucent.rootsclassic.registry.RootsRegistry.OLD_ROOT;
+import static elucent.rootsclassic.registry.RootsRegistry.PESTLE;
+import static elucent.rootsclassic.registry.RootsRegistry.RADIANT_DAISY;
+import static elucent.rootsclassic.registry.RootsRegistry.REDCURRANT;
+import static elucent.rootsclassic.registry.RootsRegistry.REPULSOR_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.ROOTY_STEW;
+import static elucent.rootsclassic.registry.RootsRegistry.RUNIC_TABLET;
+import static elucent.rootsclassic.registry.RootsRegistry.VACUUM_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.VERDANT_SPRIG;
+import static elucent.rootsclassic.registry.RootsRegistry.WHITECURRANT;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.block.AttunedStandingStoneBlock;
-import elucent.rootsclassic.lootmodifiers.DropModifier;
-import elucent.rootsclassic.lootmodifiers.DropModifier.BlockDropModifier;
-import elucent.rootsclassic.registry.RootsEntities;
-import elucent.rootsclassic.registry.RootsRegistry;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+import javax.annotation.Nonnull;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -39,30 +73,24 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
-
-import javax.annotation.Nonnull;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
-
-import static elucent.rootsclassic.registry.RootsRegistry.*;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.block.AttunedStandingStoneBlock;
+import elucent.rootsclassic.lootmodifiers.DropModifier;
+import elucent.rootsclassic.lootmodifiers.DropModifier.BlockDropModifier;
+import elucent.rootsclassic.registry.RootsEntities;
+import elucent.rootsclassic.registry.RootsRegistry;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RootsDataGen {
 	@SubscribeEvent
 	public static void gatherData(GatherDataEvent event) {
 		DataGenerator generator = event.getGenerator();
-		ExistingFileHelper helper = event.getExistingFileHelper();
+//		ExistingFileHelper helper = event.getExistingFileHelper();
 
 		if (event.includeServer()) {
 			generator.addProvider(new Loots(generator));

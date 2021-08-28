@@ -3,15 +3,14 @@ package elucent.rootsclassic.compat;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IItemStack;
-import elucent.rootsclassic.ritual.RitualBase;
-import elucent.rootsclassic.ritual.RitualManager;
-import elucent.rootsclassic.ritual.rituals.RitualCrafting;
+import java.util.Arrays;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.openzen.zencode.java.ZenCodeType.Method;
 import org.openzen.zencode.java.ZenCodeType.Name;
-
-import java.util.Arrays;
+import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.ritual.RitualManager;
+import elucent.rootsclassic.ritual.rituals.RitualCrafting;
 
 @ZenRegister
 @Name("mods.rootsclassic.Ritual")

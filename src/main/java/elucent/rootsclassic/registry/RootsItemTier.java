@@ -1,10 +1,9 @@
 package elucent.rootsclassic.registry;
 
+import java.util.function.Supplier;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyValue;
-
-import java.util.function.Supplier;
 
 public enum RootsItemTier implements IItemTier {
 	LIVING(2, 192, 6.0f, 2.0f, 18, () -> null),

@@ -1,7 +1,6 @@
 package elucent.rootsclassic.tile;
 
-import elucent.rootsclassic.client.particles.MagicAuraParticleData;
-import elucent.rootsclassic.registry.RootsRegistry;
+import java.util.ArrayList;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -9,8 +8,8 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
-
-import java.util.ArrayList;
+import elucent.rootsclassic.client.particles.MagicAuraParticleData;
+import elucent.rootsclassic.registry.RootsRegistry;
 
 public class VacuumStandingStoneTile extends TEBase implements ITickableTileEntity {
 	int ticker = 0;

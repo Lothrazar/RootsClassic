@@ -1,9 +1,5 @@
 package elucent.rootsclassic.event;
 
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.capability.RootsCapabilityManager;
-import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,6 +12,10 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.capability.RootsCapabilityManager;
+import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.util.RootsUtil;
 
 public class ComponentSpellsEvent {
 	public static int TICKS_PER_MANA_REGEN = 5;

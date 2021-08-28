@@ -1,6 +1,5 @@
 package elucent.rootsclassic.item;
 
-import elucent.rootsclassic.client.particles.MagicParticleData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -14,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import elucent.rootsclassic.client.particles.MagicParticleData;
 
 public class GrowthPowderItem extends Item {
 
@@ -37,7 +37,8 @@ public class GrowthPowderItem extends Item {
 		return ActionResultType.PASS;
 	}
 
-	public static boolean applyGrowthHere(World world, BlockPos pos) {
+	@SuppressWarnings("deprecation")
+  public static boolean applyGrowthHere(World world, BlockPos pos) {
 		BlockState state = world.getBlockState(pos);
 		if (state.getBlock() == Blocks.DIRT) {
 			world.setBlockState(pos, Blocks.GRASS.getDefaultState());

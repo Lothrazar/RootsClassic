@@ -1,8 +1,7 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.ritual.RitualBase;
-import elucent.rootsclassic.util.RootsUtil;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -12,9 +11,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.List;
+import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.util.RootsUtil;
 
 public class RitualEngravedSword extends RitualBase {
 

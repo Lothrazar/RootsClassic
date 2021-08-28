@@ -1,6 +1,6 @@
 package elucent.rootsclassic.block.imbuer;
 
-import elucent.rootsclassic.block.BaseTEBlock;
+import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -8,8 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-
-import javax.annotation.Nullable;
+import elucent.rootsclassic.block.BaseTEBlock;
 
 public class ImbuerBlock extends BaseTEBlock {
 	private static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 2.0D, 11.0D);

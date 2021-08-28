@@ -1,16 +1,15 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.EnumCastType;
+import java.util.ArrayList;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.component.ComponentBase;
+import elucent.rootsclassic.component.EnumCastType;
 
 public class ComponentPoppy extends ComponentBase {
 

@@ -1,8 +1,6 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.EnumCastType;
+import java.util.ArrayList;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
@@ -10,8 +8,9 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.component.ComponentBase;
+import elucent.rootsclassic.component.EnumCastType;
 
 public class ComponentApple extends ComponentBase {
 

@@ -1,9 +1,6 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.EnumCastType;
-import elucent.rootsclassic.entity.skeleton.PhantomSkeletonEntity;
+import java.util.ArrayList;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ILivingEntityData;
@@ -15,8 +12,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.ArrayList;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.component.ComponentBase;
+import elucent.rootsclassic.component.EnumCastType;
+import elucent.rootsclassic.entity.skeleton.PhantomSkeletonEntity;
 
 public class ComponentRedTulip extends ComponentBase {
 

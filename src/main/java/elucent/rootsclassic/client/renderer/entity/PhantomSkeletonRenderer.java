@@ -4,11 +4,11 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
 import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 import com.mojang.blaze3d.systems.RenderSystem;
-import elucent.rootsclassic.Const;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.entity.monster.AbstractSkeletonEntity;
 import net.minecraft.util.ResourceLocation;
+import elucent.rootsclassic.Const;
 
 public class PhantomSkeletonRenderer extends SkeletonRenderer {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Const.MODID, "textures/entity/skeleton_ghost.png");

@@ -1,9 +1,7 @@
 package elucent.rootsclassic.ritual;
 
-import elucent.rootsclassic.Roots;
-import elucent.rootsclassic.block.brazier.BrazierTile;
-import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.util.RootsUtil;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -12,9 +10,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.List;
+import elucent.rootsclassic.Roots;
+import elucent.rootsclassic.block.brazier.BrazierTile;
+import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.util.RootsUtil;
 
 public abstract class RitualBase {
 

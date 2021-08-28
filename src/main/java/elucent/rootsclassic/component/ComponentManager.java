@@ -1,5 +1,13 @@
 package elucent.rootsclassic.component;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.components.ComponentAllium;
 import elucent.rootsclassic.component.components.ComponentApple;
@@ -25,15 +33,6 @@ import elucent.rootsclassic.component.components.ComponentSunflower;
 import elucent.rootsclassic.component.components.ComponentWhiteTulip;
 import elucent.rootsclassic.recipe.ComponentRecipe;
 import elucent.rootsclassic.registry.RootsRecipes;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 public class ComponentManager {
 

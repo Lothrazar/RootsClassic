@@ -3,9 +3,6 @@ package elucent.rootsclassic.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import elucent.rootsclassic.item.SpellPowderItem;
-import elucent.rootsclassic.registry.RootsRecipes;
-import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -21,8 +18,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-
-import java.util.Arrays;
+import elucent.rootsclassic.item.SpellPowderItem;
+import elucent.rootsclassic.registry.RootsRecipes;
+import elucent.rootsclassic.registry.RootsRegistry;
 
 public class ComponentRecipe implements IRecipe<IInventory> {
 	private static final int MAX_INGREDIENTS = 4;

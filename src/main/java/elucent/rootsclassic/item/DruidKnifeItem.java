@@ -1,8 +1,8 @@
 package elucent.rootsclassic.item;
 
 import com.google.common.collect.ImmutableMap.Builder;
-import elucent.rootsclassic.config.RootsConfig;
-import elucent.rootsclassic.registry.RootsRegistry;
+import java.util.Map;
+import java.util.function.Supplier;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -17,9 +17,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.Map;
-import java.util.function.Supplier;
+import elucent.rootsclassic.config.RootsConfig;
+import elucent.rootsclassic.registry.RootsRegistry;
 
 public class DruidKnifeItem extends Item {
 	protected static final Map<Block, Block> BLOCK_STRIPPING_MAP = (new Builder<Block, Block>())

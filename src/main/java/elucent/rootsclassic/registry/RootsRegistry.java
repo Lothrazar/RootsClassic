@@ -1,5 +1,16 @@
 package elucent.rootsclassic.registry;
 
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.SoupItem;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.block.AcceleratorStandingStoneBlock;
@@ -51,17 +62,6 @@ import elucent.rootsclassic.tile.HealerStandingStone;
 import elucent.rootsclassic.tile.IgniterStandingStoneTile;
 import elucent.rootsclassic.tile.RepulsorStandingStoneTile;
 import elucent.rootsclassic.tile.VacuumStandingStoneTile;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.SoupItem;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class RootsRegistry {
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Const.MODID);

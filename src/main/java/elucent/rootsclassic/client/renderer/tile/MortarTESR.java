@@ -1,19 +1,16 @@
 package elucent.rootsclassic.client.renderer.tile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import elucent.rootsclassic.block.mortar.MortarTile;
+import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.items.ItemStackHandler;
-
-import java.util.Random;
+import elucent.rootsclassic.block.mortar.MortarTile;
 
 public class MortarTESR extends TileEntityRenderer<MortarTile> {
 	public MortarTESR(TileEntityRendererDispatcher rendererDispatcherIn) {
@@ -23,7 +20,6 @@ public class MortarTESR extends TileEntityRenderer<MortarTile> {
 	@Override
 	public void render(MortarTile mortarTile, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
 		final ItemStackHandler inventory = mortarTile.inventory;
-		BlockPos pos = mortarTile.getPos();
 		for(int i = 0; i < inventory.getSlots(); i++) {
 			ItemStack stack = inventory.getStackInSlot(i);
 			if(!stack.isEmpty()) {

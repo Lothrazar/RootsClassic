@@ -1,14 +1,13 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import elucent.rootsclassic.ritual.RitualBase;
+import java.util.List;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.List;
+import elucent.rootsclassic.ritual.RitualBase;
 
 public class RitualCrafting extends RitualBase {
 

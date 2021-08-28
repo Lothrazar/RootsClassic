@@ -1,7 +1,5 @@
 package elucent.rootsclassic.tile;
 
-import elucent.rootsclassic.client.particles.MagicLineParticleData;
-import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -15,6 +13,8 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.Tags.Items;
+import elucent.rootsclassic.client.particles.MagicLineParticleData;
+import elucent.rootsclassic.registry.RootsRegistry;
 
 public class AestheticStandingStoneTile extends TEBase implements ITickableTileEntity {
 	int ticker = 0;

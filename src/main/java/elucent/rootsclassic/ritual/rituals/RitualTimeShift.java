@@ -1,6 +1,7 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import elucent.rootsclassic.ritual.RitualBase;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,9 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.ArrayList;
-import java.util.List;
+import elucent.rootsclassic.ritual.RitualBase;
 
 public class RitualTimeShift extends RitualBase {
 

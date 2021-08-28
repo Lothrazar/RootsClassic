@@ -2,14 +2,8 @@ package elucent.rootsclassic.client.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.client.ClientInfo;
-import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.research.EnumPageType;
-import elucent.rootsclassic.research.ResearchBase;
-import elucent.rootsclassic.research.ResearchGroup;
-import elucent.rootsclassic.research.ResearchPage;
-import elucent.rootsclassic.util.RootsUtil;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
@@ -23,9 +17,14 @@ import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
-
-import java.util.ArrayList;
-import java.util.List;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.client.ClientInfo;
+import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.research.EnumPageType;
+import elucent.rootsclassic.research.ResearchBase;
+import elucent.rootsclassic.research.ResearchGroup;
+import elucent.rootsclassic.research.ResearchPage;
+import elucent.rootsclassic.util.RootsUtil;
 
 public class TabletPageScreen extends Screen {
 	private int currentPage = 0;

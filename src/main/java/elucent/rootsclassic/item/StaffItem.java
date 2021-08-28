@@ -1,14 +1,7 @@
 package elucent.rootsclassic.item;
 
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.capability.IManaCapability;
-import elucent.rootsclassic.capability.RootsCapabilityManager;
-import elucent.rootsclassic.client.particles.MagicLineParticleData;
-import elucent.rootsclassic.client.particles.MagicParticleData;
-import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.ComponentManager;
-import elucent.rootsclassic.component.EnumCastType;
-import elucent.rootsclassic.config.RootsConfig;
+import java.util.List;
+import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -29,9 +22,15 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
-import java.util.List;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.capability.IManaCapability;
+import elucent.rootsclassic.capability.RootsCapabilityManager;
+import elucent.rootsclassic.client.particles.MagicLineParticleData;
+import elucent.rootsclassic.client.particles.MagicParticleData;
+import elucent.rootsclassic.component.ComponentBase;
+import elucent.rootsclassic.component.ComponentManager;
+import elucent.rootsclassic.component.EnumCastType;
+import elucent.rootsclassic.config.RootsConfig;
 
 public class StaffItem extends Item implements IManaRelatedItem {
 	private static final String NBT_USES = "uses";
@@ -128,10 +127,10 @@ public class StaffItem extends Item implements IManaRelatedItem {
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (world.isRemote && Minecraft.getInstance().currentScreen != null) {
-			return new ActionResult(ActionResultType.FAIL, stack);
+			return new ActionResult<ItemStack>(ActionResultType.FAIL, stack);
 		} else {
 			player.setActiveHand(hand);
-			return new ActionResult(ActionResultType.PASS, stack);
+			return new ActionResult<ItemStack>(ActionResultType.PASS, stack);
 		}
 	}
 

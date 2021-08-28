@@ -4,11 +4,11 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import elucent.rootsclassic.client.particles.ParticleColor;
-import elucent.rootsclassic.registry.ParticleRegistry;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
+import elucent.rootsclassic.client.particles.ParticleColor;
+import elucent.rootsclassic.registry.ParticleRegistry;
 
 public class MagicParticleTypeData implements IParticleData {
 	private ParticleType<MagicParticleTypeData> type;
@@ -21,7 +21,8 @@ public class MagicParticleTypeData implements IParticleData {
 
 	public ParticleColor color;
 
-	static final IParticleData.IDeserializer<MagicParticleTypeData> DESERIALIZER = new IParticleData.IDeserializer<MagicParticleTypeData>() {
+	@SuppressWarnings("deprecation")
+  static final IParticleData.IDeserializer<MagicParticleTypeData> DESERIALIZER = new IParticleData.IDeserializer<MagicParticleTypeData>() {
 		@Override
 		public MagicParticleTypeData deserialize(ParticleType<MagicParticleTypeData> type, StringReader reader) throws CommandSyntaxException {
 			reader.expect(' ');

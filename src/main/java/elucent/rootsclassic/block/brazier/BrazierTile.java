@@ -1,7 +1,6 @@
 package elucent.rootsclassic.block.brazier;
 
-import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.tile.TEBase;
+import javax.annotation.Nonnull;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,8 +19,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-
-import javax.annotation.Nonnull;
+import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.tile.TEBase;
 
 public class BrazierTile extends TEBase implements ITickableTileEntity {
 

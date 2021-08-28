@@ -1,13 +1,6 @@
 package elucent.rootsclassic.block.imbuer;
 
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.client.particles.MagicLineParticleData;
-import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.ComponentManager;
-import elucent.rootsclassic.item.SpellPowderItem;
-import elucent.rootsclassic.item.StaffItem;
-import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.tile.TEBase;
+import javax.annotation.Nonnull;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,8 +18,14 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-
-import javax.annotation.Nonnull;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.client.particles.MagicLineParticleData;
+import elucent.rootsclassic.component.ComponentBase;
+import elucent.rootsclassic.component.ComponentManager;
+import elucent.rootsclassic.item.SpellPowderItem;
+import elucent.rootsclassic.item.StaffItem;
+import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.tile.TEBase;
 
 public class ImbuerTile extends TEBase implements ITickableTileEntity {
 	private static final int STICK = 0;

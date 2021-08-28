@@ -1,5 +1,14 @@
 package elucent.rootsclassic.ritual;
 
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.block.altar.AltarTile;
@@ -18,16 +27,6 @@ import elucent.rootsclassic.ritual.rituals.RitualSacrifice;
 import elucent.rootsclassic.ritual.rituals.RitualSummoning;
 import elucent.rootsclassic.ritual.rituals.RitualTimeShift;
 import elucent.rootsclassic.util.RootsUtil;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RitualManager {
 	public static ArrayList<RitualBase> rituals = new ArrayList<>();

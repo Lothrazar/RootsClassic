@@ -1,7 +1,6 @@
 package elucent.rootsclassic.tile;
 
-import elucent.rootsclassic.client.particles.MagicAuraParticleData;
-import elucent.rootsclassic.registry.RootsRegistry;
+import java.util.ArrayList;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -10,8 +9,8 @@ import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
-
-import java.util.ArrayList;
+import elucent.rootsclassic.client.particles.MagicAuraParticleData;
+import elucent.rootsclassic.registry.RootsRegistry;
 
 public class HealerStandingStone extends TEBase implements ITickableTileEntity {
 

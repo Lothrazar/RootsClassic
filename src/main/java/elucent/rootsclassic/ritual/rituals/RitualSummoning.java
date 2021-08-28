@@ -1,7 +1,6 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import elucent.rootsclassic.ritual.RitualBase;
-import elucent.rootsclassic.util.RootsUtil;
+import java.util.List;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.MobEntity;
@@ -14,8 +13,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.List;
+import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.util.RootsUtil;
 
 public class RitualSummoning extends RitualBase {
 

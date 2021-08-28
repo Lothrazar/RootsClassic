@@ -2,13 +2,6 @@ package elucent.rootsclassic.client.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.client.ClientInfo;
-import elucent.rootsclassic.config.RootsConfig;
-import elucent.rootsclassic.research.ResearchBase;
-import elucent.rootsclassic.research.ResearchGroup;
-import elucent.rootsclassic.research.ResearchManager;
-import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.screen.Screen;
@@ -22,6 +15,13 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.StringTextComponent;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.client.ClientInfo;
+import elucent.rootsclassic.config.RootsConfig;
+import elucent.rootsclassic.research.ResearchBase;
+import elucent.rootsclassic.research.ResearchGroup;
+import elucent.rootsclassic.research.ResearchManager;
+import elucent.rootsclassic.util.RootsUtil;
 
 public class TabletScreen extends Screen {
 	private int currentGroup = 0;
@@ -108,28 +108,17 @@ public class TabletScreen extends Screen {
 		vertexbuffer.pos(x2 + 0.0F, y2 + 0.0F, this.itemRenderer.zLevel).tex((minU + maxU) * f, (minV + 0) * f1).endVertex();
 		vertexbuffer.pos(x1 + 0.0F, y1 + 0.0F, this.itemRenderer.zLevel).tex((minU + 0) * f, (minV + 0) * f1).endVertex();
 	}
-
-//	public float getRadiusX(float degrees, float radius) {
-//		float magnitude = radius + 16.0f * ((float) Math.cos(((degrees + (cycle / 8.0f)) / 45.0) * Math.PI));
-//		return magnitude * (float) Math.cos((degrees / 360.0f) * Math.PI);
-//	}
-//
-//	public float getRadiusY(float degrees, float radius) {
-//		float magnitude = radius + 16.0f * ((float) Math.cos(((degrees + (cycle / 8.0f)) / 45.0) * Math.PI));
-//		return magnitude * (float) Math.sin((degrees / 360.0f) * Math.PI);
-//	}
+ 
 
 	@Override
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(matrixStack);
 		this.player.stopActiveHand();
-		RenderSystem.pushMatrix();
-		RenderSystem.color4f(1, 1, 1, 1);
+		matrixStack.push(); 
 		minecraft.getTextureManager().bindTexture(Const.tabletGui);
 		float unit = width / 32.0f;
 		if (RootsConfig.CLIENT.showTabletWave.get()) {
-			RenderSystem.enableBlend();
-			RenderSystem.color4f(1, 1, 1, 1);
+			RenderSystem.enableBlend(); 
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferBuilder = tessellator.getBuffer();
 			bufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -140,8 +129,7 @@ public class TabletScreen extends Screen {
 			}
 			tessellator.draw();
 			RenderSystem.disableBlend();
-		}
-		RenderSystem.color4f(1, 1, 1, 1);
+		} 
 		int basePosX = (int)((width / 2.0f) - 108);
 		String researchName = "rootsclassic.research." + ResearchManager.globalResearches.get(currentGroup).getName();
 		for (int i = 0; i < ResearchManager.globalResearches.get(currentGroup).researches.size(); i++) {
@@ -169,7 +157,7 @@ public class TabletScreen extends Screen {
 			this.blit(matrixStack, width - 64, height - 48, 0, 80, 32, 16);
 		} else {
 			this.blit(matrixStack, width - 64, height - 48, 0, 64, 32, 16);
-		}
-		RenderSystem.popMatrix();
+		} 
+    matrixStack.pop();
 	}
 }

@@ -1,13 +1,7 @@
 package elucent.rootsclassic.block.altar;
 
-import elucent.rootsclassic.block.brazier.BrazierTile;
-import elucent.rootsclassic.client.particles.MagicAltarParticleData;
-import elucent.rootsclassic.client.particles.MagicLineParticleData;
-import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.ritual.RitualBase;
-import elucent.rootsclassic.ritual.RitualManager;
-import elucent.rootsclassic.tile.TEBase;
-import elucent.rootsclassic.util.InventoryUtil;
+import java.util.ArrayList;
+import javax.annotation.Nonnull;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,9 +22,14 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
+import elucent.rootsclassic.block.brazier.BrazierTile;
+import elucent.rootsclassic.client.particles.MagicAltarParticleData;
+import elucent.rootsclassic.client.particles.MagicLineParticleData;
+import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.ritual.RitualManager;
+import elucent.rootsclassic.tile.TEBase;
+import elucent.rootsclassic.util.InventoryUtil;
 
 public class AltarTile extends TEBase implements ITickableTileEntity {
 	private static final int RECIPE_PROGRESS_TIME = 200;

@@ -1,6 +1,6 @@
 package elucent.rootsclassic.entity.skeleton;
 
-import elucent.rootsclassic.registry.RootsEntities;
+import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -32,8 +32,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
-
-import javax.annotation.Nullable;
+import elucent.rootsclassic.registry.RootsEntities;
 
 public class PhantomSkeletonEntity extends SkeletonEntity {
 	public static boolean appliesSlowPotion = true;

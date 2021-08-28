@@ -1,8 +1,6 @@
 package elucent.rootsclassic.mutation.mutations;
 
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.mutation.MutagenRecipe;
-import elucent.rootsclassic.registry.RootsRegistry;
+import java.util.List;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -11,8 +9,9 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.List;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.mutation.MutagenRecipe;
+import elucent.rootsclassic.registry.RootsRegistry;
 
 public class MutagenFlareOrchidRecipe extends MutagenRecipe {
 

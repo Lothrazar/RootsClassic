@@ -1,10 +1,9 @@
 package elucent.rootsclassic.lootmodifiers;
 
 import com.google.gson.JsonObject;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.config.RootsConfig;
-import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.registry.RootsTags;
+import java.util.List;
+import java.util.Random;
+import javax.annotation.Nonnull;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -23,10 +22,10 @@ import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.config.RootsConfig;
+import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.registry.RootsTags;
 
 public class DropModifier {
 	public static final DeferredRegister<GlobalLootModifierSerializer<?>> GLM = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, Const.MODID);

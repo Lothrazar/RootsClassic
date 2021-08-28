@@ -1,12 +1,12 @@
 package elucent.rootsclassic.item;
 
-import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.world.World;
+import elucent.rootsclassic.util.RootsUtil;
 
 public class LivingSwordItem extends SwordItem {
 
