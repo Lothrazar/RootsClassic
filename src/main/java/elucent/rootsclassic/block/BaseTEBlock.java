@@ -1,5 +1,6 @@
 package elucent.rootsclassic.block;
 
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
@@ -12,7 +13,7 @@ import elucent.rootsclassic.tile.TEBase;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
-public class BaseTEBlock extends Block {
+public abstract class BaseTEBlock extends BaseEntityBlock {
 
   public BaseTEBlock(Properties properties) {
     super(properties);

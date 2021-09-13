@@ -6,7 +6,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsEntities;
 
@@ -37,7 +37,7 @@ public class EntityAccelerator extends Entity {
         (entity.getBoundingBox().maxZ + entity.getBoundingBox().minZ) / 2.0 - 0.5);
     if (entity == null) {
       this.level.broadcastEntityEvent(this, (byte) 3);
-      this.remove();
+      this.remove(RemovalReason.DISCARDED);
     }
     else {
       for (int i = 0; i < potency; i++) {
@@ -75,7 +75,7 @@ public class EntityAccelerator extends Entity {
     lifetime--;
     if (lifetime <= 0) {
       this.level.broadcastEntityEvent(this, (byte) 3);
-      this.remove();
+      this.remove(RemovalReason.DISCARDED);
     }
   }
 

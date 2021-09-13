@@ -21,10 +21,10 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
   public static ModelPart bootR;
   public static ModelPart bootL;
 
-  public ModelArmorBase(EquipmentSlot slot) {
-    super(0.0F, 1.0f, 64, 64);
-    this.texHeight = 64;
-    this.texWidth = 64;
+  public ModelArmorBase(ModelPart mp, EquipmentSlot slot) {
+    super(mp);
+//    this.texHeight = 64;
+//    this.texWidth = 64;
     this.slot = slot;
     this.young = false;
     head = new ModelPart(this);
@@ -126,15 +126,15 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
     chest.x = body.x;
     chest.y = body.y - 1;
     chest.z = body.z;
-    chest.yTexOffs -= 0.125;
+//    chest.yTexOffs -= 0.125;
     armR.x = rightArm.x + 5;
     armR.y = rightArm.y - 1;
     armR.z = rightArm.z;
-    armR.yTexOffs -= 0;
+//    armR.yTexOffs -= 0;
     armL.x = leftArm.x - 5;
     armL.y = leftArm.y - 1;
     armL.z = leftArm.z;
-    armL.yTexOffs -= 0;
+//    armL.yTexOffs -= 0;
     setRotation(chest, body.xRot, body.yRot, body.zRot);
     setRotation(armR, rightArm.xRot, rightArm.yRot, rightArm.zRot);
     setRotation(armL, leftArm.xRot, leftArm.yRot, leftArm.zRot);

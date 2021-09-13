@@ -10,11 +10,11 @@ import net.minecraft.world.item.ItemStack;
 import com.mojang.math.Vector3f;
 import elucent.rootsclassic.block.imbuer.ImbuerTile;
 
-public class ImbuerTESR extends BlockEntityRenderer<ImbuerTile> {
+public class ImbuerTESR implements BlockEntityRenderer<ImbuerTile> {
 
-  public ImbuerTESR(BlockEntityRenderDispatcher rendererDispatcherIn) {
-    super(rendererDispatcherIn);
-  }
+//  public ImbuerTESR(BlockEntityRenderDispatcher rendererDispatcherIn) {
+//    super(rendererDispatcherIn);
+//  }
 
   @Override
   public void render(ImbuerTile imbuerTile, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
@@ -23,7 +23,7 @@ public class ImbuerTESR extends BlockEntityRenderer<ImbuerTile> {
       matrixStackIn.pushPose();
       matrixStackIn.translate(0.5, 0.3125, 0.5);
       matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(imbuerTile.spin));
-      Minecraft.getInstance().getItemRenderer().renderStatic(stickStack, TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn);
+      Minecraft.getInstance().getItemRenderer().renderStatic(stickStack, TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn,0);
       matrixStackIn.popPose();
     }
     final ItemStack dustStack = imbuerTile.getSpellPowder();
@@ -31,7 +31,7 @@ public class ImbuerTESR extends BlockEntityRenderer<ImbuerTile> {
       matrixStackIn.pushPose();
       matrixStackIn.translate(0.5, 0.125, 0.0);
       matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(90));
-      Minecraft.getInstance().getItemRenderer().renderStatic(dustStack, TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn);
+      Minecraft.getInstance().getItemRenderer().renderStatic(dustStack, TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn,0);
       matrixStackIn.popPose();
     }
   }

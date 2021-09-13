@@ -1,21 +1,21 @@
 package elucent.rootsclassic.client.renderer.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
 import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import net.minecraft.client.renderer.entity.SkeletonRenderer;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
-import net.minecraft.resources.ResourceLocation;
+import com.mojang.blaze3d.vertex.PoseStack;
 import elucent.rootsclassic.Const;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.SkeletonRenderer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.AbstractSkeleton;
 
 public class PhantomSkeletonRenderer extends SkeletonRenderer {
 
   private static final ResourceLocation TEXTURE = new ResourceLocation(Const.MODID, "textures/entity/skeleton_ghost.png");
 
-  public PhantomSkeletonRenderer(EntityRenderDispatcher rendererManager) {
-    super(rendererManager);
+  public PhantomSkeletonRenderer(EntityRendererProvider.Context c) {
+    super(c);
   }
 
   @Override

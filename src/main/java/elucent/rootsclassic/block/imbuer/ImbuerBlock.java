@@ -26,13 +26,7 @@ public class ImbuerBlock extends BaseTEBlock {
   }
 
   @Override
-  public boolean hasTileEntity(BlockState state) {
-    return true;
-  }
-
-  @Nullable
-  @Override
-  public BlockEntity createTileEntity(BlockState state, BlockGetter world) {
-    return new ImbuerTile();
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    return new ImbuerTile(pos,state);
   }
 }

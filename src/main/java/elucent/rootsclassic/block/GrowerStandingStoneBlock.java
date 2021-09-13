@@ -28,16 +28,10 @@ public class GrowerStandingStoneBlock extends AttunedStandingStoneBlock {
   }
 
   @Override
-  public boolean hasTileEntity(BlockState state) {
-    return state.getValue(HALF) == DoubleBlockHalf.UPPER;
-  }
-
-  @Nullable
-  @Override
-  public BlockEntity createTileEntity(BlockState state, BlockGetter world) {
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
     if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-      return new GrowerStandingStoneTile();
+      return new GrowerStandingStoneTile(pos,state);
     }
-    return super.createTileEntity(state, world);
+    return null;
   }
 }

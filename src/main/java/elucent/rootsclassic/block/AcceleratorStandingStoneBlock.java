@@ -1,17 +1,14 @@
 package elucent.rootsclassic.block;
 
-import javax.annotation.Nullable;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import elucent.rootsclassic.tile.AcceleratorStandingStoneTile;
 import elucent.rootsclassic.tile.TEBase;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import javax.annotation.Nullable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public class AcceleratorStandingStoneBlock extends AttunedStandingStoneBlock {
 
@@ -28,16 +25,10 @@ public class AcceleratorStandingStoneBlock extends AttunedStandingStoneBlock {
   }
 
   @Override
-  public boolean hasTileEntity(BlockState state) {
-    return state.getValue(HALF) == DoubleBlockHalf.UPPER;
-  }
-
-  @Nullable
-  @Override
-  public BlockEntity createTileEntity(BlockState state, BlockGetter world) {
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
     if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-      return new AcceleratorStandingStoneTile();
+      return new AcceleratorStandingStoneTile(pos, state);
     }
-    return super.createTileEntity(state, world);
+    return super.newBlockEntity(pos, state);
   }
 }

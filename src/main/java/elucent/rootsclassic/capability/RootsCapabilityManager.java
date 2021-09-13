@@ -15,6 +15,7 @@ public class RootsCapabilityManager {
   @CapabilityInject(IManaCapability.class)
   public static final Capability<IManaCapability> MANA_CAPABILITY = null;
 
+  @SuppressWarnings("deprecated")
   public static void register() {
     CapabilityManager.INSTANCE.register(IManaCapability.class);
   }

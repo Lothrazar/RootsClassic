@@ -28,16 +28,9 @@ public class EntanglerStandingStoneBlock extends AttunedStandingStoneBlock {
   }
 
   @Override
-  public boolean hasTileEntity(BlockState state) {
-    return state.getValue(HALF) == DoubleBlockHalf.UPPER;
-  }
-
-  @Nullable
-  @Override
-  public BlockEntity createTileEntity(BlockState state, BlockGetter world) {
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
     if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-      return new EntanglerStandingStoneTile();
-    }
-    return super.createTileEntity(state, world);
+      return new EntanglerStandingStoneTile(pos,state);
+    }return null;
   }
 }

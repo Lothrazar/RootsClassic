@@ -7,16 +7,17 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms.TransformType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
 import com.mojang.math.Vector3f;
 import net.minecraftforge.items.ItemStackHandler;
 import elucent.rootsclassic.block.mortar.MortarTile;
 
-public class MortarTESR extends BlockEntityRenderer<MortarTile> {
+public class MortarTESR implements BlockEntityRenderer<MortarTile> {
 
-  public MortarTESR(BlockEntityRenderDispatcher rendererDispatcherIn) {
-    super(rendererDispatcherIn);
+  public MortarTESR(BlockEntityRendererProvider.Context c) {
   }
+
 
   @Override
   public void render(MortarTile mortarTile, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
@@ -29,7 +30,7 @@ public class MortarTESR extends BlockEntityRenderer<MortarTile> {
         matrixStackIn.translate(0.475 + random.nextFloat() / 20.0, 0.05 + random.nextFloat() / 20.0, 0.475 + random.nextFloat() / 20.0);
         matrixStackIn.scale(0.65F, 0.65F, 0.65F);
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(random.nextInt(360)));
-        Minecraft.getInstance().getItemRenderer().renderStatic(stack, TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn);
+        Minecraft.getInstance().getItemRenderer().renderStatic(stack, TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn,0);
         matrixStackIn.popPose();
       }
     }

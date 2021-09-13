@@ -11,11 +11,11 @@ import net.minecraft.world.item.ItemStack;
 import com.mojang.math.Vector3f;
 import elucent.rootsclassic.block.altar.AltarTile;
 
-public class AltarTESR extends BlockEntityRenderer<AltarTile> {
-
-  public AltarTESR(BlockEntityRenderDispatcher rendererDispatcherIn) {
-    super(rendererDispatcherIn);
-  }
+public class AltarTESR implements BlockEntityRenderer<AltarTile> {
+//
+//  public AltarTESR(BlockEntityRenderDispatcher rendererDispatcherIn) {
+//    super(rendererDispatcherIn);
+//  }
 
   @Override
   public void render(AltarTile altarTile, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
