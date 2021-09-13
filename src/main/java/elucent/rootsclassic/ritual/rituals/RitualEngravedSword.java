@@ -2,15 +2,15 @@ package elucent.rootsclassic.ritual.rituals;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.ritual.RitualBase;
 import elucent.rootsclassic.util.RootsUtil;
@@ -29,19 +29,19 @@ public class RitualEngravedSword extends RitualBase {
   }
 
   @Override
-  public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
+  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     List<Item> items = new ArrayList<>();
     for (ItemStack i : incenses) {
       items.add(i.getItem());
     }
     if (RootsUtil.itemListMatchInventoryWithSize(inventory, this.getIngredients())) {
       ItemStack toSpawn = result.copy();
-      if (!world.isRemote) {
+      if (!world.isClientSide) {
         int mods = 0;
         ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
-        item.forceSpawn = true;
+        item.forcedLoading = true;
         ItemStack stack = item.getItem();
-        CompoundNBT tag = stack.getTag() != null ? stack.getTag() : new CompoundNBT();
+        CompoundTag tag = stack.getTag() != null ? stack.getTag() : new CompoundTag();
         for (Item i : items) {
           if (i == (RootsRegistry.ACACIA_BARK.get()) && mods < 4) {
             addMod(tag, "spikes");
@@ -65,17 +65,17 @@ public class RitualEngravedSword extends RitualBase {
           }
         }
         stack.setTag(tag);
-        world.addEntity(item);
+        world.addFreshEntity(item);
       }
-      inventory.clear();
-      TileEntity tile = world.getTileEntity(pos);
+      inventory.clearContent();
+      BlockEntity tile = world.getBlockEntity(pos);
       if (tile != null) {
-        tile.markDirty();
+        tile.setChanged();
       }
     }
   }
 
-  public void addMod(CompoundNBT tag, String name) {
+  public void addMod(CompoundTag tag, String name) {
     if (tag.contains(name)) {
       tag.putInt(name, tag.getInt(name) + 1);
     }

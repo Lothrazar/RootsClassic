@@ -1,8 +1,8 @@
 package elucent.rootsclassic.capability;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -16,12 +16,12 @@ public class RootsCapabilityManager {
   public static final Capability<IManaCapability> MANA_CAPABILITY = null;
 
   public static void register() {
-    CapabilityManager.INSTANCE.register(IManaCapability.class, new ManaCapabilityStorage(), new DefaultManaCapability());
+    CapabilityManager.INSTANCE.register(IManaCapability.class);
   }
 
   @SubscribeEvent
   public void onEntityConstruct(AttachCapabilitiesEvent<Entity> event) {
-    if (event.getObject() instanceof PlayerEntity) {
+    if (event.getObject() instanceof Player) {
       try {
         event.addCapability(new ResourceLocation(Const.MODID, "manacapability"), new ManaCapabilityProvider());
       }

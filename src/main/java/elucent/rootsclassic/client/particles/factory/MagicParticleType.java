@@ -1,7 +1,7 @@
 package elucent.rootsclassic.client.particles.factory;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.particles.ParticleType;
+import net.minecraft.core.particles.ParticleType;
 
 public class MagicParticleType extends ParticleType<MagicParticleTypeData> {
 
@@ -10,7 +10,7 @@ public class MagicParticleType extends ParticleType<MagicParticleTypeData> {
   }
 
   @Override
-  public Codec<MagicParticleTypeData> func_230522_e_() {
+  public Codec<MagicParticleTypeData> codec() {
     return MagicParticleTypeData.CODEC;
   }
 }

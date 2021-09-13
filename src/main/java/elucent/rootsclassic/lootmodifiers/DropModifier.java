@@ -4,22 +4,22 @@ import com.google.gson.JsonObject;
 import java.util.List;
 import java.util.Random;
 import javax.annotation.Nonnull;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CropsBlock;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.NetherWartBlock;
-import net.minecraft.block.TallGrassBlock;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.NetherWartBlock;
+import net.minecraft.world.level.block.TallGrassBlock;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import elucent.rootsclassic.Const;
@@ -34,15 +34,15 @@ public class DropModifier {
 
   public static class BlockDropModifier extends LootModifier {
 
-    public BlockDropModifier(ILootCondition[] lootConditions) {
+    public BlockDropModifier(LootItemCondition[] lootConditions) {
       super(lootConditions);
     }
 
     @Nonnull
     @Override
     protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-      if (context.has(LootParameters.BLOCK_STATE)) {
-        BlockState state = context.get(LootParameters.BLOCK_STATE);
+      if (context.hasParam(LootContextParams.BLOCK_STATE)) {
+        BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
         Block block = state.getBlock();
         Random rand = context.getRandom();
         if (block instanceof TallGrassBlock) {
@@ -51,14 +51,14 @@ public class DropModifier {
           }
         }
         if (block == Blocks.WHEAT || block == Blocks.CARROTS || block == Blocks.POTATOES || block == Blocks.BEETROOTS) {
-          if (((CropsBlock) block).isMaxAge(state)) {
+          if (((CropBlock) block).isMaxAge(state)) {
             if (rand.nextInt(RootsConfig.COMMON.verdantSprigDropChance.get()) == 0) {
               generatedLoot.add(new ItemStack(RootsRegistry.VERDANT_SPRIG.get(), 1));
             }
           }
         }
         if (block == Blocks.NETHER_WART) {
-          if (state.get(NetherWartBlock.AGE) == 3) {
+          if (state.getValue(NetherWartBlock.AGE) == 3) {
             if (rand.nextInt(RootsConfig.COMMON.infernalStemDropChance.get()) == 0) {
               generatedLoot.add(new ItemStack(RootsRegistry.INFERNAL_BULB.get(), 1));
             }
@@ -83,7 +83,7 @@ public class DropModifier {
     private static class Serializer extends GlobalLootModifierSerializer<BlockDropModifier> {
 
       @Override
-      public BlockDropModifier read(ResourceLocation location, JsonObject jsonObject, ILootCondition[] lootConditions) {
+      public BlockDropModifier read(ResourceLocation location, JsonObject jsonObject, LootItemCondition[] lootConditions) {
         return new BlockDropModifier(lootConditions);
       }
 

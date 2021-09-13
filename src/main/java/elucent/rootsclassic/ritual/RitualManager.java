@@ -2,13 +2,13 @@ package elucent.rootsclassic.ritual;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.block.altar.AltarTile;
@@ -456,13 +456,13 @@ public class RitualManager {
     return null;
   }
 
-  public static ArrayList<ItemStack> getIncenses(World world, BlockPos pos) {
+  public static ArrayList<ItemStack> getIncenses(Level world, BlockPos pos) {
     ArrayList<ItemStack> test = new ArrayList<>();
     for (int i = -4; i < 5; i++) {
       for (int j = -4; j < 5; j++) {
-        if (world.getBlockState(pos.add(i, 0, j)).getBlock() == RootsRegistry.BRAZIER.get()) {
-          if (world.getTileEntity(pos.add(i, 0, j)) != null) {
-            BrazierTile brazierTile = (BrazierTile) world.getTileEntity(pos.add(i, 0, j));
+        if (world.getBlockState(pos.offset(i, 0, j)).getBlock() == RootsRegistry.BRAZIER.get()) {
+          if (world.getBlockEntity(pos.offset(i, 0, j)) != null) {
+            BrazierTile brazierTile = (BrazierTile) world.getBlockEntity(pos.offset(i, 0, j));
             if (brazierTile.isBurning()) {
               test.add(brazierTile.getHeldItem());
             }

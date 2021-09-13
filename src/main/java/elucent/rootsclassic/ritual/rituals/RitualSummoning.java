@@ -1,26 +1,26 @@
 package elucent.rootsclassic.ritual.rituals;
 
 import java.util.List;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import elucent.rootsclassic.ritual.RitualBase;
 import elucent.rootsclassic.util.RootsUtil;
 
 public class RitualSummoning extends RitualBase {
 
-  public EntityType<? extends MobEntity> entityType = null;
+  public EntityType<? extends Mob> entityType = null;
 
-  public RitualSummoning setEntityType(EntityType<? extends MobEntity> entity) {
+  public RitualSummoning setEntityType(EntityType<? extends Mob> entity) {
     this.entityType = entity;
     return this;
   }
@@ -30,17 +30,17 @@ public class RitualSummoning extends RitualBase {
   }
 
   @Override
-  public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
-    if (RootsUtil.itemListMatchInventoryWithSize(inventory, this.getIngredients()) && !world.isRemote) {
-      MobEntity toSpawn = entityType.create(world);
+  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+    if (RootsUtil.itemListMatchInventoryWithSize(inventory, this.getIngredients()) && !world.isClientSide) {
+      Mob toSpawn = entityType.create(world);
       if (toSpawn != null) {
-        toSpawn.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(pos), SpawnReason.MOB_SUMMONED, (ILivingEntityData) null, (CompoundNBT) null);
-        toSpawn.setPosition(pos.getX() + 0.5, pos.getY() + 2.0, pos.getZ() + 0.5);
-        inventory.clear();
-        world.addEntity(toSpawn);
-        TileEntity tile = world.getTileEntity(pos);
+        toSpawn.finalizeSpawn((ServerLevel) world, world.getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
+        toSpawn.setPos(pos.getX() + 0.5, pos.getY() + 2.0, pos.getZ() + 0.5);
+        inventory.clearContent();
+        world.addFreshEntity(toSpawn);
+        BlockEntity tile = world.getBlockEntity(pos);
         if (tile != null) {
-          tile.markDirty();
+          tile.setChanged();
         }
       }
     }

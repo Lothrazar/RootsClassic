@@ -1,32 +1,28 @@
 package elucent.rootsclassic.block.brazier;
 
+import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.tile.TEBase;
 import javax.annotation.Nonnull;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.tile.TEBase;
 
-public class BrazierTile extends TEBase implements ITickableTileEntity {
+public class BrazierTile extends TEBase {
 
   private static final int TOTAL_BURN_TIME = 2400;
-  //	private ItemStack heldItem = ItemStack.EMPTY;
-  private int ticker = 0;
   private boolean burning = false;
   private int progress = 0;
   public final ItemStackHandler inventory = new ItemStackHandler(1) {
@@ -38,17 +34,13 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
   };
   private LazyOptional<IItemHandler> inventoryHolder = LazyOptional.of(() -> inventory);
 
-  public BrazierTile(TileEntityType<?> tileEntityTypeIn) {
-    super(tileEntityTypeIn);
-  }
-
-  public BrazierTile() {
-    super(RootsRegistry.BRAZIER_TILE.get());
+  public BrazierTile(BlockPos pos, BlockState state) {
+    super(RootsRegistry.BRAZIER_TILE.get(), pos, state);
   }
 
   @Override
-  public void read(BlockState state, CompoundNBT tag) {
-    super.read(state, tag);
+  public void load(CompoundTag tag) {
+    super.load(tag);
     inventory.deserializeNBT(tag.getCompound("InventoryHandler"));
     if (tag.contains("burning")) {
       setBurning(tag.getBoolean("burning"));
@@ -59,8 +51,8 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tag) {
-    tag = super.write(tag);
+  public CompoundTag save(CompoundTag tag) {
+    tag = super.save(tag);
     tag.put("InventoryHandler", inventory.serializeNBT());
     tag.putBoolean("burning", isBurning());
     tag.putInt("progress", progress);
@@ -68,54 +60,54 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
   }
 
   @Override
-  public void breakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+  public void breakBlock(Level world, BlockPos pos, BlockState state, Player player) {
     if (getHeldItem() != null && !isBurning()) {
       dropContaining();
     }
-    this.remove();
+    this.setRemoved();
   }
 
   private void dropContaining() {
-    if (!world.isRemote) {
-      world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, getHeldItem()));
+    if (!level.isClientSide) {
+      level.addFreshEntity(new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, getHeldItem()));
     }
     setHeldItem(ItemStack.EMPTY);
   }
 
   private void notifyUpdate(BlockState state) {
-    this.markDirty();
-    this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+    this.setChanged();
+    this.getLevel().sendBlockUpdated(getBlockPos(), state, level.getBlockState(worldPosition), 3);
   }
 
   @Override
-  public ActionResultType activate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, ItemStack playerItem, BlockRayTraceResult hit) {
+  public InteractionResult activate(Level world, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack playerItem, BlockHitResult hit) {
     if (playerItem.isEmpty()) {
       if (!getHeldItem().isEmpty() && !isBurning()) {
-        if (player.isSneaking()) {
-          player.sendStatusMessage(getHeldItem().getDisplayName(), true);
+        if (player.isShiftKeyDown()) {
+          player.displayClientMessage(getHeldItem().getHoverName(), true);
         }
         else {
           dropContaining();
           notifyUpdate(state);
-          player.sendStatusMessage(new TranslationTextComponent("rootsclassic.brazier.burning.empty"), true);
+          player.displayClientMessage(new TranslatableComponent("rootsclassic.brazier.burning.empty"), true);
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
       }
       else if (isBurning()) {
-        if (player.isSneaking()) {
-          player.sendStatusMessage(new TranslationTextComponent("rootsclassic.brazier.burning.off"), true);
+        if (player.isShiftKeyDown()) {
+          player.displayClientMessage(new TranslatableComponent("rootsclassic.brazier.burning.off"), true);
           stopBurning();
           notifyUpdate(state);
-          return ActionResultType.SUCCESS;
+          return InteractionResult.SUCCESS;
         }
       }
     }
     else if (playerItem.getItem() == Items.FLINT_AND_STEEL) {
       if (!getHeldItem().isEmpty()) {
         startBurning();
-        player.sendStatusMessage(new TranslationTextComponent("rootsclassic.brazier.burning.on"), true);
+        player.displayClientMessage(new TranslatableComponent("rootsclassic.brazier.burning.on"), true);
         notifyUpdate(state);
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
       }
     }
     else {
@@ -125,12 +117,12 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
           getHeldItem().setTag(playerItem.getTag());
         }
         playerItem.shrink(1);
-        player.sendStatusMessage(new TranslationTextComponent("rootsclassic.brazier.burning.added"), true);
+        player.displayClientMessage(new TranslatableComponent("rootsclassic.brazier.burning.added"), true);
         notifyUpdate(state);
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
       }
     }
-    return ActionResultType.PASS;
+    return InteractionResult.PASS;
   }
 
   private void startBurning() {
@@ -143,23 +135,22 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
     progress = 0;
   }
 
-  @Override
-  public void tick() {
+  private void tick() {
     setTicker(getTicker() + (isBurning() ? 12 : 3));
     if (progress > 0) {
-      World world = getWorld();
+      Level world = getLevel();
       progress--;
       if (progress % 2 == 0) {
-        world.addParticle(ParticleTypes.SMOKE, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, 0, world.rand.nextDouble() * 0.0625 + 0.0625, 0);
+        world.addParticle(ParticleTypes.SMOKE, getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, 0, world.random.nextDouble() * 0.0625 + 0.0625, 0);
       }
       if (progress % 20 == 0) {
-        world.addParticle(ParticleTypes.FLAME, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, 0, 0, 0);
+        world.addParticle(ParticleTypes.FLAME, getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, 0, 0, 0);
       }
       if (progress <= 0) {
         setBurning(false);
         //        heldItem = ItemStack.EMPTY;
-        markDirty();
-        world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
+        setChanged();
+        world.sendBlockUpdated(getBlockPos(), world.getBlockState(getBlockPos()), world.getBlockState(getBlockPos()), 3);
       }
     }
     if (getTicker() > 360) {
@@ -175,14 +166,6 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
     this.burning = burning;
   }
 
-  public int getTicker() {
-    return ticker;
-  }
-
-  public void setTicker(int ticker) {
-    this.ticker = ticker;
-  }
-
   public ItemStack getHeldItem() {
     return inventory.getStackInSlot(0);
   }
@@ -192,7 +175,7 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
   }
 
   @Override
-  protected void invalidateCaps() {
+  public void invalidateCaps() {
     super.invalidateCaps();
     inventoryHolder.invalidate();
   }

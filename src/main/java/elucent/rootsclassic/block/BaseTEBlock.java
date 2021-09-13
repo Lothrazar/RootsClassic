@@ -1,14 +1,16 @@
 package elucent.rootsclassic.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.tile.TEBase;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class BaseTEBlock extends Block {
 
@@ -17,17 +19,17 @@ public class BaseTEBlock extends Block {
   }
 
   @Override
-  public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-    if (world.getTileEntity(pos) instanceof TEBase) {
-      ((TEBase) world.getTileEntity(pos)).breakBlock(world, pos, state, player);
+  public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+    if (world.getBlockEntity(pos) instanceof TEBase) {
+      ((TEBase) world.getBlockEntity(pos)).breakBlock(world, pos, state, player);
     }
   }
 
   @Override
-  public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-    if (worldIn.getTileEntity(pos) instanceof TEBase) {
-      return ((TEBase) worldIn.getTileEntity(pos)).activate(worldIn, pos, state, player, handIn, player.getHeldItem(handIn), hit);
+  public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    if (worldIn.getBlockEntity(pos) instanceof TEBase) {
+      return ((TEBase) worldIn.getBlockEntity(pos)).activate(worldIn, pos, state, player, handIn, player.getItemInHand(handIn), hit);
     }
-    return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+    return super.use(state, worldIn, pos, player, handIn, hit);
   }
 }

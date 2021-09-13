@@ -3,23 +3,23 @@ package elucent.rootsclassic.item;
 import java.util.List;
 import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.capability.IManaCapability;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
@@ -29,6 +29,8 @@ import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.component.EnumCastType;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class CrystalStaffItem extends Item implements IManaRelatedItem {
 
   public CrystalStaffItem(Properties properties) {
@@ -36,8 +38,8 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public UseAction getUseAction(ItemStack stack) {
-    return UseAction.BOW;
+  public UseAnim getUseAnimation(ItemStack stack) {
+    return UseAnim.BOW;
   }
 
   @Override
@@ -46,11 +48,11 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity caster, int timeLeft) {
+  public void releaseUsing(ItemStack stack, Level world, LivingEntity caster, int timeLeft) {
     if (timeLeft < (72000 - 12) && stack.hasTag()) {
       //BlockPos pos = new BlockPos(player.posX, player.posY, player.posZ);
-      PlayerEntity player = (PlayerEntity) caster;
-      ResourceLocation compName = ResourceLocation.tryCreate(CrystalStaffItem.getEffect(stack));
+      Player player = (Player) caster;
+      ResourceLocation compName = ResourceLocation.tryParse(CrystalStaffItem.getEffect(stack));
       if (compName != null) {
         ComponentBase comp = ComponentManager.getComponentFromName(compName);
         if (comp == null || !caster.getCapability(RootsCapabilityManager.MANA_CAPABILITY).isPresent()) {
@@ -59,10 +61,10 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
         int potency = getPotency(stack) + 1;
         int efficiency = CrystalStaffItem.getEfficiency(stack);
         int size = CrystalStaffItem.getSize(stack);
-        if (player.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem() instanceof SylvanArmorItem
-            && player.getItemStackFromSlot(EquipmentSlotType.CHEST).getItem() instanceof SylvanArmorItem
-            && player.getItemStackFromSlot(EquipmentSlotType.LEGS).getItem() instanceof SylvanArmorItem
-            && player.getItemStackFromSlot(EquipmentSlotType.FEET).getItem() instanceof SylvanArmorItem) {
+        if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof SylvanArmorItem
+            && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof SylvanArmorItem
+            && player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof SylvanArmorItem
+            && player.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof SylvanArmorItem) {
           potency += 1;
         }
         //        double xpCost = (comp.getManaCost() + potency) * (1.0 - 0.25 * efficiency);
@@ -70,23 +72,23 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
         if (manaCap.getMana() >= comp.getManaCost() / (efficiency + 1)) {
           //pay mana cost
           manaCap.setMana(manaCap.getMana() - ((comp.getManaCost()) / (efficiency + 1)));
-          comp.doEffect(world, caster, EnumCastType.SPELL, caster.getPosX() + 3.0 * caster.getLookVec().x, caster.getPosY() + 3.0 * caster.getLookVec().y,
-              caster.getPosZ() + 3.0 * caster.getLookVec().z, potency, efficiency, 3.0 + 2.0 * size);
+          comp.doEffect(world, caster, EnumCastType.SPELL, caster.getX() + 3.0 * caster.getLookAngle().x, caster.getY() + 3.0 * caster.getLookAngle().y,
+              caster.getZ() + 3.0 * caster.getLookAngle().z, potency, efficiency, 3.0 + 2.0 * size);
           for (int i = 0; i < 90; i++) {
             double offX = random.nextFloat() * 0.5 - 0.25;
             double offY = random.nextFloat() * 0.5 - 0.25;
             double offZ = random.nextFloat() * 0.5 - 0.25;
             double coeff = (offX + offY + offZ) / 1.5 + 0.5;
-            double dx = (caster.getLookVec().x + offX) * coeff;
-            double dy = (caster.getLookVec().y + offY) * coeff;
-            double dz = (caster.getLookVec().z + offZ) * coeff;
-            if (world.rand.nextBoolean()) {
+            double dx = (caster.getLookAngle().x + offX) * coeff;
+            double dy = (caster.getLookAngle().y + offY) * coeff;
+            double dz = (caster.getLookAngle().z + offZ) * coeff;
+            if (world.random.nextBoolean()) {
               world.addParticle(MagicParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                  caster.getPosX() + dx, caster.getPosY() + 1.5 + dy, caster.getPosZ() + dz, dx, dy, dz);
+                  caster.getX() + dx, caster.getY() + 1.5 + dy, caster.getZ() + dz, dx, dy, dz);
             }
             else {
               world.addParticle(MagicParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                  caster.getPosX() + dx, caster.getPosY() + 1.5 + dy, caster.getPosZ() + dz, dx, dy, dz);
+                  caster.getX() + dx, caster.getY() + 1.5 + dy, caster.getZ() + dz, dx, dy, dz);
             }
           }
         }
@@ -95,17 +97,17 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-    ItemStack stack = player.getHeldItem(hand);
+  public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+    ItemStack stack = player.getItemInHand(hand);
     if (stack.hasTag()) {
-      CompoundNBT tag = stack.getTag();
-      if (!player.isSneaking()) {
-        if (world.isRemote && Minecraft.getInstance().currentScreen != null) {
-          return new ActionResult<>(ActionResultType.FAIL, stack);
+      CompoundTag tag = stack.getTag();
+      if (!player.isShiftKeyDown()) {
+        if (world.isClientSide && Minecraft.getInstance().screen != null) {
+          return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
         }
         else {
-          player.setActiveHand(hand);
-          return new ActionResult<>(ActionResultType.PASS, stack);
+          player.startUsingItem(hand);
+          return new InteractionResultHolder<>(InteractionResult.PASS, stack);
         }
       }
       else {
@@ -114,10 +116,10 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
           tag.putInt(Const.NBT_SELECTED, 1);
         }
         stack.setTag(tag);
-        return new ActionResult<>(ActionResultType.FAIL, stack);
+        return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
       }
     }
-    return new ActionResult<>(ActionResultType.FAIL, stack);
+    return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
   }
 
   @Override
@@ -134,26 +136,26 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
   @Override
   public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
     if (stack.hasTag()) {
-      CompoundNBT tag = stack.getTag();
+      CompoundTag tag = stack.getTag();
       String effect = CrystalStaffItem.getEffect(stack);
       if (effect != null) {
-        ResourceLocation componentName = ResourceLocation.tryCreate(effect);
+        ResourceLocation componentName = ResourceLocation.tryParse(effect);
         if (componentName != null) {
           ComponentBase comp = ComponentManager.getComponentFromName(componentName);
           if (comp != null) {
             int potency = tag.getInt(Const.NBT_POTENCY);
             int efficiency = tag.getInt(Const.NBT_EFFICIENCY);
             int size = tag.getInt(Const.NBT_SIZE);
-            comp.castingAction((PlayerEntity) player, count, potency, efficiency, size);
+            comp.castingAction((Player) player, count, potency, efficiency, size);
             if (random.nextBoolean()) {
-              player.getEntityWorld().addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                  player.getPosX() + 2.0 * (random.nextFloat() - 0.5), player.getPosY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getPosZ() + 2.0 * (random.nextFloat() - 0.5),
-                  player.getPosX(), player.getPosY() + 1.0, player.getPosZ());
+              player.getCommandSenderWorld().addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
+                  player.getX() + 2.0 * (random.nextFloat() - 0.5), player.getY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getZ() + 2.0 * (random.nextFloat() - 0.5),
+                  player.getX(), player.getY() + 1.0, player.getZ());
             }
             else {
-              player.getEntityWorld().addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                  player.getPosX() + 2.0 * (random.nextFloat() - 0.5), player.getPosY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getPosZ() + 2.0 * (random.nextFloat() - 0.5),
-                  player.getPosX(), player.getPosY() + 1.0, player.getPosZ());
+              player.getCommandSenderWorld().addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
+                  player.getX() + 2.0 * (random.nextFloat() - 0.5), player.getY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getZ() + 2.0 * (random.nextFloat() - 0.5),
+                  player.getX(), player.getY() + 1.0, player.getZ());
             }
           }
         }
@@ -162,7 +164,7 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
   }
 
   public static void createData(ItemStack stack) {
-    CompoundNBT tag = new CompoundNBT();
+    CompoundTag tag = new CompoundTag();
     tag.putInt(Const.NBT_SELECTED, 1);
     tag.putInt(Const.NBT_POTENCY + "1", 0);
     tag.putInt(Const.NBT_POTENCY + "2", 0);
@@ -184,7 +186,7 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
   }
 
   public static void addEffect(ItemStack stack, int slot, String effect, int potency, int efficiency, int size) {
-    CompoundNBT tag = stack.hasTag() ? stack.getTag() : new CompoundNBT();
+    CompoundTag tag = stack.hasTag() ? stack.getTag() : new CompoundTag();
     tag.putString(Const.NBT_EFFECT + slot, effect);
     tag.putInt(Const.NBT_POTENCY + slot, potency);
     tag.putInt(Const.NBT_EFFICIENCY + slot, efficiency);
@@ -194,7 +196,7 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
 
   public static Integer getPotency(ItemStack stack) {
     if (stack.hasTag()) {
-      CompoundNBT tag = stack.getTag();
+      CompoundTag tag = stack.getTag();
       return tag.getInt(Const.NBT_POTENCY + tag.getInt(Const.NBT_SELECTED));
     }
     return 0;
@@ -202,7 +204,7 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
 
   public static Integer getEfficiency(ItemStack stack) {
     if (stack.hasTag()) {
-      CompoundNBT tag = stack.getTag();
+      CompoundTag tag = stack.getTag();
       return tag.getInt(Const.NBT_EFFICIENCY + tag.getInt(Const.NBT_SELECTED));
     }
     return 0;
@@ -210,7 +212,7 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
 
   public static Integer getSize(ItemStack stack) {
     if (stack.hasTag()) {
-      CompoundNBT tag = stack.getTag();
+      CompoundTag tag = stack.getTag();
       return tag.getInt(Const.NBT_SIZE + tag.getInt(Const.NBT_SELECTED));
     }
     return 0;
@@ -218,7 +220,7 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
 
   public static String getEffect(ItemStack stack) {
     if (stack.hasTag()) {
-      CompoundNBT tag = stack.getTag();
+      CompoundTag tag = stack.getTag();
       return tag.getString(Const.NBT_EFFECT + tag.getInt(Const.NBT_SELECTED));
     }
     return null;
@@ -227,39 +229,39 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
   //Unused?
   public static String getEffect(ItemStack stack, int slot) {
     if (stack.hasTag()) {
-      CompoundNBT tag = stack.getTag();
+      CompoundTag tag = stack.getTag();
       return tag.getString(Const.NBT_EFFECT + slot);
     }
     return null;
   }
 
   @Override
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    super.addInformation(stack, worldIn, tooltip, flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+    super.appendHoverText(stack, worldIn, tooltip, flagIn);
     if (stack.hasTag()) {
       String effect = CrystalStaffItem.getEffect(stack);
       if (effect != null) {
-        ResourceLocation compName = ResourceLocation.tryCreate(effect);
+        ResourceLocation compName = ResourceLocation.tryParse(effect);
         if (compName != null) {
           ComponentBase comp = ComponentManager.getComponentFromName(compName);
           if (comp != null) {
-            tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.spelltypeheading")
-                .appendString(": ").mergeStyle(TextFormatting.GOLD).appendSibling(comp.getEffectName().mergeStyle(comp.getTextColor())));
+            tooltip.add(new TranslatableComponent("rootsclassic.tooltip.spelltypeheading")
+                .append(": ").withStyle(ChatFormatting.GOLD).append(comp.getEffectName().withStyle(comp.getTextColor())));
           }
         }
       }
       else {
         //TODO: let people know it's an invalid effect
       }
-      tooltip.add(new StringTextComponent("  +" + CrystalStaffItem.getPotency(stack) + " ")
-          .appendSibling(new TranslationTextComponent("rootsclassic.tooltip.spellpotency")).appendString(".").mergeStyle(TextFormatting.RED));
-      tooltip.add(new StringTextComponent("  +" + CrystalStaffItem.getEfficiency(stack) + " ")
-          .appendSibling(new TranslationTextComponent("rootsclassic.tooltip.spellefficiency")).appendString(".").mergeStyle(TextFormatting.RED));
-      tooltip.add(new StringTextComponent("  +" + CrystalStaffItem.getSize(stack) + " ")
-          .appendSibling(new TranslationTextComponent("rootsclassic.tooltip.spellsize")).appendString(".").mergeStyle(TextFormatting.RED));
+      tooltip.add(new TextComponent("  +" + CrystalStaffItem.getPotency(stack) + " ")
+          .append(new TranslatableComponent("rootsclassic.tooltip.spellpotency")).append(".").withStyle(ChatFormatting.RED));
+      tooltip.add(new TextComponent("  +" + CrystalStaffItem.getEfficiency(stack) + " ")
+          .append(new TranslatableComponent("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(ChatFormatting.RED));
+      tooltip.add(new TextComponent("  +" + CrystalStaffItem.getSize(stack) + " ")
+          .append(new TranslatableComponent("rootsclassic.tooltip.spellsize")).append(".").withStyle(ChatFormatting.RED));
     }
     else {
-      tooltip.add(new TranslationTextComponent("rootsclassic.error.unset").mergeStyle(TextFormatting.GRAY));
+      tooltip.add(new TranslatableComponent("rootsclassic.error.unset").withStyle(ChatFormatting.GRAY));
     }
   }
 }

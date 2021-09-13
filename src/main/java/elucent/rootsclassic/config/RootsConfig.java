@@ -105,14 +105,4 @@ public class RootsConfig {
     commonSpec = specPair.getRight();
     COMMON = specPair.getLeft();
   }
-
-  @SubscribeEvent
-  public static void onLoad(final ModConfig.Loading configEvent) {
-    Roots.LOGGER.debug("Loaded Roots Classic's config file {}", configEvent.getConfig().getFileName());
-  }
-
-  @SubscribeEvent
-  public static void onFileChange(final ModConfig.Reloading configEvent) {
-    Roots.LOGGER.fatal("Roots Classic's config just got changed on the file system!");
-  }
 }

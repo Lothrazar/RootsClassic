@@ -3,26 +3,26 @@ package elucent.rootsclassic.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import elucent.rootsclassic.item.SpellPowderItem;
 import elucent.rootsclassic.registry.RootsRecipes;
 import elucent.rootsclassic.registry.RootsRegistry;
 
-public class ComponentRecipe implements IRecipe<IInventory> {
+public class ComponentRecipe implements Recipe<Container> {
 
   private static final int MAX_INGREDIENTS = 4;
   private final ResourceLocation id;
@@ -55,7 +55,7 @@ public class ComponentRecipe implements IRecipe<IInventory> {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return RootsRecipes.COMPONENT_SERIALIZER.get();
   }
 
@@ -65,8 +65,8 @@ public class ComponentRecipe implements IRecipe<IInventory> {
   }
 
   @Override
-  public ItemStack getCraftingResult(IInventory inventory) {
-    ItemStack outputStack = getRecipeOutput();
+  public ItemStack assemble(Container inventory) {
+    ItemStack outputStack = getResultItem();
     if (outputStack.getItem() instanceof SpellPowderItem) {
       SpellPowderItem.createData(outputStack, this.getEffectResult(), inventory);
     }
@@ -74,12 +74,12 @@ public class ComponentRecipe implements IRecipe<IInventory> {
   }
 
   @Override
-  public boolean canFit(int width, int height) {
+  public boolean canCraftInDimensions(int width, int height) {
     return false;
   }
 
   @Override
-  public ItemStack getRecipeOutput() {
+  public ItemStack getResultItem() {
     return recipeOutput.copy();
   }
 
@@ -89,7 +89,7 @@ public class ComponentRecipe implements IRecipe<IInventory> {
   }
 
   @Override
-  public IRecipeType<?> getType() {
+  public RecipeType<?> getType() {
     return RootsRecipes.COMPONENT_RECIPE_TYPE;
   }
 
@@ -97,16 +97,16 @@ public class ComponentRecipe implements IRecipe<IInventory> {
     return needsMixin;
   }
 
-  public TranslationTextComponent getLocalizedName() {
-    return new TranslationTextComponent("rootsclassic.component." + this.getId());
+  public TranslatableComponent getLocalizedName() {
+    return new TranslatableComponent("rootsclassic.component." + this.getId());
   }
 
   @Override
   public String toString() {
     StringBuilder s = new StringBuilder();
     for (Ingredient mat : getIngredients()) {
-      if (!mat.hasNoMatchingItems()) {
-        s.append(mat.getMatchingStacks()[0].getDisplayName().getString()).append(" ");
+      if (!mat.isEmpty()) {
+        s.append(mat.getItems()[0].getHoverName().getString()).append(" ");
       }
       else {
         s.append("One of the ingredients has no matching ItemStack's");
@@ -116,11 +116,11 @@ public class ComponentRecipe implements IRecipe<IInventory> {
   }
 
   @Override
-  public boolean matches(IInventory inventory, World worldIn) {
+  public boolean matches(Container inventory, Level worldIn) {
     java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
     int i = 0;
-    for (int j = 0; j < inventory.getSizeInventory(); j++) {
-      ItemStack stack = inventory.getStackInSlot(j);
+    for (int j = 0; j < inventory.getContainerSize(); j++) {
+      ItemStack stack = inventory.getItem(j);
       if (!stack.isEmpty() && !isSupplementItem(stack)) {
         ++i;
         inputs.add(stack);
@@ -136,7 +136,7 @@ public class ComponentRecipe implements IRecipe<IInventory> {
    * @return
    */
   private boolean isSupplementItem(ItemStack stack) {
-    if (getRecipeOutput().getItem() instanceof SpellPowderItem) {
+    if (getResultItem().getItem() instanceof SpellPowderItem) {
       return stack.getItem() == RootsRegistry.OLD_ROOT.get() ||
           stack.getItem() == RootsRegistry.VERDANT_SPRIG.get() ||
           stack.getItem() == RootsRegistry.INFERNAL_BULB.get() ||
@@ -150,10 +150,10 @@ public class ComponentRecipe implements IRecipe<IInventory> {
     }
   }
 
-  public static int getModifierCapacity(IInventory inventory) {
+  public static int getModifierCapacity(Container inventory) {
     int maxCapacity = -1;
-    for (int i = 0; i < inventory.getSizeInventory(); i++) {
-      ItemStack stack = inventory.getStackInSlot(i);
+    for (int i = 0; i < inventory.getContainerSize(); i++) {
+      ItemStack stack = inventory.getItem(i);
       if (stack.getItem() == RootsRegistry.OLD_ROOT.get() && maxCapacity < 0) {
         maxCapacity = 0;
       }
@@ -170,10 +170,10 @@ public class ComponentRecipe implements IRecipe<IInventory> {
     return maxCapacity;
   }
 
-  public static int getModifierCount(IInventory inventory) {
+  public static int getModifierCount(Container inventory) {
     int count = 0;
-    for (int i = 0; i < inventory.getSizeInventory(); i++) {
-      ItemStack stack = inventory.getStackInSlot(i);
+    for (int i = 0; i < inventory.getContainerSize(); i++) {
+      ItemStack stack = inventory.getItem(i);
       if (stack.getItem() == Items.GLOWSTONE_DUST) {
         count++;
       }
@@ -187,11 +187,11 @@ public class ComponentRecipe implements IRecipe<IInventory> {
     return count;
   }
 
-  public static class SerializeComponentRecipe extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<ComponentRecipe> {
+  public static class SerializeComponentRecipe extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ComponentRecipe> {
 
-    public ComponentRecipe read(ResourceLocation recipeId, JsonObject json) {
-      String s = JSONUtils.getString(json, "group", "");
-      NonNullList<Ingredient> nonnulllist = readIngredients(JSONUtils.getJsonArray(json, "ingredients"));
+    public ComponentRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+      String s = GsonHelper.getAsString(json, "group", "");
+      NonNullList<Ingredient> nonnulllist = readIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
       if (nonnulllist.isEmpty()) {
         throw new JsonParseException("No ingredients for component recipe");
       }
@@ -199,12 +199,12 @@ public class ComponentRecipe implements IRecipe<IInventory> {
         throw new JsonParseException("Too many ingredients for component recipe the max is " + MAX_INGREDIENTS);
       }
       else {
-        boolean needsMixin = JSONUtils.getBoolean(json, "needs_mixin", true);
-        String effect = JSONUtils.getString(json, "effect");
-        ResourceLocation effectResult = ResourceLocation.tryCreate(effect);
+        boolean needsMixin = GsonHelper.getAsBoolean(json, "needs_mixin", true);
+        String effect = GsonHelper.getAsString(json, "effect");
+        ResourceLocation effectResult = ResourceLocation.tryParse(effect);
         ItemStack itemstack;
-        if (JSONUtils.hasField(json, "result")) {
-          itemstack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "result"));
+        if (GsonHelper.isValidNode(json, "result")) {
+          itemstack = ShapedRecipe.itemFromJson(GsonHelper.getAsJsonObject(json, "result"));
           return new ComponentRecipe(recipeId, effectResult, s, itemstack, nonnulllist, needsMixin);
         }
         else {
@@ -216,36 +216,36 @@ public class ComponentRecipe implements IRecipe<IInventory> {
     private static NonNullList<Ingredient> readIngredients(JsonArray ingredientArray) {
       NonNullList<Ingredient> nonnulllist = NonNullList.create();
       for (int i = 0; i < ingredientArray.size(); ++i) {
-        Ingredient ingredient = Ingredient.deserialize(ingredientArray.get(i));
-        if (!ingredient.hasNoMatchingItems()) {
+        Ingredient ingredient = Ingredient.fromJson(ingredientArray.get(i));
+        if (!ingredient.isEmpty()) {
           nonnulllist.add(ingredient);
         }
       }
       return nonnulllist;
     }
 
-    public ComponentRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-      String s = buffer.readString(32767);
+    public ComponentRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+      String s = buffer.readUtf(32767);
       int i = buffer.readVarInt();
       NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i, Ingredient.EMPTY);
       for (int j = 0; j < nonnulllist.size(); ++j) {
-        nonnulllist.set(j, Ingredient.read(buffer));
+        nonnulllist.set(j, Ingredient.fromNetwork(buffer));
       }
       boolean needsMixin = buffer.readBoolean();
       ResourceLocation effectResult = buffer.readResourceLocation();
-      ItemStack itemstack = buffer.readItemStack();
+      ItemStack itemstack = buffer.readItem();
       return new ComponentRecipe(recipeId, effectResult, s, itemstack, nonnulllist, needsMixin);
     }
 
-    public void write(PacketBuffer buffer, ComponentRecipe recipe) {
-      buffer.writeString(recipe.group);
+    public void toNetwork(FriendlyByteBuf buffer, ComponentRecipe recipe) {
+      buffer.writeUtf(recipe.group);
       buffer.writeVarInt(recipe.materials.size());
       for (Ingredient ingredient : recipe.materials) {
-        ingredient.write(buffer);
+        ingredient.toNetwork(buffer);
       }
       buffer.writeBoolean(recipe.needsMixin);
       buffer.writeResourceLocation(recipe.effectResult);
-      buffer.writeItemStack(recipe.recipeOutput);
+      buffer.writeItem(recipe.recipeOutput);
     }
   }
 }

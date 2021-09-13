@@ -1,10 +1,10 @@
 package elucent.rootsclassic.compat;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.registry.RootsRegistry;
 import mezz.jei.api.IModPlugin;
@@ -27,7 +27,7 @@ public class JEIPlugin implements IModPlugin {
     for (RegistryObject<Item> registryObject : RootsRegistry.ITEMS.getEntries()) {
       Item item = registryObject.get();
       if (item != null) {
-        registration.addIngredientInfo(new ItemStack(item), VanillaTypes.ITEM, new TranslationTextComponent(item.getTranslationKey() + ".guide"));
+        registration.addIngredientInfo(new ItemStack(item), VanillaTypes.ITEM, new TranslatableComponent(item.getDescriptionId() + ".guide"));
       }
     }
   }

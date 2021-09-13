@@ -1,12 +1,12 @@
 package elucent.rootsclassic.ritual.rituals;
 
 import java.util.List;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.ritual.RitualBase;
 
 public class RitualCrafting extends RitualBase {
@@ -23,16 +23,16 @@ public class RitualCrafting extends RitualBase {
   }
 
   @Override
-  public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
+  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     // if (Util.itemListsMatchWithSize(inventory, this.ingredients)) {
     ItemStack toSpawn = result.copy();
-    if (!world.isRemote) {
+    if (!world.isClientSide) {
       ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
-      item.forceSpawn = true;
-      world.addEntity(item);
+      item.forcedLoading = true;
+      world.addFreshEntity(item);
     }
-    inventory.clear();
-    world.getTileEntity(pos).markDirty();
+    inventory.clearContent();
+    world.getBlockEntity(pos).setChanged();
     //}
   }
 }

@@ -10,16 +10,16 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
-
+apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 version = "${mc_version}-${version}"
 group = "elucent.roots" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "RootsClassic"
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
+java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
-println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    mappings  channel: "${mcp_channel}", version: "${mcp_mappings}"
+
+mappings channel: 'official', version: '1.17.1'
 
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -104,10 +104,10 @@ dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
 
-    compileOnly fg.deobf("mezz.jei:jei-1.16.5:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.16.5:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:${jei_version}")
 
-    implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-${mc_version}:${crafttweaker_version}")
+   // implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-${mc_version}:${crafttweaker_version}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

@@ -1,11 +1,11 @@
 package elucent.rootsclassic.research;
 
 import java.util.ArrayList;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentManager;

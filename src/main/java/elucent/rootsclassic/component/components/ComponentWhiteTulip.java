@@ -1,16 +1,16 @@
 package elucent.rootsclassic.component.components;
 
 import java.util.ArrayList;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
@@ -23,19 +23,19 @@ public class ComponentWhiteTulip extends ComponentBase {
   }
 
   @Override
-  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
       //   int damageDealt = 0;
-      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
+      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesOfClass(LivingEntity.class, new AABB(x - size, y - size, z - size, x + size, y + size, z + size));
       for (LivingEntity target : targets) {
-        if (target.getUniqueID() != caster.getUniqueID()) {
-          if (target instanceof PlayerEntity && RootsConfig.COMMON.disablePVP.get()) {}
+        if (target.getUUID() != caster.getUUID()) {
+          if (target instanceof Player && RootsConfig.COMMON.disablePVP.get()) {}
           else {
-            target.attackEntityFrom(DamageSource.GENERIC, (int) (5 + 3 * potency));
+            target.hurt(DamageSource.GENERIC, (int) (5 + 3 * potency));
             //     damageDealt += (int) (5 + 3 * potency);
-            target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 200 + 100 * (int) potency, (int) potency));
-            target.setLastAttackedEntity(caster);
-            target.setRevengeTarget((LivingEntity) caster);
+            target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 200 + 100 * (int) potency, (int) potency));
+            target.setLastHurtMob(caster);
+            target.setLastHurtByMob((LivingEntity) caster);
           }
         }
       }

@@ -4,13 +4,13 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleType;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import elucent.rootsclassic.client.particles.ParticleColor;
 import elucent.rootsclassic.registry.ParticleRegistry;
 
-public class MagicParticleTypeData implements IParticleData {
+public class MagicParticleTypeData implements ParticleOptions {
 
   private ParticleType<MagicParticleTypeData> type;
   public static final Codec<MagicParticleTypeData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -20,17 +20,17 @@ public class MagicParticleTypeData implements IParticleData {
       .apply(instance, MagicParticleTypeData::new));
   public ParticleColor color;
   @SuppressWarnings("deprecation")
-  static final IParticleData.IDeserializer<MagicParticleTypeData> DESERIALIZER = new IParticleData.IDeserializer<MagicParticleTypeData>() {
+  static final ParticleOptions.Deserializer<MagicParticleTypeData> DESERIALIZER = new ParticleOptions.Deserializer<MagicParticleTypeData>() {
 
     @Override
-    public MagicParticleTypeData deserialize(ParticleType<MagicParticleTypeData> type, StringReader reader) throws CommandSyntaxException {
+    public MagicParticleTypeData fromCommand(ParticleType<MagicParticleTypeData> type, StringReader reader) throws CommandSyntaxException {
       reader.expect(' ');
       return new MagicParticleTypeData(type, ParticleColor.deserialize(reader.readString()));
     }
 
     @Override
-    public MagicParticleTypeData read(ParticleType<MagicParticleTypeData> type, PacketBuffer buffer) {
-      return new MagicParticleTypeData(type, ParticleColor.deserialize(buffer.readString()));
+    public MagicParticleTypeData fromNetwork(ParticleType<MagicParticleTypeData> type, FriendlyByteBuf buffer) {
+      return new MagicParticleTypeData(type, ParticleColor.deserialize(buffer.readUtf()));
     }
   };
 
@@ -49,10 +49,10 @@ public class MagicParticleTypeData implements IParticleData {
   }
 
   @Override
-  public void write(PacketBuffer buffer) {}
+  public void writeToNetwork(FriendlyByteBuf buffer) {}
 
   @Override
-  public String getParameters() {
+  public String writeToString() {
     return null;
   }
 }

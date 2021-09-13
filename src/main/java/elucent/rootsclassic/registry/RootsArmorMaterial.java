@@ -1,20 +1,20 @@
 package elucent.rootsclassic.registry;
 
 import java.util.function.Supplier;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public enum RootsArmorMaterial implements IArmorMaterial {
+public enum RootsArmorMaterial implements ArmorMaterial {
 
-  SYLVAN("rootsclassic:sylvan", 10, new int[] { 1, 5, 6, 2 }, 20, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+  SYLVAN("rootsclassic:sylvan", 10, new int[] { 1, 5, 6, 2 }, 20, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
     return null;
-  }), WILDWOOD("rootsclassic:wildwood", 15, new int[] { 2, 5, 7, 3 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.0f, 0.0F, () -> {
+  }), WILDWOOD("rootsclassic:wildwood", 15, new int[] { 2, 5, 7, 3 }, 10, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0f, 0.0F, () -> {
     return null;
   });
 
@@ -26,7 +26,7 @@ public enum RootsArmorMaterial implements IArmorMaterial {
   private final SoundEvent soundEvent;
   private final float toughness;
   private final float knockbackResistance;
-  private final LazyValue<Ingredient> repairMaterial;
+  private final LazyLoadedValue<Ingredient> repairMaterial;
 
   RootsArmorMaterial(String name, int maxDamageFactor, int[] damageReductionAmountArray, int enchantability, SoundEvent soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> repairMaterial) {
     this.name = name;
@@ -36,27 +36,27 @@ public enum RootsArmorMaterial implements IArmorMaterial {
     this.soundEvent = soundEvent;
     this.toughness = toughness;
     this.knockbackResistance = knockbackResistance;
-    this.repairMaterial = new LazyValue<>(repairMaterial);
+    this.repairMaterial = new LazyLoadedValue<>(repairMaterial);
   }
 
-  public int getDurability(EquipmentSlotType slotIn) {
+  public int getDurabilityForSlot(EquipmentSlot slotIn) {
     return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
   }
 
-  public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+  public int getDefenseForSlot(EquipmentSlot slotIn) {
     return this.damageReductionAmountArray[slotIn.getIndex()];
   }
 
-  public int getEnchantability() {
+  public int getEnchantmentValue() {
     return this.enchantability;
   }
 
-  public SoundEvent getSoundEvent() {
+  public SoundEvent getEquipSound() {
     return this.soundEvent;
   }
 
-  public Ingredient getRepairMaterial() {
-    return this.repairMaterial.getValue();
+  public Ingredient getRepairIngredient() {
+    return this.repairMaterial.get();
   }
 
   @OnlyIn(Dist.CLIENT)

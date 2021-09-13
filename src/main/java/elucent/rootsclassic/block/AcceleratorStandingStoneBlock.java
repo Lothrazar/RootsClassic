@@ -1,15 +1,17 @@
 package elucent.rootsclassic.block;
 
 import javax.annotation.Nullable;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.state.properties.DoubleBlockHalf;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.tile.AcceleratorStandingStoneTile;
 import elucent.rootsclassic.tile.TEBase;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class AcceleratorStandingStoneBlock extends AttunedStandingStoneBlock {
 
@@ -18,22 +20,22 @@ public class AcceleratorStandingStoneBlock extends AttunedStandingStoneBlock {
   }
 
   @Override
-  public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-    super.onBlockHarvested(world, pos, state, player);
-    if (world.getTileEntity(pos) instanceof TEBase) {
-      ((TEBase) world.getTileEntity(pos)).breakBlock(world, pos, state, player);
+  public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+    super.playerWillDestroy(world, pos, state, player);
+    if (world.getBlockEntity(pos) instanceof TEBase) {
+      ((TEBase) world.getBlockEntity(pos)).breakBlock(world, pos, state, player);
     }
   }
 
   @Override
   public boolean hasTileEntity(BlockState state) {
-    return state.get(HALF) == DoubleBlockHalf.UPPER;
+    return state.getValue(HALF) == DoubleBlockHalf.UPPER;
   }
 
   @Nullable
   @Override
-  public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-    if (state.get(HALF) == DoubleBlockHalf.UPPER) {
+  public BlockEntity createTileEntity(BlockState state, BlockGetter world) {
+    if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
       return new AcceleratorStandingStoneTile();
     }
     return super.createTileEntity(state, world);

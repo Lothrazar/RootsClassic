@@ -1,6 +1,6 @@
 package elucent.rootsclassic.util;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
 public class InventoryUtil {
@@ -62,7 +62,7 @@ public class InventoryUtil {
     if (itemHandler == null) return null;
     CustomInventory inventory = new CustomInventory(itemHandler.getSlots());
     for (int i = 0; i < itemHandler.getSlots(); i++) {
-      inventory.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
+      inventory.setItem(i, itemHandler.getStackInSlot(i));
     }
     return inventory;
   }

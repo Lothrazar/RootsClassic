@@ -1,7 +1,9 @@
 package elucent.rootsclassic.item;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class PestleItem extends Item {
 

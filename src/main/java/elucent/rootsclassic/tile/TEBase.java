@@ -1,45 +1,64 @@
 package elucent.rootsclassic.tile;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
-public class TEBase extends TileEntity {
+public class TEBase extends BlockEntity {
 
-  public TEBase(TileEntityType<?> tileEntityTypeIn) {
-    super(tileEntityTypeIn);
+  public int ticker = 0;
+
+  public TEBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
+    super(tileEntityTypeIn, pos, state);
   }
 
   @Override
-  public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
-    read(getBlockState(), packet.getNbtCompound());
+  public void load(CompoundTag tag) {
+    super.load(tag);
   }
 
   @Override
-  public CompoundNBT getUpdateTag() {
-    return write(new CompoundNBT());
+  public CompoundTag save(CompoundTag tag) {
+    super.save(tag);
+    return tag;
+  }
+  public int getTicker() {
+    return ticker;
+  }
+
+  public void setTicker(int ticker) {
+    this.ticker = ticker;
+  }
+  @Override
+  public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet) {
+    load(packet.getTag());
   }
 
   @Override
-  public SUpdateTileEntityPacket getUpdatePacket() {
-    return new SUpdateTileEntityPacket(getPos(), 0, getUpdateTag());
+  public CompoundTag getUpdateTag() {
+    return save(new CompoundTag());
   }
 
-  public void breakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-    this.remove();
+  @Override
+  public ClientboundBlockEntityDataPacket getUpdatePacket() {
+    return new ClientboundBlockEntityDataPacket(getBlockPos(), 0, getUpdateTag());
   }
 
-  public ActionResultType activate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, ItemStack heldItem, BlockRayTraceResult hit) {
-    return ActionResultType.PASS;
+  public void breakBlock(Level world, BlockPos pos, BlockState state, Player player) {
+    this.setRemoved();
+  }
+
+  public InteractionResult activate(Level world, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
+    return InteractionResult.PASS;
   }
 }

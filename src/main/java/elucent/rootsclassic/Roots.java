@@ -1,7 +1,7 @@
 package elucent.rootsclassic;
 
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -32,10 +32,10 @@ import elucent.rootsclassic.ritual.RitualManager;
 @Mod(Const.MODID)
 public class Roots {
 
-  public static ItemGroup tab = new ItemGroup(Const.MODID) {
+  public static CreativeModeTab tab = new CreativeModeTab(Const.MODID) {
 
     @Override
-    public ItemStack createIcon() {
+    public ItemStack makeIcon() {
       return new ItemStack(RootsRegistry.SPELL_POWDER.get());
     }
   };

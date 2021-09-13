@@ -1,11 +1,11 @@
 package elucent.rootsclassic.registry;
 
 import java.util.function.Supplier;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.util.LazyLoadedValue;
 
-public enum RootsItemTier implements IItemTier {
+public enum RootsItemTier implements Tier {
 
   LIVING(2, 192, 6.0f, 2.0f, 18, () -> null), ENGRAVED(2, 1050, 5F, 8.0F, 5, () -> null);
 
@@ -14,7 +14,7 @@ public enum RootsItemTier implements IItemTier {
   private final float efficiency;
   private final float attackDamage;
   private final int enchantability;
-  private final LazyValue<Ingredient> repairMaterial;
+  private final LazyLoadedValue<Ingredient> repairMaterial;
 
   RootsItemTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn, int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
     this.harvestLevel = harvestLevelIn;
@@ -22,30 +22,30 @@ public enum RootsItemTier implements IItemTier {
     this.efficiency = efficiencyIn;
     this.attackDamage = attackDamageIn;
     this.enchantability = enchantabilityIn;
-    this.repairMaterial = new LazyValue<>(repairMaterialIn);
+    this.repairMaterial = new LazyLoadedValue<>(repairMaterialIn);
   }
 
-  public int getMaxUses() {
+  public int getUses() {
     return this.maxUses;
   }
 
-  public float getEfficiency() {
+  public float getSpeed() {
     return this.efficiency;
   }
 
-  public float getAttackDamage() {
+  public float getAttackDamageBonus() {
     return this.attackDamage;
   }
 
-  public int getHarvestLevel() {
+  public int getLevel() {
     return this.harvestLevel;
   }
 
-  public int getEnchantability() {
+  public int getEnchantmentValue() {
     return this.enchantability;
   }
 
-  public Ingredient getRepairMaterial() {
-    return this.repairMaterial.getValue();
+  public Ingredient getRepairIngredient() {
+    return this.repairMaterial.get();
   }
 }

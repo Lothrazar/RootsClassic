@@ -1,18 +1,18 @@
 package elucent.rootsclassic.client.particles;
 
-import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleRenderType;
-import net.minecraft.client.particle.SpriteTexturedParticle;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.multiplayer.ClientLevel;
 import elucent.rootsclassic.client.particles.factory.ParticleRenderTypes;
 
-public class MagicParticle extends SpriteTexturedParticle {
+public class MagicParticle extends TextureSheetParticle {
 
   public double colorR = 0;
   public double colorG = 0;
   public double colorB = 0;
 
-  public MagicParticle(ClientWorld worldIn, double x, double y, double z, double vx, double vy, double vz, float r, float g, float b, IAnimatedSprite sprite) {
+  public MagicParticle(ClientLevel worldIn, double x, double y, double z, double vx, double vy, double vz, float r, float g, float b, SpriteSet sprite) {
     super(worldIn, x, y, z, 0, 0, 0);
     this.colorR = r;
     this.colorG = g;
@@ -27,37 +27,37 @@ public class MagicParticle extends SpriteTexturedParticle {
       this.colorB = this.colorB / 255.0;
     }
     this.setColor(1, 1, 1);
-    this.maxAge = 20;
-    this.motionX = vx;
-    this.motionY = vy;
-    this.motionZ = vz;
-    this.selectSpriteRandomly(sprite);
+    this.lifetime = 20;
+    this.xd = vx;
+    this.yd = vy;
+    this.zd = vz;
+    this.pickSprite(sprite);
   }
 
   @Override
   public void tick() {
     super.tick();
-    this.motionX *= 0.65;
-    this.motionY *= 0.65;
-    this.motionZ *= 0.65;
-    if (rand.nextInt(4) == 0) {
+    this.xd *= 0.65;
+    this.yd *= 0.65;
+    this.zd *= 0.65;
+    if (random.nextInt(4) == 0) {
       this.age--;
     }
-    float lifeCoeff = ((float) this.maxAge - (float) this.age) / this.maxAge;
-    this.particleRed = Math.min(1.0f, (float) colorR * (1.5f - lifeCoeff) + lifeCoeff);
-    this.particleGreen = Math.min(1.0f, (float) colorG * (1.5f - lifeCoeff) + lifeCoeff);
-    this.particleBlue = Math.min(1.0f, (float) colorB * (1.5f - lifeCoeff) + lifeCoeff);
-    this.particleAlpha = lifeCoeff;
-    this.particleScale = 0.1F * lifeCoeff;
+    float lifeCoeff = ((float) this.lifetime - (float) this.age) / this.lifetime;
+    this.rCol = Math.min(1.0f, (float) colorR * (1.5f - lifeCoeff) + lifeCoeff);
+    this.gCol = Math.min(1.0f, (float) colorG * (1.5f - lifeCoeff) + lifeCoeff);
+    this.bCol = Math.min(1.0f, (float) colorB * (1.5f - lifeCoeff) + lifeCoeff);
+    this.alpha = lifeCoeff;
+    this.quadSize = 0.1F * lifeCoeff;
   }
 
   @Override
-  public IParticleRenderType getRenderType() {
+  public ParticleRenderType getRenderType() {
     return ParticleRenderTypes.MAGIC_RENDER;
   }
 
   @Override
   public boolean isAlive() {
-    return this.age < this.maxAge;
+    return this.age < this.lifetime;
   }
 }

@@ -2,7 +2,7 @@ package elucent.rootsclassic.research;
 
 import java.util.ArrayList;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import elucent.rootsclassic.recipe.ComponentRecipe;
 import elucent.rootsclassic.ritual.RitualBase;
 
@@ -34,11 +34,11 @@ public class ResearchPage {
     words.add(temp.toString());
     temp = new StringBuilder();
     for (String word : words) {
-      counter += Minecraft.getInstance().fontRenderer.getStringWidth(word);
+      counter += Minecraft.getInstance().font.width(word);
       if (counter > 160) {
         list.add(temp.toString());
         temp = new StringBuilder(word);
-        counter = Minecraft.getInstance().fontRenderer.getStringWidth(word);
+        counter = Minecraft.getInstance().font.width(word);
       }
       else {
         temp.append(word);

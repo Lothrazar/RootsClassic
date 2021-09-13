@@ -2,14 +2,14 @@ package elucent.rootsclassic.ritual.rituals;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import elucent.rootsclassic.ritual.RitualBase;
 
 public class RitualTimeShift extends RitualBase {
@@ -19,7 +19,7 @@ public class RitualTimeShift extends RitualBase {
   }
 
   @Override
-  public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
+  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     long shiftAmount = 0;
     List<Item> items = new ArrayList<>();
     for (ItemStack i : incenses) {
@@ -30,9 +30,9 @@ public class RitualTimeShift extends RitualBase {
         shiftAmount += 1000;
       }
     }
-    inventory.clear();
-    if (!world.isRemote && world.getServer() != null) {
-      for (ServerWorld serverworld : world.getServer().getWorlds()) {
+    inventory.clearContent();
+    if (!world.isClientSide && world.getServer() != null) {
+      for (ServerLevel serverworld : world.getServer().getAllLevels()) {
         serverworld.setDayTime(serverworld.getDayTime() + shiftAmount);
       }
     }

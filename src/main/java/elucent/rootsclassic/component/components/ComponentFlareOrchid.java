@@ -1,11 +1,11 @@
 package elucent.rootsclassic.component.components;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Explosion.Mode;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Explosion.BlockInteraction;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
@@ -19,10 +19,10 @@ public class ComponentFlareOrchid extends ComponentBase {
   }
 
   @Override
-  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      BlockPos pos = RootsUtil.getRayTrace(world, (PlayerEntity) caster, 16 + 8 * (int) size);
-      world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), (float) (3.0 + potency), Mode.DESTROY);
+      BlockPos pos = RootsUtil.getRayTrace(world, (Player) caster, 16 + 8 * (int) size);
+      world.explode(null, pos.getX(), pos.getY(), pos.getZ(), (float) (3.0 + potency), BlockInteraction.DESTROY);
     }
   }
 }
