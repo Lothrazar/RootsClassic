@@ -42,7 +42,6 @@ public class SylvanArmorItem extends ArmorItem {
   }
 
   @OnlyIn(Dist.CLIENT)
-  @Nullable
   @Override
   public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
     return (A) model.get();
@@ -56,7 +55,7 @@ public class SylvanArmorItem extends ArmorItem {
   @Override
   public void onArmorTick(ItemStack stack, Level world, Player player) {
     RootsUtil.randomlyRepair(world.random, stack);
-    if (random.nextInt(40) == 0) {
+    if (world.random.nextInt(40) == 0) {
       player.getCapability(RootsCapabilityManager.MANA_CAPABILITY).ifPresent(cap -> {
         cap.setMana(cap.getMana() + 1.0f);
       });

@@ -13,11 +13,11 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
   public EquipmentSlot slot;
   public float armorScale = 1.05f;
   public static ModelPart head;
-  public static ModelPart chest;
   public static ModelPart armR;
   public static ModelPart armL;
   public static ModelPart legR;
   public static ModelPart legL;
+  public static ModelPart chest;
   public static ModelPart bootR;
   public static ModelPart bootL;
 
@@ -27,14 +27,14 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
 //    this.texWidth = 64;
     this.slot = slot;
     this.young = false;
-    head = new ModelPart(this);
-    chest = new ModelPart(this);
-    armR = new ModelPart(this);
-    armL = new ModelPart(this);
-    legR = new ModelPart(this);
-    legL = new ModelPart(this);
-    bootR = new ModelPart(this);
-    bootL = new ModelPart(this);
+    head = mp.getChild("head");
+    chest =mp.getChild("chest");
+    armR = mp.getChild("armR");
+    armL = mp.getChild("armL");
+    legR = mp.getChild("legR");
+    legL = mp.getChild("legL");
+    bootR =mp.getChild("right_boots");
+    bootL = mp.getChild("left_boots");
   }
 
   @Override
