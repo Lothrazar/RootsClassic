@@ -28,12 +28,11 @@ import elucent.rootsclassic.util.RootsUtil;
 
 public class SylvanArmorItem extends ArmorItem {
 
-  private final LazyLoadedValue<HumanoidModel<?>> model;
+//  private final LazyLoadedValue<HumanoidModel<?>> model;
 
   public SylvanArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Item.Properties builderIn) {
     super(materialIn, slot, builderIn);
-    this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(slot)),
-        () -> () -> null);
+//    this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(slot)),() -> () -> null);
   }
 
   @Override
@@ -41,16 +40,16 @@ public class SylvanArmorItem extends ArmorItem {
     return Const.MODID + ":textures/models/armor/sylvan.png";
   }
 
-  @OnlyIn(Dist.CLIENT)
-  @Override
-  public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
-    return (A) model.get();
-  }
+//  @OnlyIn(Dist.CLIENT)
+//  @Override
+//  public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
+//    return (A) model.get();
+//  }
 
-  @OnlyIn(Dist.CLIENT)
-  public HumanoidModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
-    return new SylvanArmorModel(slot);
-  }
+//  @OnlyIn(Dist.CLIENT)
+//  public HumanoidModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
+//    return new SylvanArmorModel(slot);
+//  }
 
   @Override
   public void onArmorTick(ItemStack stack, Level world, Player player) {

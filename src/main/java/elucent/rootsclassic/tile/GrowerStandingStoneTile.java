@@ -18,7 +18,7 @@ public class GrowerStandingStoneTile extends TEBase {
   int ticker = 0;
 
   public GrowerStandingStoneTile(BlockPos pos, BlockState state) {
-    this(RootsRegistry.GROWER_STANDING_STONE_TILE.get(), pos, state);
+    super(RootsRegistry.GROWER_STANDING_STONE_TILE.get(), pos, state);
   }
 
   private void tick() {

@@ -1,6 +1,7 @@
 package elucent.rootsclassic.item;
 
 import java.util.List;
+import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.TooltipFlag;
@@ -144,7 +145,7 @@ public class StaffItem extends Item implements IManaRelatedItem {
     if (stack.hasTag()) {
       CompoundTag tag = stack.getTag();
       if (tag.getInt(NBT_USES) <= 0 && entityIn instanceof Player) {
-        ((Player) entityIn).inventory.setItem(itemSlot, ItemStack.EMPTY);
+        ((Player) entityIn).getInventory().setItem(itemSlot, ItemStack.EMPTY);
       }
     }
   }
@@ -171,6 +172,7 @@ public class StaffItem extends Item implements IManaRelatedItem {
           int efficiency = tag.getInt(Const.NBT_EFFICIENCY);
           int size = tag.getInt(Const.NBT_SIZE);
           comp.castingAction((Player) player, count, potency, efficiency, size);
+          Random random = player.level.random;
           if (random.nextBoolean()) {
             player.getCommandSenderWorld().addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
                 player.getX() + 2.0 * (random.nextFloat() - 0.5), player.getY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getZ() + 2.0 * (random.nextFloat() - 0.5),

@@ -28,7 +28,7 @@ public class RitualCrafting extends RitualBase {
     ItemStack toSpawn = result.copy();
     if (!world.isClientSide) {
       ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
-      item.forcedLoading = true;
+//      item.forcedLoading = true;
       world.addFreshEntity(item);
     }
     inventory.clearContent();

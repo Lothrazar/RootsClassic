@@ -204,7 +204,7 @@ public class ComponentRecipe implements Recipe<Container> {
         ResourceLocation effectResult = ResourceLocation.tryParse(effect);
         ItemStack itemstack;
         if (GsonHelper.isValidNode(json, "result")) {
-          itemstack = ShapedRecipe.itemFromJson(GsonHelper.getAsJsonObject(json, "result"));
+          itemstack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
           return new ComponentRecipe(recipeId, effectResult, s, itemstack, nonnulllist, needsMixin);
         }
         else {

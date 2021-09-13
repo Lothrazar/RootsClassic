@@ -27,12 +27,11 @@ import elucent.rootsclassic.util.RootsUtil;
 
 public class WildwoodArmorItem extends ArmorItem {
 
-  private final LazyLoadedValue<HumanoidModel<?>> model;
+//  private final LazyLoadedValue<HumanoidModel<?>> model;
 
   public WildwoodArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Item.Properties builderIn) {
     super(materialIn, slot, builderIn);
-    this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(slot)),
-        () -> () -> null);
+//    this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(slot)), () -> () -> null);
   }
 
   @Override
@@ -40,17 +39,17 @@ public class WildwoodArmorItem extends ArmorItem {
     return Const.MODID + ":textures/models/armor/wildwood.png";
   }
 
-  @OnlyIn(Dist.CLIENT)
-  @Nullable
-  @Override
-  public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
-    return (A) model.get();
-  }
-
-  @OnlyIn(Dist.CLIENT)
-  public HumanoidModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
-    return new WildwoodArmorModel(slot);
-  }
+//  @OnlyIn(Dist.CLIENT)
+//  @Nullable
+//  @Override
+//  public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
+//    return (A) model.get();
+//  }
+//
+//  @OnlyIn(Dist.CLIENT)
+//  public HumanoidModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
+//    return new WildwoodArmorModel(slot);
+//  }
 
   @Override
   public void onArmorTick(ItemStack stack, Level world, Player player) {

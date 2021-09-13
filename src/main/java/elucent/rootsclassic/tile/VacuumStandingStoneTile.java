@@ -12,7 +12,7 @@ import net.minecraft.world.phys.Vec3;
 public class VacuumStandingStoneTile extends TEBase {
 
   public VacuumStandingStoneTile(BlockPos pos, BlockState state) {
-    this(RootsRegistry.VACUUM_STANDING_STONE_TILE.get(), pos, state);
+    super(RootsRegistry.VACUUM_STANDING_STONE_TILE.get(), pos, state);
   }
 
   private void tick() {

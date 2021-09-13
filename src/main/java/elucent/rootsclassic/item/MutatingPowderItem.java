@@ -2,6 +2,7 @@ package elucent.rootsclassic.item;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -29,9 +30,9 @@ public class MutatingPowderItem extends Item {
   public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
     ItemStack stack = player.getItemInHand(hand);
     for (int i = 0; i < 40; i++) {
-      double velX = (player.getLookAngle().x * 0.75) + 0.5 * (random.nextDouble() - 0.5);
-      double velY = (player.getLookAngle().y * 0.75) + 0.5 * (random.nextDouble() - 0.5);
-      double velZ = (player.getLookAngle().z * 0.75) + 0.5 * (random.nextDouble() - 0.5);
+      double velX = (player.getLookAngle().x * 0.75) + 0.5 * (world.random.nextDouble() - 0.5);
+      double velY = (player.getLookAngle().y * 0.75) + 0.5 * (world.random.nextDouble() - 0.5);
+      double velZ = (player.getLookAngle().z * 0.75) + 0.5 * (world.random.nextDouble() - 0.5);
       world.addParticle(MagicParticleData.createData(142, 62, 56),
           player.getX() + 0.5 * player.getLookAngle().x, player.getY() + 1.5 + 0.5 * player.getLookAngle().y, player.getZ() + 0.5 * player.getLookAngle().z, velX, velY, velZ);
     }
@@ -46,19 +47,19 @@ public class MutatingPowderItem extends Item {
       if (recipe != null) {
         world.setBlockAndUpdate(pos, recipe.result);
         for (int i = 0; i < 100; i++) {
-          double velX = 1.5 * (random.nextDouble() - 0.5);
-          double velY = 1.5 * (random.nextDouble() - 0.5);
-          double velZ = 1.5 * (random.nextDouble() - 0.5);
+          double velX = 1.5 * (world.random.nextDouble() - 0.5);
+          double velY = 1.5 * (world.random.nextDouble() - 0.5);
+          double velZ = 1.5 * (world.random.nextDouble() - 0.5);
           world.addParticle(MagicParticleData.createData(142, 62, 56),
-              pos.getX() + random.nextDouble(), pos.getY() + random.nextDouble(), pos.getZ() + random.nextDouble(), velX, velY, velZ);
+              pos.getX() + world.random.nextDouble(), pos.getY() + world.random.nextDouble(), pos.getZ() + world.random.nextDouble(), velX, velY, velZ);
         }
         for (ItemEntity itemEntity : itemEntities) {
-          itemEntity.remove();
+          itemEntity.remove(Entity.RemovalReason.DISCARDED);
         }
         recipe.onCrafted(world, pos, player);
       }
     }
-    if (!player.abilities.instabuild) {
+    if (!player.getAbilities().instabuild) {
       stack.shrink(1);
     }
     return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);

@@ -39,7 +39,7 @@ public class RitualEngravedSword extends RitualBase {
       if (!world.isClientSide) {
         int mods = 0;
         ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
-        item.forcedLoading = true;
+//        item.forcedLoading = true;
         ItemStack stack = item.getItem();
         CompoundTag tag = stack.getTag() != null ? stack.getTag() : new CompoundTag();
         for (Item i : items) {

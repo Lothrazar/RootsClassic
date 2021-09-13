@@ -15,7 +15,7 @@ public class RepulsorStandingStoneTile extends TEBase {
   private static final int VRADIUS = 1;
 
   public RepulsorStandingStoneTile(BlockPos pos, BlockState state) {
-    this(RootsRegistry.REPULSOR_STANDING_STONE_TILE.get(), pos, state);
+    super(RootsRegistry.REPULSOR_STANDING_STONE_TILE.get(), pos, state);
   }
 
   private void tick() {

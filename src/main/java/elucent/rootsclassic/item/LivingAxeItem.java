@@ -16,6 +16,6 @@ public class LivingAxeItem extends AxeItem {
 
   @Override
   public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
-    RootsUtil.randomlyRepair(random, stack);
+    RootsUtil.randomlyRepair(world.random, stack);
   }
 }

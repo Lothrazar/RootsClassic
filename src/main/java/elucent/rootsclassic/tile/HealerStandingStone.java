@@ -17,7 +17,7 @@ public class HealerStandingStone extends TEBase {
   int ticker = 0;
 
   public HealerStandingStone(BlockPos pos, BlockState state) {
-    this(RootsRegistry.HEALER_STANDING_STONE_TILE.get(), pos, state);
+    super(RootsRegistry.HEALER_STANDING_STONE_TILE.get(), pos, state);
   }
 
   private void tick() {

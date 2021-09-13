@@ -52,7 +52,7 @@ public class RitualSacrifice extends RitualBase {
           enemies.get(0).setHealth(enemies.get(0).getHealth() - 60.0f);
           if (!world.isClientSide) {
             ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, potentialDrops.get(world.random.nextInt(potentialDrops.size())));
-            item.forcedLoading = true;
+//            item.forcedLoading = true;
             world.addFreshEntity(item);
           }
         }

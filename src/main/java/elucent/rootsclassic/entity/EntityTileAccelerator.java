@@ -6,9 +6,12 @@ import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 public class EntityTileAccelerator extends Entity {
@@ -40,15 +43,19 @@ public class EntityTileAccelerator extends Entity {
       }
       return;
     }
-    if (this.getCommandSenderWorld().getBlockEntity(this.pos) instanceof TickableBlockEntity) {
+    BlockEntity tile = this.getCommandSenderWorld().getBlockEntity(this.pos);
+    Block block = this.getCommandSenderWorld().getBlockState(this.pos).getBlock();
+
+//    if (tile instanceof TickableBlockEntity) {
       for (int i = 0; i < potency; i++) {
-        ((TickableBlockEntity) this.getCommandSenderWorld().getBlockEntity(this.pos)).tick();
+//        ((TickableBlockEntity) this.getCommandSenderWorld().getBlockEntity(this.pos)).tick();
+        //    block.tick(null, (ServerLevel) this.level,pos, new Random());
       }
-    }
-    else {
-      this.level.broadcastEntityEvent(this, (byte) 3);
-      this.remove(RemovalReason.KILLED);
-    }
+//    }
+//    else {
+//      this.level.broadcastEntityEvent(this, (byte) 3);
+//      this.remove(RemovalReason.KILLED);
+//    }
     for (int i = 0; i < 2; i++) {
       int side = random.nextInt(6);
       if (side == 0) {

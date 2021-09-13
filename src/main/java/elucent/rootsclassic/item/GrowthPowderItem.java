@@ -32,7 +32,7 @@ public class GrowthPowderItem extends Item {
       InteractionHand hand = context.getHand();
       spawnGrowthParticle(world, player);
       boolean anySuccess = applyGrowthHere(world, pos);
-      if (anySuccess && !player.abilities.instabuild) {
+      if (anySuccess && !player.getAbilities().instabuild) {
         player.getItemInHand(hand).shrink(1);
       }
     }
@@ -72,9 +72,9 @@ public class GrowthPowderItem extends Item {
   public static void spawnGrowthParticle(Level world, Player player) {
     Vec3 lookVec = player.getLookAngle();
     for (int i = 0; i < 40; i++) {
-      double velX = (lookVec.x * 0.75) + 0.5 * (random.nextDouble() - 0.5);
-      double velY = (lookVec.y * 0.75) + 0.5 * (random.nextDouble() - 0.5);
-      double velZ = (lookVec.z * 0.75) + 0.5 * (random.nextDouble() - 0.5);
+      double velX = (lookVec.x * 0.75) + 0.5 * (world.random.nextDouble() - 0.5);
+      double velY = (lookVec.y * 0.75) + 0.5 * (world.random.nextDouble() - 0.5);
+      double velZ = (lookVec.z * 0.75) + 0.5 * (world.random.nextDouble() - 0.5);
       world.addParticle(MagicParticleData.createData(39, 232, 55),
           player.getX() + 0.5 * lookVec.x, player.getY() + 1.5 + 0.5 * lookVec.y, player.getZ() + 0.5 * lookVec.z, velX, velY, velZ);
     }

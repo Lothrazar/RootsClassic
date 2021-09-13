@@ -30,7 +30,7 @@ public class AltarTESR implements BlockEntityRenderer<AltarTile> {
       matrixStackIn.mulPose(Vector3f.YP.rotationDegrees((float) shifted));
       matrixStackIn.translate(-0.5, 0, 0);
       matrixStackIn.mulPose(Vector3f.YP.rotationDegrees((float) shifted));
-      Minecraft.getInstance().getItemRenderer().renderStatic(renderItems.get(i), TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn);
+      Minecraft.getInstance().getItemRenderer().renderStatic(renderItems.get(i), TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn,0);
       matrixStackIn.popPose();
     }
   }

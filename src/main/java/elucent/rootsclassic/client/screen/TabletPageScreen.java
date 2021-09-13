@@ -69,7 +69,7 @@ public class TabletPageScreen extends Screen {
   @Override
   protected void init() {
     super.init();
-    this.addButton(new Button(20, 20, 20, 60, TextComponent.EMPTY, (button) -> {}));
+    this.addWidget(new Button(20, 20, 20, 60, TextComponent.EMPTY, (button) -> {}));
   }
 
   @Override

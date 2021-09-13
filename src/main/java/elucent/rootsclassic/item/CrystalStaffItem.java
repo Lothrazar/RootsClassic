@@ -1,6 +1,7 @@
 package elucent.rootsclassic.item;
 
 import java.util.List;
+import java.util.Random;
 import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.TooltipFlag;
@@ -75,9 +76,9 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
           comp.doEffect(world, caster, EnumCastType.SPELL, caster.getX() + 3.0 * caster.getLookAngle().x, caster.getY() + 3.0 * caster.getLookAngle().y,
               caster.getZ() + 3.0 * caster.getLookAngle().z, potency, efficiency, 3.0 + 2.0 * size);
           for (int i = 0; i < 90; i++) {
-            double offX = random.nextFloat() * 0.5 - 0.25;
-            double offY = random.nextFloat() * 0.5 - 0.25;
-            double offZ = random.nextFloat() * 0.5 - 0.25;
+            double offX = world.random.nextFloat() * 0.5 - 0.25;
+            double offY = world.random.nextFloat() * 0.5 - 0.25;
+            double offZ = world.random.nextFloat() * 0.5 - 0.25;
             double coeff = (offX + offY + offZ) / 1.5 + 0.5;
             double dx = (caster.getLookAngle().x + offX) * coeff;
             double dy = (caster.getLookAngle().y + offY) * coeff;
@@ -147,6 +148,7 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
             int efficiency = tag.getInt(Const.NBT_EFFICIENCY);
             int size = tag.getInt(Const.NBT_SIZE);
             comp.castingAction((Player) player, count, potency, efficiency, size);
+            Random random = player.level.random;
             if (random.nextBoolean()) {
               player.getCommandSenderWorld().addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
                   player.getX() + 2.0 * (random.nextFloat() - 0.5), player.getY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getZ() + 2.0 * (random.nextFloat() - 0.5),

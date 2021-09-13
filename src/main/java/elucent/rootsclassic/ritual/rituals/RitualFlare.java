@@ -28,7 +28,7 @@ public class RitualFlare extends RitualBase {
             ItemStack flintStack = new ItemStack(Items.FLINT_AND_STEEL, 1);
             flintStack.setDamageValue(stack.getDamageValue() + 1);
             ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, flintStack);
-            item.forcedLoading = true;
+//            item.forcedLoading = true;
             world.addFreshEntity(item);
           }
         }

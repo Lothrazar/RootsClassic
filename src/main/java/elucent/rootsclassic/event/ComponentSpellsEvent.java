@@ -105,8 +105,8 @@ public class ComponentSpellsEvent {
     }
     if (entityLiving instanceof Player) {
       Player player = (Player) entityLiving;
-      if (!player.inventory.getSelected().isEmpty() && player.inventory.getSelected().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
-        ItemStack sword = player.inventory.getSelected();
+      if (!player.getInventory().getSelected().isEmpty() && player.getInventory().getSelected().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
+        ItemStack sword = player.getInventory().getSelected();
         if (sword.hasTag() && sword.getTag().contains("shadowstep")) {
           int stepLvl = sword.getTag().getInt("shadowstep");
           double chance = stepLvl * 12.5;
@@ -119,8 +119,8 @@ public class ComponentSpellsEvent {
     if (event.getSource().getEntity() instanceof Player) {
       if (!event.getEntity().getCommandSenderWorld().isClientSide) {
         Player player = (Player) event.getSource().getEntity();
-        if (!player.inventory.getSelected().isEmpty() && player.inventory.getSelected().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
-          ItemStack sword = player.inventory.getSelected();
+        if (!player.getInventory().getSelected().isEmpty() && player.getInventory().getSelected().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
+          ItemStack sword = player.getInventory().getSelected();
           if (sword.hasTag()) {
             CompoundTag tag = sword.getTag();
             if (tag.contains("aquatic")) {
