@@ -28,7 +28,9 @@ public class GrowthPowderItem extends Item {
     if (player != null) {
       BlockPos pos = context.getPos();
       Hand hand = context.getHand();
-      spawnGrowthParticle(world, player);
+      if(world.isRemote) {
+        spawnGrowthParticle(world, player);
+      }
       boolean anySuccess = applyGrowthHere(world, pos);
       if (anySuccess && !player.abilities.isCreativeMode) {
         player.getHeldItem(hand).shrink(1);

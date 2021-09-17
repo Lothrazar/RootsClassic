@@ -26,12 +26,14 @@ public class MutatingPowderItem extends Item {
   @Override
   public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
     ItemStack stack = player.getHeldItem(hand);
-    for (int i = 0; i < 40; i++) {
-      double velX = (player.getLookVec().x * 0.75) + 0.5 * (random.nextDouble() - 0.5);
-      double velY = (player.getLookVec().y * 0.75) + 0.5 * (random.nextDouble() - 0.5);
-      double velZ = (player.getLookVec().z * 0.75) + 0.5 * (random.nextDouble() - 0.5);
-      world.addParticle(MagicParticleData.createData(142, 62, 56),
-          player.getPosX() + 0.5 * player.getLookVec().x, player.getPosY() + 1.5 + 0.5 * player.getLookVec().y, player.getPosZ() + 0.5 * player.getLookVec().z, velX, velY, velZ);
+    if(world.isRemote) {
+      for (int i = 0; i < 40; i++) {
+        double velX = (player.getLookVec().x * 0.75) + 0.5 * (random.nextDouble() - 0.5);
+        double velY = (player.getLookVec().y * 0.75) + 0.5 * (random.nextDouble() - 0.5);
+        double velZ = (player.getLookVec().z * 0.75) + 0.5 * (random.nextDouble() - 0.5);
+        world.addParticle(MagicParticleData.createData(142, 62, 56),
+                player.getPosX() + 0.5 * player.getLookVec().x, player.getPosY() + 1.5 + 0.5 * player.getLookVec().y, player.getPosZ() + 0.5 * player.getLookVec().z, velX, velY, velZ);
+      }
     }
     BlockPos pos = RootsUtil.getRayTrace(world, player, 4);
     List<ItemEntity> itemEntities = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.getX() - 2, pos.getY() - 2, pos.getZ() - 2, pos.getX() + 3, pos.getY() + 3, pos.getZ() + 3));
@@ -43,12 +45,14 @@ public class MutatingPowderItem extends Item {
       MutagenRecipe recipe = MutagenManager.getRecipe(items, world, pos, player);
       if (recipe != null) {
         world.setBlockState(pos, recipe.result);
-        for (int i = 0; i < 100; i++) {
-          double velX = 1.5 * (random.nextDouble() - 0.5);
-          double velY = 1.5 * (random.nextDouble() - 0.5);
-          double velZ = 1.5 * (random.nextDouble() - 0.5);
-          world.addParticle(MagicParticleData.createData(142, 62, 56),
-              pos.getX() + random.nextDouble(), pos.getY() + random.nextDouble(), pos.getZ() + random.nextDouble(), velX, velY, velZ);
+        if(world.isRemote) {
+          for (int i = 0; i < 100; i++) {
+            double velX = 1.5 * (random.nextDouble() - 0.5);
+            double velY = 1.5 * (random.nextDouble() - 0.5);
+            double velZ = 1.5 * (random.nextDouble() - 0.5);
+            world.addParticle(MagicParticleData.createData(142, 62, 56),
+                    pos.getX() + random.nextDouble(), pos.getY() + random.nextDouble(), pos.getZ() + random.nextDouble(), velX, velY, velZ);
+          }
         }
         for (ItemEntity itemEntity : itemEntities) {
           itemEntity.remove();

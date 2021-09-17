@@ -149,11 +149,14 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
     if (progress > 0) {
       World world = getWorld();
       progress--;
-      if (progress % 2 == 0) {
-        world.addParticle(ParticleTypes.SMOKE, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, 0, world.rand.nextDouble() * 0.0625 + 0.0625, 0);
-      }
-      if (progress % 20 == 0) {
-        world.addParticle(ParticleTypes.FLAME, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, 0, 0, 0);
+
+      if(world.isRemote) {
+        if (progress % 2 == 0) {
+          world.addParticle(ParticleTypes.SMOKE, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, 0, world.rand.nextDouble() * 0.0625 + 0.0625, 0);
+        }
+        if (progress % 20 == 0) {
+          world.addParticle(ParticleTypes.FLAME, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, 0, 0, 0);
+        }
       }
       if (progress <= 0) {
         setBurning(false);

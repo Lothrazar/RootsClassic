@@ -1,6 +1,7 @@
 package elucent.rootsclassic.tile;
 
-import java.util.List;
+import elucent.rootsclassic.client.particles.MagicAuraParticleData;
+import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -9,8 +10,8 @@ import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
-import elucent.rootsclassic.client.particles.MagicAuraParticleData;
-import elucent.rootsclassic.registry.RootsRegistry;
+
+import java.util.List;
 
 public class AcceleratorStandingStoneTile extends TEBase implements ITickableTileEntity {
 
@@ -40,12 +41,12 @@ public class AcceleratorStandingStoneTile extends TEBase implements ITickableTil
   @Override
   public void tick() {
     ticker++;
-    if (ticker % 5 == 0) {
+    if (ticker % 5 == 0 && world.isRemote) {
       for (double i = 0; i < 720; i += 45.0) {
         double xShift = 0.5 * Math.sin(Math.PI * (i / 360.0));
         double zShift = 0.5 * Math.cos(Math.PI * (i / 360.0));
         world.addParticle(MagicAuraParticleData.createData(32, 255, 255),
-            pos.getX() + 0.5 + xShift, pos.getY() + 0.5, pos.getZ() + 0.5 + zShift, 0, 0, 0);
+                pos.getX() + 0.5 + xShift, pos.getY() + 0.5, pos.getZ() + 0.5 + zShift, 0, 0, 0);
       }
     }
     if (ticker % 20 == 0) {

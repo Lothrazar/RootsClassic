@@ -72,21 +72,23 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
           manaCap.setMana(manaCap.getMana() - ((comp.getManaCost()) / (efficiency + 1)));
           comp.doEffect(world, caster, EnumCastType.SPELL, caster.getPosX() + 3.0 * caster.getLookVec().x, caster.getPosY() + 3.0 * caster.getLookVec().y,
               caster.getPosZ() + 3.0 * caster.getLookVec().z, potency, efficiency, 3.0 + 2.0 * size);
-          for (int i = 0; i < 90; i++) {
-            double offX = random.nextFloat() * 0.5 - 0.25;
-            double offY = random.nextFloat() * 0.5 - 0.25;
-            double offZ = random.nextFloat() * 0.5 - 0.25;
-            double coeff = (offX + offY + offZ) / 1.5 + 0.5;
-            double dx = (caster.getLookVec().x + offX) * coeff;
-            double dy = (caster.getLookVec().y + offY) * coeff;
-            double dz = (caster.getLookVec().z + offZ) * coeff;
-            if (world.rand.nextBoolean()) {
-              world.addParticle(MagicParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                  caster.getPosX() + dx, caster.getPosY() + 1.5 + dy, caster.getPosZ() + dz, dx, dy, dz);
-            }
-            else {
-              world.addParticle(MagicParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                  caster.getPosX() + dx, caster.getPosY() + 1.5 + dy, caster.getPosZ() + dz, dx, dy, dz);
+          if(world.isRemote) {
+            for (int i = 0; i < 90; i++) {
+              double offX = random.nextFloat() * 0.5 - 0.25;
+              double offY = random.nextFloat() * 0.5 - 0.25;
+              double offZ = random.nextFloat() * 0.5 - 0.25;
+              double coeff = (offX + offY + offZ) / 1.5 + 0.5;
+              double dx = (caster.getLookVec().x + offX) * coeff;
+              double dy = (caster.getLookVec().y + offY) * coeff;
+              double dz = (caster.getLookVec().z + offZ) * coeff;
+              if (world.rand.nextBoolean()) {
+                world.addParticle(MagicParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
+                        caster.getPosX() + dx, caster.getPosY() + 1.5 + dy, caster.getPosZ() + dz, dx, dy, dz);
+              }
+              else {
+                world.addParticle(MagicParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
+                        caster.getPosX() + dx, caster.getPosY() + 1.5 + dy, caster.getPosZ() + dz, dx, dy, dz);
+              }
             }
           }
         }
@@ -145,15 +147,17 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
             int efficiency = tag.getInt(Const.NBT_EFFICIENCY);
             int size = tag.getInt(Const.NBT_SIZE);
             comp.castingAction((PlayerEntity) player, count, potency, efficiency, size);
-            if (random.nextBoolean()) {
-              player.getEntityWorld().addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                  player.getPosX() + 2.0 * (random.nextFloat() - 0.5), player.getPosY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getPosZ() + 2.0 * (random.nextFloat() - 0.5),
-                  player.getPosX(), player.getPosY() + 1.0, player.getPosZ());
-            }
-            else {
-              player.getEntityWorld().addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                  player.getPosX() + 2.0 * (random.nextFloat() - 0.5), player.getPosY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getPosZ() + 2.0 * (random.nextFloat() - 0.5),
-                  player.getPosX(), player.getPosY() + 1.0, player.getPosZ());
+            if(player.getEntityWorld().isRemote) {
+              if (random.nextBoolean()) {
+                player.getEntityWorld().addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
+                        player.getPosX() + 2.0 * (random.nextFloat() - 0.5), player.getPosY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getPosZ() + 2.0 * (random.nextFloat() - 0.5),
+                        player.getPosX(), player.getPosY() + 1.0, player.getPosZ());
+              }
+              else {
+                player.getEntityWorld().addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
+                        player.getPosX() + 2.0 * (random.nextFloat() - 0.5), player.getPosY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getPosZ() + 2.0 * (random.nextFloat() - 0.5),
+                        player.getPosX(), player.getPosY() + 1.0, player.getPosZ());
+              }
             }
           }
         }

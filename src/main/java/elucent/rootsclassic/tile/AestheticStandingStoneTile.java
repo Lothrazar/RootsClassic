@@ -1,5 +1,7 @@
 package elucent.rootsclassic.tile;
 
+import elucent.rootsclassic.client.particles.MagicLineParticleData;
+import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -13,8 +15,6 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.Tags.Items;
-import elucent.rootsclassic.client.particles.MagicLineParticleData;
-import elucent.rootsclassic.registry.RootsRegistry;
 
 public class AestheticStandingStoneTile extends TEBase implements ITickableTileEntity {
 
@@ -83,7 +83,7 @@ public class AestheticStandingStoneTile extends TEBase implements ITickableTileE
   @Override
   public void tick() {
     ticker++;
-    if (ticker % 5 == 0) {
+    if (ticker % 5 == 0 && world.isRemote) {
       for (double i = 0; i < 720; i += 45.0) {
         double xShift = 0.5 * Math.sin(Math.PI * (i / 360.0));
         double zShift = 0.5 * Math.cos(Math.PI * (i / 360.0));

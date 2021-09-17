@@ -1,6 +1,7 @@
 package elucent.rootsclassic.tile;
 
-import java.util.ArrayList;
+import elucent.rootsclassic.client.particles.MagicAuraParticleData;
+import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -8,8 +9,8 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
-import elucent.rootsclassic.client.particles.MagicAuraParticleData;
-import elucent.rootsclassic.registry.RootsRegistry;
+
+import java.util.ArrayList;
 
 public class VacuumStandingStoneTile extends TEBase implements ITickableTileEntity {
 
@@ -37,7 +38,7 @@ public class VacuumStandingStoneTile extends TEBase implements ITickableTileEnti
   @Override
   public void tick() {
     ticker++;
-    if (ticker % 5 == 0) {
+    if (ticker % 5 == 0 && world.isRemote) {
       for (double i = 0; i < 720; i += 45.0) {
         double xShift = 0.5 * Math.sin(Math.PI * (i / 360.0));
         double zShift = 0.5 * Math.cos(Math.PI * (i / 360.0));

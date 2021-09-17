@@ -1,6 +1,11 @@
 package elucent.rootsclassic.component.components;
 
-import java.util.List;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.client.particles.MagicAuraParticleData;
+import elucent.rootsclassic.component.ComponentBase;
+import elucent.rootsclassic.component.EnumCastType;
+import elucent.rootsclassic.config.RootsConfig;
+import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,12 +16,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.client.particles.MagicAuraParticleData;
-import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.EnumCastType;
-import elucent.rootsclassic.config.RootsConfig;
-import elucent.rootsclassic.registry.RootsRegistry;
+
+import java.util.List;
 
 public class ComponentRadiantDaisy extends ComponentBase {
 
@@ -26,19 +27,21 @@ public class ComponentRadiantDaisy extends ComponentBase {
 
   @Override
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (!world.isRemote) {
-      PlayerEntity player = (PlayerEntity) caster;
-      double posX = player.getPosX() + player.getLookVec().x * 0.5;
-      double posY = player.getPosY() + 1.5 + player.getLookVec().y * 0.5;
-      double posZ = player.getPosZ() + player.getLookVec().z * 0.5;
-      double potencyMod = 0;
-      double motionX = player.getLookVec().x * 0.25;
-      double motionY = player.getLookVec().y * 0.25;
-      double motionZ = player.getLookVec().z * 0.25;
-      for (int i = 0; i < 200 + 100 * size; i++) {
-        boolean didHit = false;
-        player.getEntityWorld().addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            posX, posY, posZ, 0, 0, 0);
+    PlayerEntity player = (PlayerEntity) caster;
+    double posX = player.getPosX() + player.getLookVec().x * 0.5;
+    double posY = player.getPosY() + 1.5 + player.getLookVec().y * 0.5;
+    double posZ = player.getPosZ() + player.getLookVec().z * 0.5;
+    double potencyMod = 0;
+    double motionX = player.getLookVec().x * 0.25;
+    double motionY = player.getLookVec().y * 0.25;
+    double motionZ = player.getLookVec().z * 0.25;
+    for (int i = 0; i < 200 + 100 * size; i++) {
+      boolean didHit = false;
+      if(world.isRemote) {
+        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+                posX, posY, posZ, 0, 0, 0);
+      }
+      if(!world.isRemote) {
         posX += motionX;
         posY += motionY;
         posZ += motionZ;

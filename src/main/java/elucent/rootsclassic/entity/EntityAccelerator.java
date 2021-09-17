@@ -45,31 +45,33 @@ public class EntityAccelerator extends Entity {
         entity.baseTick();
       }
     }
-    for (int i = 0; i < 2; i++) {
-      int side = random.nextInt(6);
-      if (side == 0) {
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getPosX(), getPosY() + random.nextDouble(), getPosZ() + random.nextDouble(), 0, 0, 0);
-      }
-      if (side == 1) {
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getPosX() + 1.0, getPosY() + random.nextDouble(), getPosZ() + random.nextDouble(), 0, 0, 0);
-      }
-      if (side == 2) {
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getPosX() + random.nextDouble(), getPosY(), getPosZ() + random.nextDouble(), 0, 0, 0);
-      }
-      if (side == 3) {
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getPosX() + random.nextDouble(), getPosY() + 1.0, getPosZ() + random.nextDouble(), 0, 0, 0);
-      }
-      if (side == 4) {
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getPosX() + random.nextDouble(), getPosY() + random.nextDouble(), getPosZ(), 0, 0, 0);
-      }
-      if (side == 5) {
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getPosX() + random.nextDouble(), getPosY() + random.nextDouble(), getPosZ() + 1.0, 0, 0, 0);
+    if(world.isRemote) {
+      for (int i = 0; i < 2; i++) {
+        int side = random.nextInt(6);
+        if (side == 0) {
+          world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+                  getPosX(), getPosY() + random.nextDouble(), getPosZ() + random.nextDouble(), 0, 0, 0);
+        }
+        if (side == 1) {
+          world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+                  getPosX() + 1.0, getPosY() + random.nextDouble(), getPosZ() + random.nextDouble(), 0, 0, 0);
+        }
+        if (side == 2) {
+          world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+                  getPosX() + random.nextDouble(), getPosY(), getPosZ() + random.nextDouble(), 0, 0, 0);
+        }
+        if (side == 3) {
+          world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+                  getPosX() + random.nextDouble(), getPosY() + 1.0, getPosZ() + random.nextDouble(), 0, 0, 0);
+        }
+        if (side == 4) {
+          world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+                  getPosX() + random.nextDouble(), getPosY() + random.nextDouble(), getPosZ(), 0, 0, 0);
+        }
+        if (side == 5) {
+          world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+                  getPosX() + random.nextDouble(), getPosY() + random.nextDouble(), getPosZ() + 1.0, 0, 0, 0);
+        }
       }
     }
     lifetime--;

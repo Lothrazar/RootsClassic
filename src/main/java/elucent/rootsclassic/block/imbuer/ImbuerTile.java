@@ -162,7 +162,7 @@ public class ImbuerTile extends TEBase implements ITickableTileEntity {
           ResourceLocation compName = ResourceLocation.tryCreate(tag.getString(Const.NBT_EFFECT));
           if (compName != null) {
             ComponentBase comp = ComponentManager.getComponentFromName(compName);
-            if (comp != null) {
+            if (comp != null && world.isRemote) {
               if (chance == 0) {
                 if (world.rand.nextBoolean()) {
                   world.addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),

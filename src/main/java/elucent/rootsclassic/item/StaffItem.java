@@ -1,7 +1,14 @@
 package elucent.rootsclassic.item;
 
-import java.util.List;
-import javax.annotation.Nullable;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.capability.IManaCapability;
+import elucent.rootsclassic.capability.RootsCapabilityManager;
+import elucent.rootsclassic.client.particles.MagicLineParticleData;
+import elucent.rootsclassic.client.particles.MagicParticleData;
+import elucent.rootsclassic.component.ComponentBase;
+import elucent.rootsclassic.component.ComponentManager;
+import elucent.rootsclassic.component.EnumCastType;
+import elucent.rootsclassic.config.RootsConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -22,15 +29,9 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.capability.IManaCapability;
-import elucent.rootsclassic.capability.RootsCapabilityManager;
-import elucent.rootsclassic.client.particles.MagicLineParticleData;
-import elucent.rootsclassic.client.particles.MagicParticleData;
-import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.ComponentManager;
-import elucent.rootsclassic.component.EnumCastType;
-import elucent.rootsclassic.config.RootsConfig;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class StaffItem extends Item implements IManaRelatedItem {
 
@@ -101,21 +102,23 @@ public class StaffItem extends Item implements IManaRelatedItem {
                   caster.getPosY() + RANGE * lookVec.y,
                   caster.getPosZ() + RANGE * lookVec.z, potency, efficiency,
                   SIZE_BASE + SIZE_PER_LEVEL * size);
-              for (int i = 0; i < 90; i++) {
-                double offX = world.rand.nextFloat() * 0.5 - 0.25;
-                double offY = world.rand.nextFloat() * 0.5 - 0.25;
-                double offZ = world.rand.nextFloat() * 0.5 - 0.25;
-                double coeff = (offX + offY + offZ) / 1.5 + 0.5;
-                double dx = (lookVec.x + offX) * coeff;
-                double dy = (lookVec.y + offY) * coeff;
-                double dz = (lookVec.z + offZ) * coeff;
-                if (world.rand.nextBoolean()) {
-                  world.addParticle(MagicParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                      caster.getPosX() + dx, caster.getPosY() + 1.5 + dy, caster.getPosZ() + dz, dx, dy, dz);
-                }
-                else {
-                  world.addParticle(MagicParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                      caster.getPosX() + dx, caster.getPosY() + 1.5 + dy, caster.getPosZ() + dz, dx, dy, dz);
+              if (world.isRemote) {
+                for (int i = 0; i < 90; i++) {
+                  double offX = world.rand.nextFloat() * 0.5 - 0.25;
+                  double offY = world.rand.nextFloat() * 0.5 - 0.25;
+                  double offZ = world.rand.nextFloat() * 0.5 - 0.25;
+                  double coeff = (offX + offY + offZ) / 1.5 + 0.5;
+                  double dx = (lookVec.x + offX) * coeff;
+                  double dy = (lookVec.y + offY) * coeff;
+                  double dz = (lookVec.z + offZ) * coeff;
+                  if (world.rand.nextBoolean()) {
+                    world.addParticle(MagicParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
+                            caster.getPosX() + dx, caster.getPosY() + 1.5 + dy, caster.getPosZ() + dz, dx, dy, dz);
+                  }
+                  else {
+                    world.addParticle(MagicParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
+                            caster.getPosX() + dx, caster.getPosY() + 1.5 + dy, caster.getPosZ() + dz, dx, dy, dz);
+                  }
                 }
               }
             }
@@ -169,15 +172,18 @@ public class StaffItem extends Item implements IManaRelatedItem {
           int efficiency = tag.getInt(Const.NBT_EFFICIENCY);
           int size = tag.getInt(Const.NBT_SIZE);
           comp.castingAction((PlayerEntity) player, count, potency, efficiency, size);
-          if (random.nextBoolean()) {
-            player.getEntityWorld().addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                player.getPosX() + 2.0 * (random.nextFloat() - 0.5), player.getPosY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getPosZ() + 2.0 * (random.nextFloat() - 0.5),
-                player.getPosX(), player.getPosY() + 1.0, player.getPosZ());
-          }
-          else {
-            player.getEntityWorld().addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                player.getPosX() + 2.0 * (random.nextFloat() - 0.5), player.getPosY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getPosZ() + 2.0 * (random.nextFloat() - 0.5),
-                player.getPosX(), player.getPosY() + 1.0, player.getPosZ());
+
+          if (player.getEntityWorld().isRemote) {
+            if (random.nextBoolean()) {
+              player.getEntityWorld().addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
+                      player.getPosX() + 2.0 * (random.nextFloat() - 0.5), player.getPosY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getPosZ() + 2.0 * (random.nextFloat() - 0.5),
+                      player.getPosX(), player.getPosY() + 1.0, player.getPosZ());
+            }
+            else {
+              player.getEntityWorld().addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
+                      player.getPosX() + 2.0 * (random.nextFloat() - 0.5), player.getPosY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getPosZ() + 2.0 * (random.nextFloat() - 0.5),
+                      player.getPosX(), player.getPosY() + 1.0, player.getPosZ());
+            }
           }
         }
       }
