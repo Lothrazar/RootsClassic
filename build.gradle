@@ -10,6 +10,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
+import net.minecraftforge.gradle.common.tasks.SignJar
 
 version = "${mc_version}-${version}"
 group = "elucent.roots" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -115,14 +116,35 @@ jar {
     manifest {
         attributes([
                 "Specification-Title"     : "rootsclassic",
-                "Specification-Vendor"    : "elucent",
+                "Specification-Vendor"    : "lothrazar",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "elucent",
+                "Implementation-Vendor"   : "lothrazar",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
 
 jar.finalizedBy('reobfJar')
+
+
+task signJar(type: SignJar, dependsOn: jar) {
+
+    keyStore = project.findProperty('keyStore')
+    alias = project.findProperty('keyStoreAlias')
+    storePass = project.findProperty('keyStorePass')
+    keyPass = project.findProperty('keyStoreKeyPass')
+    inputFile = jar.archivePath
+    outputFile = jar.archivePath
+}
+
+task copyJar(type: Copy) {
+    from jar
+    into "${dist_folder}"
+}
+
+cleanJar {
+  delete 'build/libs'
+}
+
