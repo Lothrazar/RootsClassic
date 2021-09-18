@@ -19,7 +19,7 @@ public class BrazierTESR extends TileEntityRenderer<BrazierTile> {
   public void render(BrazierTile brazierTile, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
     if (!brazierTile.getHeldItem().isEmpty()) {
       matrixStackIn.push();
-      matrixStackIn.translate(0.5, 0.1, 0.5);
+      matrixStackIn.translate(0.5, 0.5, 0.5);
       matrixStackIn.scale(0.5F, 0.5F, 0.5F);
       matrixStackIn.rotate(Vector3f.YP.rotationDegrees(brazierTile.getTicker()));
       Minecraft.getInstance().getItemRenderer().renderItem(brazierTile.getHeldItem(), TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn);

@@ -49,7 +49,7 @@ public class InventoryUtil {
 
   public static ItemStack getLastStack(IItemHandler itemHandler) {
     if (itemHandler == null) return ItemStack.EMPTY;
-    for (int i = itemHandler.getSlots() - 1; i > 0; i--) {
+    for (int i = itemHandler.getSlots() - 1; i >= 0; i--) {
       ItemStack stack = itemHandler.getStackInSlot(i);
       if (!stack.isEmpty()) {
         return stack;

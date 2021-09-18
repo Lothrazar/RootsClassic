@@ -442,6 +442,7 @@ public class RitualManager {
     addRitual(new RitualTimeShift(new ResourceLocation(Const.MODID, "time_shift"), 1, 240, 245, 88)
         .addIngredient(new ItemStack(Items.CLOCK))
         .addIngredient(new ItemStack(Items.IRON_INGOT))
+        .addIncense(new ItemStack(Items.CLOCK))
         .setSecondaryColor(252, 162, 35));
   }
 
