@@ -64,6 +64,11 @@ public class SylvanArmorItem extends ArmorItem {
   }
 
   @Override
+  public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+    return false;
+  }
+
+  @Override
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     super.addInformation(stack, worldIn, tooltip, flagIn);
     tooltip.add(StringTextComponent.EMPTY);
