@@ -1,8 +1,8 @@
 {
   "homepage": "https://minecraft.curseforge.com/projects/roots-classic",
   "promos": {
-    "1.16.5-latest": "1.1.9",
-    "1.16.5-recommended": "1.1.9"
+    "1.16.5-latest": "1.1.10",
+    "1.16.5-recommended": "1.1.10"
   },
   "1.16.5":{
 	  "1.0.0":"Initial Release"
@@ -19,5 +19,6 @@
   	,"1.1.7":"Fixed mana bar not visible"
   	,"1.1.8":"[MrBysco] Fix the altar shape allowing xray.  Fix particles crashing on dedicated servers.  "
   	,"1.1.9":"[MrBysco] Fix the tablet not displaying the Standing Stones required.  Fix item withdraw issue from third item slot in Altar.  Fix item dupe.    "
+  	,"1.1.10":"[MrBysco] Fix enchanting roots armor crashing the game.    "
   }	
 }
