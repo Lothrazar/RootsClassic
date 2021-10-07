@@ -116,7 +116,7 @@ public class RootsRegistry {
   public static final RegistryObject<Item> OLD_ROOT = ITEMS.register("old_root", () -> new RootsFoodItem(itemBuilder().food(RootsFoods.OLD_ROOT).group(Roots.tab)));
   public static final RegistryObject<Item> VERDANT_SPRIG = ITEMS.register("verdant_sprig", () -> new Item(itemBuilder().group(Roots.tab)));
   public static final RegistryObject<Item> INFERNAL_BULB = ITEMS.register("infernal_bulb", () -> new InfernalBulbItem(itemBuilder().group(Roots.tab)));
-  public static final RegistryObject<Item> DRAGONS_EYE = ITEMS.register("dragons_eye", () -> new DragonsEyeItem(itemBuilder().food(RootsFoods.DRAGONS_EYE)));
+  public static final RegistryObject<Item> DRAGONS_EYE = ITEMS.register("dragons_eye", () -> new DragonsEyeItem(itemBuilder().group(Roots.tab).food(RootsFoods.DRAGONS_EYE)));
   public static final RegistryObject<Item> OAK_BARK = ITEMS.register("oak_bark", () -> new Item(itemBuilder().group(Roots.tab)));
   public static final RegistryObject<Item> SPRUCE_BARK = ITEMS.register("spruce_bark", () -> new Item(itemBuilder().group(Roots.tab)));
   public static final RegistryObject<Item> BIRCH_BARK = ITEMS.register("birch_bark", () -> new Item(itemBuilder().group(Roots.tab)));
