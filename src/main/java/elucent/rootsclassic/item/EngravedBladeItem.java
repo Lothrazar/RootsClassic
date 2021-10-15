@@ -47,4 +47,9 @@ public class EngravedBladeItem extends SwordItem {
       }
     }
   }
+
+  @Override
+  public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+    return false;
+  }
 }

@@ -18,4 +18,9 @@ public class LivingSwordItem extends SwordItem {
   public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
     RootsUtil.randomlyRepair(random, stack);
   }
+
+  @Override
+  public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+    return false;
+  }
 }

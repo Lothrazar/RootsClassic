@@ -23,4 +23,9 @@ public class LivingPickaxeItem extends PickaxeItem {
   public boolean isRepairable(ItemStack stack) {
     return false;
   }
+
+  @Override
+  public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+    return false;
+  }
 }

@@ -7,7 +7,8 @@ import net.minecraft.util.LazyValue;
 
 public enum RootsItemTier implements IItemTier {
 
-  LIVING(2, 192, 6.0f, 2.0f, 18, () -> null), ENGRAVED(2, 1050, 5F, 8.0F, 5, () -> null);
+  LIVING(2, 192, 6.0f, 2.0f, 18, () -> null),
+  ENGRAVED(2, 1050, 5F, 8.0F, 5, () -> null);
 
   private final int harvestLevel;
   private final int maxUses;
