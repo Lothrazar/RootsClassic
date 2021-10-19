@@ -26,65 +26,65 @@ public class ComponentBlueOrchid extends ComponentBase {
   @Override
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      if (caster instanceof PlayerEntity && !world.isRemote) {
+      if (caster instanceof PlayerEntity && !world.isClientSide) {
         BlockPos pos = RootsUtil.getRayTrace(world, (PlayerEntity) caster, 4 + 2 * (int) size);
         BlockState state = world.getBlockState(pos);
         Block block = world.getBlockState(pos).getBlock();
         if (block == Blocks.STONE || block == Blocks.DIRT || block == Blocks.GRASS || block == Blocks.SAND || block == Blocks.GRAVEL) {
           if (block == Blocks.GRASS) {
-            state = Blocks.DIRT.getDefaultState();
-            world.setBlockState(pos, state);
+            state = Blocks.DIRT.defaultBlockState();
+            world.setBlockAndUpdate(pos, state);
           }
-          world.setBlockState(pos.up(), state);
-          ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos.getX() - size, pos.getY() - size, pos.getZ() - size, pos.getX() + size, pos.getY() + size, pos.getZ() + size));
+          world.setBlockAndUpdate(pos.above(), state);
+          ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(pos.getX() - size, pos.getY() - size, pos.getZ() - size, pos.getX() + size, pos.getY() + size, pos.getZ() + size));
           for (LivingEntity target : targets) {
-            if (target.getUniqueID() != caster.getUniqueID()) {
-              target.addVelocity(0, 3, 0);
-              Vector3d motion = target.getMotion();
-              target.setMotion(motion.x, 0.65 + world.rand.nextDouble() + 0.25 * potency, motion.z);
+            if (target.getUUID() != caster.getUUID()) {
+              target.push(0, 3, 0);
+              Vector3d motion = target.getDeltaMovement();
+              target.setDeltaMovement(motion.x, 0.65 + world.random.nextDouble() + 0.25 * potency, motion.z);
               if (target instanceof PlayerEntity) {
-                ((PlayerEntity) target).velocityChanged = true;
+                ((PlayerEntity) target).hurtMarked = true;
               }
             }
           }
-          if (world.rand.nextInt(3) == 0) {
-            world.setBlockState(pos.up().west().north(), state);
+          if (world.random.nextInt(3) == 0) {
+            world.setBlockAndUpdate(pos.above().west().north(), state);
           }
-          if (world.rand.nextInt(3) == 0) {
-            world.setBlockState(pos.up().east().south(), state);
+          if (world.random.nextInt(3) == 0) {
+            world.setBlockAndUpdate(pos.above().east().south(), state);
           }
-          if (world.rand.nextInt(3) == 0) {
-            world.setBlockState(pos.up().north().east(), state);
+          if (world.random.nextInt(3) == 0) {
+            world.setBlockAndUpdate(pos.above().north().east(), state);
           }
-          if (world.rand.nextInt(3) == 0) {
-            world.setBlockState(pos.up().south().west(), state);
+          if (world.random.nextInt(3) == 0) {
+            world.setBlockAndUpdate(pos.above().south().west(), state);
           }
-          if (world.rand.nextInt(1) == 0) {
-            world.setBlockState(pos.up().west(), state);
+          if (world.random.nextInt(1) == 0) {
+            world.setBlockAndUpdate(pos.above().west(), state);
           }
-          if (world.rand.nextInt(1) == 0) {
-            world.setBlockState(pos.up().east(), state);
+          if (world.random.nextInt(1) == 0) {
+            world.setBlockAndUpdate(pos.above().east(), state);
           }
-          if (world.rand.nextInt(1) == 0) {
-            world.setBlockState(pos.up().north(), state);
+          if (world.random.nextInt(1) == 0) {
+            world.setBlockAndUpdate(pos.above().north(), state);
           }
-          if (world.rand.nextInt(1) == 0) {
-            world.setBlockState(pos.up().south(), state);
+          if (world.random.nextInt(1) == 0) {
+            world.setBlockAndUpdate(pos.above().south(), state);
           }
-          world.setBlockState(pos.up().up(), state);
-          if (world.rand.nextInt(3) == 0) {
-            world.setBlockState(pos.up().up().west(), state);
+          world.setBlockAndUpdate(pos.above().above(), state);
+          if (world.random.nextInt(3) == 0) {
+            world.setBlockAndUpdate(pos.above().above().west(), state);
           }
-          if (world.rand.nextInt(3) == 0) {
-            world.setBlockState(pos.up().up().east(), state);
+          if (world.random.nextInt(3) == 0) {
+            world.setBlockAndUpdate(pos.above().above().east(), state);
           }
-          if (world.rand.nextInt(3) == 0) {
-            world.setBlockState(pos.up().up().north(), state);
+          if (world.random.nextInt(3) == 0) {
+            world.setBlockAndUpdate(pos.above().above().north(), state);
           }
-          if (world.rand.nextInt(3) == 0) {
-            world.setBlockState(pos.up().up().south(), state);
+          if (world.random.nextInt(3) == 0) {
+            world.setBlockAndUpdate(pos.above().above().south(), state);
           }
-          world.setBlockState(pos.up().up().up(), state);
+          world.setBlockAndUpdate(pos.above().above().above(), state);
         }
       }
     }

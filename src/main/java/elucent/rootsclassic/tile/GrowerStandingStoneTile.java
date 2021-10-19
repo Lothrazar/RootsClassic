@@ -30,13 +30,13 @@ public class GrowerStandingStoneTile extends TEBase implements ITickableTileEnti
   }
 
   @Override
-  public void read(BlockState state, CompoundNBT tag) {
-    super.read(state, tag);
+  public void load(BlockState state, CompoundNBT tag) {
+    super.load(state, tag);
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tag) {
-    super.write(tag);
+  public CompoundNBT save(CompoundNBT tag) {
+    super.save(tag);
     return tag;
   }
 
@@ -60,26 +60,26 @@ public class GrowerStandingStoneTile extends TEBase implements ITickableTileEnti
     List<BlockPos> positions = new ArrayList<>();
     for (int xp = -1 * RADIUS; xp <= RADIUS; xp++) {
       for (int zp = -1 * RADIUS; zp <= RADIUS; zp++) {
-        positions.add(this.getPos().add(xp, -1, zp));
-        positions.add(this.getPos().add(xp, -2, zp));
+        positions.add(this.getBlockPos().offset(xp, -1, zp));
+        positions.add(this.getBlockPos().offset(xp, -2, zp));
       }
     }
     Collections.shuffle(positions);
     for (BlockPos pos : positions) {
-      if (world.rand.nextDouble() < PCT_CHANCE_PER_BLOCK) {
+      if (level.random.nextDouble() < PCT_CHANCE_PER_BLOCK) {
         //this percent chance to actually fire
-        GrowthPowderItem.applyGrowthHere(world, pos);
+        GrowthPowderItem.applyGrowthHere(level, pos);
       }
     }
   }
 
   private void spawnParticles() {
-    if (ticker % 5 == 0 && world.isRemote) {
+    if (ticker % 5 == 0 && level.isClientSide) {
       for (double i = 0; i < 720; i += 45.0) {
         double xShift = 0.5 * Math.sin(Math.PI * (i / 360.0));
         double zShift = 0.5 * Math.cos(Math.PI * (i / 360.0));
-        world.addParticle(MagicAuraParticleData.createData(32, 255, 32),
-            pos.getX() + 0.5 + xShift, pos.getY() + 0.5, pos.getZ() + 0.5 + zShift, 0, 0, 0);
+        level.addParticle(MagicAuraParticleData.createData(32, 255, 32),
+            worldPosition.getX() + 0.5 + xShift, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5 + zShift, 0, 0, 0);
       }
     }
   }

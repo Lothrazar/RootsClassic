@@ -25,13 +25,13 @@ public class RootsUtil {
   }
 
   public static BlockPos getRayTrace(World world, PlayerEntity player, int reachDistance) {
-    double x = player.getPosX();
-    double y = player.getPosY() + player.getEyeHeight();
-    double z = player.getPosZ();
+    double x = player.getX();
+    double y = player.getY() + player.getEyeHeight();
+    double z = player.getZ();
     for (int i = 0; i < reachDistance * 10.0; i++) {
-      x += player.getLookVec().x * 0.1;
-      y += player.getLookVec().y * 0.1;
-      z += player.getLookVec().z * 0.1;
+      x += player.getLookAngle().x * 0.1;
+      y += player.getLookAngle().y * 0.1;
+      z += player.getLookAngle().z * 0.1;
       if (world.getBlockState(new BlockPos(x, y, z)).getBlock() != Blocks.AIR) {
         return new BlockPos(x, y, z);
       }
@@ -58,16 +58,16 @@ public class RootsUtil {
   }
 
   public static Entity getRayTraceEntity(World world, PlayerEntity player, int reachDistance) {
-    double x = player.getPosX();
-    double y = player.getPosY() + player.getEyeHeight();
-    double z = player.getPosZ();
+    double x = player.getX();
+    double y = player.getY() + player.getEyeHeight();
+    double z = player.getZ();
     for (int i = 0; i < reachDistance * 10.0; i++) {
-      x += player.getLookVec().x * 0.1;
-      y += player.getLookVec().y * 0.1;
-      z += player.getLookVec().z * 0.1;
-      List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x - 0.1, y - 0.1, z - 0.1, x + 0.1, y + 0.1, z + 0.1));
+      x += player.getLookAngle().x * 0.1;
+      y += player.getLookAngle().y * 0.1;
+      z += player.getLookAngle().z * 0.1;
+      List<Entity> entities = world.getEntitiesOfClass(Entity.class, new AxisAlignedBB(x - 0.1, y - 0.1, z - 0.1, x + 0.1, y + 0.1, z + 0.1));
       if (entities.size() > 0) {
-        if (entities.get(0).getUniqueID() != player.getUniqueID()) {
+        if (entities.get(0).getUUID() != player.getUUID()) {
           return entities.get(0);
         }
       }
@@ -81,8 +81,8 @@ public class RootsUtil {
 
   public static boolean itemListMatchInventoryWithSize(IInventory i1, List<ItemStack> i2) {
     ArrayList<ItemStack> recipe = new ArrayList<>();
-    for (int i = 0; i < i1.getSizeInventory(); i++) {
-      recipe.add(i1.getStackInSlot(i));
+    for (int i = 0; i < i1.getContainerSize(); i++) {
+      recipe.add(i1.getItem(i));
     }
     ArrayList<ItemStack> available = new ArrayList<>(i2);
     for (int i = 0; i < recipe.size(); i++) {
@@ -101,7 +101,7 @@ public class RootsUtil {
       for (ItemStack itemStack : available) {
         boolean endIteration = false;
         for (int i = 0; i < recipe.size() && !endIteration; i++) {
-          if (itemStack.isItemEqual(recipe.get(i))) {
+          if (itemStack.sameItem(recipe.get(i))) {
             recipe.remove(i);
             endIteration = true;
           }
@@ -113,8 +113,8 @@ public class RootsUtil {
 
   public static boolean itemListMatchInventory(IInventory i1, List<ItemStack> i2) {
     ArrayList<ItemStack> recipe = new ArrayList<>();
-    for (int i = 0; i < i1.getSizeInventory(); i++) {
-      recipe.add(i1.getStackInSlot(i));
+    for (int i = 0; i < i1.getContainerSize(); i++) {
+      recipe.add(i1.getItem(i));
     }
     ArrayList<ItemStack> available = new ArrayList<>(i2);
     for (int i = 0; i < recipe.size(); i++) {
@@ -133,7 +133,7 @@ public class RootsUtil {
       for (ItemStack itemStack : available) {
         boolean endIteration = false;
         for (int i = 0; i < recipe.size() && !endIteration; i++) {
-          if (itemStack.isItemEqual(recipe.get(i))) {
+          if (itemStack.sameItem(recipe.get(i))) {
             recipe.remove(i);
             endIteration = true;
           }
@@ -147,7 +147,7 @@ public class RootsUtil {
     ArrayList<Ingredient> recipe = new ArrayList<>(i1);
     ArrayList<ItemStack> available = new ArrayList<>(i2);
     for (int i = 0; i < recipe.size(); i++) {
-      if (recipe.get(i).hasNoMatchingItems()) {
+      if (recipe.get(i).isEmpty()) {
         recipe.remove(i);
         i--;
       }
@@ -176,7 +176,7 @@ public class RootsUtil {
     ArrayList<Ingredient> recipe = new ArrayList<>(i1);
     ArrayList<ItemStack> available = new ArrayList<>(i2);
     for (int i = 0; i < recipe.size(); i++) {
-      if (recipe.get(i).hasNoMatchingItems()) {
+      if (recipe.get(i).isEmpty()) {
         recipe.remove(i);
         i--;
       }
@@ -220,7 +220,7 @@ public class RootsUtil {
       for (ItemStack itemStack : available) {
         boolean endIteration = false;
         for (int i = 0; i < recipe.size() && !endIteration; i++) {
-          if (itemStack.isItemEqual(recipe.get(i))) {
+          if (itemStack.sameItem(recipe.get(i))) {
             recipe.remove(i);
             endIteration = true;
           }
@@ -249,7 +249,7 @@ public class RootsUtil {
       for (ItemStack itemStack : available) {
         boolean endIteration = false;
         for (int i = 0; i < recipe.size() && !endIteration; i++) {
-          if (itemStack.isItemEqual(recipe.get(i))) {
+          if (itemStack.sameItem(recipe.get(i))) {
             recipe.remove(i);
             endIteration = true;
           }
@@ -263,13 +263,13 @@ public class RootsUtil {
     ArrayList<Ingredient> recipe = new ArrayList<>(i1);
     ArrayList<Ingredient> available = new ArrayList<>(i2);
     for (int i = 0; i < recipe.size(); i++) {
-      if (recipe.get(i).hasNoMatchingItems()) {
+      if (recipe.get(i).isEmpty()) {
         recipe.remove(i);
         i--;
       }
     }
     for (int i = 0; i < available.size(); i++) {
-      if (available.get(i).hasNoMatchingItems()) {
+      if (available.get(i).isEmpty()) {
         available.remove(i);
         i--;
       }
@@ -278,7 +278,7 @@ public class RootsUtil {
       for (Ingredient ingredient : available) {
         boolean endIteration = false;
         for (int i = 0; i < recipe.size() && !endIteration; i++) {
-          if (ingredient.getMatchingStacks()[0].isItemEqual(recipe.get(i).getMatchingStacks()[0])) {
+          if (ingredient.getItems()[0].sameItem(recipe.get(i).getItems()[0])) {
             recipe.remove(i);
             endIteration = true;
           }
@@ -290,7 +290,7 @@ public class RootsUtil {
 
   public static void randomlyRepair(Random rnd, ItemStack stack) {
     if (stack.isDamaged() && rnd.nextInt(80) == 0) {
-      stack.setDamage(stack.getDamage() - 1);
+      stack.setDamageValue(stack.getDamageValue() - 1);
     }
   }
 }

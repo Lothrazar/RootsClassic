@@ -10,9 +10,11 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import elucent.rootsclassic.block.BaseTEBlock;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class MortarBlock extends BaseTEBlock {
 
-  private static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 5.0D, 11.0D);
+  private static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 5.0D, 11.0D);
 
   public MortarBlock(Properties properties) {
     super(properties);

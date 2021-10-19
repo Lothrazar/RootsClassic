@@ -27,74 +27,74 @@ public class EntityTileAccelerator extends Entity {
     this.pos = pos;
     this.potency = potency + 2;
     this.lifetime = 200 + 200 * size;
-    this.setRawPosition(pos.getX(), pos.getY(), pos.getZ());
+    this.setPosRaw(pos.getX(), pos.getY(), pos.getZ());
   }
 
   @Override
   public void tick() {
     super.tick();
     if (pos == null) {
-      if (!world.isRemote) {
-        this.world.setEntityState(this, (byte) 3);
+      if (!level.isClientSide) {
+        this.level.broadcastEntityEvent(this, (byte) 3);
         this.remove();
       }
       return;
     }
-    if (this.getEntityWorld().getTileEntity(this.pos) instanceof ITickableTileEntity) {
+    if (this.getCommandSenderWorld().getBlockEntity(this.pos) instanceof ITickableTileEntity) {
       for (int i = 0; i < potency; i++) {
-        ((ITickableTileEntity) this.getEntityWorld().getTileEntity(this.pos)).tick();
+        ((ITickableTileEntity) this.getCommandSenderWorld().getBlockEntity(this.pos)).tick();
       }
     }
     else {
-      this.world.setEntityState(this, (byte) 3);
+      this.level.broadcastEntityEvent(this, (byte) 3);
       this.remove();
     }
     for (int i = 0; i < 2; i++) {
       int side = random.nextInt(6);
       if (side == 0) {
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getPosX(), getPosY() + random.nextDouble(), getPosZ() + random.nextDouble(), 0, 0, 0);
+        level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+            getX(), getY() + random.nextDouble(), getZ() + random.nextDouble(), 0, 0, 0);
       }
       if (side == 1) {
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getPosX() + 1.0, getPosY() + random.nextDouble(), getPosZ() + random.nextDouble(), 0, 0, 0);
+        level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+            getX() + 1.0, getY() + random.nextDouble(), getZ() + random.nextDouble(), 0, 0, 0);
       }
       if (side == 2) {
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getPosX() + random.nextDouble(), getPosY(), getPosZ() + random.nextDouble(), 0, 0, 0);
+        level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+            getX() + random.nextDouble(), getY(), getZ() + random.nextDouble(), 0, 0, 0);
       }
       if (side == 3) {
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getPosX() + random.nextDouble(), getPosY() + 1.0, getPosZ() + random.nextDouble(), 0, 0, 0);
+        level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+            getX() + random.nextDouble(), getY() + 1.0, getZ() + random.nextDouble(), 0, 0, 0);
       }
       if (side == 4) {
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getPosX() + random.nextDouble(), getPosY() + random.nextDouble(), getPosZ(), 0, 0, 0);
+        level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+            getX() + random.nextDouble(), getY() + random.nextDouble(), getZ(), 0, 0, 0);
       }
       if (side == 5) {
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getPosX() + random.nextDouble(), getPosY() + random.nextDouble(), getPosZ() + 1.0, 0, 0, 0);
+        level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+            getX() + random.nextDouble(), getY() + random.nextDouble(), getZ() + 1.0, 0, 0, 0);
       }
     }
     lifetime--;
     if (lifetime <= 0) {
-      this.world.setEntityState(this, (byte) 3);
+      this.level.broadcastEntityEvent(this, (byte) 3);
       this.remove();
     }
   }
 
   @Override
-  protected void registerData() {}
+  protected void defineSynchedData() {}
 
   @Override
-  protected void readAdditional(CompoundNBT compound) {
+  protected void readAdditionalSaveData(CompoundNBT compound) {
     this.pos = new BlockPos(compound.getInt("posX"), compound.getInt("posY"), compound.getInt("posZ"));
     this.lifetime = compound.getInt("lifetime");
     this.potency = compound.getInt("potency");
   }
 
   @Override
-  protected void writeAdditional(CompoundNBT compound) {
+  protected void addAdditionalSaveData(CompoundNBT compound) {
     compound.putInt("posX", pos.getX());
     compound.putInt("posY", pos.getY());
     compound.putInt("posZ", pos.getZ());
@@ -103,7 +103,7 @@ public class EntityTileAccelerator extends Entity {
   }
 
   @Override
-  public IPacket<?> createSpawnPacket() {
+  public IPacket<?> getAddEntityPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 }

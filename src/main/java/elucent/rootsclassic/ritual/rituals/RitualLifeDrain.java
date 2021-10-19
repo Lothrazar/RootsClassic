@@ -20,17 +20,17 @@ public class RitualLifeDrain extends RitualBase {
 
   @Override
   public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
-    inventory.clear();
-    List<MonsterEntity> enemies = world.getEntitiesWithinAABB(MonsterEntity.class, new AxisAlignedBB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
+    inventory.clearContent();
+    List<MonsterEntity> enemies = world.getEntitiesOfClass(MonsterEntity.class, new AxisAlignedBB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
         pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
     float drainedHealth = 0;
     if (enemies.size() > 0) {
       for (MonsterEntity enemy : enemies) {
-        enemy.attackEntityFrom(DamageSource.CACTUS, 9);
+        enemy.hurt(DamageSource.CACTUS, 9);
         drainedHealth += 9;
       }
     }
-    List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
+    List<PlayerEntity> players = world.getEntitiesOfClass(PlayerEntity.class, new AxisAlignedBB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
         pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
     float numPlayers = players.size();
     for (PlayerEntity player : players) {

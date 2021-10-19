@@ -24,10 +24,10 @@ public class ComponentRose extends ComponentBase {
   @Override
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
+      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
       // int damageDealt = 0;
       for (LivingEntity target : targets) {
-        if (target.getUniqueID() != caster.getUniqueID()) {
+        if (target.getUUID() != caster.getUUID()) {
           if (target instanceof PlayerEntity && RootsConfig.COMMON.disablePVP.get()) {}
           else {
             //            if (caster instanceof EntityPlayer) {
@@ -35,12 +35,12 @@ public class ComponentRose extends ComponentBase {
             //                PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveSpellRose);
             //              }
             //            }
-            target.attackEntityFrom(DamageSource.CACTUS, (int) (9 + 2 * potency));
+            target.hurt(DamageSource.CACTUS, (int) (9 + 2 * potency));
             RootsUtil.addTickTracking(target);
             target.getPersistentData().putFloat("RMOD_thornsDamage", 2.0f + (float) potency);
-            target.attackEntityAsMob(caster);
-            target.setLastAttackedEntity(caster);
-            target.setRevengeTarget((LivingEntity) caster);
+            target.doHurtTarget(caster);
+            target.setLastHurtMob(caster);
+            target.setLastHurtByMob((LivingEntity) caster);
           }
         }
       }

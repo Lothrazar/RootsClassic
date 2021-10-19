@@ -26,13 +26,13 @@ public class RitualCrafting extends RitualBase {
   public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
     // if (Util.itemListsMatchWithSize(inventory, this.ingredients)) {
     ItemStack toSpawn = result.copy();
-    if (!world.isRemote) {
+    if (!world.isClientSide) {
       ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
-      item.forceSpawn = true;
-      world.addEntity(item);
+      item.forcedLoading = true;
+      world.addFreshEntity(item);
     }
-    inventory.clear();
-    world.getTileEntity(pos).markDirty();
+    inventory.clearContent();
+    world.getBlockEntity(pos).setChanged();
     //}
   }
 }

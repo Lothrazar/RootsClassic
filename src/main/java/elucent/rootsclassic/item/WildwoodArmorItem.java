@@ -44,7 +44,7 @@ public class WildwoodArmorItem extends ArmorItem {
   @Nullable
   @Override
   public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
-    return (A) model.getValue();
+    return (A) model.get();
   }
 
   @OnlyIn(Dist.CLIENT)
@@ -54,19 +54,19 @@ public class WildwoodArmorItem extends ArmorItem {
 
   @Override
   public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-    RootsUtil.randomlyRepair(world.rand, stack);
+    RootsUtil.randomlyRepair(world.random, stack);
   }
 
   @Override
-  public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+  public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
     return false;
   }
 
   @Override
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    super.addInformation(stack, worldIn, tooltip, flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    super.appendHoverText(stack, worldIn, tooltip, flagIn);
     tooltip.add(StringTextComponent.EMPTY);
-    tooltip.add(new TranslationTextComponent("rootsclassic.attribute.equipped").mergeStyle(TextFormatting.GRAY));
-    tooltip.add(new StringTextComponent(" ").appendSibling(new TranslationTextComponent("rootsclassic.attribute.increasedmanaregen")).mergeStyle(TextFormatting.BLUE));
+    tooltip.add(new TranslationTextComponent("rootsclassic.attribute.equipped").withStyle(TextFormatting.GRAY));
+    tooltip.add(new StringTextComponent(" ").append(new TranslationTextComponent("rootsclassic.attribute.increasedmanaregen")).withStyle(TextFormatting.BLUE));
   }
 }

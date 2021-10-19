@@ -23,14 +23,14 @@ public class MagicParticleTypeData implements IParticleData {
   static final IParticleData.IDeserializer<MagicParticleTypeData> DESERIALIZER = new IParticleData.IDeserializer<MagicParticleTypeData>() {
 
     @Override
-    public MagicParticleTypeData deserialize(ParticleType<MagicParticleTypeData> type, StringReader reader) throws CommandSyntaxException {
+    public MagicParticleTypeData fromCommand(ParticleType<MagicParticleTypeData> type, StringReader reader) throws CommandSyntaxException {
       reader.expect(' ');
       return new MagicParticleTypeData(type, ParticleColor.deserialize(reader.readString()));
     }
 
     @Override
-    public MagicParticleTypeData read(ParticleType<MagicParticleTypeData> type, PacketBuffer buffer) {
-      return new MagicParticleTypeData(type, ParticleColor.deserialize(buffer.readString()));
+    public MagicParticleTypeData fromNetwork(ParticleType<MagicParticleTypeData> type, PacketBuffer buffer) {
+      return new MagicParticleTypeData(type, ParticleColor.deserialize(buffer.readUtf()));
     }
   };
 
@@ -49,10 +49,10 @@ public class MagicParticleTypeData implements IParticleData {
   }
 
   @Override
-  public void write(PacketBuffer buffer) {}
+  public void writeToNetwork(PacketBuffer buffer) {}
 
   @Override
-  public String getParameters() {
+  public String writeToString() {
     return null;
   }
 }

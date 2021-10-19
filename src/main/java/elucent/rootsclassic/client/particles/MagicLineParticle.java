@@ -27,22 +27,22 @@ public class MagicLineParticle extends SpriteTexturedParticle {
       this.colorB = this.colorB / 255.0;
     }
     this.setColor(1, 1, 1);
-    this.maxAge = 8;
-    this.particleGravity = 0.0f;
-    this.motionX = (vx - x) / this.maxAge;
-    this.motionY = (vy - y) / this.maxAge;
-    this.motionZ = (vz - z) / this.maxAge;
-    this.selectSpriteRandomly(sprite);
+    this.lifetime = 8;
+    this.gravity = 0.0f;
+    this.xd = (vx - x) / this.lifetime;
+    this.yd = (vy - y) / this.lifetime;
+    this.zd = (vz - z) / this.lifetime;
+    this.pickSprite(sprite);
   }
 
   @Override
   public void tick() {
     super.tick();
-    float lifeCoeff = ((float) this.maxAge - (float) this.age) / this.maxAge;
-    this.particleRed = Math.min(1.0f, (float) colorR * (1.5f - lifeCoeff) + lifeCoeff);
-    this.particleGreen = Math.min(1.0f, (float) colorG * (1.5f - lifeCoeff) + lifeCoeff);
-    this.particleBlue = Math.min(1.0f, (float) colorB * (1.5f - lifeCoeff) + lifeCoeff);
-    this.particleAlpha = lifeCoeff;
+    float lifeCoeff = ((float) this.lifetime - (float) this.age) / this.lifetime;
+    this.rCol = Math.min(1.0f, (float) colorR * (1.5f - lifeCoeff) + lifeCoeff);
+    this.gCol = Math.min(1.0f, (float) colorG * (1.5f - lifeCoeff) + lifeCoeff);
+    this.bCol = Math.min(1.0f, (float) colorB * (1.5f - lifeCoeff) + lifeCoeff);
+    this.alpha = lifeCoeff;
   }
 
   @Override
@@ -52,6 +52,6 @@ public class MagicLineParticle extends SpriteTexturedParticle {
 
   @Override
   public boolean isAlive() {
-    return this.age < this.maxAge;
+    return this.age < this.lifetime;
   }
 }

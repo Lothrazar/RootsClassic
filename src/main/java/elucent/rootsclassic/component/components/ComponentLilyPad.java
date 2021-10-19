@@ -22,22 +22,22 @@ public class ComponentLilyPad extends ComponentBase {
   @Override
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      if (caster instanceof PlayerEntity && !world.isRemote) {
+      if (caster instanceof PlayerEntity && !world.isClientSide) {
         BlockPos pos = RootsUtil.getRayTrace(world, (PlayerEntity) caster, 4 + 2 * (int) size);
-        if (world.getBlockState(pos.up()).isReplaceable(Fluids.WATER)) {
-          world.setBlockState(pos.up(), Blocks.WATER.getDefaultState().with(FlowingFluidBlock.LEVEL, 15), 3);
+        if (world.getBlockState(pos.above()).canBeReplaced(Fluids.WATER)) {
+          world.setBlock(pos.above(), Blocks.WATER.defaultBlockState().setValue(FlowingFluidBlock.LEVEL, 15), 3);
         }
-        if (world.getBlockState(pos.up().west()).isReplaceable(Fluids.WATER)) {
-          world.setBlockState(pos.up().west(), Blocks.WATER.getDefaultState().with(FlowingFluidBlock.LEVEL, 15), 3);
+        if (world.getBlockState(pos.above().west()).canBeReplaced(Fluids.WATER)) {
+          world.setBlock(pos.above().west(), Blocks.WATER.defaultBlockState().setValue(FlowingFluidBlock.LEVEL, 15), 3);
         }
-        if (world.getBlockState(pos.up().east()).isReplaceable(Fluids.WATER)) {
-          world.setBlockState(pos.up().east(), Blocks.WATER.getDefaultState().with(FlowingFluidBlock.LEVEL, 15), 3);
+        if (world.getBlockState(pos.above().east()).canBeReplaced(Fluids.WATER)) {
+          world.setBlock(pos.above().east(), Blocks.WATER.defaultBlockState().setValue(FlowingFluidBlock.LEVEL, 15), 3);
         }
-        if (world.getBlockState(pos.up().north()).isReplaceable(Fluids.WATER)) {
-          world.setBlockState(pos.up().north(), Blocks.WATER.getDefaultState().with(FlowingFluidBlock.LEVEL, 15), 3);
+        if (world.getBlockState(pos.above().north()).canBeReplaced(Fluids.WATER)) {
+          world.setBlock(pos.above().north(), Blocks.WATER.defaultBlockState().setValue(FlowingFluidBlock.LEVEL, 15), 3);
         }
-        if (world.getBlockState(pos.up().south()).isReplaceable(Fluids.WATER)) {
-          world.setBlockState(pos.up().south(), Blocks.WATER.getDefaultState().with(FlowingFluidBlock.LEVEL, 15), 3);
+        if (world.getBlockState(pos.above().south()).canBeReplaced(Fluids.WATER)) {
+          world.setBlock(pos.above().south(), Blocks.WATER.defaultBlockState().setValue(FlowingFluidBlock.LEVEL, 15), 3);
         }
       }
     }

@@ -22,9 +22,9 @@ public class ComponentMidnightBloom extends ComponentBase {
   @Override
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x - size * 6.0, y - size * 6.0, z - size * 6.0, x + size * 6.0, y + size * 6.0, z + size * 6.0));
+      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(x - size * 6.0, y - size * 6.0, z - size * 6.0, x + size * 6.0, y + size * 6.0, z + size * 6.0));
       for (LivingEntity target : targets) {
-        if (target.getUniqueID() != caster.getUniqueID()) {
+        if (target.getUUID() != caster.getUUID()) {
           CompoundNBT persistentData = target.getPersistentData();
           persistentData.putBoolean(Const.NBT_TRACK_TICKS, false);
           persistentData.putInt(Const.NBT_SKIP_TICKS, 40 + 40 * (int) potency);

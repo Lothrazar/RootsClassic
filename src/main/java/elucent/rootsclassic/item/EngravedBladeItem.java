@@ -22,34 +22,34 @@ public class EngravedBladeItem extends SwordItem {
   }
 
   @Override
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    super.addInformation(stack, worldIn, tooltip, flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    super.appendHoverText(stack, worldIn, tooltip, flagIn);
     if (stack.hasTag()) {
       CompoundNBT tag = stack.getTag();
       if (tag.contains("spikes")) {
-        tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.spikes").appendString(" " + numerals[tag.getInt("spikes")]).mergeStyle(TextFormatting.WHITE));
+        tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.spikes").append(" " + numerals[tag.getInt("spikes")]).withStyle(TextFormatting.WHITE));
       }
       if (tag.contains("forceful")) {
         tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.forceful")
-            .appendString(" " + numerals[tag.getInt("forceful")]).mergeStyle(TextFormatting.DARK_GRAY));
+            .append(" " + numerals[tag.getInt("forceful")]).withStyle(TextFormatting.DARK_GRAY));
       }
       if (tag.contains("holy")) {
         tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.holy")
-            .appendString(" " + numerals[tag.getInt("holy")]).mergeStyle(TextFormatting.GOLD));
+            .append(" " + numerals[tag.getInt("holy")]).withStyle(TextFormatting.GOLD));
       }
       if (tag.contains("aquatic")) {
         tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.aquatic")
-            .appendString(" " + numerals[tag.getInt("aquatic")]).mergeStyle(TextFormatting.AQUA));
+            .append(" " + numerals[tag.getInt("aquatic")]).withStyle(TextFormatting.AQUA));
       }
       if (tag.contains("shadowstep")) {
         tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.shadowstep")
-            .appendString(" " + numerals[tag.getInt("shadowstep")]).mergeStyle(TextFormatting.DARK_PURPLE));
+            .append(" " + numerals[tag.getInt("shadowstep")]).withStyle(TextFormatting.DARK_PURPLE));
       }
     }
   }
 
   @Override
-  public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+  public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
     return false;
   }
 }

@@ -12,6 +12,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import elucent.rootsclassic.registry.RootsRegistry;
 
+import net.minecraft.item.Item.Properties;
+
 public class RootsFoodItem extends Item {
 
   private static final int HEAL_LARGE = 5;
@@ -22,13 +24,13 @@ public class RootsFoodItem extends Item {
   }
 
   @Override
-  public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
-    super.onItemUseFinish(stack, worldIn, entityLiving);
+  public ItemStack finishUsingItem(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+    super.finishUsingItem(stack, worldIn, entityLiving);
     if (stack.getItem() == RootsRegistry.REDCURRANT.get()) {
       entityLiving.heal(HEAL_SMALL);
     }
     if (stack.getItem() == RootsRegistry.ELDERBERRY.get()) {
-      entityLiving.clearActivePotions();
+      entityLiving.removeAllEffects();
     }
     if (stack.getItem() == RootsRegistry.HEALING_POULTICE.get()) {
       entityLiving.heal(HEAL_LARGE);
@@ -37,19 +39,19 @@ public class RootsFoodItem extends Item {
   }
 
   @Override
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    super.addInformation(stack, worldIn, tooltip, flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    super.appendHoverText(stack, worldIn, tooltip, flagIn);
     if (stack.getItem() == RootsRegistry.REDCURRANT.get()) {
-      tooltip.add(new TranslationTextComponent("rootsclassic.healingitem.tooltip").mergeStyle(TextFormatting.GRAY));
+      tooltip.add(new TranslationTextComponent("rootsclassic.healingitem.tooltip").withStyle(TextFormatting.GRAY));
     }
     if (stack.getItem() == RootsRegistry.ELDERBERRY.get()) {
-      tooltip.add(new TranslationTextComponent("rootsclassic.clearpotionsitem.tooltip").mergeStyle(TextFormatting.GRAY));
+      tooltip.add(new TranslationTextComponent("rootsclassic.clearpotionsitem.tooltip").withStyle(TextFormatting.GRAY));
     }
     if (stack.getItem() == RootsRegistry.HEALING_POULTICE.get()) {
-      tooltip.add(new TranslationTextComponent("rootsclassic.healingitem.tooltip", HEAL_LARGE).mergeStyle(TextFormatting.GRAY));
+      tooltip.add(new TranslationTextComponent("rootsclassic.healingitem.tooltip", HEAL_LARGE).withStyle(TextFormatting.GRAY));
     }
     if (stack.getItem() == RootsRegistry.NIGHTSHADE.get()) {
-      tooltip.add(new TranslationTextComponent("rootsclassic.poisonitem.tooltip").mergeStyle(TextFormatting.GRAY));
+      tooltip.add(new TranslationTextComponent("rootsclassic.poisonitem.tooltip").withStyle(TextFormatting.GRAY));
     }
   }
 }

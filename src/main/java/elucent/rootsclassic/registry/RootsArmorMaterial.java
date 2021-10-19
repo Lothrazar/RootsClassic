@@ -12,9 +12,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public enum RootsArmorMaterial implements IArmorMaterial {
 
-  SYLVAN("rootsclassic:sylvan", 10, new int[] { 1, 5, 6, 2 }, 20, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+  SYLVAN("rootsclassic:sylvan", 10, new int[] { 1, 5, 6, 2 }, 20, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
     return null;
-  }), WILDWOOD("rootsclassic:wildwood", 15, new int[] { 2, 5, 7, 3 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.0f, 0.0F, () -> {
+  }), WILDWOOD("rootsclassic:wildwood", 15, new int[] { 2, 5, 7, 3 }, 10, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0f, 0.0F, () -> {
     return null;
   });
 
@@ -39,24 +39,24 @@ public enum RootsArmorMaterial implements IArmorMaterial {
     this.repairMaterial = new LazyValue<>(repairMaterial);
   }
 
-  public int getDurability(EquipmentSlotType slotIn) {
+  public int getDurabilityForSlot(EquipmentSlotType slotIn) {
     return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
   }
 
-  public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+  public int getDefenseForSlot(EquipmentSlotType slotIn) {
     return this.damageReductionAmountArray[slotIn.getIndex()];
   }
 
-  public int getEnchantability() {
+  public int getEnchantmentValue() {
     return this.enchantability;
   }
 
-  public SoundEvent getSoundEvent() {
+  public SoundEvent getEquipSound() {
     return this.soundEvent;
   }
 
-  public Ingredient getRepairMaterial() {
-    return this.repairMaterial.getValue();
+  public Ingredient getRepairIngredient() {
+    return this.repairMaterial.get();
   }
 
   @OnlyIn(Dist.CLIENT)

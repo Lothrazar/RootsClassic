@@ -47,7 +47,7 @@ public class PhantomSkeletonEntity extends SkeletonEntity {
   }
 
   public static AttributeModifierMap.MutableAttribute registerAttributes() {
-    return AbstractSkeletonEntity.registerAttributes();
+    return AbstractSkeletonEntity.createAttributes();
   }
 
   @Override
@@ -74,37 +74,37 @@ public class PhantomSkeletonEntity extends SkeletonEntity {
 
   @Override
   protected SoundEvent getAmbientSound() {
-    return SoundEvents.ENTITY_SKELETON_AMBIENT;
+    return SoundEvents.SKELETON_AMBIENT;
   }
 
   @Override
   protected SoundEvent getHurtSound(DamageSource s) {
-    return SoundEvents.ENTITY_SKELETON_HURT;
+    return SoundEvents.SKELETON_HURT;
   }
 
   @Override
   protected SoundEvent getDeathSound() {
-    return SoundEvents.ENTITY_SKELETON_DEATH;
+    return SoundEvents.SKELETON_DEATH;
   }
 
   @Nullable
   @Override
-  public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-    getAttribute(Attributes.FOLLOW_RANGE).applyPersistentModifier(new AttributeModifier("Random spawn bonus", rand.nextGaussian() * 0.05D, Operation.MULTIPLY_BASE));
-    float f = difficultyIn.getClampedAdditionalDifficulty();
-    this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * f);
-    setCanPickUpLoot(rand.nextFloat() < 0.55F * f);
+  public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+    getAttribute(Attributes.FOLLOW_RANGE).addPermanentModifier(new AttributeModifier("Random spawn bonus", random.nextGaussian() * 0.05D, Operation.MULTIPLY_BASE));
+    float f = difficultyIn.getSpecialMultiplier();
+    this.setCanPickUpLoot(this.random.nextFloat() < 0.55F * f);
+    setCanPickUpLoot(random.nextFloat() < 0.55F * f);
     return spawnDataIn;
   }
 
   @Override
-  public boolean attackEntityAsMob(Entity entityIn) {
+  public boolean doHurtTarget(Entity entityIn) {
     if (appliesSlowPotion && entityIn instanceof PlayerEntity && !(entityIn instanceof FakePlayer)) {
       PlayerEntity p = (PlayerEntity) entityIn;
-      if (!p.isPotionActive(Effects.SLOWNESS)) {
-        p.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 10 * 20, 0)); // is 10seconds
+      if (!p.hasEffect(Effects.MOVEMENT_SLOWDOWN)) {
+        p.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 10 * 20, 0)); // is 10seconds
       }
     }
-    return super.attackEntityAsMob(entityIn);
+    return super.doHurtTarget(entityIn);
   }
 }

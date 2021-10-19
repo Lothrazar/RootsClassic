@@ -91,7 +91,7 @@ public abstract class RitualBase {
       for (int i = 0; i < getPositionsRelative().size(); i++) {
         BlockPos loopPos = getPositionsRelative().get(i);
         Block loopBlock = getBlocks().get(i);
-        BlockPos loopPosOffset = pos.add(loopPos.getX(), loopPos.getY(), loopPos.getZ());
+        BlockPos loopPosOffset = pos.offset(loopPos.getX(), loopPos.getY(), loopPos.getZ());
         if (world.getBlockState(loopPosOffset).getBlock() != loopBlock) {
           Roots.LOGGER.info(this.level + " level recipe has Missing block " + loopBlock + " at position " + loopPosOffset);
           return false;
@@ -106,8 +106,8 @@ public abstract class RitualBase {
     TileEntity tileHere;
     for (int i = -1 * RADIUS; i <= RADIUS; i++) {
       for (int j = -1 * RADIUS; j <= RADIUS; j++) {
-        if (world.getBlockState(pos.add(i, 0, j)).getBlock() == RootsRegistry.BRAZIER.get()) {
-          tileHere = world.getTileEntity(pos.add(i, 0, j));
+        if (world.getBlockState(pos.offset(i, 0, j)).getBlock() == RootsRegistry.BRAZIER.get()) {
+          tileHere = world.getBlockEntity(pos.offset(i, 0, j));
           if (tileHere instanceof BrazierTile) {
             links.add((BrazierTile) tileHere);
           }
@@ -133,11 +133,11 @@ public abstract class RitualBase {
   public String toString() {
     StringBuilder s = new StringBuilder("[A] ");
     for (ItemStack mat : this.getIngredients()) {
-      s.append(mat.getDisplayName().getString()).append("; ");
+      s.append(mat.getHoverName().getString()).append("; ");
     }
     s.append("[I] ");
     for (ItemStack mat : this.getIncenses()) {
-      s.append(mat.getDisplayName().getString()).append("; ");
+      s.append(mat.getHoverName().getString()).append("; ");
     }
     return s.toString();
   }

@@ -29,10 +29,10 @@ public class ParticleRegistry {
 
   @SubscribeEvent
   public static void registerFactories(ParticleFactoryRegisterEvent event) {
-    Minecraft.getInstance().particles.registerFactory(MAGIC_TYPE.get(), MagicParticleData::new);
-    Minecraft.getInstance().particles.registerFactory(MAGIC_AURA_TYPE.get(), MagicAuraParticleData::new);
-    Minecraft.getInstance().particles.registerFactory(MAGIC_ALTAR_TYPE.get(), MagicAltarParticleData::new);
-    Minecraft.getInstance().particles.registerFactory(MAGIC_ALTAR_LINE_TYPE.get(), MagicAltarLineParticleData::new);
-    Minecraft.getInstance().particles.registerFactory(MAGIC_LINE_TYPE.get(), MagicLineParticleData::new);
+    Minecraft.getInstance().particleEngine.register(MAGIC_TYPE.get(), MagicParticleData::new);
+    Minecraft.getInstance().particleEngine.register(MAGIC_AURA_TYPE.get(), MagicAuraParticleData::new);
+    Minecraft.getInstance().particleEngine.register(MAGIC_ALTAR_TYPE.get(), MagicAltarParticleData::new);
+    Minecraft.getInstance().particleEngine.register(MAGIC_ALTAR_LINE_TYPE.get(), MagicAltarLineParticleData::new);
+    Minecraft.getInstance().particleEngine.register(MAGIC_LINE_TYPE.get(), MagicLineParticleData::new);
   }
 }

@@ -23,35 +23,35 @@ public class ComponentApple extends ComponentBase {
     if (type == EnumCastType.SPELL) {
       if (caster instanceof PlayerEntity) {
         PlayerEntity player = (PlayerEntity) caster;
-        ArrayList<EffectInstance> effects = new ArrayList<>(player.getActivePotionEffects());
-        player.clearActivePotions();
+        ArrayList<EffectInstance> effects = new ArrayList<>(player.getActiveEffects());
+        player.removeAllEffects();
         for (EffectInstance effect : effects) {
-          if (effect.getPotion().getName().equals("Soul Fray")) { //TODO: Check if Blood magic uses this name still
-            player.addPotionEffect(effect);
+          if (effect.getEffect().getDescriptionId().equals("Soul Fray")) { //TODO: Check if Blood magic uses this name still
+            player.addEffect(effect);
           }
-          if (effect.getPotion() == Effects.SLOWNESS) {
-            player.addPotionEffect(new EffectInstance(Effects.SPEED, effect.getDuration(), effect.getAmplifier() + (int) potency));
+          if (effect.getEffect() == Effects.MOVEMENT_SLOWDOWN) {
+            player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, effect.getDuration(), effect.getAmplifier() + (int) potency));
           }
-          if (effect.getPotion() == Effects.MINING_FATIGUE) {
-            player.addPotionEffect(new EffectInstance(Effects.HASTE, effect.getDuration(), effect.getAmplifier() + (int) potency));
+          if (effect.getEffect() == Effects.DIG_SLOWDOWN) {
+            player.addEffect(new EffectInstance(Effects.DIG_SPEED, effect.getDuration(), effect.getAmplifier() + (int) potency));
           }
-          if (effect.getPotion() == Effects.POISON) {
-            player.addPotionEffect(new EffectInstance(Effects.REGENERATION, effect.getDuration(), effect.getAmplifier() + (int) potency));
+          if (effect.getEffect() == Effects.POISON) {
+            player.addEffect(new EffectInstance(Effects.REGENERATION, effect.getDuration(), effect.getAmplifier() + (int) potency));
           }
-          if (effect.getPotion() == Effects.WITHER) {
-            player.addPotionEffect(new EffectInstance(Effects.REGENERATION, effect.getDuration(), effect.getAmplifier() + (int) potency));
+          if (effect.getEffect() == Effects.WITHER) {
+            player.addEffect(new EffectInstance(Effects.REGENERATION, effect.getDuration(), effect.getAmplifier() + (int) potency));
           }
-          if (effect.getPotion() == Effects.BLINDNESS) {
-            player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, effect.getDuration(), effect.getAmplifier() + (int) potency));
+          if (effect.getEffect() == Effects.BLINDNESS) {
+            player.addEffect(new EffectInstance(Effects.NIGHT_VISION, effect.getDuration(), effect.getAmplifier() + (int) potency));
           }
-          if (effect.getPotion() == Effects.NAUSEA) {
-            player.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, effect.getDuration(), effect.getAmplifier() + (int) potency));
+          if (effect.getEffect() == Effects.CONFUSION) {
+            player.addEffect(new EffectInstance(Effects.NIGHT_VISION, effect.getDuration(), effect.getAmplifier() + (int) potency));
           }
-          if (effect.getPotion() == Effects.HUNGER) {
-            player.addPotionEffect(new EffectInstance(Effects.SATURATION, effect.getDuration(), effect.getAmplifier() + (int) potency));
+          if (effect.getEffect() == Effects.HUNGER) {
+            player.addEffect(new EffectInstance(Effects.SATURATION, effect.getDuration(), effect.getAmplifier() + (int) potency));
           }
-          if (effect.getPotion() == Effects.WEAKNESS) {
-            player.addPotionEffect(new EffectInstance(Effects.STRENGTH, effect.getDuration(), effect.getAmplifier() + (int) potency));
+          if (effect.getEffect() == Effects.WEAKNESS) {
+            player.addEffect(new EffectInstance(Effects.DAMAGE_BOOST, effect.getDuration(), effect.getAmplifier() + (int) potency));
           }
         }
       }

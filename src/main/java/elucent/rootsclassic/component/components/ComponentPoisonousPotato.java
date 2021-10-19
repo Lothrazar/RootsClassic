@@ -22,13 +22,13 @@ public class ComponentPoisonousPotato extends ComponentBase {
   @Override
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      if (caster instanceof PlayerEntity && !world.isRemote) {
+      if (caster instanceof PlayerEntity && !world.isClientSide) {
         BlockPos pos = RootsUtil.getRayTrace(world, (PlayerEntity) caster, 4 + 2 * (int) size);
         LightningBoltEntity lightningBolt = EntityType.LIGHTNING_BOLT.create(world);
         if (lightningBolt != null) {
-          lightningBolt.moveForced(pos.getX(), pos.getY(), pos.getZ());
-          lightningBolt.setEffectOnly(false);
-          world.addEntity(lightningBolt);
+          lightningBolt.moveTo(pos.getX(), pos.getY(), pos.getZ());
+          lightningBolt.setVisualOnly(false);
+          world.addFreshEntity(lightningBolt);
         }
       }
     }

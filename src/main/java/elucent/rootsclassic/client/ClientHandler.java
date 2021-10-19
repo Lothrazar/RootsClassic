@@ -33,17 +33,17 @@ public class ClientHandler {
     ClientRegistry.bindTileEntityRenderer(RootsRegistry.ALTAR_TILE.get(), AltarTESR::new);
     ClientRegistry.bindTileEntityRenderer(RootsRegistry.BRAZIER_TILE.get(), BrazierTESR::new);
 
-    RenderTypeLookup.setRenderLayer(RootsRegistry.MIDNIGHT_BLOOM.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(RootsRegistry.FLARE_ORCHID.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(RootsRegistry.RADIANT_DAISY.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(RootsRegistry.ALTAR.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(RootsRegistry.BRAZIER.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(RootsRegistry.MIDNIGHT_BLOOM.get(), RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(RootsRegistry.FLARE_ORCHID.get(), RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(RootsRegistry.RADIANT_DAISY.get(), RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(RootsRegistry.ALTAR.get(), RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(RootsRegistry.BRAZIER.get(), RenderType.cutout());
 
     RenderingRegistry.registerEntityRenderingHandler(RootsEntities.PHANTOM_SKELETON.get(), PhantomSkeletonRenderer::new);
     RenderingRegistry.registerEntityRenderingHandler(RootsEntities.ENTITY_ACCELERATOR.get(), AcceleratorRenderer::new);
     RenderingRegistry.registerEntityRenderingHandler(RootsEntities.TILE_ACCELERATOR.get(), AcceleratorRenderer::new);
 
-    ItemModelsProperties.registerProperty(RootsRegistry.STAFF.get(), new ResourceLocation("imbued"), (stack, world, livingEntity) -> stack.getTag() != null && stack.getTag().contains(Const.NBT_EFFECT) ? 1.0F : 0.0F);
+    ItemModelsProperties.register(RootsRegistry.STAFF.get(), new ResourceLocation("imbued"), (stack, world, livingEntity) -> stack.getTag() != null && stack.getTag().contains(Const.NBT_EFFECT) ? 1.0F : 0.0F);
   }
 
   public static void registerItemColors(final ColorHandlerEvent.Item event) {
@@ -51,7 +51,7 @@ public class ClientHandler {
     colors.register((stack, tintIndex) -> {
       if (stack.hasTag() && stack.getItem() instanceof StaffItem) {
         CompoundNBT tag = stack.getTag();
-        ResourceLocation compName = ResourceLocation.tryCreate(tag.getString(Const.NBT_EFFECT));
+        ResourceLocation compName = ResourceLocation.tryParse(tag.getString(Const.NBT_EFFECT));
         if (compName != null) {
           ComponentBase comp = ComponentManager.getComponentFromName(compName);
           if (comp != null) {
@@ -70,7 +70,7 @@ public class ClientHandler {
       if (stack.getItem() instanceof CrystalStaffItem && stack.hasTag()) {
         String effect = CrystalStaffItem.getEffect(stack);
         if (effect != null) {
-          ResourceLocation compName = ResourceLocation.tryCreate(effect);
+          ResourceLocation compName = ResourceLocation.tryParse(effect);
           if (compName != null) {
             ComponentBase comp = ComponentManager.getComponentFromName(compName);
             if (comp != null) {

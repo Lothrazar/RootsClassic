@@ -20,17 +20,17 @@ public class ComponentPoppy extends ComponentBase {
   @Override
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      ArrayList<MonsterEntity> targets = (ArrayList<MonsterEntity>) world.getEntitiesWithinAABB(MonsterEntity.class, new AxisAlignedBB(x - size * 2.4, y - size * 2.4, z - size * 2.4, x + size * 2.4, y + size * 2.4, z + size * 2.4));
+      ArrayList<MonsterEntity> targets = (ArrayList<MonsterEntity>) world.getEntitiesOfClass(MonsterEntity.class, new AxisAlignedBB(x - size * 2.4, y - size * 2.4, z - size * 2.4, x + size * 2.4, y + size * 2.4, z + size * 2.4));
       for (int i = 0; i < targets.size(); i++) {
-        targets.get(i).setAttackTarget(null);
-        int j = world.rand.nextInt(targets.size());
-        if (j != i && world.rand.nextDouble() >= 1.0 / (potency + 1.0)) {
+        targets.get(i).setTarget(null);
+        int j = world.random.nextInt(targets.size());
+        if (j != i && world.random.nextDouble() >= 1.0 / (potency + 1.0)) {
           //          if (caster instanceof EntityPlayer) {
           //            if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveSpellInsanity)) {
           //              PlayerManager.addAchievement((EntityPlayer) caster, RegistryManager.achieveSpellInsanity);
           //            }
           //          }
-          targets.get(i).setAttackTarget(targets.get(j));
+          targets.get(i).setTarget(targets.get(j));
         }
       }
     }

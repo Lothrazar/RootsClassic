@@ -20,8 +20,8 @@ public class ComponentChorus extends ComponentBase {
     if (type == EnumCastType.SPELL) {
       if (caster instanceof PlayerEntity) {
         PlayerEntity player = (PlayerEntity) caster;
-        player.setPosition(player.getPosX() + player.getLookVec().x * (8.0 + 8.0 * potency), player.getPosY() + player.getLookVec().y * (8.0 + 8.0 * potency),
-            player.getPosZ() + player.getLookVec().z * (8.0 + 8.0 * potency));
+        player.setPos(player.getX() + player.getLookAngle().x * (8.0 + 8.0 * potency), player.getY() + player.getLookAngle().y * (8.0 + 8.0 * potency),
+            player.getZ() + player.getLookAngle().z * (8.0 + 8.0 * potency));
       }
     }
   }

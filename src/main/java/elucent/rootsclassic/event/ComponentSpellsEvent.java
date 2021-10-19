@@ -48,22 +48,22 @@ public class ComponentSpellsEvent {
   }
 
   private void tickManaRegen(LivingEntity entity) {
-    if (entity.ticksExisted % TICKS_PER_MANA_REGEN == 0) {
+    if (entity.tickCount % TICKS_PER_MANA_REGEN == 0) {
       entity.getCapability(RootsCapabilityManager.MANA_CAPABILITY).ifPresent(cap -> cap.setMana(cap.getMana() + 1.0f));
     }
   }
 
   private void wildwoodArmorRegenFullset(PlayerEntity entity) {
-    ItemStack head = entity.getItemStackFromSlot(EquipmentSlotType.HEAD);
-    ItemStack chest = entity.getItemStackFromSlot(EquipmentSlotType.CHEST);
-    ItemStack legs = entity.getItemStackFromSlot(EquipmentSlotType.LEGS);
-    ItemStack feet = entity.getItemStackFromSlot(EquipmentSlotType.FEET);
+    ItemStack head = entity.getItemBySlot(EquipmentSlotType.HEAD);
+    ItemStack chest = entity.getItemBySlot(EquipmentSlotType.CHEST);
+    ItemStack legs = entity.getItemBySlot(EquipmentSlotType.LEGS);
+    ItemStack feet = entity.getItemBySlot(EquipmentSlotType.FEET);
     if (head.getItem() == RootsRegistry.WILDWOOD_MASK.get() &&
         chest.getItem() == RootsRegistry.WILDWOOD_PLATE.get() &&
         legs.getItem() == RootsRegistry.WILDWOOD_LEGGINGS.get() &&
         feet.getItem() == RootsRegistry.WILDWOOD_BOOTS.get()) {
       //
-      if (entity.world.rand.nextDouble() < 0.02 && entity.getHealth() < entity.getMaxHealth()) {
+      if (entity.level.random.nextDouble() < 0.02 && entity.getHealth() < entity.getMaxHealth()) {
         entity.heal(1);//1 half heart
       }
     }
@@ -97,37 +97,37 @@ public class ComponentSpellsEvent {
       event.setAmount((float) (event.getAmount() * (1.0 + persistentData.getDouble(Const.NBT_VULN))));
       persistentData.remove(Const.NBT_VULN);
     }
-    if (persistentData.contains(Const.NBT_THORNS) && event.getSource().getTrueSource() instanceof LivingEntity) {
-      ((LivingEntity) event.getSource().getTrueSource()).attackEntityFrom(DamageSource.CACTUS, persistentData.getFloat(Const.NBT_THORNS));
+    if (persistentData.contains(Const.NBT_THORNS) && event.getSource().getEntity() instanceof LivingEntity) {
+      ((LivingEntity) event.getSource().getEntity()).hurt(DamageSource.CACTUS, persistentData.getFloat(Const.NBT_THORNS));
       persistentData.remove(Const.NBT_THORNS);
       RootsUtil.decrementTickTracking(entityLiving);
     }
     if (entityLiving instanceof PlayerEntity) {
       PlayerEntity player = (PlayerEntity) entityLiving;
-      if (!player.inventory.getCurrentItem().isEmpty() && player.inventory.getCurrentItem().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
-        ItemStack sword = player.inventory.getCurrentItem();
+      if (!player.inventory.getSelected().isEmpty() && player.inventory.getSelected().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
+        ItemStack sword = player.inventory.getSelected();
         if (sword.hasTag() && sword.getTag().contains("shadowstep")) {
           int stepLvl = sword.getTag().getInt("shadowstep");
           double chance = stepLvl * 12.5;
-          if (player.getEntityWorld().rand.nextInt(100) < chance) {
+          if (player.getCommandSenderWorld().random.nextInt(100) < chance) {
             event.setCanceled(true);
           }
         }
       }
     }
-    if (event.getSource().getTrueSource() instanceof PlayerEntity) {
-      if (!event.getEntity().getEntityWorld().isRemote) {
-        PlayerEntity player = (PlayerEntity) event.getSource().getTrueSource();
-        if (!player.inventory.getCurrentItem().isEmpty() && player.inventory.getCurrentItem().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
-          ItemStack sword = player.inventory.getCurrentItem();
+    if (event.getSource().getEntity() instanceof PlayerEntity) {
+      if (!event.getEntity().getCommandSenderWorld().isClientSide) {
+        PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
+        if (!player.inventory.getSelected().isEmpty() && player.inventory.getSelected().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
+          ItemStack sword = player.inventory.getSelected();
           if (sword.hasTag()) {
             CompoundNBT tag = sword.getTag();
             if (tag.contains("aquatic")) {
               int aquaLvl = tag.getInt("aquatic");
               float amount = aquaLvl * 0.5f;
-              event.getEntity().attackEntityFrom(DamageSource.DROWN, amount);
+              event.getEntity().hurt(DamageSource.DROWN, amount);
             }
-            if ((tag.contains("holy")) && entityLiving.getCreatureAttribute() == CreatureAttribute.UNDEAD) {
+            if ((tag.contains("holy")) && entityLiving.getMobType() == CreatureAttribute.UNDEAD) {
               int holyLvl = tag.getInt("holy");
               float amount = holyLvl * 1.5f;
               float currentAmount = event.getAmount();

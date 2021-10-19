@@ -31,16 +31,16 @@ public class RitualSummoning extends RitualBase {
 
   @Override
   public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
-    if (RootsUtil.itemListMatchInventoryWithSize(inventory, this.getIngredients()) && !world.isRemote) {
+    if (RootsUtil.itemListMatchInventoryWithSize(inventory, this.getIngredients()) && !world.isClientSide) {
       MobEntity toSpawn = entityType.create(world);
       if (toSpawn != null) {
-        toSpawn.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(pos), SpawnReason.MOB_SUMMONED, (ILivingEntityData) null, (CompoundNBT) null);
-        toSpawn.setPosition(pos.getX() + 0.5, pos.getY() + 2.0, pos.getZ() + 0.5);
-        inventory.clear();
-        world.addEntity(toSpawn);
-        TileEntity tile = world.getTileEntity(pos);
+        toSpawn.finalizeSpawn((ServerWorld) world, world.getCurrentDifficultyAt(pos), SpawnReason.MOB_SUMMONED, (ILivingEntityData) null, (CompoundNBT) null);
+        toSpawn.setPos(pos.getX() + 0.5, pos.getY() + 2.0, pos.getZ() + 0.5);
+        inventory.clearContent();
+        world.addFreshEntity(toSpawn);
+        TileEntity tile = world.getBlockEntity(pos);
         if (tile != null) {
-          tile.markDirty();
+          tile.setChanged();
         }
       }
     }

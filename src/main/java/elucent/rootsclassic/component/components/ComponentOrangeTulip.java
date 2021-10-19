@@ -29,14 +29,14 @@ public class ComponentOrangeTulip extends ComponentBase {
   public void castingAction(PlayerEntity player, int count, int potency, int efficiency, int size) {
     super.castingAction(player, count, potency, efficiency, size);
     if (count % 1 == 0) {
-      List<Entity> entities = player.world.getEntitiesWithinAABB(Entity.class,
-          new AxisAlignedBB(player.getPosX() - (1.0 + 0.5 * size), player.getPosY() - (1.0 + 0.5 * size), player.getPosZ() - (1.0 + 0.5 * size),
-              player.getPosX() + (1.0 + 0.5 * size), player.getPosY() + (1.0 + 0.5 * size), player.getPosZ() + (1.0 + 0.5 * size)));
+      List<Entity> entities = player.level.getEntitiesOfClass(Entity.class,
+          new AxisAlignedBB(player.getX() - (1.0 + 0.5 * size), player.getY() - (1.0 + 0.5 * size), player.getZ() - (1.0 + 0.5 * size),
+              player.getX() + (1.0 + 0.5 * size), player.getY() + (1.0 + 0.5 * size), player.getZ() + (1.0 + 0.5 * size)));
       for (Entity entity : entities) {
         if (entity instanceof LivingEntity || entity instanceof AbstractArrowEntity) {
-          Vector3d v = new Vector3d(entity.getPosX() - player.getPosX(), entity.getPosY() - (player.getPosY() + 1.0), entity.getPosZ() - player.getPosZ());
+          Vector3d v = new Vector3d(entity.getX() - player.getX(), entity.getY() - (player.getY() + 1.0), entity.getZ() - player.getZ());
           v.normalize();
-          entity.setMotion(v.x * (0.05 + 0.05 * potency), v.y * (0.05 + 0.05 * potency), v.z * (0.05 + 0.05 * potency));
+          entity.setDeltaMovement(v.x * (0.05 + 0.05 * potency), v.y * (0.05 + 0.05 * potency), v.z * (0.05 + 0.05 * potency));
         }
       }
     }

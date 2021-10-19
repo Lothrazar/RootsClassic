@@ -22,12 +22,12 @@ public class ComponentDandelion extends ComponentBase {
   @Override
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
+      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
       for (LivingEntity target : targets) {
-        if (target.getUniqueID() != caster.getUniqueID()) {
-          target.setMotion(new Vector3d(caster.getLookVec().x, (float) (potency == 0 ? 1.0 : 1.0 + 0.5 * potency), caster.getLookVec().z));
+        if (target.getUUID() != caster.getUUID()) {
+          target.setDeltaMovement(new Vector3d(caster.getLookAngle().x, (float) (potency == 0 ? 1.0 : 1.0 + 0.5 * potency), caster.getLookAngle().z));
           if (target instanceof PlayerEntity) {
-            ((PlayerEntity) target).velocityChanged = true;
+            ((PlayerEntity) target).hurtMarked = true;
           }
         }
       }

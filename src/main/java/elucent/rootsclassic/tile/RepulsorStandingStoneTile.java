@@ -27,34 +27,34 @@ public class RepulsorStandingStoneTile extends TEBase implements ITickableTileEn
   }
 
   @Override
-  public void read(BlockState state, CompoundNBT tag) {
-    super.read(state, tag);
+  public void load(BlockState state, CompoundNBT tag) {
+    super.load(state, tag);
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tag) {
-    super.write(tag);
+  public CompoundNBT save(CompoundNBT tag) {
+    super.save(tag);
     return tag;
   }
 
   @Override
   public void tick() {
     ticker++;
-    if (ticker % 5 == 0 && world.isRemote) {
+    if (ticker % 5 == 0 && level.isClientSide) {
       for (double i = 0; i < 720; i += 45.0) {
         double xShift = 0.5 * Math.sin(Math.PI * (i / 360.0));
         double zShift = 0.5 * Math.cos(Math.PI * (i / 360.0));
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 32),
-            pos.getX() + 0.5 + xShift, pos.getY() + 0.5, pos.getZ() + 0.5 + zShift, 0, 0, 0);
+        level.addParticle(MagicAuraParticleData.createData(255, 255, 32),
+            worldPosition.getX() + 0.5 + xShift, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5 + zShift, 0, 0, 0);
       }
     }
-    List<ItemEntity> nearbyItems = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.getX() - RADIUS, pos.getY() - VRADIUS, pos.getZ() - RADIUS, pos.getX() + RADIUS, pos.getY() + VRADIUS, pos.getZ() + RADIUS));
+    List<ItemEntity> nearbyItems = level.getEntitiesOfClass(ItemEntity.class, new AxisAlignedBB(worldPosition.getX() - RADIUS, worldPosition.getY() - VRADIUS, worldPosition.getZ() - RADIUS, worldPosition.getX() + RADIUS, worldPosition.getY() + VRADIUS, worldPosition.getZ() + RADIUS));
     if (nearbyItems.size() > 0) {
       for (ItemEntity ei : nearbyItems) {
-        if (Math.max(Math.abs(ei.getPosX() - (pos.getX() + 0.5)), Math.abs(ei.getPosZ() - (pos.getZ() + 0.5))) > 1.0) {
-          Vector3d v = new Vector3d(ei.getPosX() - (pos.getX() + 0.5), 0, ei.getPosZ() - (pos.getZ() + 0.5));
+        if (Math.max(Math.abs(ei.getX() - (worldPosition.getX() + 0.5)), Math.abs(ei.getZ() - (worldPosition.getZ() + 0.5))) > 1.0) {
+          Vector3d v = new Vector3d(ei.getX() - (worldPosition.getX() + 0.5), 0, ei.getZ() - (worldPosition.getZ() + 0.5));
           v.normalize();
-          ei.setMotion(v.x * 0.05, ei.getMotion().y, v.z * 0.05);
+          ei.setDeltaMovement(v.x * 0.05, ei.getDeltaMovement().y, v.z * 0.05);
         }
       }
     }

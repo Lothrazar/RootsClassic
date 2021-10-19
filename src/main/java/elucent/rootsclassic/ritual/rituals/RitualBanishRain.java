@@ -25,7 +25,7 @@ public class RitualBanishRain extends RitualBase {
 
   @Override
   public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
-    inventory.clear();
-    world.getWorldInfo().setRaining(false);
+    inventory.clearContent();
+    world.getLevelData().setRaining(false);
   }
 }

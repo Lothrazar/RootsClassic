@@ -50,14 +50,14 @@ public class MortarTile extends TEBase {
   }
 
   @Override
-  public void read(BlockState state, CompoundNBT nbt) {
-    super.read(state, nbt);
+  public void load(BlockState state, CompoundNBT nbt) {
+    super.load(state, nbt);
     inventory.deserializeNBT(nbt.getCompound("InventoryHandler"));
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tag) {
-    tag = super.write(tag);
+  public CompoundNBT save(CompoundNBT tag) {
+    tag = super.save(tag);
     tag.put("InventoryHandler", inventory.serializeNBT());
     return tag;
   }
@@ -65,7 +65,7 @@ public class MortarTile extends TEBase {
   @Override
   public void breakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player) {
     dropAllItems(world, pos);
-    this.remove();
+    this.setRemoved();
   }
 
   @Override
@@ -95,8 +95,8 @@ public class MortarTile extends TEBase {
           ItemStack restStack = ItemHandlerHelper.insertItem(inventory, heldCopy, false);
           if (restStack.isEmpty()) {
             heldItem.shrink(1);
-            markDirty();
-            world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+            setChanged();
+            world.sendBlockUpdated(getBlockPos(), state, world.getBlockState(pos), 3);
             return ActionResultType.SUCCESS;
           }
           else {
@@ -108,8 +108,8 @@ public class MortarTile extends TEBase {
         ItemStack restStack = ItemHandlerHelper.insertItem(inventory, heldCopy, false);
         if (restStack.isEmpty()) {
           heldItem.shrink(1);
-          markDirty();
-          world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+          setChanged();
+          world.sendBlockUpdated(getBlockPos(), state, world.getBlockState(pos), 3);
           return ActionResultType.SUCCESS;
         }
         else {
@@ -127,29 +127,29 @@ public class MortarTile extends TEBase {
         dropItem(lastStack, 0.5F);
         lastStack.shrink(1);
       }
-      markDirty();
-      world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+      setChanged();
+      world.sendBlockUpdated(getBlockPos(), state, world.getBlockState(pos), 3);
       return ActionResultType.SUCCESS;
     }
     return ActionResultType.PASS;
   }
 
   private ActionResultType tryActivateRecipe(PlayerEntity player, BlockState state) {
-    ComponentRecipe recipe = world.getRecipeManager().getRecipe(RootsRecipes.COMPONENT_RECIPE_TYPE, InventoryUtil.createIInventory(inventory), world).orElse(null);
+    ComponentRecipe recipe = level.getRecipeManager().getRecipeFor(RootsRecipes.COMPONENT_RECIPE_TYPE, InventoryUtil.createIInventory(inventory), level).orElse(null);
     if (recipe == null) {
-      player.sendStatusMessage(new TranslationTextComponent("rootsclassic.mortar.invalid"), true);
+      player.displayClientMessage(new TranslationTextComponent("rootsclassic.mortar.invalid"), true);
       return ActionResultType.PASS;
     }
     else if (recipe.needsMixin() && ComponentRecipe.getModifierCapacity(InventoryUtil.createIInventory(inventory)) < 0) {
-      player.sendStatusMessage(new TranslationTextComponent("rootsclassic.mortar.mixin"), true);
+      player.displayClientMessage(new TranslationTextComponent("rootsclassic.mortar.mixin"), true);
       return ActionResultType.PASS;
     }
-    if (!world.isRemote) {
-      world.addEntity(new ItemEntity(world, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, recipe.getCraftingResult(InventoryUtil.createIInventory(inventory))));
+    if (!level.isClientSide) {
+      level.addFreshEntity(new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, recipe.assemble(InventoryUtil.createIInventory(inventory))));
     }
     InventoryUtil.clearInventory(inventory);
-    markDirty();
-    world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+    setChanged();
+    level.sendBlockUpdated(getBlockPos(), state, level.getBlockState(worldPosition), 3);
     return ActionResultType.SUCCESS;
   }
 
@@ -158,14 +158,14 @@ public class MortarTile extends TEBase {
     if (copyStack.isEmpty()) {
       return null;
     }
-    else if (world.isRemote) {
+    else if (level.isClientSide) {
       return null;
     }
     else {
-      BlockPos pos = getPos();
-      ItemEntity itementity = new ItemEntity(this.world, pos.getX(), pos.getY() + (double) offsetY, this.pos.getZ(), copyStack);
-      itementity.setDefaultPickupDelay();
-      this.world.addEntity(itementity);
+      BlockPos pos = getBlockPos();
+      ItemEntity itementity = new ItemEntity(this.level, pos.getX(), pos.getY() + (double) offsetY, this.worldPosition.getZ(), copyStack);
+      itementity.setDefaultPickUpDelay();
+      this.level.addFreshEntity(itementity);
       return itementity;
     }
   }

@@ -461,9 +461,9 @@ public class RitualManager {
     ArrayList<ItemStack> test = new ArrayList<>();
     for (int i = -4; i < 5; i++) {
       for (int j = -4; j < 5; j++) {
-        if (world.getBlockState(pos.add(i, 0, j)).getBlock() == RootsRegistry.BRAZIER.get()) {
-          if (world.getTileEntity(pos.add(i, 0, j)) != null) {
-            BrazierTile brazierTile = (BrazierTile) world.getTileEntity(pos.add(i, 0, j));
+        if (world.getBlockState(pos.offset(i, 0, j)).getBlock() == RootsRegistry.BRAZIER.get()) {
+          if (world.getBlockEntity(pos.offset(i, 0, j)) != null) {
+            BrazierTile brazierTile = (BrazierTile) world.getBlockEntity(pos.offset(i, 0, j));
             if (brazierTile.isBurning()) {
               test.add(brazierTile.getHeldItem());
             }

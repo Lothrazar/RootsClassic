@@ -24,16 +24,16 @@ public class ComponentNetherWart extends ComponentBase {
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
       //   int damageDealt = 0;
-      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
+      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
       for (LivingEntity target : targets) {
-        if (target.getUniqueID() != caster.getUniqueID()) {
+        if (target.getUUID() != caster.getUUID()) {
           if (target instanceof PlayerEntity && RootsConfig.COMMON.disablePVP.get()) {}
           else {
             //    damageDealt += (int) (5 + 3 * potency);
-            target.attackEntityFrom(DamageSource.IN_FIRE, (int) (5 + 3 * potency));
-            target.setFire((int) (4 + 3 * potency));
-            target.setLastAttackedEntity(caster);
-            target.setRevengeTarget((LivingEntity) caster);
+            target.hurt(DamageSource.IN_FIRE, (int) (5 + 3 * potency));
+            target.setSecondsOnFire((int) (4 + 3 * potency));
+            target.setLastHurtMob(caster);
+            target.setLastHurtByMob((LivingEntity) caster);
           }
         }
       }

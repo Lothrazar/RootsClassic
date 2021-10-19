@@ -46,7 +46,7 @@ public class SpellZen implements IRecipeManager {
     for (IIngredient ingredient : ingredients) {
       ingredientList.add(ingredient.asVanillaIngredient());
     }
-    ComponentRecipe newRecipe = new ComponentRecipe(found.getId(), found.getEffectResult(), found.getGroup(), found.getRecipeOutput(), ingredientList, found.needsMixin());
+    ComponentRecipe newRecipe = new ComponentRecipe(found.getId(), found.getEffectResult(), found.getGroup(), found.getResultItem(), ingredientList, found.needsMixin());
     CraftTweakerAPI.apply(new ActionRemoveRecipeByName(INSTANCE, found.getId()));
     CraftTweakerAPI.apply(new ActionAddRecipe(INSTANCE, newRecipe));
   }
@@ -70,7 +70,7 @@ public class SpellZen implements IRecipeManager {
     ComponentRecipe found = ComponentManager.getSpellFromName(CTCraftingTableManager.recipeManager, name);
     if (found == null) {
       StringBuilder names = new StringBuilder();
-      for (ComponentRecipe recipe : CTCraftingTableManager.recipeManager.getRecipesForType(RootsRecipes.COMPONENT_RECIPE_TYPE)) {
+      for (ComponentRecipe recipe : CTCraftingTableManager.recipeManager.getAllRecipesFor(RootsRecipes.COMPONENT_RECIPE_TYPE)) {
         if (name.getNamespace().equals(Const.MODID) && !name.getPath().equals("none")) {
           names.append(recipe.getEffectResult()).append(", ");
         }

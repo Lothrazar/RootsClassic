@@ -27,25 +27,25 @@ public class MagicAltarLineParticle extends SpriteTexturedParticle {
       this.colorB = this.colorB / 255.0;
     }
     this.setColor(1, 1, 1);
-    this.maxAge = 16;
-    this.particleGravity = 0.0f;
-    this.particleScale = 0.05f;
-    this.motionX = (vx - x) / this.maxAge;
-    this.motionY = (vy - y) / this.maxAge;
-    this.motionZ = (vz - z) / this.maxAge;
-    this.particleAlpha = 0.0f;
-    this.selectSpriteRandomly(sprite);
+    this.lifetime = 16;
+    this.gravity = 0.0f;
+    this.quadSize = 0.05f;
+    this.xd = (vx - x) / this.lifetime;
+    this.yd = (vy - y) / this.lifetime;
+    this.zd = (vz - z) / this.lifetime;
+    this.alpha = 0.0f;
+    this.pickSprite(sprite);
   }
 
   @Override
   public void tick() {
     super.tick();
-    float lifeCoeff = ((float) this.maxAge - (float) this.age) / this.maxAge;
-    this.particleRed = Math.min(1.0f, (float) colorR * (1.5f - lifeCoeff) + lifeCoeff);
-    this.particleGreen = Math.min(1.0f, (float) colorG * (1.5f - lifeCoeff) + lifeCoeff);
-    this.particleBlue = Math.min(1.0f, (float) colorB * (1.5f - lifeCoeff) + lifeCoeff);
-    this.particleAlpha = 1.0f - lifeCoeff;
-    this.particleScale = 0.1F * (0.5f + 2.0f * (1.0f - lifeCoeff));
+    float lifeCoeff = ((float) this.lifetime - (float) this.age) / this.lifetime;
+    this.rCol = Math.min(1.0f, (float) colorR * (1.5f - lifeCoeff) + lifeCoeff);
+    this.gCol = Math.min(1.0f, (float) colorG * (1.5f - lifeCoeff) + lifeCoeff);
+    this.bCol = Math.min(1.0f, (float) colorB * (1.5f - lifeCoeff) + lifeCoeff);
+    this.alpha = 1.0f - lifeCoeff;
+    this.quadSize = 0.1F * (0.5f + 2.0f * (1.0f - lifeCoeff));
   }
 
   @Override
@@ -55,6 +55,6 @@ public class MagicAltarLineParticle extends SpriteTexturedParticle {
 
   @Override
   public boolean isAlive() {
-    return this.age < this.maxAge;
+    return this.age < this.lifetime;
   }
 }

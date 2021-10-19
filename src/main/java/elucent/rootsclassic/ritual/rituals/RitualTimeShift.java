@@ -30,9 +30,9 @@ public class RitualTimeShift extends RitualBase {
         shiftAmount += 1000;
       }
     }
-    inventory.clear();
-    if (!world.isRemote && world.getServer() != null) {
-      for(ServerWorld serverworld : world.getServer().getWorlds()) {
+    inventory.clearContent();
+    if (!world.isClientSide && world.getServer() != null) {
+      for(ServerWorld serverworld : world.getServer().getAllLevels()) {
         serverworld.setDayTime(serverworld.getDayTime() + (long)shiftAmount);
       }
     }

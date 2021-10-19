@@ -14,15 +14,17 @@ import elucent.rootsclassic.block.BaseTEBlock;
 
 import java.util.stream.Stream;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class AltarBlock extends BaseTEBlock {
   private static final VoxelShape SHAPE = Stream.of(
-          Block.makeCuboidShape(0, 8, 0, 16, 12, 16),
-          Block.makeCuboidShape(4, 0, 4, 12, 8, 12),
-          Block.makeCuboidShape(2, 4, 2, 6, 8, 6),
-          Block.makeCuboidShape(10, 4, 2, 14, 8, 6),
-          Block.makeCuboidShape(10, 4, 10, 14, 8, 14),
-          Block.makeCuboidShape(2, 4, 10, 6, 8, 14)
-  ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
+          Block.box(0, 8, 0, 16, 12, 16),
+          Block.box(4, 0, 4, 12, 8, 12),
+          Block.box(2, 4, 2, 6, 8, 6),
+          Block.box(10, 4, 2, 14, 8, 6),
+          Block.box(10, 4, 10, 14, 8, 14),
+          Block.box(2, 4, 10, 6, 8, 14)
+  ).reduce((v1, v2) -> VoxelShapes.join(v1, v2, IBooleanFunction.OR)).get();
 
   public AltarBlock(Properties properties) {
     super(properties);

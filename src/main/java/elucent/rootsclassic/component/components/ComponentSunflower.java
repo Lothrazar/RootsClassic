@@ -28,29 +28,29 @@ public class ComponentSunflower extends ComponentBase {
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL && caster instanceof LivingEntity) {
       int damageDealt = 0;
-      List<LivingEntity> targets = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
+      List<LivingEntity> targets = world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
       LivingEntity target;
       for (LivingEntity livingEntity : targets) {
         target = livingEntity;
-        if (target.getUniqueID() == caster.getUniqueID()) {
+        if (target.getUUID() == caster.getUUID()) {
           continue; //don't hurt self
         }
         if (target instanceof PlayerEntity && RootsConfig.COMMON.disablePVP.get()) {
           continue; //no pvp allowed
         }
-        if (target.isEntityUndead()) {
+        if (target.isInvertedHealAndHarm()) {
           damageDealt += (int) (5 + 4 * potency);
-          target.attackEntityFrom(DamageSource.IN_FIRE, damageDealt);
-          target.setFire(damageDealt);
-          target.addPotionEffect(new EffectInstance(Effects.WEAKNESS, POTION_DURATION, 2 + (int) potency));
-          target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, POTION_DURATION, 2 + (int) potency));
+          target.hurt(DamageSource.IN_FIRE, damageDealt);
+          target.setSecondsOnFire(damageDealt);
+          target.addEffect(new EffectInstance(Effects.WEAKNESS, POTION_DURATION, 2 + (int) potency));
+          target.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, POTION_DURATION, 2 + (int) potency));
         }
         else {
           damageDealt += (int) (3 + 2 * potency);
         }
-        target.attackEntityFrom(DamageSource.IN_FIRE, damageDealt);
-        target.setLastAttackedEntity(caster);
-        target.setRevengeTarget((LivingEntity) caster);
+        target.hurt(DamageSource.IN_FIRE, damageDealt);
+        target.setLastHurtMob(caster);
+        target.setLastHurtByMob((LivingEntity) caster);
       }
     }
   }

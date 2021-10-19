@@ -16,20 +16,20 @@ import elucent.rootsclassic.registry.RootsRegistry;
 public class MutagenFlareOrchidRecipe extends MutagenRecipe {
 
   public MutagenFlareOrchidRecipe() {
-    super(new ResourceLocation(Const.MODID, "flare_orchid"), Blocks.BLUE_ORCHID.getDefaultState(), RootsRegistry.FLARE_ORCHID.get().getDefaultState());
+    super(new ResourceLocation(Const.MODID, "flare_orchid"), Blocks.BLUE_ORCHID.defaultBlockState(), RootsRegistry.FLARE_ORCHID.get().defaultBlockState());
     addIngredient(new ItemStack(Items.BLAZE_ROD, 1));
     addIngredient(new ItemStack(Items.LAVA_BUCKET, 1));
   }
 
   @Override
   public void onCrafted(World world, BlockPos pos, PlayerEntity player) {
-    player.setFire(20);
+    player.setSecondsOnFire(20);
   }
 
   @Override
   public boolean matches(List<ItemStack> items, World world, BlockPos pos, PlayerEntity player) {
     if (super.matches(items, world, pos, player)) {
-      return world.getDimensionKey() == World.THE_NETHER && player.getActivePotionEffect(Effects.FIRE_RESISTANCE) != null
+      return world.dimension() == World.NETHER && player.getEffect(Effects.FIRE_RESISTANCE) != null
           && world.getBlockState(pos.east()).getBlock() == Blocks.NETHERRACK
           && world.getBlockState(pos.west()).getBlock() == Blocks.NETHERRACK
           && world.getBlockState(pos.north()).getBlock() == Blocks.NETHERRACK

@@ -15,7 +15,7 @@ public class CustomInventory implements IInventory {
   }
 
   @Override
-  public int getSizeInventory() {
+  public int getContainerSize() {
     return itemStacks.size();
   }
 
@@ -30,35 +30,35 @@ public class CustomInventory implements IInventory {
   }
 
   @Override
-  public ItemStack getStackInSlot(int index) {
+  public ItemStack getItem(int index) {
     return this.itemStacks.get(index);
   }
 
   @Override
-  public ItemStack decrStackSize(int index, int count) {
-    return ItemStackHelper.getAndRemove(this.itemStacks, index);
+  public ItemStack removeItem(int index, int count) {
+    return ItemStackHelper.takeItem(this.itemStacks, index);
   }
 
   @Override
-  public ItemStack removeStackFromSlot(int index) {
-    return ItemStackHelper.getAndRemove(this.itemStacks, index);
+  public ItemStack removeItemNoUpdate(int index) {
+    return ItemStackHelper.takeItem(this.itemStacks, index);
   }
 
   @Override
-  public void setInventorySlotContents(int index, ItemStack stack) {
+  public void setItem(int index, ItemStack stack) {
     this.itemStacks.set(index, stack);
   }
 
   @Override
-  public void markDirty() {}
+  public void setChanged() {}
 
   @Override
-  public boolean isUsableByPlayer(PlayerEntity player) {
+  public boolean stillValid(PlayerEntity player) {
     return true;
   }
 
   @Override
-  public void clear() {
+  public void clearContent() {
     this.itemStacks.clear();
   }
 }

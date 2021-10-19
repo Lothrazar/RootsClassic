@@ -119,27 +119,27 @@ public class RootsDataGen {
 
       @Override
       protected void addTables() {
-        this.registerDropSelfLootTable(MORTAR.get());
-        this.registerDropSelfLootTable(ALTAR.get());
-        this.registerDropSelfLootTable(BRAZIER.get());
-        this.registerDropSelfLootTable(IMBUER.get());
-        this.registerDropSelfLootTable(MUNDANE_STANDING_STONE.get());
-        this.registerDropSelfLootTable(MIDNIGHT_BLOOM.get());
-        this.registerDropSelfLootTable(FLARE_ORCHID.get());
-        this.registerDropSelfLootTable(RADIANT_DAISY.get());
-        this.registerLootTable(ATTUNED_STANDING_STONE.get(), this::registerStandingStone);
-        this.registerLootTable(VACUUM_STANDING_STONE.get(), this::registerStandingStone);
-        this.registerLootTable(REPULSOR_STANDING_STONE.get(), this::registerStandingStone);
-        this.registerLootTable(ACCELERATOR_STANDING_STONE.get(), this::registerStandingStone);
-        this.registerLootTable(AESTHETIC_STANDING_STONE.get(), this::registerStandingStone);
-        this.registerLootTable(ENTANGLER_STANDING_STONE.get(), this::registerStandingStone);
-        this.registerLootTable(IGNITER_STANDING_STONE.get(), this::registerStandingStone);
-        this.registerLootTable(GROWER_STANDING_STONE.get(), this::registerStandingStone);
-        this.registerLootTable(HEALER_STANDING_STONE.get(), this::registerStandingStone);
+        this.dropSelf(MORTAR.get());
+        this.dropSelf(ALTAR.get());
+        this.dropSelf(BRAZIER.get());
+        this.dropSelf(IMBUER.get());
+        this.dropSelf(MUNDANE_STANDING_STONE.get());
+        this.dropSelf(MIDNIGHT_BLOOM.get());
+        this.dropSelf(FLARE_ORCHID.get());
+        this.dropSelf(RADIANT_DAISY.get());
+        this.add(ATTUNED_STANDING_STONE.get(), this::registerStandingStone);
+        this.add(VACUUM_STANDING_STONE.get(), this::registerStandingStone);
+        this.add(REPULSOR_STANDING_STONE.get(), this::registerStandingStone);
+        this.add(ACCELERATOR_STANDING_STONE.get(), this::registerStandingStone);
+        this.add(AESTHETIC_STANDING_STONE.get(), this::registerStandingStone);
+        this.add(ENTANGLER_STANDING_STONE.get(), this::registerStandingStone);
+        this.add(IGNITER_STANDING_STONE.get(), this::registerStandingStone);
+        this.add(GROWER_STANDING_STONE.get(), this::registerStandingStone);
+        this.add(HEALER_STANDING_STONE.get(), this::registerStandingStone);
       }
 
       public LootTable.Builder registerStandingStone(Block standingStone) {
-        return droppingWhen(standingStone, AttunedStandingStoneBlock.HALF, DoubleBlockHalf.LOWER);
+        return createSinglePropConditionTable(standingStone, AttunedStandingStoneBlock.HALF, DoubleBlockHalf.LOWER);
       }
 
       @Override
@@ -152,12 +152,12 @@ public class RootsDataGen {
 
       @Override
       protected void addTables() {
-        this.registerLootTable(RootsEntities.PHANTOM_SKELETON.get(), LootTable.builder());
+        this.add(RootsEntities.PHANTOM_SKELETON.get(), LootTable.lootTable());
       }
 
       @Override
       protected boolean isNonLiving(EntityType<?> entityType) {
-        return entityType.getClassification() == EntityClassification.MISC;
+        return entityType.getCategory() == EntityClassification.MISC;
       }
 
       @Override
@@ -169,7 +169,7 @@ public class RootsDataGen {
 
     @Override
     protected void validate(Map<ResourceLocation, LootTable> map, @Nonnull ValidationTracker validationtracker) {
-      map.forEach((name, table) -> LootTableManager.validateLootTable(validationtracker, name, table));
+      map.forEach((name, table) -> LootTableManager.validate(validationtracker, name, table));
     }
   }
 
@@ -183,7 +183,7 @@ public class RootsDataGen {
     protected void start() {
       add("rootsclassic_drops", DropModifier.ROOTSCLASSIC_DROPS.get(), new BlockDropModifier(
           new ILootCondition[] {
-              Inverted.builder(MatchTool.builder(ItemPredicate.Builder.create().tag(Tags.Items.SHEARS))).build()
+              Inverted.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.SHEARS))).build()
           }));
     }
   }
@@ -195,58 +195,58 @@ public class RootsDataGen {
     }
 
     @Override
-    protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-      ShapedRecipeBuilder.shapedRecipe(PESTLE.get()).key('X', Blocks.DIORITE).setGroup("pestle")
-          .patternLine("X  ").patternLine(" XX").patternLine(" XX").addCriterion("has_diorite", hasItem(Blocks.DIORITE)).build(consumer);
-      ShapedRecipeBuilder.shapedRecipe(PESTLE.get()).key('X', Blocks.DIORITE).setGroup("pestle")
-          .patternLine("  X").patternLine("XX ").patternLine("XX ").addCriterion("has_diorite", hasItem(Blocks.DIORITE))
-          .build(consumer, Registry.ITEM.getKey(PESTLE.get()) + "2");
-      ShapedRecipeBuilder.shapedRecipe(MORTAR.get()).key('X', Tags.Items.STONE)
-          .patternLine("X X").patternLine("X X").patternLine(" X ").addCriterion("has_stone", hasItem(Tags.Items.STONE)).build(consumer);
-      ShapedRecipeBuilder.shapedRecipe(IMBUER.get()).key('X', Tags.Items.RODS_WOODEN).key('L', ItemTags.LOGS).key('S', Blocks.CHISELED_STONE_BRICKS)
-          .patternLine("X X").patternLine("LSL").addCriterion("has_chiseled_stone_bricks", hasItem(Blocks.CHISELED_STONE_BRICKS)).build(consumer);
-      ShapedRecipeBuilder.shapedRecipe(MUNDANE_STANDING_STONE.get()).key('S', Tags.Items.STONE).key('B', Blocks.STONE_BRICKS).key('L', Tags.Items.STORAGE_BLOCKS_LAPIS)
-          .patternLine("SBS").patternLine("BLB").patternLine("SBS").addCriterion("has_lapis_block", hasItem(Tags.Items.STORAGE_BLOCKS_LAPIS)).build(consumer);
-      ShapedRecipeBuilder.shapedRecipe(ATTUNED_STANDING_STONE.get()).key('S', Tags.Items.STONE).key('N', Tags.Items.INGOTS_NETHER_BRICK).key('D', Tags.Items.GEMS_DIAMOND)
-          .patternLine("SNS").patternLine("NDN").patternLine("SNS").addCriterion("has_diamond", hasItem(Tags.Items.GEMS_DIAMOND)).build(consumer);
-      ShapedRecipeBuilder.shapedRecipe(BRAZIER.get())
-          .key('I', Tags.Items.INGOTS_IRON).key('S', Tags.Items.STRING).key('C', Items.CAULDRON).key('X', Tags.Items.RODS_WOODEN)
-          .patternLine("ISI").patternLine("ICI").patternLine("IXI").addCriterion("has_cauldron", hasItem(Items.CAULDRON)).build(consumer);
-      ShapedRecipeBuilder.shapedRecipe(ALTAR.get())
-          .key('S', Tags.Items.STONE).key('F', Items.POPPY).key('B', VERDANT_SPRIG.get())
-          .key('G', Tags.Items.STORAGE_BLOCKS_GOLD).key('C', Blocks.CHISELED_STONE_BRICKS)
-          .patternLine("BFB").patternLine("SGS").patternLine(" C ").addCriterion("has_gold_block", hasItem(Tags.Items.STORAGE_BLOCKS_GOLD)).build(consumer);
-      ShapedRecipeBuilder.shapedRecipe(BARK_KNIFE.get())
-          .key('S', Tags.Items.RODS_WOODEN).key('V', ItemTags.SAPLINGS).key('P', ItemTags.PLANKS)
-          .patternLine(" VV").patternLine("VPV").patternLine("SV ").addCriterion("has_sapling", hasItem(ItemTags.SAPLINGS)).build(consumer);
-      ShapedRecipeBuilder.shapedRecipe(RUNIC_TABLET.get())
-          .key('S', Tags.Items.SEEDS_WHEAT).key('B', Tags.Items.STONE).key('R', OLD_ROOT.get())
-          .patternLine(" R ").patternLine("SBS").patternLine(" S ").addCriterion("has_old_root", hasItem(OLD_ROOT.get())).build(consumer);
-      ShapelessRecipeBuilder.shapelessRecipe(GROWTH_POWDER.get(), 4)
-          .addIngredient(Tags.Items.SEEDS_WHEAT).addIngredient(Items.GRASS).addIngredient(Tags.Items.DUSTS_REDSTONE).addIngredient(PESTLE.get())
-          .addCriterion("has_pestle", hasItem(PESTLE.get())).build(consumer);
-      ShapelessRecipeBuilder.shapelessRecipe(MUTATING_POWDER.get())
-          .addIngredient(GROWTH_POWDER.get()).addIngredient(GROWTH_POWDER.get()).addIngredient(GROWTH_POWDER.get()).addIngredient(GROWTH_POWDER.get())
-          .addIngredient(Tags.Items.NETHER_STARS).addIngredient(Tags.Items.CROPS_NETHER_WART).addIngredient(PESTLE.get())
-          .addCriterion("has_pestle", hasItem(PESTLE.get())).build(consumer);
-      ShapelessRecipeBuilder.shapelessRecipe(ROOTY_STEW.get())
-          .addIngredient(Tags.Items.CROPS_WHEAT).addIngredient(Items.BOWL).addIngredient(OLD_ROOT.get())
-          .addCriterion("has_bowl", hasItem(Items.BOWL)).build(consumer);
-      ShapelessRecipeBuilder.shapelessRecipe(FRUIT_SALAD.get())
-          .addIngredient(Items.MELON).addIngredient(Items.MELON).addIngredient(Items.MELON)
-          .addIngredient(Items.APPLE).addIngredient(Items.BOWL).addIngredient(ELDERBERRY.get())
-          .addIngredient(WHITECURRANT.get()).addIngredient(BLACKCURRANT.get()).addIngredient(REDCURRANT.get())
-          .addCriterion("has_bowl", hasItem(Items.BOWL)).build(consumer);
-      ShapelessRecipeBuilder.shapelessRecipe(HEALING_POULTICE.get(), 2)
-          .addIngredient(REDCURRANT.get()).addIngredient(Items.PAPER).addIngredient(PESTLE.get()).addIngredient(VERDANT_SPRIG.get())
-          .addCriterion("has_pestle", hasItem(PESTLE.get())).build(consumer);
-      CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(DRAGONS_EYE.get()),
-          Items.ENDER_PEARL, 1F, 200).addCriterion("has_dragons_eye", hasItem(DRAGONS_EYE.get()))
-          .build(consumer, "rootsclassic:ender_pearl");
+    protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
+      ShapedRecipeBuilder.shaped(PESTLE.get()).define('X', Blocks.DIORITE).group("pestle")
+          .pattern("X  ").pattern(" XX").pattern(" XX").unlockedBy("has_diorite", has(Blocks.DIORITE)).save(consumer);
+      ShapedRecipeBuilder.shaped(PESTLE.get()).define('X', Blocks.DIORITE).group("pestle")
+          .pattern("  X").pattern("XX ").pattern("XX ").unlockedBy("has_diorite", has(Blocks.DIORITE))
+          .save(consumer, Registry.ITEM.getKey(PESTLE.get()) + "2");
+      ShapedRecipeBuilder.shaped(MORTAR.get()).define('X', Tags.Items.STONE)
+          .pattern("X X").pattern("X X").pattern(" X ").unlockedBy("has_stone", has(Tags.Items.STONE)).save(consumer);
+      ShapedRecipeBuilder.shaped(IMBUER.get()).define('X', Tags.Items.RODS_WOODEN).define('L', ItemTags.LOGS).define('S', Blocks.CHISELED_STONE_BRICKS)
+          .pattern("X X").pattern("LSL").unlockedBy("has_chiseled_stone_bricks", has(Blocks.CHISELED_STONE_BRICKS)).save(consumer);
+      ShapedRecipeBuilder.shaped(MUNDANE_STANDING_STONE.get()).define('S', Tags.Items.STONE).define('B', Blocks.STONE_BRICKS).define('L', Tags.Items.STORAGE_BLOCKS_LAPIS)
+          .pattern("SBS").pattern("BLB").pattern("SBS").unlockedBy("has_lapis_block", has(Tags.Items.STORAGE_BLOCKS_LAPIS)).save(consumer);
+      ShapedRecipeBuilder.shaped(ATTUNED_STANDING_STONE.get()).define('S', Tags.Items.STONE).define('N', Tags.Items.INGOTS_NETHER_BRICK).define('D', Tags.Items.GEMS_DIAMOND)
+          .pattern("SNS").pattern("NDN").pattern("SNS").unlockedBy("has_diamond", has(Tags.Items.GEMS_DIAMOND)).save(consumer);
+      ShapedRecipeBuilder.shaped(BRAZIER.get())
+          .define('I', Tags.Items.INGOTS_IRON).define('S', Tags.Items.STRING).define('C', Items.CAULDRON).define('X', Tags.Items.RODS_WOODEN)
+          .pattern("ISI").pattern("ICI").pattern("IXI").unlockedBy("has_cauldron", has(Items.CAULDRON)).save(consumer);
+      ShapedRecipeBuilder.shaped(ALTAR.get())
+          .define('S', Tags.Items.STONE).define('F', Items.POPPY).define('B', VERDANT_SPRIG.get())
+          .define('G', Tags.Items.STORAGE_BLOCKS_GOLD).define('C', Blocks.CHISELED_STONE_BRICKS)
+          .pattern("BFB").pattern("SGS").pattern(" C ").unlockedBy("has_gold_block", has(Tags.Items.STORAGE_BLOCKS_GOLD)).save(consumer);
+      ShapedRecipeBuilder.shaped(BARK_KNIFE.get())
+          .define('S', Tags.Items.RODS_WOODEN).define('V', ItemTags.SAPLINGS).define('P', ItemTags.PLANKS)
+          .pattern(" VV").pattern("VPV").pattern("SV ").unlockedBy("has_sapling", has(ItemTags.SAPLINGS)).save(consumer);
+      ShapedRecipeBuilder.shaped(RUNIC_TABLET.get())
+          .define('S', Tags.Items.SEEDS_WHEAT).define('B', Tags.Items.STONE).define('R', OLD_ROOT.get())
+          .pattern(" R ").pattern("SBS").pattern(" S ").unlockedBy("has_old_root", has(OLD_ROOT.get())).save(consumer);
+      ShapelessRecipeBuilder.shapeless(GROWTH_POWDER.get(), 4)
+          .requires(Tags.Items.SEEDS_WHEAT).requires(Items.GRASS).requires(Tags.Items.DUSTS_REDSTONE).requires(PESTLE.get())
+          .unlockedBy("has_pestle", has(PESTLE.get())).save(consumer);
+      ShapelessRecipeBuilder.shapeless(MUTATING_POWDER.get())
+          .requires(GROWTH_POWDER.get()).requires(GROWTH_POWDER.get()).requires(GROWTH_POWDER.get()).requires(GROWTH_POWDER.get())
+          .requires(Tags.Items.NETHER_STARS).requires(Tags.Items.CROPS_NETHER_WART).requires(PESTLE.get())
+          .unlockedBy("has_pestle", has(PESTLE.get())).save(consumer);
+      ShapelessRecipeBuilder.shapeless(ROOTY_STEW.get())
+          .requires(Tags.Items.CROPS_WHEAT).requires(Items.BOWL).requires(OLD_ROOT.get())
+          .unlockedBy("has_bowl", has(Items.BOWL)).save(consumer);
+      ShapelessRecipeBuilder.shapeless(FRUIT_SALAD.get())
+          .requires(Items.MELON).requires(Items.MELON).requires(Items.MELON)
+          .requires(Items.APPLE).requires(Items.BOWL).requires(ELDERBERRY.get())
+          .requires(WHITECURRANT.get()).requires(BLACKCURRANT.get()).requires(REDCURRANT.get())
+          .unlockedBy("has_bowl", has(Items.BOWL)).save(consumer);
+      ShapelessRecipeBuilder.shapeless(HEALING_POULTICE.get(), 2)
+          .requires(REDCURRANT.get()).requires(Items.PAPER).requires(PESTLE.get()).requires(VERDANT_SPRIG.get())
+          .unlockedBy("has_pestle", has(PESTLE.get())).save(consumer);
+      CookingRecipeBuilder.smelting(Ingredient.of(DRAGONS_EYE.get()),
+          Items.ENDER_PEARL, 1F, 200).unlockedBy("has_dragons_eye", has(DRAGONS_EYE.get()))
+          .save(consumer, "rootsclassic:ender_pearl");
     }
 
     @Override
-    protected void saveRecipeAdvancement(DirectoryCache cache, JsonObject advancementJson, Path path) {
+    protected void saveAdvancement(DirectoryCache cache, JsonObject advancementJson, Path path) {
       // Nope
     }
   }

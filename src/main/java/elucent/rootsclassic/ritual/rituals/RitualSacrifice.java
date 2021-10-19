@@ -44,16 +44,16 @@ public class RitualSacrifice extends RitualBase {
 
   @Override
   public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
-    inventory.clear();
-    List<LivingEntity> enemies = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos.getX() - 2, pos.getY() - 2, pos.getZ() - 2, pos.getX() + 3, pos.getY() + 3, pos.getZ() + 3));
+    inventory.clearContent();
+    List<LivingEntity> enemies = world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(pos.getX() - 2, pos.getY() - 2, pos.getZ() - 2, pos.getX() + 3, pos.getY() + 3, pos.getZ() + 3));
     if (enemies.size() > 0) {
       for (LivingEntity enemy : enemies) {
         if (!(enemy instanceof PlayerEntity)) {
           enemies.get(0).setHealth(enemies.get(0).getHealth() - 60.0f);
-          if (!world.isRemote) {
-            ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, potentialDrops.get(world.rand.nextInt(potentialDrops.size())));
-            item.forceSpawn = true;
-            world.addEntity(item);
+          if (!world.isClientSide) {
+            ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, potentialDrops.get(world.random.nextInt(potentialDrops.size())));
+            item.forcedLoading = true;
+            world.addFreshEntity(item);
           }
         }
       }

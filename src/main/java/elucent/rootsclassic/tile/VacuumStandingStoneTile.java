@@ -25,34 +25,34 @@ public class VacuumStandingStoneTile extends TEBase implements ITickableTileEnti
   }
 
   @Override
-  public void read(BlockState state, CompoundNBT tag) {
-    super.read(state, tag);
+  public void load(BlockState state, CompoundNBT tag) {
+    super.load(state, tag);
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tag) {
-    super.write(tag);
+  public CompoundNBT save(CompoundNBT tag) {
+    super.save(tag);
     return tag;
   }
 
   @Override
   public void tick() {
     ticker++;
-    if (ticker % 5 == 0 && world.isRemote) {
+    if (ticker % 5 == 0 && level.isClientSide) {
       for (double i = 0; i < 720; i += 45.0) {
         double xShift = 0.5 * Math.sin(Math.PI * (i / 360.0));
         double zShift = 0.5 * Math.cos(Math.PI * (i / 360.0));
-        world.addParticle(MagicAuraParticleData.createData(255, 32, 160),
-            pos.getX() + 0.5 + xShift, pos.getY() + 0.5, pos.getZ() + 0.5 + zShift, 0, 0, 0);
+        level.addParticle(MagicAuraParticleData.createData(255, 32, 160),
+            worldPosition.getX() + 0.5 + xShift, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5 + zShift, 0, 0, 0);
       }
     }
-    ArrayList<ItemEntity> nearbyItems = (ArrayList<ItemEntity>) this.getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(this.getPos().getX() - 5, this.getPos().getY() - 5, this.getPos().getZ() - 5, this.getPos().getX() + 6, this.getPos().getY() + 6, this.getPos().getZ() + 6));
+    ArrayList<ItemEntity> nearbyItems = (ArrayList<ItemEntity>) this.getLevel().getEntitiesOfClass(ItemEntity.class, new AxisAlignedBB(this.getBlockPos().getX() - 5, this.getBlockPos().getY() - 5, this.getBlockPos().getZ() - 5, this.getBlockPos().getX() + 6, this.getBlockPos().getY() + 6, this.getBlockPos().getZ() + 6));
     if (nearbyItems.size() > 0) {
       for (ItemEntity nearbyItem : nearbyItems) {
-        if (Math.max(Math.abs(nearbyItem.getPosX() - (this.getPos().getX() + 0.5)), Math.abs(nearbyItem.getPosZ() - (this.getPos().getZ() + 0.5))) > 1.0) {
-          Vector3d v = new Vector3d(nearbyItem.getPosX() - (this.getPos().getX() + 0.5), 0, nearbyItem.getPosZ() - (this.getPos().getZ() + 0.5));
+        if (Math.max(Math.abs(nearbyItem.getX() - (this.getBlockPos().getX() + 0.5)), Math.abs(nearbyItem.getZ() - (this.getBlockPos().getZ() + 0.5))) > 1.0) {
+          Vector3d v = new Vector3d(nearbyItem.getX() - (this.getBlockPos().getX() + 0.5), 0, nearbyItem.getZ() - (this.getBlockPos().getZ() + 0.5));
           v.normalize();
-          nearbyItem.setMotion(-v.x * 0.05, nearbyItem.getMotion().y, -v.z * 0.05);
+          nearbyItem.setDeltaMovement(-v.x * 0.05, nearbyItem.getDeltaMovement().y, -v.z * 0.05);
         }
       }
     }

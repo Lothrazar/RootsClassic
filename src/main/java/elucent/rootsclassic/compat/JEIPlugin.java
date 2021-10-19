@@ -27,7 +27,7 @@ public class JEIPlugin implements IModPlugin {
     for (RegistryObject<Item> registryObject : RootsRegistry.ITEMS.getEntries()) {
       Item item = registryObject.get();
       if (item != null) {
-        registration.addIngredientInfo(new ItemStack(item), VanillaTypes.ITEM, new TranslationTextComponent(item.getTranslationKey() + ".guide"));
+        registration.addIngredientInfo(new ItemStack(item), VanillaTypes.ITEM, new TranslationTextComponent(item.getDescriptionId() + ".guide"));
       }
     }
   }

@@ -18,11 +18,11 @@ public class RitualMassBreed extends RitualBase {
 
   @Override
   public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
-    inventory.clear();
-    List<AnimalEntity> animals = world.getEntitiesWithinAABB(AnimalEntity.class, new AxisAlignedBB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22, pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
+    inventory.clearContent();
+    List<AnimalEntity> animals = world.getEntitiesOfClass(AnimalEntity.class, new AxisAlignedBB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22, pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
     if (animals.size() > 0) {
       for (AnimalEntity animal : animals) {
-        animal.setInLove(world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 5, false));
+        animal.setInLove(world.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 5, false));
         animal.getPersistentData().putInt("InLove", 400);
       }
     }

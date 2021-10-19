@@ -41,8 +41,8 @@ public class DropModifier {
     @Nonnull
     @Override
     protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-      if (context.has(LootParameters.BLOCK_STATE)) {
-        BlockState state = context.get(LootParameters.BLOCK_STATE);
+      if (context.hasParam(LootParameters.BLOCK_STATE)) {
+        BlockState state = context.getParamOrNull(LootParameters.BLOCK_STATE);
         Block block = state.getBlock();
         Random rand = context.getRandom();
         if (block instanceof TallGrassBlock) {
@@ -58,7 +58,7 @@ public class DropModifier {
           }
         }
         if (block == Blocks.NETHER_WART) {
-          if (state.get(NetherWartBlock.AGE) == 3) {
+          if (state.getValue(NetherWartBlock.AGE) == 3) {
             if (rand.nextInt(RootsConfig.COMMON.infernalStemDropChance.get()) == 0) {
               generatedLoot.add(new ItemStack(RootsRegistry.INFERNAL_BULB.get(), 1));
             }

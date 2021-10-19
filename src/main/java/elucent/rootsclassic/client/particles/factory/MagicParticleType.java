@@ -10,7 +10,7 @@ public class MagicParticleType extends ParticleType<MagicParticleTypeData> {
   }
 
   @Override
-  public Codec<MagicParticleTypeData> func_230522_e_() {
+  public Codec<MagicParticleTypeData> codec() {
     return MagicParticleTypeData.CODEC;
   }
 }

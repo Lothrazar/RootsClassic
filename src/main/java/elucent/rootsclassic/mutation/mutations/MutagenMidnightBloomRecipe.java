@@ -15,7 +15,7 @@ import elucent.rootsclassic.registry.RootsRegistry;
 public class MutagenMidnightBloomRecipe extends MutagenRecipe {
 
   public MutagenMidnightBloomRecipe() {
-    super(new ResourceLocation(Const.MODID, "midnight_bloom"), Blocks.POPPY.getDefaultState(), RootsRegistry.MIDNIGHT_BLOOM.get().getDefaultState());
+    super(new ResourceLocation(Const.MODID, "midnight_bloom"), Blocks.POPPY.defaultBlockState(), RootsRegistry.MIDNIGHT_BLOOM.get().defaultBlockState());
     addIngredient(new ItemStack(Blocks.COAL_BLOCK, 1));
   }
 
@@ -27,7 +27,7 @@ public class MutagenMidnightBloomRecipe extends MutagenRecipe {
   @Override
   public boolean matches(List<ItemStack> items, World world, BlockPos pos, PlayerEntity player) {
     if (super.matches(items, world, pos, player)) {
-      return world.getDimensionKey() == World.THE_END && world.getBlockState(pos.down(2)).getBlock() == Blocks.OBSIDIAN && player.getActivePotionEffect(Effects.SLOWNESS) != null;
+      return world.dimension() == World.END && world.getBlockState(pos.below(2)).getBlock() == Blocks.OBSIDIAN && player.getEffect(Effects.MOVEMENT_SLOWDOWN) != null;
     }
     return false;
   }

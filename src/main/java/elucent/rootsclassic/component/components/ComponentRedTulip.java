@@ -25,18 +25,18 @@ public class ComponentRedTulip extends ComponentBase {
 
   @Override
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (type == EnumCastType.SPELL && !world.isRemote) {
-      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x - size * 2.4, y - size * 2.4, z - size * 2.4, x + size * 2.4, y + size * 2.4, z + size * 2.4));
+    if (type == EnumCastType.SPELL && !world.isClientSide) {
+      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(x - size * 2.4, y - size * 2.4, z - size * 2.4, x + size * 2.4, y + size * 2.4, z + size * 2.4));
       if (targets.size() > 0) {
         PhantomSkeletonEntity skeleton = new PhantomSkeletonEntity(world);
-        skeleton.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(new BlockPos(x, y, z)), SpawnReason.MOB_SUMMONED, (ILivingEntityData) null, (CompoundNBT) null);
+        skeleton.finalizeSpawn((ServerWorld) world, world.getCurrentDifficultyAt(new BlockPos(x, y, z)), SpawnReason.MOB_SUMMONED, (ILivingEntityData) null, (CompoundNBT) null);
         //				skeleton.setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
         //				skeleton.getPersistentData().putBoolean(Const.NBT_DONT_DROP, false);
         //				skeleton.getPersistentData().putUniqueId("RMOD_dontTarget", caster.getUniqueID());
-        skeleton.setPosition(x, y + 2.0, z);
+        skeleton.setPos(x, y + 2.0, z);
         //        skeleton.setAttackTarget(targets.get(random.nextInt(targets.size())));
         // if (skeleton.getAttackTarget().getUniqueID() != caster.getUniqueID()) {
-        world.addEntity(skeleton);
+        world.addFreshEntity(skeleton);
         // }
       }
     }

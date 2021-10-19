@@ -20,6 +20,8 @@ import net.minecraft.world.World;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.registry.RootsRegistry;
 
+import net.minecraft.item.Item.Properties;
+
 public class DruidKnifeItem extends Item {
 
   protected static final Map<Block, Block> BLOCK_STRIPPING_MAP = (new Builder<Block, Block>())
@@ -47,25 +49,25 @@ public class DruidKnifeItem extends Item {
     super(properties);
   }
 
-  public ActionResultType onItemUse(ItemUseContext context) {
-    World world = context.getWorld();
-    BlockPos pos = context.getPos();
+  public ActionResultType useOn(ItemUseContext context) {
+    World world = context.getLevel();
+    BlockPos pos = context.getClickedPos();
     BlockState state = world.getBlockState(pos);
     BlockState strippedState = getStrippingState(state);
     ItemStack barkDrop = getBarkDrop(state);
     if (!barkDrop.isEmpty() && strippedState != null) {
-      ItemStack stack = context.getItem();
+      ItemStack stack = context.getItemInHand();
       Hand hand = context.getHand();
       PlayerEntity playerIn = context.getPlayer();
-      playerIn.entityDropItem(barkDrop, 1.0f);
-      stack.damageItem(1, playerIn, e -> e.sendBreakAnimation(hand));
-      if (world.rand.nextDouble() < RootsConfig.COMMON.barkKnifeBlockStripChance.get()) {
-        world.playSound(playerIn, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        if (!world.isRemote) {
-          world.setBlockState(pos, strippedState, 11);
+      playerIn.spawnAtLocation(barkDrop, 1.0f);
+      stack.hurtAndBreak(1, playerIn, e -> e.broadcastBreakEvent(hand));
+      if (world.random.nextDouble() < RootsConfig.COMMON.barkKnifeBlockStripChance.get()) {
+        world.playSound(playerIn, pos, SoundEvents.AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        if (!world.isClientSide) {
+          world.setBlock(pos, strippedState, 11);
         }
       }
-      return ActionResultType.func_233537_a_(world.isRemote);
+      return ActionResultType.sidedSuccess(world.isClientSide);
     }
     else {
       return ActionResultType.PASS;
@@ -74,7 +76,7 @@ public class DruidKnifeItem extends Item {
 
   public static BlockState getStrippingState(BlockState originalState) {
     Block block = BLOCK_STRIPPING_MAP.get(originalState.getBlock());
-    return block != null ? block.getDefaultState().with(RotatedPillarBlock.AXIS, originalState.get(RotatedPillarBlock.AXIS)) : null;
+    return block != null ? block.defaultBlockState().setValue(RotatedPillarBlock.AXIS, originalState.getValue(RotatedPillarBlock.AXIS)) : null;
   }
 
   public static ItemStack getBarkDrop(BlockState originalState) {

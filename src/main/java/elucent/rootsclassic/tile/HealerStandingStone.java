@@ -28,31 +28,31 @@ public class HealerStandingStone extends TEBase implements ITickableTileEntity {
   }
 
   @Override
-  public void read(BlockState state, CompoundNBT tag) {
-    super.read(state, tag);
+  public void load(BlockState state, CompoundNBT tag) {
+    super.load(state, tag);
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tag) {
-    super.write(tag);
+  public CompoundNBT save(CompoundNBT tag) {
+    super.save(tag);
     return tag;
   }
 
   @Override
   public void tick() {
     ticker++;
-    if (ticker % 5 == 0 && world.isRemote) {
+    if (ticker % 5 == 0 && level.isClientSide) {
       for (double i = 0; i < 720; i += 45.0) {
         double xShift = 0.5 * Math.sin(Math.PI * (i / 360.0));
         double zShift = 0.5 * Math.cos(Math.PI * (i / 360.0));
-        world.addParticle(MagicAuraParticleData.createData(255, 32, 32),
-            pos.getX() + 0.5 + xShift, pos.getY() + 0.5, pos.getZ() + 0.5 + zShift, 0, 0, 0);
+        level.addParticle(MagicAuraParticleData.createData(255, 32, 32),
+            worldPosition.getX() + 0.5 + xShift, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5 + zShift, 0, 0, 0);
       }
     }
     if (ticker % 20 == 0) {
-      ArrayList<LivingEntity> nearbyCreatures = (ArrayList<LivingEntity>) this.getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos.getX() - RADIUS, pos.getY() - RADIUS, pos.getZ() - RADIUS, pos.getX() + RADIUS, pos.getY() + RADIUS, pos.getZ() + RADIUS));
+      ArrayList<LivingEntity> nearbyCreatures = (ArrayList<LivingEntity>) this.getLevel().getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(worldPosition.getX() - RADIUS, worldPosition.getY() - RADIUS, worldPosition.getZ() - RADIUS, worldPosition.getX() + RADIUS, worldPosition.getY() + RADIUS, worldPosition.getZ() + RADIUS));
       for (LivingEntity nearbyCreature : nearbyCreatures) {
-        nearbyCreature.addPotionEffect(new EffectInstance(Effects.REGENERATION, PTN_SECONDS * 20, 1));
+        nearbyCreature.addEffect(new EffectInstance(Effects.REGENERATION, PTN_SECONDS * 20, 1));
       }
     }
     if (ticker >= 2000) {

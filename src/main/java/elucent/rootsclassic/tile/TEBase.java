@@ -22,21 +22,21 @@ public class TEBase extends TileEntity {
 
   @Override
   public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
-    read(getBlockState(), packet.getNbtCompound());
+    load(getBlockState(), packet.getTag());
   }
 
   @Override
   public CompoundNBT getUpdateTag() {
-    return write(new CompoundNBT());
+    return save(new CompoundNBT());
   }
 
   @Override
   public SUpdateTileEntityPacket getUpdatePacket() {
-    return new SUpdateTileEntityPacket(getPos(), 0, getUpdateTag());
+    return new SUpdateTileEntityPacket(getBlockPos(), 0, getUpdateTag());
   }
 
   public void breakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-    this.remove();
+    this.setRemoved();
   }
 
   public ActionResultType activate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, ItemStack heldItem, BlockRayTraceResult hit) {

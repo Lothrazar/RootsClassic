@@ -24,14 +24,14 @@ public class AltarTESR extends TileEntityRenderer<AltarTile> {
       renderItems.add(altarTile.inventory.getStackInSlot(i));
     }
     for (int i = 0; i < altarTile.inventory.getSlots(); i++) {
-      matrixStackIn.push();
+      matrixStackIn.pushPose();
       double shifted = altarTile.getTicker() + i * (360.0 / renderItems.size());
       matrixStackIn.translate(0.5, 1.0 + 0.1 * Math.sin(Math.toRadians((shifted * 4.0))), 0.5);
-      matrixStackIn.rotate(Vector3f.YP.rotationDegrees((float) shifted));
+      matrixStackIn.mulPose(Vector3f.YP.rotationDegrees((float) shifted));
       matrixStackIn.translate(-0.5, 0, 0);
-      matrixStackIn.rotate(Vector3f.YP.rotationDegrees((float) shifted));
-      Minecraft.getInstance().getItemRenderer().renderItem(renderItems.get(i), TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn);
-      matrixStackIn.pop();
+      matrixStackIn.mulPose(Vector3f.YP.rotationDegrees((float) shifted));
+      Minecraft.getInstance().getItemRenderer().renderStatic(renderItems.get(i), TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn);
+      matrixStackIn.popPose();
     }
   }
 }

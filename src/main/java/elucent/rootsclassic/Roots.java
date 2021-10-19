@@ -35,7 +35,7 @@ public class Roots {
   public static ItemGroup tab = new ItemGroup(Const.MODID) {
 
     @Override
-    public ItemStack createIcon() {
+    public ItemStack makeIcon() {
       return new ItemStack(RootsRegistry.SPELL_POWDER.get());
     }
   };

@@ -18,6 +18,8 @@ import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentManager;
 
+import net.minecraft.item.Item.Properties;
+
 public class SpellPowderItem extends Item {
 
   public SpellPowderItem(Properties properties) {
@@ -36,8 +38,8 @@ public class SpellPowderItem extends Item {
     int size = 0;
     nbt.putString(Const.NBT_EFFECT, effect.toString());
     if (inventory != null) {
-      for (int i = 0; i < inventory.getSizeInventory(); i++) {
-        ItemStack itemStack = inventory.getStackInSlot(i);
+      for (int i = 0; i < inventory.getContainerSize(); i++) {
+        ItemStack itemStack = inventory.getItem(i);
         if (!itemStack.isEmpty()) {
           //TODO: Make this into a tag
           if (itemStack.getItem() == Items.GLOWSTONE_DUST) {
@@ -59,27 +61,27 @@ public class SpellPowderItem extends Item {
   }
 
   @Override
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    super.addInformation(stack, worldIn, tooltip, flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    super.appendHoverText(stack, worldIn, tooltip, flagIn);
     if (stack.hasTag()) {
       CompoundNBT tag = stack.getTag();
-      ResourceLocation compName = ResourceLocation.tryCreate(tag.getString(Const.NBT_EFFECT));
+      ResourceLocation compName = ResourceLocation.tryParse(tag.getString(Const.NBT_EFFECT));
       if (compName != null) {
         ComponentBase comp = ComponentManager.getComponentFromName(compName);
         if (comp != null) {
           tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.spelltypeheading")
-              .appendString(": ").mergeStyle(TextFormatting.GOLD).appendSibling(comp.getEffectName().mergeStyle(comp.getTextColor())));
+              .append(": ").withStyle(TextFormatting.GOLD).append(comp.getEffectName().withStyle(comp.getTextColor())));
         }
       }
       tooltip.add(new StringTextComponent("  +" + tag.getInt(Const.NBT_POTENCY) + " ")
-          .appendSibling(new TranslationTextComponent("rootsclassic.tooltip.spellpotency")).appendString(".").mergeStyle(TextFormatting.RED));
+          .append(new TranslationTextComponent("rootsclassic.tooltip.spellpotency")).append(".").withStyle(TextFormatting.RED));
       tooltip.add(new StringTextComponent("  +" + tag.getInt(Const.NBT_EFFICIENCY) + " ")
-          .appendSibling(new TranslationTextComponent("rootsclassic.tooltip.spellefficiency")).appendString(".").mergeStyle(TextFormatting.RED));
+          .append(new TranslationTextComponent("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(TextFormatting.RED));
       tooltip.add(new StringTextComponent("  +" + tag.getInt(Const.NBT_SIZE) + " ")
-          .appendSibling(new TranslationTextComponent("rootsclassic.tooltip.spellsize")).appendString(".").mergeStyle(TextFormatting.RED));
+          .append(new TranslationTextComponent("rootsclassic.tooltip.spellsize")).append(".").withStyle(TextFormatting.RED));
     }
     else {
-      tooltip.add(new TranslationTextComponent("rootsclassic.error.unset").mergeStyle(TextFormatting.GRAY));
+      tooltip.add(new TranslationTextComponent("rootsclassic.error.unset").withStyle(TextFormatting.GRAY));
     }
   }
 }

@@ -22,7 +22,7 @@ public class ComponentFlareOrchid extends ComponentBase {
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
       BlockPos pos = RootsUtil.getRayTrace(world, (PlayerEntity) caster, 16 + 8 * (int) size);
-      world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), (float) (3.0 + potency), Mode.DESTROY);
+      world.explode(null, pos.getX(), pos.getY(), pos.getZ(), (float) (3.0 + potency), Mode.DESTROY);
     }
   }
 }

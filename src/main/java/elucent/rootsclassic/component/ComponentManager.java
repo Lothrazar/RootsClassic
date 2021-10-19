@@ -72,7 +72,7 @@ public class ComponentManager {
     if (name.getNamespace().equals(Const.MODID) && name.getPath().equals("none")) {
       return null;
     }
-    List<ComponentRecipe> recipes = mgr.getRecipesForType(RootsRecipes.COMPONENT_RECIPE_TYPE);
+    List<ComponentRecipe> recipes = mgr.getAllRecipesFor(RootsRecipes.COMPONENT_RECIPE_TYPE);
     for (ComponentRecipe recipe : recipes) {
       if (recipe.getEffectResult().equals(name)) {
         return recipe;
@@ -82,7 +82,7 @@ public class ComponentManager {
   }
 
   public static ComponentRecipe getRecipeFromInput(World world, IInventory inventory) {
-    Optional<ComponentRecipe> recipe = world.getRecipeManager().getRecipe(RootsRecipes.COMPONENT_RECIPE_TYPE, inventory, world);
+    Optional<ComponentRecipe> recipe = world.getRecipeManager().getRecipeFor(RootsRecipes.COMPONENT_RECIPE_TYPE, inventory, world);
     return recipe.orElse(null);
   }
 

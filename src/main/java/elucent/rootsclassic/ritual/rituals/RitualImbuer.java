@@ -31,12 +31,12 @@ public class RitualImbuer extends RitualBase {
         }
       }
     }
-    if (!world.isRemote) {
+    if (!world.isClientSide) {
       ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
-      item.forceSpawn = true;
-      world.addEntity(item);
+      item.forcedLoading = true;
+      world.addFreshEntity(item);
     }
-    inventory.clear();
-    world.getTileEntity(pos).markDirty();
+    inventory.clearContent();
+    world.getBlockEntity(pos).setChanged();
   }
 }

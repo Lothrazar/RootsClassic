@@ -58,14 +58,14 @@ public class AltarTile extends TEBase implements ITickableTileEntity {
   }
 
   @Override
-  public void read(BlockState state, CompoundNBT tag) {
-    super.read(state, tag);
+  public void load(BlockState state, CompoundNBT tag) {
+    super.load(state, tag);
     inventory.deserializeNBT(tag.getCompound("InventoryHandler"));
     setIncenses(new ArrayList<>());
     if (tag.contains("incenses")) {
       ListNBT list = tag.getList("incenses", Constants.NBT.TAG_COMPOUND);
       for (int i = 0; i < list.size(); i++) {
-        getIncenses().add(ItemStack.read(list.getCompound(i)));
+        getIncenses().add(ItemStack.of(list.getCompound(i)));
       }
     }
     if (tag.contains("ritualName")) {
@@ -78,15 +78,15 @@ public class AltarTile extends TEBase implements ITickableTileEntity {
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tag) {
-    tag = super.write(tag);
+  public CompoundNBT save(CompoundNBT tag) {
+    tag = super.save(tag);
     tag.put("InventoryHandler", inventory.serializeNBT());
     if (getIncenses().size() > 0) {
       ListNBT list = new ListNBT();
       for (int i = 0; i < getIncenses().size(); i++) {
         //  ;
         //        if (getIncenses().get(i) != null) {
-        list.add(getIncenses().get(i).write(new CompoundNBT()));
+        list.add(getIncenses().get(i).save(new CompoundNBT()));
         //        }
       }
       tag.put("incenses", list);
@@ -101,52 +101,52 @@ public class AltarTile extends TEBase implements ITickableTileEntity {
   @Override
   public void breakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player) {
     for (int i = 0; i < inventory.getSlots(); i++) {
-      if (!world.isRemote) {
+      if (!world.isClientSide) {
         ItemStack slotStack = inventory.getStackInSlot(i);
         if(!slotStack.isEmpty()) {
-          world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, slotStack));
+          world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, slotStack));
         }
       }
     }
-    this.remove();
+    this.setRemoved();
   }
 
   @Override
   public ActionResultType activate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, ItemStack heldItem, BlockRayTraceResult hit) {
     if(hand == Hand.MAIN_HAND) {
-      if (heldItem.isEmpty() && !player.isSneaking() && this.getProgress() == 0) {
+      if (heldItem.isEmpty() && !player.isShiftKeyDown() && this.getProgress() == 0) {
         //try to withdraw an item
         if (inventory.getSlots() > 0) {
           ItemStack lastStack = InventoryUtil.getLastStack(inventory);
           if(!lastStack.isEmpty()) {
-            if (!world.isRemote) {
-              world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, lastStack.copy()));
+            if (!world.isClientSide) {
+              world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, lastStack.copy()));
             }
             lastStack.shrink(1);
-            markDirty();
-            world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+            setChanged();
+            world.sendBlockUpdated(getBlockPos(), state, world.getBlockState(pos), 3);
           }
           return ActionResultType.SUCCESS;
         }
       }
-      else if (player.isSneaking() && heldItem.isEmpty() && this.getProgress() == 0) {
+      else if (player.isShiftKeyDown() && heldItem.isEmpty() && this.getProgress() == 0) {
         // Try to start a new ritual
         setRitualName(null);
         setRitualCurrent(null);
         RitualBase ritual = RitualManager.findMatchingByIngredients(this);
         if (ritual == null) {
-          player.sendStatusMessage(new TranslationTextComponent("rootsclassic.error.noritual.ingredients"), true);
+          player.displayClientMessage(new TranslationTextComponent("rootsclassic.error.noritual.ingredients"), true);
           return ActionResultType.FAIL;
         }
         if (!ritual.verifyPositionBlocks(world, pos)) {
-          player.sendStatusMessage(new TranslationTextComponent("rootsclassic.error.noritual.stones"), true);
+          player.displayClientMessage(new TranslationTextComponent("rootsclassic.error.noritual.stones"), true);
           return ActionResultType.FAIL;
         }
         //does it match everything else?
-        if (ritual.incenseMatches(getWorld(), getPos())) {
+        if (ritual.incenseMatches(getLevel(), getBlockPos())) {
           setRitualCurrent(ritual);
           setRitualName(ritual.getName());
-          setIncenses(RitualManager.getIncenses(world, getPos()));
+          setIncenses(RitualManager.getIncenses(world, getBlockPos()));
           setProgress(RECIPE_PROGRESS_TIME);
           for (BrazierTile brazier : ritual.getRecipeBraziers(world, pos)) {
             brazier.setBurning(true);
@@ -154,12 +154,12 @@ public class AltarTile extends TEBase implements ITickableTileEntity {
           }
           //        this.emptyNearbyBraziers();
           //          System.out.println(" ritual STARTED " + ritual.name);
-          markDirty();
-          world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
-          player.sendStatusMessage(new TranslationTextComponent("rootsclassic.ritual.started"), true);
+          setChanged();
+          world.sendBlockUpdated(getBlockPos(), state, world.getBlockState(pos), 3);
+          player.displayClientMessage(new TranslationTextComponent("rootsclassic.ritual.started"), true);
         }
         else {
-          player.sendStatusMessage(new TranslationTextComponent("rootsclassic.error.noritual.incense"), true);
+          player.displayClientMessage(new TranslationTextComponent("rootsclassic.error.noritual.incense"), true);
         }
         return ActionResultType.SUCCESS;
         //      if (getRitualName() == null) {
@@ -179,8 +179,8 @@ public class AltarTile extends TEBase implements ITickableTileEntity {
           ItemStack remaining = ItemHandlerHelper.insertItem(inventory, copyStack, false);
           if (remaining.isEmpty()) {
             heldItem.shrink(1);
-            markDirty();
-            world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+            setChanged();
+            world.sendBlockUpdated(getBlockPos(), state, world.getBlockState(pos), 3);
           }
           return ActionResultType.SUCCESS;
         }
@@ -197,58 +197,58 @@ public class AltarTile extends TEBase implements ITickableTileEntity {
     }
     if (getProgress() > 0 && getRitualCurrent() != null) {
       setProgress(getProgress() - 1);
-      if (world.isRemote) {
+      if (level.isClientSide) {
         if (getRitualCurrent().getPositionsRelative().size() > 0) {
-          BlockPos pos = getRitualCurrent().getPositionsRelative().get(world.rand.nextInt(getRitualCurrent().getPositionsRelative().size())).up().add(getPos().getX(), getPos().getY(), getPos().getZ());
-          if (world.rand.nextInt(6) == 0) {
-            world.addParticle(MagicLineParticleData.createData(getRitualCurrent().getColor().x, getRitualCurrent().getColor().y, getRitualCurrent().getColor().z),
+          BlockPos pos = getRitualCurrent().getPositionsRelative().get(level.random.nextInt(getRitualCurrent().getPositionsRelative().size())).above().offset(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ());
+          if (level.random.nextInt(6) == 0) {
+            level.addParticle(MagicLineParticleData.createData(getRitualCurrent().getColor().x, getRitualCurrent().getColor().y, getRitualCurrent().getColor().z),
                 pos.getX() + 0.5, pos.getY() + 0.125, pos.getZ() + 0.5,
-                getPos().getX() + 0.5, getPos().getY() + 0.875, getPos().getZ() + 0.5);
+                getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.875, getBlockPos().getZ() + 0.5);
           }
           else {
-            world.addParticle(MagicLineParticleData.createData(getRitualCurrent().getSecondaryColor().x, getRitualCurrent().getSecondaryColor().y, getRitualCurrent().getSecondaryColor().z),
+            level.addParticle(MagicLineParticleData.createData(getRitualCurrent().getSecondaryColor().x, getRitualCurrent().getSecondaryColor().y, getRitualCurrent().getSecondaryColor().z),
                 pos.getX() + 0.5, pos.getY() + 0.125, pos.getZ() + 0.5,
-                getPos().getX() + 0.5, getPos().getY() + 0.875, getPos().getZ() + 0.5);
+                getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.875, getBlockPos().getZ() + 0.5);
           }
         }
-        if (world.rand.nextInt(4) == 0) {
-          world.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getColor().x, getRitualCurrent().getColor().y, getRitualCurrent().getColor().z),
-              getPos().getX() + 0.5, getPos().getY() + 0.875, getPos().getZ() + 0.5,
+        if (level.random.nextInt(4) == 0) {
+          level.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getColor().x, getRitualCurrent().getColor().y, getRitualCurrent().getColor().z),
+              getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.875, getBlockPos().getZ() + 0.5,
               0.125 * Math.sin(Math.toRadians(360.0 * (getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(360.0 * (getProgress() % 100) / 100.0)));
         }
         else {
-          world.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getSecondaryColor().x, getRitualCurrent().getSecondaryColor().y, getRitualCurrent().getSecondaryColor().z),
-              getPos().getX() + 0.5, getPos().getY() + 0.875, getPos().getZ() + 0.5,
+          level.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getSecondaryColor().x, getRitualCurrent().getSecondaryColor().y, getRitualCurrent().getSecondaryColor().z),
+              getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.875, getBlockPos().getZ() + 0.5,
               0.125 * Math.sin(Math.toRadians(360.0 * (getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(360.0 * (getProgress() % 100) / 100.0)));
         }
-        if (world.rand.nextInt(4) == 0) {
-          world.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getColor().x, getRitualCurrent().getColor().y, getRitualCurrent().getColor().z),
-              getPos().getX() + 0.5, getPos().getY() + 0.875, getPos().getZ() + 0.5,
+        if (level.random.nextInt(4) == 0) {
+          level.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getColor().x, getRitualCurrent().getColor().y, getRitualCurrent().getColor().z),
+              getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.875, getBlockPos().getZ() + 0.5,
               .125 * Math.sin(Math.toRadians(90.0 + 360.0 * (getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(90.0 + 360.0 * (getProgress() % 100) / 100.0)));
         }
         else {
-          world.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getSecondaryColor().x, getRitualCurrent().getSecondaryColor().y, getRitualCurrent().getSecondaryColor().z),
-              getPos().getX() + 0.5, getPos().getY() + 0.875, getPos().getZ() + 0.5,
+          level.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getSecondaryColor().x, getRitualCurrent().getSecondaryColor().y, getRitualCurrent().getSecondaryColor().z),
+              getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.875, getBlockPos().getZ() + 0.5,
               .125 * Math.sin(Math.toRadians(90.0 + 360.0 * (getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(90.0 + 360.0 * (getProgress() % 100) / 100.0)));
         }
-        if (world.rand.nextInt(4) == 0) {
-          world.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getColor().x, getRitualCurrent().getColor().y, getRitualCurrent().getColor().z),
-              getPos().getX() + 0.5, getPos().getY() + 0.875, getPos().getZ() + 0.5,
+        if (level.random.nextInt(4) == 0) {
+          level.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getColor().x, getRitualCurrent().getColor().y, getRitualCurrent().getColor().z),
+              getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.875, getBlockPos().getZ() + 0.5,
               .125 * Math.sin(Math.toRadians(180.0 + 360.0 * (getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(180.0 + 360.0 * (getProgress() % 100) / 100.0)));
         }
         else {
-          world.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getSecondaryColor().x, getRitualCurrent().getSecondaryColor().y, getRitualCurrent().getSecondaryColor().z),
-              getPos().getX() + 0.5, getPos().getY() + 0.875, getPos().getZ() + 0.5,
+          level.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getSecondaryColor().x, getRitualCurrent().getSecondaryColor().y, getRitualCurrent().getSecondaryColor().z),
+              getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.875, getBlockPos().getZ() + 0.5,
               .125 * Math.sin(Math.toRadians(180.0 + 360.0 * (getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(180.0 + 360.0 * (getProgress() % 100) / 100.0)));
         }
-        if (world.rand.nextInt(4) == 0) {
-          world.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getColor().x, getRitualCurrent().getColor().y, getRitualCurrent().getColor().z),
-              getPos().getX() + 0.5, getPos().getY() + 0.875, getPos().getZ() + 0.5,
+        if (level.random.nextInt(4) == 0) {
+          level.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getColor().x, getRitualCurrent().getColor().y, getRitualCurrent().getColor().z),
+              getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.875, getBlockPos().getZ() + 0.5,
               .125 * Math.sin(Math.toRadians(270.0 + 360.0 * (getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(270.0 + 360.0 * (getProgress() % 100) / 100.0)));
         }
         else {
-          world.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getSecondaryColor().x, getRitualCurrent().getSecondaryColor().y, getRitualCurrent().getSecondaryColor().z),
-              getPos().getX() + 0.5, getPos().getY() + 0.875, getPos().getZ() + 0.5,
+          level.addParticle(MagicAltarParticleData.createData(getRitualCurrent().getSecondaryColor().x, getRitualCurrent().getSecondaryColor().y, getRitualCurrent().getSecondaryColor().z),
+              getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.875, getBlockPos().getZ() + 0.5,
               .125 * Math.sin(Math.toRadians(270.0 + 360.0 * (getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(270.0 + 360.0 * (getProgress() % 100) / 100.0)));
         }
       }
@@ -266,11 +266,11 @@ public class AltarTile extends TEBase implements ITickableTileEntity {
       //        }
       //      }
       if (getProgress() == 0 && getRitualCurrent() != null) {
-        getRitualCurrent().doEffect(getWorld(), getPos(), InventoryUtil.createIInventory(inventory), getIncenses());
+        getRitualCurrent().doEffect(getLevel(), getBlockPos(), InventoryUtil.createIInventory(inventory), getIncenses());
         setRitualName(null);
         setRitualCurrent(null);
-        markDirty();
-        world.notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
+        setChanged();
+        level.sendBlockUpdated(getBlockPos(), getLevel().getBlockState(getBlockPos()), getLevel().getBlockState(getBlockPos()), 3);
       }
     }
   }
@@ -310,7 +310,7 @@ public class AltarTile extends TEBase implements ITickableTileEntity {
   }
 
   public void setRitualNameFromString(String ritualName) {
-    this.ritualName = ResourceLocation.tryCreate(ritualName);
+    this.ritualName = ResourceLocation.tryParse(ritualName);
   }
 
   public void setRitualName(ResourceLocation ritualName) {

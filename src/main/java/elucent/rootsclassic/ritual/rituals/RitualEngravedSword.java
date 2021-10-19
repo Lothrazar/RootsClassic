@@ -36,10 +36,10 @@ public class RitualEngravedSword extends RitualBase {
     }
     if (RootsUtil.itemListMatchInventoryWithSize(inventory, this.getIngredients())) {
       ItemStack toSpawn = result.copy();
-      if (!world.isRemote) {
+      if (!world.isClientSide) {
         int mods = 0;
         ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
-        item.forceSpawn = true;
+        item.forcedLoading = true;
         ItemStack stack = item.getItem();
         CompoundNBT tag = stack.getTag() != null ? stack.getTag() : new CompoundNBT();
         for (Item i : items) {
@@ -65,12 +65,12 @@ public class RitualEngravedSword extends RitualBase {
           }
         }
         stack.setTag(tag);
-        world.addEntity(item);
+        world.addFreshEntity(item);
       }
-      inventory.clear();
-      TileEntity tile = world.getTileEntity(pos);
+      inventory.clearContent();
+      TileEntity tile = world.getBlockEntity(pos);
       if (tile != null) {
-        tile.markDirty();
+        tile.setChanged();
       }
     }
   }

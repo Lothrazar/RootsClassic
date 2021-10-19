@@ -19,12 +19,12 @@ public class PhantomSkeletonRenderer extends SkeletonRenderer {
   }
 
   @Override
-  public ResourceLocation getEntityTexture(AbstractSkeletonEntity entity) {
+  public ResourceLocation getTextureLocation(AbstractSkeletonEntity entity) {
     return TEXTURE;
   }
 
   @Override
-  protected void preRenderCallback(AbstractSkeletonEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+  protected void scale(AbstractSkeletonEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
     //allow transparency in textures to be rendered
     RenderSystem.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_CONSTANT_ALPHA);
     RenderSystem.enableBlend();

@@ -33,6 +33,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import net.minecraft.item.Item.Properties;
+
 public class StaffItem extends Item implements IManaRelatedItem {
 
   private static final String NBT_USES = "uses";
@@ -46,7 +48,7 @@ public class StaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public UseAction getUseAction(ItemStack stack) {
+  public UseAction getUseAnimation(ItemStack stack) {
     return UseAction.BOW;
   }
 
@@ -74,12 +76,12 @@ public class StaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity caster, int timeLeft) {
+  public void releaseUsing(ItemStack stack, World world, LivingEntity caster, int timeLeft) {
     if (timeLeft < (72000 - 12) && stack.hasTag() && caster.getCapability(RootsCapabilityManager.MANA_CAPABILITY).isPresent()) {
       CompoundNBT tag = stack.getTag();
       if (tag.getInt(NBT_USES) >= 0) {
         tag.putInt(NBT_USES, tag.getInt(NBT_USES) - 1);
-        ResourceLocation compName = ResourceLocation.tryCreate(tag.getString(Const.NBT_EFFECT));
+        ResourceLocation compName = ResourceLocation.tryParse(tag.getString(Const.NBT_EFFECT));
         if (compName != null) {
           ComponentBase comp = ComponentManager.getComponentFromName(compName);
           if (comp != null) {
@@ -87,37 +89,37 @@ public class StaffItem extends Item implements IManaRelatedItem {
             int efficiency = tag.getInt(Const.NBT_EFFICIENCY);
             int size = tag.getInt(Const.NBT_SIZE);
             PlayerEntity player = (PlayerEntity) caster;
-            if (player.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem() instanceof SylvanArmorItem
-                && player.getItemStackFromSlot(EquipmentSlotType.CHEST).getItem() instanceof SylvanArmorItem
-                && player.getItemStackFromSlot(EquipmentSlotType.LEGS).getItem() instanceof SylvanArmorItem
-                && player.getItemStackFromSlot(EquipmentSlotType.FEET).getItem() instanceof SylvanArmorItem) {
+            if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof SylvanArmorItem
+                && player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof SylvanArmorItem
+                && player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof SylvanArmorItem
+                && player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof SylvanArmorItem) {
               potency += 1;
             }
             IManaCapability manaCap = player.getCapability(RootsCapabilityManager.MANA_CAPABILITY).orElse(null);
             if (manaCap.getMana() >= comp.getManaCost() / (efficiency + 1)) {
               manaCap.setMana(manaCap.getMana() - (comp.getManaCost() / (efficiency + 1)));
-              Vector3d lookVec = caster.getLookVec();
+              Vector3d lookVec = caster.getLookAngle();
               comp.doEffect(world, caster, EnumCastType.SPELL,
-                  caster.getPosX() + RANGE * lookVec.x,
-                  caster.getPosY() + RANGE * lookVec.y,
-                  caster.getPosZ() + RANGE * lookVec.z, potency, efficiency,
+                  caster.getX() + RANGE * lookVec.x,
+                  caster.getY() + RANGE * lookVec.y,
+                  caster.getZ() + RANGE * lookVec.z, potency, efficiency,
                   SIZE_BASE + SIZE_PER_LEVEL * size);
-              if (world.isRemote) {
+              if (world.isClientSide) {
                 for (int i = 0; i < 90; i++) {
-                  double offX = world.rand.nextFloat() * 0.5 - 0.25;
-                  double offY = world.rand.nextFloat() * 0.5 - 0.25;
-                  double offZ = world.rand.nextFloat() * 0.5 - 0.25;
+                  double offX = world.random.nextFloat() * 0.5 - 0.25;
+                  double offY = world.random.nextFloat() * 0.5 - 0.25;
+                  double offZ = world.random.nextFloat() * 0.5 - 0.25;
                   double coeff = (offX + offY + offZ) / 1.5 + 0.5;
                   double dx = (lookVec.x + offX) * coeff;
                   double dy = (lookVec.y + offY) * coeff;
                   double dz = (lookVec.z + offZ) * coeff;
-                  if (world.rand.nextBoolean()) {
+                  if (world.random.nextBoolean()) {
                     world.addParticle(MagicParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                            caster.getPosX() + dx, caster.getPosY() + 1.5 + dy, caster.getPosZ() + dz, dx, dy, dz);
+                            caster.getX() + dx, caster.getY() + 1.5 + dy, caster.getZ() + dz, dx, dy, dz);
                   }
                   else {
                     world.addParticle(MagicParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                            caster.getPosX() + dx, caster.getPosY() + 1.5 + dy, caster.getPosZ() + dz, dx, dy, dz);
+                            caster.getX() + dx, caster.getY() + 1.5 + dy, caster.getZ() + dz, dx, dy, dz);
                   }
                 }
               }
@@ -129,13 +131,13 @@ public class StaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-    ItemStack stack = player.getHeldItem(hand);
-    if (world.isRemote && Minecraft.getInstance().currentScreen != null) {
+  public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+    ItemStack stack = player.getItemInHand(hand);
+    if (world.isClientSide && Minecraft.getInstance().screen != null) {
       return new ActionResult<ItemStack>(ActionResultType.FAIL, stack);
     }
     else {
-      player.setActiveHand(hand);
+      player.startUsingItem(hand);
       return new ActionResult<ItemStack>(ActionResultType.PASS, stack);
     }
   }
@@ -145,7 +147,7 @@ public class StaffItem extends Item implements IManaRelatedItem {
     if (stack.hasTag()) {
       CompoundNBT tag = stack.getTag();
       if (tag.getInt(NBT_USES) <= 0 && entityIn instanceof PlayerEntity) {
-        ((PlayerEntity) entityIn).inventory.setInventorySlotContents(itemSlot, ItemStack.EMPTY);
+        ((PlayerEntity) entityIn).inventory.setItem(itemSlot, ItemStack.EMPTY);
       }
     }
   }
@@ -164,7 +166,7 @@ public class StaffItem extends Item implements IManaRelatedItem {
   public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
     if (stack.hasTag()) {
       CompoundNBT tag = stack.getTag();
-      ResourceLocation componentName = ResourceLocation.tryCreate(tag.getString(Const.NBT_EFFECT));
+      ResourceLocation componentName = ResourceLocation.tryParse(tag.getString(Const.NBT_EFFECT));
       if (componentName != null) {
         ComponentBase comp = ComponentManager.getComponentFromName(componentName);
         if (comp != null) {
@@ -173,16 +175,16 @@ public class StaffItem extends Item implements IManaRelatedItem {
           int size = tag.getInt(Const.NBT_SIZE);
           comp.castingAction((PlayerEntity) player, count, potency, efficiency, size);
 
-          if (player.getEntityWorld().isRemote) {
+          if (player.getCommandSenderWorld().isClientSide) {
             if (random.nextBoolean()) {
-              player.getEntityWorld().addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                      player.getPosX() + 2.0 * (random.nextFloat() - 0.5), player.getPosY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getPosZ() + 2.0 * (random.nextFloat() - 0.5),
-                      player.getPosX(), player.getPosY() + 1.0, player.getPosZ());
+              player.getCommandSenderWorld().addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
+                      player.getX() + 2.0 * (random.nextFloat() - 0.5), player.getY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getZ() + 2.0 * (random.nextFloat() - 0.5),
+                      player.getX(), player.getY() + 1.0, player.getZ());
             }
             else {
-              player.getEntityWorld().addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                      player.getPosX() + 2.0 * (random.nextFloat() - 0.5), player.getPosY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getPosZ() + 2.0 * (random.nextFloat() - 0.5),
-                      player.getPosX(), player.getPosY() + 1.0, player.getPosZ());
+              player.getCommandSenderWorld().addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
+                      player.getX() + 2.0 * (random.nextFloat() - 0.5), player.getY() + 2.0 * (random.nextFloat() - 0.5) + 1.0, player.getZ() + 2.0 * (random.nextFloat() - 0.5),
+                      player.getX(), player.getY() + 1.0, player.getZ());
             }
           }
         }
@@ -211,33 +213,33 @@ public class StaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    super.addInformation(stack, worldIn, tooltip, flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    super.appendHoverText(stack, worldIn, tooltip, flagIn);
     if (stack.hasTag()) {
       CompoundNBT tag = stack.getTag();
-      ResourceLocation compName = ResourceLocation.tryCreate(tag.getString(Const.NBT_EFFECT));
+      ResourceLocation compName = ResourceLocation.tryParse(tag.getString(Const.NBT_EFFECT));
       if (compName != null) {
         ComponentBase comp = ComponentManager.getComponentFromName(compName);
         if (comp != null) {
           tooltip.add(new TranslationTextComponent("rootsclassic.tooltip.spelltypeheading")
-              .appendString(": ").mergeStyle(TextFormatting.GOLD).appendSibling(comp.getEffectName().mergeStyle(comp.getTextColor())));
+              .append(": ").withStyle(TextFormatting.GOLD).append(comp.getEffectName().withStyle(comp.getTextColor())));
         }
         else {
           //TODO: let people know it's an invalid effect
         }
       }
       tooltip.add(new StringTextComponent("  +" + tag.getInt(Const.NBT_POTENCY) + " ")
-          .appendSibling(new TranslationTextComponent("rootsclassic.tooltip.spellpotency")).appendString(".").mergeStyle(TextFormatting.RED));
+          .append(new TranslationTextComponent("rootsclassic.tooltip.spellpotency")).append(".").withStyle(TextFormatting.RED));
       tooltip.add(new StringTextComponent("  +" + tag.getInt(Const.NBT_EFFICIENCY) + " ")
-          .appendSibling(new TranslationTextComponent("rootsclassic.tooltip.spellefficiency")).appendString(".").mergeStyle(TextFormatting.RED));
+          .append(new TranslationTextComponent("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(TextFormatting.RED));
       tooltip.add(new StringTextComponent("  +" + tag.getInt(Const.NBT_SIZE) + " ")
-          .appendSibling(new TranslationTextComponent("rootsclassic.tooltip.spellsize")).appendString(".").mergeStyle(TextFormatting.RED));
+          .append(new TranslationTextComponent("rootsclassic.tooltip.spellsize")).append(".").withStyle(TextFormatting.RED));
       tooltip.add(StringTextComponent.EMPTY);
       tooltip.add(new StringTextComponent(tag.getInt(NBT_USES) + " ")
-          .appendSibling(new TranslationTextComponent("rootsclassic.tooltip.usesremaining")).appendString(".").mergeStyle(TextFormatting.GOLD));
+          .append(new TranslationTextComponent("rootsclassic.tooltip.usesremaining")).append(".").withStyle(TextFormatting.GOLD));
     }
     else {
-      tooltip.add(new TranslationTextComponent("rootsclassic.error.unset").mergeStyle(TextFormatting.GRAY));
+      tooltip.add(new TranslationTextComponent("rootsclassic.error.unset").withStyle(TextFormatting.GRAY));
     }
   }
   //	@SideOnly(Side.CLIENT)

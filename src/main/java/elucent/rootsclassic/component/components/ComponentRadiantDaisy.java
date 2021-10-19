@@ -28,60 +28,60 @@ public class ComponentRadiantDaisy extends ComponentBase {
   @Override
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     PlayerEntity player = (PlayerEntity) caster;
-    double posX = player.getPosX() + player.getLookVec().x * 0.5;
-    double posY = player.getPosY() + 1.5 + player.getLookVec().y * 0.5;
-    double posZ = player.getPosZ() + player.getLookVec().z * 0.5;
+    double posX = player.getX() + player.getLookAngle().x * 0.5;
+    double posY = player.getY() + 1.5 + player.getLookAngle().y * 0.5;
+    double posZ = player.getZ() + player.getLookAngle().z * 0.5;
     double potencyMod = 0;
-    double motionX = player.getLookVec().x * 0.25;
-    double motionY = player.getLookVec().y * 0.25;
-    double motionZ = player.getLookVec().z * 0.25;
+    double motionX = player.getLookAngle().x * 0.25;
+    double motionY = player.getLookAngle().y * 0.25;
+    double motionZ = player.getLookAngle().z * 0.25;
     for (int i = 0; i < 200 + 100 * size; i++) {
       boolean didHit = false;
-      if(world.isRemote) {
+      if(world.isClientSide) {
         world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
                 posX, posY, posZ, 0, 0, 0);
       }
-      if(!world.isRemote) {
+      if(!world.isClientSide) {
         posX += motionX;
         posY += motionY;
         posZ += motionZ;
-        List<LivingEntity> targets = player.getEntityWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(posX - 0.25, posY - 0.25, posZ - 0.25, posX + 0.25, posY + 0.25, posZ + 0.25));
+        List<LivingEntity> targets = player.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(posX - 0.25, posY - 0.25, posZ - 0.25, posX + 0.25, posY + 0.25, posZ + 0.25));
         if (targets.size() > 0) {
           for (int j = 0; j < targets.size() && !didHit; j++) {
-            if (targets.get(j).getUniqueID() != player.getUniqueID()) {
+            if (targets.get(j).getUUID() != player.getUUID()) {
               if (targets.get(j) instanceof PlayerEntity && RootsConfig.COMMON.disablePVP.get()) {}
               else {
                 didHit = true;
-                targets.get(j).attackEntityFrom(DamageSource.GENERIC, (float) (12 + 3.0 * (potency + potencyMod)));
-                targets.get(j).addPotionEffect(new EffectInstance(Effects.BLINDNESS, 40 + (int) (20.0 * (potency + potencyMod)), 0));
-                targets.get(j).setLastAttackedEntity(player);
-                targets.get(j).setRevengeTarget(player);
+                targets.get(j).hurt(DamageSource.GENERIC, (float) (12 + 3.0 * (potency + potencyMod)));
+                targets.get(j).addEffect(new EffectInstance(Effects.BLINDNESS, 40 + (int) (20.0 * (potency + potencyMod)), 0));
+                targets.get(j).setLastHurtMob(player);
+                targets.get(j).setLastHurtByMob(player);
               }
             }
           }
         }
-        if (player.getEntityWorld().getBlockState(new BlockPos(posX, posY, posZ)).isSolid()) {
+        if (player.getCommandSenderWorld().getBlockState(new BlockPos(posX, posY, posZ)).canOcclude()) {
           if (potency - potencyMod == -1.0) {
             didHit = true;
           }
           else {
             potencyMod -= 0.5;
-            if (!player.getEntityWorld().getBlockState(new BlockPos(posX + 1.0, posY, posZ)).isSolid() && motionX < 0) {
+            if (!player.getCommandSenderWorld().getBlockState(new BlockPos(posX + 1.0, posY, posZ)).canOcclude() && motionX < 0) {
               motionX *= -1;
             }
-            if (!player.getEntityWorld().getBlockState(new BlockPos(posX - 1.0, posY, posZ)).isSolid() && motionX > 0) {
+            if (!player.getCommandSenderWorld().getBlockState(new BlockPos(posX - 1.0, posY, posZ)).canOcclude() && motionX > 0) {
               motionX *= -1;
             }
-            if (!player.getEntityWorld().getBlockState(new BlockPos(posX, posY + 1.0, posZ)).isSolid() && motionY < 0) {
+            if (!player.getCommandSenderWorld().getBlockState(new BlockPos(posX, posY + 1.0, posZ)).canOcclude() && motionY < 0) {
               motionY *= -1;
             }
-            if (!player.getEntityWorld().getBlockState(new BlockPos(posX, posY - 1.0, posZ)).isSolid() && motionY > 0) {
+            if (!player.getCommandSenderWorld().getBlockState(new BlockPos(posX, posY - 1.0, posZ)).canOcclude() && motionY > 0) {
               motionY *= -1;
             }
-            if (!player.getEntityWorld().getBlockState(new BlockPos(posX, posY, posZ + 1.0)).isSolid() && motionZ < 0) {
+            if (!player.getCommandSenderWorld().getBlockState(new BlockPos(posX, posY, posZ + 1.0)).canOcclude() && motionZ < 0) {
               motionZ *= -1;
             }
-            if (!player.getEntityWorld().getBlockState(new BlockPos(posX, posY, posZ - 1.0)).isSolid() && motionZ > 0) {
+            if (!player.getCommandSenderWorld().getBlockState(new BlockPos(posX, posY, posZ - 1.0)).canOcclude() && motionZ > 0) {
               motionZ *= -1;
             }
           }

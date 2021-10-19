@@ -23,10 +23,10 @@ public class ModelArmorBase extends BipedModel<LivingEntity> {
 
   public ModelArmorBase(EquipmentSlotType slot) {
     super(0.0F, 1.0f, 64, 64);
-    this.textureHeight = 64;
-    this.textureWidth = 64;
+    this.texHeight = 64;
+    this.texWidth = 64;
     this.slot = slot;
-    this.isChild = false;
+    this.young = false;
     head = new ModelRenderer(this);
     chest = new ModelRenderer(this);
     armR = new ModelRenderer(this);
@@ -38,67 +38,67 @@ public class ModelArmorBase extends BipedModel<LivingEntity> {
   }
 
   @Override
-  public void setRotationAngles(LivingEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+  public void setupAnim(LivingEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
     if (!(entityIn instanceof ArmorStandEntity)) {
-      super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+      super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
       return;
     }
     if (entityIn instanceof ArmorStandEntity) {
       ArmorStandEntity armorStand = (ArmorStandEntity) entityIn;
-      this.bipedHead.rotateAngleX = ((float) Math.PI / 180F) * armorStand.getHeadRotation().getX();
-      this.bipedHead.rotateAngleY = ((float) Math.PI / 180F) * armorStand.getHeadRotation().getY();
-      this.bipedHead.rotateAngleZ = ((float) Math.PI / 180F) * armorStand.getHeadRotation().getZ();
-      this.bipedHead.setRotationPoint(0.0F, 1.0F, 0.0F);
-      this.bipedBody.rotateAngleX = ((float) Math.PI / 180F) * armorStand.getBodyRotation().getX();
-      this.bipedBody.rotateAngleY = ((float) Math.PI / 180F) * armorStand.getBodyRotation().getY();
-      this.bipedBody.rotateAngleZ = ((float) Math.PI / 180F) * armorStand.getBodyRotation().getZ();
-      this.bipedLeftArm.rotateAngleX = ((float) Math.PI / 180F) * armorStand.getLeftArmRotation().getX();
-      this.bipedLeftArm.rotateAngleY = ((float) Math.PI / 180F) * armorStand.getLeftArmRotation().getY();
-      this.bipedLeftArm.rotateAngleZ = ((float) Math.PI / 180F) * armorStand.getLeftArmRotation().getZ();
-      this.bipedRightArm.rotateAngleX = ((float) Math.PI / 180F) * armorStand.getRightArmRotation().getX();
-      this.bipedRightArm.rotateAngleY = ((float) Math.PI / 180F) * armorStand.getRightArmRotation().getY();
-      this.bipedRightArm.rotateAngleZ = ((float) Math.PI / 180F) * armorStand.getRightArmRotation().getZ();
-      this.bipedLeftLeg.rotateAngleX = ((float) Math.PI / 180F) * armorStand.getLeftLegRotation().getX();
-      this.bipedLeftLeg.rotateAngleY = ((float) Math.PI / 180F) * armorStand.getLeftLegRotation().getY();
-      this.bipedLeftLeg.rotateAngleZ = ((float) Math.PI / 180F) * armorStand.getLeftLegRotation().getZ();
-      this.bipedLeftLeg.setRotationPoint(1.9F, 11.0F, 0.0F);
-      this.bipedRightLeg.rotateAngleX = ((float) Math.PI / 180F) * armorStand.getRightLegRotation().getX();
-      this.bipedRightLeg.rotateAngleY = ((float) Math.PI / 180F) * armorStand.getRightLegRotation().getY();
-      this.bipedRightLeg.rotateAngleZ = ((float) Math.PI / 180F) * armorStand.getRightLegRotation().getZ();
-      this.bipedRightLeg.setRotationPoint(-1.9F, 11.0F, 0.0F);
-      this.bipedHeadwear.copyModelAngles(this.bipedHead);
+      this.head.xRot = ((float) Math.PI / 180F) * armorStand.getHeadPose().getX();
+      this.head.yRot = ((float) Math.PI / 180F) * armorStand.getHeadPose().getY();
+      this.head.zRot = ((float) Math.PI / 180F) * armorStand.getHeadPose().getZ();
+      this.head.setPos(0.0F, 1.0F, 0.0F);
+      this.body.xRot = ((float) Math.PI / 180F) * armorStand.getBodyPose().getX();
+      this.body.yRot = ((float) Math.PI / 180F) * armorStand.getBodyPose().getY();
+      this.body.zRot = ((float) Math.PI / 180F) * armorStand.getBodyPose().getZ();
+      this.leftArm.xRot = ((float) Math.PI / 180F) * armorStand.getLeftArmPose().getX();
+      this.leftArm.yRot = ((float) Math.PI / 180F) * armorStand.getLeftArmPose().getY();
+      this.leftArm.zRot = ((float) Math.PI / 180F) * armorStand.getLeftArmPose().getZ();
+      this.rightArm.xRot = ((float) Math.PI / 180F) * armorStand.getRightArmPose().getX();
+      this.rightArm.yRot = ((float) Math.PI / 180F) * armorStand.getRightArmPose().getY();
+      this.rightArm.zRot = ((float) Math.PI / 180F) * armorStand.getRightArmPose().getZ();
+      this.leftLeg.xRot = ((float) Math.PI / 180F) * armorStand.getLeftLegPose().getX();
+      this.leftLeg.yRot = ((float) Math.PI / 180F) * armorStand.getLeftLegPose().getY();
+      this.leftLeg.zRot = ((float) Math.PI / 180F) * armorStand.getLeftLegPose().getZ();
+      this.leftLeg.setPos(1.9F, 11.0F, 0.0F);
+      this.rightLeg.xRot = ((float) Math.PI / 180F) * armorStand.getRightLegPose().getX();
+      this.rightLeg.yRot = ((float) Math.PI / 180F) * armorStand.getRightLegPose().getY();
+      this.rightLeg.zRot = ((float) Math.PI / 180F) * armorStand.getRightLegPose().getZ();
+      this.rightLeg.setPos(-1.9F, 11.0F, 0.0F);
+      this.hat.copyFrom(this.head);
     }
   }
 
   @Override
-  public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-    matrixStackIn.push();
+  public void renderToBuffer(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+    matrixStackIn.pushPose();
     matrixStackIn.scale(armorScale, armorScale, armorScale);
     this.setHeadRotation();
     this.setChestRotation();
     this.setLegsRotation();
     this.setBootRotation();
-    head.showModel = slot == EquipmentSlotType.HEAD;
-    chest.showModel = slot == EquipmentSlotType.CHEST;
-    armR.showModel = slot == EquipmentSlotType.CHEST;
-    armL.showModel = slot == EquipmentSlotType.CHEST;
-    legR.showModel = slot == EquipmentSlotType.LEGS;
-    legL.showModel = slot == EquipmentSlotType.LEGS;
-    bootR.showModel = slot == EquipmentSlotType.FEET;
-    bootL.showModel = slot == EquipmentSlotType.FEET;
-    if (this.isChild) {
+    head.visible = slot == EquipmentSlotType.HEAD;
+    chest.visible = slot == EquipmentSlotType.CHEST;
+    armR.visible = slot == EquipmentSlotType.CHEST;
+    armL.visible = slot == EquipmentSlotType.CHEST;
+    legR.visible = slot == EquipmentSlotType.LEGS;
+    legL.visible = slot == EquipmentSlotType.LEGS;
+    bootR.visible = slot == EquipmentSlotType.FEET;
+    bootL.visible = slot == EquipmentSlotType.FEET;
+    if (this.young) {
       float f = 2.0F;
       matrixStackIn.scale(1.5F / f, 1.5F / f, 1.5F / f);
       matrixStackIn.translate(0.0F, 16.0F * 1, 0.0F);
       head.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-      matrixStackIn.pop();
-      matrixStackIn.push();
+      matrixStackIn.popPose();
+      matrixStackIn.pushPose();
       matrixStackIn.scale(1.0F / f, 1.0F / f, 1.0F / f);
       matrixStackIn.translate(0.0F, 24.0F * 1, 0.0F);
       chest.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
     else {
-      if (isSneak) {
+      if (crouching) {
         matrixStackIn.translate(0.0F, 0.2F, 0.0F);
       }
       head.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
@@ -111,60 +111,60 @@ public class ModelArmorBase extends BipedModel<LivingEntity> {
     legL.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     bootR.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     bootL.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    matrixStackIn.pop();
+    matrixStackIn.popPose();
   }
 
   public void setHeadRotation() {
-    head.rotationPointX = bipedHead.rotationPointX;
-    head.rotationPointY = bipedHead.rotationPointY;
-    head.rotationPointZ = bipedHead.rotationPointZ;
-    setRotation(head, bipedHead.rotateAngleX, bipedHead.rotateAngleY, bipedHead.rotateAngleZ);
+    head.x = head.x;
+    head.y = head.y;
+    head.z = head.z;
+    setRotation(head, head.xRot, head.yRot, head.zRot);
   }
 
   public void setChestRotation() {
     /* if (e instanceof EntityPlayer){ ((EntityPlayer)e).get } */
-    chest.rotationPointX = bipedBody.rotationPointX;
-    chest.rotationPointY = bipedBody.rotationPointY - 1;
-    chest.rotationPointZ = bipedBody.rotationPointZ;
-    chest.textureOffsetY -= 0.125;
-    armR.rotationPointX = bipedRightArm.rotationPointX + 5;
-    armR.rotationPointY = bipedRightArm.rotationPointY - 1;
-    armR.rotationPointZ = bipedRightArm.rotationPointZ;
-    armR.textureOffsetY -= 0;
-    armL.rotationPointX = bipedLeftArm.rotationPointX - 5;
-    armL.rotationPointY = bipedLeftArm.rotationPointY - 1;
-    armL.rotationPointZ = bipedLeftArm.rotationPointZ;
-    armL.textureOffsetY -= 0;
-    setRotation(chest, bipedBody.rotateAngleX, bipedBody.rotateAngleY, bipedBody.rotateAngleZ);
-    setRotation(armR, bipedRightArm.rotateAngleX, bipedRightArm.rotateAngleY, bipedRightArm.rotateAngleZ);
-    setRotation(armL, bipedLeftArm.rotateAngleX, bipedLeftArm.rotateAngleY, bipedLeftArm.rotateAngleZ);
+    chest.x = body.x;
+    chest.y = body.y - 1;
+    chest.z = body.z;
+    chest.yTexOffs -= 0.125;
+    armR.x = rightArm.x + 5;
+    armR.y = rightArm.y - 1;
+    armR.z = rightArm.z;
+    armR.yTexOffs -= 0;
+    armL.x = leftArm.x - 5;
+    armL.y = leftArm.y - 1;
+    armL.z = leftArm.z;
+    armL.yTexOffs -= 0;
+    setRotation(chest, body.xRot, body.yRot, body.zRot);
+    setRotation(armR, rightArm.xRot, rightArm.yRot, rightArm.zRot);
+    setRotation(armL, leftArm.xRot, leftArm.yRot, leftArm.zRot);
   }
 
   public void setLegsRotation() {
-    legR.rotationPointX = bipedRightLeg.rotationPointX + 2;
-    legR.rotationPointY = bipedRightLeg.rotationPointY - 22;
-    legR.rotationPointZ = bipedRightLeg.rotationPointZ;
-    legL.rotationPointX = bipedLeftLeg.rotationPointX - 2;
-    legL.rotationPointY = bipedLeftLeg.rotationPointY - 22;
-    legL.rotationPointZ = bipedLeftLeg.rotationPointZ;
-    setRotation(legR, bipedRightLeg.rotateAngleX, bipedRightLeg.rotateAngleY, bipedRightLeg.rotateAngleZ);
-    setRotation(legL, bipedLeftLeg.rotateAngleX, bipedLeftLeg.rotateAngleY, bipedLeftLeg.rotateAngleZ);
+    legR.x = rightLeg.x + 2;
+    legR.y = rightLeg.y - 22;
+    legR.z = rightLeg.z;
+    legL.x = leftLeg.x - 2;
+    legL.y = leftLeg.y - 22;
+    legL.z = leftLeg.z;
+    setRotation(legR, rightLeg.xRot, rightLeg.yRot, rightLeg.zRot);
+    setRotation(legL, leftLeg.xRot, leftLeg.yRot, leftLeg.zRot);
   }
 
   public void setBootRotation() {
-    bootR.rotationPointX = bipedRightLeg.rotationPointX + 2;
-    bootR.rotationPointY = bipedRightLeg.rotationPointY - 22;
-    bootR.rotationPointZ = bipedRightLeg.rotationPointZ;
-    bootL.rotationPointX = bipedLeftLeg.rotationPointX - 2;
-    bootL.rotationPointY = bipedLeftLeg.rotationPointY - 22;
-    bootL.rotationPointZ = bipedLeftLeg.rotationPointZ;
-    setRotation(bootR, bipedRightLeg.rotateAngleX, bipedRightLeg.rotateAngleY, bipedRightLeg.rotateAngleZ);
-    setRotation(bootL, bipedLeftLeg.rotateAngleX, bipedLeftLeg.rotateAngleY, bipedLeftLeg.rotateAngleZ);
+    bootR.x = rightLeg.x + 2;
+    bootR.y = rightLeg.y - 22;
+    bootR.z = rightLeg.z;
+    bootL.x = leftLeg.x - 2;
+    bootL.y = leftLeg.y - 22;
+    bootL.z = leftLeg.z;
+    setRotation(bootR, rightLeg.xRot, rightLeg.yRot, rightLeg.zRot);
+    setRotation(bootL, leftLeg.xRot, leftLeg.yRot, leftLeg.zRot);
   }
 
   public static void setRotation(ModelRenderer model, float x, float y, float z) {
-    model.rotateAngleX = x;
-    model.rotateAngleY = y;
-    model.rotateAngleZ = z;
+    model.xRot = x;
+    model.yRot = y;
+    model.zRot = z;
   }
 }

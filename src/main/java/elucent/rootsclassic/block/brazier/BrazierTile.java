@@ -47,8 +47,8 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
   }
 
   @Override
-  public void read(BlockState state, CompoundNBT tag) {
-    super.read(state, tag);
+  public void load(BlockState state, CompoundNBT tag) {
+    super.load(state, tag);
     inventory.deserializeNBT(tag.getCompound("InventoryHandler"));
     if (tag.contains("burning")) {
       setBurning(tag.getBoolean("burning"));
@@ -59,8 +59,8 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
   }
 
   @Override
-  public CompoundNBT write(CompoundNBT tag) {
-    tag = super.write(tag);
+  public CompoundNBT save(CompoundNBT tag) {
+    tag = super.save(tag);
     tag.put("InventoryHandler", inventory.serializeNBT());
     tag.putBoolean("burning", isBurning());
     tag.putInt("progress", progress);
@@ -72,38 +72,38 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
     if (getHeldItem() != null && !isBurning()) {
       dropContaining();
     }
-    this.remove();
+    this.setRemoved();
   }
 
   private void dropContaining() {
-    if (!world.isRemote) {
-      world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, getHeldItem()));
+    if (!level.isClientSide) {
+      level.addFreshEntity(new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, getHeldItem()));
     }
     setHeldItem(ItemStack.EMPTY);
   }
 
   private void notifyUpdate(BlockState state) {
-    this.markDirty();
-    this.getWorld().notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+    this.setChanged();
+    this.getLevel().sendBlockUpdated(getBlockPos(), state, level.getBlockState(worldPosition), 3);
   }
 
   @Override
   public ActionResultType activate(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, ItemStack playerItem, BlockRayTraceResult hit) {
     if (playerItem.isEmpty()) {
       if (!getHeldItem().isEmpty() && !isBurning()) {
-        if (player.isSneaking()) {
-          player.sendStatusMessage(getHeldItem().getDisplayName(), true);
+        if (player.isShiftKeyDown()) {
+          player.displayClientMessage(getHeldItem().getHoverName(), true);
         }
         else {
           dropContaining();
           notifyUpdate(state);
-          player.sendStatusMessage(new TranslationTextComponent("rootsclassic.brazier.burning.empty"), true);
+          player.displayClientMessage(new TranslationTextComponent("rootsclassic.brazier.burning.empty"), true);
         }
         return ActionResultType.SUCCESS;
       }
       else if (isBurning()) {
-        if (player.isSneaking()) {
-          player.sendStatusMessage(new TranslationTextComponent("rootsclassic.brazier.burning.off"), true);
+        if (player.isShiftKeyDown()) {
+          player.displayClientMessage(new TranslationTextComponent("rootsclassic.brazier.burning.off"), true);
           stopBurning();
           notifyUpdate(state);
           return ActionResultType.SUCCESS;
@@ -113,7 +113,7 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
     else if (playerItem.getItem() == Items.FLINT_AND_STEEL) {
       if (!getHeldItem().isEmpty()) {
         startBurning();
-        player.sendStatusMessage(new TranslationTextComponent("rootsclassic.brazier.burning.on"), true);
+        player.displayClientMessage(new TranslationTextComponent("rootsclassic.brazier.burning.on"), true);
         notifyUpdate(state);
         return ActionResultType.SUCCESS;
       }
@@ -125,7 +125,7 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
           getHeldItem().setTag(playerItem.getTag());
         }
         playerItem.shrink(1);
-        player.sendStatusMessage(new TranslationTextComponent("rootsclassic.brazier.burning.added"), true);
+        player.displayClientMessage(new TranslationTextComponent("rootsclassic.brazier.burning.added"), true);
         notifyUpdate(state);
         return ActionResultType.SUCCESS;
       }
@@ -147,22 +147,22 @@ public class BrazierTile extends TEBase implements ITickableTileEntity {
   public void tick() {
     setTicker(getTicker() + (isBurning() ? 12 : 3));
     if (progress > 0) {
-      World world = getWorld();
+      World world = getLevel();
       progress--;
 
-      if(world.isRemote) {
+      if(world.isClientSide) {
         if (progress % 2 == 0) {
-          world.addParticle(ParticleTypes.SMOKE, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, 0, world.rand.nextDouble() * 0.0625 + 0.0625, 0);
+          world.addParticle(ParticleTypes.SMOKE, getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, 0, world.random.nextDouble() * 0.0625 + 0.0625, 0);
         }
         if (progress % 20 == 0) {
-          world.addParticle(ParticleTypes.FLAME, getPos().getX() + 0.5, getPos().getY() + 0.5, getPos().getZ() + 0.5, 0, 0, 0);
+          world.addParticle(ParticleTypes.FLAME, getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, 0, 0, 0);
         }
       }
       if (progress <= 0) {
         setBurning(false);
         //        heldItem = ItemStack.EMPTY;
-        markDirty();
-        world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
+        setChanged();
+        world.sendBlockUpdated(getBlockPos(), world.getBlockState(getBlockPos()), world.getBlockState(getBlockPos()), 3);
       }
     }
     if (getTicker() > 360) {

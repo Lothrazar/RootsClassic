@@ -23,7 +23,7 @@ public class ComponentLilac extends ComponentBase {
 
   @Override
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (!world.isRemote && type == EnumCastType.SPELL && caster instanceof PlayerEntity) {
+    if (!world.isClientSide && type == EnumCastType.SPELL && caster instanceof PlayerEntity) {
       BlockPos pos = RootsUtil.getRayTrace(world, (PlayerEntity) caster, 4 + 2 * (int) size);
       boolean fullEfficiency = growBlockSafe(world, pos, (int) potency) && growBlockSafe(world, pos.east(), (int) potency) && growBlockSafe(world, pos.west(), (int) potency) && growBlockSafe(world, pos.north(), (int) potency) && growBlockSafe(world, pos.south(), (int) potency);
       //			if (fullEfficiency) { TODO: Re-implement the advancements maybe?
@@ -43,15 +43,15 @@ public class ComponentLilac extends ComponentBase {
 
   public boolean growBlockSafe(World world, BlockPos pos, int potency) {
     BlockState state = world.getBlockState(pos);
-    if (state.getBlock() instanceof IGrowable && world.rand.nextInt(5 - potency) < 2) {
-      ((IGrowable) state.getBlock()).grow((ServerWorld) world, world.rand, pos, state);
+    if (state.getBlock() instanceof IGrowable && world.random.nextInt(5 - potency) < 2) {
+      ((IGrowable) state.getBlock()).performBonemeal((ServerWorld) world, world.random, pos, state);
       return true;
     }
-    if (state.getBlock() == Blocks.NETHER_WART && world.rand.nextInt(5 - potency) < 2) {
-      int age = state.get(NetherWartBlock.AGE).intValue();
+    if (state.getBlock() == Blocks.NETHER_WART && world.random.nextInt(5 - potency) < 2) {
+      int age = state.getValue(NetherWartBlock.AGE).intValue();
       if (age < 3) {
-        state = state.with(NetherWartBlock.AGE, Integer.valueOf(age + 1));
-        world.setBlockState(pos, state, 2);
+        state = state.setValue(NetherWartBlock.AGE, Integer.valueOf(age + 1));
+        world.setBlock(pos, state, 2);
         return true;
       }
     }

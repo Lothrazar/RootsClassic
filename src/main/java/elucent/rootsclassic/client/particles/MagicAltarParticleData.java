@@ -17,7 +17,7 @@ public class MagicAltarParticleData implements IParticleFactory<MagicParticleTyp
   }
 
   @Override
-  public Particle makeParticle(MagicParticleTypeData data, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+  public Particle createParticle(MagicParticleTypeData data, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
     return new MagicAltarParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, data.color.getRed(), data.color.getGreen(), data.color.getBlue(), this.spriteSet);
   }
 

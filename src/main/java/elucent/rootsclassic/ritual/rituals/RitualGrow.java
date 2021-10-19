@@ -18,12 +18,12 @@ public class RitualGrow extends RitualBase {
 
   @Override
   public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
-    if(!world.isRemote) {
+    if(!world.isClientSide) {
       for (int i = -17; i < 18; i++) {
         for (int j = -4; j < 5; j++) {
           for (int k = -17; k < 18; k++) {
-            if (world.getBlockState(pos.add(i, j, k)).getBlock() instanceof IGrowable && world.rand.nextInt(12) == 0) {
-              ((IGrowable) world.getBlockState(pos.add(i, j, k)).getBlock()).grow((ServerWorld) world, world.rand, pos.add(i, j, k), world.getBlockState(pos.add(i, j, k)));
+            if (world.getBlockState(pos.offset(i, j, k)).getBlock() instanceof IGrowable && world.random.nextInt(12) == 0) {
+              ((IGrowable) world.getBlockState(pos.offset(i, j, k)).getBlock()).performBonemeal((ServerWorld) world, world.random, pos.offset(i, j, k), world.getBlockState(pos.offset(i, j, k)));
             }
           }
         }

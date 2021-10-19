@@ -5,6 +5,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 
+import net.minecraft.item.Item.Properties;
+
 public class InfernalBulbItem extends Item {
 
   public InfernalBulbItem(Properties properties) {

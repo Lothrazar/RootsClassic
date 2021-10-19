@@ -28,10 +28,10 @@ public class ComponentPeony extends ComponentBase {
 
   @Override
   public void castingAction(PlayerEntity player, int count, int potency, int efficiency, int size) {
-    World world = player.world;
-    int x = player.getPosition().getX();
-    int y = player.getPosition().getY();
-    int z = player.getPosition().getZ();
+    World world = player.level;
+    int x = player.blockPosition().getX();
+    int y = player.blockPosition().getY();
+    int z = player.blockPosition().getZ();
     int range = 5;
     for (int x2 = -range; x2 < range; x2++) {
       for (int z2 = -range; z2 < range; z2++) {
@@ -49,13 +49,13 @@ public class ComponentPeony extends ComponentBase {
       int fY = temp.getY();
       int fZ = temp.getZ();
       double factor = 0.15;
-      if (world.isRemote && world.rand.nextInt(10 * pos.size()) == 0) {
+      if (world.isClientSide && world.random.nextInt(10 * pos.size()) == 0) {
         world.addParticle(MagicAuraParticleData.createData(138, 42, 235),
             fX + RootsUtil.randomDouble(0.0, 0.5), fY + RootsUtil.randomDouble(0.1, 0.5), fZ + RootsUtil.randomDouble(0.0, 0.5),
-            (player.getPosX() - fX) * factor, (player.getPosY() - fY) * factor, (player.getPosZ() - fZ) * factor);
+            (player.getX() - fX) * factor, (player.getY() - fY) * factor, (player.getZ() - fZ) * factor);
         world.addParticle(MagicAuraParticleData.createData(138, 42, 235),
             fX + RootsUtil.randomDouble(0.0, 0.5), fY + RootsUtil.randomDouble(0.1, 0.5), fZ + RootsUtil.randomDouble(0.0, 0.5),
-            (player.getPosX() - fX) * factor, (player.getPosY() - fY) * factor, (player.getPosZ() - fZ) * factor);
+            (player.getX() - fX) * factor, (player.getY() - fY) * factor, (player.getZ() - fZ) * factor);
       }
     });
   }

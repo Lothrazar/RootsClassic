@@ -26,16 +26,16 @@ public class ComponentWhiteTulip extends ComponentBase {
   public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
       //   int damageDealt = 0;
-      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
+      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(x - size, y - size, z - size, x + size, y + size, z + size));
       for (LivingEntity target : targets) {
-        if (target.getUniqueID() != caster.getUniqueID()) {
+        if (target.getUUID() != caster.getUUID()) {
           if (target instanceof PlayerEntity && RootsConfig.COMMON.disablePVP.get()) {}
           else {
-            target.attackEntityFrom(DamageSource.GENERIC, (int) (5 + 3 * potency));
+            target.hurt(DamageSource.GENERIC, (int) (5 + 3 * potency));
             //     damageDealt += (int) (5 + 3 * potency);
-            target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 200 + 100 * (int) potency, (int) potency));
-            target.setLastAttackedEntity(caster);
-            target.setRevengeTarget((LivingEntity) caster);
+            target.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 200 + 100 * (int) potency, (int) potency));
+            target.setLastHurtMob(caster);
+            target.setLastHurtByMob((LivingEntity) caster);
           }
         }
       }

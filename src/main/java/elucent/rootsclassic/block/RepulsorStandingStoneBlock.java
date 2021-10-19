@@ -11,6 +11,8 @@ import net.minecraft.world.World;
 import elucent.rootsclassic.tile.RepulsorStandingStoneTile;
 import elucent.rootsclassic.tile.TEBase;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class RepulsorStandingStoneBlock extends AttunedStandingStoneBlock {
 
   public RepulsorStandingStoneBlock(Properties properties) {
@@ -18,22 +20,22 @@ public class RepulsorStandingStoneBlock extends AttunedStandingStoneBlock {
   }
 
   @Override
-  public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-    super.onBlockHarvested(world, pos, state, player);
-    if (world.getTileEntity(pos) instanceof TEBase) {
-      ((TEBase) world.getTileEntity(pos)).breakBlock(world, pos, state, player);
+  public void playerWillDestroy(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    super.playerWillDestroy(world, pos, state, player);
+    if (world.getBlockEntity(pos) instanceof TEBase) {
+      ((TEBase) world.getBlockEntity(pos)).breakBlock(world, pos, state, player);
     }
   }
 
   @Override
   public boolean hasTileEntity(BlockState state) {
-    return state.get(HALF) == DoubleBlockHalf.UPPER;
+    return state.getValue(HALF) == DoubleBlockHalf.UPPER;
   }
 
   @Nullable
   @Override
   public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-    if (state.get(HALF) == DoubleBlockHalf.UPPER) {
+    if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
       return new RepulsorStandingStoneTile();
     }
     return super.createTileEntity(state, world);

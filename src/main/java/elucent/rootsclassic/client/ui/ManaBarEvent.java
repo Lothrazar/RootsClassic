@@ -23,10 +23,10 @@ public class ManaBarEvent {
   private void drawQuad(BufferBuilder vertexbuffer, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int minU, int minV, int maxU, int maxV) {
     float f = 0.00390625F;
     float f1 = 0.00390625F;
-    vertexbuffer.pos(x1 + 0.0F, y1 + 0.0F, 0).tex((minU + 0) * f, (minV + maxV) * f1).endVertex();
-    vertexbuffer.pos(x2 + 0.0F, y2 + 0.0F, 0).tex((minU + maxU) * f, (minV + maxV) * f1).endVertex();
-    vertexbuffer.pos(x3 + 0.0F, y3 + 0.0F, 0).tex((minU + maxU) * f, (minV + 0) * f1).endVertex();
-    vertexbuffer.pos(x4 + 0.0F, y4 + 0.0F, 0).tex((minU + 0) * f, (minV + 0) * f1).endVertex();
+    vertexbuffer.vertex(x1 + 0.0F, y1 + 0.0F, 0).uv((minU + 0) * f, (minV + maxV) * f1).endVertex();
+    vertexbuffer.vertex(x2 + 0.0F, y2 + 0.0F, 0).uv((minU + maxU) * f, (minV + maxV) * f1).endVertex();
+    vertexbuffer.vertex(x3 + 0.0F, y3 + 0.0F, 0).uv((minU + maxU) * f, (minV + 0) * f1).endVertex();
+    vertexbuffer.vertex(x4 + 0.0F, y4 + 0.0F, 0).uv((minU + 0) * f, (minV + 0) * f1).endVertex();
   }
 
   @SubscribeEvent
@@ -35,7 +35,7 @@ public class ManaBarEvent {
       return;
     }
     PlayerEntity player = Minecraft.getInstance().player;
-    boolean showBar = player.getHeldItemMainhand().getItem() instanceof IManaRelatedItem || player.getHeldItemOffhand().getItem() instanceof IManaRelatedItem;
+    boolean showBar = player.getMainHandItem().getItem() instanceof IManaRelatedItem || player.getOffhandItem().getItem() instanceof IManaRelatedItem;
     //		if (player.abilities.isCreativeMode) {
     //		  	showBar = false;
     //		}
@@ -53,11 +53,11 @@ public class ManaBarEvent {
     RenderSystem.disableCull();
     RenderSystem.pushMatrix();
     RenderSystem.enableBlend();
-    Minecraft.getInstance().getTextureManager().bindTexture(Const.manaBar);
+    Minecraft.getInstance().getTextureManager().bind(Const.manaBar);
     Tessellator tess = Tessellator.getInstance();
-    BufferBuilder b = tess.getBuffer();
-    int w = event.getWindow().getScaledWidth();
-    int h = event.getWindow().getScaledHeight();
+    BufferBuilder b = tess.getBuilder();
+    int w = event.getWindow().getGuiScaledWidth();
+    int h = event.getWindow().getGuiScaledHeight();
     RenderSystem.color4f(1f, 1f, 1f, 1f);
     int manaNumber = Math.round(capability.getMana());
     int maxManaNumber = Math.round(capability.getMaxMana());
@@ -97,7 +97,7 @@ public class ManaBarEvent {
         manaNumber = 0;
       }
     }
-    tess.draw();
+    tess.end();
     RenderSystem.disableBlend();
     RenderSystem.popMatrix();
     RenderSystem.enableCull();
