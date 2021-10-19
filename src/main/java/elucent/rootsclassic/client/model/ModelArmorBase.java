@@ -12,14 +12,14 @@ public class ModelArmorBase extends BipedModel<LivingEntity> {
 
   public EquipmentSlotType slot;
   public float armorScale = 1.05f;
-  public static ModelRenderer head;
-  public static ModelRenderer chest;
-  public static ModelRenderer armR;
-  public static ModelRenderer armL;
-  public static ModelRenderer legR;
-  public static ModelRenderer legL;
-  public static ModelRenderer bootR;
-  public static ModelRenderer bootL;
+  public ModelRenderer head;
+  public ModelRenderer chest;
+  public ModelRenderer armR;
+  public ModelRenderer armL;
+  public ModelRenderer legR;
+  public ModelRenderer legL;
+  public ModelRenderer bootR;
+  public ModelRenderer bootL;
 
   public ModelArmorBase(EquipmentSlotType slot) {
     super(0.0F, 1.0f, 64, 64);
