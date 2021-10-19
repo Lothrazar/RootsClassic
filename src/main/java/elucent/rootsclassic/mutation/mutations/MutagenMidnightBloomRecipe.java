@@ -21,7 +21,7 @@ public class MutagenMidnightBloomRecipe extends MutagenRecipe {
 
   @Override
   public void onCrafted(World world, BlockPos pos, PlayerEntity player) {
-    player.getPersistentData().putInt("RMOD_skipTicks", 200);
+    player.getPersistentData().putInt(Const.NBT_SKIP_TICKS, 200);
   }
 
   @Override

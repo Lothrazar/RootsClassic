@@ -1,16 +1,17 @@
 package elucent.rootsclassic.component.components;
 
-import java.util.ArrayList;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.component.ComponentBase;
+import elucent.rootsclassic.component.EnumCastType;
+import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.EnumCastType;
-import elucent.rootsclassic.registry.RootsRegistry;
+
+import java.util.ArrayList;
 
 public class ComponentMidnightBloom extends ComponentBase {
 
@@ -25,8 +26,8 @@ public class ComponentMidnightBloom extends ComponentBase {
       for (LivingEntity target : targets) {
         if (target.getUniqueID() != caster.getUniqueID()) {
           CompoundNBT persistentData = target.getPersistentData();
-          persistentData.putBoolean("RMOD_trackTicks", false);
-          persistentData.putInt("RMOD_skipTicks", 40 + 40 * (int) potency);
+          persistentData.putBoolean(Const.NBT_TRACK_TICKS, false);
+          persistentData.putInt(Const.NBT_SKIP_TICKS, 40 + 40 * (int) potency);
         }
       }
     }

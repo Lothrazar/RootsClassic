@@ -1,8 +1,6 @@
 package elucent.rootsclassic.util;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import elucent.rootsclassic.Const;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,9 +11,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class RootsUtil {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-  public static final String NBT_TRACK_TICKS = "RMOD_trackTicks";
+public class RootsUtil {
   private static final Random random = new Random();
 
   public static double randomDouble(double min, double max) {
@@ -40,19 +40,19 @@ public class RootsUtil {
   }
 
   public static void addTickTracking(Entity entity) {
-    if (entity.getPersistentData().contains(NBT_TRACK_TICKS)) {
-      entity.getPersistentData().putInt(NBT_TRACK_TICKS, entity.getPersistentData().getInt(NBT_TRACK_TICKS) + 1);
+    if (entity.getPersistentData().contains(Const.NBT_TRACK_TICKS)) {
+      entity.getPersistentData().putInt(Const.NBT_TRACK_TICKS, entity.getPersistentData().getInt(Const.NBT_TRACK_TICKS) + 1);
     }
     else {
-      entity.getPersistentData().putInt(NBT_TRACK_TICKS, 1);
+      entity.getPersistentData().putInt(Const.NBT_TRACK_TICKS, 1);
     }
   }
 
   public static void decrementTickTracking(Entity entity) {
-    if (entity.getPersistentData().contains(NBT_TRACK_TICKS)) {
-      entity.getPersistentData().putInt(NBT_TRACK_TICKS, entity.getPersistentData().getInt(NBT_TRACK_TICKS) - 1);
-      if (entity.getPersistentData().getInt(NBT_TRACK_TICKS) == 0) {
-        entity.removeTag(NBT_TRACK_TICKS);
+    if (entity.getPersistentData().contains(Const.NBT_TRACK_TICKS)) {
+      entity.getPersistentData().putInt(Const.NBT_TRACK_TICKS, entity.getPersistentData().getInt(Const.NBT_TRACK_TICKS) - 1);
+      if (entity.getPersistentData().getInt(Const.NBT_TRACK_TICKS) == 0) {
+        entity.removeTag(Const.NBT_TRACK_TICKS);
       }
     }
   }

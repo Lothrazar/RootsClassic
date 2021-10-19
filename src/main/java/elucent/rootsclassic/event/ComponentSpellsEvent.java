@@ -1,5 +1,9 @@
 package elucent.rootsclassic.event;
 
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.capability.RootsCapabilityManager;
+import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,10 +16,6 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.capability.RootsCapabilityManager;
-import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.util.RootsUtil;
 
 public class ComponentSpellsEvent {
 
@@ -34,16 +34,15 @@ public class ComponentSpellsEvent {
 
   private void tickSkipMovementCurse(LivingUpdateEvent event, LivingEntity entity) {
     CompoundNBT persistentData = entity.getPersistentData();
-    if (persistentData.contains(RootsUtil.NBT_TRACK_TICKS)) {
-      if (persistentData.contains(Const.NBT_SKIP_TICKS)) {
-        if (persistentData.getInt(Const.NBT_SKIP_TICKS) > 0) {
-          persistentData.putInt(Const.NBT_SKIP_TICKS, persistentData.getInt(Const.NBT_SKIP_TICKS) - 1);
-          if (persistentData.getInt(Const.NBT_SKIP_TICKS) <= 0) {
-            persistentData.remove(Const.NBT_SKIP_TICKS);
-            RootsUtil.decrementTickTracking(entity);
-          }
-          event.setCanceled(true);
+    if (persistentData.contains(Const.NBT_TRACK_TICKS) && persistentData.contains(Const.NBT_SKIP_TICKS)) {
+      int skipTicks = persistentData.getInt(Const.NBT_SKIP_TICKS);
+      if (skipTicks > 0) {
+        persistentData.putInt(Const.NBT_SKIP_TICKS, skipTicks - 1);
+        if (skipTicks <= 0) {
+          persistentData.remove(Const.NBT_SKIP_TICKS);
+          RootsUtil.decrementTickTracking(entity);
         }
+        event.setCanceled(true);
       }
     }
   }

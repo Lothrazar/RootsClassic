@@ -15,6 +15,7 @@ public class Const {
   public static final String NBT_THORNS = MODID + ":RMOD_thornsDamage";
   public static final String NBT_VULN = MODID + ":RMOD_vuln";
   public static final String NBT_DONT_DROP = MODID + ":RMOD_dropItems";
+  public static final String NBT_TRACK_TICKS = "RMOD_trackTicks";
   public static final String NBT_SKIP_TICKS = MODID + ":RMOD_skipTicks";
   public static final String NBT_EFFICIENCY = MODID + ":efficiency";
   public static final String NBT_SIZE = MODID + ":size";
