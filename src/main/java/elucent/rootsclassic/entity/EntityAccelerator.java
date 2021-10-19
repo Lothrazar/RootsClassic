@@ -11,11 +11,10 @@ import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsEntities;
 
 public class EntityAccelerator extends Entity {
-
-  Entity entity;
-  Random random = new Random();
-  int lifetime = 0;
-  int potency = 1;
+  private Entity entity;
+  private final Random random = new Random();
+  private int lifetime = 0;
+  private int potency = 1;
 
   public EntityAccelerator(EntityType<? extends EntityAccelerator> type, World worldIn) {
     super(type, worldIn);

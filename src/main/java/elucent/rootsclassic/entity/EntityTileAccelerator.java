@@ -13,11 +13,10 @@ import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsEntities;
 
 public class EntityTileAccelerator extends Entity {
-
-  BlockPos pos;
-  Random random = new Random();
-  int lifetime = 0;
-  int potency = 1;
+  private BlockPos pos;
+  private final Random random = new Random();
+  private int lifetime = 0;
+  private int potency = 1;
 
   public EntityTileAccelerator(EntityType<? extends EntityTileAccelerator> type, World worldIn) {
     super(type, worldIn);

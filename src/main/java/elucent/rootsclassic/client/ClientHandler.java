@@ -1,5 +1,6 @@
 package elucent.rootsclassic.client;
 
+import elucent.rootsclassic.client.renderer.entity.AcceleratorRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -31,12 +32,17 @@ public class ClientHandler {
     ClientRegistry.bindTileEntityRenderer(RootsRegistry.IMBUER_TILE.get(), ImbuerTESR::new);
     ClientRegistry.bindTileEntityRenderer(RootsRegistry.ALTAR_TILE.get(), AltarTESR::new);
     ClientRegistry.bindTileEntityRenderer(RootsRegistry.BRAZIER_TILE.get(), BrazierTESR::new);
+
     RenderTypeLookup.setRenderLayer(RootsRegistry.MIDNIGHT_BLOOM.get(), RenderType.getCutout());
     RenderTypeLookup.setRenderLayer(RootsRegistry.FLARE_ORCHID.get(), RenderType.getCutout());
     RenderTypeLookup.setRenderLayer(RootsRegistry.RADIANT_DAISY.get(), RenderType.getCutout());
     RenderTypeLookup.setRenderLayer(RootsRegistry.ALTAR.get(), RenderType.getCutout());
     RenderTypeLookup.setRenderLayer(RootsRegistry.BRAZIER.get(), RenderType.getCutout());
+
     RenderingRegistry.registerEntityRenderingHandler(RootsEntities.PHANTOM_SKELETON.get(), PhantomSkeletonRenderer::new);
+    RenderingRegistry.registerEntityRenderingHandler(RootsEntities.ENTITY_ACCELERATOR.get(), AcceleratorRenderer::new);
+    RenderingRegistry.registerEntityRenderingHandler(RootsEntities.TILE_ACCELERATOR.get(), AcceleratorRenderer::new);
+
     ItemModelsProperties.registerProperty(RootsRegistry.STAFF.get(), new ResourceLocation("imbued"), (stack, world, livingEntity) -> stack.getTag() != null && stack.getTag().contains(Const.NBT_EFFECT) ? 1.0F : 0.0F);
   }
 
