@@ -2,17 +2,17 @@ package elucent.rootsclassic.ritual;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.Roots;
-import elucent.rootsclassic.block.altar.AltarTile;
-import elucent.rootsclassic.block.brazier.BrazierTile;
+import elucent.rootsclassic.block.altar.AltarBlockEntity;
+import elucent.rootsclassic.block.brazier.BrazierBlockEntity;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.ritual.rituals.RitualBanishRain;
 import elucent.rootsclassic.ritual.rituals.RitualCauseRain;
@@ -32,7 +32,7 @@ public class RitualManager {
 
   public static ArrayList<RitualBase> rituals = new ArrayList<>();
 
-  public static RitualBase findMatchingByIngredients(AltarTile altar) {
+  public static RitualBase findMatchingByIngredients(AltarBlockEntity altar) {
     for (RitualBase ritual : RitualManager.rituals) {
       //      if (ritual.getName().equals("healer_stone_crafting")) {
       //        Roots.logger.info("healer stone?");
@@ -457,13 +457,13 @@ public class RitualManager {
     return null;
   }
 
-  public static ArrayList<ItemStack> getIncenses(World world, BlockPos pos) {
+  public static ArrayList<ItemStack> getIncenses(Level world, BlockPos pos) {
     ArrayList<ItemStack> test = new ArrayList<>();
     for (int i = -4; i < 5; i++) {
       for (int j = -4; j < 5; j++) {
         if (world.getBlockState(pos.offset(i, 0, j)).getBlock() == RootsRegistry.BRAZIER.get()) {
           if (world.getBlockEntity(pos.offset(i, 0, j)) != null) {
-            BrazierTile brazierTile = (BrazierTile) world.getBlockEntity(pos.offset(i, 0, j));
+            BrazierBlockEntity brazierTile = (BrazierBlockEntity) world.getBlockEntity(pos.offset(i, 0, j));
             if (brazierTile.isBurning()) {
               test.add(brazierTile.getHeldItem());
             }

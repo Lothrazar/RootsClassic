@@ -1,15 +1,15 @@
 package elucent.rootsclassic.ritual.rituals;
 
 import java.util.List;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.ritual.RitualBase;
 
 public class RitualLifeDrain extends RitualBase {
@@ -19,21 +19,21 @@ public class RitualLifeDrain extends RitualBase {
   }
 
   @Override
-  public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
+  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     inventory.clearContent();
-    List<MonsterEntity> enemies = world.getEntitiesOfClass(MonsterEntity.class, new AxisAlignedBB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
+    List<Monster> enemies = world.getEntitiesOfClass(Monster.class, new AABB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
         pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
     float drainedHealth = 0;
     if (enemies.size() > 0) {
-      for (MonsterEntity enemy : enemies) {
+      for (Monster enemy : enemies) {
         enemy.hurt(DamageSource.CACTUS, 9);
         drainedHealth += 9;
       }
     }
-    List<PlayerEntity> players = world.getEntitiesOfClass(PlayerEntity.class, new AxisAlignedBB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
+    List<Player> players = world.getEntitiesOfClass(Player.class, new AABB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
         pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
     float numPlayers = players.size();
-    for (PlayerEntity player : players) {
+    for (Player player : players) {
       player.heal(drainedHealth / (numPlayers * 2.5f));
     }
   }

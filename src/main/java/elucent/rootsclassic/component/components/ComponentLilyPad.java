@@ -1,13 +1,13 @@
 package elucent.rootsclassic.component.components;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
@@ -20,24 +20,24 @@ public class ComponentLilyPad extends ComponentBase {
   }
 
   @Override
-  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      if (caster instanceof PlayerEntity && !world.isClientSide) {
-        BlockPos pos = RootsUtil.getRayTrace(world, (PlayerEntity) caster, 4 + 2 * (int) size);
+      if (caster instanceof Player && !world.isClientSide) {
+        BlockPos pos = RootsUtil.getRayTrace(world, (Player) caster, 4 + 2 * (int) size);
         if (world.getBlockState(pos.above()).canBeReplaced(Fluids.WATER)) {
-          world.setBlock(pos.above(), Blocks.WATER.defaultBlockState().setValue(FlowingFluidBlock.LEVEL, 15), 3);
+          world.setBlock(pos.above(), Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, 15), 3);
         }
         if (world.getBlockState(pos.above().west()).canBeReplaced(Fluids.WATER)) {
-          world.setBlock(pos.above().west(), Blocks.WATER.defaultBlockState().setValue(FlowingFluidBlock.LEVEL, 15), 3);
+          world.setBlock(pos.above().west(), Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, 15), 3);
         }
         if (world.getBlockState(pos.above().east()).canBeReplaced(Fluids.WATER)) {
-          world.setBlock(pos.above().east(), Blocks.WATER.defaultBlockState().setValue(FlowingFluidBlock.LEVEL, 15), 3);
+          world.setBlock(pos.above().east(), Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, 15), 3);
         }
         if (world.getBlockState(pos.above().north()).canBeReplaced(Fluids.WATER)) {
-          world.setBlock(pos.above().north(), Blocks.WATER.defaultBlockState().setValue(FlowingFluidBlock.LEVEL, 15), 3);
+          world.setBlock(pos.above().north(), Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, 15), 3);
         }
         if (world.getBlockState(pos.above().south()).canBeReplaced(Fluids.WATER)) {
-          world.setBlock(pos.above().south(), Blocks.WATER.defaultBlockState().setValue(FlowingFluidBlock.LEVEL, 15), 3);
+          world.setBlock(pos.above().south(), Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, 15), 3);
         }
       }
     }

@@ -3,7 +3,6 @@ package elucent.rootsclassic.research;
 import java.util.ArrayList;
 
 public class ResearchGroup {
-
   private String name = "";
   private String properName = "";
   public ArrayList<ResearchBase> researches = new ArrayList<>();

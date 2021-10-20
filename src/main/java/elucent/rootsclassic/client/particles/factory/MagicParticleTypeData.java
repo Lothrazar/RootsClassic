@@ -4,14 +4,13 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleType;
 import elucent.rootsclassic.client.particles.ParticleColor;
 import elucent.rootsclassic.registry.ParticleRegistry;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.network.FriendlyByteBuf;
 
-public class MagicParticleTypeData implements IParticleData {
-
+public class MagicParticleTypeData implements ParticleOptions {
   private ParticleType<MagicParticleTypeData> type;
   public static final Codec<MagicParticleTypeData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
       Codec.FLOAT.fieldOf("r").forGetter(d -> d.color.getRed()),
@@ -20,7 +19,7 @@ public class MagicParticleTypeData implements IParticleData {
       .apply(instance, MagicParticleTypeData::new));
   public ParticleColor color;
   @SuppressWarnings("deprecation")
-  static final IParticleData.IDeserializer<MagicParticleTypeData> DESERIALIZER = new IParticleData.IDeserializer<MagicParticleTypeData>() {
+  static final ParticleOptions.Deserializer<MagicParticleTypeData> DESERIALIZER = new ParticleOptions.Deserializer<MagicParticleTypeData>() {
 
     @Override
     public MagicParticleTypeData fromCommand(ParticleType<MagicParticleTypeData> type, StringReader reader) throws CommandSyntaxException {
@@ -29,7 +28,7 @@ public class MagicParticleTypeData implements IParticleData {
     }
 
     @Override
-    public MagicParticleTypeData fromNetwork(ParticleType<MagicParticleTypeData> type, PacketBuffer buffer) {
+    public MagicParticleTypeData fromNetwork(ParticleType<MagicParticleTypeData> type, FriendlyByteBuf buffer) {
       return new MagicParticleTypeData(type, ParticleColor.deserialize(buffer.readUtf()));
     }
   };
@@ -49,7 +48,7 @@ public class MagicParticleTypeData implements IParticleData {
   }
 
   @Override
-  public void writeToNetwork(PacketBuffer buffer) {}
+  public void writeToNetwork(FriendlyByteBuf buffer) {}
 
   @Override
   public String writeToString() {

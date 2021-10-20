@@ -1,17 +1,17 @@
 package elucent.rootsclassic.component.components;
 
 import java.util.ArrayList;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
@@ -24,10 +24,10 @@ public class ComponentBlueOrchid extends ComponentBase {
   }
 
   @Override
-  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      if (caster instanceof PlayerEntity && !world.isClientSide) {
-        BlockPos pos = RootsUtil.getRayTrace(world, (PlayerEntity) caster, 4 + 2 * (int) size);
+      if (caster instanceof Player && !world.isClientSide) {
+        BlockPos pos = RootsUtil.getRayTrace(world, (Player) caster, 4 + 2 * (int) size);
         BlockState state = world.getBlockState(pos);
         Block block = world.getBlockState(pos).getBlock();
         if (block == Blocks.STONE || block == Blocks.DIRT || block == Blocks.GRASS || block == Blocks.SAND || block == Blocks.GRAVEL) {
@@ -36,14 +36,14 @@ public class ComponentBlueOrchid extends ComponentBase {
             world.setBlockAndUpdate(pos, state);
           }
           world.setBlockAndUpdate(pos.above(), state);
-          ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(pos.getX() - size, pos.getY() - size, pos.getZ() - size, pos.getX() + size, pos.getY() + size, pos.getZ() + size));
+          ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesOfClass(LivingEntity.class, new AABB(pos.getX() - size, pos.getY() - size, pos.getZ() - size, pos.getX() + size, pos.getY() + size, pos.getZ() + size));
           for (LivingEntity target : targets) {
             if (target.getUUID() != caster.getUUID()) {
               target.push(0, 3, 0);
-              Vector3d motion = target.getDeltaMovement();
+              Vec3 motion = target.getDeltaMovement();
               target.setDeltaMovement(motion.x, 0.65 + world.random.nextDouble() + 0.25 * potency, motion.z);
-              if (target instanceof PlayerEntity) {
-                ((PlayerEntity) target).hurtMarked = true;
+              if (target instanceof Player) {
+                ((Player) target).hurtMarked = true;
               }
             }
           }

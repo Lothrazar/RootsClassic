@@ -1,15 +1,15 @@
 package elucent.rootsclassic.component.components;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.IGrowable;
-import net.minecraft.block.NetherWartBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.NetherWartBlock;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
@@ -22,9 +22,9 @@ public class ComponentLilac extends ComponentBase {
   }
 
   @Override
-  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (!world.isClientSide && type == EnumCastType.SPELL && caster instanceof PlayerEntity) {
-      BlockPos pos = RootsUtil.getRayTrace(world, (PlayerEntity) caster, 4 + 2 * (int) size);
+  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+    if (!world.isClientSide && type == EnumCastType.SPELL && caster instanceof Player) {
+      BlockPos pos = RootsUtil.getRayTrace(world, (Player) caster, 4 + 2 * (int) size);
       boolean fullEfficiency = growBlockSafe(world, pos, (int) potency) && growBlockSafe(world, pos.east(), (int) potency) && growBlockSafe(world, pos.west(), (int) potency) && growBlockSafe(world, pos.north(), (int) potency) && growBlockSafe(world, pos.south(), (int) potency);
       //			if (fullEfficiency) { TODO: Re-implement the advancements maybe?
       //				ServerPlayerEntity player = (ServerPlayerEntity)caster;
@@ -41,10 +41,10 @@ public class ComponentLilac extends ComponentBase {
     }
   }
 
-  public boolean growBlockSafe(World world, BlockPos pos, int potency) {
+  public boolean growBlockSafe(Level world, BlockPos pos, int potency) {
     BlockState state = world.getBlockState(pos);
-    if (state.getBlock() instanceof IGrowable && world.random.nextInt(5 - potency) < 2) {
-      ((IGrowable) state.getBlock()).performBonemeal((ServerWorld) world, world.random, pos, state);
+    if (state.getBlock() instanceof BonemealableBlock && world.random.nextInt(5 - potency) < 2) {
+      ((BonemealableBlock) state.getBlock()).performBonemeal((ServerLevel) world, world.random, pos, state);
       return true;
     }
     if (state.getBlock() == Blocks.NETHER_WART && world.random.nextInt(5 - potency) < 2) {

@@ -6,16 +6,16 @@ import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.registry.RootsRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 
@@ -26,8 +26,8 @@ public class ComponentRadiantDaisy extends ComponentBase {
   }
 
   @Override
-  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    PlayerEntity player = (PlayerEntity) caster;
+  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+    Player player = (Player) caster;
     double posX = player.getX() + player.getLookAngle().x * 0.5;
     double posY = player.getY() + 1.5 + player.getLookAngle().y * 0.5;
     double posZ = player.getZ() + player.getLookAngle().z * 0.5;
@@ -45,15 +45,15 @@ public class ComponentRadiantDaisy extends ComponentBase {
         posX += motionX;
         posY += motionY;
         posZ += motionZ;
-        List<LivingEntity> targets = player.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(posX - 0.25, posY - 0.25, posZ - 0.25, posX + 0.25, posY + 0.25, posZ + 0.25));
+        List<LivingEntity> targets = player.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, new AABB(posX - 0.25, posY - 0.25, posZ - 0.25, posX + 0.25, posY + 0.25, posZ + 0.25));
         if (targets.size() > 0) {
           for (int j = 0; j < targets.size() && !didHit; j++) {
             if (targets.get(j).getUUID() != player.getUUID()) {
-              if (targets.get(j) instanceof PlayerEntity && RootsConfig.COMMON.disablePVP.get()) {}
+              if (targets.get(j) instanceof Player && RootsConfig.COMMON.disablePVP.get()) {}
               else {
                 didHit = true;
                 targets.get(j).hurt(DamageSource.GENERIC, (float) (12 + 3.0 * (potency + potencyMod)));
-                targets.get(j).addEffect(new EffectInstance(Effects.BLINDNESS, 40 + (int) (20.0 * (potency + potencyMod)), 0));
+                targets.get(j).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40 + (int) (20.0 * (potency + potencyMod)), 0));
                 targets.get(j).setLastHurtMob(player);
                 targets.get(j).setLastHurtByMob(player);
               }

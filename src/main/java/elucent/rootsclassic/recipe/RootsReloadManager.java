@@ -1,7 +1,7 @@
 package elucent.rootsclassic.recipe;
 
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.resources.IResourceManagerReloadListener;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -9,10 +9,9 @@ import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.mutation.MutagenManager;
 import elucent.rootsclassic.ritual.RitualManager;
 
-public class RootsReloadManager implements IResourceManagerReloadListener {
-
+public class RootsReloadManager implements ResourceManagerReloadListener {
   @Override
-  public void onResourceManagerReload(IResourceManager resourceManager) {
+  public void onResourceManagerReload(ResourceManager resourceManager) {
     MutagenManager.reload();
     ComponentManager.reload();
     RitualManager.reload();

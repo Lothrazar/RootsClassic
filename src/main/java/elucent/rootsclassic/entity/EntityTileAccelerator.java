@@ -1,16 +1,20 @@
 package elucent.rootsclassic.entity;
 
-import java.util.Random;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsEntities;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
+
+import java.util.Random;
 
 public class EntityTileAccelerator extends Entity {
   private BlockPos pos;
@@ -18,11 +22,11 @@ public class EntityTileAccelerator extends Entity {
   private int lifetime = 0;
   private int potency = 1;
 
-  public EntityTileAccelerator(EntityType<? extends EntityTileAccelerator> type, World worldIn) {
+  public EntityTileAccelerator(EntityType<? extends EntityTileAccelerator> type, Level worldIn) {
     super(type, worldIn);
   }
 
-  public EntityTileAccelerator(World world, BlockPos pos, int potency, int size) {
+  public EntityTileAccelerator(Level world, BlockPos pos, int potency, int size) {
     this(RootsEntities.TILE_ACCELERATOR.get(), world);
     this.pos = pos;
     this.potency = potency + 2;
@@ -36,18 +40,22 @@ public class EntityTileAccelerator extends Entity {
     if (pos == null) {
       if (!level.isClientSide) {
         this.level.broadcastEntityEvent(this, (byte) 3);
-        this.remove();
+        this.discard();
       }
       return;
     }
-    if (this.getCommandSenderWorld().getBlockEntity(this.pos) instanceof ITickableTileEntity) {
+    BlockEntity blockEntity = level.getBlockEntity(this.pos);
+    if (blockEntity instanceof EntityBlock) {
+      BlockState state = level.getBlockState(this.pos);
+      //TODO: Check if this even works
+      BlockEntityTicker ticker = state.getTicker(level, blockEntity.getType());
       for (int i = 0; i < potency; i++) {
-        ((ITickableTileEntity) this.getCommandSenderWorld().getBlockEntity(this.pos)).tick();
+        ticker.tick(level, pos, state, blockEntity);
       }
     }
     else {
       this.level.broadcastEntityEvent(this, (byte) 3);
-      this.remove();
+      this.discard();
     }
     for (int i = 0; i < 2; i++) {
       int side = random.nextInt(6);
@@ -79,7 +87,7 @@ public class EntityTileAccelerator extends Entity {
     lifetime--;
     if (lifetime <= 0) {
       this.level.broadcastEntityEvent(this, (byte) 3);
-      this.remove();
+      this.discard();
     }
   }
 
@@ -87,14 +95,14 @@ public class EntityTileAccelerator extends Entity {
   protected void defineSynchedData() {}
 
   @Override
-  protected void readAdditionalSaveData(CompoundNBT compound) {
+  protected void readAdditionalSaveData(CompoundTag compound) {
     this.pos = new BlockPos(compound.getInt("posX"), compound.getInt("posY"), compound.getInt("posZ"));
     this.lifetime = compound.getInt("lifetime");
     this.potency = compound.getInt("potency");
   }
 
   @Override
-  protected void addAdditionalSaveData(CompoundNBT compound) {
+  protected void addAdditionalSaveData(CompoundTag compound) {
     compound.putInt("posX", pos.getX());
     compound.putInt("posY", pos.getY());
     compound.putInt("posZ", pos.getZ());
@@ -103,7 +111,7 @@ public class EntityTileAccelerator extends Entity {
   }
 
   @Override
-  public IPacket<?> getAddEntityPacket() {
+  public Packet<?> getAddEntityPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 }

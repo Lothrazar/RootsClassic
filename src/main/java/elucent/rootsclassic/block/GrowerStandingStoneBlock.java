@@ -1,43 +1,53 @@
 package elucent.rootsclassic.block;
 
+import elucent.rootsclassic.blockentity.BEBase;
+import elucent.rootsclassic.blockentity.GrowerStandingStoneTile;
+import elucent.rootsclassic.registry.RootsRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+
 import javax.annotation.Nullable;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.state.properties.DoubleBlockHalf;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
-import elucent.rootsclassic.tile.GrowerStandingStoneTile;
-import elucent.rootsclassic.tile.TEBase;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
-public class GrowerStandingStoneBlock extends AttunedStandingStoneBlock {
+public class GrowerStandingStoneBlock extends AttunedStandingStoneBlock implements EntityBlock {
 
   public GrowerStandingStoneBlock(Properties properties) {
     super(properties);
   }
 
   @Override
-  public void playerWillDestroy(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+  public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
     super.playerWillDestroy(world, pos, state, player);
-    if (world.getBlockEntity(pos) instanceof TEBase) {
-      ((TEBase) world.getBlockEntity(pos)).breakBlock(world, pos, state, player);
+    if (world.getBlockEntity(pos) instanceof BEBase) {
+      ((BEBase) world.getBlockEntity(pos)).breakBlock(world, pos, state, player);
     }
-  }
-
-  @Override
-  public boolean hasTileEntity(BlockState state) {
-    return state.getValue(HALF) == DoubleBlockHalf.UPPER;
   }
 
   @Nullable
   @Override
-  public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
     if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-      return new GrowerStandingStoneTile();
+      return new GrowerStandingStoneTile(pos, state);
     }
-    return super.createTileEntity(state, world);
+    return null;
+  }
+
+  @Nullable
+  @Override
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+    return createStandingStoneTicker(level, entityType, RootsRegistry.GROWER_STANDING_STONE_TILE.get());
+  }
+
+  @Nullable
+  protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends GrowerStandingStoneTile> standingStoneType) {
+    return level.isClientSide ?
+            createTickerHelper(entityType, standingStoneType, GrowerStandingStoneTile::clientTick) :
+            createTickerHelper(entityType, standingStoneType, GrowerStandingStoneTile::serverTick);
   }
 }

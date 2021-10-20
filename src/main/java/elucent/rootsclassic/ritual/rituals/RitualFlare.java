@@ -1,15 +1,15 @@
 package elucent.rootsclassic.ritual.rituals;
 
 import java.util.List;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.ritual.RitualBase;
 
 public class RitualFlare extends RitualBase {
@@ -19,7 +19,7 @@ public class RitualFlare extends RitualBase {
   }
 
   @Override
-  public void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses) {
+  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     for (int i = 0; i < inventory.getContainerSize(); i++) {
       if (!inventory.getItem(i).isEmpty()) {
         ItemStack stack = inventory.getItem(i);
@@ -28,14 +28,13 @@ public class RitualFlare extends RitualBase {
             ItemStack flintStack = new ItemStack(Items.FLINT_AND_STEEL, 1);
             flintStack.setDamageValue(stack.getDamageValue() + 1);
             ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, flintStack);
-            item.forcedLoading = true;
             world.addFreshEntity(item);
           }
         }
       }
     }
     inventory.clearContent();
-    List<LivingEntity> enemies = world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
+    List<LivingEntity> enemies = world.getEntitiesOfClass(LivingEntity.class, new AABB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
         pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
     if (enemies.size() > 0) {
       for (LivingEntity enemy : enemies) {

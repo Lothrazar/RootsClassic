@@ -1,7 +1,7 @@
 package elucent.rootsclassic;
 
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -32,7 +32,7 @@ import elucent.rootsclassic.ritual.RitualManager;
 @Mod(Const.MODID)
 public class Roots {
 
-  public static ItemGroup tab = new ItemGroup(Const.MODID) {
+  public static CreativeModeTab tab = new CreativeModeTab(Const.MODID) {
 
     @Override
     public ItemStack makeIcon() {
@@ -49,26 +49,29 @@ public class Roots {
     eventBus.addListener(this::setup);
     RootsRegistry.BLOCKS.register(eventBus);
     RootsRegistry.ITEMS.register(eventBus);
-    RootsRegistry.TILE_ENTITIES.register(eventBus);
+    RootsRegistry.BLOCK_ENTITIES.register(eventBus);
     RootsEntities.ENTITIES.register(eventBus);
     RootsRecipes.RECIPE_SERIALIZERS.register(eventBus);
     DropModifier.GLM.register(eventBus);
     ParticleRegistry.PARTICLE_TYPES.register(eventBus);
     MinecraftForge.EVENT_BUS.register(new RootsReloadManager());
+    eventBus.addListener(RootsCapabilityManager::registerCapabilities);
     MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
     MinecraftForge.EVENT_BUS.register(new ComponentSpellsEvent());
     MinecraftForge.EVENT_BUS.addListener(RootsEntities::addSpawns);
     eventBus.addListener(RootsEntities::registerEntityAttributes);
+
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
       MinecraftForge.EVENT_BUS.register(new ManaBarEvent());
       eventBus.addListener(ClientHandler::onClientSetup);
+      eventBus.addListener(ClientHandler::registerEntityRenders);
+      eventBus.addListener(ClientHandler::registerLayerDefinitions);
       eventBus.addListener(ClientHandler::registerItemColors);
       MinecraftForge.EVENT_BUS.addListener(ResearchManager::onRecipesUpdated);
     });
   }
 
   private void setup(final FMLCommonSetupEvent event) {
-    RootsCapabilityManager.register();
     RootsEntities.registerSpawnPlacement();
     event.enqueueWork(() -> {
       //Initialize

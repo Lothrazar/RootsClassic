@@ -2,16 +2,16 @@ package elucent.rootsclassic.ritual;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.block.Block;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import elucent.rootsclassic.Roots;
-import elucent.rootsclassic.block.brazier.BrazierTile;
+import elucent.rootsclassic.block.brazier.BrazierBlockEntity;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.util.RootsUtil;
 
@@ -22,8 +22,8 @@ public abstract class RitualBase {
   private ArrayList<BlockPos> positionsRelative = new ArrayList<>();
   private List<ItemStack> incenses = new ArrayList<>();
   private List<ItemStack> ingredients = new ArrayList<>();
-  private Vector3d color = new Vector3d(255, 255, 255);
-  private Vector3d secondaryColor = new Vector3d(255, 255, 255);
+  private Vec3 color = new Vec3(255, 255, 255);
+  private Vec3 secondaryColor = new Vec3(255, 255, 255);
   private final ResourceLocation name;
   private int level;
 
@@ -44,7 +44,7 @@ public abstract class RitualBase {
     this.blocks = new ArrayList<>();
     this.level = level;
     //level 0 has no stones
-    if (level == 1 || level == 2) {
+    if (level >= 1) {
       //the first circle of tier 1 stones
       this.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), -3, 0, -3);
       this.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), -3, 0, 3);
@@ -55,7 +55,7 @@ public abstract class RitualBase {
       this.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 0, 0, 3);
       this.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 0, 0, -3);
     }
-    else if (level == 2) {
+    if (level == 2) {
       //the outer tier 2 stones
       this.addRitualPillar(RootsRegistry.ATTUNED_STANDING_STONE.get(), 5, 1, 0);
       this.addRitualPillar(RootsRegistry.ATTUNED_STANDING_STONE.get(), -5, 1, 0);
@@ -84,9 +84,9 @@ public abstract class RitualBase {
     return RootsUtil.itemListsMatch(this.getIngredients(), ritual.getIngredients());
   }
 
-  public abstract void doEffect(World world, BlockPos pos, IInventory inventory, List<ItemStack> incenses);
+  public abstract void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses);
 
-  public boolean verifyPositionBlocks(World world, BlockPos pos) {
+  public boolean verifyPositionBlocks(Level world, BlockPos pos) {
     if (getPositionsRelative().size() > 0) {
       for (int i = 0; i < getPositionsRelative().size(); i++) {
         BlockPos loopPos = getPositionsRelative().get(i);
@@ -101,15 +101,15 @@ public abstract class RitualBase {
     return true;
   }
 
-  public List<BrazierTile> getRecipeBraziers(World world, BlockPos pos) {
-    List<BrazierTile> links = new ArrayList<>();
-    TileEntity tileHere;
+  public List<BrazierBlockEntity> getRecipeBraziers(Level world, BlockPos pos) {
+    List<BrazierBlockEntity> links = new ArrayList<>();
+    BlockEntity tileHere;
     for (int i = -1 * RADIUS; i <= RADIUS; i++) {
       for (int j = -1 * RADIUS; j <= RADIUS; j++) {
         if (world.getBlockState(pos.offset(i, 0, j)).getBlock() == RootsRegistry.BRAZIER.get()) {
           tileHere = world.getBlockEntity(pos.offset(i, 0, j));
-          if (tileHere instanceof BrazierTile) {
-            links.add((BrazierTile) tileHere);
+          if (tileHere instanceof BrazierBlockEntity) {
+            links.add((BrazierBlockEntity) tileHere);
           }
         }
       }
@@ -117,10 +117,10 @@ public abstract class RitualBase {
     return links;
   }
 
-  public boolean incenseMatches(World world, BlockPos pos) {
+  public boolean incenseMatches(Level world, BlockPos pos) {
     ArrayList<ItemStack> incenseFromNearby = new ArrayList<>();
-    List<BrazierTile> braziers = getRecipeBraziers(world, pos);
-    for (BrazierTile brazier : braziers) {
+    List<BrazierBlockEntity> braziers = getRecipeBraziers(world, pos);
+    for (BrazierBlockEntity brazier : braziers) {
       if (!brazier.getHeldItem().isEmpty()) {
         //              Roots.logger.info("found brazier item " + brazier.getHeldItem());
         incenseFromNearby.add(brazier.getHeldItem());
@@ -182,7 +182,7 @@ public abstract class RitualBase {
     this.blocks = blocks;
   }
 
-  public Vector3d getColor() {
+  public Vec3 getColor() {
     return color;
   }
 
@@ -190,7 +190,7 @@ public abstract class RitualBase {
     this.color = buildColor(r, g, b);
   }
 
-  public Vector3d getSecondaryColor() {
+  public Vec3 getSecondaryColor() {
     return secondaryColor;
   }
 
@@ -199,13 +199,13 @@ public abstract class RitualBase {
     return this;
   }
 
-  private Vector3d buildColor(double r, double g, double b) throws IllegalArgumentException {
+  private Vec3 buildColor(double r, double g, double b) throws IllegalArgumentException {
     if (r < 0 || r > 255 ||
         g < 0 || g > 255 ||
         b < 0 || b > 255) {
       throw new IllegalArgumentException("Invalid color value use [0, 255]");
     }
-    return new Vector3d(r, g, b);
+    return new Vec3(r, g, b);
   }
 
   public ResourceLocation getName() {

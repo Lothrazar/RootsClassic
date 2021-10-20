@@ -1,14 +1,15 @@
 package elucent.rootsclassic.entity;
 
-import java.util.Random;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsEntities;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
+
+import java.util.Random;
 
 public class EntityAccelerator extends Entity {
   private Entity entity;
@@ -16,11 +17,11 @@ public class EntityAccelerator extends Entity {
   private int lifetime = 0;
   private int potency = 1;
 
-  public EntityAccelerator(EntityType<? extends EntityAccelerator> type, World worldIn) {
+  public EntityAccelerator(EntityType<? extends EntityAccelerator> type, Level worldIn) {
     super(type, worldIn);
   }
 
-  public EntityAccelerator(World world, Entity entity, int potency, int size) {
+  public EntityAccelerator(Level world, Entity entity, int potency, int size) {
     this(RootsEntities.ENTITY_ACCELERATOR.get(), world);
     this.entity = entity;
     this.potency = potency + 2;
@@ -36,7 +37,7 @@ public class EntityAccelerator extends Entity {
         (entity.getBoundingBox().maxZ + entity.getBoundingBox().minZ) / 2.0 - 0.5);
     if (entity == null) {
       this.level.broadcastEntityEvent(this, (byte) 3);
-      this.remove();
+      this.discard();
     }
     else {
       for (int i = 0; i < potency; i++) {
@@ -76,7 +77,7 @@ public class EntityAccelerator extends Entity {
     lifetime--;
     if (lifetime <= 0) {
       this.level.broadcastEntityEvent(this, (byte) 3);
-      this.remove();
+      this.discard();
     }
   }
 
@@ -84,19 +85,19 @@ public class EntityAccelerator extends Entity {
   protected void defineSynchedData() {}
 
   @Override
-  protected void readAdditionalSaveData(CompoundNBT compound) {
+  protected void readAdditionalSaveData(CompoundTag compound) {
     this.lifetime = compound.getInt("lifetime");
     this.potency = compound.getInt("potency");
   }
 
   @Override
-  protected void addAdditionalSaveData(CompoundNBT compound) {
+  protected void addAdditionalSaveData(CompoundTag compound) {
     compound.putInt("lifetime", lifetime);
     compound.putInt("potency", potency);
   }
 
   @Override
-  public IPacket<?> getAddEntityPacket() {
+  public Packet<?> getAddEntityPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 }

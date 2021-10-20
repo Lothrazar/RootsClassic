@@ -1,18 +1,17 @@
 package elucent.rootsclassic.client.particles;
 
-import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleRenderType;
-import net.minecraft.client.particle.SpriteTexturedParticle;
-import net.minecraft.client.world.ClientWorld;
 import elucent.rootsclassic.client.particles.factory.ParticleRenderTypes;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.particle.TextureSheetParticle;
 
-public class MagicAltarParticle extends SpriteTexturedParticle {
-
+public class MagicAltarParticle extends TextureSheetParticle {
   public double colorR = 0;
   public double colorG = 0;
   public double colorB = 0;
 
-  public MagicAltarParticle(ClientWorld worldIn, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b, IAnimatedSprite sprite) {
+  public MagicAltarParticle(ClientLevel worldIn, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b, SpriteSet sprite) {
     super(worldIn, x, y, z, 0, 0, 0);
     this.colorR = r;
     this.colorG = g;
@@ -59,7 +58,7 @@ public class MagicAltarParticle extends SpriteTexturedParticle {
   }
 
   @Override
-  public IParticleRenderType getRenderType() {
+  public ParticleRenderType getRenderType() {
     return ParticleRenderTypes.MAGIC_RENDER;
   }
 

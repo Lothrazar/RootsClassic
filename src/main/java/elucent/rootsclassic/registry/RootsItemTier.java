@@ -1,52 +1,24 @@
 package elucent.rootsclassic.registry;
 
-import java.util.function.Supplier;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
+import elucent.rootsclassic.Const;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Tiers;
+import net.minecraftforge.common.ForgeTier;
+import net.minecraftforge.common.TierSortingRegistry;
 
-public enum RootsItemTier implements IItemTier {
+import java.util.List;
 
-  LIVING(2, 192, 6.0f, 2.0f, 18, () -> null),
-  ENGRAVED(2, 1050, 5F, 8.0F, 5, () -> null);
-
-  private final int harvestLevel;
-  private final int maxUses;
-  private final float efficiency;
-  private final float attackDamage;
-  private final int enchantability;
-  private final LazyValue<Ingredient> repairMaterial;
-
-  RootsItemTier(int harvestLevelIn, int maxUsesIn, float efficiencyIn, float attackDamageIn, int enchantabilityIn, Supplier<Ingredient> repairMaterialIn) {
-    this.harvestLevel = harvestLevelIn;
-    this.maxUses = maxUsesIn;
-    this.efficiency = efficiencyIn;
-    this.attackDamage = attackDamageIn;
-    this.enchantability = enchantabilityIn;
-    this.repairMaterial = new LazyValue<>(repairMaterialIn);
-  }
-
-  public int getUses() {
-    return this.maxUses;
-  }
-
-  public float getSpeed() {
-    return this.efficiency;
-  }
-
-  public float getAttackDamageBonus() {
-    return this.attackDamage;
-  }
-
-  public int getLevel() {
-    return this.harvestLevel;
-  }
-
-  public int getEnchantmentValue() {
-    return this.enchantability;
-  }
-
-  public Ingredient getRepairIngredient() {
-    return this.repairMaterial.get();
-  }
+public class RootsItemTier {
+  public static final Tier LIVING = TierSortingRegistry.registerTier(
+          new ForgeTier(2, 192, 6.0f, 2.0f, 18,
+                  BlockTags.createOptional(new ResourceLocation(Const.MODID, "needs_living_tool")),
+                  () -> null),
+          new ResourceLocation(Const.MODID, "living"), List.of(Tiers.IRON), List.of(Tiers.DIAMOND));
+  public static final Tier ENGRAVED = TierSortingRegistry.registerTier(
+          new ForgeTier(2, 1050, 5F, 8.0F, 5,
+                  BlockTags.createOptional(new ResourceLocation(Const.MODID, "needs_engraved_tool")),
+                  () -> null),
+          new ResourceLocation(Const.MODID, "engraved"), List.of(Tiers.IRON), List.of(Tiers.DIAMOND));
 }

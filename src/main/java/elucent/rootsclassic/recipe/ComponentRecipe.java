@@ -3,27 +3,26 @@ package elucent.rootsclassic.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import elucent.rootsclassic.item.SpellPowderItem;
 import elucent.rootsclassic.registry.RootsRecipes;
 import elucent.rootsclassic.registry.RootsRegistry;
 
-public class ComponentRecipe implements IRecipe<IInventory> {
-
+public class ComponentRecipe implements Recipe<Container> {
   private static final int MAX_INGREDIENTS = 4;
   private final ResourceLocation id;
   private final ResourceLocation effectResult;
@@ -55,7 +54,7 @@ public class ComponentRecipe implements IRecipe<IInventory> {
   }
 
   @Override
-  public IRecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<?> getSerializer() {
     return RootsRecipes.COMPONENT_SERIALIZER.get();
   }
 
@@ -65,7 +64,7 @@ public class ComponentRecipe implements IRecipe<IInventory> {
   }
 
   @Override
-  public ItemStack assemble(IInventory inventory) {
+  public ItemStack assemble(Container inventory) {
     ItemStack outputStack = getResultItem();
     if (outputStack.getItem() instanceof SpellPowderItem) {
       SpellPowderItem.createData(outputStack, this.getEffectResult(), inventory);
@@ -89,7 +88,7 @@ public class ComponentRecipe implements IRecipe<IInventory> {
   }
 
   @Override
-  public IRecipeType<?> getType() {
+  public RecipeType<?> getType() {
     return RootsRecipes.COMPONENT_RECIPE_TYPE;
   }
 
@@ -97,8 +96,8 @@ public class ComponentRecipe implements IRecipe<IInventory> {
     return needsMixin;
   }
 
-  public TranslationTextComponent getLocalizedName() {
-    return new TranslationTextComponent("rootsclassic.component." + this.getId());
+  public TranslatableComponent getLocalizedName() {
+    return new TranslatableComponent("rootsclassic.component." + this.getId());
   }
 
   @Override
@@ -116,7 +115,7 @@ public class ComponentRecipe implements IRecipe<IInventory> {
   }
 
   @Override
-  public boolean matches(IInventory inventory, World worldIn) {
+  public boolean matches(Container inventory, Level worldIn) {
     java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
     int i = 0;
     for (int j = 0; j < inventory.getContainerSize(); j++) {
@@ -150,7 +149,7 @@ public class ComponentRecipe implements IRecipe<IInventory> {
     }
   }
 
-  public static int getModifierCapacity(IInventory inventory) {
+  public static int getModifierCapacity(Container inventory) {
     int maxCapacity = -1;
     for (int i = 0; i < inventory.getContainerSize(); i++) {
       ItemStack stack = inventory.getItem(i);
@@ -170,7 +169,7 @@ public class ComponentRecipe implements IRecipe<IInventory> {
     return maxCapacity;
   }
 
-  public static int getModifierCount(IInventory inventory) {
+  public static int getModifierCount(Container inventory) {
     int count = 0;
     for (int i = 0; i < inventory.getContainerSize(); i++) {
       ItemStack stack = inventory.getItem(i);
@@ -187,11 +186,11 @@ public class ComponentRecipe implements IRecipe<IInventory> {
     return count;
   }
 
-  public static class SerializeComponentRecipe extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<ComponentRecipe> {
+  public static class SerializeComponentRecipe extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ComponentRecipe> {
 
     public ComponentRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-      String s = JSONUtils.getAsString(json, "group", "");
-      NonNullList<Ingredient> nonnulllist = readIngredients(JSONUtils.getAsJsonArray(json, "ingredients"));
+      String s = GsonHelper.getAsString(json, "group", "");
+      NonNullList<Ingredient> nonnulllist = readIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
       if (nonnulllist.isEmpty()) {
         throw new JsonParseException("No ingredients for component recipe");
       }
@@ -199,12 +198,12 @@ public class ComponentRecipe implements IRecipe<IInventory> {
         throw new JsonParseException("Too many ingredients for component recipe the max is " + MAX_INGREDIENTS);
       }
       else {
-        boolean needsMixin = JSONUtils.getAsBoolean(json, "needs_mixin", true);
-        String effect = JSONUtils.getAsString(json, "effect");
+        boolean needsMixin = GsonHelper.getAsBoolean(json, "needs_mixin", true);
+        String effect = GsonHelper.getAsString(json, "effect");
         ResourceLocation effectResult = ResourceLocation.tryParse(effect);
         ItemStack itemstack;
-        if (JSONUtils.isValidNode(json, "result")) {
-          itemstack = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "result"));
+        if (GsonHelper.isValidNode(json, "result")) {
+          itemstack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
           return new ComponentRecipe(recipeId, effectResult, s, itemstack, nonnulllist, needsMixin);
         }
         else {
@@ -224,7 +223,7 @@ public class ComponentRecipe implements IRecipe<IInventory> {
       return nonnulllist;
     }
 
-    public ComponentRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+    public ComponentRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
       String s = buffer.readUtf(32767);
       int i = buffer.readVarInt();
       NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i, Ingredient.EMPTY);
@@ -237,7 +236,7 @@ public class ComponentRecipe implements IRecipe<IInventory> {
       return new ComponentRecipe(recipeId, effectResult, s, itemstack, nonnulllist, needsMixin);
     }
 
-    public void toNetwork(PacketBuffer buffer, ComponentRecipe recipe) {
+    public void toNetwork(FriendlyByteBuf buffer, ComponentRecipe recipe) {
       buffer.writeUtf(recipe.group);
       buffer.writeVarInt(recipe.materials.size());
       for (Ingredient ingredient : recipe.materials) {

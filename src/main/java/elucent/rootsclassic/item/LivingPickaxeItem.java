@@ -1,22 +1,22 @@
 package elucent.rootsclassic.item;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.world.World;
 import elucent.rootsclassic.util.RootsUtil;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.level.Level;
 
 public class LivingPickaxeItem extends PickaxeItem {
 
-  public LivingPickaxeItem(IItemTier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builder) {
+  public LivingPickaxeItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties builder) {
     super(tier, attackDamageIn, attackSpeedIn, builder);
   }
 
   @Override
-  public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-    RootsUtil.randomlyRepair(random, stack);
+  public void inventoryTick(ItemStack stack, Level world, Entity entityIn, int itemSlot, boolean isSelected) {
+    RootsUtil.randomlyRepair(world.random, stack);
   }
 
   @Override

@@ -1,10 +1,9 @@
 package elucent.rootsclassic.research;
 
 import java.util.ArrayList;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class ResearchBase {
-
   public double posX = 0;
   public double posY = 0;
   private String name = "";

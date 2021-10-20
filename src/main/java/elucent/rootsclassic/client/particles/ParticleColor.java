@@ -1,13 +1,12 @@
 package elucent.rootsclassic.client.particles;
 
-import java.util.Random;
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 /**
  * Modified version of ParticleColor: https://github.com/baileyholl/Ars-Nouveau/blob/1.16.2/src/main/java/com/hollingsworth/arsnouveau/client/particle/ParticleColor.java
  */
 public class ParticleColor {
-
   private final float r;
   private final float g;
   private final float b;

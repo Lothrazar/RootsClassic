@@ -1,12 +1,12 @@
 package elucent.rootsclassic.util;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.Container;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.NonNullList;
 
-public class CustomInventory implements IInventory {
+public class CustomInventory implements Container {
 
   private final NonNullList<ItemStack> itemStacks;
 
@@ -36,12 +36,12 @@ public class CustomInventory implements IInventory {
 
   @Override
   public ItemStack removeItem(int index, int count) {
-    return ItemStackHelper.takeItem(this.itemStacks, index);
+    return ContainerHelper.takeItem(this.itemStacks, index);
   }
 
   @Override
   public ItemStack removeItemNoUpdate(int index) {
-    return ItemStackHelper.takeItem(this.itemStacks, index);
+    return ContainerHelper.takeItem(this.itemStacks, index);
   }
 
   @Override
@@ -53,7 +53,7 @@ public class CustomInventory implements IInventory {
   public void setChanged() {}
 
   @Override
-  public boolean stillValid(PlayerEntity player) {
+  public boolean stillValid(Player player) {
     return true;
   }
 

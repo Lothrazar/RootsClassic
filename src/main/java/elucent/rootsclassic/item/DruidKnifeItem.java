@@ -1,26 +1,25 @@
 package elucent.rootsclassic.item;
 
 import com.google.common.collect.ImmutableMap.Builder;
-import java.util.Map;
-import java.util.function.Supplier;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.registry.RootsRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
-import net.minecraft.item.Item.Properties;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class DruidKnifeItem extends Item {
 
@@ -49,28 +48,28 @@ public class DruidKnifeItem extends Item {
     super(properties);
   }
 
-  public ActionResultType useOn(ItemUseContext context) {
-    World world = context.getLevel();
+  public InteractionResult useOn(UseOnContext context) {
+    Level world = context.getLevel();
     BlockPos pos = context.getClickedPos();
     BlockState state = world.getBlockState(pos);
     BlockState strippedState = getStrippingState(state);
     ItemStack barkDrop = getBarkDrop(state);
     if (!barkDrop.isEmpty() && strippedState != null) {
       ItemStack stack = context.getItemInHand();
-      Hand hand = context.getHand();
-      PlayerEntity playerIn = context.getPlayer();
+      InteractionHand hand = context.getHand();
+      Player playerIn = context.getPlayer();
       playerIn.spawnAtLocation(barkDrop, 1.0f);
       stack.hurtAndBreak(1, playerIn, e -> e.broadcastBreakEvent(hand));
       if (world.random.nextDouble() < RootsConfig.COMMON.barkKnifeBlockStripChance.get()) {
-        world.playSound(playerIn, pos, SoundEvents.AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        world.playSound(playerIn, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
         if (!world.isClientSide) {
           world.setBlock(pos, strippedState, 11);
         }
       }
-      return ActionResultType.sidedSuccess(world.isClientSide);
+      return InteractionResult.sidedSuccess(world.isClientSide);
     }
     else {
-      return ActionResultType.PASS;
+      return InteractionResult.PASS;
     }
   }
 

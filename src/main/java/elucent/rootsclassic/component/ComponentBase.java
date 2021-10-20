@@ -1,36 +1,36 @@
 package elucent.rootsclassic.component;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.level.Level;
 
 public class ComponentBase {
 
   private ResourceLocation name = null;
   private ItemStack itemSource = ItemStack.EMPTY;
-  public Vector3d primaryColor = new Vector3d(0, 0, 0);
-  public Vector3d secondaryColor = new Vector3d(0, 0, 0);
+  public Vec3 primaryColor = new Vec3(0, 0, 0);
+  public Vec3 secondaryColor = new Vec3(0, 0, 0);
   private float manaCost = 0;
-  private TextFormatting textColor = TextFormatting.WHITE;
+  private ChatFormatting textColor = ChatFormatting.WHITE;
 
   public ComponentBase setPrimaryColor(double r, double g, double b) {
-    this.primaryColor = new Vector3d(r, g, b);
+    this.primaryColor = new Vec3(r, g, b);
     return this;
   }
 
   public ComponentBase setSecondaryColor(double r, double g, double b) {
-    this.secondaryColor = new Vector3d(r, g, b);
+    this.secondaryColor = new Vec3(r, g, b);
     return this;
   }
 
-  public ComponentBase setTextColor(TextFormatting color) {
+  public ComponentBase setTextColor(ChatFormatting color) {
     this.textColor = color;
     return this;
   }
@@ -53,11 +53,11 @@ public class ComponentBase {
     return name;
   }
 
-  public TranslationTextComponent getEffectName() {
-    return new TranslationTextComponent("rootsclassic.component." + name);
+  public TranslatableComponent getEffectName() {
+    return new TranslatableComponent("rootsclassic.component." + name);
   }
 
-  public TextFormatting getTextColor() {
+  public ChatFormatting getTextColor() {
     return textColor;
   }
 
@@ -65,11 +65,11 @@ public class ComponentBase {
     return itemSource;
   }
 
-  public void doEffect(World world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {}
+  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {}
 
-  public void doEffect(World world, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {}
+  public void doEffect(Level world, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {}
 
-  public void castingAction(PlayerEntity player, int count, int potency, int efficiency, int size) {}
+  public void castingAction(Player player, int count, int potency, int efficiency, int size) {}
 
   public float getManaCost() {
     return manaCost;

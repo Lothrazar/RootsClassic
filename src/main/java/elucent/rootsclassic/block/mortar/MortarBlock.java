@@ -1,19 +1,18 @@
 package elucent.rootsclassic.block.mortar;
 
+import elucent.rootsclassic.block.BaseBEBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+
 import javax.annotation.Nullable;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import elucent.rootsclassic.block.BaseTEBlock;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
-public class MortarBlock extends BaseTEBlock {
-
+public class MortarBlock extends BaseBEBlock implements EntityBlock {
   private static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 5.0D, 11.0D);
 
   public MortarBlock(Properties properties) {
@@ -21,18 +20,13 @@ public class MortarBlock extends BaseTEBlock {
   }
 
   @Override
-  public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+  public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
     return SHAPE;
-  }
-
-  @Override
-  public boolean hasTileEntity(BlockState state) {
-    return true;
   }
 
   @Nullable
   @Override
-  public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-    return new MortarTile();
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    return new MortarBlockEntity(pos, state);
   }
 }

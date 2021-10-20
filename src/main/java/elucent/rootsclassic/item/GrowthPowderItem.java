@@ -1,21 +1,19 @@
 package elucent.rootsclassic.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.IGrowable;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import elucent.rootsclassic.client.particles.MagicParticleData;
-
-import net.minecraft.item.Item.Properties;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 public class GrowthPowderItem extends Item {
 
@@ -24,25 +22,25 @@ public class GrowthPowderItem extends Item {
   }
 
   @Override
-  public ActionResultType useOn(ItemUseContext context) {
-    World world = context.getLevel();
-    PlayerEntity player = context.getPlayer();
+  public InteractionResult useOn(UseOnContext context) {
+    Level world = context.getLevel();
+    Player player = context.getPlayer();
     if (player != null) {
       BlockPos pos = context.getClickedPos();
-      Hand hand = context.getHand();
+      InteractionHand hand = context.getHand();
       if(world.isClientSide) {
         spawnGrowthParticle(world, player);
       }
       boolean anySuccess = applyGrowthHere(world, pos);
-      if (anySuccess && !player.abilities.instabuild) {
+      if (anySuccess && !player.getAbilities().instabuild) {
         player.getItemInHand(hand).shrink(1);
       }
     }
-    return ActionResultType.PASS;
+    return InteractionResult.PASS;
   }
 
   @SuppressWarnings("deprecation")
-  public static boolean applyGrowthHere(World world, BlockPos pos) {
+  public static boolean applyGrowthHere(Level world, BlockPos pos) {
     BlockState state = world.getBlockState(pos);
     if (state.getBlock() == Blocks.DIRT) {
       world.setBlockAndUpdate(pos, Blocks.GRASS.defaultBlockState());
@@ -53,8 +51,8 @@ public class GrowthPowderItem extends Item {
           world.setBlockAndUpdate(pos.above(), Blocks.LILY_PAD.defaultBlockState());
         }
     else {
-      if (state.getBlock() instanceof IGrowable) {
-        IGrowable igrowable = (IGrowable) state.getBlock();
+      if (state.getBlock() instanceof BonemealableBlock) {
+        BonemealableBlock igrowable = (BonemealableBlock) state.getBlock();
         if (!igrowable.isValidBonemealTarget(world, pos, state, world.isClientSide)) {
           return false;
         }
@@ -63,7 +61,7 @@ public class GrowthPowderItem extends Item {
         //TODO check if updateBlock is required here
         world.blockUpdated(pos, block);
         if (!world.isClientSide) {
-          block.randomTick(state, (ServerWorld) world, pos, world.random);
+          block.randomTick(state, (ServerLevel) world, pos, world.random);
         }
         return true;
       }
@@ -71,12 +69,12 @@ public class GrowthPowderItem extends Item {
     return false;
   }
 
-  public static void spawnGrowthParticle(World world, PlayerEntity player) {
-    Vector3d lookVec = player.getLookAngle();
+  public static void spawnGrowthParticle(Level world, Player player) {
+    Vec3 lookVec = player.getLookAngle();
     for (int i = 0; i < 40; i++) {
-      double velX = (lookVec.x * 0.75) + 0.5 * (random.nextDouble() - 0.5);
-      double velY = (lookVec.y * 0.75) + 0.5 * (random.nextDouble() - 0.5);
-      double velZ = (lookVec.z * 0.75) + 0.5 * (random.nextDouble() - 0.5);
+      double velX = (lookVec.x * 0.75) + 0.5 * (world.random.nextDouble() - 0.5);
+      double velY = (lookVec.y * 0.75) + 0.5 * (world.random.nextDouble() - 0.5);
+      double velZ = (lookVec.z * 0.75) + 0.5 * (world.random.nextDouble() - 0.5);
       world.addParticle(MagicParticleData.createData(39, 232, 55),
           player.getX() + 0.5 * lookVec.x, player.getY() + 1.5 + 0.5 * lookVec.y, player.getZ() + 0.5 * lookVec.z, velX, velY, velZ);
     }

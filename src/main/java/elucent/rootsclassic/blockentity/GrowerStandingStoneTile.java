@@ -1,52 +1,54 @@
-package elucent.rootsclassic.tile;
+package elucent.rootsclassic.blockentity;
 
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.item.GrowthPowderItem;
 import elucent.rootsclassic.registry.RootsRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class GrowerStandingStoneTile extends TEBase implements ITickableTileEntity {
-
+public class GrowerStandingStoneTile extends BEBase {
   private static final double PCT_CHANCE_PER_BLOCK = 0.03;
   private static final int TICK_SPEED = 100;
   private static final int MAX_TICKER = 500 * 20;
   private static final int RADIUS = 4;
-  int ticker = 0;
+  private int ticker = 0;
 
-  public GrowerStandingStoneTile(TileEntityType<?> tileEntityTypeIn) {
-    super(tileEntityTypeIn);
+  public GrowerStandingStoneTile(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
+    super(tileEntityTypeIn, pos, state);
   }
 
-  public GrowerStandingStoneTile() {
-    this(RootsRegistry.GROWER_STANDING_STONE_TILE.get());
-  }
-
-  @Override
-  public void load(BlockState state, CompoundNBT tag) {
-    super.load(state, tag);
+  public GrowerStandingStoneTile(BlockPos pos, BlockState state) {
+    this(RootsRegistry.GROWER_STANDING_STONE_TILE.get(), pos, state);
   }
 
   @Override
-  public CompoundNBT save(CompoundNBT tag) {
+  public void load(CompoundTag tag) {
+    super.load(tag);
+  }
+
+  @Override
+  public CompoundTag save(CompoundTag tag) {
     super.save(tag);
     return tag;
   }
 
-  @Override
-  public void tick() {
-    updateTicker();
-    spawnParticles();
-    if (ticker % TICK_SPEED == 0) {
-      applyGrowthToArea();
+  public static void serverTick(Level level, BlockPos pos, BlockState state, GrowerStandingStoneTile tile) {
+    tile.updateTicker();
+    if (tile.ticker % TICK_SPEED == 0) {
+      tile.applyGrowthToArea();
     }
+  }
+
+  public static void clientTick(Level level, BlockPos pos, BlockState state, GrowerStandingStoneTile tile) {
+    tile.updateTicker();
+    tile.spawnParticles();
   }
 
   private void updateTicker() {

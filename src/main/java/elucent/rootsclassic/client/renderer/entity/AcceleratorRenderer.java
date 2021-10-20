@@ -1,18 +1,18 @@
 package elucent.rootsclassic.client.renderer.entity;
 
-import net.minecraft.client.renderer.culling.ClippingHelper;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 
 public class AcceleratorRenderer<T extends Entity> extends EntityRenderer<T> {
-	public AcceleratorRenderer(EntityRendererManager renderManager) {
-		super(renderManager);
+	public AcceleratorRenderer(EntityRendererProvider.Context context) {
+		super(context);
 	}
 
 	@Override
-	public boolean shouldRender(T livingEntityIn, ClippingHelper camera, double camX, double camY, double camZ) {
+	public boolean shouldRender(T livingEntityIn, Frustum camera, double camX, double camY, double camZ) {
 		return false;
 	}
 

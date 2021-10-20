@@ -1,15 +1,15 @@
 package elucent.rootsclassic.util;
 
 import elucent.rootsclassic.Const;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class RootsUtil {
     return scale + min;
   }
 
-  public static BlockPos getRayTrace(World world, PlayerEntity player, int reachDistance) {
+  public static BlockPos getRayTrace(Level world, Player player, int reachDistance) {
     double x = player.getX();
     double y = player.getY() + player.getEyeHeight();
     double z = player.getZ();
@@ -57,7 +57,7 @@ public class RootsUtil {
     }
   }
 
-  public static Entity getRayTraceEntity(World world, PlayerEntity player, int reachDistance) {
+  public static Entity getRayTraceEntity(Level world, Player player, int reachDistance) {
     double x = player.getX();
     double y = player.getY() + player.getEyeHeight();
     double z = player.getZ();
@@ -65,7 +65,7 @@ public class RootsUtil {
       x += player.getLookAngle().x * 0.1;
       y += player.getLookAngle().y * 0.1;
       z += player.getLookAngle().z * 0.1;
-      List<Entity> entities = world.getEntitiesOfClass(Entity.class, new AxisAlignedBB(x - 0.1, y - 0.1, z - 0.1, x + 0.1, y + 0.1, z + 0.1));
+      List<Entity> entities = world.getEntitiesOfClass(Entity.class, new AABB(x - 0.1, y - 0.1, z - 0.1, x + 0.1, y + 0.1, z + 0.1));
       if (entities.size() > 0) {
         if (entities.get(0).getUUID() != player.getUUID()) {
           return entities.get(0);
@@ -79,7 +79,7 @@ public class RootsUtil {
     return (r * 65536 + g * 256 + b);
   }
 
-  public static boolean itemListMatchInventoryWithSize(IInventory i1, List<ItemStack> i2) {
+  public static boolean itemListMatchInventoryWithSize(Container i1, List<ItemStack> i2) {
     ArrayList<ItemStack> recipe = new ArrayList<>();
     for (int i = 0; i < i1.getContainerSize(); i++) {
       recipe.add(i1.getItem(i));
@@ -111,7 +111,7 @@ public class RootsUtil {
     return recipe.size() == 0;
   }
 
-  public static boolean itemListMatchInventory(IInventory i1, List<ItemStack> i2) {
+  public static boolean itemListMatchInventory(Container i1, List<ItemStack> i2) {
     ArrayList<ItemStack> recipe = new ArrayList<>();
     for (int i = 0; i < i1.getContainerSize(); i++) {
       recipe.add(i1.getItem(i));

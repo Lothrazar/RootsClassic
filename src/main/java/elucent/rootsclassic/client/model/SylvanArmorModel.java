@@ -1,410 +1,331 @@
 package elucent.rootsclassic.client.model;
 
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.world.entity.EquipmentSlot;
 
 public class SylvanArmorModel extends ModelArmorBase {
 
-  public SylvanArmorModel(EquipmentSlotType slot) {
-    super(slot);
+  public SylvanArmorModel(ModelPart root, EquipmentSlot slot) {
+    super(root, slot);
     this.armorScale = 1.1f;
-    ModelRenderer head1 = new ModelRenderer(this, 32, 0);
-    head1.addBox(-3F, 0F, 0F, 6, 4, 2);
-    head1.setPos(0F, -9F, -4F);
-    head1.setTexSize(64, 64);
-    head1.mirror = true;
-    setRotation(head1, -0.2617994F, 0F, 0F);
-    ModelRenderer head2 = new ModelRenderer(this, 32, 16);
-    head2.addBox(-4F, 0F, 0F, 8, 2, 7);
-    head2.setPos(0F, -8F, -3F);
-    head2.setTexSize(64, 64);
-    head2.mirror = true;
-    setRotation(head2, 0F, 0F, 0F);
-    ModelRenderer head3 = new ModelRenderer(this, 0, 48);
-    head3.addBox(-2F, 0F, -1F, 4, 6, 2);
-    head3.setPos(3.5F, -8F, 3F);
-    head3.setTexSize(64, 64);
-    head3.mirror = true;
-    setRotation(head3, -0.2617994F, -1.963495F, 0F);
-    ModelRenderer head4 = new ModelRenderer(this, 0, 48);
-    head4.addBox(-2F, 0F, -1F, 4, 6, 2);
-    head4.setPos(-3.5F, -8F, 3F);
-    head4.setTexSize(64, 64);
-    head4.mirror = true;
-    setRotation(head4, -0.2617994F, 1.963495F, 0F);
-    ModelRenderer head5 = new ModelRenderer(this, 16, 48);
-    head5.addBox(-2F, 0F, -1F, 4, 6, 2);
-    head5.setPos(0F, -8F, 4F);
-    head5.setTexSize(64, 64);
-    head5.mirror = true;
-    setRotation(head5, -0.2617994F, 3.141593F, 0F);
-    ModelRenderer head6 = new ModelRenderer(this, 8, 16);
-    head6.addBox(-1F, -4F, -1F, 2, 4, 2);
-    head6.setPos(-2F, -7F, 2F);
-    head6.setTexSize(64, 64);
-    head6.mirror = true;
-    setRotation(head6, -0.7853982F, -0.2617994F, 0F);
-    ModelRenderer head7 = new ModelRenderer(this, 8, 16);
-    head7.addBox(-1F, -4F, -1F, 2, 4, 2);
-    head7.setPos(2F, -7F, 2F);
-    head7.setTexSize(64, 64);
-    head7.mirror = true;
-    setRotation(head7, -0.7853982F, 0.2617994F, 0F);
-    ModelRenderer head8 = new ModelRenderer(this, 0, 16);
-    head8.addBox(-1F, -8F, -1F, 2, 8, 2);
-    head8.setPos(-2F, -7F, -2F);
-    head8.setTexSize(64, 64);
-    head8.mirror = true;
-    setRotation(head8, -0.5235988F, -0.5235988F, 0F);
-    ModelRenderer head9 = new ModelRenderer(this, 0, 16);
-    head9.addBox(-1F, -8F, -1F, 2, 8, 2);
-    head9.setPos(2F, -7F, -2F);
-    head9.setTexSize(64, 64);
-    head9.mirror = true;
-    setRotation(head9, -0.5235988F, 0.5235988F, 0F);
-    ModelRenderer head10 = new ModelRenderer(this, 16, 48);
-    head10.addBox(-2F, 0F, 0F, 4, 6, 2);
-    head10.setPos(0F, -10F, 2F);
-    head10.setTexSize(64, 64);
-    head10.mirror = true;
-    setRotation(head10, -1.047198F, 3.141593F, 0F);
-    ModelRenderer head11 = new ModelRenderer(this, 16, 48);
-    head11.addBox(-2F, 0F, 0F, 4, 6, 2);
-    head11.setPos(0F, -8F, -3F);
-    head11.setTexSize(64, 64);
-    head11.mirror = true;
-    setRotation(head11, -2.094395F, 3.141593F, 0F);
-    ModelRenderer head12 = new ModelRenderer(this, 16, 50);
-    head12.addBox(-2F, 0F, 0F, 4, 4, 2);
-    head12.setPos(0F, -8F, -4F);
-    head12.setTexSize(64, 64);
-    head12.mirror = true;
-    setRotation(head12, -2.530727F, 3.141593F, 0F);
-    ModelRenderer head13 = new ModelRenderer(this, 0, 48);
-    head13.addBox(-2F, 0F, -1F, 4, 6, 2);
-    head13.setPos(-4F, -8F, 0F);
-    head13.setTexSize(64, 64);
-    head13.mirror = true;
-    setRotation(head13, -0.2617994F, 1.308997F, 0F);
-    ModelRenderer head14 = new ModelRenderer(this, 0, 48);
-    head14.addBox(-2F, 0F, -1F, 4, 6, 2);
-    head14.setPos(4F, -8F, 0F);
-    head14.setTexSize(64, 64);
-    head14.mirror = true;
-    setRotation(head14, -0.2617994F, -1.308997F, 0F);
-    ModelRenderer chest1 = new ModelRenderer(this, 32, 16);
-    chest1.addBox(-4F, -1F, -7F, 8, 2, 7);
-    chest1.setPos(0F, 0F, -1F);
-    chest1.setTexSize(64, 64);
-    chest1.mirror = true;
-    setRotation(chest1, 1.308997F, 0F, 0F);
-    ModelRenderer chest2 = new ModelRenderer(this, 32, 16);
-    chest2.addBox(-4F, -1F, -7F, 8, 2, 7);
-    chest2.setPos(0F, 0F, 1F);
-    chest2.setTexSize(64, 64);
-    chest2.mirror = true;
-    setRotation(chest2, 1.308997F, -3.141593F, 0F);
-    ModelRenderer chest3 = new ModelRenderer(this, 32, 0);
-    chest3.addBox(-3F, -1F, -4F, 6, 2, 4);
-    chest3.setPos(0F, 6F, -2F);
-    chest3.setTexSize(64, 64);
-    chest3.mirror = true;
-    setRotation(chest3, 1.570796F, 0F, 0F);
-    ModelRenderer chest4 = new ModelRenderer(this, 32, 0);
-    chest4.addBox(-2F, 0F, 0F, 4, 2, 4);
-    chest4.setPos(0F, 12F, -2.5F);
-    chest4.setTexSize(64, 64);
-    chest4.mirror = true;
-    setRotation(chest4, 1.570796F, 0F, 0F);
-    ModelRenderer chest5 = new ModelRenderer(this, 48, 0);
-    chest5.addBox(-2F, 0F, -1F, 4, 6, 2);
-    chest5.setPos(0F, 0F, 2F);
-    chest5.setTexSize(64, 64);
-    chest5.mirror = true;
-    setRotation(chest5, -0.2617994F, 3.141593F, 0F);
-    ModelRenderer chest6 = new ModelRenderer(this, 8, 16);
-    chest6.addBox(-1F, -4F, -1F, 2, 4, 2);
-    chest6.setPos(-2F, 2F, 1.5F);
-    chest6.setTexSize(64, 64);
-    chest6.mirror = true;
-    setRotation(chest6, -0.7853982F, -0.2617994F, 0F);
-    ModelRenderer chest7 = new ModelRenderer(this, 8, 16);
-    chest7.addBox(-1F, -4F, -1F, 2, 4, 2);
-    chest7.setPos(2F, 2F, 1.5F);
-    chest7.setTexSize(64, 64);
-    chest7.mirror = true;
-    setRotation(chest7, -0.7853982F, 0.2617994F, 0F);
-    ModelRenderer chest8 = new ModelRenderer(this, 8, 16);
-    chest8.addBox(-1F, -4F, -1F, 2, 4, 2);
-    chest8.setPos(-2F, 5F, 2F);
-    chest8.setTexSize(64, 64);
-    chest8.mirror = true;
-    setRotation(chest8, -1.047198F, -0.2617994F, 0F);
-    ModelRenderer chest9 = new ModelRenderer(this, 8, 16);
-    chest9.addBox(-1F, -4F, -1F, 2, 4, 2);
-    chest9.setPos(2F, 5F, 2F);
-    chest9.setTexSize(64, 64);
-    chest9.mirror = true;
-    setRotation(chest9, -1.047198F, 0.2617994F, 0F);
-    ModelRenderer armR1 = new ModelRenderer(this, 32, 0);
-    armR1.addBox(-2F, 0F, -2F, 4, 4, 2);
-    armR1.setPos(-5F, 8F, 0F);
-    armR1.setTexSize(64, 64);
-    armR1.mirror = true;
-    setRotation(armR1, -1.570796F, 1.570796F, 0F);
-    ModelRenderer armR2 = new ModelRenderer(this, 32, 48);
-    armR2.addBox(-1F, 0F, -1F, 2, 4, 2);
-    armR2.setPos(-7F, 6F, -1F);
-    armR2.setTexSize(64, 64);
-    armR2.mirror = true;
-    setRotation(armR2, 3.141593F, 1.570796F, 0.2617994F);
-    ModelRenderer armR3 = new ModelRenderer(this, 32, 48);
-    armR3.addBox(-1F, 0F, -1F, 2, 4, 2);
-    armR3.setPos(-7F, 6F, 1F);
-    armR3.setTexSize(64, 64);
-    armR3.mirror = true;
-    setRotation(armR3, 3.141593F, 1.570796F, -0.2617994F);
-    ModelRenderer armR4 = new ModelRenderer(this, 32, 48);
-    armR4.addBox(-1F, 0F, -1F, 2, 4, 2);
-    armR4.setPos(-8F, 6F, 0F);
-    armR4.setTexSize(64, 64);
-    armR4.mirror = true;
-    setRotation(armR4, 3.403392F, 1.570796F, 0F);
-    ModelRenderer armR5 = new ModelRenderer(this, 32, 0);
-    armR5.addBox(-2F, 0F, 0F, 4, 4, 2);
-    armR5.setPos(-4F, -3.5F, 0F);
-    armR5.setTexSize(64, 64);
-    armR5.mirror = true;
-    setRotation(armR5, -1.308997F, 1.570796F, 0F);
-    ModelRenderer armL1 = new ModelRenderer(this, 32, 0);
-    armL1.addBox(-2F, 0F, -2F, 4, 4, 2);
-    armL1.setPos(9F, 8F, 0F);
-    armL1.setTexSize(64, 64);
-    armL1.mirror = true;
-    setRotation(armL1, -1.570796F, 1.570796F, 0F);
-    ModelRenderer armL2 = new ModelRenderer(this, 32, 48);
-    armL2.addBox(-1F, 0F, -1F, 2, 4, 2);
-    armL2.setPos(8F, 6F, 0F);
-    armL2.setTexSize(64, 64);
-    armL2.mirror = true;
-    setRotation(armL2, 2.879793F, 1.570796F, 0F);
-    ModelRenderer armL3 = new ModelRenderer(this, 32, 48);
-    armL3.addBox(-1F, 0F, -1F, 2, 4, 2);
-    armL3.setPos(7F, 6F, -1F);
-    armL3.setTexSize(64, 64);
-    armL3.mirror = true;
-    setRotation(armL3, 3.141593F, 1.570796F, 0.2617994F);
-    ModelRenderer armL4 = new ModelRenderer(this, 32, 48);
-    armL4.addBox(-1F, 0F, -1F, 2, 4, 2);
-    armL4.setPos(7F, 6F, 1F);
-    armL4.setTexSize(64, 64);
-    armL4.mirror = true;
-    setRotation(armL4, 3.141593F, 1.570796F, -0.2617994F);
-    ModelRenderer armL5 = new ModelRenderer(this, 32, 0);
-    armL5.addBox(-2F, 0F, 0F, 4, 4, 2);
-    armL5.setPos(4F, -3.5F, 0F);
-    armL5.setTexSize(64, 64);
-    armL5.mirror = true;
-    setRotation(armL5, -1.308997F, -1.570796F, 0F);
-    ModelRenderer legL1 = new ModelRenderer(this, 16, 48);
-    legL1.addBox(-2F, 0F, -1F, 4, 6, 2);
-    legL1.setPos(2F, 12F, -2F);
-    legL1.setTexSize(64, 64);
-    legL1.mirror = true;
-    setRotation(legL1, 0.2617994F, 3.141593F, 0F);
-    ModelRenderer legL2 = new ModelRenderer(this, 16, 48);
-    legL2.addBox(-2F, 0F, -1F, 4, 6, 2);
-    legL2.setPos(2F, 12F, 2F);
-    legL2.setTexSize(64, 64);
-    legL2.mirror = true;
-    setRotation(legL2, -0.2617994F, 3.141593F, 0F);
-    ModelRenderer legL3 = new ModelRenderer(this, 16, 48);
-    legL3.addBox(-2F, 0F, -1F, 4, 6, 2);
-    legL3.setPos(4F, 12F, 0F);
-    legL3.setTexSize(64, 64);
-    legL3.mirror = true;
-    setRotation(legL3, -0.2617994F, -1.570796F, 0F);
-    ModelRenderer legL4 = new ModelRenderer(this, 8, 16);
-    legL4.addBox(-1F, -4F, -2F, 2, 4, 2);
-    legL4.setPos(4F, 14F, 2F);
-    legL4.setTexSize(64, 64);
-    legL4.mirror = true;
-    setRotation(legL4, -0.7853982F, 0.5235988F, 0F);
-    ModelRenderer legR1 = new ModelRenderer(this, 16, 48);
-    legR1.addBox(-2F, 0F, -1F, 4, 6, 2);
-    legR1.setPos(-4F, 12F, 0F);
-    legR1.setTexSize(64, 64);
-    legR1.mirror = true;
-    setRotation(legR1, -0.2617994F, 1.570796F, 0F);
-    ModelRenderer legR2 = new ModelRenderer(this, 16, 48);
-    legR2.addBox(-2F, 0F, -1F, 4, 6, 2);
-    legR2.setPos(-2F, 12F, 2F);
-    legR2.setTexSize(64, 64);
-    legR2.mirror = true;
-    setRotation(legR2, -0.2617994F, 3.141593F, 0F);
-    ModelRenderer legR3 = new ModelRenderer(this, 16, 48);
-    legR3.addBox(-2F, 0F, -1F, 4, 6, 2);
-    legR3.setPos(-2F, 12F, -2F);
-    legR3.setTexSize(64, 64);
-    legR3.mirror = true;
-    setRotation(legR3, 0.2617994F, 3.141593F, 0F);
-    ModelRenderer legR4 = new ModelRenderer(this, 8, 16);
-    legR4.addBox(-1F, -4F, -1F, 2, 4, 2);
-    legR4.setPos(-4F, 14F, 2F);
-    legR4.setTexSize(64, 64);
-    legR4.mirror = true;
-    setRotation(legR4, -0.7853982F, -0.5235988F, 0F);
-    ModelRenderer bootR1 = new ModelRenderer(this, 32, 0);
-    bootR1.addBox(-2F, -2F, 0F, 4, 4, 2);
-    bootR1.setPos(-2F, 22F, -2F);
-    bootR1.setTexSize(64, 64);
-    bootR1.mirror = true;
-    setRotation(bootR1, -1.570796F, 1.570796F, 0F);
-    ModelRenderer bootR2 = new ModelRenderer(this, 32, 0);
-    bootR2.addBox(-2F, -2F, 0F, 2, 4, 2);
-    bootR2.setPos(-2F, 22F, 0F);
-    bootR2.setTexSize(64, 64);
-    bootR2.mirror = true;
-    setRotation(bootR2, -1.570796F, 1.570796F, 0F);
-    ModelRenderer bootR3 = new ModelRenderer(this, 32, 48);
-    bootR3.addBox(-1F, 0F, -1F, 2, 4, 2);
-    bootR3.setPos(-2F, 22F, 1F);
-    bootR3.setTexSize(64, 64);
-    bootR3.mirror = true;
-    setRotation(bootR3, 0.2617994F, 0F, 3.141593F);
-    ModelRenderer bootR4 = new ModelRenderer(this, 32, 48);
-    bootR4.addBox(-1F, 0F, -1F, 2, 4, 2);
-    bootR4.setPos(-2F, 22F, -2F);
-    bootR4.setTexSize(64, 64);
-    bootR4.mirror = true;
-    setRotation(bootR4, -0.2617994F, 0F, 3.141593F);
-    ModelRenderer bootR5 = new ModelRenderer(this, 32, 48);
-    bootR5.addBox(-1F, 0F, -1F, 2, 4, 2);
-    bootR5.setPos(-1F, 22F, -1F);
-    bootR5.setTexSize(64, 64);
-    bootR5.mirror = true;
-    setRotation(bootR5, -0.2617994F, 1.570796F, 3.141593F);
-    ModelRenderer bootR6 = new ModelRenderer(this, 32, 48);
-    bootR6.addBox(-1F, 0F, -1F, 2, 4, 2);
-    bootR6.setPos(-3F, 22F, -1F);
-    bootR6.setTexSize(64, 64);
-    bootR6.mirror = true;
-    setRotation(bootR6, 0.2617994F, 1.570796F, 3.141593F);
-    ModelRenderer bootL1 = new ModelRenderer(this, 32, 0);
-    bootL1.addBox(-2F, -2F, 0F, 4, 4, 2);
-    bootL1.setPos(2F, 22F, -2F);
-    bootL1.setTexSize(64, 64);
-    bootL1.mirror = true;
-    setRotation(bootL1, -1.570796F, 1.570796F, 0F);
-    ModelRenderer bootL2 = new ModelRenderer(this, 32, 0);
-    bootL2.addBox(-2F, -2F, 0F, 2, 4, 2);
-    bootL2.setPos(2F, 22F, 0F);
-    bootL2.setTexSize(64, 64);
-    bootL2.mirror = true;
-    setRotation(bootL2, -1.570796F, 1.570796F, 0F);
-    ModelRenderer bootL3 = new ModelRenderer(this, 32, 48);
-    bootL3.addBox(-1F, 0F, -1F, 2, 4, 2);
-    bootL3.setPos(1F, 22F, -1F);
-    bootL3.setTexSize(64, 64);
-    bootL3.mirror = true;
-    setRotation(bootL3, 0.2617994F, 1.570796F, 3.141593F);
-    ModelRenderer bootL4 = new ModelRenderer(this, 32, 48);
-    bootL4.addBox(-1F, 0F, -1F, 2, 4, 2);
-    bootL4.setPos(2F, 22F, 1F);
-    bootL4.setTexSize(64, 64);
-    bootL4.mirror = true;
-    setRotation(bootL4, 0.2617994F, 0F, 3.141593F);
-    ModelRenderer bootL5 = new ModelRenderer(this, 32, 48);
-    bootL5.addBox(-1F, 0F, -1F, 2, 4, 2);
-    bootL5.setPos(2F, 22F, -2F);
-    bootL5.setTexSize(64, 64);
-    bootL5.mirror = true;
-    setRotation(bootL5, -0.2617994F, 0F, 3.141593F);
-    ModelRenderer bootL6 = new ModelRenderer(this, 32, 48);
-    bootL6.addBox(-1F, 0F, -1F, 2, 4, 2);
-    bootL6.setPos(3F, 22F, -1F);
-    bootL6.setTexSize(64, 64);
-    bootL6.mirror = true;
-    setRotation(bootL6, -0.2617994F, 1.570796F, 3.141593F);
-    head = new ModelRenderer(this);
-    head.addChild(head1);
-    head.addChild(head2);
-    head.addChild(head3);
-    head.addChild(head4);
-    head.addChild(head5);
-    head.addChild(head6);
-    head.addChild(head7);
-    head.addChild(head8);
-    head.addChild(head9);
-    head.addChild(head10);
-    head.addChild(head11);
-    head.addChild(head12);
-    head.addChild(head13);
-    head.addChild(head14);
-    for (int i = 0; i < head.children.size(); i++) {
-      head.children.get(i).y += 1;
-    }
-    chest = new ModelRenderer(this);
-    chest.addChild(chest1);
-    chest.addChild(chest2);
-    chest.addChild(chest3);
-    chest.addChild(chest4);
-    chest.addChild(chest5);
-    chest.addChild(chest6);
-    chest.addChild(chest7);
-    chest.addChild(chest8);
-    chest.addChild(chest9);
-    armR = new ModelRenderer(this);
-    armR.addChild(armR1);
-    armR.addChild(armR2);
-    armR.addChild(armR3);
-    armR.addChild(armR4);
-    armR.addChild(armR5);
-    armL = new ModelRenderer(this);
-    armL.addChild(armL1);
-    armL.addChild(armL2);
-    armL.addChild(armL3);
-    armL.addChild(armL4);
-    armL.addChild(armL5);
-    legR = new ModelRenderer(this);
-    legR.setPos(0, -12, 0);
-    legR.addChild(legR1);
-    legR.addChild(legR2);
-    legR.addChild(legR3);
-    legR.addChild(legR4);
-    for (int i = 0; i < legR.children.size(); i++) {
-      legR.children.get(i).y -= 12;
-    }
-    legL = new ModelRenderer(this);
-    legL.setPos(0, -12, 0);
-    legL.addChild(legL1);
-    legL.addChild(legL2);
-    legL.addChild(legL3);
-    legL.addChild(legL4);
-    for (int i = 0; i < legL.children.size(); i++) {
-      legL.children.get(i).y -= 12;
-    }
-    bootR = new ModelRenderer(this);
-    bootR.setPos(0, -12, 0);
-    bootR.addChild(bootR1);
-    bootR.addChild(bootR2);
-    bootR.addChild(bootR3);
-    bootR.addChild(bootR4);
-    bootR.addChild(bootR5);
-    bootR.addChild(bootR6);
-    for (int i = 0; i < bootR.children.size(); i++) {
-      bootR.children.get(i).y -= 12;
-    }
-    bootL = new ModelRenderer(this);
-    bootL.setPos(0, -12, 0);
-    bootL.addChild(bootL1);
-    bootL.addChild(bootL2);
-    bootL.addChild(bootL3);
-    bootL.addChild(bootL4);
-    bootL.addChild(bootL5);
-    bootL.addChild(bootL6);
-    for (int i = 0; i < bootL.children.size(); i++) {
-      bootL.children.get(i).y -= 12;
-    }
+  }
+
+  public static LayerDefinition createArmorDefinition() {
+    MeshDefinition meshdefinition = ModelArmorBase.createArmorMesh();
+    PartDefinition partdefinition = meshdefinition.getRoot();
+
+
+    PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
+    head.addOrReplaceChild("head_1",
+            CubeListBuilder.create()
+                    .texOffs( 32, 0)
+                    .addBox(-3F, 0F, 0F, 6, 4, 2).mirror()
+            , PartPose.offsetAndRotation(0F, -9F, -4F,  -0.2617994F, 0F, 0F));
+    head.addOrReplaceChild("head_2",
+            CubeListBuilder.create()
+                    .texOffs( 32, 16)
+                    .addBox(-4F, 0F, 0F, 8, 2, 7).mirror()
+            , PartPose.offsetAndRotation(0F, -8F, -3F,  0F, 0F, 0F));
+    head.addOrReplaceChild("head_3",
+            CubeListBuilder.create()
+                    .texOffs( 0, 48)
+                    .addBox(-2F, 0F, -1F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(3.5F, -8F, 3F,  -0.2617994F, -1.963495F, 0F));
+    head.addOrReplaceChild("head_4",
+            CubeListBuilder.create()
+                    .texOffs( 0, 48)
+                    .addBox(-2F, 0F, -1F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(-3.5F, -8F, 3F,  -0.2617994F, 1.963495F, 0F));
+    head.addOrReplaceChild("head_5",
+            CubeListBuilder.create()
+                    .texOffs( 16, 48)
+                    .addBox(-2F, 0F, -1F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(0F, -8F, 4F,  -0.2617994F, 3.141593F, 0F));
+    head.addOrReplaceChild("head_6",
+            CubeListBuilder.create()
+                    .texOffs( 8, 16)
+                    .addBox(-1F, -4F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-2F, -7F, 2F,  -0.7853982F, -0.2617994F, 0F));
+    head.addOrReplaceChild("head_7",
+            CubeListBuilder.create()
+                    .texOffs( 8, 16)
+                    .addBox(-1F, -4F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(2F, -7F, 2F,  -0.7853982F, 0.2617994F, 0F));
+    head.addOrReplaceChild("head_8",
+            CubeListBuilder.create()
+                    .texOffs( 0, 16)
+                    .addBox(-1F, -8F, -1F, 2, 8, 2).mirror()
+            , PartPose.offsetAndRotation(-2F, -7F, -2F,  -0.5235988F, -0.5235988F, 0F));
+    head.addOrReplaceChild("head_9",
+            CubeListBuilder.create()
+                    .texOffs( 0, 16)
+                    .addBox(-1F, -8F, -1F, 2, 8, 2).mirror()
+            , PartPose.offsetAndRotation(2F, -7F, -2F,  -0.5235988F, 0.5235988F, 0F));
+    head.addOrReplaceChild("head_10",
+            CubeListBuilder.create()
+                    .texOffs( 16, 48)
+                    .addBox(-2F, 0F, 0F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(0F, -10F, 2F,  -1.047198F, 3.141593F, 0F));
+    head.addOrReplaceChild("head_11",
+            CubeListBuilder.create()
+                    .texOffs( 16, 48)
+                    .addBox(-2F, 0F, 0F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(0F, -8F, -3F,  -2.094395F, 3.141593F, 0F));
+    head.addOrReplaceChild("head_12",
+            CubeListBuilder.create()
+                    .texOffs( 16, 50)
+                    .addBox(-2F, 0F, 0F, 4, 4, 2).mirror()
+            , PartPose.offsetAndRotation(0F, -8F, -4F,  -2.530727F, 3.141593F, 0F));
+    head.addOrReplaceChild("head_13",
+            CubeListBuilder.create()
+                    .texOffs( 0, 48)
+                    .addBox(-2F, 0F, -1F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(-4F, -8F, 0F,  -0.2617994F, 1.308997F, 0F));
+    head.addOrReplaceChild("head_14",
+            CubeListBuilder.create()
+                    .texOffs( 0, 48)
+                    .addBox(-2F, 0F, -1F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(4F, -8F, 0F,  -0.2617994F, -1.308997F, 0F));
+
+    PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.ZERO);
+    body.addOrReplaceChild("body1",
+            CubeListBuilder.create()
+                    .texOffs( 32, 16)
+                    .addBox(-4F, -1F, -7F, 8, 2, 7).mirror()
+            , PartPose.offsetAndRotation(0F, 0F, -1F,  1.308997F, 0F, 0F));
+    body.addOrReplaceChild("body2",
+            CubeListBuilder.create()
+                    .texOffs( 32, 16)
+                    .addBox(-4F, -1F, -7F, 8, 2, 7).mirror()
+            , PartPose.offsetAndRotation(0F, 0F, 1F,  1.308997F, -3.141593F, 0F));
+    body.addOrReplaceChild("body3",
+            CubeListBuilder.create()
+                    .texOffs( 32, 0)
+                    .addBox(-3F, -1F, -4F, 6, 2, 4).mirror()
+            , PartPose.offsetAndRotation(0F, 6F, -2F,  1.570796F, 0F, 0F));
+    body.addOrReplaceChild("body4",
+            CubeListBuilder.create()
+                    .texOffs( 32, 0)
+                    .addBox(-2F, 0F, 0F, 4, 2, 4).mirror()
+            , PartPose.offsetAndRotation(0F, 12F, -2.5F,  1.570796F, 0F, 0F));
+    body.addOrReplaceChild("body5",
+            CubeListBuilder.create()
+                    .texOffs( 48, 0)
+                    .addBox(-2F, 0F, -1F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(0F, 0F, 2F,  -0.2617994F, 3.141593F, 0F));
+    body.addOrReplaceChild("body6",
+            CubeListBuilder.create()
+                    .texOffs( 8, 16)
+                    .addBox(-1F, -4F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-2F, 2F, 1.5F,  -0.7853982F, -0.2617994F, 0F));
+    body.addOrReplaceChild("body7",
+            CubeListBuilder.create()
+                    .texOffs( 8, 16)
+                    .addBox(-1F, -4F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(2F, 2F, 1.5F,  -0.7853982F, 0.2617994F, 0F));
+    body.addOrReplaceChild("body8",
+            CubeListBuilder.create()
+                    .texOffs( 8, 16)
+                    .addBox(-1F, -4F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-2F, 5F, 2F,  -1.047198F, -0.2617994F, 0F));
+    body.addOrReplaceChild("body9",
+            CubeListBuilder.create()
+                    .texOffs( 8, 16)
+                    .addBox(-1F, -4F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(2F, 5F, 2F,  -1.047198F, 0.2617994F, 0F));
+
+    PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.ZERO);
+    right_arm.addOrReplaceChild("right_arm1",
+            CubeListBuilder.create()
+                    .texOffs( 32, 0)
+                    .addBox(-2F, 0F, -2F, 4, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-5F, 8F, 0F,  -1.570796F, 1.570796F, 0F));
+
+    right_arm.addOrReplaceChild("right_arm2",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-7F, 6F, -1F,  3.141593F, 1.570796F, 0.2617994F));
+
+    right_arm.addOrReplaceChild("right_arm3",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-7F, 6F, 1F,  3.141593F, 1.570796F, -0.2617994F));
+
+    right_arm.addOrReplaceChild("right_arm4",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-8F, 6F, 0F,  3.403392F, 1.570796F, 0F));
+
+    right_arm.addOrReplaceChild("right_arm5",
+            CubeListBuilder.create()
+                    .texOffs( 32, 0)
+                    .addBox(-2F, 0F, 0F, 4, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-4F, -3.5F, 0F,  -1.308997F, 1.570796F, 0F));
+
+    PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.ZERO);
+    left_arm.addOrReplaceChild("left_arm1",
+            CubeListBuilder.create()
+                    .texOffs( 32, 0)
+                    .addBox(-2F, 0F, -2F, 4, 4, 2).mirror()
+            , PartPose.offsetAndRotation(9F, 8F, 0F,  -1.570796F, 1.570796F, 0F));
+
+    left_arm.addOrReplaceChild("left_arm2",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(8F, 6F, 0F,  2.879793F, 1.570796F, 0F));
+
+    left_arm.addOrReplaceChild("left_arm3",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(7F, 6F, -1F,  3.141593F, 1.570796F, 0.2617994F));
+
+    left_arm.addOrReplaceChild("left_arm4",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(7F, 6F, 1F,  3.141593F, 1.570796F, -0.2617994F));
+
+    left_arm.addOrReplaceChild("left_arm5",
+            CubeListBuilder.create()
+                    .texOffs( 32, 0)
+                    .addBox(-2F, 0F, 0F, 4, 4, 2).mirror()
+            , PartPose.offsetAndRotation(4F, -3.5F, 0F,  -1.308997F, -1.570796F, 0F));
+
+    PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create(), PartPose.offset(0, -12, 0));
+    left_leg.addOrReplaceChild("left_leg1",
+            CubeListBuilder.create()
+                    .texOffs( 16, 48)
+                    .addBox(-2F, 0F, -1F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(2F, 0F, -2F,  0.2617994F, 3.141593F, 0F));
+
+    left_leg.addOrReplaceChild("left_leg2",
+            CubeListBuilder.create()
+                    .texOffs( 16, 48)
+                    .addBox(-2F, 0F, -1F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(2F, 0F, 2F,  -0.2617994F, 3.141593F, 0F));
+
+    left_leg.addOrReplaceChild("left_leg3",
+            CubeListBuilder.create()
+                    .texOffs( 16, 48)
+                    .addBox(-2F, 0F, -1F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(4F, 0F, 0F,  -0.2617994F, -1.570796F, 0F));
+
+    left_leg.addOrReplaceChild("left_leg4",
+            CubeListBuilder.create()
+                    .texOffs( 8, 16)
+                    .addBox(-1F, -4F, -2F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(4F, 2F, 2F,  -0.7853982F, 0.5235988F, 0F));
+
+    PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create(), PartPose.offset(0, -12, 0));
+    right_leg.addOrReplaceChild("right_leg1",
+            CubeListBuilder.create()
+                    .texOffs( 16, 48)
+                    .addBox(-2F, 0F, -1F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(-4F, 0F, 0F,  -0.2617994F, 1.570796F, 0F));
+
+    right_leg.addOrReplaceChild("right_leg2",
+            CubeListBuilder.create()
+                    .texOffs( 16, 48)
+                    .addBox(-2F, 0F, -1F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(-2F, 0F, 2F,  -0.2617994F, 3.141593F, 0F));
+
+    right_leg.addOrReplaceChild("right_leg3",
+            CubeListBuilder.create()
+                    .texOffs( 16, 48)
+                    .addBox(-2F, 0F, -1F, 4, 6, 2).mirror()
+            , PartPose.offsetAndRotation(-2F, 0F, -2F,  0.2617994F, 3.141593F, 0F));
+
+    right_leg.addOrReplaceChild("right_leg4",
+            CubeListBuilder.create()
+                    .texOffs( 8, 16)
+                    .addBox(-1F, -4F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-4F, 2F, 2F,  -0.7853982F, -0.5235988F, 0F));
+
+    PartDefinition right_foot = partdefinition.addOrReplaceChild("right_foot", CubeListBuilder.create(), PartPose.offset(0, -12, 0));
+    right_foot.addOrReplaceChild("right_foot1",
+            CubeListBuilder.create()
+                    .texOffs( 32, 0)
+                    .addBox(-2F, -2F, 0F, 4, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-2F, 10F, -2F,  -1.570796F, 1.570796F, 0F));
+
+    right_foot.addOrReplaceChild("right_foot2",
+            CubeListBuilder.create()
+                    .texOffs( 32, 0)
+                    .addBox(-2F, -2F, 0F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-2F, 10F, 0F,  -1.570796F, 1.570796F, 0F));
+
+    right_foot.addOrReplaceChild("right_foot3",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-2F, 10F, 1F,  0.2617994F, 0F, 3.141593F));
+
+    right_foot.addOrReplaceChild("right_foot4",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-2F, 10F, -2F,  -0.2617994F, 0F, 3.141593F));
+
+    right_foot.addOrReplaceChild("right_foot5",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-1F, 10F, -1F,  -0.2617994F, 1.570796F, 3.141593F));
+
+    right_foot.addOrReplaceChild("right_foot6",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(-3F, 10F, -1F,  0.2617994F, 1.570796F, 3.141593F));
+
+    PartDefinition left_foot = partdefinition.addOrReplaceChild("left_foot", CubeListBuilder.create(), PartPose.offset(0, -12, 0));
+    left_foot.addOrReplaceChild("left_foot1",
+            CubeListBuilder.create()
+                    .texOffs( 32, 0)
+                    .addBox(-2F, -2F, 0F, 4, 4, 2).mirror()
+            , PartPose.offsetAndRotation(2F, 10F, -2F,  -1.570796F, 1.570796F, 0F));
+
+    left_foot.addOrReplaceChild("left_foot2",
+            CubeListBuilder.create()
+                    .texOffs( 32, 0)
+                    .addBox(-2F, -2F, 0F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(2F, 10F, 0F,  -1.570796F, 1.570796F, 0F));
+
+    left_foot.addOrReplaceChild("left_foot3",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(1F, 10F, -1F,  0.2617994F, 1.570796F, 3.141593F));
+
+    left_foot.addOrReplaceChild("left_foot4",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(2F, 10F, 1F,  0.2617994F, 0F, 3.141593F));
+
+    left_foot.addOrReplaceChild("left_foot5",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(2F, 10F, -2F,  -0.2617994F, 0F, 3.141593F));
+
+    left_foot.addOrReplaceChild("left_foot6",
+            CubeListBuilder.create()
+                    .texOffs( 32, 48)
+                    .addBox(-1F, 0F, -1F, 2, 4, 2).mirror()
+            , PartPose.offsetAndRotation(3F, 10F, -1F,  -0.2617994F, 1.570796F, 3.141593F));
+
+
+    return LayerDefinition.create(meshdefinition, 64, 64);
   }
 }

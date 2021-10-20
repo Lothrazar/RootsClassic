@@ -3,7 +3,6 @@ package elucent.rootsclassic.client.screen;
 import elucent.rootsclassic.util.RootsUtil;
 
 public class ScreenTextInstance {
-
   private String line;
   private float x;
   private float y;

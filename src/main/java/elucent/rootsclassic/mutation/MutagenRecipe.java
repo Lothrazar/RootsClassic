@@ -2,12 +2,12 @@ package elucent.rootsclassic.mutation;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 public class MutagenRecipe {
 
@@ -22,7 +22,7 @@ public class MutagenRecipe {
     this.result = resultState;
   }
 
-  public void onCrafted(World world, BlockPos pos, PlayerEntity player) {
+  public void onCrafted(Level world, BlockPos pos, Player player) {
     //
   }
 
@@ -31,7 +31,7 @@ public class MutagenRecipe {
     return this;
   }
 
-  public boolean matches(List<ItemStack> items, World world, BlockPos pos, PlayerEntity player) {
+  public boolean matches(List<ItemStack> items, Level world, BlockPos pos, Player player) {
     if (world.getBlockState(pos).getBlock() == plantBlock.getBlock()) {
       ArrayList<ItemStack> tempItems = new ArrayList<>(items);
       for (ItemStack input : inputs) {

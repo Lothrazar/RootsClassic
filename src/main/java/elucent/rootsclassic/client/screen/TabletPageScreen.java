@@ -1,22 +1,7 @@
 package elucent.rootsclassic.client.screen;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.Util;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.client.ClientInfo;
 import elucent.rootsclassic.registry.RootsRegistry;
@@ -25,22 +10,37 @@ import elucent.rootsclassic.research.ResearchBase;
 import elucent.rootsclassic.research.ResearchGroup;
 import elucent.rootsclassic.research.ResearchPage;
 import elucent.rootsclassic.util.RootsUtil;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TabletPageScreen extends Screen {
-
   private int currentPage = 0;
   private ResearchBase research = null;
   private ResearchGroup group = null;
   private boolean showRightArrow = false;
   private boolean showLeftArrow = true;
-  private final PlayerEntity player;
+  private final Player player;
   private int matchingStacksCurrent = 0;
   private int matchingStacksMax = 0;
   private int matchingStacks2Current = 0;
   private int matchingStacks2Max = 0;
 
-  public TabletPageScreen(ResearchGroup g, ResearchBase r, PlayerEntity player) {
-    super(StringTextComponent.EMPTY);
+  public TabletPageScreen(ResearchGroup g, ResearchBase r, Player player) {
+    super(TextComponent.EMPTY);
     this.player = player;
     this.group = g;
     this.research = r;
@@ -49,7 +49,7 @@ public class TabletPageScreen extends Screen {
   @Override
   public boolean keyPressed(int keyCode, int scanCode, int modifiers) { // Used to be keyTyped
     if (keyCode == 256) {
-      minecraft.getSoundManager().play(SimpleSound.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+      minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
       this.minecraft.setScreen(new TabletScreen(player));
       return true;
     }
@@ -69,7 +69,7 @@ public class TabletPageScreen extends Screen {
   @Override
   protected void init() {
     super.init();
-    this.addButton(new Button(20, 20, 20, 60, StringTextComponent.EMPTY, (button) -> {}));
+    this.addRenderableWidget(new Button(20, 20, 20, 60, TextComponent.EMPTY, (button) -> {}));
   }
 
   @Override
@@ -78,13 +78,13 @@ public class TabletPageScreen extends Screen {
     float basePosY = (height / 2.0f) - 128;
     if (showLeftArrow) {
       if (mouseX >= basePosX + 16 && mouseX < basePosX + 48 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
-        minecraft.getSoundManager().play(SimpleSound.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
         this.currentPage--;
       }
     }
     if (showRightArrow) {
       if (mouseX >= basePosX + 144 && mouseX < basePosX + 176 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
-        minecraft.getSoundManager().play(SimpleSound.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
         this.currentPage++;
       }
     }
@@ -94,10 +94,10 @@ public class TabletPageScreen extends Screen {
         && mouseY >= (height / 2.0f) - 138 && mouseY < (height / 2.0f) - 40) {
       if (researchInfo.get(currentPage).recipe == EnumPageType.TYPE_MORTAR) {
         //Roots.lang("rootsclassic.recipe.chat") +
-        player.sendMessage(new StringTextComponent(researchInfo.get(currentPage).mortarRecipe.toString()), Util.NIL_UUID);
+        player.sendMessage(new TextComponent(researchInfo.get(currentPage).mortarRecipe.toString()), Util.NIL_UUID);
       }
       else if (researchInfo.get(currentPage).recipe == EnumPageType.TYPE_ALTAR) {
-        player.sendMessage(new TranslationTextComponent(researchInfo.get(currentPage).altarRecipe.toString()), Util.NIL_UUID);
+        player.sendMessage(new TranslatableComponent(researchInfo.get(currentPage).altarRecipe.toString()), Util.NIL_UUID);
       }
     }
     return super.mouseClicked(mouseX, mouseY, button);
@@ -112,11 +112,12 @@ public class TabletPageScreen extends Screen {
   }
 
   @Override
-  public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-    this.renderBackground(matrixStack);
+  public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+    this.renderBackground(poseStack);
     //   super.drawScreen(mouseX, mouseY, partialTicks);
-    RenderSystem.pushMatrix();
-    RenderSystem.color4f(1, 1, 1, 1);
+
+    poseStack.pushPose();
+    RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     ArrayList<ResearchPage> researchInfo = research.getInfo();
     this.showLeftArrow = this.currentPage != 0;
     this.showRightArrow = this.currentPage != researchInfo.size() - 1;
@@ -131,12 +132,12 @@ public class TabletPageScreen extends Screen {
     ResearchPage page = researchInfo.get(currentPage);
     ArrayList<String> info;
     String title;
-    RenderSystem.color4f(1, 1, 1, 1);
+    RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     switch (page.recipe) {
       case TYPE_NULL://text only
         //        Roots.logger.info("null type ");??
-        minecraft.getTextureManager().bind(Const.tabletGui);
-        this.blit(matrixStack, basePosX, basePosY, 64, 0, 192, 256);
+        RenderSystem.setShaderTexture(0, Const.tabletGui);
+        this.blit(poseStack, basePosX, basePosY, 64, 0, 192, 256);
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 32 + i * 11));
@@ -145,8 +146,8 @@ public class TabletPageScreen extends Screen {
         textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
       break;
       case TYPE_SMELTING:
-        minecraft.getTextureManager().bind(Const.tabletSmelting);
-        this.blit(matrixStack, basePosX, basePosY, 0, 0, 192, 256);
+        RenderSystem.setShaderTexture(0, Const.tabletSmelting);
+        this.blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
         slots.add(new ScreenSlotInstance(page.smeltingRecipe.get(0), (int) basePosX + 56, (int) basePosY + 40));
         slots.add(new ScreenSlotInstance(page.smeltingRecipe.get(1), (int) basePosX + 144, (int) basePosY + 56));
         info = page.makeLines(makeInfo());
@@ -157,8 +158,8 @@ public class TabletPageScreen extends Screen {
         textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
       break;
       case TYPE_DISPLAY:
-        minecraft.getTextureManager().bind(Const.tabletDisplay);
-        this.blit(matrixStack, basePosX, basePosY, 0, 0, 192, 256);
+        RenderSystem.setShaderTexture(0, Const.tabletDisplay);
+        this.blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
         slots.add(new ScreenSlotInstance(page.displayItem, (int) basePosX + 88, (int) basePosY + 48));
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
@@ -168,15 +169,15 @@ public class TabletPageScreen extends Screen {
         textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
       break;
       case TYPE_ALTAR:
-        minecraft.getTextureManager().bind(Const.tabletAltar);
-        this.blit(matrixStack, basePosX, basePosY, 0, 0, 192, 256);
+        RenderSystem.setShaderTexture(0, Const.tabletAltar);
+        this.blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
         for (int i = 0; i < page.altarRecipe.getBlocks().size(); i++) {
-          minecraft.getTextureManager().bind(Const.tabletAltar);
+          RenderSystem.setShaderTexture(0, Const.tabletAltar);
           int u = 192;
           int v = 240;
           int xShift = 0;
           int yShift = 0;
-          this.blit(matrixStack, basePosX + 93, basePosY + 153, 192, 32, 16, 16);
+          this.blit(poseStack, basePosX + 93, basePosY + 153, 192, 32, 16, 16);
           if (page.altarRecipe.getBlocks().get(i).equals(RootsRegistry.MUNDANE_STANDING_STONE.get())) {
             u = 192;
             v = 48;
@@ -184,12 +185,11 @@ public class TabletPageScreen extends Screen {
             yShift = 8 * (int) page.altarRecipe.getPositionsRelative().get(i).getZ();
           }
           if (page.altarRecipe.getBlocks().get(i).equals(RootsRegistry.ATTUNED_STANDING_STONE.get())) {
-            u = 192;
             v = 64;
             xShift = 8 * (int) page.altarRecipe.getPositionsRelative().get(i).getX();
             yShift = 8 * (int) page.altarRecipe.getPositionsRelative().get(i).getZ();
           }
-          this.blit(matrixStack, basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16);
+          this.blit(poseStack, basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16);
         }
         for (int i = 0; i < page.altarRecipe.getIngredients().size(); i++) {
           slots.add(new ScreenSlotInstance(page.altarRecipe.getIngredients().get(i), (int) basePosX + 64 + 24 * i, (int) basePosY + 56));
@@ -201,8 +201,8 @@ public class TabletPageScreen extends Screen {
         textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
       break;
       case TYPE_MORTAR:
-        minecraft.getTextureManager().bind(Const.tabletMortar);
-        this.blit(matrixStack, basePosX, basePosY, 0, 0, 192, 256);
+        RenderSystem.setShaderTexture(0, Const.tabletMortar);
+        this.blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
         title = makeTitle();
         if (page.mortarRecipe != null) {
           for (int i = 0; i < page.mortarRecipe.getIngredients().size(); i++) {
@@ -222,7 +222,7 @@ public class TabletPageScreen extends Screen {
         }
         else {
           //Disabled?
-          title = TextFormatting.RED + I18n.get("rootsclassic.research.disabled");
+          title = ChatFormatting.RED + I18n.get("rootsclassic.research.disabled");
         }
         textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
     }//end of big switch
@@ -231,35 +231,35 @@ public class TabletPageScreen extends Screen {
     }
     for (ScreenTextInstance line : textLines) {
       if (line.isShadow())
-        font.drawShadow(matrixStack, line.getLine(), line.getX(), line.getY(), line.getColor());
+        font.drawShadow(poseStack, line.getLine(), line.getX(), line.getY(), line.getColor());
       else
-        font.draw(matrixStack, line.getLine(), (int) line.getX(), (int) line.getY(), line.getColor());
+        font.draw(poseStack, line.getLine(), (int) line.getX(), (int) line.getY(), line.getColor());
     }
     //TODO: arrows go black on rituals
-    minecraft.getTextureManager().bind(Const.tabletGui);
+    RenderSystem.setShaderTexture(0, Const.tabletGui);
     if (showLeftArrow) {
       if (mouseX >= basePosX + 16 && mouseX < basePosX + 48 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
-        this.blit(matrixStack, basePosX + 16, basePosY + 224, 32, 80, 32, 16);
+        this.blit(poseStack, basePosX + 16, basePosY + 224, 32, 80, 32, 16);
       }
       else {
-        this.blit(matrixStack, basePosX + 16, basePosY + 224, 32, 64, 32, 16);
+        this.blit(poseStack, basePosX + 16, basePosY + 224, 32, 64, 32, 16);
       }
     }
     if (showRightArrow) {
       if (mouseX >= basePosX + 144 && mouseX < basePosX + 176 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
-        this.blit(matrixStack, basePosX + 144, basePosY + 224, 0, 80, 32, 16);
+        this.blit(poseStack, basePosX + 144, basePosY + 224, 0, 80, 32, 16);
       }
       else {
-        this.blit(matrixStack, basePosX + 144, basePosY + 224, 0, 64, 32, 16);
+        this.blit(poseStack, basePosX + 144, basePosY + 224, 0, 64, 32, 16);
       }
     }
     //tooltips must be AFTER rendering arrow images
     for (ScreenSlotInstance s : slots) {
       if (s.isMouseover(mouseX, mouseY)) {
-        this.renderTooltip(matrixStack, s.getStack(), mouseX, mouseY);
+        this.renderTooltip(poseStack, s.getStack(), mouseX, mouseY);
       }
     }
-    RenderSystem.popMatrix();
+    poseStack.popPose();
   }
 
   public ItemStack getStackFromIngredient(Ingredient ingredient) {

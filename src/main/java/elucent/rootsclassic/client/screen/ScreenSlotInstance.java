@@ -1,9 +1,8 @@
 package elucent.rootsclassic.client.screen;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class ScreenSlotInstance {
-
   private int x;
   private int y;
   private ItemStack stack;

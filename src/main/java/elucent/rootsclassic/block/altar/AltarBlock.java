@@ -1,22 +1,26 @@
 package elucent.rootsclassic.block.altar;
 
-import javax.annotation.Nullable;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import elucent.rootsclassic.block.BaseTEBlock;
+import elucent.rootsclassic.block.BaseBEBlock;
+import elucent.rootsclassic.blockentity.AcceleratorStandingStoneTile;
+import elucent.rootsclassic.registry.RootsRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
+import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
-public class AltarBlock extends BaseTEBlock {
+public class AltarBlock extends BaseBEBlock implements EntityBlock {
   private static final VoxelShape SHAPE = Stream.of(
           Block.box(0, 8, 0, 16, 12, 16),
           Block.box(4, 0, 4, 12, 8, 12),
@@ -24,25 +28,33 @@ public class AltarBlock extends BaseTEBlock {
           Block.box(10, 4, 2, 14, 8, 6),
           Block.box(10, 4, 10, 14, 8, 14),
           Block.box(2, 4, 10, 6, 8, 14)
-  ).reduce((v1, v2) -> VoxelShapes.join(v1, v2, IBooleanFunction.OR)).get();
+  ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
 
   public AltarBlock(Properties properties) {
     super(properties);
   }
 
   @Override
-  public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+  public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
     return SHAPE;
-  }
-
-  @Override
-  public boolean hasTileEntity(BlockState state) {
-    return true;
   }
 
   @Nullable
   @Override
-  public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-    return new AltarTile();
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    return new AltarBlockEntity(pos, state);
+  }
+
+  @Nullable
+  @Override
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+    return createStandingStoneTicker(level, entityType, RootsRegistry.ALTAR_TILE.get());
+  }
+
+  @Nullable
+  protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends AltarBlockEntity> standingStoneType) {
+    return level.isClientSide ?
+            createTickerHelper(entityType, standingStoneType, AltarBlockEntity::clientTick) :
+            createTickerHelper(entityType, standingStoneType, AltarBlockEntity::serverTick);
   }
 }
