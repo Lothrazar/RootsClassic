@@ -269,6 +269,7 @@ public class AltarTile extends TEBase implements ITickableTileEntity {
         getRitualCurrent().doEffect(getLevel(), getBlockPos(), InventoryUtil.createIInventory(inventory), getIncenses());
         setRitualName(null);
         setRitualCurrent(null);
+        emptyAltar();
         setChanged();
         level.sendBlockUpdated(getBlockPos(), getLevel().getBlockState(getBlockPos()), getLevel().getBlockState(getBlockPos()), 3);
       }
@@ -323,6 +324,12 @@ public class AltarTile extends TEBase implements ITickableTileEntity {
 
   public void setRitualCurrent(RitualBase ritualCurrent) {
     this.ritualCurrent = ritualCurrent;
+  }
+
+  public void emptyAltar() {
+    for(int i = 0; i < inventory.getSlots(); i++) {
+      inventory.setStackInSlot(i, ItemStack.EMPTY);
+    }
   }
   //	public ItemStack getResultItem() { TODO: Unused?
   //		return resultItem;
