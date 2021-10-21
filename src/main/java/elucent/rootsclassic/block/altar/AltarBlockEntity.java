@@ -212,6 +212,7 @@ public class AltarBlockEntity extends BEBase {
         tile.getRitualCurrent().doEffect(level, pos, InventoryUtil.createIInventory(tile.inventory), tile.getIncenses());
         tile.setRitualName(null);
         tile.setRitualCurrent(null);
+        tile.emptyAltar();
         tile.setChanged();
         level.sendBlockUpdated(pos, state, state, 3);
       }
@@ -327,6 +328,12 @@ public class AltarBlockEntity extends BEBase {
 
   public void setRitualCurrent(RitualBase ritualCurrent) {
     this.ritualCurrent = ritualCurrent;
+  }
+
+  public void emptyAltar() {
+    for(int i = 0; i < inventory.getSlots(); i++) {
+      inventory.setStackInSlot(i, ItemStack.EMPTY);
+    }
   }
   
   //	public ItemStack getResultItem() { TODO: Unused?

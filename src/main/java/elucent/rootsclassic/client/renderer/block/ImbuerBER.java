@@ -28,7 +28,7 @@ public class ImbuerBER implements BlockEntityRenderer<ImbuerBlockEntity> {
     final ItemStack dustStack = imbuerTile.getSpellPowder();
     if (!dustStack.isEmpty()) {
       matrixStackIn.pushPose();
-      matrixStackIn.translate(0.5, 0.125, 0.0);
+      matrixStackIn.translate(0.5, 0.125, (1/16F) * 6);
       matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(90));
       Minecraft.getInstance().getItemRenderer().renderStatic(dustStack, TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn, 0);
       matrixStackIn.popPose();

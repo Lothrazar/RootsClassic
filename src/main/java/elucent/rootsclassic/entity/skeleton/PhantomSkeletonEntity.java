@@ -1,42 +1,48 @@
 package elucent.rootsclassic.entity.skeleton;
 
-import javax.annotation.Nullable;
+import elucent.rootsclassic.registry.RootsEntities;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FleeSunGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.RestrictSunGoal;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.common.util.FakePlayer;
-import elucent.rootsclassic.registry.RootsEntities;
+
+import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
 public class PhantomSkeletonEntity extends Skeleton {
 
   public static boolean appliesSlowPotion = true;
+  private static final Predicate<LivingEntity> SKELETON_SELECTOR = (livingEntity) -> {
+    return !(livingEntity instanceof PhantomSkeletonEntity);
+  };
 
   public PhantomSkeletonEntity(EntityType<? extends PhantomSkeletonEntity> type, Level worldIn) {
     super(type, worldIn);
@@ -64,7 +70,7 @@ public class PhantomSkeletonEntity extends Skeleton {
     this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Spider.class, true));
     this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Zombie.class, true));
     this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, EnderMan.class, true));
-    this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Skeleton.class, true));
+    this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Skeleton.class, 10,true, false, SKELETON_SELECTOR));
   }
 
   @Override

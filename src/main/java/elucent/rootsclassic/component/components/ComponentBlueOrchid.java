@@ -1,21 +1,22 @@
 package elucent.rootsclassic.component.components;
 
-import java.util.ArrayList;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.Level;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.util.RootsUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+
+import java.util.ArrayList;
 
 public class ComponentBlueOrchid extends ComponentBase {
 
@@ -29,9 +30,8 @@ public class ComponentBlueOrchid extends ComponentBase {
       if (caster instanceof Player && !world.isClientSide) {
         BlockPos pos = RootsUtil.getRayTrace(world, (Player) caster, 4 + 2 * (int) size);
         BlockState state = world.getBlockState(pos);
-        Block block = world.getBlockState(pos).getBlock();
-        if (block == Blocks.STONE || block == Blocks.DIRT || block == Blocks.GRASS || block == Blocks.SAND || block == Blocks.GRAVEL) {
-          if (block == Blocks.GRASS) {
+        if (state.is(BlockTags.BASE_STONE_OVERWORLD) || state.is(BlockTags.DIRT) || state.is(Blocks.GRASS_BLOCK) || state.is(BlockTags.SAND) || state.is(Blocks.GRAVEL)) {
+          if (state.is(Blocks.GRASS_BLOCK)) {
             state = Blocks.DIRT.defaultBlockState();
             world.setBlockAndUpdate(pos, state);
           }
