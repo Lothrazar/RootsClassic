@@ -326,23 +326,23 @@ public class SylvanArmorModel extends ModelArmorBase {
     bootL6.setTexSize(64, 64);
     bootL6.mirror = true;
     setRotation(bootL6, -0.2617994F, 1.570796F, 3.141593F);
-    head = new ModelRenderer(this);
-    head.addChild(head1);
-    head.addChild(head2);
-    head.addChild(head3);
-    head.addChild(head4);
-    head.addChild(head5);
-    head.addChild(head6);
-    head.addChild(head7);
-    head.addChild(head8);
-    head.addChild(head9);
-    head.addChild(head10);
-    head.addChild(head11);
-    head.addChild(head12);
-    head.addChild(head13);
-    head.addChild(head14);
-    for (int i = 0; i < head.children.size(); i++) {
-      head.children.get(i).y += 1;
+    headPart = new ModelRenderer(this);
+    headPart.addChild(head1);
+    headPart.addChild(head2);
+    headPart.addChild(head3);
+    headPart.addChild(head4);
+    headPart.addChild(head5);
+    headPart.addChild(head6);
+    headPart.addChild(head7);
+    headPart.addChild(head8);
+    headPart.addChild(head9);
+    headPart.addChild(head10);
+    headPart.addChild(head11);
+    headPart.addChild(head12);
+    headPart.addChild(head13);
+    headPart.addChild(head14);
+    for (int i = 0; i < headPart.children.size(); i++) {
+      headPart.children.get(i).y += 1;
     }
     chest = new ModelRenderer(this);
     chest.addChild(chest1);
