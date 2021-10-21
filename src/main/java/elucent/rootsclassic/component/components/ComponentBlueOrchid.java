@@ -30,8 +30,8 @@ public class ComponentBlueOrchid extends ComponentBase {
         BlockPos pos = RootsUtil.getRayTrace(world, (PlayerEntity) caster, 4 + 2 * (int) size);
         BlockState state = world.getBlockState(pos);
         Block block = world.getBlockState(pos).getBlock();
-        if (block == Blocks.STONE || block == Blocks.DIRT || block == Blocks.GRASS || block == Blocks.SAND || block == Blocks.GRAVEL) {
-          if (block == Blocks.GRASS) {
+        if (block.is(Blocks.STONE) || block.is(Blocks.DIRT) || block.is(Blocks.GRASS_BLOCK) || block.is(Blocks.SAND) || block.is(Blocks.GRAVEL)) {
+          if (block.is(Blocks.GRASS_BLOCK)) {
             state = Blocks.DIRT.defaultBlockState();
             world.setBlockAndUpdate(pos, state);
           }
