@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
@@ -18,6 +19,7 @@ import net.minecraft.entity.ai.goal.RestrictSunGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.monster.AbstractSkeletonEntity;
 import net.minecraft.entity.monster.EndermanEntity;
+import net.minecraft.entity.monster.EndermiteEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.monster.ZombieEntity;
@@ -34,9 +36,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 import elucent.rootsclassic.registry.RootsEntities;
 
+import java.util.function.Predicate;
+
 public class PhantomSkeletonEntity extends SkeletonEntity {
 
   public static boolean appliesSlowPotion = true;
+  private static final Predicate<LivingEntity> SKELETON_SELECTOR = (livingEntity) -> {
+    return !(livingEntity instanceof PhantomSkeletonEntity);
+  };
 
   public PhantomSkeletonEntity(EntityType<? extends PhantomSkeletonEntity> type, World worldIn) {
     super(type, worldIn);
@@ -64,7 +71,7 @@ public class PhantomSkeletonEntity extends SkeletonEntity {
     this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, SpiderEntity.class, true));
     this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, ZombieEntity.class, true));
     this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, EndermanEntity.class, true));
-    this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, true));
+    this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, SkeletonEntity.class, 10, true, false, SKELETON_SELECTOR));
   }
 
   @Override
