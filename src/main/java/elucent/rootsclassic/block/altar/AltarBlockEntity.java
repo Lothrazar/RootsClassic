@@ -336,17 +336,6 @@ public class AltarBlockEntity extends BEBase {
     }
   }
   
-  //	public ItemStack getResultItem() { TODO: Unused?
-  //		return resultItem;
-  //	}
-  //
-  //	public void setResultItem(ItemStack resultItem) {
-  //		if (resultItem == null) {
-  //			resultItem = ItemStack.EMPTY;
-  //		}
-  //		this.resultItem = resultItem;
-  //	}
-
   @Override
   public void invalidateCaps() {
     super.invalidateCaps();
