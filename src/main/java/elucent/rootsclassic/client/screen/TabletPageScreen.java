@@ -134,7 +134,7 @@ public class TabletPageScreen extends Screen {
     String title;
     RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     switch (page.recipe) {
-      case TYPE_NULL://text only
+      case TYPE_NULL -> {//text only
         //        Roots.logger.info("null type ");??
         RenderSystem.setShaderTexture(0, Const.tabletGui);
         this.blit(poseStack, basePosX, basePosY, 64, 0, 192, 256);
@@ -144,8 +144,8 @@ public class TabletPageScreen extends Screen {
         }
         title = makeTitle();
         textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
-      break;
-      case TYPE_SMELTING:
+      }
+      case TYPE_SMELTING -> {
         RenderSystem.setShaderTexture(0, Const.tabletSmelting);
         this.blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
         slots.add(new ScreenSlotInstance(page.smeltingRecipe.get(0), (int) basePosX + 56, (int) basePosY + 40));
@@ -156,8 +156,8 @@ public class TabletPageScreen extends Screen {
         }
         title = makeTitle();
         textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
-      break;
-      case TYPE_DISPLAY:
+      }
+      case TYPE_DISPLAY -> {
         RenderSystem.setShaderTexture(0, Const.tabletDisplay);
         this.blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
         slots.add(new ScreenSlotInstance(page.displayItem, (int) basePosX + 88, (int) basePosY + 48));
@@ -167,8 +167,8 @@ public class TabletPageScreen extends Screen {
         }
         title = makeTitle();
         textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
-      break;
-      case TYPE_ALTAR:
+      }
+      case TYPE_ALTAR -> {
         RenderSystem.setShaderTexture(0, Const.tabletAltar);
         this.blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
         for (int i = 0; i < page.altarRecipe.getBlocks().size(); i++) {
@@ -199,8 +199,8 @@ public class TabletPageScreen extends Screen {
         }
         title = makeTitle();
         textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
-      break;
-      case TYPE_MORTAR:
+      }
+      case TYPE_MORTAR -> {
         RenderSystem.setShaderTexture(0, Const.tabletMortar);
         this.blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
         title = makeTitle();
@@ -209,8 +209,7 @@ public class TabletPageScreen extends Screen {
             Ingredient ingredient = page.mortarRecipe.getIngredients().get(i);
             if (ingredient.isEmpty()) {
               slots.add(new ScreenSlotInstance(new ItemStack(Items.BARRIER), (int) basePosX + 24 + i * 16, (int) basePosY + 56));
-            }
-            else {
+            } else {
               slots.add(new ScreenSlotInstance(getStackFromIngredient(ingredient), (int) basePosX + 24 + i * 16, (int) basePosY + 56));
             }
           }
@@ -219,12 +218,12 @@ public class TabletPageScreen extends Screen {
           for (int i = 0; i < info.size(); i++) {
             textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 96 + i * 11, RootsUtil.intColor(255, 255, 255)));
           }
-        }
-        else {
+        } else {
           //Disabled?
           title = ChatFormatting.RED + I18n.get("rootsclassic.research.disabled");
         }
         textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
+      }
     }//end of big switch
     for (ScreenSlotInstance s : slots) {
       this.itemRenderer.renderGuiItem(s.getStack(), s.getX(), s.getY());

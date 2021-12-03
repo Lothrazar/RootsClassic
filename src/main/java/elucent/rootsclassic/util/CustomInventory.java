@@ -1,10 +1,10 @@
 package elucent.rootsclassic.util;
 
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.NonNullList;
 
 public class CustomInventory implements Container {
 

@@ -1,17 +1,18 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.util.List;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.Container;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.item.CrystalStaffItem;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.ritual.RitualBase;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+
+import java.util.List;
 
 public class RitualImbuer extends RitualBase {
 

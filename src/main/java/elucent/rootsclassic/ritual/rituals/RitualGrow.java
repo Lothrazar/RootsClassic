@@ -1,14 +1,15 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.util.List;
-import net.minecraft.world.level.block.BonemealableBlock;
+import elucent.rootsclassic.ritual.RitualBase;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import elucent.rootsclassic.ritual.RitualBase;
+import net.minecraft.world.level.block.BonemealableBlock;
+
+import java.util.List;
 
 public class RitualGrow extends RitualBase {
 

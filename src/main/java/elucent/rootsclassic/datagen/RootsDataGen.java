@@ -52,8 +52,8 @@ import elucent.rootsclassic.lootmodifiers.DropModifier;
 import elucent.rootsclassic.lootmodifiers.DropModifier.BlockDropModifier;
 import elucent.rootsclassic.registry.RootsEntities;
 import elucent.rootsclassic.registry.RootsRegistry;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RootsDataGen {

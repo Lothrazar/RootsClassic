@@ -1,16 +1,17 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.util.ArrayList;
-import java.util.List;
+import elucent.rootsclassic.ritual.RitualBase;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import elucent.rootsclassic.ritual.RitualBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RitualTimeShift extends RitualBase {
 

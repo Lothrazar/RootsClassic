@@ -51,8 +51,7 @@ public class GrowthPowderItem extends Item {
           world.setBlockAndUpdate(pos.above(), Blocks.LILY_PAD.defaultBlockState());
         }
     else {
-      if (state.getBlock() instanceof BonemealableBlock) {
-        BonemealableBlock igrowable = (BonemealableBlock) state.getBlock();
+      if (state.getBlock() instanceof BonemealableBlock igrowable) {
         if (!igrowable.isValidBonemealTarget(world, pos, state, world.isClientSide)) {
           return false;
         }

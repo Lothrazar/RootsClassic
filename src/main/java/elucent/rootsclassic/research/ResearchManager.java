@@ -1,16 +1,17 @@
 package elucent.rootsclassic.research;
 
-import java.util.ArrayList;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.ritual.RitualManager;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.client.event.RecipesUpdatedEvent;
+
+import java.util.ArrayList;
 
 public class ResearchManager {
   public static ArrayList<ResearchGroup> globalResearches = new ArrayList<>();

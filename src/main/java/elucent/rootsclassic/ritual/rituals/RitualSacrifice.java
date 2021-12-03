@@ -1,19 +1,20 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraft.world.level.block.Blocks;
+import elucent.rootsclassic.ritual.RitualBase;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import elucent.rootsclassic.ritual.RitualBase;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.AABB;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RitualSacrifice extends RitualBase {
 

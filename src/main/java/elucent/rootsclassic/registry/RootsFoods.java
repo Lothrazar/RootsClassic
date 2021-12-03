@@ -1,8 +1,8 @@
 package elucent.rootsclassic.registry;
 
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 
 public class RootsFoods {
   public static final FoodProperties OLD_ROOT = (new FoodProperties.Builder()).nutrition(1).saturationMod(0.1F).build();

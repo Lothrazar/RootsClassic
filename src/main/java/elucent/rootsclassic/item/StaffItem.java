@@ -56,16 +56,16 @@ public class StaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public double getDurabilityForDisplay(ItemStack stack) {
+  public int getBarWidth(ItemStack stack) {
     if (stack.hasTag()) {
       CompoundTag tag = stack.getTag();
-      return 1.0 - (double) tag.getInt(NBT_USES) / (double) tag.getInt(NBT_MAX);
+      return (int)(1.0 - (double) tag.getInt(NBT_USES) / (double) tag.getInt(NBT_MAX));
     }
-    return 1.0;
+    return 1;
   }
 
   @Override
-  public boolean showDurabilityBar(ItemStack stack) {
+  public boolean isBarVisible(ItemStack stack) {
     if (stack.hasTag()) {
       CompoundTag tag = stack.getTag();
       return tag.getInt(NBT_USES) < tag.getInt(NBT_MAX);

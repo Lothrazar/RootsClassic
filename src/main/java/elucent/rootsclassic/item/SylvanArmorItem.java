@@ -4,7 +4,6 @@ import elucent.rootsclassic.Const;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
 import elucent.rootsclassic.client.ClientHandler;
 import elucent.rootsclassic.client.model.SylvanArmorModel;
-import elucent.rootsclassic.client.renderer.armor.SylvanArmorRenderer;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

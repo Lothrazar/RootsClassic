@@ -1,7 +1,6 @@
 package elucent.rootsclassic.block.altar;
 
 import elucent.rootsclassic.block.BaseBEBlock;
-import elucent.rootsclassic.blockentity.AcceleratorStandingStoneTile;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
