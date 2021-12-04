@@ -57,9 +57,14 @@ public class MortarBlockEntity extends BEBase {
 
   @Override
   public CompoundTag save(CompoundTag tag) {
-    tag = super.save(tag);
+    saveAdditional(tag);
+    return super.save(tag);
+  }
+
+  @Override
+  public void saveAdditional(CompoundTag tag) {
+    super.saveAdditional(tag);
     tag.put("InventoryHandler", inventory.serializeNBT());
-    return tag;
   }
 
   @Override

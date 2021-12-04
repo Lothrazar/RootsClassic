@@ -35,8 +35,13 @@ public class GrowerStandingStoneTile extends BEBase {
 
   @Override
   public CompoundTag save(CompoundTag tag) {
-    super.save(tag);
-    return tag;
+    saveAdditional(tag);
+    return super.save(tag);
+  }
+
+  @Override
+  public void saveAdditional(CompoundTag tag) {
+    super.saveAdditional(tag);
   }
 
   public static void serverTick(Level level, BlockPos pos, BlockState state, GrowerStandingStoneTile tile) {

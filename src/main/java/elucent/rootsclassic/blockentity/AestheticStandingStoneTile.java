@@ -71,11 +71,16 @@ public class AestheticStandingStoneTile extends BEBase {
 
   @Override
   public CompoundTag save(CompoundTag tag) {
-    tag = super.save(tag);
+    saveAdditional(tag);
+    return super.save(tag);
+  }
+
+  @Override
+  public void saveAdditional(CompoundTag tag) {
+    super.saveAdditional(tag);
     tag.putInt("red", r);
     tag.putInt("blue", b);
     tag.putInt("green", g);
-    return tag;
   }
 
   public static void clientTick(Level level, BlockPos pos, BlockState state, AestheticStandingStoneTile tile) {

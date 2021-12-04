@@ -77,7 +77,13 @@ public class AltarBlockEntity extends BEBase {
 
   @Override
   public CompoundTag save(CompoundTag tag) {
-    tag = super.save(tag);
+    saveAdditional(tag);
+    return super.save(tag);
+  }
+
+  @Override
+  public void saveAdditional(CompoundTag tag) {
+    super.saveAdditional(tag);
     tag.put("InventoryHandler", inventory.serializeNBT());
     if (getIncenses().size() > 0) {
       ListTag list = new ListTag();
@@ -93,7 +99,6 @@ public class AltarBlockEntity extends BEBase {
       tag.putString("ritualName", getRitualName().toString());
     }
     tag.putInt("progress", getProgress());
-    return tag;
   }
 
   @Override
