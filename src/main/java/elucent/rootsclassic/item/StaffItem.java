@@ -143,7 +143,7 @@ public class StaffItem extends Item implements IManaRelatedItem {
 
   @Override
   public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-    if (stack.hasTag()) {
+    if (stack.hasTag() && stack.is(this)) {
       CompoundTag tag = stack.getTag();
       if (tag.contains(NBT_USES) && tag.getInt(NBT_USES) <= 0 && entityIn instanceof Player) {
         stack.shrink(1);
