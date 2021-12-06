@@ -51,8 +51,7 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
       super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
       return;
     }
-    if (entityIn instanceof ArmorStand) {
-      ArmorStand armorStand = (ArmorStand) entityIn;
+    if (entityIn instanceof ArmorStand armorStand) {
       this.head.xRot = ((float) Math.PI / 180F) * armorStand.getHeadPose().getX();
       this.head.yRot = ((float) Math.PI / 180F) * armorStand.getHeadPose().getY();
       this.head.zRot = ((float) Math.PI / 180F) * armorStand.getHeadPose().getZ();
@@ -79,9 +78,9 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
   }
 
   @Override
-  public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-    matrixStackIn.pushPose();
-    matrixStackIn.scale(armorScale, armorScale, armorScale);
+  public void renderToBuffer(PoseStack poseStack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+    poseStack.pushPose();
+    poseStack.scale(armorScale, armorScale, armorScale);
     this.setHeadRotation();
     this.setChestRotation();
     this.setLegsRotation();
@@ -96,30 +95,39 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
     leftFoot.visible = slot == EquipmentSlot.FEET;
     if (this.young) {
       float f = 2.0F;
-      matrixStackIn.scale(1.5F / f, 1.5F / f, 1.5F / f);
-      matrixStackIn.translate(0.0F, 16.0F * 1, 0.0F);
-      head.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-      matrixStackIn.popPose();
-      matrixStackIn.pushPose();
-      matrixStackIn.scale(1.0F / f, 1.0F / f, 1.0F / f);
-      matrixStackIn.translate(0.0F, 24.0F * 1, 0.0F);
-      body.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      poseStack.scale(1.5F / f, 1.5F / f, 1.5F / f);
+      poseStack.translate(0.0F, 16.0F * 1, 0.0F);
+      head.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      poseStack.popPose();
+      poseStack.pushPose();
+      poseStack.scale(1.0F / f, 1.0F / f, 1.0F / f);
+      poseStack.translate(0.0F, 24.0F * 1, 0.0F);
+      body.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
     else {
+      head.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       if (crouching) {
-        matrixStackIn.translate(0.0F, 0.2F, 0.0F);
+        poseStack.translate(0.0F, 0.2F, 0.0F);
       }
-      head.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-      body.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-      rightArm.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-      leftArm.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      body.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+
+      poseStack.pushPose();
+      if(crouching) {
+        poseStack.translate(0.0F, -0.15F, 0.0F);
+      }
+      rightArm.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      leftArm.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      poseStack.popPose();
     }
-    matrixStackIn.translate(0.0F, 1.2F, 0.0F);
-    rightLeg.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    leftLeg.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    rightFoot.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    leftFoot.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    matrixStackIn.popPose();
+    poseStack.translate(0.0F, 1.25F, 0.0F);
+    if(crouching) {
+      poseStack.translate(0.0F, -0.15F, 0.05F);
+    }
+    rightLeg.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    leftLeg.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    rightFoot.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    leftFoot.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    poseStack.popPose();
   }
 
   public void setHeadRotation() {
@@ -128,32 +136,32 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
 
   public void setChestRotation() {
     /* if (e instanceof EntityPlayer){ ((EntityPlayer)e).get } */
-    body.y = body.y - 1;
-    rightArm.x = rightArm.x + 5;
-    rightArm.y = rightArm.y - 1;
-    rightArm.z = rightArm.z;
-    leftArm.x = leftArm.x - 5;
-    leftArm.y = leftArm.y - 1;
-    leftArm.z = leftArm.z;
+    this.body.y = body.y - 1;
+    this.rightArm.x = rightArm.x + 5;
+    this.rightArm.y = rightArm.y - 1;
+    this.rightArm.z = rightArm.z;
+    this.leftArm.x = leftArm.x - 5;
+    this.leftArm.y = leftArm.y - 1;
+    this.leftArm.z = leftArm.z;
     setRotation(body, body.xRot, body.yRot, body.zRot);
     setRotation(rightArm, rightArm.xRot, rightArm.yRot, rightArm.zRot);
     setRotation(leftArm, leftArm.xRot, leftArm.yRot, leftArm.zRot);
   }
 
   public void setLegsRotation() {
-    rightLeg.x = rightLeg.x + 2;
-    rightLeg.y = rightLeg.y - 22;
-    leftLeg.x = leftLeg.x - 2;
-    leftLeg.y = leftLeg.y - 22;
+    this.rightLeg.x = rightLeg.x + 2;
+    this.rightLeg.y = rightLeg.y - 22;
+    this.leftLeg.x = leftLeg.x - 2;
+    this.leftLeg.y = leftLeg.y - 22;
     setRotation(rightLeg, rightLeg.xRot, rightLeg.yRot, rightLeg.zRot);
     setRotation(leftLeg, leftLeg.xRot, leftLeg.yRot, leftLeg.zRot);
   }
 
   public void setBootRotation() {
-    rightFoot.y = rightLeg.y - 0;
-    rightFoot.z = rightLeg.z;
-    leftFoot.y = leftLeg.y - 0;
-    leftFoot.z = leftLeg.z;
+    this.rightFoot.y = rightLeg.y - 0;
+    this.rightFoot.z = rightLeg.z;
+    this.leftFoot.y = leftLeg.y - 0;
+    this.leftFoot.z = leftLeg.z;
     setRotation(rightFoot, rightLeg.xRot, rightLeg.yRot, rightLeg.zRot);
     setRotation(leftFoot, leftLeg.xRot, leftLeg.yRot, leftLeg.zRot);
   }

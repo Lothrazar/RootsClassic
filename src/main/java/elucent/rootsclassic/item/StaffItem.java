@@ -16,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -56,16 +57,16 @@ public class StaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public double getDurabilityForDisplay(ItemStack stack) {
+  public int getBarWidth(ItemStack stack) {
     if (stack.hasTag()) {
       CompoundTag tag = stack.getTag();
-      return 1.0 - (double) tag.getInt(NBT_USES) / (double) tag.getInt(NBT_MAX);
+      return Math.round((float)tag.getInt(NBT_USES) * 13.0F / (float)tag.getInt(NBT_MAX));
     }
-    return 1.0;
+    return 1;
   }
 
   @Override
-  public boolean showDurabilityBar(ItemStack stack) {
+  public boolean isBarVisible(ItemStack stack) {
     if (stack.hasTag()) {
       CompoundTag tag = stack.getTag();
       return tag.getInt(NBT_USES) < tag.getInt(NBT_MAX);
@@ -142,10 +143,13 @@ public class StaffItem extends Item implements IManaRelatedItem {
 
   @Override
   public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-    if (stack.hasTag()) {
+    if (stack.hasTag() && stack.is(this)) {
       CompoundTag tag = stack.getTag();
-      if (tag.getInt(NBT_USES) <= 0 && entityIn instanceof Player) {
-        ((Player) entityIn).getInventory().setItem(itemSlot, ItemStack.EMPTY);
+      if (tag.contains(NBT_USES) && tag.getInt(NBT_USES) <= 0 && entityIn instanceof Player) {
+        stack.shrink(1);
+        if (entityIn instanceof Player) {
+          ((Player)entityIn).awardStat(Stats.ITEM_BROKEN.get(stack.getItem()));
+        }
       }
     }
   }
