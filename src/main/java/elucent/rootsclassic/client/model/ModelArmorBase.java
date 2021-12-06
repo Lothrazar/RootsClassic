@@ -98,15 +98,24 @@ public class ModelArmorBase extends BipedModel<LivingEntity> {
       chest.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
     else {
+      headPart.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       if (crouching) {
         matrixStackIn.translate(0.0F, 0.2F, 0.0F);
       }
-      headPart.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       chest.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+
+      matrixStackIn.pushPose();
+      if(crouching) {
+        matrixStackIn.translate(0.0F, -0.15F, 0.0F);
+      }
       armR.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       armL.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      matrixStackIn.popPose();
     }
     matrixStackIn.translate(0.0F, 1.2F, 0.0F);
+    if(crouching) {
+      matrixStackIn.translate(0.0F, -0.15F, 0.05F);
+    }
     legR.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     legL.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     bootR.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
@@ -115,49 +124,49 @@ public class ModelArmorBase extends BipedModel<LivingEntity> {
   }
 
   public void setHeadRotation() {
-    headPart.x = head.x;
-    headPart.y = head.y;
-    headPart.z = head.z;
+    this.headPart.x = head.x;
+    this.headPart.y = head.y;
+    this.headPart.z = head.z;
     setRotation(headPart, head.xRot, head.yRot, head.zRot);
   }
 
   public void setChestRotation() {
     /* if (e instanceof EntityPlayer){ ((EntityPlayer)e).get } */
-    chest.x = body.x;
-    chest.y = body.y - 1;
-    chest.z = body.z;
-    chest.yTexOffs -= 0.125;
-    armR.x = rightArm.x + 5;
-    armR.y = rightArm.y - 1;
-    armR.z = rightArm.z;
-    armR.yTexOffs -= 0;
-    armL.x = leftArm.x - 5;
-    armL.y = leftArm.y - 1;
-    armL.z = leftArm.z;
-    armL.yTexOffs -= 0;
+    this.chest.x = body.x;
+    this.chest.y = body.y - 1;
+    this.chest.z = body.z;
+    this.chest.yTexOffs -= 0.125;
+    this.armR.x = rightArm.x + 5;
+    this.armR.y = rightArm.y - 1;
+    this.armR.z = rightArm.z;
+    this.armR.yTexOffs -= 0;
+    this.armL.x = leftArm.x - 5;
+    this.armL.y = leftArm.y - 1;
+    this.armL.z = leftArm.z;
+    this.armL.yTexOffs -= 0;
     setRotation(chest, body.xRot, body.yRot, body.zRot);
     setRotation(armR, rightArm.xRot, rightArm.yRot, rightArm.zRot);
     setRotation(armL, leftArm.xRot, leftArm.yRot, leftArm.zRot);
   }
 
   public void setLegsRotation() {
-    legR.x = rightLeg.x + 2;
-    legR.y = rightLeg.y - 22;
-    legR.z = rightLeg.z;
-    legL.x = leftLeg.x - 2;
-    legL.y = leftLeg.y - 22;
-    legL.z = leftLeg.z;
+    this.legR.x = rightLeg.x + 2;
+    this.legR.y = rightLeg.y - 22;
+    this.legR.z = rightLeg.z;
+    this.legL.x = leftLeg.x - 2;
+    this.legL.y = leftLeg.y - 22;
+    this.legL.z = leftLeg.z;
     setRotation(legR, rightLeg.xRot, rightLeg.yRot, rightLeg.zRot);
     setRotation(legL, leftLeg.xRot, leftLeg.yRot, leftLeg.zRot);
   }
 
   public void setBootRotation() {
-    bootR.x = rightLeg.x + 2;
-    bootR.y = rightLeg.y - 22;
-    bootR.z = rightLeg.z;
-    bootL.x = leftLeg.x - 2;
-    bootL.y = leftLeg.y - 22;
-    bootL.z = leftLeg.z;
+    this.bootR.x = rightLeg.x + 2;
+    this.bootR.y = rightLeg.y - 22;
+    this.bootR.z = rightLeg.z;
+    this.bootL.x = leftLeg.x - 2;
+    this.bootL.y = leftLeg.y - 22;
+    this.bootL.z = leftLeg.z;
     setRotation(bootR, rightLeg.xRot, rightLeg.yRot, rightLeg.zRot);
     setRotation(bootL, leftLeg.xRot, leftLeg.yRot, leftLeg.zRot);
   }
