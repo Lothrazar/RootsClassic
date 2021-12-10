@@ -32,14 +32,14 @@ public class EntityAccelerator extends Entity {
   @Override
   public void tick() {
     super.tick();
-    this.setPosRaw((entity.getBoundingBox().maxX + entity.getBoundingBox().minX) / 2.0 - 0.5,
-        (entity.getBoundingBox().maxY + entity.getBoundingBox().minY) / 2.0 - 0.5,
-        (entity.getBoundingBox().maxZ + entity.getBoundingBox().minZ) / 2.0 - 0.5);
     if (entity == null) {
       this.level.broadcastEntityEvent(this, (byte) 3);
       this.discard();
     }
     else {
+      this.setPosRaw((entity.getBoundingBox().maxX + entity.getBoundingBox().minX) / 2.0 - 0.5,
+              (entity.getBoundingBox().maxY + entity.getBoundingBox().minY) / 2.0 - 0.5,
+              (entity.getBoundingBox().maxZ + entity.getBoundingBox().minZ) / 2.0 - 0.5);
       for (int i = 0; i < potency; i++) {
         entity.tick();
         entity.baseTick();
