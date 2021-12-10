@@ -22,7 +22,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -62,7 +61,7 @@ public class AltarBlockEntity extends BEBase {
     inventory.deserializeNBT(tag.getCompound("InventoryHandler"));
     setIncenses(new ArrayList<>());
     if (tag.contains("incenses")) {
-      ListTag list = tag.getList("incenses", Constants.NBT.TAG_COMPOUND);
+      ListTag list = tag.getList("incenses", CompoundTag.TAG_COMPOUND);
       for (int i = 0; i < list.size(); i++) {
         getIncenses().add(ItemStack.of(list.getCompound(i)));
       }
