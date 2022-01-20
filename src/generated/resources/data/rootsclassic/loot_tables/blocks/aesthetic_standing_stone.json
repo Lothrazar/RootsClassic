@@ -10,21 +10,20 @@
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "rootsclassic:entangler_standing_stone",
+              "block": "rootsclassic:aesthetic_standing_stone",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "rootsclassic:entangler_standing_stone"
+          "name": "rootsclassic:aesthetic_standing_stone"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
-      ],
-      "functions": []
+      ]
     }
   ]
 }

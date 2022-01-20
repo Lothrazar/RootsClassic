@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "rootsclassic:runic_tablet"
+    ]
+  },
+  "criteria": {
+    "has_old_root": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "rootsclassic:old_root"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "rootsclassic:runic_tablet"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_old_root",
+      "has_the_recipe"
+    ]
+  ]
+}

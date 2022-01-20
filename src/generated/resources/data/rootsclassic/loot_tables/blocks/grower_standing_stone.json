@@ -10,21 +10,20 @@
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "rootsclassic:accelerator_standing_stone",
+              "block": "rootsclassic:grower_standing_stone",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "rootsclassic:accelerator_standing_stone"
+          "name": "rootsclassic:grower_standing_stone"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
-      ],
-      "functions": []
+      ]
     }
   ]
 }

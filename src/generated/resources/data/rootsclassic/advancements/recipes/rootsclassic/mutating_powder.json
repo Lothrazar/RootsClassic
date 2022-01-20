@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "rootsclassic:mutating_powder"
+    ]
+  },
+  "criteria": {
+    "has_pestle": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "rootsclassic:pestle"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "rootsclassic:mutating_powder"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_pestle",
+      "has_the_recipe"
+    ]
+  ]
+}

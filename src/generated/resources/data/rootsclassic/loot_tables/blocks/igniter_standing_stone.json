@@ -10,21 +10,20 @@
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "rootsclassic:repulsor_standing_stone",
+              "block": "rootsclassic:igniter_standing_stone",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "rootsclassic:repulsor_standing_stone"
+          "name": "rootsclassic:igniter_standing_stone"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
-      ],
-      "functions": []
+      ]
     }
   ]
 }

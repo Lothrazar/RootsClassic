@@ -10,21 +10,20 @@
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "rootsclassic:healer_standing_stone",
+              "block": "rootsclassic:vacuum_standing_stone",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "rootsclassic:healer_standing_stone"
+          "name": "rootsclassic:vacuum_standing_stone"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
-      ],
-      "functions": []
+      ]
     }
   ]
 }

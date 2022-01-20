@@ -7,15 +7,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "rootsclassic:flare_orchid"
+          "name": "rootsclassic:brazier"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
-      ],
-      "functions": []
+      ]
     }
   ]
 }

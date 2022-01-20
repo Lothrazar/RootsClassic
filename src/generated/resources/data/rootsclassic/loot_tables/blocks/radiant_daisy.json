@@ -7,15 +7,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "rootsclassic:mortar"
+          "name": "rootsclassic:radiant_daisy"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
-      ],
-      "functions": []
+      ]
     }
   ]
 }

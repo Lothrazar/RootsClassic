@@ -214,10 +214,5 @@ public class RootsDataGen {
           Items.ENDER_PEARL, 1F, 200).unlockedBy("has_dragons_eye", has(DRAGONS_EYE.get()))
           .save(consumer, "rootsclassic:ender_pearl");
     }
-
-    @Override
-    protected void saveAdvancement(HashCache cache, JsonObject advancementJson, Path path) {
-      // Nope
-    }
   }
 }

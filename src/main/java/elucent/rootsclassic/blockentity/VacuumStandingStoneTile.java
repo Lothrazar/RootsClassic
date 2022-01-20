@@ -30,12 +30,6 @@ public class VacuumStandingStoneTile extends BEBase {
   }
 
   @Override
-  public CompoundTag save(CompoundTag tag) {
-    saveAdditional(tag);
-    return super.save(tag);
-  }
-
-  @Override
   public void saveAdditional(CompoundTag tag) {
     super.saveAdditional(tag);
   }

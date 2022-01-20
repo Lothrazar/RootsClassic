@@ -7,15 +7,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "rootsclassic:altar"
+          "name": "rootsclassic:midnight_bloom"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
-      ],
-      "functions": []
+      ]
     }
   ]
 }

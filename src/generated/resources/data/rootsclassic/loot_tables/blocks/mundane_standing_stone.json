@@ -7,15 +7,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "rootsclassic:brazier"
+          "name": "rootsclassic:mundane_standing_stone"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
-      ],
-      "functions": []
+      ]
     }
   ]
 }

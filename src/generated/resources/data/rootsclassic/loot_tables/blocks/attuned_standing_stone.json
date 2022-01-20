@@ -10,21 +10,20 @@
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "rootsclassic:vacuum_standing_stone",
+              "block": "rootsclassic:attuned_standing_stone",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "rootsclassic:vacuum_standing_stone"
+          "name": "rootsclassic:attuned_standing_stone"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
-      ],
-      "functions": []
+      ]
     }
   ]
 }

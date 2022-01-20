@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "rootsclassic:imbuer"
+    ]
+  },
+  "criteria": {
+    "has_chiseled_stone_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:chiseled_stone_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "rootsclassic:imbuer"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_chiseled_stone_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

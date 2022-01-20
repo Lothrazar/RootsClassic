@@ -7,15 +7,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "rootsclassic:imbuer"
+          "name": "rootsclassic:mortar"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
         }
-      ],
-      "functions": []
+      ]
     }
   ]
 }
