@@ -72,6 +72,7 @@ public class Roots {
   }
 
   private void setup(final FMLCommonSetupEvent event) {
+    RootsRegistry.registerCompostables();
     RootsEntities.registerSpawnPlacement();
     event.enqueueWork(() -> {
       //Initialize

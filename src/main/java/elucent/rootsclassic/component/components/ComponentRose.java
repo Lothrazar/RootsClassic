@@ -39,9 +39,13 @@ public class ComponentRose extends ComponentBase {
             target.hurt(DamageSource.CACTUS, (int) (9 + 2 * potency));
             RootsUtil.addTickTracking(target);
             target.getPersistentData().putFloat("RMOD_thornsDamage", 2.0f + (float) potency);
-            target.doHurtTarget(caster);
-            target.setLastHurtMob(caster);
-            target.setLastHurtByMob((LivingEntity) caster);
+            if(caster instanceof LivingEntity) {
+              if(caster instanceof Player) {
+                target.setLastHurtByPlayer((Player)caster);
+              } else {
+                target.setLastHurtByMob((LivingEntity) caster);
+              }
+            }
           }
         }
       }

@@ -56,6 +56,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -174,5 +175,12 @@ public class RootsRegistry {
 
   private static Item.Properties itemBuilder() {
     return new Item.Properties();
+  }
+
+
+  public static void registerCompostables() {
+    ComposterBlock.COMPOSTABLES.put(BLACKCURRANT.get(), 0.3F);
+    ComposterBlock.COMPOSTABLES.put(REDCURRANT.get(), 0.3F);
+    ComposterBlock.COMPOSTABLES.put(WHITECURRANT.get(), 0.3F);
   }
 }

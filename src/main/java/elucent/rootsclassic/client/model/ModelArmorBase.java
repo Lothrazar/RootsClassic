@@ -95,6 +95,7 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
     leftFoot.visible = slot == EquipmentSlot.FEET;
     if (this.young) {
       float f = 2.0F;
+      poseStack.pushPose();
       poseStack.scale(1.5F / f, 1.5F / f, 1.5F / f);
       poseStack.translate(0.0F, 16.0F * 1, 0.0F);
       head.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
@@ -103,6 +104,7 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
       poseStack.scale(1.0F / f, 1.0F / f, 1.0F / f);
       poseStack.translate(0.0F, 24.0F * 1, 0.0F);
       body.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      poseStack.popPose();
     }
     else {
       head.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);

@@ -92,6 +92,11 @@ public class ComponentRecipe implements Recipe<Container> {
     return RootsRecipes.COMPONENT_RECIPE_TYPE;
   }
 
+  @Override
+  public boolean isSpecial() {
+    return true;
+  }
+
   public boolean needsMixin() {
     return needsMixin;
   }
