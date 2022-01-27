@@ -43,7 +43,7 @@ public class GrowthPowderItem extends Item {
   public static boolean applyGrowthHere(Level world, BlockPos pos) {
     BlockState state = world.getBlockState(pos);
     if (state.getBlock() == Blocks.DIRT) {
-      world.setBlockAndUpdate(pos, Blocks.GRASS.defaultBlockState());
+      world.setBlockAndUpdate(pos, Blocks.GRASS_BLOCK.defaultBlockState());
       return true;
     }
     else if (state.getBlock() == Blocks.WATER && //TODO: Check if this still fires at water

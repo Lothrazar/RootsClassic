@@ -137,7 +137,7 @@ public class RootsRegistry {
   public static final RegistryObject<Item> WILDWOOD_LEGGINGS = ITEMS.register("wildwood_leggings", () -> new WildwoodArmorItem(RootsArmorMaterial.SYLVAN, EquipmentSlot.LEGS, itemBuilder().tab(Roots.tab)));
   public static final RegistryObject<Item> WILDWOOD_BOOTS = ITEMS.register("wildwood_boots", () -> new WildwoodArmorItem(RootsArmorMaterial.SYLVAN, EquipmentSlot.FEET, itemBuilder().tab(Roots.tab)));
   public static final RegistryObject<Item> RUNIC_TABLET = ITEMS.register("runic_tablet", () -> new RunicTabletItem(itemBuilder().stacksTo(1).tab(Roots.tab)));
-  public static final RegistryObject<Item> GROWTH_POWDER = ITEMS.register("growth_powder", () -> new GrowthPowderItem(itemBuilder().stacksTo(1).tab(Roots.tab)));
+  public static final RegistryObject<Item> GROWTH_POWDER = ITEMS.register("growth_powder", () -> new GrowthPowderItem(itemBuilder().tab(Roots.tab)));
   public static final RegistryObject<Item> MUTATING_POWDER = ITEMS.register("mutating_powder", () -> new MutatingPowderItem(itemBuilder().stacksTo(1).tab(Roots.tab)));
   public static final RegistryObject<Item> NIGHTSHADE = ITEMS.register("nightshade", () -> new RootsFoodItem(itemBuilder().food(RootsFoods.NIGHTSHADE).tab(Roots.tab)));
   public static final RegistryObject<Item> BLACKCURRANT = ITEMS.register("blackcurrant", () -> new RootsFoodItem(itemBuilder().food(RootsFoods.BLACKCURRANT).tab(Roots.tab)));
