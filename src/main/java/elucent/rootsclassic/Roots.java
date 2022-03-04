@@ -1,5 +1,6 @@
 package elucent.rootsclassic;
 
+import com.mojang.logging.LogUtils;
 import elucent.rootsclassic.capability.RootsCapabilityManager;
 import elucent.rootsclassic.client.ClientHandler;
 import elucent.rootsclassic.client.ui.ManaBarEvent;
@@ -11,6 +12,7 @@ import elucent.rootsclassic.mutation.MutagenManager;
 import elucent.rootsclassic.recipe.RootsReloadManager;
 import elucent.rootsclassic.registry.ParticleRegistry;
 import elucent.rootsclassic.registry.RootsEntities;
+import elucent.rootsclassic.registry.RootsRecipeTypes;
 import elucent.rootsclassic.registry.RootsRecipes;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.research.ResearchManager;
@@ -26,20 +28,18 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 @Mod(Const.MODID)
 public class Roots {
 
   public static CreativeModeTab tab = new CreativeModeTab(Const.MODID) {
-
     @Override
     public ItemStack makeIcon() {
       return new ItemStack(RootsRegistry.SPELL_POWDER.get());
     }
   };
-  public static final Logger LOGGER = LogManager.getLogger();
+  public static final Logger LOGGER = LogUtils.getLogger();
 
   public Roots() {
     IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -76,6 +76,7 @@ public class Roots {
     RootsEntities.registerSpawnPlacement();
     event.enqueueWork(() -> {
       //Initialize
+      RootsRecipeTypes.init();
       MutagenManager.reload();
       ComponentManager.reload();
       RitualManager.reload();

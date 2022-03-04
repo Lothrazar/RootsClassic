@@ -6,8 +6,10 @@ import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.lootmodifiers.DropModifier.BlockDropModifier.Serializer;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.registry.RootsTags;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -74,7 +76,14 @@ public class DropModifier {
         if (block instanceof LeavesBlock) {
           if (!generatedLoot.stream().anyMatch((stack) -> stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() == block)) {
             if (rand.nextInt(RootsConfig.COMMON.berriesDropChance.get()) == 0) {
-              generatedLoot.add(new ItemStack(RootsTags.BERRIES.getRandomElement(rand)));
+              Item berry = RootsRegistry.ELDERBERRY.get();
+              berry = Registry.ITEM.getTag(RootsTags.BERRIES).flatMap((element) -> {
+                return element.getRandomElement(rand);
+              }).map((blockHolder) -> {
+                return blockHolder.value();
+              }).orElse(berry);
+
+              generatedLoot.add(new ItemStack(berry));
             }
           }
         }

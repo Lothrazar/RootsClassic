@@ -24,7 +24,7 @@ import elucent.rootsclassic.component.components.ComponentRose;
 import elucent.rootsclassic.component.components.ComponentSunflower;
 import elucent.rootsclassic.component.components.ComponentWhiteTulip;
 import elucent.rootsclassic.recipe.ComponentRecipe;
-import elucent.rootsclassic.registry.RootsRecipes;
+import elucent.rootsclassic.registry.RootsRecipeTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -73,7 +73,7 @@ public class ComponentManager {
     if (name.getNamespace().equals(Const.MODID) && name.getPath().equals("none")) {
       return null;
     }
-    List<ComponentRecipe> recipes = mgr.getAllRecipesFor(RootsRecipes.COMPONENT_RECIPE_TYPE);
+    List<ComponentRecipe> recipes = mgr.getAllRecipesFor(RootsRecipeTypes.COMPONENT_RECIPE_TYPE);
     for (ComponentRecipe recipe : recipes) {
       if (recipe.getEffectResult().equals(name)) {
         return recipe;
@@ -83,7 +83,7 @@ public class ComponentManager {
   }
 
   public static ComponentRecipe getRecipeFromInput(Level world, Container inventory) {
-    Optional<ComponentRecipe> recipe = world.getRecipeManager().getRecipeFor(RootsRecipes.COMPONENT_RECIPE_TYPE, inventory, world);
+    Optional<ComponentRecipe> recipe = world.getRecipeManager().getRecipeFor(RootsRecipeTypes.COMPONENT_RECIPE_TYPE, inventory, world);
     return recipe.orElse(null);
   }
 

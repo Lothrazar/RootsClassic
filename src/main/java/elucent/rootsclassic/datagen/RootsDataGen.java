@@ -13,7 +13,16 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import elucent.rootsclassic.registry.RootsTags;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
@@ -43,6 +52,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.Registry;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -61,16 +71,14 @@ public class RootsDataGen {
   @SubscribeEvent
   public static void gatherData(GatherDataEvent event) {
     DataGenerator generator = event.getGenerator();
-    //		ExistingFileHelper helper = event.getExistingFileHelper();
+    ExistingFileHelper helper = event.getExistingFileHelper();
     if (event.includeServer()) {
       generator.addProvider(new Loots(generator));
       generator.addProvider(new Recipes(generator));
       generator.addProvider(new GLMProvider(generator));
-    }
-    if (event.includeClient()) {
-      //			generator.addProvider(new Language(generator));
-      //			generator.addProvider(new BlockStates(generator, helper));
-      //			generator.addProvider(new ItemModels(generator, helper));
+      BlockTagsProvider provider;
+      generator.addProvider(provider = new RootsBlockTags(generator, helper));
+      generator.addProvider(new RootsItemTags(generator, provider, helper));
     }
   }
 
@@ -213,6 +221,42 @@ public class RootsDataGen {
       SimpleCookingRecipeBuilder.smelting(Ingredient.of(DRAGONS_EYE.get()),
           Items.ENDER_PEARL, 1F, 200).unlockedBy("has_dragons_eye", has(DRAGONS_EYE.get()))
           .save(consumer, "rootsclassic:ender_pearl");
+    }
+  }
+
+  public static class RootsBlockTags extends BlockTagsProvider {
+    public RootsBlockTags(DataGenerator generator, @Nullable ExistingFileHelper existingFileHelper) {
+      super(generator, Const.MODID, existingFileHelper);
+    }
+
+    @Override
+    protected void addTags() {
+      this.tag(RootsTags.NEEDS_LIVING_TOOL);
+      this.tag(RootsTags.NEEDS_ENGRAVED_TOOL);
+    }
+  }
+
+  public static class RootsItemTags extends ItemTagsProvider {
+    public RootsItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagsProvider, ExistingFileHelper existingFileHelper) {
+      super(dataGenerator, blockTagsProvider, Const.MODID, existingFileHelper);
+    }
+
+    @Override
+    protected void addTags() {
+      this.tag(RootsTags.BERRIES).add(NIGHTSHADE.get(), BLACKCURRANT.get(), REDCURRANT.get(), WHITECURRANT.get(), ELDERBERRY.get());
+
+      this.addBark(ACACIA_BARK.get(), "acacia");
+      this.addBark(BIRCH_BARK.get(), "birch");
+      this.addBark(DARK_OAK_BARK.get(), "dark_oak");
+      this.addBark(JUNGLE_BARK.get(), "jungle");
+      this.addBark(OAK_BARK.get(), "oak");
+      this.addBark(SPRUCE_BARK.get(), "spruce");
+    }
+
+    private void addBark(Item item, String treeType) {
+      TagKey<Item> barkTypeTag = ItemTags.create(new ResourceLocation(Const.MODID, "barks/" + treeType));
+      this.tag(RootsTags.BARKS).addTag(barkTypeTag);
+      this.tag(barkTypeTag).add(item);
     }
   }
 }

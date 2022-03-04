@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import elucent.rootsclassic.item.SpellPowderItem;
+import elucent.rootsclassic.registry.RootsRecipeTypes;
 import elucent.rootsclassic.registry.RootsRecipes;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.NonNullList;
@@ -89,7 +90,7 @@ public class ComponentRecipe implements Recipe<Container> {
 
   @Override
   public RecipeType<?> getType() {
-    return RootsRecipes.COMPONENT_RECIPE_TYPE;
+    return RootsRecipeTypes.COMPONENT_RECIPE_TYPE;
   }
 
   @Override

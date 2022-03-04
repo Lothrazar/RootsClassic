@@ -2,7 +2,7 @@ package elucent.rootsclassic.block.mortar;
 
 import elucent.rootsclassic.blockentity.BEBase;
 import elucent.rootsclassic.recipe.ComponentRecipe;
-import elucent.rootsclassic.registry.RootsRecipes;
+import elucent.rootsclassic.registry.RootsRecipeTypes;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.util.InventoryUtil;
 import net.minecraft.core.BlockPos;
@@ -134,7 +134,7 @@ public class MortarBlockEntity extends BEBase {
   }
 
   private InteractionResult tryActivateRecipe(Player player, BlockState state) {
-    ComponentRecipe recipe = level.getRecipeManager().getRecipeFor(RootsRecipes.COMPONENT_RECIPE_TYPE, InventoryUtil.createIInventory(inventory), level).orElse(null);
+    ComponentRecipe recipe = level.getRecipeManager().getRecipeFor(RootsRecipeTypes.COMPONENT_RECIPE_TYPE, InventoryUtil.createIInventory(inventory), level).orElse(null);
     if (recipe == null) {
       player.displayClientMessage(new TranslatableComponent("rootsclassic.mortar.invalid"), true);
       return InteractionResult.PASS;

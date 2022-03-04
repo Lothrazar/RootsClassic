@@ -13,12 +13,12 @@ import java.util.List;
 public class RootsItemTier {
   public static final Tier LIVING = TierSortingRegistry.registerTier(
           new ForgeTier(2, 192, 6.0f, 2.0f, 18,
-                  BlockTags.createOptional(new ResourceLocation(Const.MODID, "needs_living_tool")),
+                  RootsTags.NEEDS_LIVING_TOOL,
                   () -> null),
           new ResourceLocation(Const.MODID, "living"), List.of(Tiers.IRON), List.of(Tiers.DIAMOND));
   public static final Tier ENGRAVED = TierSortingRegistry.registerTier(
           new ForgeTier(2, 1050, 5F, 8.0F, 5,
-                  BlockTags.createOptional(new ResourceLocation(Const.MODID, "needs_engraved_tool")),
+                  RootsTags.NEEDS_ENGRAVED_TOOL,
                   () -> null),
           new ResourceLocation(Const.MODID, "engraved"), List.of(Tiers.IRON), List.of(Tiers.DIAMOND));
 }

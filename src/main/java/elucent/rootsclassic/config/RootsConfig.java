@@ -113,6 +113,6 @@ public class RootsConfig {
 
   @SubscribeEvent
   public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
-    Roots.LOGGER.fatal("Roots Classic's config just got changed on the file system!");
+    Roots.LOGGER.warn("Roots Classic's config just got changed on the file system!");
   }
 }

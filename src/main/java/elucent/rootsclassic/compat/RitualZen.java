@@ -1,23 +1,23 @@
 package elucent.rootsclassic.compat;
 
-import com.blamejared.crafttweaker.api.CraftTweakerAPI;
-import com.blamejared.crafttweaker.api.annotation.ZenRegister;
-import com.blamejared.crafttweaker.api.item.IItemStack;
-import elucent.rootsclassic.ritual.RitualBase;
-import elucent.rootsclassic.ritual.RitualManager;
-import elucent.rootsclassic.ritual.rituals.RitualCrafting;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import org.openzen.zencode.java.ZenCodeType.Method;
-import org.openzen.zencode.java.ZenCodeType.Name;
+//import com.blamejared.crafttweaker.api.CraftTweakerAPI;
+//import com.blamejared.crafttweaker.api.annotation.ZenRegister;
+//import com.blamejared.crafttweaker.api.item.IItemStack;
+//import elucent.rootsclassic.ritual.RitualBase;
+//import elucent.rootsclassic.ritual.RitualManager;
+//import elucent.rootsclassic.ritual.rituals.RitualCrafting;
+//import net.minecraft.resources.ResourceLocation;
+//import net.minecraft.world.item.ItemStack;
+//import org.openzen.zencode.java.ZenCodeType.Method;
+//import org.openzen.zencode.java.ZenCodeType.Name;
 
-import java.util.Arrays;
-import java.util.List;
+//import java.util.Arrays;
+//import java.util.List;
 
-@ZenRegister
-@Name("mods.rootsclassic.Ritual")
+//@ZenRegister
+//@Name("mods.rootsclassic.Ritual")
 public class RitualZen {
-  @Method
+/*  @Method
   public void addCraftingRitual(String uniqueName, IItemStack output, int level, double r, double g, double b,
                                 IItemStack[] incenses, IItemStack[] ingredients) {
     RitualCrafting newCraft = new RitualCrafting(new ResourceLocation("crafttweaker", uniqueName), level, r, g, b);
@@ -45,7 +45,7 @@ public class RitualZen {
     found.setLevel(level);
   }
 
-  /**
+  *//**
    * Invalid ritual, names must be one of: staff_crafting, sylvan_hood_crafting, sylvan_chest_crafting, sylvan_legs_crafting, sylvan_boots_crafting, wildwood_head_crafting, wildwood_chest_crafting,
    * wildwood_legs_crafting, wildwood_boots_crafting, accelerator_stone_crafting, standing_stone, entangler_stone_crafting,grower_stone_crafting, healer_stone_crafting, igniter_stone_crafting,
    * repulsor_stone_crafting, vacuum_stone_crafting, runic_focus_crafting, runic_focus_charging, living_pickaxe_crafting, living_axe_crafting, living_sword_crafting, living_hoe_crafting,
@@ -53,7 +53,7 @@ public class RitualZen {
    * skeleton_summoning, spider_summoning, cavespider_summoning, slime_summoning, creeper_summoning, enderman_summoning, sacrifice,flare, grow, engraved_crafting, time_shift
    *
    * Starting with rootsclassic (Example: "rootsclassic:staff_crafting")
-   */
+   *//*
   @Method
   public void setRitualIngredients(ResourceLocation name, IItemStack[] items) {
     RitualBase found = findRitualByName(name);
@@ -92,5 +92,5 @@ public class RitualZen {
       }
       return output;
     }
-  }
+  }*/
 }
