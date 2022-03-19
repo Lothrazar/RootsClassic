@@ -33,7 +33,7 @@ import java.util.Random;
 
 public class DropModifier {
 
-  public static final DeferredRegister<GlobalLootModifierSerializer<?>> GLM = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, Const.MODID);
+  public static final DeferredRegister<GlobalLootModifierSerializer<?>> GLM = DeferredRegister.create(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, Const.MODID);
   public static final RegistryObject<Serializer> ROOTSCLASSIC_DROPS = GLM.register("rootsclassic_drops", BlockDropModifier.Serializer::new);
 
   public static class BlockDropModifier extends LootModifier {

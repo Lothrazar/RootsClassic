@@ -19,3 +19,9 @@ mandatory=true
 versionRange="[1.18.2,1.19)"
 ordering="NONE"
 side="BOTH"
+[[dependencies.rootsclassic]]
+modId="forge"
+mandatory=true
+versionRange="[40.0.18,)"
+ordering="NONE"
+side="BOTH"
