@@ -1,4 +1,6 @@
 import mods.rootsclassic.Ritual;
+import crafttweaker.api.resource.ResourceLocation;
+import crafttweaker.api.item.ItemStack;
 
 Ritual.setRitualIngredients(<resource:rootsclassic:living_sword_crafting>, [<item:minecraft:dirt>,<item:minecraft:stone>]);
 Ritual.setRitualIncense(<resource:rootsclassic:living_sword_crafting>, [<item:minecraft:grass>,<item:minecraft:sand>]);
@@ -12,10 +14,10 @@ Ritual.addCraftingRitual("simple", <item:minecraft:prismarine_shard>, 0,
 		 51,51,255,
  [<item:minecraft:dirt>,<item:minecraft:dirt>], [<item:minecraft:string>,<item:minecraft:emerald>] );
 
-//level 1 means the 
+//level 1 means the
 Ritual.addCraftingRitual("test1", <item:minecraft:netherrack>, 1,
 		 255,255,0,
- [<item:minecraft:grass>,<item:minecraft:grass>], [<item:minecraft:dye:4>,<item:minecraft:string>,<item:minecraft:emerald> ] );
+ [<item:minecraft:grass>,<item:minecraft:grass>], [<item:minecraft:lapis_lazuli>,<item:minecraft:string>,<item:minecraft:emerald> ] );
 
 //level 2 is the biggest ritual with the Attuned stones
 Ritual.addCraftingRitual("test2", <item:minecraft:ghast_tear>, 2,
