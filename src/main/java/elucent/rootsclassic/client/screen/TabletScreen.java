@@ -2,6 +2,13 @@ package elucent.rootsclassic.client.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.client.ClientInfo;
+import elucent.rootsclassic.config.RootsConfig;
+import elucent.rootsclassic.research.ResearchBase;
+import elucent.rootsclassic.research.ResearchGroup;
+import elucent.rootsclassic.research.ResearchManager;
+import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.screen.Screen;
@@ -15,13 +22,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.StringTextComponent;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.client.ClientInfo;
-import elucent.rootsclassic.config.RootsConfig;
-import elucent.rootsclassic.research.ResearchBase;
-import elucent.rootsclassic.research.ResearchGroup;
-import elucent.rootsclassic.research.ResearchManager;
-import elucent.rootsclassic.util.RootsUtil;
 
 public class TabletScreen extends Screen {
 

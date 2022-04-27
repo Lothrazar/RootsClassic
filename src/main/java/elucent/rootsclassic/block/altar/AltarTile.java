@@ -1,7 +1,14 @@
 package elucent.rootsclassic.block.altar;
 
-import java.util.ArrayList;
-import javax.annotation.Nonnull;
+import elucent.rootsclassic.block.brazier.BrazierTile;
+import elucent.rootsclassic.client.particles.MagicAltarParticleData;
+import elucent.rootsclassic.client.particles.MagicLineParticleData;
+import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.ritual.RitualBaseRegistry;
+import elucent.rootsclassic.ritual.RitualRegistry;
+import elucent.rootsclassic.tile.TEBase;
+import elucent.rootsclassic.util.InventoryUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,14 +29,9 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
-import elucent.rootsclassic.block.brazier.BrazierTile;
-import elucent.rootsclassic.client.particles.MagicAltarParticleData;
-import elucent.rootsclassic.client.particles.MagicLineParticleData;
-import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.ritual.RitualBase;
-import elucent.rootsclassic.ritual.RitualManager;
-import elucent.rootsclassic.tile.TEBase;
-import elucent.rootsclassic.util.InventoryUtil;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
 
 public class AltarTile extends TEBase implements ITickableTileEntity {
 
@@ -70,7 +72,7 @@ public class AltarTile extends TEBase implements ITickableTileEntity {
     }
     if (tag.contains("ritualName")) {
       setRitualNameFromString(tag.getString("ritualName"));
-      setRitualCurrent(RitualManager.getRitualFromName(getRitualName()));
+      setRitualCurrent(RitualBaseRegistry.RITUALS.getValue(getRitualName()));
     }
     if (tag.contains("progress")) {
       setProgress(tag.getInt("progress"));
@@ -133,7 +135,7 @@ public class AltarTile extends TEBase implements ITickableTileEntity {
         // Try to start a new ritual
         setRitualName(null);
         setRitualCurrent(null);
-        RitualBase ritual = RitualManager.findMatchingByIngredients(this);
+        RitualBase ritual = RitualRegistry.findMatchingByIngredients(this);
         if (ritual == null) {
           player.displayClientMessage(new TranslationTextComponent("rootsclassic.error.noritual.ingredients"), true);
           return ActionResultType.FAIL;
@@ -145,8 +147,8 @@ public class AltarTile extends TEBase implements ITickableTileEntity {
         //does it match everything else?
         if (ritual.incenseMatches(getLevel(), getBlockPos())) {
           setRitualCurrent(ritual);
-          setRitualName(ritual.getName());
-          setIncenses(RitualManager.getIncenses(world, getBlockPos()));
+          setRitualName(ritual.getRegistryName());
+          setIncenses(RitualRegistry.getIncenses(world, getBlockPos()));
           setProgress(RECIPE_PROGRESS_TIME);
           for (BrazierTile brazier : ritual.getRecipeBraziers(world, pos)) {
             brazier.setBurning(true);

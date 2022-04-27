@@ -1,12 +1,12 @@
 package elucent.rootsclassic.client.particles;
 
+import elucent.rootsclassic.client.particles.factory.MagicParticleTypeData;
+import elucent.rootsclassic.registry.ParticleRegistry;
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particles.IParticleData;
-import elucent.rootsclassic.client.particles.factory.MagicParticleTypeData;
-import elucent.rootsclassic.registry.ParticleRegistry;
 
 public class MagicParticleData implements IParticleFactory<MagicParticleTypeData> {
 

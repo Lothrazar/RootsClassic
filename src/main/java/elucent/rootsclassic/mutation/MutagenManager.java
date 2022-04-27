@@ -1,14 +1,15 @@
 package elucent.rootsclassic.mutation;
 
-import java.util.ArrayList;
-import java.util.List;
+import elucent.rootsclassic.mutation.mutations.MutagenFlareOrchidRecipe;
+import elucent.rootsclassic.mutation.mutations.MutagenMidnightBloomRecipe;
+import elucent.rootsclassic.mutation.mutations.MutagenRadiantDaisyRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import elucent.rootsclassic.mutation.mutations.MutagenFlareOrchidRecipe;
-import elucent.rootsclassic.mutation.mutations.MutagenMidnightBloomRecipe;
-import elucent.rootsclassic.mutation.mutations.MutagenRadiantDaisyRecipe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MutagenManager {
 

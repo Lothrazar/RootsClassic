@@ -1,7 +1,8 @@
 package elucent.rootsclassic.item;
 
-import java.util.List;
-import javax.annotation.Nullable;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.component.ComponentBase;
+import elucent.rootsclassic.component.ComponentManager;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -14,11 +15,9 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.ComponentManager;
 
-import net.minecraft.item.Item.Properties;
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class SpellPowderItem extends Item {
 

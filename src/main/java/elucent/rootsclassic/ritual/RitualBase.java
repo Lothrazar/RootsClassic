@@ -1,21 +1,22 @@
 package elucent.rootsclassic.ritual;
 
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraft.block.Block;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.block.brazier.BrazierTile;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.util.RootsUtil;
+import net.minecraft.block.Block;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public abstract class RitualBase {
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class RitualBase extends ForgeRegistryEntry<RitualBase> {
 
   private static final int RADIUS = 4;
   private ArrayList<Block> blocks = new ArrayList<>();
@@ -24,14 +25,9 @@ public abstract class RitualBase {
   private List<ItemStack> ingredients = new ArrayList<>();
   private Vector3d color = new Vector3d(255, 255, 255);
   private Vector3d secondaryColor = new Vector3d(255, 255, 255);
-  private final ResourceLocation name;
   private int level;
 
-  public RitualBase(ResourceLocation parName, int level, double r, double g, double b) {
-    if (RitualManager.getRitualFromName(parName) != null) {
-      throw new IllegalArgumentException("No duplicate names for rituals");
-    }
-    this.name = parName;
+  public RitualBase(int level, double r, double g, double b) {
     setPrimaryColor(r, g, b);
     setSecondaryColor(r, g, b);
     setLevel(level);
@@ -206,9 +202,5 @@ public abstract class RitualBase {
       throw new IllegalArgumentException("Invalid color value use [0, 255]");
     }
     return new Vector3d(r, g, b);
-  }
-
-  public ResourceLocation getName() {
-    return name;
   }
 }

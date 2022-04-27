@@ -1,7 +1,8 @@
 package elucent.rootsclassic.item;
 
-import java.util.List;
-import javax.annotation.Nullable;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.client.model.WildwoodArmorModel;
+import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -21,9 +22,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.client.model.WildwoodArmorModel;
-import elucent.rootsclassic.util.RootsUtil;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class WildwoodArmorItem extends ArmorItem {
 

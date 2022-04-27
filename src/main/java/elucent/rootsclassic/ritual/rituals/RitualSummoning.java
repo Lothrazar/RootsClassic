@@ -1,6 +1,7 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.util.List;
+import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.MobEntity;
@@ -9,12 +10,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import elucent.rootsclassic.ritual.RitualBase;
-import elucent.rootsclassic.util.RootsUtil;
+
+import java.util.List;
 
 public class RitualSummoning extends RitualBase {
 
@@ -25,8 +25,8 @@ public class RitualSummoning extends RitualBase {
     return this;
   }
 
-  public RitualSummoning(ResourceLocation name, int level, double r, double g, double b) {
-    super(name, level, r, g, b);
+  public RitualSummoning(int level, double r, double g, double b) {
+    super(level, r, g, b);
   }
 
   @Override

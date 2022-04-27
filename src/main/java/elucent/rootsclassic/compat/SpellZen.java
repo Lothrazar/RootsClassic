@@ -8,23 +8,21 @@ import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionRemoveRecipeByName;
 import com.blamejared.crafttweaker.impl.managers.CTCraftingTableManager;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import org.openzen.zencode.java.ZenCodeGlobals.Global;
-import org.openzen.zencode.java.ZenCodeType.Method;
-import org.openzen.zencode.java.ZenCodeType.Name;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentManager;
 import elucent.rootsclassic.recipe.ComponentRecipe;
 import elucent.rootsclassic.registry.RootsRecipes;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import org.openzen.zencode.java.ZenCodeType.Method;
+import org.openzen.zencode.java.ZenCodeType.Name;
 
 @ZenRegister
 @Name("mods.rootsclassic.Spell")
 public class SpellZen implements IRecipeManager {
 
-  @Global("spell")
   public static final SpellZen INSTANCE = new SpellZen();
 
   private SpellZen() {}

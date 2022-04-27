@@ -1,7 +1,13 @@
 package elucent.rootsclassic.item;
 
-import java.util.List;
-import javax.annotation.Nullable;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.capability.IManaCapability;
+import elucent.rootsclassic.capability.RootsCapabilityManager;
+import elucent.rootsclassic.client.particles.MagicLineParticleData;
+import elucent.rootsclassic.client.particles.MagicParticleData;
+import elucent.rootsclassic.component.ComponentBase;
+import elucent.rootsclassic.component.ComponentManager;
+import elucent.rootsclassic.component.EnumCastType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -20,16 +26,9 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.capability.IManaCapability;
-import elucent.rootsclassic.capability.RootsCapabilityManager;
-import elucent.rootsclassic.client.particles.MagicLineParticleData;
-import elucent.rootsclassic.client.particles.MagicParticleData;
-import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.ComponentManager;
-import elucent.rootsclassic.component.EnumCastType;
 
-import net.minecraft.item.Item.Properties;
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class CrystalStaffItem extends Item implements IManaRelatedItem {
 

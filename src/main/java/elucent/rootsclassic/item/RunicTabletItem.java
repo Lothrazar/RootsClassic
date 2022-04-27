@@ -8,8 +8,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-import net.minecraft.item.Item.Properties;
-
 public class RunicTabletItem extends Item {
 
   public RunicTabletItem(Properties properties) {

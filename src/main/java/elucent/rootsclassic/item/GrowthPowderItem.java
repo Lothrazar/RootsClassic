@@ -1,5 +1,6 @@
 package elucent.rootsclassic.item;
 
+import elucent.rootsclassic.client.particles.MagicParticleData;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -13,9 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import elucent.rootsclassic.client.particles.MagicParticleData;
-
-import net.minecraft.item.Item.Properties;
 
 public class GrowthPowderItem extends Item {
 

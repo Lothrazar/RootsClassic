@@ -3,43 +3,51 @@ package elucent.rootsclassic.compat;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IItemStack;
-import java.util.Arrays;
+import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.ritual.RitualBaseRegistry;
+import elucent.rootsclassic.ritual.rituals.RitualCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistry;
 import org.openzen.zencode.java.ZenCodeType.Method;
 import org.openzen.zencode.java.ZenCodeType.Name;
-import elucent.rootsclassic.ritual.RitualBase;
-import elucent.rootsclassic.ritual.RitualManager;
-import elucent.rootsclassic.ritual.rituals.RitualCrafting;
+
+import java.util.Arrays;
 
 @ZenRegister
 @Name("mods.rootsclassic.Ritual")
 public class RitualZen {
 
+  public RitualZen() {}
+
   @Method
-  public void addCraftingRitual(String uniqueName, IItemStack output, int level, double r, double g, double b,
+  public static void addCraftingRitual(String uniqueName, IItemStack output, int level, double r, double g, double b,
       IItemStack[] incenses, IItemStack[] ingredients) {
-    RitualCrafting newCraft = new RitualCrafting(new ResourceLocation("crafttweaker", uniqueName), level, r, g, b);
+    RitualCrafting newCraft = new RitualCrafting(level, r, g, b);
+    newCraft.setRegistryName(new ResourceLocation("crafttweaker", uniqueName));
     newCraft.setResult(output.getInternal());
     newCraft.setIncenses(Arrays.asList(convertToStacks(incenses)));
     newCraft.setIngredients(Arrays.asList(convertToStacks(ingredients)));
-    RitualManager.addRitual(newCraft);
+
+    ((ForgeRegistry<RitualBase>) RitualBaseRegistry.RITUALS).unfreeze();
+    RitualBaseRegistry.RITUALS.register(newCraft);
+    ((ForgeRegistry<RitualBase>) RitualBaseRegistry.RITUALS).freeze();
   }
 
   @Method
-  public void setPrimaryColor(ResourceLocation name, double r, double g, double b) {
+  public static void setPrimaryColor(ResourceLocation name, double r, double g, double b) {
     RitualBase found = findRitualByName(name);
     found.setPrimaryColor(r, g, b);
   }
 
   @Method
-  public void setSecondaryColor(ResourceLocation name, double r, double g, double b) {
+  public static void setSecondaryColor(ResourceLocation name, double r, double g, double b) {
     RitualBase found = findRitualByName(name);
     found.setSecondaryColor(r, g, b);
   }
 
   @Method
-  public void setLevel(ResourceLocation name, int level) {
+  public static void setLevel(ResourceLocation name, int level) {
     RitualBase found = findRitualByName(name);
     found.setLevel(level);
   }
@@ -54,25 +62,25 @@ public class RitualZen {
    * Starting with rootsclassic (Example: "rootsclassic:staff_crafting")
    */
   @Method
-  public void setRitualIngredients(ResourceLocation name, IItemStack[] items) {
+  public static void setRitualIngredients(ResourceLocation name, IItemStack[] items) {
     RitualBase found = findRitualByName(name);
-    CraftTweakerAPI.logInfo("Changing Ritual ingredients " + found.getName());
+    CraftTweakerAPI.logInfo("Changing Ritual ingredients " + name);
     found.setIngredients(Arrays.asList(convertToStacks(items)));
   }
 
   @Method
-  public void setRitualIncense(ResourceLocation name, IItemStack[] items) {
+  public static void setRitualIncense(ResourceLocation name, IItemStack[] items) {
     RitualBase found = findRitualByName(name);
-    CraftTweakerAPI.logInfo("Changing Ritual incense " + found.getName());
+    CraftTweakerAPI.logInfo("Changing Ritual incense " + name);
     found.setIncenses(Arrays.asList(convertToStacks(items)));
   }
 
-  private RitualBase findRitualByName(ResourceLocation name) {
-    RitualBase found = RitualManager.getRitualFromName(name);
+  private static RitualBase findRitualByName(ResourceLocation name) {
+    RitualBase found = RitualBaseRegistry.RITUALS.getValue(name);
     if (found == null) {
       StringBuilder names = new StringBuilder();
-      for (RitualBase c : RitualManager.rituals) {
-        names.append(c.getName()).append(",");
+      for (RitualBase c : RitualBaseRegistry.RITUALS.getValues()) {
+        names.append(c.getRegistryName()).append(",");
       }
       CraftTweakerAPI.logInfo(names.toString());
       throw new IllegalArgumentException("Invalid ritual[" + name + "], names must be one of: " + names);
@@ -80,7 +88,7 @@ public class RitualZen {
     return found;
   }
 
-  private ItemStack[] convertToStacks(IItemStack[] stacks) {
+  private static ItemStack[] convertToStacks(IItemStack[] stacks) {
     if (stacks == null) {
       return null;
     }

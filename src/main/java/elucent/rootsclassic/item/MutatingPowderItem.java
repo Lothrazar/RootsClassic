@@ -1,7 +1,9 @@
 package elucent.rootsclassic.item;
 
-import java.util.ArrayList;
-import java.util.List;
+import elucent.rootsclassic.client.particles.MagicParticleData;
+import elucent.rootsclassic.mutation.MutagenManager;
+import elucent.rootsclassic.mutation.MutagenRecipe;
+import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -12,12 +14,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import elucent.rootsclassic.client.particles.MagicParticleData;
-import elucent.rootsclassic.mutation.MutagenManager;
-import elucent.rootsclassic.mutation.MutagenRecipe;
-import elucent.rootsclassic.util.RootsUtil;
 
-import net.minecraft.item.Item.Properties;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MutatingPowderItem extends Item {
 

@@ -1,14 +1,14 @@
 package elucent.rootsclassic.registry;
 
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.recipe.ComponentRecipe;
+import elucent.rootsclassic.recipe.ComponentRecipe.SerializeComponentRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.recipe.ComponentRecipe;
-import elucent.rootsclassic.recipe.ComponentRecipe.SerializeComponentRecipe;
 
 public class RootsRecipes {
 

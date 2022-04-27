@@ -1,6 +1,10 @@
 package elucent.rootsclassic.block.mortar;
 
-import javax.annotation.Nonnull;
+import elucent.rootsclassic.recipe.ComponentRecipe;
+import elucent.rootsclassic.registry.RootsRecipes;
+import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.tile.TEBase;
+import elucent.rootsclassic.util.InventoryUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,11 +22,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
-import elucent.rootsclassic.recipe.ComponentRecipe;
-import elucent.rootsclassic.registry.RootsRecipes;
-import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.tile.TEBase;
-import elucent.rootsclassic.util.InventoryUtil;
+
+import javax.annotation.Nonnull;
 
 public class MortarTile extends TEBase {
 

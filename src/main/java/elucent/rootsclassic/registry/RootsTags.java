@@ -1,9 +1,9 @@
 package elucent.rootsclassic.registry;
 
+import elucent.rootsclassic.Const;
 import net.minecraft.item.Item;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
-import elucent.rootsclassic.Const;
 
 public class RootsTags {
 

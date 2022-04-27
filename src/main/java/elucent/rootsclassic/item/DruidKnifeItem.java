@@ -1,8 +1,8 @@
 package elucent.rootsclassic.item;
 
 import com.google.common.collect.ImmutableMap.Builder;
-import java.util.Map;
-import java.util.function.Supplier;
+import elucent.rootsclassic.config.RootsConfig;
+import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -17,10 +17,9 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import elucent.rootsclassic.config.RootsConfig;
-import elucent.rootsclassic.registry.RootsRegistry;
 
-import net.minecraft.item.Item.Properties;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class DruidKnifeItem extends Item {
 

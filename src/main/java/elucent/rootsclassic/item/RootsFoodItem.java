@@ -1,7 +1,6 @@
 package elucent.rootsclassic.item;
 
-import java.util.List;
-import javax.annotation.Nullable;
+import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
@@ -10,9 +9,9 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import elucent.rootsclassic.registry.RootsRegistry;
 
-import net.minecraft.item.Item.Properties;
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class RootsFoodItem extends Item {
 

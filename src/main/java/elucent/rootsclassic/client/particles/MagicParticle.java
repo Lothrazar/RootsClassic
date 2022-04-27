@@ -1,10 +1,10 @@
 package elucent.rootsclassic.client.particles;
 
+import elucent.rootsclassic.client.particles.factory.ParticleRenderTypes;
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.SpriteTexturedParticle;
 import net.minecraft.client.world.ClientWorld;
-import elucent.rootsclassic.client.particles.factory.ParticleRenderTypes;
 
 public class MagicParticle extends SpriteTexturedParticle {
 

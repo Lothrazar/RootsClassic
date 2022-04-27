@@ -1,5 +1,9 @@
 package elucent.rootsclassic.registry;
 
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.entity.EntityAccelerator;
+import elucent.rootsclassic.entity.EntityTileAccelerator;
+import elucent.rootsclassic.entity.skeleton.PhantomSkeletonEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
@@ -11,10 +15,6 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.entity.EntityAccelerator;
-import elucent.rootsclassic.entity.EntityTileAccelerator;
-import elucent.rootsclassic.entity.skeleton.PhantomSkeletonEntity;
 
 public class RootsEntities {
 
