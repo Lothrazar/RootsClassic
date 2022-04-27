@@ -22,6 +22,6 @@ side="BOTH"
 [[dependencies.rootsclassic]]
 modId="forge"
 mandatory=true
-versionRange="[40.0.18,)"
+versionRange="[40.0.35,)"
 ordering="NONE"
 side="BOTH"

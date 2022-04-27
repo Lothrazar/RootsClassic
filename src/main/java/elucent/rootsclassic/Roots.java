@@ -12,7 +12,6 @@ import elucent.rootsclassic.mutation.MutagenManager;
 import elucent.rootsclassic.recipe.RootsReloadManager;
 import elucent.rootsclassic.registry.ParticleRegistry;
 import elucent.rootsclassic.registry.RootsEntities;
-import elucent.rootsclassic.registry.RootsRecipeTypes;
 import elucent.rootsclassic.registry.RootsRecipes;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.research.ResearchManager;
@@ -52,6 +51,7 @@ public class Roots {
     RootsRegistry.BLOCK_ENTITIES.register(eventBus);
     RootsEntities.ENTITIES.register(eventBus);
     RootsRecipes.RECIPE_SERIALIZERS.register(eventBus);
+    RootsRecipes.RECIPE_TYPES.register(eventBus);
     DropModifier.GLM.register(eventBus);
     ParticleRegistry.PARTICLE_TYPES.register(eventBus);
     MinecraftForge.EVENT_BUS.register(new RootsReloadManager());
@@ -76,7 +76,6 @@ public class Roots {
     RootsEntities.registerSpawnPlacement();
     event.enqueueWork(() -> {
       //Initialize
-      RootsRecipeTypes.init();
       MutagenManager.reload();
       ComponentManager.reload();
       RitualManager.reload();
