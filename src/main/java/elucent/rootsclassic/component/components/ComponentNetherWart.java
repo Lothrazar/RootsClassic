@@ -1,10 +1,8 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.config.RootsConfig;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 public class ComponentNetherWart extends ComponentBase {
 
   public ComponentNetherWart() {
-    super(new ResourceLocation(Const.MODID, "nether_wart"), Items.NETHER_WART, 10);
+    super(Items.NETHER_WART, 10);
   }
 
   @Override

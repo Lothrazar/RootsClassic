@@ -2,7 +2,6 @@ package elucent.rootsclassic.ritual.rituals;
 
 import elucent.rootsclassic.ritual.RitualBase;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
@@ -15,8 +14,8 @@ import java.util.List;
 
 public class RitualTimeShift extends RitualBase {
 
-  public RitualTimeShift(ResourceLocation parName, int level, double r, double g, double b) {
-    super(parName, level, r, g, b);
+  public RitualTimeShift(int level, double r, double g, double b) {
+    super(level, r, g, b);
   }
 
   @Override

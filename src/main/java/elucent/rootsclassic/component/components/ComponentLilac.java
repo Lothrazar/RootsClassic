@@ -1,11 +1,9 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -18,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class ComponentLilac extends ComponentBase {
 
   public ComponentLilac() {
-    super(new ResourceLocation(Const.MODID, "lilac"), Blocks.LILAC, 14);
+    super(Blocks.LILAC, 14);
   }
 
   @Override

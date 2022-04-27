@@ -5,7 +5,6 @@ import elucent.rootsclassic.ritual.RitualBase;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
@@ -25,8 +24,8 @@ public class RitualEngravedSword extends RitualBase {
     return this;
   }
 
-  public RitualEngravedSword(ResourceLocation name, int level, double r, double g, double b) {
-    super(name, level, r, g, b);
+  public RitualEngravedSword(int level, double r, double g, double b) {
+    super(level, r, g, b);
   }
 
   @Override

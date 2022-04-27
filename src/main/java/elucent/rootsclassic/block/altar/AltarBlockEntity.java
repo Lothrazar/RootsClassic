@@ -6,7 +6,8 @@ import elucent.rootsclassic.client.particles.MagicAltarParticleData;
 import elucent.rootsclassic.client.particles.MagicLineParticleData;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.ritual.RitualBase;
-import elucent.rootsclassic.ritual.RitualManager;
+import elucent.rootsclassic.ritual.RitualBaseRegistry;
+import elucent.rootsclassic.ritual.RitualRegistry;
 import elucent.rootsclassic.util.InventoryUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -68,7 +69,7 @@ public class AltarBlockEntity extends BEBase {
     }
     if (tag.contains("ritualName")) {
       setRitualNameFromString(tag.getString("ritualName"));
-      setRitualCurrent(RitualManager.getRitualFromName(getRitualName()));
+      setRitualCurrent(RitualBaseRegistry.RITUALS.get().getValue(getRitualName()));
     }
     if (tag.contains("progress")) {
       setProgress(tag.getInt("progress"));
@@ -130,7 +131,7 @@ public class AltarBlockEntity extends BEBase {
         // Try to start a new ritual
         setRitualName(null);
         setRitualCurrent(null);
-        RitualBase ritual = RitualManager.findMatchingByIngredients(this);
+        RitualBase ritual = RitualRegistry.findMatchingByIngredients(this);
         if (ritual == null) {
           player.displayClientMessage(new TranslatableComponent("rootsclassic.error.noritual.ingredients"), true);
           return InteractionResult.FAIL;
@@ -142,8 +143,8 @@ public class AltarBlockEntity extends BEBase {
         //does it match everything else?
         if (ritual.incenseMatches(level, pos)) {
           setRitualCurrent(ritual);
-          setRitualName(ritual.getName());
-          setIncenses(RitualManager.getIncenses(world, pos));
+          setRitualName(ritual.getRegistryName());
+          setIncenses(RitualRegistry.getIncenses(world, pos));
           setProgress(RECIPE_PROGRESS_TIME);
           for (BrazierBlockEntity brazier : ritual.getRecipeBraziers(world, pos)) {
             brazier.setBurning(true);

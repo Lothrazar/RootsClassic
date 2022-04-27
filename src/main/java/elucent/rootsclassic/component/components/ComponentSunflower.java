@@ -1,10 +1,8 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.config.RootsConfig;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -22,7 +20,7 @@ public class ComponentSunflower extends ComponentBase {
   private static final int POTION_DURATION = 15;
 
   public ComponentSunflower() {
-    super(new ResourceLocation(Const.MODID, "sunflower"), Blocks.SUNFLOWER, 16);
+    super(Blocks.SUNFLOWER, 16);
   }
 
   @Override

@@ -1,10 +1,8 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.config.RootsConfig;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 public class ComponentAllium extends ComponentBase {
 
   public ComponentAllium() {
-    super(new ResourceLocation(Const.MODID, "allium"), Blocks.ALLIUM, 8);
+    super(Blocks.ALLIUM, 8);
   }
 
   @Override

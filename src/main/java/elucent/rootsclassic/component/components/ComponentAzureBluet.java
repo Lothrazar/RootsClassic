@@ -1,11 +1,9 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Tier;
@@ -18,7 +16,7 @@ import net.minecraftforge.common.TierSortingRegistry;
 public class ComponentAzureBluet extends ComponentBase {
 
   public ComponentAzureBluet() {
-    super(new ResourceLocation(Const.MODID, "azure_bluet"), Blocks.AZURE_BLUET, 6);
+    super(Blocks.AZURE_BLUET, 6);
   }
 
   public void destroyBlockSafe(Level world, BlockPos pos, int potency) {

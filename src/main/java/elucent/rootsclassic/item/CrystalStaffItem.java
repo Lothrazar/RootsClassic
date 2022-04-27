@@ -6,7 +6,7 @@ import elucent.rootsclassic.capability.RootsCapabilityManager;
 import elucent.rootsclassic.client.particles.MagicLineParticleData;
 import elucent.rootsclassic.client.particles.MagicParticleData;
 import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.ComponentManager;
+import elucent.rootsclassic.component.ComponentBaseRegistry;
 import elucent.rootsclassic.component.EnumCastType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -53,7 +53,7 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
       Player player = (Player) caster;
       ResourceLocation compName = ResourceLocation.tryParse(CrystalStaffItem.getEffect(stack));
       if (compName != null) {
-        ComponentBase comp = ComponentManager.getComponentFromName(compName);
+        ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get().getValue(compName);
         if (comp == null || !caster.getCapability(RootsCapabilityManager.MANA_CAPABILITY).isPresent()) {
           return;
         }
@@ -142,7 +142,7 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
       if (effect != null) {
         ResourceLocation componentName = ResourceLocation.tryParse(effect);
         if (componentName != null) {
-          ComponentBase comp = ComponentManager.getComponentFromName(componentName);
+          ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get().getValue(componentName);
           if (comp != null) {
             int potency = tag.getInt(Const.NBT_POTENCY);
             int efficiency = tag.getInt(Const.NBT_EFFICIENCY);
@@ -246,7 +246,7 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
       if (effect != null) {
         ResourceLocation compName = ResourceLocation.tryParse(effect);
         if (compName != null) {
-          ComponentBase comp = ComponentManager.getComponentFromName(compName);
+          ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get().getValue(compName);
           if (comp != null) {
             tooltip.add(new TranslatableComponent("rootsclassic.tooltip.spelltypeheading")
                 .append(": ").withStyle(ChatFormatting.GOLD).append(comp.getEffectName().withStyle(comp.getTextColor())));

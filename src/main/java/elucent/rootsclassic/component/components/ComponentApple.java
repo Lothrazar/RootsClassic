@@ -1,9 +1,7 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -16,7 +14,7 @@ import java.util.ArrayList;
 public class ComponentApple extends ComponentBase {
 
   public ComponentApple() {
-    super(new ResourceLocation(Const.MODID, "apple"), Items.APPLE, 16);
+    super(Items.APPLE, 16);
   }
 
   @Override

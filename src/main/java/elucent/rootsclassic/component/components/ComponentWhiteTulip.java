@@ -1,10 +1,8 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.config.RootsConfig;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -20,7 +18,7 @@ import java.util.ArrayList;
 public class ComponentWhiteTulip extends ComponentBase {
 
   public ComponentWhiteTulip() {
-    super(new ResourceLocation(Const.MODID, "white_tulip"), Blocks.WHITE_TULIP, 10);
+    super(Blocks.WHITE_TULIP, 10);
   }
 
   @Override

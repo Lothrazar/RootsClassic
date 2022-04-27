@@ -2,7 +2,6 @@ package elucent.rootsclassic.ritual.rituals;
 
 import elucent.rootsclassic.ritual.RitualBase;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -15,8 +14,8 @@ import java.util.List;
 
 public class RitualFlare extends RitualBase {
 
-  public RitualFlare(ResourceLocation name, int level, double r, double g, double b) {
-    super(name, level, r, g, b);
+  public RitualFlare(int level, double r, double g, double b) {
+    super(level, r, g, b);
   }
 
   @Override

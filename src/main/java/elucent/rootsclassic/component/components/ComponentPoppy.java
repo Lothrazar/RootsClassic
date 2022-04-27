@@ -1,9 +1,7 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
@@ -15,7 +13,7 @@ import java.util.ArrayList;
 public class ComponentPoppy extends ComponentBase {
 
   public ComponentPoppy() {
-    super(new ResourceLocation(Const.MODID, "poppy"), Blocks.POPPY, 8);
+    super(Blocks.POPPY, 8);
   }
 
   @Override

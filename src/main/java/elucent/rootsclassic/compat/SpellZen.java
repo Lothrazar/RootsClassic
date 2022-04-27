@@ -8,7 +8,7 @@ import com.blamejared.crafttweaker.api.ingredient.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.recipe.manager.base.IRecipeManager;
 import elucent.rootsclassic.Const;
-import elucent.rootsclassic.component.ComponentManager;
+import elucent.rootsclassic.component.ComponentRegistry;
 import elucent.rootsclassic.recipe.ComponentRecipe;
 import elucent.rootsclassic.registry.RootsRecipes;
 import net.minecraft.core.NonNullList;
@@ -64,7 +64,7 @@ public class SpellZen implements IRecipeManager {
   }
 
   private ComponentRecipe findSpellByName(ResourceLocation name) {
-    ComponentRecipe found = ComponentManager.getSpellFromName(CraftTweakerAPI.getAccessibleElementsProvider().recipeManager(), name);
+    ComponentRecipe found = ComponentRegistry.getSpellFromName(CraftTweakerAPI.getAccessibleElementsProvider().recipeManager(), name);
     if (found == null) {
       StringBuilder names = new StringBuilder();
       for (ComponentRecipe recipe : CraftTweakerAPI.getAccessibleElementsProvider().recipeManager().getAllRecipesFor(RootsRecipes.COMPONENT_RECIPE_TYPE.get())) {

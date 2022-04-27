@@ -2,7 +2,6 @@ package elucent.rootsclassic.component;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -10,10 +9,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class ComponentBase {
+public class ComponentBase extends ForgeRegistryEntry<ComponentBase> {
 
-  private ResourceLocation name = null;
   private ItemStack itemSource = ItemStack.EMPTY;
   public Vec3 primaryColor = new Vec3(0, 0, 0);
   public Vec3 secondaryColor = new Vec3(0, 0, 0);
@@ -35,26 +34,21 @@ public class ComponentBase {
     return this;
   }
 
-  public ComponentBase(ResourceLocation name, ItemStack item, int cost) {
-    this.name = name;
+  public ComponentBase(ItemStack item, int cost) {
     this.setManaCost(cost);
     itemSource = item;
   }
 
-  public ComponentBase(ResourceLocation name, Item item, int cost) {
-    this(name, new ItemStack(item), cost);
+  public ComponentBase(Item item, int cost) {
+    this(new ItemStack(item), cost);
   }
 
-  public ComponentBase(ResourceLocation name, Block block, int cost) {
-    this(name, new ItemStack(block), cost);
-  }
-
-  public ResourceLocation getName() {
-    return name;
+  public ComponentBase(Block block, int cost) {
+    this(new ItemStack(block), cost);
   }
 
   public TranslatableComponent getEffectName() {
-    return new TranslatableComponent("rootsclassic.component." + name);
+    return new TranslatableComponent("rootsclassic.component." + getRegistryName());
   }
 
   public ChatFormatting getTextColor() {

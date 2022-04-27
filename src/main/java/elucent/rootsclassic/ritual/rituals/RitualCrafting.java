@@ -2,7 +2,6 @@ package elucent.rootsclassic.ritual.rituals;
 
 import elucent.rootsclassic.ritual.RitualBase;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -14,8 +13,8 @@ public class RitualCrafting extends RitualBase {
 
   public ItemStack result = ItemStack.EMPTY;
 
-  public RitualCrafting(ResourceLocation name, int level, double r, double g, double b) {
-    super(name, level, r, g, b);
+  public RitualCrafting(int level, double r, double g, double b) {
+    super(level, r, g, b);
   }
 
   public RitualCrafting setResult(ItemStack stack) {

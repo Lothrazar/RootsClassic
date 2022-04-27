@@ -1,13 +1,11 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -22,7 +20,7 @@ import java.util.List;
 public class ComponentRadiantDaisy extends ComponentBase {
 
   public ComponentRadiantDaisy() {
-    super(new ResourceLocation(Const.MODID, "radiant_daisy"), RootsRegistry.RADIANT_DAISY.get(), 24);
+    super(RootsRegistry.RADIANT_DAISY.get(), 24);
   }
 
   @Override

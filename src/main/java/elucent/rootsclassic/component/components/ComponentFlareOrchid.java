@@ -1,12 +1,10 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion.BlockInteraction;
@@ -15,7 +13,7 @@ import net.minecraft.world.level.Level;
 public class ComponentFlareOrchid extends ComponentBase {
 
   public ComponentFlareOrchid() {
-    super(new ResourceLocation(Const.MODID, "flare_orchid"), RootsRegistry.FLARE_ORCHID.get(), 36);
+    super(RootsRegistry.FLARE_ORCHID.get(), 36);
   }
 
   @Override

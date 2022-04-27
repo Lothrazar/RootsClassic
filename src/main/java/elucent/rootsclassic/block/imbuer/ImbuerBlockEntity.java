@@ -4,7 +4,7 @@ import elucent.rootsclassic.Const;
 import elucent.rootsclassic.blockentity.BEBase;
 import elucent.rootsclassic.client.particles.MagicLineParticleData;
 import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.ComponentManager;
+import elucent.rootsclassic.component.ComponentBaseRegistry;
 import elucent.rootsclassic.item.SpellPowderItem;
 import elucent.rootsclassic.item.StaffItem;
 import elucent.rootsclassic.registry.RootsRegistry;
@@ -192,7 +192,7 @@ public class ImbuerBlockEntity extends BEBase {
         if (tag.contains(Const.NBT_EFFECT)) {
           ResourceLocation compName = ResourceLocation.tryParse(tag.getString(Const.NBT_EFFECT));
           if (compName != null) {
-            ComponentBase comp = ComponentManager.getComponentFromName(compName);
+            ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get().getValue(compName);
             if (comp != null && level.isClientSide) {
               if (chance == 0) {
                 if (level.random.nextBoolean()) {

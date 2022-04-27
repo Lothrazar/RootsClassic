@@ -1,11 +1,9 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -16,7 +14,7 @@ import net.minecraft.world.level.material.Fluids;
 public class ComponentLilyPad extends ComponentBase {
 
   public ComponentLilyPad() {
-    super(new ResourceLocation(Const.MODID, "lily_pad"), Blocks.LILY_PAD, 8);
+    super(Blocks.LILY_PAD, 8);
   }
 
   @Override

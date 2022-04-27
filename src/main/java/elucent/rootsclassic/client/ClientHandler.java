@@ -10,7 +10,7 @@ import elucent.rootsclassic.client.renderer.block.MortarBER;
 import elucent.rootsclassic.client.renderer.entity.AcceleratorRenderer;
 import elucent.rootsclassic.client.renderer.entity.PhantomSkeletonRenderer;
 import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.ComponentManager;
+import elucent.rootsclassic.component.ComponentBaseRegistry;
 import elucent.rootsclassic.item.CrystalStaffItem;
 import elucent.rootsclassic.item.StaffItem;
 import elucent.rootsclassic.registry.RootsEntities;
@@ -65,7 +65,7 @@ public class ClientHandler {
         CompoundTag tag = stack.getTag();
         ResourceLocation compName = ResourceLocation.tryParse(tag.getString(Const.NBT_EFFECT));
         if (compName != null) {
-          ComponentBase comp = ComponentManager.getComponentFromName(compName);
+          ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get().getValue(compName);
           if (comp != null) {
             if (tintIndex == 2) {
               return RootsUtil.intColor((int) comp.primaryColor.x, (int) comp.primaryColor.y, (int) comp.primaryColor.z);
@@ -84,7 +84,7 @@ public class ClientHandler {
         if (effect != null) {
           ResourceLocation compName = ResourceLocation.tryParse(effect);
           if (compName != null) {
-            ComponentBase comp = ComponentManager.getComponentFromName(compName);
+            ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get().getValue(compName);
             if (comp != null) {
               if (tintIndex == 2) {
                 return RootsUtil.intColor((int) comp.primaryColor.x, (int) comp.primaryColor.y, (int) comp.primaryColor.z);

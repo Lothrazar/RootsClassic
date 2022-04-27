@@ -5,7 +5,6 @@ import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 public class ComponentMidnightBloom extends ComponentBase {
 
   public ComponentMidnightBloom() {
-    super(new ResourceLocation(Const.MODID, "midnight_bloom"), RootsRegistry.MIDNIGHT_BLOOM.get(), 36);
+    super(RootsRegistry.MIDNIGHT_BLOOM.get(), 36);
   }
 
   @Override

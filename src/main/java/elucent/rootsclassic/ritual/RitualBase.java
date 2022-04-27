@@ -5,18 +5,18 @@ import elucent.rootsclassic.block.brazier.BrazierBlockEntity;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class RitualBase {
+public abstract class RitualBase extends ForgeRegistryEntry<RitualBase> {
 
   private static final int RADIUS = 4;
   private ArrayList<Block> blocks = new ArrayList<>();
@@ -25,14 +25,9 @@ public abstract class RitualBase {
   private List<ItemStack> ingredients = new ArrayList<>();
   private Vec3 color = new Vec3(255, 255, 255);
   private Vec3 secondaryColor = new Vec3(255, 255, 255);
-  private final ResourceLocation name;
   private int level;
 
-  public RitualBase(ResourceLocation parName, int level, double r, double g, double b) {
-    if (RitualManager.getRitualFromName(parName) != null) {
-      throw new IllegalArgumentException("No duplicate names for rituals");
-    }
-    this.name = parName;
+  public RitualBase(int level, double r, double g, double b) {
     setPrimaryColor(r, g, b);
     setSecondaryColor(r, g, b);
     setLevel(level);
@@ -207,9 +202,5 @@ public abstract class RitualBase {
       throw new IllegalArgumentException("Invalid color value use [0, 255]");
     }
     return new Vec3(r, g, b);
-  }
-
-  public ResourceLocation getName() {
-    return name;
   }
 }

@@ -2,7 +2,6 @@ package elucent.rootsclassic.ritual.rituals;
 
 import elucent.rootsclassic.ritual.RitualBase;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.ItemStack;
@@ -13,8 +12,8 @@ import java.util.List;
 
 public class RitualMassBreed extends RitualBase {
 
-  public RitualMassBreed(ResourceLocation name, int level, double r, double g, double b) {
-    super(name, level, r, g, b);
+  public RitualMassBreed(int level, double r, double g, double b) {
+    super(level, r, g, b);
   }
 
   @Override

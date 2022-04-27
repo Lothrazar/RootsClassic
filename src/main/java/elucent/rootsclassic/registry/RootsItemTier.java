@@ -2,7 +2,6 @@ package elucent.rootsclassic.registry;
 
 import elucent.rootsclassic.Const;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import net.minecraftforge.common.ForgeTier;

@@ -1,12 +1,10 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.entity.skeleton.PhantomSkeletonEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +19,7 @@ import java.util.ArrayList;
 public class ComponentRedTulip extends ComponentBase {
 
   public ComponentRedTulip() {
-    super(new ResourceLocation(Const.MODID, "red_tulip"), Blocks.RED_TULIP, 6);
+    super(Blocks.RED_TULIP, 6);
   }
 
   @Override

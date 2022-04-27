@@ -1,12 +1,10 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -21,10 +19,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ComponentPeony extends ComponentBase {
 
-  List<BlockPos> pos = new CopyOnWriteArrayList<>();
+  private List<BlockPos> pos = new CopyOnWriteArrayList<>();
 
   public ComponentPeony() {
-    super(new ResourceLocation(Const.MODID, "peony"), Blocks.PEONY, 24);
+    super(Blocks.PEONY, 24);
   }
 
   @Override

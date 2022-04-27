@@ -1,9 +1,7 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
@@ -12,7 +10,7 @@ import net.minecraft.world.level.Level;
 public class ComponentChorus extends ComponentBase {
 
   public ComponentChorus() {
-    super(new ResourceLocation(Const.MODID, "chorus"), Items.CHORUS_FRUIT, 12);
+    super(Items.CHORUS_FRUIT, 12);
   }
 
   @Override

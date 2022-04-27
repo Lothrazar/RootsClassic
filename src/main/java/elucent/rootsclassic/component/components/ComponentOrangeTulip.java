@@ -1,9 +1,7 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -18,7 +16,7 @@ import java.util.List;
 public class ComponentOrangeTulip extends ComponentBase {
 
   public ComponentOrangeTulip() {
-    super(new ResourceLocation(Const.MODID, "orange_tulip"), Blocks.ORANGE_TULIP, 20);
+    super(Blocks.ORANGE_TULIP, 20);
   }
 
   @Override

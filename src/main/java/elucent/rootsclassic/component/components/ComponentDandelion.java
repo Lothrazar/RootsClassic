@@ -1,9 +1,7 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -17,7 +15,7 @@ import java.util.ArrayList;
 public class ComponentDandelion extends ComponentBase {
 
   public ComponentDandelion() {
-    super(new ResourceLocation(Const.MODID, "dandelion"), Blocks.DANDELION, 8);
+    super(Blocks.DANDELION, 8);
   }
 
   @Override

@@ -1,11 +1,9 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +19,7 @@ import java.util.ArrayList;
 public class ComponentBlueOrchid extends ComponentBase {
 
   public ComponentBlueOrchid() {
-    super(new ResourceLocation(Const.MODID, "blue_orchid"), Blocks.BLUE_ORCHID, 14);
+    super(Blocks.BLUE_ORCHID, 14);
   }
 
   @Override

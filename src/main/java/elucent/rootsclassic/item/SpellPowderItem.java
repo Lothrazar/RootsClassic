@@ -2,7 +2,7 @@ package elucent.rootsclassic.item;
 
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.ComponentManager;
+import elucent.rootsclassic.component.ComponentBaseRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -66,7 +66,7 @@ public class SpellPowderItem extends Item {
       CompoundTag tag = stack.getTag();
       ResourceLocation compName = ResourceLocation.tryParse(tag.getString(Const.NBT_EFFECT));
       if (compName != null) {
-        ComponentBase comp = ComponentManager.getComponentFromName(compName);
+        ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get().getValue(compName);
         if (comp != null) {
           tooltip.add(new TranslatableComponent("rootsclassic.tooltip.spelltypeheading")
               .append(": ").withStyle(ChatFormatting.GOLD).append(comp.getEffectName().withStyle(comp.getTextColor())));

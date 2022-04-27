@@ -1,11 +1,9 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.util.RootsUtil;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,7 +17,7 @@ import java.util.ArrayList;
 public class ComponentRose extends ComponentBase {
 
   public ComponentRose() {
-    super(new ResourceLocation(Const.MODID, "rose_bush"), Blocks.ROSE_BUSH, 14);
+    super(Blocks.ROSE_BUSH, 14);
   }
 
   @Override

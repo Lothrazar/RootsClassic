@@ -6,7 +6,6 @@ import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.ritual.RitualBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -16,8 +15,8 @@ import java.util.List;
 
 public class RitualImbuer extends RitualBase {
 
-  public RitualImbuer(ResourceLocation name) {
-    super(name, 1, 255, 255, 255);
+  public RitualImbuer() {
+    super(1, 255, 255, 255);
   }
 
   @Override

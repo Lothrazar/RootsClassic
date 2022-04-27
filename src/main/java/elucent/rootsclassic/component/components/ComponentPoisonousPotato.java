@@ -1,11 +1,9 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
@@ -16,7 +14,7 @@ import net.minecraft.world.level.Level;
 public class ComponentPoisonousPotato extends ComponentBase {
 
   public ComponentPoisonousPotato() {
-    super(new ResourceLocation(Const.MODID, "poisonous_potato"), Items.POISONOUS_POTATO, 24);
+    super(Items.POISONOUS_POTATO, 24);
   }
 
   @Override

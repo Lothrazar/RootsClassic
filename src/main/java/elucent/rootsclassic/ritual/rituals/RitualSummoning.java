@@ -4,7 +4,6 @@ import elucent.rootsclassic.ritual.RitualBase;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.EntityType;
@@ -26,8 +25,8 @@ public class RitualSummoning extends RitualBase {
     return this;
   }
 
-  public RitualSummoning(ResourceLocation name, int level, double r, double g, double b) {
-    super(name, level, r, g, b);
+  public RitualSummoning(int level, double r, double g, double b) {
+    super(level, r, g, b);
   }
 
   @Override
