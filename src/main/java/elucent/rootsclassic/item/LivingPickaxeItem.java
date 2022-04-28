@@ -15,8 +15,8 @@ public class LivingPickaxeItem extends PickaxeItem {
   }
 
   @Override
-  public void inventoryTick(ItemStack stack, Level world, Entity entityIn, int itemSlot, boolean isSelected) {
-    RootsUtil.randomlyRepair(world.random, stack);
+  public void inventoryTick(ItemStack stack, Level levelAccessor, Entity entityIn, int itemSlot, boolean isSelected) {
+    RootsUtil.randomlyRepair(levelAccessor.random, stack);
   }
 
   @Override

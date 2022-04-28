@@ -47,7 +47,7 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public void releaseUsing(ItemStack stack, Level world, LivingEntity caster, int timeLeft) {
+  public void releaseUsing(ItemStack stack, Level levelAccessor, LivingEntity caster, int timeLeft) {
     if (timeLeft < (72000 - 12) && stack.hasTag()) {
       //BlockPos pos = new BlockPos(player.posX, player.posY, player.posZ);
       Player player = (Player) caster;
@@ -71,23 +71,23 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
         if (manaCap.getMana() >= comp.getManaCost() / (efficiency + 1)) {
           //pay mana cost
           manaCap.setMana(manaCap.getMana() - ((comp.getManaCost()) / (efficiency + 1)));
-          comp.doEffect(world, caster, EnumCastType.SPELL, caster.getX() + 3.0 * caster.getLookAngle().x, caster.getY() + 3.0 * caster.getLookAngle().y,
+          comp.doEffect(levelAccessor, caster, EnumCastType.SPELL, caster.getX() + 3.0 * caster.getLookAngle().x, caster.getY() + 3.0 * caster.getLookAngle().y,
               caster.getZ() + 3.0 * caster.getLookAngle().z, potency, efficiency, 3.0 + 2.0 * size);
-          if(world.isClientSide) {
+          if(levelAccessor.isClientSide) {
             for (int i = 0; i < 90; i++) {
-              double offX = world.random.nextFloat() * 0.5 - 0.25;
-              double offY = world.random.nextFloat() * 0.5 - 0.25;
-              double offZ = world.random.nextFloat() * 0.5 - 0.25;
+              double offX = levelAccessor.random.nextFloat() * 0.5 - 0.25;
+              double offY = levelAccessor.random.nextFloat() * 0.5 - 0.25;
+              double offZ = levelAccessor.random.nextFloat() * 0.5 - 0.25;
               double coeff = (offX + offY + offZ) / 1.5 + 0.5;
               double dx = (caster.getLookAngle().x + offX) * coeff;
               double dy = (caster.getLookAngle().y + offY) * coeff;
               double dz = (caster.getLookAngle().z + offZ) * coeff;
-              if (world.random.nextBoolean()) {
-                world.addParticle(MagicParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
+              if (levelAccessor.random.nextBoolean()) {
+                levelAccessor.addParticle(MagicParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
                         caster.getX() + dx, caster.getY() + 1.5 + dy, caster.getZ() + dz, dx, dy, dz);
               }
               else {
-                world.addParticle(MagicParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
+                levelAccessor.addParticle(MagicParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
                         caster.getX() + dx, caster.getY() + 1.5 + dy, caster.getZ() + dz, dx, dy, dz);
               }
             }
@@ -98,12 +98,12 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+  public InteractionResultHolder<ItemStack> use(Level levelAccessor, Player player, InteractionHand hand) {
     ItemStack stack = player.getItemInHand(hand);
     if (stack.hasTag()) {
       CompoundTag tag = stack.getTag();
       if (!player.isShiftKeyDown()) {
-        if (world.isClientSide && Minecraft.getInstance().screen != null) {
+        if (levelAccessor.isClientSide && Minecraft.getInstance().screen != null) {
           return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
         }
         else {
@@ -239,8 +239,8 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-    super.appendHoverText(stack, worldIn, tooltip, flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable Level levelAccessor, List<Component> tooltip, TooltipFlag flagIn) {
+    super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
     if (stack.hasTag()) {
       String effect = CrystalStaffItem.getEffect(stack);
       if (effect != null) {

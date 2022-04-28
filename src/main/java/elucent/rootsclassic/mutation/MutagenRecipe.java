@@ -23,8 +23,8 @@ public class MutagenRecipe {
     this.result = resultState;
   }
 
-  public void onCrafted(Level world, BlockPos pos, Player player) {
-    //
+  public void onCrafted(Level levelAccessor, BlockPos pos, Player player) {
+    //Unused?
   }
 
   public MutagenRecipe addIngredient(ItemStack stack) {
@@ -32,8 +32,8 @@ public class MutagenRecipe {
     return this;
   }
 
-  public boolean matches(List<ItemStack> items, Level world, BlockPos pos, Player player) {
-    if (world.getBlockState(pos).getBlock() == plantBlock.getBlock()) {
+  public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
+    if (levelAccessor.getBlockState(pos).getBlock() == plantBlock.getBlock()) {
       ArrayList<ItemStack> tempItems = new ArrayList<>(items);
       for (ItemStack input : inputs) {
         boolean endIteration = false;

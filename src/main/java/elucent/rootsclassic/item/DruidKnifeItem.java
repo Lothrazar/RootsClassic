@@ -49,9 +49,9 @@ public class DruidKnifeItem extends Item {
   }
 
   public InteractionResult useOn(UseOnContext context) {
-    Level world = context.getLevel();
+    Level levelAccessor = context.getLevel();
     BlockPos pos = context.getClickedPos();
-    BlockState state = world.getBlockState(pos);
+    BlockState state = levelAccessor.getBlockState(pos);
     BlockState strippedState = getStrippingState(state);
     ItemStack barkDrop = getBarkDrop(state);
     if (!barkDrop.isEmpty() && strippedState != null) {
@@ -60,13 +60,13 @@ public class DruidKnifeItem extends Item {
       Player playerIn = context.getPlayer();
       playerIn.spawnAtLocation(barkDrop, 1.0f);
       stack.hurtAndBreak(1, playerIn, e -> e.broadcastBreakEvent(hand));
-      if (world.random.nextDouble() < RootsConfig.COMMON.barkKnifeBlockStripChance.get()) {
-        world.playSound(playerIn, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
-        if (!world.isClientSide) {
-          world.setBlock(pos, strippedState, 11);
+      if (levelAccessor.random.nextDouble() < RootsConfig.COMMON.barkKnifeBlockStripChance.get()) {
+        levelAccessor.playSound(playerIn, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+        if (!levelAccessor.isClientSide) {
+          levelAccessor.setBlock(pos, strippedState, 11);
         }
       }
-      return InteractionResult.sidedSuccess(world.isClientSide);
+      return InteractionResult.sidedSuccess(levelAccessor.isClientSide);
     }
     else {
       return InteractionResult.PASS;

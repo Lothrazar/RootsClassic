@@ -79,36 +79,36 @@ public class ImbuerBlockEntity extends BEBase {
   }
 
   @Override
-  public void breakBlock(Level world, BlockPos pos, BlockState state, Player player) {
+  public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
     for (int i = 0; i < inventory.getSlots(); i++) {
       ItemStack stack = inventory.getStackInSlot(i);
-      if (!stack.isEmpty() && !world.isClientSide) {
-        world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack));
+      if (!stack.isEmpty() && !levelAccessor.isClientSide) {
+        levelAccessor.addFreshEntity(new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack));
       }
     }
     this.setRemoved();
   }
 
   @Override
-  public InteractionResult activate(Level world, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
+  public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
     if (progress == 0 && hand == InteractionHand.MAIN_HAND) {
       if (heldItem.isEmpty()) {
         if (!getStick().isEmpty()) {
-          if (!world.isClientSide) {
-            world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, getStick()));
+          if (!levelAccessor.isClientSide) {
+            levelAccessor.addFreshEntity(new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, getStick()));
           }
           inventory.setStackInSlot(STICK, ItemStack.EMPTY);
           setChanged();
-          world.sendBlockUpdated(getBlockPos(), state, world.getBlockState(pos), 3);
+          levelAccessor.sendBlockUpdated(getBlockPos(), state, levelAccessor.getBlockState(pos), 3);
           return InteractionResult.SUCCESS;
         }
         else if (!getSpellPowder().isEmpty()) {
-          if (!world.isClientSide) {
-            world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, getSpellPowder()));
+          if (!levelAccessor.isClientSide) {
+            levelAccessor.addFreshEntity(new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, getSpellPowder()));
           }
           inventory.setStackInSlot(DUST, ItemStack.EMPTY);
           setChanged();
-          world.sendBlockUpdated(getBlockPos(), state, world.getBlockState(pos), 3);
+          levelAccessor.sendBlockUpdated(getBlockPos(), state, levelAccessor.getBlockState(pos), 3);
           return InteractionResult.SUCCESS;
         }
       }
@@ -119,7 +119,7 @@ public class ImbuerBlockEntity extends BEBase {
           inventory.setStackInSlot(STICK, copyStack);
           heldItem.shrink(1);
           setChanged();
-          world.sendBlockUpdated(getBlockPos(), state, world.getBlockState(pos), 3);
+          levelAccessor.sendBlockUpdated(getBlockPos(), state, levelAccessor.getBlockState(pos), 3);
           return InteractionResult.SUCCESS;
         }
       }
@@ -130,7 +130,7 @@ public class ImbuerBlockEntity extends BEBase {
           inventory.setStackInSlot(DUST, copyStack);
           heldItem.shrink(1);
           setChanged();
-          world.sendBlockUpdated(getBlockPos(), state, world.getBlockState(pos), 3);
+          levelAccessor.sendBlockUpdated(getBlockPos(), state, levelAccessor.getBlockState(pos), 3);
           return InteractionResult.SUCCESS;
         }
       }

@@ -18,9 +18,9 @@ public class ComponentPinkTulip extends ComponentBase {
   }
 
   @Override
-  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) world.getEntitiesOfClass(LivingEntity.class, new AABB(x - size, y - size, z - size, x + size, y + size, z + size));
+      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size, y - size, z - size, x + size, y + size, z + size));
       for (int i = 0; i < targets.size(); i++) {
         if (targets.get(i).getUUID() != caster.getUUID()) {
           targets.get(i).hurt(DamageSource.WITHER, (int) (3 + 2 * potency));

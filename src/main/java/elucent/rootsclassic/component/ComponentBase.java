@@ -59,9 +59,9 @@ public class ComponentBase extends ForgeRegistryEntry<ComponentBase> {
     return itemSource;
   }
 
-  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {}
+  public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {}
 
-  public void doEffect(Level world, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {}
+  public void doEffect(Level level, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {}
 
   public void castingAction(Player player, int count, int potency, int efficiency, int size) {}
 

@@ -27,7 +27,7 @@ public class ComponentPeony extends ComponentBase {
 
   @Override
   public void castingAction(Player player, int count, int potency, int efficiency, int size) {
-    Level world = player.level;
+    Level levelAccessor = player.level;
     int x = player.blockPosition().getX();
     int y = player.blockPosition().getY();
     int z = player.blockPosition().getZ();
@@ -35,9 +35,9 @@ public class ComponentPeony extends ComponentBase {
     for (int x2 = -range; x2 < range; x2++) {
       for (int z2 = -range; z2 < range; z2++) {
         for (int y2 = -1; y2 < 2; y2++) {
-          if (world.getBlockState(new BlockPos(x + x2, y + y2, z + z2)).getBlock() instanceof TallFlowerBlock ||
-              world.getBlockState(new BlockPos(x + x2, y + y2, z + z2)).getBlock() instanceof FlowerBlock ||
-              world.getBlockState(new BlockPos(x + x2, y + y2, z + z2)).getBlock() instanceof DoublePlantBlock) {
+          if (levelAccessor.getBlockState(new BlockPos(x + x2, y + y2, z + z2)).getBlock() instanceof TallFlowerBlock ||
+              levelAccessor.getBlockState(new BlockPos(x + x2, y + y2, z + z2)).getBlock() instanceof FlowerBlock ||
+              levelAccessor.getBlockState(new BlockPos(x + x2, y + y2, z + z2)).getBlock() instanceof DoublePlantBlock) {
             pos.add(new BlockPos(x + x2, y + y2, z + z2));
           }
         }
@@ -48,11 +48,11 @@ public class ComponentPeony extends ComponentBase {
       int fY = temp.getY();
       int fZ = temp.getZ();
       double factor = 0.15;
-      if (world.isClientSide && world.random.nextInt(10 * pos.size()) == 0) {
-        world.addParticle(MagicAuraParticleData.createData(138, 42, 235),
+      if (levelAccessor.isClientSide && levelAccessor.random.nextInt(10 * pos.size()) == 0) {
+        levelAccessor.addParticle(MagicAuraParticleData.createData(138, 42, 235),
             fX + RootsUtil.randomDouble(0.0, 0.5), fY + RootsUtil.randomDouble(0.1, 0.5), fZ + RootsUtil.randomDouble(0.0, 0.5),
             (player.getX() - fX) * factor, (player.getY() - fY) * factor, (player.getZ() - fZ) * factor);
-        world.addParticle(MagicAuraParticleData.createData(138, 42, 235),
+        levelAccessor.addParticle(MagicAuraParticleData.createData(138, 42, 235),
             fX + RootsUtil.randomDouble(0.0, 0.5), fY + RootsUtil.randomDouble(0.1, 0.5), fZ + RootsUtil.randomDouble(0.0, 0.5),
             (player.getX() - fX) * factor, (player.getY() - fY) * factor, (player.getZ() - fZ) * factor);
       }
@@ -60,7 +60,7 @@ public class ComponentPeony extends ComponentBase {
   }
 
   @Override
-  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
       ((LivingEntity) caster).heal((float) (pos.size() / 2 + (potency * 2)));
       pos.clear();

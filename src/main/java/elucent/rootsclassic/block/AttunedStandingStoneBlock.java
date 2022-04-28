@@ -43,32 +43,32 @@ public class AttunedStandingStoneBlock extends Block {
 
   @SuppressWarnings("deprecation")
   @Override
-  public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
+  public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor levelAccessor, BlockPos currentPos, BlockPos facingPos) {
     DoubleBlockHalf doubleblockhalf = stateIn.getValue(HALF);
     if (facing.getAxis() == Direction.Axis.Y && doubleblockhalf == DoubleBlockHalf.LOWER == (facing == Direction.UP)) {
       return facingState.is(this) && facingState.getValue(HALF) != doubleblockhalf ? stateIn : Blocks.AIR.defaultBlockState();
     }
     else {
-      return doubleblockhalf == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !stateIn.canSurvive(worldIn, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+      return doubleblockhalf == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !stateIn.canSurvive(levelAccessor, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, levelAccessor, currentPos, facingPos);
     }
   }
 
   @Override
-  public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-    if (!world.isClientSide && player.isCreative()) {
-      AttunedStandingStoneBlock.removeBottomHalf(world, pos, state, player);
+  public void playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
+    if (!levelAccessor.isClientSide && player.isCreative()) {
+      AttunedStandingStoneBlock.removeBottomHalf(levelAccessor, pos, state, player);
     }
-    super.playerWillDestroy(world, pos, state, player);
+    super.playerWillDestroy(levelAccessor, pos, state, player);
   }
 
-  public static void removeBottomHalf(Level world, BlockPos pos, BlockState state, Player player) {
+  public static void removeBottomHalf(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
     DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
     if (doubleblockhalf == DoubleBlockHalf.UPPER) {
       BlockPos blockpos = pos.below();
-      BlockState blockstate = world.getBlockState(blockpos);
+      BlockState blockstate = levelAccessor.getBlockState(blockpos);
       if (blockstate.getBlock() == state.getBlock() && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER) {
-        world.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 35);
-        world.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
+        levelAccessor.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 35);
+        levelAccessor.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
       }
     }
   }
@@ -86,15 +86,15 @@ public class AttunedStandingStoneBlock extends Block {
   }
 
   @Override
-  public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-    worldIn.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER), 3);
+  public void setPlacedBy(Level levelAccessor, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+    levelAccessor.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER), 3);
   }
 
   @Override
-  public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+  public boolean canSurvive(BlockState state, LevelReader levelAccessor, BlockPos pos) {
     BlockPos blockpos = pos.below();
-    BlockState blockstate = worldIn.getBlockState(blockpos);
-    return state.getValue(HALF) == DoubleBlockHalf.LOWER ? blockstate.isFaceSturdy(worldIn, blockpos, Direction.UP) : blockstate.is(this);
+    BlockState blockstate = levelAccessor.getBlockState(blockpos);
+    return state.getValue(HALF) == DoubleBlockHalf.LOWER ? blockstate.isFaceSturdy(levelAccessor, blockpos, Direction.UP) : blockstate.is(this);
   }
 
   @Override
@@ -103,7 +103,7 @@ public class AttunedStandingStoneBlock extends Block {
   }
 
   @Override
-  public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+  public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
     if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
       return BOTTOM_SHAPE;
     }

@@ -120,7 +120,7 @@ public class ComponentRecipe implements Recipe<Container> {
   }
 
   @Override
-  public boolean matches(Container inventory, Level worldIn) {
+  public boolean matches(Container inventory, Level levelAccessor) {
     java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
     int i = 0;
     for (int j = 0; j < inventory.getContainerSize(); j++) {

@@ -30,7 +30,7 @@ public class AestheticStandingStoneTile extends BEBase {
   }
 
   @Override
-  public InteractionResult activate(Level world, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
+  public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
     if (heldItem != null) {
       int amount = 5;
       if (heldItem.is(Tags.Items.DYES_RED)) {

@@ -97,12 +97,12 @@ public class AltarBlockEntity extends BEBase {
   }
 
   @Override
-  public void breakBlock(Level world, BlockPos pos, BlockState state, Player player) {
+  public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
     for (int i = 0; i < inventory.getSlots(); i++) {
-      if (!world.isClientSide) {
+      if (!levelAccessor.isClientSide) {
         ItemStack slotStack = inventory.getStackInSlot(i);
         if(!slotStack.isEmpty()) {
-          world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, slotStack));
+          levelAccessor.addFreshEntity(new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, slotStack));
         }
       }
     }
@@ -110,19 +110,19 @@ public class AltarBlockEntity extends BEBase {
   }
 
   @Override
-  public InteractionResult activate(Level world, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
+  public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
     if(hand == InteractionHand.MAIN_HAND) {
       if (heldItem.isEmpty() && !player.isShiftKeyDown() && this.getProgress() == 0) {
         //try to withdraw an item
         if (inventory.getSlots() > 0) {
           ItemStack lastStack = InventoryUtil.getLastStack(inventory);
           if(!lastStack.isEmpty()) {
-            if (!world.isClientSide) {
-              world.addFreshEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, lastStack.copy()));
+            if (!levelAccessor.isClientSide) {
+              levelAccessor.addFreshEntity(new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, lastStack.copy()));
             }
             lastStack.shrink(1);
             setChanged();
-            world.sendBlockUpdated(pos, state, world.getBlockState(pos), 3);
+            levelAccessor.sendBlockUpdated(pos, state, levelAccessor.getBlockState(pos), 3);
           }
           return InteractionResult.SUCCESS;
         }
@@ -136,7 +136,7 @@ public class AltarBlockEntity extends BEBase {
           player.displayClientMessage(new TranslatableComponent("rootsclassic.error.noritual.ingredients"), true);
           return InteractionResult.FAIL;
         }
-        if (!ritual.verifyPositionBlocks(world, pos)) {
+        if (!ritual.verifyPositionBlocks(levelAccessor, pos)) {
           player.displayClientMessage(new TranslatableComponent("rootsclassic.error.noritual.stones"), true);
           return InteractionResult.FAIL;
         }
@@ -144,16 +144,16 @@ public class AltarBlockEntity extends BEBase {
         if (ritual.incenseMatches(level, pos)) {
           setRitualCurrent(ritual);
           setRitualName(ritual.getRegistryName());
-          setIncenses(RitualRegistry.getIncenses(world, pos));
+          setIncenses(RitualRegistry.getIncenses(levelAccessor, pos));
           setProgress(RECIPE_PROGRESS_TIME);
-          for (BrazierBlockEntity brazier : ritual.getRecipeBraziers(world, pos)) {
+          for (BrazierBlockEntity brazier : ritual.getRecipeBraziers(levelAccessor, pos)) {
             brazier.setBurning(true);
             brazier.setHeldItem(ItemStack.EMPTY);
           }
           //        this.emptyNearbyBraziers();
           //          System.out.println(" ritual STARTED " + ritual.name);
           setChanged();
-          world.sendBlockUpdated(pos, state, world.getBlockState(pos), 3);
+          levelAccessor.sendBlockUpdated(pos, state, levelAccessor.getBlockState(pos), 3);
           player.displayClientMessage(new TranslatableComponent("rootsclassic.ritual.started"), true);
         }
         else {
@@ -165,7 +165,7 @@ public class AltarBlockEntity extends BEBase {
         //        Roots.statusMessage(player, "rootsclassic.error.noritual");
         //
         //        markDirty();
-        //        world.notifyBlockUpdate(getPos(), state, world.getBlockState(pos), 3);
+        //        levelAccessor.notifyBlockUpdate(getPos(), state, levelAccessor.getBlockState(pos), 3);
         //        return true;
         //      }
       }
@@ -178,7 +178,7 @@ public class AltarBlockEntity extends BEBase {
           if (remaining.isEmpty()) {
             heldItem.shrink(1);
             setChanged();
-            world.sendBlockUpdated(pos, state, world.getBlockState(pos), 3);
+            levelAccessor.sendBlockUpdated(pos, state, levelAccessor.getBlockState(pos), 3);
           }
           return InteractionResult.SUCCESS;
         }

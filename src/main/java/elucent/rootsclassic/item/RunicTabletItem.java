@@ -15,9 +15,9 @@ public class RunicTabletItem extends Item {
   }
 
   @Override
-  public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+  public InteractionResultHolder<ItemStack> use(Level levelAccessor, Player player, InteractionHand hand) {
     ItemStack stack = player.getItemInHand(hand);
-    if (hand == InteractionHand.MAIN_HAND && world.isClientSide) {
+    if (hand == InteractionHand.MAIN_HAND && levelAccessor.isClientSide) {
       elucent.rootsclassic.client.screen.TabletScreen.openScreen(player);
     }
     return new InteractionResultHolder<>(InteractionResult.PASS, stack);

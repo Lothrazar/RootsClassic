@@ -18,7 +18,7 @@ public class ComponentApple extends ComponentBase {
   }
 
   @Override
-  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
       if (caster instanceof Player player) {
         ArrayList<MobEffectInstance> effects = new ArrayList<>(player.getActiveEffects());

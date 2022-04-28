@@ -29,16 +29,16 @@ public class RitualEngravedSword extends RitualBase {
   }
 
   @Override
-  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     List<Item> items = new ArrayList<>();
     for (ItemStack i : incenses) {
       items.add(i.getItem());
     }
     if (RootsUtil.itemListMatchInventoryWithSize(inventory, this.getIngredients())) {
       ItemStack toSpawn = result.copy();
-      if (!world.isClientSide) {
+      if (!levelAccessor.isClientSide) {
         int mods = 0;
-        ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
+        ItemEntity item = new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
         ItemStack stack = item.getItem();
         CompoundTag tag = stack.getTag() != null ? stack.getTag() : new CompoundTag();
         for (Item i : items) {
@@ -64,10 +64,10 @@ public class RitualEngravedSword extends RitualBase {
           }
         }
         stack.setTag(tag);
-        world.addFreshEntity(item);
+        levelAccessor.addFreshEntity(item);
       }
       inventory.clearContent();
-      BlockEntity tile = world.getBlockEntity(pos);
+      BlockEntity tile = levelAccessor.getBlockEntity(pos);
       if (tile != null) {
         tile.setChanged();
       }

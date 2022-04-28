@@ -52,9 +52,9 @@ public class SylvanArmorItem extends ArmorItem {
   }
 
   @Override
-  public void onArmorTick(ItemStack stack, Level world, Player player) {
-    RootsUtil.randomlyRepair(world.random, stack);
-    if (world.random.nextInt(40) == 0) {
+  public void onArmorTick(ItemStack stack, Level levelAccessor, Player player) {
+    RootsUtil.randomlyRepair(levelAccessor.random, stack);
+    if (levelAccessor.random.nextInt(40) == 0) {
       player.getCapability(RootsCapabilityManager.MANA_CAPABILITY).ifPresent(cap -> {
         cap.setMana(cap.getMana() + 1.0f);
       });
@@ -67,8 +67,8 @@ public class SylvanArmorItem extends ArmorItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-    super.appendHoverText(stack, worldIn, tooltip, flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable Level levelAccessor, List<Component> tooltip, TooltipFlag flagIn) {
+    super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
     tooltip.add(TextComponent.EMPTY);
     tooltip.add(new TranslatableComponent("rootsclassic.attribute.equipped").withStyle(ChatFormatting.GRAY));
     tooltip.add(new TextComponent(" ").append(new TranslatableComponent("rootsclassic.attribute.increasedmanaregen")).withStyle(ChatFormatting.BLUE));

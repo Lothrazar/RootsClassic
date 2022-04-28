@@ -22,12 +22,12 @@ public class EntityTileAccelerator extends Entity {
   private int lifetime = 0;
   private int potency = 1;
 
-  public EntityTileAccelerator(EntityType<? extends EntityTileAccelerator> type, Level worldIn) {
-    super(type, worldIn);
+  public EntityTileAccelerator(EntityType<? extends EntityTileAccelerator> type, Level levelAccessor) {
+    super(type, levelAccessor);
   }
 
-  public EntityTileAccelerator(Level world, BlockPos pos, int potency, int size) {
-    this(RootsEntities.TILE_ACCELERATOR.get(), world);
+  public EntityTileAccelerator(Level levelAccessor, BlockPos pos, int potency, int size) {
+    this(RootsEntities.TILE_ACCELERATOR.get(), levelAccessor);
     this.pos = pos;
     this.potency = potency + 2;
     this.lifetime = 200 + 200 * size;

@@ -22,18 +22,18 @@ public class BaseBEBlock extends Block {
   }
 
   @Override
-  public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-    if (world.getBlockEntity(pos) instanceof BEBase) {
-      ((BEBase) world.getBlockEntity(pos)).breakBlock(world, pos, state, player);
+  public void playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
+    if (levelAccessor.getBlockEntity(pos) instanceof BEBase) {
+      ((BEBase) levelAccessor.getBlockEntity(pos)).breakBlock(levelAccessor, pos, state, player);
     }
   }
 
   @Override
-  public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-    if (worldIn.getBlockEntity(pos) instanceof BEBase) {
-      return ((BEBase) worldIn.getBlockEntity(pos)).activate(worldIn, pos, state, player, handIn, player.getItemInHand(handIn), hit);
+  public InteractionResult use(BlockState state, Level levelAccessor, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    if (levelAccessor.getBlockEntity(pos) instanceof BEBase) {
+      return ((BEBase) levelAccessor.getBlockEntity(pos)).activate(levelAccessor, pos, state, player, handIn, player.getItemInHand(handIn), hit);
     }
-    return super.use(state, worldIn, pos, player, handIn, hit);
+    return super.use(state, levelAccessor, pos, player, handIn, hit);
   }
 
   @Nullable

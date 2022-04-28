@@ -14,7 +14,7 @@ public class ComponentChorus extends ComponentBase {
   }
 
   @Override
-  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
       if (caster instanceof Player player) {
         player.setPos(player.getX() + player.getLookAngle().x * (8.0 + 8.0 * potency), player.getY() + player.getLookAngle().y * (8.0 + 8.0 * potency),

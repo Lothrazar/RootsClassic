@@ -24,10 +24,10 @@ public class ComponentSunflower extends ComponentBase {
   }
 
   @Override
-  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL && caster instanceof LivingEntity) {
       int damageDealt = 0;
-      List<LivingEntity> targets = world.getEntitiesOfClass(LivingEntity.class, new AABB(x - size, y - size, z - size, x + size, y + size, z + size));
+      List<LivingEntity> targets = level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size, y - size, z - size, x + size, y + size, z + size));
       LivingEntity target;
       for (LivingEntity livingEntity : targets) {
         target = livingEntity;

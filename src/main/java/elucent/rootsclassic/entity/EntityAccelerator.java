@@ -17,12 +17,12 @@ public class EntityAccelerator extends Entity {
   private int lifetime = 0;
   private int potency = 1;
 
-  public EntityAccelerator(EntityType<? extends EntityAccelerator> type, Level worldIn) {
-    super(type, worldIn);
+  public EntityAccelerator(EntityType<? extends EntityAccelerator> type, Level levelAccessor) {
+    super(type, levelAccessor);
   }
 
-  public EntityAccelerator(Level world, Entity entity, int potency, int size) {
-    this(RootsEntities.ENTITY_ACCELERATOR.get(), world);
+  public EntityAccelerator(Level levelAccessor, Entity entity, int potency, int size) {
+    this(RootsEntities.ENTITY_ACCELERATOR.get(), levelAccessor);
     this.entity = entity;
     this.potency = potency + 2;
     this.lifetime = 200 + 200 * size;

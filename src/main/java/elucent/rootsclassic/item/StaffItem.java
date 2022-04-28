@@ -75,7 +75,7 @@ public class StaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public void releaseUsing(ItemStack stack, Level world, LivingEntity caster, int timeLeft) {
+  public void releaseUsing(ItemStack stack, Level levelAccessor, LivingEntity caster, int timeLeft) {
     if (timeLeft < (72000 - 12) && stack.hasTag() && caster.getCapability(RootsCapabilityManager.MANA_CAPABILITY).isPresent()) {
       CompoundTag tag = stack.getTag();
       if (tag.getInt(NBT_USES) >= 0) {
@@ -98,26 +98,26 @@ public class StaffItem extends Item implements IManaRelatedItem {
             if (manaCap.getMana() >= comp.getManaCost() / (efficiency + 1)) {
               manaCap.setMana(manaCap.getMana() - (comp.getManaCost() / (efficiency + 1)));
               Vec3 lookVec = caster.getLookAngle();
-              comp.doEffect(world, caster, EnumCastType.SPELL,
+              comp.doEffect(levelAccessor, caster, EnumCastType.SPELL,
                   caster.getX() + RANGE * lookVec.x,
                   caster.getY() + RANGE * lookVec.y,
                   caster.getZ() + RANGE * lookVec.z, potency, efficiency,
                   SIZE_BASE + SIZE_PER_LEVEL * size);
-              if (world.isClientSide) {
+              if (levelAccessor.isClientSide) {
                 for (int i = 0; i < 90; i++) {
-                  double offX = world.random.nextFloat() * 0.5 - 0.25;
-                  double offY = world.random.nextFloat() * 0.5 - 0.25;
-                  double offZ = world.random.nextFloat() * 0.5 - 0.25;
+                  double offX = levelAccessor.random.nextFloat() * 0.5 - 0.25;
+                  double offY = levelAccessor.random.nextFloat() * 0.5 - 0.25;
+                  double offZ = levelAccessor.random.nextFloat() * 0.5 - 0.25;
                   double coeff = (offX + offY + offZ) / 1.5 + 0.5;
                   double dx = (lookVec.x + offX) * coeff;
                   double dy = (lookVec.y + offY) * coeff;
                   double dz = (lookVec.z + offZ) * coeff;
-                  if (world.random.nextBoolean()) {
-                    world.addParticle(MagicParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
+                  if (levelAccessor.random.nextBoolean()) {
+                    levelAccessor.addParticle(MagicParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
                             caster.getX() + dx, caster.getY() + 1.5 + dy, caster.getZ() + dz, dx, dy, dz);
                   }
                   else {
-                    world.addParticle(MagicParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
+                    levelAccessor.addParticle(MagicParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
                             caster.getX() + dx, caster.getY() + 1.5 + dy, caster.getZ() + dz, dx, dy, dz);
                   }
                 }
@@ -130,9 +130,9 @@ public class StaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+  public InteractionResultHolder<ItemStack> use(Level levelAccessor, Player player, InteractionHand hand) {
     ItemStack stack = player.getItemInHand(hand);
-    if (world.isClientSide && Minecraft.getInstance().screen != null) {
+    if (levelAccessor.isClientSide && Minecraft.getInstance().screen != null) {
       return new InteractionResultHolder<ItemStack>(InteractionResult.FAIL, stack);
     }
     else {
@@ -142,7 +142,7 @@ public class StaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+  public void inventoryTick(ItemStack stack, Level levelAccessor, Entity entityIn, int itemSlot, boolean isSelected) {
     if (stack.hasTag() && stack.is(this)) {
       CompoundTag tag = stack.getTag();
       if (tag.contains(NBT_USES) && tag.getInt(NBT_USES) <= 0 && entityIn instanceof Player) {
@@ -215,8 +215,8 @@ public class StaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-    super.appendHoverText(stack, worldIn, tooltip, flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable Level levelAccessor, List<Component> tooltip, TooltipFlag flagIn) {
+    super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
     if (stack.hasTag()) {
       CompoundTag tag = stack.getTag();
       ResourceLocation compName = ResourceLocation.tryParse(tag.getString(Const.NBT_EFFECT));

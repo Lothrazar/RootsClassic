@@ -126,7 +126,7 @@ public class RootsDataGen {
       return ImmutableList.of(Pair.of(RootsBlockLoot::new, LootContextParamSets.BLOCK), Pair.of(RootsEntityLoot::new, LootContextParamSets.ENTITY));
     }
 
-    private class RootsBlockLoot extends BlockLoot {
+    private static class RootsBlockLoot extends BlockLoot {
 
       @Override
       protected void addTables() {
@@ -159,7 +159,7 @@ public class RootsDataGen {
       }
     }
 
-    private class RootsEntityLoot extends EntityLoot {
+    private static class RootsEntityLoot extends EntityLoot {
 
       @Override
       protected void addTables() {

@@ -34,7 +34,7 @@ public class AltarBlock extends BaseBEBlock implements EntityBlock {
   }
 
   @Override
-  public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+  public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
     return SHAPE;
   }
 

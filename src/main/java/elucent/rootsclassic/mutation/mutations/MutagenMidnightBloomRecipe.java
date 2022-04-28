@@ -21,14 +21,14 @@ public class MutagenMidnightBloomRecipe extends MutagenRecipe {
   }
 
   @Override
-  public void onCrafted(Level world, BlockPos pos, Player player) {
+  public void onCrafted(Level levelAccessor, BlockPos pos, Player player) {
     player.getPersistentData().putInt(Const.NBT_SKIP_TICKS, 200);
   }
 
   @Override
-  public boolean matches(List<ItemStack> items, Level world, BlockPos pos, Player player) {
-    if (super.matches(items, world, pos, player)) {
-      return world.dimension() == Level.END && world.getBlockState(pos.below(2)).getBlock() == Blocks.OBSIDIAN && player.getEffect(MobEffects.MOVEMENT_SLOWDOWN) != null;
+  public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
+    if (super.matches(items, levelAccessor, pos, player)) {
+      return levelAccessor.dimension() == Level.END && levelAccessor.getBlockState(pos.below(2)).getBlock() == Blocks.OBSIDIAN && player.getEffect(MobEffects.MOVEMENT_SLOWDOWN) != null;
     }
     return false;
   }

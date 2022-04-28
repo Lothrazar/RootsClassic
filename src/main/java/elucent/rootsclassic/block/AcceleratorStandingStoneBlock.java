@@ -21,10 +21,10 @@ public class AcceleratorStandingStoneBlock extends AttunedStandingStoneBlock imp
   }
 
   @Override
-  public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-    super.playerWillDestroy(world, pos, state, player);
-    if (world.getBlockEntity(pos) instanceof BEBase) {
-      ((BEBase) world.getBlockEntity(pos)).breakBlock(world, pos, state, player);
+  public void playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
+    super.playerWillDestroy(levelAccessor, pos, state, player);
+    if (levelAccessor.getBlockEntity(pos) instanceof BEBase) {
+      ((BEBase) levelAccessor.getBlockEntity(pos)).breakBlock(levelAccessor, pos, state, player);
     }
   }
 

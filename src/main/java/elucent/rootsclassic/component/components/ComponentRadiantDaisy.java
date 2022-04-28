@@ -24,7 +24,7 @@ public class ComponentRadiantDaisy extends ComponentBase {
   }
 
   @Override
-  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     Player player = (Player) caster;
     double posX = player.getX() + player.getLookAngle().x * 0.5;
     double posY = player.getY() + 1.5 + player.getLookAngle().y * 0.5;
@@ -35,11 +35,11 @@ public class ComponentRadiantDaisy extends ComponentBase {
     double motionZ = player.getLookAngle().z * 0.25;
     for (int i = 0; i < 200 + 100 * size; i++) {
       boolean didHit = false;
-      if(world.isClientSide) {
-        world.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+      if(level.isClientSide) {
+        level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
                 posX, posY, posZ, 0, 0, 0);
       }
-      if(!world.isClientSide) {
+      if(!level.isClientSide) {
         posX += motionX;
         posY += motionY;
         posZ += motionZ;

@@ -21,9 +21,9 @@ public class MutagenManager {
     recipes.add(new MutagenRadiantDaisyRecipe());
   }
 
-  public static MutagenRecipe getRecipe(List<ItemStack> items, Level world, BlockPos pos, Player player) {
+  public static MutagenRecipe getRecipe(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
     for (MutagenRecipe recipe : recipes) {
-      if (recipe.matches(items, world, pos, player)) {
+      if (recipe.matches(items, levelAccessor, pos, player)) {
         return recipe;
       }
     }

@@ -16,7 +16,7 @@ public class MundaneStandingStoneBlock extends Block {
   }
 
   @Override
-  public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+  public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
     return SHAPE;
   }
 }

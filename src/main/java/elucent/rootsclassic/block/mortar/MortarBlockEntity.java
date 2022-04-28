@@ -62,28 +62,28 @@ public class MortarBlockEntity extends BEBase {
   }
 
   @Override
-  public void breakBlock(Level world, BlockPos pos, BlockState state, Player player) {
-    dropAllItems(world, pos);
+  public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
+    dropAllItems(levelAccessor, pos);
     this.setRemoved();
   }
 
   @Override
-  public InteractionResult activate(Level world, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
+  public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
     if (hand == InteractionHand.MAIN_HAND) {
       if (heldItem.isEmpty()) {
-        return tryDropSingleItem(world, pos, state);
+        return tryDropSingleItem(levelAccessor, pos, state);
       }
       else if (heldItem.getItem() == RootsRegistry.PESTLE.get()) {
         return tryActivateRecipe(player, state);
       }
       else {
-        return tryInsertItem(world, pos, state, heldItem);
+        return tryInsertItem(levelAccessor, pos, state, heldItem);
       }
     }
     return InteractionResult.PASS;
   }
 
-  private InteractionResult tryInsertItem(Level world, BlockPos pos, BlockState state, ItemStack heldItem) {
+  private InteractionResult tryInsertItem(Level levelAccessor, BlockPos pos, BlockState state, ItemStack heldItem) {
     if (!heldItem.isEmpty() && !InventoryUtil.isFull(inventory)) {
       ItemStack heldCopy = heldItem.copy();
       heldCopy.setCount(1);
@@ -95,7 +95,7 @@ public class MortarBlockEntity extends BEBase {
           if (restStack.isEmpty()) {
             heldItem.shrink(1);
             setChanged();
-            world.sendBlockUpdated(getBlockPos(), state, world.getBlockState(pos), 3);
+            levelAccessor.sendBlockUpdated(getBlockPos(), state, levelAccessor.getBlockState(pos), 3);
             return InteractionResult.SUCCESS;
           }
           else {
@@ -108,7 +108,7 @@ public class MortarBlockEntity extends BEBase {
         if (restStack.isEmpty()) {
           heldItem.shrink(1);
           setChanged();
-          world.sendBlockUpdated(getBlockPos(), state, world.getBlockState(pos), 3);
+          levelAccessor.sendBlockUpdated(getBlockPos(), state, levelAccessor.getBlockState(pos), 3);
           return InteractionResult.SUCCESS;
         }
         else {
@@ -119,7 +119,7 @@ public class MortarBlockEntity extends BEBase {
     return InteractionResult.PASS;
   }
 
-  private InteractionResult tryDropSingleItem(Level world, BlockPos pos, BlockState state) {
+  private InteractionResult tryDropSingleItem(Level levelAccessor, BlockPos pos, BlockState state) {
     if (!InventoryUtil.isEmpty(inventory)) {
       ItemStack lastStack = InventoryUtil.getLastStack(inventory);
       if (!lastStack.isEmpty()) {
@@ -127,7 +127,7 @@ public class MortarBlockEntity extends BEBase {
         lastStack.shrink(1);
       }
       setChanged();
-      world.sendBlockUpdated(getBlockPos(), state, world.getBlockState(pos), 3);
+      levelAccessor.sendBlockUpdated(getBlockPos(), state, levelAccessor.getBlockState(pos), 3);
       return InteractionResult.SUCCESS;
     }
     return InteractionResult.PASS;
@@ -152,24 +152,20 @@ public class MortarBlockEntity extends BEBase {
     return InteractionResult.SUCCESS;
   }
 
-  public ItemEntity dropItem(ItemStack stack, float offsetY) {
+  public void dropItem(ItemStack stack, float offsetY) {
     ItemStack copyStack = stack.copy();
-    if (copyStack.isEmpty()) {
-      return null;
-    }
-    else if (level.isClientSide) {
-      return null;
+    if (copyStack.isEmpty() || level.isClientSide) {
+      return;
     }
     else {
       BlockPos pos = getBlockPos();
       ItemEntity itementity = new ItemEntity(this.level, pos.getX(), pos.getY() + (double) offsetY, this.worldPosition.getZ(), copyStack);
       itementity.setDefaultPickUpDelay();
       this.level.addFreshEntity(itementity);
-      return itementity;
     }
   }
 
-  private void dropAllItems(Level world, BlockPos pos) {
+  private void dropAllItems(Level levelAccessor, BlockPos pos) {
     for (int i = 0; i < inventory.getSlots(); i++) {
       ItemStack stack = inventory.getStackInSlot(i);
       dropItem(stack, 0F);

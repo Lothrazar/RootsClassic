@@ -24,14 +24,14 @@ public class MutagenRadiantDaisyRecipe extends MutagenRecipe {
   }
 
   @Override
-  public void onCrafted(Level world, BlockPos pos, Player player) {
+  public void onCrafted(Level levelAccessor, BlockPos pos, Player player) {
     player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 1200, 0));
   }
 
   @Override
-  public boolean matches(List<ItemStack> items, Level world, BlockPos pos, Player player) {
-    if (super.matches(items, world, pos, player)) {
-      return world.dimension() == Level.OVERWORLD && player.getEffect(MobEffects.NIGHT_VISION) != null && player.getCommandSenderWorld().getDayTime() > 5000 && player.getCommandSenderWorld().getDayTime() < 7000;
+  public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
+    if (super.matches(items, levelAccessor, pos, player)) {
+      return levelAccessor.dimension() == Level.OVERWORLD && player.getEffect(MobEffects.NIGHT_VISION) != null && player.getCommandSenderWorld().getDayTime() > 5000 && player.getCommandSenderWorld().getDayTime() < 7000;
     }
     return false;
   }

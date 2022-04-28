@@ -30,15 +30,15 @@ public class RitualSummoning extends RitualBase {
   }
 
   @Override
-  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
-    if (RootsUtil.itemListMatchInventoryWithSize(inventory, this.getIngredients()) && !world.isClientSide) {
-      Mob toSpawn = entityType.create(world);
+  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+    if (RootsUtil.itemListMatchInventoryWithSize(inventory, this.getIngredients()) && !levelAccessor.isClientSide) {
+      Mob toSpawn = entityType.create(levelAccessor);
       if (toSpawn != null) {
-        toSpawn.finalizeSpawn((ServerLevel) world, world.getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
+        toSpawn.finalizeSpawn((ServerLevel) levelAccessor, levelAccessor.getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
         toSpawn.setPos(pos.getX() + 0.5, pos.getY() + 2.0, pos.getZ() + 0.5);
         inventory.clearContent();
-        world.addFreshEntity(toSpawn);
-        BlockEntity tile = world.getBlockEntity(pos);
+        levelAccessor.addFreshEntity(toSpawn);
+        BlockEntity tile = levelAccessor.getBlockEntity(pos);
         if (tile != null) {
           tile.setChanged();
         }

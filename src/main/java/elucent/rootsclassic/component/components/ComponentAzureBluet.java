@@ -19,8 +19,8 @@ public class ComponentAzureBluet extends ComponentBase {
     super(Blocks.AZURE_BLUET, 6);
   }
 
-  public void destroyBlockSafe(Level world, BlockPos pos, int potency) {
-    BlockState state = world.getBlockState(pos);
+  public void destroyBlockSafe(Level levelAccessor, BlockPos pos, int potency) {
+    BlockState state = levelAccessor.getBlockState(pos);
     int tier = 2 + potency;
     Tier usedTier;
     if(tier == 3) {
@@ -31,34 +31,34 @@ public class ComponentAzureBluet extends ComponentBase {
       usedTier = Tiers.IRON;
     }
 
-    if(TierSortingRegistry.isCorrectTierForDrops(usedTier, state) && state.getDestroySpeed(world, pos) != -1) {
-      world.destroyBlock(pos, true);
+    if(TierSortingRegistry.isCorrectTierForDrops(usedTier, state) && state.getDestroySpeed(levelAccessor, pos) != -1) {
+      levelAccessor.destroyBlock(pos, true);
     }
   }
 
   @Override
-  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      if (caster instanceof Player && !world.isClientSide) {
-        BlockPos pos = RootsUtil.getRayTrace(world, (Player) caster, 4 + 2 * (int) size);
-        destroyBlockSafe(world, pos, (int) potency);
-        if (world.random.nextBoolean()) {
-          destroyBlockSafe(world, pos.above(), (int) potency);
+      if (caster instanceof Player && !level.isClientSide) {
+        BlockPos pos = RootsUtil.getRayTrace(level, (Player) caster, 4 + 2 * (int) size);
+        destroyBlockSafe(level, pos, (int) potency);
+        if (level.random.nextBoolean()) {
+          destroyBlockSafe(level, pos.above(), (int) potency);
         }
-        if (world.random.nextBoolean()) {
-          destroyBlockSafe(world, pos.below(), (int) potency);
+        if (level.random.nextBoolean()) {
+          destroyBlockSafe(level, pos.below(), (int) potency);
         }
-        if (world.random.nextBoolean()) {
-          destroyBlockSafe(world, pos.east(), (int) potency);
+        if (level.random.nextBoolean()) {
+          destroyBlockSafe(level, pos.east(), (int) potency);
         }
-        if (world.random.nextBoolean()) {
-          destroyBlockSafe(world, pos.west(), (int) potency);
+        if (level.random.nextBoolean()) {
+          destroyBlockSafe(level, pos.west(), (int) potency);
         }
-        if (world.random.nextBoolean()) {
-          destroyBlockSafe(world, pos.north(), (int) potency);
+        if (level.random.nextBoolean()) {
+          destroyBlockSafe(level, pos.north(), (int) potency);
         }
-        if (world.random.nextBoolean()) {
-          destroyBlockSafe(world, pos.south(), (int) potency);
+        if (level.random.nextBoolean()) {
+          destroyBlockSafe(level, pos.south(), (int) potency);
         }
       }
     }

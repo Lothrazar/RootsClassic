@@ -23,8 +23,8 @@ public class RootsFoodItem extends Item {
   }
 
   @Override
-  public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
-    super.finishUsingItem(stack, worldIn, entityLiving);
+  public ItemStack finishUsingItem(ItemStack stack, Level levelAccessor, LivingEntity entityLiving) {
+    super.finishUsingItem(stack, levelAccessor, entityLiving);
     if (stack.getItem() == RootsRegistry.REDCURRANT.get()) {
       entityLiving.heal(HEAL_SMALL);
     }
@@ -38,8 +38,8 @@ public class RootsFoodItem extends Item {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-    super.appendHoverText(stack, worldIn, tooltip, flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable Level levelAccessor, List<Component> tooltip, TooltipFlag flagIn) {
+    super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
     if (stack.getItem() == RootsRegistry.REDCURRANT.get()) {
       tooltip.add(new TranslatableComponent("rootsclassic.healingitem.tooltip").withStyle(ChatFormatting.GRAY));
     }

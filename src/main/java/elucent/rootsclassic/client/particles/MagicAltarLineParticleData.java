@@ -16,8 +16,8 @@ public class MagicAltarLineParticleData implements ParticleProvider<MagicParticl
   }
 
   @Override
-  public Particle createParticle(MagicParticleTypeData data, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-    return new MagicAltarLineParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, data.color.getRed(), data.color.getGreen(), data.color.getBlue(), this.spriteSet);
+  public Particle createParticle(MagicParticleTypeData data, ClientLevel levelAccessor, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    return new MagicAltarLineParticle(levelAccessor, x, y, z, xSpeed, ySpeed, zSpeed, data.color.getRed(), data.color.getGreen(), data.color.getBlue(), this.spriteSet);
   }
 
   public static ParticleOptions createData(ParticleColor color) {

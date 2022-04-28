@@ -25,40 +25,40 @@ public class MutatingPowderItem extends Item {
   }
 
   @Override
-  public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+  public InteractionResultHolder<ItemStack> use(Level levelAccessor, Player player, InteractionHand hand) {
     ItemStack stack = player.getItemInHand(hand);
-    if(world.isClientSide) {
+    if(levelAccessor.isClientSide) {
       for (int i = 0; i < 40; i++) {
-        double velX = (player.getLookAngle().x * 0.75) + 0.5 * (world.random.nextDouble() - 0.5);
-        double velY = (player.getLookAngle().y * 0.75) + 0.5 * (world.random.nextDouble() - 0.5);
-        double velZ = (player.getLookAngle().z * 0.75) + 0.5 * (world.random.nextDouble() - 0.5);
-        world.addParticle(MagicParticleData.createData(142, 62, 56),
+        double velX = (player.getLookAngle().x * 0.75) + 0.5 * (levelAccessor.random.nextDouble() - 0.5);
+        double velY = (player.getLookAngle().y * 0.75) + 0.5 * (levelAccessor.random.nextDouble() - 0.5);
+        double velZ = (player.getLookAngle().z * 0.75) + 0.5 * (levelAccessor.random.nextDouble() - 0.5);
+        levelAccessor.addParticle(MagicParticleData.createData(142, 62, 56),
                 player.getX() + 0.5 * player.getLookAngle().x, player.getY() + 1.5 + 0.5 * player.getLookAngle().y, player.getZ() + 0.5 * player.getLookAngle().z, velX, velY, velZ);
       }
     }
-    BlockPos pos = RootsUtil.getRayTrace(world, player, 4);
-    List<ItemEntity> itemEntities = world.getEntitiesOfClass(ItemEntity.class, new AABB(pos.getX() - 2, pos.getY() - 2, pos.getZ() - 2, pos.getX() + 3, pos.getY() + 3, pos.getZ() + 3));
+    BlockPos pos = RootsUtil.getRayTrace(levelAccessor, player, 4);
+    List<ItemEntity> itemEntities = levelAccessor.getEntitiesOfClass(ItemEntity.class, new AABB(pos.getX() - 2, pos.getY() - 2, pos.getZ() - 2, pos.getX() + 3, pos.getY() + 3, pos.getZ() + 3));
     ArrayList<ItemStack> items = new ArrayList<>();
     for (ItemEntity itemEntity : itemEntities) {
       items.add(itemEntity.getItem());
     }
     if (items.size() > 0) {
-      MutagenRecipe recipe = MutagenManager.getRecipe(items, world, pos, player);
+      MutagenRecipe recipe = MutagenManager.getRecipe(items, levelAccessor, pos, player);
       if (recipe != null) {
-        world.setBlockAndUpdate(pos, recipe.result);
-        if(world.isClientSide) {
+        levelAccessor.setBlockAndUpdate(pos, recipe.result);
+        if(levelAccessor.isClientSide) {
           for (int i = 0; i < 100; i++) {
-            double velX = 1.5 * (world.random.nextDouble() - 0.5);
-            double velY = 1.5 * (world.random.nextDouble() - 0.5);
-            double velZ = 1.5 * (world.random.nextDouble() - 0.5);
-            world.addParticle(MagicParticleData.createData(142, 62, 56),
-                    pos.getX() + world.random.nextDouble(), pos.getY() + world.random.nextDouble(), pos.getZ() + world.random.nextDouble(), velX, velY, velZ);
+            double velX = 1.5 * (levelAccessor.random.nextDouble() - 0.5);
+            double velY = 1.5 * (levelAccessor.random.nextDouble() - 0.5);
+            double velZ = 1.5 * (levelAccessor.random.nextDouble() - 0.5);
+            levelAccessor.addParticle(MagicParticleData.createData(142, 62, 56),
+                    pos.getX() + levelAccessor.random.nextDouble(), pos.getY() + levelAccessor.random.nextDouble(), pos.getZ() + levelAccessor.random.nextDouble(), velX, velY, velZ);
           }
         }
         for (ItemEntity itemEntity : itemEntities) {
           itemEntity.discard();
         }
-        recipe.onCrafted(world, pos, player);
+        recipe.onCrafted(levelAccessor, pos, player);
       }
     }
     if (!player.getAbilities().instabuild) {

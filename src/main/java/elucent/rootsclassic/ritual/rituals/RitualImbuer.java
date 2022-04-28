@@ -20,7 +20,7 @@ public class RitualImbuer extends RitualBase {
   }
 
   @Override
-  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     ItemStack toSpawn = new ItemStack(RootsRegistry.CRYSTAL_STAFF.get(), 1);
     CrystalStaffItem.createData(toSpawn);
     for (int i = 0; i < incenses.size() && i < 4; i++) {
@@ -31,11 +31,11 @@ public class RitualImbuer extends RitualBase {
         }
       }
     }
-    if (!world.isClientSide) {
-      ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
-      world.addFreshEntity(item);
+    if (!levelAccessor.isClientSide) {
+      ItemEntity item = new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
+      levelAccessor.addFreshEntity(item);
     }
     inventory.clearContent();
-    world.getBlockEntity(pos).setChanged();
+    levelAccessor.getBlockEntity(pos).setChanged();
   }
 }

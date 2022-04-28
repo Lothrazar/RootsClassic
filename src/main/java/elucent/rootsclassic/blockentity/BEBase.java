@@ -37,11 +37,11 @@ public class BEBase extends BlockEntity {
     return ClientboundBlockEntityDataPacket.create(this);
   }
 
-  public void breakBlock(Level world, BlockPos pos, BlockState state, Player player) {
+  public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
     this.setRemoved();
   }
 
-  public InteractionResult activate(Level world, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
+  public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
     return InteractionResult.PASS;
   }
 }

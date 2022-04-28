@@ -14,9 +14,9 @@ public class RitualBanishRain extends RitualBase {
     super(level, r, g, b);
   }
   //	@Override
-  //	public boolean incenseMatches(World world, BlockPos pos) {
+  //	public boolean incenseMatches(Level level, BlockPos pos) {
   //		if (super.incenseMatches(world, pos)) {
-  //			if (world.getWorldInfo().isRaining() == false) {
+  //			if (level.getWorldInfo().isRaining() == false) {
   //				return true;
   //			}
   //		}
@@ -24,8 +24,8 @@ public class RitualBanishRain extends RitualBase {
   //	}
 
   @Override
-  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     inventory.clearContent();
-    world.getLevelData().setRaining(false);
+    levelAccessor.getLevelData().setRaining(false);
   }
 }

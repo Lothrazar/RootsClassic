@@ -80,15 +80,15 @@ public abstract class RitualBase extends ForgeRegistryEntry<RitualBase> {
     return RootsUtil.itemListsMatch(this.getIngredients(), ritual.getIngredients());
   }
 
-  public abstract void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses);
+  public abstract void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses);
 
-  public boolean verifyPositionBlocks(Level world, BlockPos pos) {
+  public boolean verifyPositionBlocks(Level levelAccessor, BlockPos pos) {
     if (getPositionsRelative().size() > 0) {
       for (int i = 0; i < getPositionsRelative().size(); i++) {
         BlockPos loopPos = getPositionsRelative().get(i);
         Block loopBlock = getBlocks().get(i);
         BlockPos loopPosOffset = pos.offset(loopPos.getX(), loopPos.getY(), loopPos.getZ());
-        if (world.getBlockState(loopPosOffset).getBlock() != loopBlock) {
+        if (levelAccessor.getBlockState(loopPosOffset).getBlock() != loopBlock) {
           Roots.LOGGER.info(this.level + " level recipe has Missing block " + loopBlock + " at position " + loopPosOffset);
           return false;
         }
@@ -97,13 +97,13 @@ public abstract class RitualBase extends ForgeRegistryEntry<RitualBase> {
     return true;
   }
 
-  public List<BrazierBlockEntity> getRecipeBraziers(Level world, BlockPos pos) {
+  public List<BrazierBlockEntity> getRecipeBraziers(Level levelAccessor, BlockPos pos) {
     List<BrazierBlockEntity> links = new ArrayList<>();
     BlockEntity tileHere;
     for (int i = -1 * RADIUS; i <= RADIUS; i++) {
       for (int j = -1 * RADIUS; j <= RADIUS; j++) {
-        if (world.getBlockState(pos.offset(i, 0, j)).getBlock() == RootsRegistry.BRAZIER.get()) {
-          tileHere = world.getBlockEntity(pos.offset(i, 0, j));
+        if (levelAccessor.getBlockState(pos.offset(i, 0, j)).getBlock() == RootsRegistry.BRAZIER.get()) {
+          tileHere = levelAccessor.getBlockEntity(pos.offset(i, 0, j));
           if (tileHere instanceof BrazierBlockEntity) {
             links.add((BrazierBlockEntity) tileHere);
           }
@@ -113,9 +113,9 @@ public abstract class RitualBase extends ForgeRegistryEntry<RitualBase> {
     return links;
   }
 
-  public boolean incenseMatches(Level world, BlockPos pos) {
+  public boolean incenseMatches(Level levelAccessor, BlockPos pos) {
     ArrayList<ItemStack> incenseFromNearby = new ArrayList<>();
-    List<BrazierBlockEntity> braziers = getRecipeBraziers(world, pos);
+    List<BrazierBlockEntity> braziers = getRecipeBraziers(levelAccessor, pos);
     for (BrazierBlockEntity brazier : braziers) {
       if (!brazier.getHeldItem().isEmpty()) {
         //              Roots.logger.info("found brazier item " + brazier.getHeldItem());

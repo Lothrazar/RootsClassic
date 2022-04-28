@@ -19,7 +19,7 @@ public class RitualTimeShift extends RitualBase {
   }
 
   @Override
-  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     long shiftAmount = 0;
     List<Item> items = new ArrayList<>();
     for (ItemStack i : incenses) {
@@ -31,9 +31,9 @@ public class RitualTimeShift extends RitualBase {
       }
     }
     inventory.clearContent();
-    if (!world.isClientSide && world.getServer() != null) {
-      for(ServerLevel serverworld : world.getServer().getAllLevels()) {
-        serverworld.setDayTime(serverworld.getDayTime() + (long)shiftAmount);
+    if (!levelAccessor.isClientSide && levelAccessor.getServer() != null) {
+      for(ServerLevel serverLevel : levelAccessor.getServer().getAllLevels()) {
+        serverLevel.setDayTime(serverLevel.getDayTime() + (long)shiftAmount);
       }
     }
   }

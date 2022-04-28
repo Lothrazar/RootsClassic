@@ -24,8 +24,8 @@ public class RitualCauseRain extends RitualBase {
   //	}
 
   @Override
-  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     inventory.clearContent();
-    world.getLevelData().setRaining(true);
+    levelAccessor.getLevelData().setRaining(true);
   }
 }

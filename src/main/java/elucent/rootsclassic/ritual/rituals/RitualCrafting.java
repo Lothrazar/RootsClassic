@@ -23,15 +23,15 @@ public class RitualCrafting extends RitualBase {
   }
 
   @Override
-  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     // if (Util.itemListsMatchWithSize(inventory, this.ingredients)) {
     ItemStack toSpawn = result.copy();
-    if (!world.isClientSide) {
-      ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
-      world.addFreshEntity(item);
+    if (!levelAccessor.isClientSide) {
+      ItemEntity item = new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
+      levelAccessor.addFreshEntity(item);
     }
     inventory.clearContent();
-    world.getBlockEntity(pos).setChanged();
+    levelAccessor.getBlockEntity(pos).setChanged();
     //}
   }
 }

@@ -17,10 +17,10 @@ public class ComponentFlareOrchid extends ComponentBase {
   }
 
   @Override
-  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      BlockPos pos = RootsUtil.getRayTrace(world, (Player) caster, 16 + 8 * (int) size);
-      world.explode(null, pos.getX(), pos.getY(), pos.getZ(), (float) (3.0 + potency), BlockInteraction.DESTROY);
+      BlockPos pos = RootsUtil.getRayTrace(level, (Player) caster, 16 + 8 * (int) size);
+      level.explode(null, pos.getX(), pos.getY(), pos.getZ(), (float) (3.0 + potency), BlockInteraction.DESTROY);
     }
   }
 }

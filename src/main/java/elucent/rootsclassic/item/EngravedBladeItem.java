@@ -23,8 +23,8 @@ public class EngravedBladeItem extends SwordItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-    super.appendHoverText(stack, worldIn, tooltip, flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable Level levelAccessor, List<Component> tooltip, TooltipFlag flagIn) {
+    super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
     if (stack.hasTag()) {
       CompoundTag tag = stack.getTag();
       if (tag.contains("spikes")) {

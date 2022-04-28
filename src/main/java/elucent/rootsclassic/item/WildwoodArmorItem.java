@@ -51,8 +51,8 @@ public class WildwoodArmorItem extends ArmorItem {
   }
 
   @Override
-  public void onArmorTick(ItemStack stack, Level world, Player player) {
-    RootsUtil.randomlyRepair(world.random, stack);
+  public void onArmorTick(ItemStack stack, Level levelAccessor, Player player) {
+    RootsUtil.randomlyRepair(levelAccessor.random, stack);
   }
 
   @Override
@@ -61,8 +61,8 @@ public class WildwoodArmorItem extends ArmorItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-    super.appendHoverText(stack, worldIn, tooltip, flagIn);
+  public void appendHoverText(ItemStack stack, @Nullable Level levelAccessor, List<Component> tooltip, TooltipFlag flagIn) {
+    super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
     tooltip.add(TextComponent.EMPTY);
     tooltip.add(new TranslatableComponent("rootsclassic.attribute.equipped").withStyle(ChatFormatting.GRAY));
     tooltip.add(new TextComponent(" ").append(new TranslatableComponent("rootsclassic.attribute.increasedmanaregen")).withStyle(ChatFormatting.BLUE));

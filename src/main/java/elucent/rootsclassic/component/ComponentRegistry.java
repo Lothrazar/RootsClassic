@@ -122,8 +122,8 @@ public class ComponentRegistry {
 		return null;
 	}
 
-	public static ComponentRecipe getRecipeFromInput(Level world, Container inventory) {
-		Optional<ComponentRecipe> recipe = world.getRecipeManager().getRecipeFor(RootsRecipes.COMPONENT_RECIPE_TYPE.get(), inventory, world);
+	public static ComponentRecipe getRecipeFromInput(Level levelAccessor, Container inventory) {
+		Optional<ComponentRecipe> recipe = levelAccessor.getRecipeManager().getRecipeFor(RootsRecipes.COMPONENT_RECIPE_TYPE.get(), inventory, levelAccessor);
 		return recipe.orElse(null);
 	}
 }

@@ -11,8 +11,8 @@ public class MagicLineParticle extends TextureSheetParticle {
   public double colorG = 0;
   public double colorB = 0;
 
-  public MagicLineParticle(ClientLevel worldIn, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b, SpriteSet sprite) {
-    super(worldIn, x, y, z, 0, 0, 0);
+  public MagicLineParticle(ClientLevel levelAccessor, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b, SpriteSet sprite) {
+    super(levelAccessor, x, y, z, 0, 0, 0);
     this.colorR = r;
     this.colorG = g;
     this.colorB = b;

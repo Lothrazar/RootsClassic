@@ -19,25 +19,25 @@ public class ComponentOxeyeDaisy extends ComponentBase {
   }
 
   @Override
-  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
       if (caster instanceof Player) {
-        Entity entity = RootsUtil.getRayTraceEntity(world, (Player) caster, 4 + 2 * (int) size);
+        Entity entity = RootsUtil.getRayTraceEntity(level, (Player) caster, 4 + 2 * (int) size);
         if (entity != null) {
-          if (!world.isClientSide) {
-            if (world.getEntitiesOfClass(EntityAccelerator.class, new AABB(entity.getX() - 0.1, entity.getY() - 0.1, entity.getZ() - 0.1,
+          if (!level.isClientSide) {
+            if (level.getEntitiesOfClass(EntityAccelerator.class, new AABB(entity.getX() - 0.1, entity.getY() - 0.1, entity.getZ() - 0.1,
                 entity.getX() + 0.1, entity.getY() + 0.1, entity.getZ() + 0.1)).size() == 0) {
-              EntityAccelerator a = new EntityAccelerator(world, entity, (int) potency, (int) size);
-              world.addFreshEntity(a);
+              EntityAccelerator a = new EntityAccelerator(level, entity, (int) potency, (int) size);
+              level.addFreshEntity(a);
             }
           }
         }
         else {
-          BlockPos pos = RootsUtil.getRayTrace(world, (Player) caster, 4 + 2 * (int) size);
-          if (world.getBlockEntity(pos) != null && !world.isClientSide) {
-            if (world.getEntitiesOfClass(EntityTileAccelerator.class, new AABB(pos.getX() - 0.1, pos.getY() - 0.1, pos.getZ() - 0.1, pos.getX() + 0.1, pos.getY() + 0.1, pos.getZ() + 0.1)).size() == 0) {
-              EntityTileAccelerator a = new EntityTileAccelerator(world, pos, (int) potency, (int) size);
-              world.addFreshEntity(a);
+          BlockPos pos = RootsUtil.getRayTrace(level, (Player) caster, 4 + 2 * (int) size);
+          if (level.getBlockEntity(pos) != null && !level.isClientSide) {
+            if (level.getEntitiesOfClass(EntityTileAccelerator.class, new AABB(pos.getX() - 0.1, pos.getY() - 0.1, pos.getZ() - 0.1, pos.getX() + 0.1, pos.getY() + 0.1, pos.getZ() + 0.1)).size() == 0) {
+              EntityTileAccelerator a = new EntityTileAccelerator(level, pos, (int) potency, (int) size);
+              level.addFreshEntity(a);
             }
           }
         }

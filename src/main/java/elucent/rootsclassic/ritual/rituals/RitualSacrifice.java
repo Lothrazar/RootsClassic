@@ -43,16 +43,16 @@ public class RitualSacrifice extends RitualBase {
   }
 
   @Override
-  public void doEffect(Level world, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     inventory.clearContent();
-    List<LivingEntity> enemies = world.getEntitiesOfClass(LivingEntity.class, new AABB(pos.getX() - 2, pos.getY() - 2, pos.getZ() - 2, pos.getX() + 3, pos.getY() + 3, pos.getZ() + 3));
+    List<LivingEntity> enemies = levelAccessor.getEntitiesOfClass(LivingEntity.class, new AABB(pos.getX() - 2, pos.getY() - 2, pos.getZ() - 2, pos.getX() + 3, pos.getY() + 3, pos.getZ() + 3));
     if (enemies.size() > 0) {
       for (LivingEntity enemy : enemies) {
         if (!(enemy instanceof Player)) {
           enemies.get(0).setHealth(enemies.get(0).getHealth() - 60.0f);
-          if (!world.isClientSide) {
-            ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, potentialDrops.get(world.random.nextInt(potentialDrops.size())));
-            world.addFreshEntity(item);
+          if (!levelAccessor.isClientSide) {
+            ItemEntity item = new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, potentialDrops.get(levelAccessor.random.nextInt(potentialDrops.size())));
+            levelAccessor.addFreshEntity(item);
           }
         }
       }

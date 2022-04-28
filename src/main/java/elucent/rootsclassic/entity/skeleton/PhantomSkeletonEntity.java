@@ -44,12 +44,12 @@ public class PhantomSkeletonEntity extends Skeleton {
     return !(livingEntity instanceof PhantomSkeletonEntity);
   };
 
-  public PhantomSkeletonEntity(EntityType<? extends PhantomSkeletonEntity> type, Level worldIn) {
-    super(type, worldIn);
+  public PhantomSkeletonEntity(EntityType<? extends PhantomSkeletonEntity> type, Level levelAccessor) {
+    super(type, levelAccessor);
   }
 
-  public PhantomSkeletonEntity(Level worldIn) {
-    super(RootsEntities.PHANTOM_SKELETON.get(), worldIn);
+  public PhantomSkeletonEntity(Level levelAccessor) {
+    super(RootsEntities.PHANTOM_SKELETON.get(), levelAccessor);
   }
 
   public static AttributeSupplier.Builder registerAttributes() {
@@ -95,7 +95,7 @@ public class PhantomSkeletonEntity extends Skeleton {
 
   @Nullable
   @Override
-  public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+  public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
     getAttribute(Attributes.FOLLOW_RANGE).addPermanentModifier(new AttributeModifier("Random spawn bonus", random.nextGaussian() * 0.05D, Operation.MULTIPLY_BASE));
     float f = difficultyIn.getSpecialMultiplier();
     this.setCanPickUpLoot(this.random.nextFloat() < 0.55F * f);

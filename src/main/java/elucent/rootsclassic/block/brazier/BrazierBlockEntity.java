@@ -66,7 +66,7 @@ public class BrazierBlockEntity extends BEBase {
   }
 
   @Override
-  public void breakBlock(Level world, BlockPos pos, BlockState state, Player player) {
+  public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
     if (getHeldItem() != null && !isBurning()) {
       dropContaining();
     }
@@ -86,7 +86,7 @@ public class BrazierBlockEntity extends BEBase {
   }
 
   @Override
-  public InteractionResult activate(Level world, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack playerItem, BlockHitResult hit) {
+  public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack playerItem, BlockHitResult hit) {
     if (playerItem.isEmpty()) {
       if (!getHeldItem().isEmpty() && !isBurning()) {
         if (player.isShiftKeyDown()) {

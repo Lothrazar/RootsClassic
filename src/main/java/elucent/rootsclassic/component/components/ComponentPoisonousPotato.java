@@ -18,15 +18,15 @@ public class ComponentPoisonousPotato extends ComponentBase {
   }
 
   @Override
-  public void doEffect(Level world, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+  public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      if (caster instanceof Player && !world.isClientSide) {
-        BlockPos pos = RootsUtil.getRayTrace(world, (Player) caster, 4 + 2 * (int) size);
-        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(world);
+      if (caster instanceof Player && !level.isClientSide) {
+        BlockPos pos = RootsUtil.getRayTrace(level, (Player) caster, 4 + 2 * (int) size);
+        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level);
         if (lightningBolt != null) {
           lightningBolt.moveTo(pos.getX(), pos.getY(), pos.getZ());
           lightningBolt.setVisualOnly(false);
-          world.addFreshEntity(lightningBolt);
+          level.addFreshEntity(lightningBolt);
         }
       }
     }
