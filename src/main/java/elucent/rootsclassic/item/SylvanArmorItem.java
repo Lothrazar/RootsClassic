@@ -33,57 +33,57 @@ import java.util.function.Consumer;
 
 public class SylvanArmorItem extends ArmorItem {
 
-  private final LazyLoadedValue<HumanoidModel<?>> model;
+	private final LazyLoadedValue<HumanoidModel<?>> model;
 
-  public SylvanArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Item.Properties builderIn) {
-    super(materialIn, slot, builderIn);
-    this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(slot)),
-        () -> () -> null);
-  }
+	public SylvanArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Item.Properties builderIn) {
+		super(materialIn, slot, builderIn);
+		this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(slot)),
+			() -> () -> null);
+	}
 
-  @Override
-  public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-    return Const.MODID + ":textures/models/armor/sylvan.png";
-  }
+	@Override
+	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+		return Const.MODID + ":textures/models/armor/sylvan.png";
+	}
 
-  @OnlyIn(Dist.CLIENT)
-  public HumanoidModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
-    return new SylvanArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ClientHandler.SYLVAN_ARMOR), slot);
-  }
+	@OnlyIn(Dist.CLIENT)
+	public HumanoidModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
+		return new SylvanArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ClientHandler.SYLVAN_ARMOR), slot);
+	}
 
-  @Override
-  public void onArmorTick(ItemStack stack, Level levelAccessor, Player player) {
-    RootsUtil.randomlyRepair(levelAccessor.random, stack);
-    if (levelAccessor.random.nextInt(40) == 0) {
-      player.getCapability(RootsCapabilityManager.MANA_CAPABILITY).ifPresent(cap -> {
-        cap.setMana(cap.getMana() + 1.0f);
-      });
-    }
-  }
+	@Override
+	public void onArmorTick(ItemStack stack, Level levelAccessor, Player player) {
+		RootsUtil.randomlyRepair(levelAccessor.random, stack);
+		if (levelAccessor.random.nextInt(40) == 0) {
+			player.getCapability(RootsCapabilityManager.MANA_CAPABILITY).ifPresent(cap -> {
+				cap.setMana(cap.getMana() + 1.0f);
+			});
+		}
+	}
 
-  @Override
-  public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
-    return false;
-  }
+	@Override
+	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
+		return false;
+	}
 
-  @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level levelAccessor, List<Component> tooltip, TooltipFlag flagIn) {
-    super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
-    tooltip.add(TextComponent.EMPTY);
-    tooltip.add(new TranslatableComponent("rootsclassic.attribute.equipped").withStyle(ChatFormatting.GRAY));
-    tooltip.add(new TextComponent(" ").append(new TranslatableComponent("rootsclassic.attribute.increasedmanaregen")).withStyle(ChatFormatting.BLUE));
-    tooltip.add(TextComponent.EMPTY);
-    tooltip.add(new TranslatableComponent("rootsclassic.attribute.fullset").withStyle(ChatFormatting.GRAY));
-    tooltip.add(new TextComponent(" +1 ").append(new TranslatableComponent("rootsclassic.attribute.potency")).withStyle(ChatFormatting.BLUE));
-  }
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level levelAccessor, List<Component> tooltip, TooltipFlag flagIn) {
+		super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
+		tooltip.add(TextComponent.EMPTY);
+		tooltip.add(new TranslatableComponent("rootsclassic.attribute.equipped").withStyle(ChatFormatting.GRAY));
+		tooltip.add(new TextComponent(" ").append(new TranslatableComponent("rootsclassic.attribute.increasedmanaregen")).withStyle(ChatFormatting.BLUE));
+		tooltip.add(TextComponent.EMPTY);
+		tooltip.add(new TranslatableComponent("rootsclassic.attribute.fullset").withStyle(ChatFormatting.GRAY));
+		tooltip.add(new TextComponent(" +1 ").append(new TranslatableComponent("rootsclassic.attribute.potency")).withStyle(ChatFormatting.BLUE));
+	}
 
-  @Override
-  public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-    consumer.accept(new IItemRenderProperties() {
-      @Override
-      public HumanoidModel<?> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
-        return model.get();
-      }
-    });
-  }
+	@Override
+	public void initializeClient(Consumer<IItemRenderProperties> consumer) {
+		consumer.accept(new IItemRenderProperties() {
+			@Override
+			public HumanoidModel<?> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
+				return model.get();
+			}
+		});
+	}
 }

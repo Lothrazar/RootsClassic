@@ -18,31 +18,31 @@ import java.util.List;
 
 public class RitualSummoning extends RitualBase {
 
-  public EntityType<? extends Mob> entityType = null;
+	public EntityType<? extends Mob> entityType = null;
 
-  public RitualSummoning setEntityType(EntityType<? extends Mob> entity) {
-    this.entityType = entity;
-    return this;
-  }
+	public RitualSummoning setEntityType(EntityType<? extends Mob> entity) {
+		this.entityType = entity;
+		return this;
+	}
 
-  public RitualSummoning(int level, double r, double g, double b) {
-    super(level, r, g, b);
-  }
+	public RitualSummoning(int level, double r, double g, double b) {
+		super(level, r, g, b);
+	}
 
-  @Override
-  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
-    if (RootsUtil.itemListMatchInventoryWithSize(inventory, this.getIngredients()) && !levelAccessor.isClientSide) {
-      Mob toSpawn = entityType.create(levelAccessor);
-      if (toSpawn != null) {
-        toSpawn.finalizeSpawn((ServerLevel) levelAccessor, levelAccessor.getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
-        toSpawn.setPos(pos.getX() + 0.5, pos.getY() + 2.0, pos.getZ() + 0.5);
-        inventory.clearContent();
-        levelAccessor.addFreshEntity(toSpawn);
-        BlockEntity tile = levelAccessor.getBlockEntity(pos);
-        if (tile != null) {
-          tile.setChanged();
-        }
-      }
-    }
-  }
+	@Override
+	public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+		if (RootsUtil.itemListMatchInventoryWithSize(inventory, this.getIngredients()) && !levelAccessor.isClientSide) {
+			Mob toSpawn = entityType.create(levelAccessor);
+			if (toSpawn != null) {
+				toSpawn.finalizeSpawn((ServerLevel) levelAccessor, levelAccessor.getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
+				toSpawn.setPos(pos.getX() + 0.5, pos.getY() + 2.0, pos.getZ() + 0.5);
+				inventory.clearContent();
+				levelAccessor.addFreshEntity(toSpawn);
+				BlockEntity tile = levelAccessor.getBlockEntity(pos);
+				if (tile != null) {
+					tile.setChanged();
+				}
+			}
+		}
+	}
 }

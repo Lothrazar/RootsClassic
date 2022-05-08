@@ -16,30 +16,30 @@ import java.util.List;
 
 public class MutagenFlareOrchidRecipe extends MutagenRecipe {
 
-  public MutagenFlareOrchidRecipe() {
-    super(new ResourceLocation(Const.MODID, "flare_orchid"), Blocks.BLUE_ORCHID.defaultBlockState(), RootsRegistry.FLARE_ORCHID.get().defaultBlockState());
-    addIngredient(new ItemStack(Items.BLAZE_ROD, 1));
-    addIngredient(new ItemStack(Items.LAVA_BUCKET, 1));
-  }
+	public MutagenFlareOrchidRecipe() {
+		super(new ResourceLocation(Const.MODID, "flare_orchid"), Blocks.BLUE_ORCHID.defaultBlockState(), RootsRegistry.FLARE_ORCHID.get().defaultBlockState());
+		addIngredient(new ItemStack(Items.BLAZE_ROD, 1));
+		addIngredient(new ItemStack(Items.LAVA_BUCKET, 1));
+	}
 
-  @Override
-  public void onCrafted(Level levelAccessor, BlockPos pos, Player player) {
-    player.setSecondsOnFire(20);
-  }
+	@Override
+	public void onCrafted(Level levelAccessor, BlockPos pos, Player player) {
+		player.setSecondsOnFire(20);
+	}
 
-  @Override
-  public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
-    if (super.matches(items, levelAccessor, pos, player)) {
-      return levelAccessor.dimension() == Level.NETHER && player.getEffect(MobEffects.FIRE_RESISTANCE) != null
-          && levelAccessor.getBlockState(pos.east()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.west()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.north()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.south()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.east().north()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.west().south()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.north().west()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.south().east()).getBlock() == Blocks.NETHERRACK;
-    }
-    return false;
-  }
+	@Override
+	public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
+		if (super.matches(items, levelAccessor, pos, player)) {
+			return levelAccessor.dimension() == Level.NETHER && player.getEffect(MobEffects.FIRE_RESISTANCE) != null
+				&& levelAccessor.getBlockState(pos.east()).getBlock() == Blocks.NETHERRACK
+				&& levelAccessor.getBlockState(pos.west()).getBlock() == Blocks.NETHERRACK
+				&& levelAccessor.getBlockState(pos.north()).getBlock() == Blocks.NETHERRACK
+				&& levelAccessor.getBlockState(pos.south()).getBlock() == Blocks.NETHERRACK
+				&& levelAccessor.getBlockState(pos.east().north()).getBlock() == Blocks.NETHERRACK
+				&& levelAccessor.getBlockState(pos.west().south()).getBlock() == Blocks.NETHERRACK
+				&& levelAccessor.getBlockState(pos.north().west()).getBlock() == Blocks.NETHERRACK
+				&& levelAccessor.getBlockState(pos.south().east()).getBlock() == Blocks.NETHERRACK;
+		}
+		return false;
+	}
 }

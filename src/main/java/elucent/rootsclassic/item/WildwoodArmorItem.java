@@ -32,49 +32,49 @@ import java.util.function.Consumer;
 
 public class WildwoodArmorItem extends ArmorItem {
 
-  private final LazyLoadedValue<HumanoidModel<?>> model;
+	private final LazyLoadedValue<HumanoidModel<?>> model;
 
-  public WildwoodArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Item.Properties builderIn) {
-    super(materialIn, slot, builderIn);
-    this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(slot)),
-        () -> () -> null);
-  }
+	public WildwoodArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Item.Properties builderIn) {
+		super(materialIn, slot, builderIn);
+		this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(slot)),
+			() -> () -> null);
+	}
 
-  @Override
-  public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-    return Const.MODID + ":textures/models/armor/wildwood.png";
-  }
+	@Override
+	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+		return Const.MODID + ":textures/models/armor/wildwood.png";
+	}
 
-  @OnlyIn(Dist.CLIENT)
-  public HumanoidModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
-    return new WildwoodArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ClientHandler.WILDWOOD_ARMOR), slot);
-  }
+	@OnlyIn(Dist.CLIENT)
+	public HumanoidModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
+		return new WildwoodArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ClientHandler.WILDWOOD_ARMOR), slot);
+	}
 
-  @Override
-  public void onArmorTick(ItemStack stack, Level levelAccessor, Player player) {
-    RootsUtil.randomlyRepair(levelAccessor.random, stack);
-  }
+	@Override
+	public void onArmorTick(ItemStack stack, Level levelAccessor, Player player) {
+		RootsUtil.randomlyRepair(levelAccessor.random, stack);
+	}
 
-  @Override
-  public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
-    return false;
-  }
+	@Override
+	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
+		return false;
+	}
 
-  @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level levelAccessor, List<Component> tooltip, TooltipFlag flagIn) {
-    super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
-    tooltip.add(TextComponent.EMPTY);
-    tooltip.add(new TranslatableComponent("rootsclassic.attribute.equipped").withStyle(ChatFormatting.GRAY));
-    tooltip.add(new TextComponent(" ").append(new TranslatableComponent("rootsclassic.attribute.increasedmanaregen")).withStyle(ChatFormatting.BLUE));
-  }
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable Level levelAccessor, List<Component> tooltip, TooltipFlag flagIn) {
+		super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
+		tooltip.add(TextComponent.EMPTY);
+		tooltip.add(new TranslatableComponent("rootsclassic.attribute.equipped").withStyle(ChatFormatting.GRAY));
+		tooltip.add(new TextComponent(" ").append(new TranslatableComponent("rootsclassic.attribute.increasedmanaregen")).withStyle(ChatFormatting.BLUE));
+	}
 
-  @Override
-  public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-    consumer.accept(new IItemRenderProperties() {
-      @Override
-      public HumanoidModel<?> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
-        return model.get();
-      }
-    });
-  }
+	@Override
+	public void initializeClient(Consumer<IItemRenderProperties> consumer) {
+		consumer.accept(new IItemRenderProperties() {
+			@Override
+			public HumanoidModel<?> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
+				return model.get();
+			}
+		});
+	}
 }

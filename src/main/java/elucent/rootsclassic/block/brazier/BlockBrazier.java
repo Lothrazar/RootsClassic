@@ -17,33 +17,33 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class BlockBrazier extends BaseBEBlock implements EntityBlock {
-  private static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 12.0D, 13.0D);
+	private static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 12.0D, 13.0D);
 
-  public BlockBrazier(Properties properties) {
-    super(properties);
-  }
+	public BlockBrazier(Properties properties) {
+		super(properties);
+	}
 
-  @Override
-  public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
-    return SHAPE;
-  }
+	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
+		return SHAPE;
+	}
 
-  @Nullable
-  @Override
-  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-    return new BrazierBlockEntity(pos, state);
-  }
+	@Nullable
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new BrazierBlockEntity(pos, state);
+	}
 
-  @Nullable
-  @Override
-  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
-    return createStandingStoneTicker(level, entityType, RootsRegistry.BRAZIER_TILE.get());
-  }
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+		return createStandingStoneTicker(level, entityType, RootsRegistry.BRAZIER_TILE.get());
+	}
 
-  @Nullable
-  protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends BrazierBlockEntity> standingStoneType) {
-    return level.isClientSide ?
-            createTickerHelper(entityType, standingStoneType, BrazierBlockEntity::clientTick) :
-            createTickerHelper(entityType, standingStoneType, BrazierBlockEntity::serverTick);
-  }
+	@Nullable
+	protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends BrazierBlockEntity> standingStoneType) {
+		return level.isClientSide ?
+			createTickerHelper(entityType, standingStoneType, BrazierBlockEntity::clientTick) :
+			createTickerHelper(entityType, standingStoneType, BrazierBlockEntity::serverTick);
+	}
 }

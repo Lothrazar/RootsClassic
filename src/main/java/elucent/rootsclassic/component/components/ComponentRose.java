@@ -16,44 +16,44 @@ import java.util.ArrayList;
 
 public class ComponentRose extends ComponentBase {
 
-  public ComponentRose() {
-    super(Blocks.ROSE_BUSH, 14);
-  }
+	public ComponentRose() {
+		super(Blocks.ROSE_BUSH, 14);
+	}
 
-  @Override
-  public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (type == EnumCastType.SPELL) {
-      ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size, y - size, z - size, x + size, y + size, z + size));
-      // int damageDealt = 0;
-      for (LivingEntity target : targets) {
-        if (target.getUUID() != caster.getUUID()) {
-          if (target instanceof Player && RootsConfig.COMMON.disablePVP.get()) {}
-          else {
-            //            if (caster instanceof EntityPlayer) {
-            //              if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveSpellRose)) {
-            //                PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveSpellRose);
-            //              }
-            //            }
-            target.hurt(DamageSource.CACTUS, (int) (9 + 2 * potency));
-            RootsUtil.addTickTracking(target);
-            target.getPersistentData().putFloat("RMOD_thornsDamage", 2.0f + (float) potency);
-            if(caster instanceof LivingEntity) {
-              if(caster instanceof Player) {
-                target.setLastHurtByPlayer((Player)caster);
-              } else {
-                target.setLastHurtByMob((LivingEntity) caster);
-              }
-            }
-          }
-        }
-      }
-      //      if (damageDealt > 80) {
-      //        if (caster instanceof EntityPlayer) {
-      //          if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveLotsDamage)) {
-      //            PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveLotsDamage);
-      //          }
-      //        }
-      //      }
-    }
-  }
+	@Override
+	public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+		if (type == EnumCastType.SPELL) {
+			ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size, y - size, z - size, x + size, y + size, z + size));
+			// int damageDealt = 0;
+			for (LivingEntity target : targets) {
+				if (target.getUUID() != caster.getUUID()) {
+					if (target instanceof Player && RootsConfig.COMMON.disablePVP.get()) {
+					} else {
+						//            if (caster instanceof EntityPlayer) {
+						//              if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveSpellRose)) {
+						//                PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveSpellRose);
+						//              }
+						//            }
+						target.hurt(DamageSource.CACTUS, (int) (9 + 2 * potency));
+						RootsUtil.addTickTracking(target);
+						target.getPersistentData().putFloat("RMOD_thornsDamage", 2.0f + (float) potency);
+						if (caster instanceof LivingEntity) {
+							if (caster instanceof Player) {
+								target.setLastHurtByPlayer((Player) caster);
+							} else {
+								target.setLastHurtByMob((LivingEntity) caster);
+							}
+						}
+					}
+				}
+			}
+			//      if (damageDealt > 80) {
+			//        if (caster instanceof EntityPlayer) {
+			//          if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveLotsDamage)) {
+			//            PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveLotsDamage);
+			//          }
+			//        }
+			//      }
+		}
+	}
 }

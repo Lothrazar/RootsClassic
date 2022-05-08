@@ -15,23 +15,23 @@ import java.util.Random;
 
 public class MortarBER implements BlockEntityRenderer<MortarBlockEntity> {
 
-  public MortarBER(BlockEntityRendererProvider.Context context) {
-  }
+	public MortarBER(BlockEntityRendererProvider.Context context) {
+	}
 
-  @Override
-  public void render(MortarBlockEntity mortarTile, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
-    final ItemStackHandler inventory = mortarTile.inventory;
-    for (int i = 0; i < inventory.getSlots(); i++) {
-      ItemStack stack = inventory.getStackInSlot(i);
-      if (!stack.isEmpty()) {
-        matrixStackIn.pushPose();
-        Random random = new Random(stack.hashCode());
-        matrixStackIn.translate(0.475 + random.nextFloat() / 20.0, 0.05 + random.nextFloat() / 20.0, 0.475 + random.nextFloat() / 20.0);
-        matrixStackIn.scale(0.65F, 0.65F, 0.65F);
-        matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(random.nextInt(360)));
-        Minecraft.getInstance().getItemRenderer().renderStatic(stack, TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn, 0);
-        matrixStackIn.popPose();
-      }
-    }
-  }
+	@Override
+	public void render(MortarBlockEntity mortarTile, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
+		final ItemStackHandler inventory = mortarTile.inventory;
+		for (int i = 0; i < inventory.getSlots(); i++) {
+			ItemStack stack = inventory.getStackInSlot(i);
+			if (!stack.isEmpty()) {
+				matrixStackIn.pushPose();
+				Random random = new Random(stack.hashCode());
+				matrixStackIn.translate(0.475 + random.nextFloat() / 20.0, 0.05 + random.nextFloat() / 20.0, 0.475 + random.nextFloat() / 20.0);
+				matrixStackIn.scale(0.65F, 0.65F, 0.65F);
+				matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(random.nextInt(360)));
+				Minecraft.getInstance().getItemRenderer().renderStatic(stack, TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn, 0);
+				matrixStackIn.popPose();
+			}
+		}
+	}
 }

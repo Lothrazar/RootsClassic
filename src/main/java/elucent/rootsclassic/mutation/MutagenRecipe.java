@@ -12,40 +12,40 @@ import java.util.List;
 
 public class MutagenRecipe {
 
-  ArrayList<ItemStack> inputs = new ArrayList<>();
-  ResourceLocation name;
-  BlockState plantBlock;
-  public BlockState result;
+	ArrayList<ItemStack> inputs = new ArrayList<>();
+	ResourceLocation name;
+	BlockState plantBlock;
+	public BlockState result;
 
-  public MutagenRecipe(ResourceLocation name, BlockState state, BlockState resultState) {
-    this.name = name;
-    this.plantBlock = state;
-    this.result = resultState;
-  }
+	public MutagenRecipe(ResourceLocation name, BlockState state, BlockState resultState) {
+		this.name = name;
+		this.plantBlock = state;
+		this.result = resultState;
+	}
 
-  public void onCrafted(Level levelAccessor, BlockPos pos, Player player) {
-    //Unused?
-  }
+	public void onCrafted(Level levelAccessor, BlockPos pos, Player player) {
+		//Unused?
+	}
 
-  public MutagenRecipe addIngredient(ItemStack stack) {
-    inputs.add(stack);
-    return this;
-  }
+	public MutagenRecipe addIngredient(ItemStack stack) {
+		inputs.add(stack);
+		return this;
+	}
 
-  public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
-    if (levelAccessor.getBlockState(pos).getBlock() == plantBlock.getBlock()) {
-      ArrayList<ItemStack> tempItems = new ArrayList<>(items);
-      for (ItemStack input : inputs) {
-        boolean endIteration = false;
-        for (int j = 0; j < tempItems.size() && !endIteration; j++) {
-          if (input.sameItem(tempItems.get(j))) {
-            tempItems.remove(j);
-            endIteration = true;
-          }
-        }
-      }
-      return tempItems.size() == 0;
-    }
-    return false;
-  }
+	public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
+		if (levelAccessor.getBlockState(pos).getBlock() == plantBlock.getBlock()) {
+			ArrayList<ItemStack> tempItems = new ArrayList<>(items);
+			for (ItemStack input : inputs) {
+				boolean endIteration = false;
+				for (int j = 0; j < tempItems.size() && !endIteration; j++) {
+					if (input.sameItem(tempItems.get(j))) {
+						tempItems.remove(j);
+						endIteration = true;
+					}
+				}
+			}
+			return tempItems.size() == 0;
+		}
+		return false;
+	}
 }

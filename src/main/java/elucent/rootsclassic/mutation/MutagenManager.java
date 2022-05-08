@@ -13,20 +13,20 @@ import java.util.List;
 
 public class MutagenManager {
 
-  public static ArrayList<MutagenRecipe> recipes = new ArrayList<>();
+	public static ArrayList<MutagenRecipe> recipes = new ArrayList<>();
 
-  public static void reload() {
-    recipes.add(new MutagenMidnightBloomRecipe());
-    recipes.add(new MutagenFlareOrchidRecipe());
-    recipes.add(new MutagenRadiantDaisyRecipe());
-  }
+	public static void reload() {
+		recipes.add(new MutagenMidnightBloomRecipe());
+		recipes.add(new MutagenFlareOrchidRecipe());
+		recipes.add(new MutagenRadiantDaisyRecipe());
+	}
 
-  public static MutagenRecipe getRecipe(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
-    for (MutagenRecipe recipe : recipes) {
-      if (recipe.matches(items, levelAccessor, pos, player)) {
-        return recipe;
-      }
-    }
-    return null;
-  }
+	public static MutagenRecipe getRecipe(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
+		for (MutagenRecipe recipe : recipes) {
+			if (recipe.matches(items, levelAccessor, pos, player)) {
+				return recipe;
+			}
+		}
+		return null;
+	}
 }

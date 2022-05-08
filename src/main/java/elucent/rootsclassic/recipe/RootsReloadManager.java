@@ -8,13 +8,13 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RootsReloadManager implements ResourceManagerReloadListener {
-  @Override
-  public void onResourceManagerReload(ResourceManager resourceManager) {
-    MutagenManager.reload();
-  }
+	@Override
+	public void onResourceManagerReload(ResourceManager resourceManager) {
+		MutagenManager.reload();
+	}
 
-  @SubscribeEvent(priority = EventPriority.HIGHEST)
-  public void onAddReloadListeners(AddReloadListenerEvent event) {
-    event.addListener(this);
-  }
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void onAddReloadListeners(AddReloadListenerEvent event) {
+		event.addListener(this);
+	}
 }

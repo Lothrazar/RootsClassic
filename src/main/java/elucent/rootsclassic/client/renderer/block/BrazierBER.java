@@ -11,18 +11,18 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
 public class BrazierBER implements BlockEntityRenderer<BrazierBlockEntity> {
 
-  public BrazierBER(BlockEntityRendererProvider.Context context) {
-  }
+	public BrazierBER(BlockEntityRendererProvider.Context context) {
+	}
 
-  @Override
-  public void render(BrazierBlockEntity brazierTile, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
-    if (!brazierTile.getHeldItem().isEmpty()) {
-      matrixStackIn.pushPose();
-      matrixStackIn.translate(0.5, 0.5, 0.5);
-      matrixStackIn.scale(0.5F, 0.5F, 0.5F);
-      matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(brazierTile.getTicker()));
-      Minecraft.getInstance().getItemRenderer().renderStatic(brazierTile.getHeldItem(), TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn, 0);
-      matrixStackIn.popPose();
-    }
-  }
+	@Override
+	public void render(BrazierBlockEntity brazierTile, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
+		if (!brazierTile.getHeldItem().isEmpty()) {
+			matrixStackIn.pushPose();
+			matrixStackIn.translate(0.5, 0.5, 0.5);
+			matrixStackIn.scale(0.5F, 0.5F, 0.5F);
+			matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(brazierTile.getTicker()));
+			Minecraft.getInstance().getItemRenderer().renderStatic(brazierTile.getHeldItem(), TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn, 0);
+			matrixStackIn.popPose();
+		}
+	}
 }

@@ -27,93 +27,90 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class AttunedStandingStoneBlock extends Block {
-  private static final VoxelShape BOTTOM_SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
-  private static final VoxelShape TOP_SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 10.0D, 12.0D);
-  public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+	private static final VoxelShape BOTTOM_SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+	private static final VoxelShape TOP_SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 10.0D, 12.0D);
+	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
-  public AttunedStandingStoneBlock(Properties properties) {
-    super(properties);
-    this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER));
-  }
+	public AttunedStandingStoneBlock(Properties properties) {
+		super(properties);
+		this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER));
+	}
 
-  @Override
-  protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
-    builder.add(HALF);
-  }
+	@Override
+	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
+		builder.add(HALF);
+	}
 
-  @SuppressWarnings("deprecation")
-  @Override
-  public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor levelAccessor, BlockPos currentPos, BlockPos facingPos) {
-    DoubleBlockHalf doubleblockhalf = stateIn.getValue(HALF);
-    if (facing.getAxis() == Direction.Axis.Y && doubleblockhalf == DoubleBlockHalf.LOWER == (facing == Direction.UP)) {
-      return facingState.is(this) && facingState.getValue(HALF) != doubleblockhalf ? stateIn : Blocks.AIR.defaultBlockState();
-    }
-    else {
-      return doubleblockhalf == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !stateIn.canSurvive(levelAccessor, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, levelAccessor, currentPos, facingPos);
-    }
-  }
+	@SuppressWarnings("deprecation")
+	@Override
+	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor levelAccessor, BlockPos currentPos, BlockPos facingPos) {
+		DoubleBlockHalf doubleblockhalf = stateIn.getValue(HALF);
+		if (facing.getAxis() == Direction.Axis.Y && doubleblockhalf == DoubleBlockHalf.LOWER == (facing == Direction.UP)) {
+			return facingState.is(this) && facingState.getValue(HALF) != doubleblockhalf ? stateIn : Blocks.AIR.defaultBlockState();
+		} else {
+			return doubleblockhalf == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !stateIn.canSurvive(levelAccessor, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, levelAccessor, currentPos, facingPos);
+		}
+	}
 
-  @Override
-  public void playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
-    if (!levelAccessor.isClientSide && player.isCreative()) {
-      AttunedStandingStoneBlock.removeBottomHalf(levelAccessor, pos, state, player);
-    }
-    super.playerWillDestroy(levelAccessor, pos, state, player);
-  }
+	@Override
+	public void playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
+		if (!levelAccessor.isClientSide && player.isCreative()) {
+			AttunedStandingStoneBlock.removeBottomHalf(levelAccessor, pos, state, player);
+		}
+		super.playerWillDestroy(levelAccessor, pos, state, player);
+	}
 
-  public static void removeBottomHalf(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
-    DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
-    if (doubleblockhalf == DoubleBlockHalf.UPPER) {
-      BlockPos blockpos = pos.below();
-      BlockState blockstate = levelAccessor.getBlockState(blockpos);
-      if (blockstate.getBlock() == state.getBlock() && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER) {
-        levelAccessor.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 35);
-        levelAccessor.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
-      }
-    }
-  }
+	public static void removeBottomHalf(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
+		DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
+		if (doubleblockhalf == DoubleBlockHalf.UPPER) {
+			BlockPos blockpos = pos.below();
+			BlockState blockstate = levelAccessor.getBlockState(blockpos);
+			if (blockstate.getBlock() == state.getBlock() && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER) {
+				levelAccessor.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 35);
+				levelAccessor.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
+			}
+		}
+	}
 
-  @Nullable
-  @Override
-  public BlockState getStateForPlacement(BlockPlaceContext context) {
-    BlockPos blockpos = context.getClickedPos();
-    if (blockpos.getY() < 255 && context.getLevel().getBlockState(blockpos.above()).canBeReplaced(context)) {
-      return this.defaultBlockState().setValue(HALF, DoubleBlockHalf.LOWER);
-    }
-    else {
-      return null;
-    }
-  }
+	@Nullable
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		BlockPos blockpos = context.getClickedPos();
+		if (blockpos.getY() < 255 && context.getLevel().getBlockState(blockpos.above()).canBeReplaced(context)) {
+			return this.defaultBlockState().setValue(HALF, DoubleBlockHalf.LOWER);
+		} else {
+			return null;
+		}
+	}
 
-  @Override
-  public void setPlacedBy(Level levelAccessor, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-    levelAccessor.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER), 3);
-  }
+	@Override
+	public void setPlacedBy(Level levelAccessor, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+		levelAccessor.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER), 3);
+	}
 
-  @Override
-  public boolean canSurvive(BlockState state, LevelReader levelAccessor, BlockPos pos) {
-    BlockPos blockpos = pos.below();
-    BlockState blockstate = levelAccessor.getBlockState(blockpos);
-    return state.getValue(HALF) == DoubleBlockHalf.LOWER ? blockstate.isFaceSturdy(levelAccessor, blockpos, Direction.UP) : blockstate.is(this);
-  }
+	@Override
+	public boolean canSurvive(BlockState state, LevelReader levelAccessor, BlockPos pos) {
+		BlockPos blockpos = pos.below();
+		BlockState blockstate = levelAccessor.getBlockState(blockpos);
+		return state.getValue(HALF) == DoubleBlockHalf.LOWER ? blockstate.isFaceSturdy(levelAccessor, blockpos, Direction.UP) : blockstate.is(this);
+	}
 
-  @Override
-  public PushReaction getPistonPushReaction(BlockState state) {
-    return PushReaction.DESTROY;
-  }
+	@Override
+	public PushReaction getPistonPushReaction(BlockState state) {
+		return PushReaction.DESTROY;
+	}
 
-  @Override
-  public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
-    if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
-      return BOTTOM_SHAPE;
-    }
-    else {
-      return TOP_SHAPE;
-    }
-  }
+	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
+		if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
+			return BOTTOM_SHAPE;
+		} else {
+			return TOP_SHAPE;
+		}
+	}
 
-  @Nullable
-  protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> typeA, BlockEntityType<E> typeE, BlockEntityTicker<? super E> typeE2) {
-    return typeE == typeA ? (BlockEntityTicker<A>)typeE2 : null;
-  }
+	@Nullable
+	protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> typeA, BlockEntityType<E> typeE, BlockEntityTicker<? super E> typeE2) {
+		return typeE == typeA ? (BlockEntityTicker<A>) typeE2 : null;
+	}
 }

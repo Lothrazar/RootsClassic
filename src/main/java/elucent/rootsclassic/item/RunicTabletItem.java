@@ -10,16 +10,16 @@ import net.minecraft.world.level.Level;
 
 public class RunicTabletItem extends Item {
 
-  public RunicTabletItem(Properties properties) {
-    super(properties);
-  }
+	public RunicTabletItem(Properties properties) {
+		super(properties);
+	}
 
-  @Override
-  public InteractionResultHolder<ItemStack> use(Level levelAccessor, Player player, InteractionHand hand) {
-    ItemStack stack = player.getItemInHand(hand);
-    if (hand == InteractionHand.MAIN_HAND && levelAccessor.isClientSide) {
-      elucent.rootsclassic.client.screen.TabletScreen.openScreen(player);
-    }
-    return new InteractionResultHolder<>(InteractionResult.PASS, stack);
-  }
+	@Override
+	public InteractionResultHolder<ItemStack> use(Level levelAccessor, Player player, InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
+		if (hand == InteractionHand.MAIN_HAND && levelAccessor.isClientSide) {
+			elucent.rootsclassic.client.screen.TabletScreen.openScreen(player);
+		}
+		return new InteractionResultHolder<>(InteractionResult.PASS, stack);
+	}
 }

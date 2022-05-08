@@ -32,53 +32,53 @@ import org.slf4j.Logger;
 @Mod(Const.MODID)
 public class Roots {
 
-  public static CreativeModeTab tab = new CreativeModeTab(Const.MODID) {
-    @Override
-    public ItemStack makeIcon() {
-      return new ItemStack(RootsRegistry.SPELL_POWDER.get());
-    }
-  };
-  public static final Logger LOGGER = LogUtils.getLogger();
+	public static CreativeModeTab tab = new CreativeModeTab(Const.MODID) {
+		@Override
+		public ItemStack makeIcon() {
+			return new ItemStack(RootsRegistry.SPELL_POWDER.get());
+		}
+	};
+	public static final Logger LOGGER = LogUtils.getLogger();
 
-  public Roots() {
-    IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, RootsConfig.clientSpec);
-    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, RootsConfig.commonSpec);
-    eventBus.register(RootsConfig.class);
-    eventBus.addListener(this::setup);
-    RootsRegistry.BLOCKS.register(eventBus);
-    RootsRegistry.ITEMS.register(eventBus);
-    RootsRegistry.BLOCK_ENTITIES.register(eventBus);
-    RootsEntities.ENTITIES.register(eventBus);
-    RitualRegistry.RITUALS.register(eventBus);
-    ComponentRegistry.COMPONENTS.register(eventBus);
-    RootsRecipes.RECIPE_SERIALIZERS.register(eventBus);
-    RootsRecipes.RECIPE_TYPES.register(eventBus);
-    DropModifier.GLM.register(eventBus);
-    ParticleRegistry.PARTICLE_TYPES.register(eventBus);
-    MinecraftForge.EVENT_BUS.register(new RootsReloadManager());
-    eventBus.addListener(RootsCapabilityManager::registerCapabilities);
-    MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
-    MinecraftForge.EVENT_BUS.register(new ComponentSpellsEvent());
-    MinecraftForge.EVENT_BUS.addListener(RootsEntities::addSpawns);
-    eventBus.addListener(RootsEntities::registerEntityAttributes);
+	public Roots() {
+		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, RootsConfig.clientSpec);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, RootsConfig.commonSpec);
+		eventBus.register(RootsConfig.class);
+		eventBus.addListener(this::setup);
+		RootsRegistry.BLOCKS.register(eventBus);
+		RootsRegistry.ITEMS.register(eventBus);
+		RootsRegistry.BLOCK_ENTITIES.register(eventBus);
+		RootsEntities.ENTITIES.register(eventBus);
+		RitualRegistry.RITUALS.register(eventBus);
+		ComponentRegistry.COMPONENTS.register(eventBus);
+		RootsRecipes.RECIPE_SERIALIZERS.register(eventBus);
+		RootsRecipes.RECIPE_TYPES.register(eventBus);
+		DropModifier.GLM.register(eventBus);
+		ParticleRegistry.PARTICLE_TYPES.register(eventBus);
+		MinecraftForge.EVENT_BUS.register(new RootsReloadManager());
+		eventBus.addListener(RootsCapabilityManager::registerCapabilities);
+		MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
+		MinecraftForge.EVENT_BUS.register(new ComponentSpellsEvent());
+		MinecraftForge.EVENT_BUS.addListener(RootsEntities::addSpawns);
+		eventBus.addListener(RootsEntities::registerEntityAttributes);
 
-    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-      MinecraftForge.EVENT_BUS.register(new ManaBarEvent());
-      eventBus.addListener(ClientHandler::onClientSetup);
-      eventBus.addListener(ClientHandler::registerEntityRenders);
-      eventBus.addListener(ClientHandler::registerLayerDefinitions);
-      eventBus.addListener(ClientHandler::registerItemColors);
-      MinecraftForge.EVENT_BUS.addListener(ResearchManager::onRecipesUpdated);
-    });
-  }
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+			MinecraftForge.EVENT_BUS.register(new ManaBarEvent());
+			eventBus.addListener(ClientHandler::onClientSetup);
+			eventBus.addListener(ClientHandler::registerEntityRenders);
+			eventBus.addListener(ClientHandler::registerLayerDefinitions);
+			eventBus.addListener(ClientHandler::registerItemColors);
+			MinecraftForge.EVENT_BUS.addListener(ResearchManager::onRecipesUpdated);
+		});
+	}
 
-  private void setup(final FMLCommonSetupEvent event) {
-    RootsRegistry.registerCompostables();
-    RootsEntities.registerSpawnPlacement();
-    event.enqueueWork(() -> {
-      //Initialize
-      MutagenManager.reload();
-    });
-  }
+	private void setup(final FMLCommonSetupEvent event) {
+		RootsRegistry.registerCompostables();
+		RootsEntities.registerSpawnPlacement();
+		event.enqueueWork(() -> {
+			//Initialize
+			MutagenManager.reload();
+		});
+	}
 }

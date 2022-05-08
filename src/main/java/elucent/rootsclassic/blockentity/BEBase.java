@@ -16,32 +16,32 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public class BEBase extends BlockEntity {
 
-  public BEBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
-    super(tileEntityTypeIn, pos, state);
-  }
+	public BEBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
+		super(tileEntityTypeIn, pos, state);
+	}
 
-  @Override
-  public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet) {
-    load(packet.getTag());
-  }
+	@Override
+	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet) {
+		load(packet.getTag());
+	}
 
-  @Override
-  public CompoundTag getUpdateTag() {
-    CompoundTag tag = new CompoundTag();
-    saveAdditional(tag);
-    return tag;
-  }
+	@Override
+	public CompoundTag getUpdateTag() {
+		CompoundTag tag = new CompoundTag();
+		saveAdditional(tag);
+		return tag;
+	}
 
-  @Override
-  public ClientboundBlockEntityDataPacket getUpdatePacket() {
-    return ClientboundBlockEntityDataPacket.create(this);
-  }
+	@Override
+	public ClientboundBlockEntityDataPacket getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
+	}
 
-  public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
-    this.setRemoved();
-  }
+	public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
+		this.setRemoved();
+	}
 
-  public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
-    return InteractionResult.PASS;
-  }
+	public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
+		return InteractionResult.PASS;
+	}
 }

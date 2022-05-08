@@ -17,37 +17,37 @@ import javax.annotation.Nullable;
 
 public class HealerStandingStoneBlock extends AttunedStandingStoneBlock implements EntityBlock {
 
-  public HealerStandingStoneBlock(Properties properties) {
-    super(properties);
-  }
+	public HealerStandingStoneBlock(Properties properties) {
+		super(properties);
+	}
 
-  @Override
-  public void playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
-    super.playerWillDestroy(levelAccessor, pos, state, player);
-    if (levelAccessor.getBlockEntity(pos) instanceof BEBase) {
-      ((BEBase) levelAccessor.getBlockEntity(pos)).breakBlock(levelAccessor, pos, state, player);
-    }
-  }
+	@Override
+	public void playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
+		super.playerWillDestroy(levelAccessor, pos, state, player);
+		if (levelAccessor.getBlockEntity(pos) instanceof BEBase) {
+			((BEBase) levelAccessor.getBlockEntity(pos)).breakBlock(levelAccessor, pos, state, player);
+		}
+	}
 
-  @Nullable
-  @Override
-  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-    if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-      return new HealerStandingStone(pos, state);
-    }
-    return null;
-  }
+	@Nullable
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
+			return new HealerStandingStone(pos, state);
+		}
+		return null;
+	}
 
-  @Nullable
-  @Override
-  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
-    return createStandingStoneTicker(level, entityType, RootsRegistry.HEALER_STANDING_STONE_TILE.get());
-  }
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+		return createStandingStoneTicker(level, entityType, RootsRegistry.HEALER_STANDING_STONE_TILE.get());
+	}
 
-  @Nullable
-  protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends HealerStandingStone> standingStoneType) {
-    return level.isClientSide ?
-            createTickerHelper(entityType, standingStoneType, HealerStandingStone::clientTick) :
-            createTickerHelper(entityType, standingStoneType, HealerStandingStone::serverTick);
-  }
+	@Nullable
+	protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends HealerStandingStone> standingStoneType) {
+		return level.isClientSide ?
+			createTickerHelper(entityType, standingStoneType, HealerStandingStone::clientTick) :
+			createTickerHelper(entityType, standingStoneType, HealerStandingStone::serverTick);
+	}
 }

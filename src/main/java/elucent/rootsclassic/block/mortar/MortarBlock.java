@@ -13,20 +13,20 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class MortarBlock extends BaseBEBlock implements EntityBlock {
-  private static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 5.0D, 11.0D);
+	private static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 5.0D, 11.0D);
 
-  public MortarBlock(Properties properties) {
-    super(properties);
-  }
+	public MortarBlock(Properties properties) {
+		super(properties);
+	}
 
-  @Override
-  public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
-    return SHAPE;
-  }
+	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
+		return SHAPE;
+	}
 
-  @Nullable
-  @Override
-  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-    return new MortarBlockEntity(pos, state);
-  }
+	@Nullable
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new MortarBlockEntity(pos, state);
+	}
 }

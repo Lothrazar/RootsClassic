@@ -33,75 +33,75 @@ import java.util.Random;
 
 public class DropModifier {
 
-  public static final DeferredRegister<GlobalLootModifierSerializer<?>> GLM = DeferredRegister.create(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, Const.MODID);
-  public static final RegistryObject<Serializer> ROOTSCLASSIC_DROPS = GLM.register("rootsclassic_drops", BlockDropModifier.Serializer::new);
+	public static final DeferredRegister<GlobalLootModifierSerializer<?>> GLM = DeferredRegister.create(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, Const.MODID);
+	public static final RegistryObject<Serializer> ROOTSCLASSIC_DROPS = GLM.register("rootsclassic_drops", BlockDropModifier.Serializer::new);
 
-  public static class BlockDropModifier extends LootModifier {
+	public static class BlockDropModifier extends LootModifier {
 
-    public BlockDropModifier(LootItemCondition[] lootConditions) {
-      super(lootConditions);
-    }
+		public BlockDropModifier(LootItemCondition[] lootConditions) {
+			super(lootConditions);
+		}
 
-    @Nonnull
-    @Override
-    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-      if (context.hasParam(LootContextParams.BLOCK_STATE)) {
-        BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
-        Block block = state.getBlock();
-        Random rand = context.getRandom();
-        if (block instanceof TallGrassBlock) {
-          if (rand.nextInt(RootsConfig.COMMON.oldRootDropChance.get()) == 0) {
-            generatedLoot.add(new ItemStack(RootsRegistry.OLD_ROOT.get(), 1));
-          }
-        }
-        if (block == Blocks.WHEAT || block == Blocks.CARROTS || block == Blocks.POTATOES || block == Blocks.BEETROOTS) {
-          if (((CropBlock) block).isMaxAge(state)) {
-            if (rand.nextInt(RootsConfig.COMMON.verdantSprigDropChance.get()) == 0) {
-              generatedLoot.add(new ItemStack(RootsRegistry.VERDANT_SPRIG.get(), 1));
-            }
-          }
-        }
-        if (block == Blocks.NETHER_WART) {
-          if (state.getValue(NetherWartBlock.AGE) == 3) {
-            if (rand.nextInt(RootsConfig.COMMON.infernalStemDropChance.get()) == 0) {
-              generatedLoot.add(new ItemStack(RootsRegistry.INFERNAL_BULB.get(), 1));
-            }
-          }
-        }
-        if (block == Blocks.CHORUS_FLOWER) {
-          if (rand.nextInt(RootsConfig.COMMON.dragonsEyeDropChance.get()) == 0) {
-            generatedLoot.add(new ItemStack(RootsRegistry.DRAGONS_EYE.get(), 1));
-          }
-        }
-        if (block instanceof LeavesBlock) {
-          if (!generatedLoot.stream().anyMatch((stack) -> stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() == block)) {
-            if (rand.nextInt(RootsConfig.COMMON.berriesDropChance.get()) == 0) {
-              Item berry = RootsRegistry.ELDERBERRY.get();
-              berry = Registry.ITEM.getTag(RootsTags.BERRIES).flatMap((element) -> {
-                return element.getRandomElement(rand);
-              }).map((blockHolder) -> {
-                return blockHolder.value();
-              }).orElse(berry);
+		@Nonnull
+		@Override
+		protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+			if (context.hasParam(LootContextParams.BLOCK_STATE)) {
+				BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
+				Block block = state.getBlock();
+				Random rand = context.getRandom();
+				if (block instanceof TallGrassBlock) {
+					if (rand.nextInt(RootsConfig.COMMON.oldRootDropChance.get()) == 0) {
+						generatedLoot.add(new ItemStack(RootsRegistry.OLD_ROOT.get(), 1));
+					}
+				}
+				if (block == Blocks.WHEAT || block == Blocks.CARROTS || block == Blocks.POTATOES || block == Blocks.BEETROOTS) {
+					if (((CropBlock) block).isMaxAge(state)) {
+						if (rand.nextInt(RootsConfig.COMMON.verdantSprigDropChance.get()) == 0) {
+							generatedLoot.add(new ItemStack(RootsRegistry.VERDANT_SPRIG.get(), 1));
+						}
+					}
+				}
+				if (block == Blocks.NETHER_WART) {
+					if (state.getValue(NetherWartBlock.AGE) == 3) {
+						if (rand.nextInt(RootsConfig.COMMON.infernalStemDropChance.get()) == 0) {
+							generatedLoot.add(new ItemStack(RootsRegistry.INFERNAL_BULB.get(), 1));
+						}
+					}
+				}
+				if (block == Blocks.CHORUS_FLOWER) {
+					if (rand.nextInt(RootsConfig.COMMON.dragonsEyeDropChance.get()) == 0) {
+						generatedLoot.add(new ItemStack(RootsRegistry.DRAGONS_EYE.get(), 1));
+					}
+				}
+				if (block instanceof LeavesBlock) {
+					if (!generatedLoot.stream().anyMatch((stack) -> stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() == block)) {
+						if (rand.nextInt(RootsConfig.COMMON.berriesDropChance.get()) == 0) {
+							Item berry = RootsRegistry.ELDERBERRY.get();
+							berry = Registry.ITEM.getTag(RootsTags.BERRIES).flatMap((element) -> {
+								return element.getRandomElement(rand);
+							}).map((blockHolder) -> {
+								return blockHolder.value();
+							}).orElse(berry);
 
-              generatedLoot.add(new ItemStack(berry));
-            }
-          }
-        }
-      }
-      return generatedLoot;
-    }
+							generatedLoot.add(new ItemStack(berry));
+						}
+					}
+				}
+			}
+			return generatedLoot;
+		}
 
-    protected static class Serializer extends GlobalLootModifierSerializer<BlockDropModifier> {
+		protected static class Serializer extends GlobalLootModifierSerializer<BlockDropModifier> {
 
-      @Override
-      public BlockDropModifier read(ResourceLocation location, JsonObject jsonObject, LootItemCondition[] lootConditions) {
-        return new BlockDropModifier(lootConditions);
-      }
+			@Override
+			public BlockDropModifier read(ResourceLocation location, JsonObject jsonObject, LootItemCondition[] lootConditions) {
+				return new BlockDropModifier(lootConditions);
+			}
 
-      @Override
-      public JsonObject write(BlockDropModifier instance) {
-        return makeConditions(instance.conditions);
-      }
-    }
-  }
+			@Override
+			public JsonObject write(BlockDropModifier instance) {
+				return makeConditions(instance.conditions);
+			}
+		}
+	}
 }
