@@ -1,7 +1,6 @@
 package elucent.rootsclassic.block;
 
 import elucent.rootsclassic.blockentity.BEBase;
-import elucent.rootsclassic.blockentity.RepulsorStandingStoneTile;
 import elucent.rootsclassic.blockentity.VacuumStandingStoneTile;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
@@ -34,7 +33,7 @@ public class VacuumStandingStoneBlock extends AttunedStandingStoneBlock implemen
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-			return new RepulsorStandingStoneTile(pos, state);
+			return new VacuumStandingStoneTile(pos, state);
 		}
 		return null;
 	}

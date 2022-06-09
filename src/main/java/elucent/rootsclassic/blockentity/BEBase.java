@@ -14,27 +14,25 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class BEBase extends BlockEntity {
+public abstract class BEBase extends BlockEntity {
 
 	public BEBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
 		super(tileEntityTypeIn, pos, state);
 	}
 
 	@Override
+	public ClientboundBlockEntityDataPacket getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this, BlockEntity::getUpdateTag);
+	}
+
+	@Override
 	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet) {
-		load(packet.getTag());
+		super.onDataPacket(net, packet);
 	}
 
 	@Override
 	public CompoundTag getUpdateTag() {
-		CompoundTag tag = new CompoundTag();
-		saveAdditional(tag);
-		return tag;
-	}
-
-	@Override
-	public ClientboundBlockEntityDataPacket getUpdatePacket() {
-		return ClientboundBlockEntityDataPacket.create(this);
+		return super.saveWithoutMetadata();
 	}
 
 	public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
