@@ -1,4 +1,5 @@
 {
+  "type": "rootsclassic:rootsclassic_drops",
   "conditions": [
     {
       "condition": "minecraft:inverted",
@@ -9,6 +10,5 @@
         }
       }
     }
-  ],
-  "type": "rootsclassic:rootsclassic_drops"
+  ]
 }

@@ -7,7 +7,7 @@ import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.util.InventoryUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -131,10 +131,10 @@ public class MortarBlockEntity extends BEBase {
 	private InteractionResult tryActivateRecipe(Player player, BlockState state) {
 		ComponentRecipe recipe = level.getRecipeManager().getRecipeFor(RootsRecipes.COMPONENT_RECIPE_TYPE.get(), InventoryUtil.createIInventory(inventory), level).orElse(null);
 		if (recipe == null) {
-			player.displayClientMessage(new TranslatableComponent("rootsclassic.mortar.invalid"), true);
+			player.displayClientMessage(Component.translatable("rootsclassic.mortar.invalid"), true);
 			return InteractionResult.PASS;
 		} else if (recipe.needsMixin() && ComponentRecipe.getModifierCapacity(InventoryUtil.createIInventory(inventory)) < 0) {
-			player.displayClientMessage(new TranslatableComponent("rootsclassic.mortar.mixin"), true);
+			player.displayClientMessage(Component.translatable("rootsclassic.mortar.mixin"), true);
 			return InteractionResult.PASS;
 		}
 		if (!level.isClientSide) {

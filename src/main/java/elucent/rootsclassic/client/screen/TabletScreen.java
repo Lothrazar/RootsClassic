@@ -19,7 +19,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -30,7 +30,7 @@ public class TabletScreen extends Screen {
 	private final Player player;
 
 	public TabletScreen(Player player) {
-		super(TextComponent.EMPTY);
+		super(Component.empty());
 		this.player = player;
 		if (player.getItemInHand(InteractionHand.MAIN_HAND).hasTag()) {
 			currentGroup = player.getItemInHand(InteractionHand.MAIN_HAND).getTag().getInt("currentGroup");

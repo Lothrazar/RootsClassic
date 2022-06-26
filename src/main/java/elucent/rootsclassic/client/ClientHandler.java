@@ -54,8 +54,8 @@ public class ClientHandler {
 	}
 
 	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-		event.registerLayerDefinition(SYLVAN_ARMOR, () -> SylvanArmorModel.createArmorDefinition());
-		event.registerLayerDefinition(WILDWOOD_ARMOR, () -> WildwoodArmorModel.createArmorDefinition());
+		event.registerLayerDefinition(SYLVAN_ARMOR, SylvanArmorModel::createArmorDefinition);
+		event.registerLayerDefinition(WILDWOOD_ARMOR, WildwoodArmorModel::createArmorDefinition);
 	}
 
 	public static void registerItemColors(final ColorHandlerEvent.Item event) {

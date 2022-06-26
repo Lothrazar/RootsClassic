@@ -5,7 +5,7 @@ import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -94,12 +94,12 @@ public class BrazierBlockEntity extends BEBase {
 				} else {
 					dropContaining();
 					notifyUpdate(state);
-					player.displayClientMessage(new TranslatableComponent("rootsclassic.brazier.burning.empty"), true);
+					player.displayClientMessage(Component.translatable("rootsclassic.brazier.burning.empty"), true);
 				}
 				return InteractionResult.SUCCESS;
 			} else if (isBurning()) {
 				if (player.isShiftKeyDown()) {
-					player.displayClientMessage(new TranslatableComponent("rootsclassic.brazier.burning.off"), true);
+					player.displayClientMessage(Component.translatable("rootsclassic.brazier.burning.off"), true);
 					stopBurning();
 					notifyUpdate(state);
 					return InteractionResult.SUCCESS;
@@ -108,7 +108,7 @@ public class BrazierBlockEntity extends BEBase {
 		} else if (playerItem.getItem() == Items.FLINT_AND_STEEL) {
 			if (!getHeldItem().isEmpty()) {
 				startBurning();
-				player.displayClientMessage(new TranslatableComponent("rootsclassic.brazier.burning.on"), true);
+				player.displayClientMessage(Component.translatable("rootsclassic.brazier.burning.on"), true);
 				notifyUpdate(state);
 				return InteractionResult.SUCCESS;
 			}
@@ -119,7 +119,7 @@ public class BrazierBlockEntity extends BEBase {
 					getHeldItem().setTag(playerItem.getTag());
 				}
 				playerItem.shrink(1);
-				player.displayClientMessage(new TranslatableComponent("rootsclassic.brazier.burning.added"), true);
+				player.displayClientMessage(Component.translatable("rootsclassic.brazier.burning.added"), true);
 				notifyUpdate(state);
 				return InteractionResult.SUCCESS;
 			}

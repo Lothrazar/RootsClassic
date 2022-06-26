@@ -12,10 +12,10 @@ import java.util.List;
 
 public class MutagenRecipe {
 
-	ArrayList<ItemStack> inputs = new ArrayList<>();
-	ResourceLocation name;
-	BlockState plantBlock;
-	public BlockState result;
+	final ArrayList<ItemStack> inputs = new ArrayList<>();
+	final ResourceLocation name;
+	final BlockState plantBlock;
+	public final BlockState result;
 
 	public MutagenRecipe(ResourceLocation name, BlockState state, BlockState resultState) {
 		this.name = name;

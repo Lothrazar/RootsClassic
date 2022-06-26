@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " VV",
-    "VPV",
-    "SV "
-  ],
   "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
     "S": {
       "tag": "forge:rods/wooden"
     },
     "V": {
       "tag": "minecraft:saplings"
-    },
-    "P": {
-      "tag": "minecraft:planks"
     }
   },
+  "pattern": [
+    " VV",
+    "VPV",
+    "SV "
+  ],
   "result": {
     "item": "rootsclassic:bark_knife"
   }

@@ -13,11 +13,11 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 
 public class ModelArmorBase extends HumanoidModel<LivingEntity> {
-	public EquipmentSlot slot;
+	public final EquipmentSlot slot;
 	public float armorScale = 1.05f;
 
-	public ModelPart rightFoot;
-	public ModelPart leftFoot;
+	public final ModelPart rightFoot;
+	public final ModelPart leftFoot;
 
 	public ModelArmorBase(ModelPart root, EquipmentSlot slot) {
 		super(root);

@@ -1,24 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "ISI",
-    "ICI",
-    "IXI"
-  ],
   "key": {
+    "C": {
+      "item": "minecraft:cauldron"
+    },
     "I": {
       "tag": "forge:ingots/iron"
     },
     "S": {
       "tag": "forge:string"
     },
-    "C": {
-      "item": "minecraft:cauldron"
-    },
     "X": {
       "tag": "forge:rods/wooden"
     }
   },
+  "pattern": [
+    "ISI",
+    "ICI",
+    "IXI"
+  ],
   "result": {
     "item": "rootsclassic:brazier"
   }

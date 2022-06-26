@@ -9,8 +9,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -69,12 +67,12 @@ public class SylvanArmorItem extends ArmorItem {
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level levelAccessor, List<Component> tooltip, TooltipFlag flagIn) {
 		super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
-		tooltip.add(TextComponent.EMPTY);
-		tooltip.add(new TranslatableComponent("rootsclassic.attribute.equipped").withStyle(ChatFormatting.GRAY));
-		tooltip.add(new TextComponent(" ").append(new TranslatableComponent("rootsclassic.attribute.increasedmanaregen")).withStyle(ChatFormatting.BLUE));
-		tooltip.add(TextComponent.EMPTY);
-		tooltip.add(new TranslatableComponent("rootsclassic.attribute.fullset").withStyle(ChatFormatting.GRAY));
-		tooltip.add(new TextComponent(" +1 ").append(new TranslatableComponent("rootsclassic.attribute.potency")).withStyle(ChatFormatting.BLUE));
+		tooltip.add(Component.empty());
+		tooltip.add(Component.translatable("rootsclassic.attribute.equipped").withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable(" ").append(Component.translatable("rootsclassic.attribute.increasedmanaregen")).withStyle(ChatFormatting.BLUE));
+		tooltip.add(Component.empty());
+		tooltip.add(Component.translatable("rootsclassic.attribute.fullset").withStyle(ChatFormatting.GRAY));
+		tooltip.add(Component.translatable(" +1 ").append(Component.translatable("rootsclassic.attribute.potency")).withStyle(ChatFormatting.BLUE));
 	}
 
 	@Override

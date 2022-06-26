@@ -39,7 +39,7 @@ import java.util.function.Predicate;
 
 public class PhantomSkeletonEntity extends Skeleton {
 
-	public static boolean appliesSlowPotion = true;
+	public static final boolean appliesSlowPotion = true;
 	private static final Predicate<LivingEntity> SKELETON_SELECTOR = (livingEntity) -> {
 		return !(livingEntity instanceof PhantomSkeletonEntity);
 	};

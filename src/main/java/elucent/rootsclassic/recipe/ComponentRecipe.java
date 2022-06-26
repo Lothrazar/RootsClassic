@@ -3,12 +3,13 @@ package elucent.rootsclassic.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import elucent.rootsclassic.item.SpellPowderItem;
+import elucent.rootsclassic.item.powder.SpellPowderItem;
 import elucent.rootsclassic.registry.RootsRecipes;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
@@ -20,7 +21,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class ComponentRecipe implements Recipe<Container> {
 	private static final int MAX_INGREDIENTS = 4;
@@ -101,8 +101,8 @@ public class ComponentRecipe implements Recipe<Container> {
 		return needsMixin;
 	}
 
-	public TranslatableComponent getLocalizedName() {
-		return new TranslatableComponent("rootsclassic.component." + this.getId());
+	public MutableComponent getLocalizedName() {
+		return Component.translatable("rootsclassic.component." + this.getId());
 	}
 
 	@Override
@@ -135,8 +135,8 @@ public class ComponentRecipe implements Recipe<Container> {
 	/**
 	 * True if not part of a recipe but just a recipe booster
 	 *
-	 * @param stack
-	 * @return
+	 * @param stack The stack to check
+	 * @return True if the stack is a supplement
 	 */
 	private boolean isSupplementItem(ItemStack stack) {
 		if (getResultItem().getItem() instanceof SpellPowderItem) {
@@ -187,7 +187,7 @@ public class ComponentRecipe implements Recipe<Container> {
 		return count;
 	}
 
-	public static class SerializeComponentRecipe extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ComponentRecipe> {
+	public static class SerializeComponentRecipe implements RecipeSerializer<ComponentRecipe> {
 
 		public ComponentRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
 			String s = GsonHelper.getAsString(json, "group", "");

@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " R ",
-    "SBS",
-    " S "
-  ],
   "key": {
-    "S": {
-      "tag": "forge:seeds/wheat"
-    },
     "B": {
       "tag": "forge:stone"
     },
     "R": {
       "item": "rootsclassic:old_root"
+    },
+    "S": {
+      "tag": "forge:seeds/wheat"
     }
   },
+  "pattern": [
+    " R ",
+    "SBS",
+    " S "
+  ],
   "result": {
     "item": "rootsclassic:runic_tablet"
   }

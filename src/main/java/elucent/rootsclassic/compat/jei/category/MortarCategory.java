@@ -15,7 +15,6 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -28,25 +27,13 @@ public class MortarCategory implements IRecipeCategory<ComponentRecipe> {
 
 	public MortarCategory(IGuiHelper guiHelper) {
 		this.background = guiHelper.drawableBuilder(backgroundLocation, 21, 30, 142, 45).addPadding(0, 0, 0, 0).build();
-		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(RootsRegistry.MORTAR.get()));
-		this.localizedName = new TranslatableComponent("rootsclassic.gui.jei.category.mortar");
+		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RootsRegistry.MORTAR.get()));
+		this.localizedName = Component.translatable("rootsclassic.gui.jei.category.mortar");
 	}
 
 	@Override
 	public RecipeType<ComponentRecipe> getRecipeType() {
 		return JEIPlugin.MORTAR_TYPE;
-	}
-
-	@SuppressWarnings("removal")
-	@Override
-	public ResourceLocation getUid() {
-		return JEIPlugin.MORTAR;
-	}
-
-	@SuppressWarnings("removal")
-	@Override
-	public Class<? extends ComponentRecipe> getRecipeClass() {
-		return ComponentRecipe.class;
 	}
 
 	@Override

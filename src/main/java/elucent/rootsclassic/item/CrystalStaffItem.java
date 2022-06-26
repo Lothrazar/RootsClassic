@@ -12,8 +12,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -244,21 +242,21 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
 				if (compName != null) {
 					ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get().getValue(compName);
 					if (comp != null) {
-						tooltip.add(new TranslatableComponent("rootsclassic.tooltip.spelltypeheading")
+						tooltip.add(Component.translatable("rootsclassic.tooltip.spelltypeheading")
 							.append(": ").withStyle(ChatFormatting.GOLD).append(comp.getEffectName().withStyle(comp.getTextColor())));
 					}
 				}
 			} else {
 				//TODO: let people know it's an invalid effect
 			}
-			tooltip.add(new TextComponent("  +" + CrystalStaffItem.getPotency(stack) + " ")
-				.append(new TranslatableComponent("rootsclassic.tooltip.spellpotency")).append(".").withStyle(ChatFormatting.RED));
-			tooltip.add(new TextComponent("  +" + CrystalStaffItem.getEfficiency(stack) + " ")
-				.append(new TranslatableComponent("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(ChatFormatting.RED));
-			tooltip.add(new TextComponent("  +" + CrystalStaffItem.getSize(stack) + " ")
-				.append(new TranslatableComponent("rootsclassic.tooltip.spellsize")).append(".").withStyle(ChatFormatting.RED));
+			tooltip.add(Component.translatable("  +" + CrystalStaffItem.getPotency(stack) + " ")
+				.append(Component.translatable("rootsclassic.tooltip.spellpotency")).append(".").withStyle(ChatFormatting.RED));
+			tooltip.add(Component.translatable("  +" + CrystalStaffItem.getEfficiency(stack) + " ")
+				.append(Component.translatable("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(ChatFormatting.RED));
+			tooltip.add(Component.translatable("  +" + CrystalStaffItem.getSize(stack) + " ")
+				.append(Component.translatable("rootsclassic.tooltip.spellsize")).append(".").withStyle(ChatFormatting.RED));
 		} else {
-			tooltip.add(new TranslatableComponent("rootsclassic.error.unset").withStyle(ChatFormatting.GRAY));
+			tooltip.add(Component.translatable("rootsclassic.error.unset").withStyle(ChatFormatting.GRAY));
 		}
 	}
 }

@@ -8,9 +8,9 @@ public class ResearchBase {
 	public double posX = 0;
 	public double posY = 0;
 	private String name = "";
-	private ItemStack icon;
-	private ResearchBase req = null;
-	private ArrayList<ResearchPage> info = new ArrayList<>();
+	private final ItemStack icon;
+	private final ResearchBase req = null;
+	private final ArrayList<ResearchPage> info = new ArrayList<>();
 
 	public ResearchBase(String name, ItemStack icon) {
 		this.name = name;

@@ -12,7 +12,7 @@ import elucent.rootsclassic.util.InventoryUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -132,17 +132,17 @@ public class AltarBlockEntity extends BEBase {
 				setRitualCurrent(null);
 				RitualBase ritual = RitualRegistry.findMatchingByIngredients(this);
 				if (ritual == null) {
-					player.displayClientMessage(new TranslatableComponent("rootsclassic.error.noritual.ingredients"), true);
+					player.displayClientMessage(Component.translatable("rootsclassic.error.noritual.ingredients"), true);
 					return InteractionResult.FAIL;
 				}
 				if (!ritual.verifyPositionBlocks(levelAccessor, pos)) {
-					player.displayClientMessage(new TranslatableComponent("rootsclassic.error.noritual.stones"), true);
+					player.displayClientMessage(Component.translatable("rootsclassic.error.noritual.stones"), true);
 					return InteractionResult.FAIL;
 				}
 				//does it match everything else?
 				if (ritual.incenseMatches(level, pos)) {
 					setRitualCurrent(ritual);
-					setRitualName(ritual.getRegistryName());
+					setRitualName(RitualBaseRegistry.RITUALS.get().getKey(ritual));
 					setIncenses(RitualRegistry.getIncenses(levelAccessor, pos));
 					setProgress(RECIPE_PROGRESS_TIME);
 					for (BrazierBlockEntity brazier : ritual.getRecipeBraziers(levelAccessor, pos)) {
@@ -153,9 +153,9 @@ public class AltarBlockEntity extends BEBase {
 					//          System.out.println(" ritual STARTED " + ritual.name);
 					setChanged();
 					levelAccessor.sendBlockUpdated(pos, state, levelAccessor.getBlockState(pos), 3);
-					player.displayClientMessage(new TranslatableComponent("rootsclassic.ritual.started"), true);
+					player.displayClientMessage(Component.translatable("rootsclassic.ritual.started"), true);
 				} else {
-					player.displayClientMessage(new TranslatableComponent("rootsclassic.error.noritual.incense"), true);
+					player.displayClientMessage(Component.translatable("rootsclassic.error.noritual.incense"), true);
 				}
 				return InteractionResult.SUCCESS;
 				//      if (getRitualName() == null) {

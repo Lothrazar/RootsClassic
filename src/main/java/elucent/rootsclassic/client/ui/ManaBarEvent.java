@@ -50,7 +50,7 @@ public class ManaBarEvent {
 	}
 
 	private void drawManaBar(RenderGameOverlayEvent.Post event, Player player, IManaCapability capability) {
-		PoseStack poseStack = event.getMatrixStack();
+		PoseStack poseStack = event.getPoseStack();
 		RenderSystem.disableDepthTest();
 		RenderSystem.disableCull();
 		poseStack.pushPose();

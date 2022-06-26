@@ -5,7 +5,7 @@ import elucent.rootsclassic.blockentity.BEBase;
 import elucent.rootsclassic.client.particles.MagicLineParticleData;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentBaseRegistry;
-import elucent.rootsclassic.item.SpellPowderItem;
+import elucent.rootsclassic.item.powder.SpellPowderItem;
 import elucent.rootsclassic.item.StaffItem;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;

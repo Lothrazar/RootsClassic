@@ -32,7 +32,7 @@ import org.slf4j.Logger;
 @Mod(Const.MODID)
 public class Roots {
 
-	public static CreativeModeTab tab = new CreativeModeTab(Const.MODID) {
+	public static final CreativeModeTab tab = new CreativeModeTab(Const.MODID) {
 		@Override
 		public ItemStack makeIcon() {
 			return new ItemStack(RootsRegistry.SPELL_POWDER.get());
@@ -60,7 +60,6 @@ public class Roots {
 		eventBus.addListener(RootsCapabilityManager::registerCapabilities);
 		MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
 		MinecraftForge.EVENT_BUS.register(new ComponentSpellsEvent());
-		MinecraftForge.EVENT_BUS.addListener(RootsEntities::addSpawns);
 		eventBus.addListener(RootsEntities::registerEntityAttributes);
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
@@ -76,9 +75,7 @@ public class Roots {
 	private void setup(final FMLCommonSetupEvent event) {
 		RootsRegistry.registerCompostables();
 		RootsEntities.registerSpawnPlacement();
-		event.enqueueWork(() -> {
-			//Initialize
-			MutagenManager.reload();
-		});
+		//Initialize
+		event.enqueueWork(MutagenManager::reload);
 	}
 }

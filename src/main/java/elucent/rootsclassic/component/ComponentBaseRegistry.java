@@ -20,7 +20,6 @@ public class ComponentBaseRegistry {
 	public static void onNewRegistry(NewRegistryEvent event) {
 		RegistryBuilder<ComponentBase> registryBuilder = new RegistryBuilder<>();
 		registryBuilder.setName(registryLocation);
-		registryBuilder.setType(ComponentBase.class);
 		registryBuilder.allowModification();
 		registryBuilder.missing(null);
 		COMPONENTS = event.create(registryBuilder);

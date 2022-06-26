@@ -11,13 +11,11 @@ import elucent.rootsclassic.research.ResearchGroup;
 import elucent.rootsclassic.research.ResearchPage;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -40,7 +38,7 @@ public class TabletPageScreen extends Screen {
 	private int matchingStacks2Max = 0;
 
 	public TabletPageScreen(ResearchGroup g, ResearchBase r, Player player) {
-		super(TextComponent.EMPTY);
+		super(Component.empty());
 		this.player = player;
 		this.group = g;
 		this.research = r;
@@ -69,7 +67,7 @@ public class TabletPageScreen extends Screen {
 	@Override
 	protected void init() {
 		super.init();
-		this.addRenderableWidget(new Button(20, 20, 20, 60, TextComponent.EMPTY, (button) -> {
+		this.addRenderableWidget(new Button(20, 20, 20, 60, Component.empty(), (button) -> {
 		}));
 	}
 
@@ -95,9 +93,9 @@ public class TabletPageScreen extends Screen {
 			&& mouseY >= (height / 2.0f) - 138 && mouseY < (height / 2.0f) - 40) {
 			if (researchInfo.get(currentPage).recipe == EnumPageType.TYPE_MORTAR) {
 				//Roots.lang("rootsclassic.recipe.chat") +
-				player.sendMessage(new TextComponent(researchInfo.get(currentPage).mortarRecipe.toString()), Util.NIL_UUID);
+				player.sendSystemMessage(Component.translatable(researchInfo.get(currentPage).mortarRecipe.toString()));
 			} else if (researchInfo.get(currentPage).recipe == EnumPageType.TYPE_ALTAR) {
-				player.sendMessage(new TranslatableComponent(researchInfo.get(currentPage).altarRecipe.toString()), Util.NIL_UUID);
+				player.sendSystemMessage(Component.translatable(researchInfo.get(currentPage).altarRecipe.toString()));
 			}
 		}
 		return super.mouseClicked(mouseX, mouseY, button);

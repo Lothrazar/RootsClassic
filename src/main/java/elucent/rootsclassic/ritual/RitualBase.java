@@ -11,12 +11,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class RitualBase extends ForgeRegistryEntry<RitualBase> {
+public abstract class RitualBase {
 
 	private static final int RADIUS = 4;
 	private ArrayList<Block> blocks = new ArrayList<>();

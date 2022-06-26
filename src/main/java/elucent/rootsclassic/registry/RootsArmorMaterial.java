@@ -13,9 +13,9 @@ import java.util.function.Supplier;
 
 public enum RootsArmorMaterial implements ArmorMaterial {
 	SYLVAN("rootsclassic:sylvan", 10, new int[]{1, 5, 6, 2}, 20, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
-		return null;
+		return Ingredient.EMPTY;
 	}), WILDWOOD("rootsclassic:wildwood", 15, new int[]{2, 5, 7, 3}, 10, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0f, 0.0F, () -> {
-		return null;
+		return Ingredient.EMPTY;
 	});
 
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};

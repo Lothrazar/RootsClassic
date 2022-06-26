@@ -20,7 +20,6 @@ public class RitualBaseRegistry {
 	public static void onNewRegistry(NewRegistryEvent event) {
 		RegistryBuilder<RitualBase> registryBuilder = new RegistryBuilder<>();
 		registryBuilder.setName(registryLocation);
-		registryBuilder.setType(RitualBase.class);
 		registryBuilder.allowModification();
 		registryBuilder.missing(null);
 		RITUALS = event.create(registryBuilder);

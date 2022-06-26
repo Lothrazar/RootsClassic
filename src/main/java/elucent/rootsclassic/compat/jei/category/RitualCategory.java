@@ -17,7 +17,6 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -41,7 +40,7 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 	public RitualCategory(IGuiHelper guiHelper) {
 		this.background = guiHelper.drawableBuilder(backgroundLocation, 0, 0, 94, 100).addPadding(0, 0, 0, 0).build();
 
-		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(RootsRegistry.ALTAR.get()));
+		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RootsRegistry.ALTAR.get()));
 
 		this.ingredientBackground = guiHelper.createDrawable(location, 61, 53, 70, 22);
 		this.resultBackground = guiHelper.createDrawable(location, 61, 53, 22, 22);
@@ -50,24 +49,12 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 		this.stone = guiHelper.createDrawable(location, 192, 32, 16, 16);
 		this.mundaneStone = guiHelper.createDrawable(location, 192, 48, 16, 16);
 		this.attunedStone = guiHelper.createDrawable(location, 192, 64, 16, 16);
-		this.localizedName = new TranslatableComponent("rootsclassic.gui.jei.category.ritual");
+		this.localizedName = Component.translatable("rootsclassic.gui.jei.category.ritual");
 	}
 
 	@Override
 	public RecipeType<RitualWrapper> getRecipeType() {
 		return JEIPlugin.RITUAL_TYPE;
-	}
-
-	@SuppressWarnings("removal")
-	@Override
-	public ResourceLocation getUid() {
-		return JEIPlugin.RITUAL;
-	}
-
-	@SuppressWarnings("removal")
-	@Override
-	public Class<? extends RitualWrapper> getRecipeClass() {
-		return RitualWrapper.class;
 	}
 
 	@Override

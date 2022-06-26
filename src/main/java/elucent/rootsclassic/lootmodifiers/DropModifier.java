@@ -6,8 +6,9 @@ import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.lootmodifiers.DropModifier.BlockDropModifier.Serializer;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.registry.RootsTags;
-import net.minecraft.core.Registry;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -28,8 +29,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Random;
 
 public class DropModifier {
 
@@ -44,11 +43,11 @@ public class DropModifier {
 
 		@Nonnull
 		@Override
-		protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+		protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
 			if (context.hasParam(LootContextParams.BLOCK_STATE)) {
 				BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
 				Block block = state.getBlock();
-				Random rand = context.getRandom();
+				RandomSource rand = context.getRandom();
 				if (block instanceof TallGrassBlock) {
 					if (rand.nextInt(RootsConfig.COMMON.oldRootDropChance.get()) == 0) {
 						generatedLoot.add(new ItemStack(RootsRegistry.OLD_ROOT.get(), 1));
@@ -77,11 +76,7 @@ public class DropModifier {
 					if (!generatedLoot.stream().anyMatch((stack) -> stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() == block)) {
 						if (rand.nextInt(RootsConfig.COMMON.berriesDropChance.get()) == 0) {
 							Item berry = RootsRegistry.ELDERBERRY.get();
-							berry = Registry.ITEM.getTag(RootsTags.BERRIES).flatMap((element) -> {
-								return element.getRandomElement(rand);
-							}).map((blockHolder) -> {
-								return blockHolder.value();
-							}).orElse(berry);
+							berry = ForgeRegistries.ITEMS.tags().getTag(RootsTags.BERRIES).getRandomElement(rand).orElse(berry);
 
 							generatedLoot.add(new ItemStack(berry));
 						}

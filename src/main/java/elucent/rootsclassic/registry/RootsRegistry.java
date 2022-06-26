@@ -47,7 +47,7 @@ import elucent.rootsclassic.item.PestleItem;
 import elucent.rootsclassic.item.RootsFoodItem;
 import elucent.rootsclassic.item.RunicFocusItem;
 import elucent.rootsclassic.item.RunicTabletItem;
-import elucent.rootsclassic.item.SpellPowderItem;
+import elucent.rootsclassic.item.powder.SpellPowderItem;
 import elucent.rootsclassic.item.StaffItem;
 import elucent.rootsclassic.item.SylvanArmorItem;
 import elucent.rootsclassic.item.WildwoodArmorItem;

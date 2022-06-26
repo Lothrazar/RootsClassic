@@ -13,8 +13,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -220,23 +218,23 @@ public class StaffItem extends Item implements IManaRelatedItem {
 			if (compName != null) {
 				ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get().getValue(compName);
 				if (comp != null) {
-					tooltip.add(new TranslatableComponent("rootsclassic.tooltip.spelltypeheading")
+					tooltip.add(Component.translatable("rootsclassic.tooltip.spelltypeheading")
 						.append(": ").withStyle(ChatFormatting.GOLD).append(comp.getEffectName().withStyle(comp.getTextColor())));
 				} else {
 					//TODO: let people know it's an invalid effect
 				}
 			}
-			tooltip.add(new TextComponent("  +" + tag.getInt(Const.NBT_POTENCY) + " ")
-				.append(new TranslatableComponent("rootsclassic.tooltip.spellpotency")).append(".").withStyle(ChatFormatting.RED));
-			tooltip.add(new TextComponent("  +" + tag.getInt(Const.NBT_EFFICIENCY) + " ")
-				.append(new TranslatableComponent("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(ChatFormatting.RED));
-			tooltip.add(new TextComponent("  +" + tag.getInt(Const.NBT_SIZE) + " ")
-				.append(new TranslatableComponent("rootsclassic.tooltip.spellsize")).append(".").withStyle(ChatFormatting.RED));
-			tooltip.add(TextComponent.EMPTY);
-			tooltip.add(new TextComponent(tag.getInt(NBT_USES) + " ")
-				.append(new TranslatableComponent("rootsclassic.tooltip.usesremaining")).append(".").withStyle(ChatFormatting.GOLD));
+			tooltip.add(Component.translatable("  +" + tag.getInt(Const.NBT_POTENCY) + " ")
+				.append(Component.translatable("rootsclassic.tooltip.spellpotency")).append(".").withStyle(ChatFormatting.RED));
+			tooltip.add(Component.translatable("  +" + tag.getInt(Const.NBT_EFFICIENCY) + " ")
+				.append(Component.translatable("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(ChatFormatting.RED));
+			tooltip.add(Component.translatable("  +" + tag.getInt(Const.NBT_SIZE) + " ")
+				.append(Component.translatable("rootsclassic.tooltip.spellsize")).append(".").withStyle(ChatFormatting.RED));
+			tooltip.add(Component.empty());
+			tooltip.add(Component.translatable(tag.getInt(NBT_USES) + " ")
+				.append(Component.translatable("rootsclassic.tooltip.usesremaining")).append(".").withStyle(ChatFormatting.GOLD));
 		} else {
-			tooltip.add(new TranslatableComponent("rootsclassic.error.unset").withStyle(ChatFormatting.GRAY));
+			tooltip.add(Component.translatable("rootsclassic.error.unset").withStyle(ChatFormatting.GRAY));
 		}
 	}
 	//	@SideOnly(Side.CLIENT)

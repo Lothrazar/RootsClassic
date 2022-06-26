@@ -1,4 +1,4 @@
-package elucent.rootsclassic.item;
+package elucent.rootsclassic.item.powder;
 
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
@@ -6,8 +6,6 @@ import elucent.rootsclassic.component.ComponentBaseRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
@@ -68,18 +66,18 @@ public class SpellPowderItem extends Item {
 			if (compName != null) {
 				ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get().getValue(compName);
 				if (comp != null) {
-					tooltip.add(new TranslatableComponent("rootsclassic.tooltip.spelltypeheading")
+					tooltip.add(Component.translatable("rootsclassic.tooltip.spelltypeheading")
 						.append(": ").withStyle(ChatFormatting.GOLD).append(comp.getEffectName().withStyle(comp.getTextColor())));
 				}
 			}
-			tooltip.add(new TextComponent("  +" + tag.getInt(Const.NBT_POTENCY) + " ")
-				.append(new TranslatableComponent("rootsclassic.tooltip.spellpotency")).append(".").withStyle(ChatFormatting.RED));
-			tooltip.add(new TextComponent("  +" + tag.getInt(Const.NBT_EFFICIENCY) + " ")
-				.append(new TranslatableComponent("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(ChatFormatting.RED));
-			tooltip.add(new TextComponent("  +" + tag.getInt(Const.NBT_SIZE) + " ")
-				.append(new TranslatableComponent("rootsclassic.tooltip.spellsize")).append(".").withStyle(ChatFormatting.RED));
+			tooltip.add(Component.translatable("  +" + tag.getInt(Const.NBT_POTENCY) + " ")
+				.append(Component.translatable("rootsclassic.tooltip.spellpotency")).append(".").withStyle(ChatFormatting.RED));
+			tooltip.add(Component.translatable("  +" + tag.getInt(Const.NBT_EFFICIENCY) + " ")
+				.append(Component.translatable("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(ChatFormatting.RED));
+			tooltip.add(Component.translatable("  +" + tag.getInt(Const.NBT_SIZE) + " ")
+				.append(Component.translatable("rootsclassic.tooltip.spellsize")).append(".").withStyle(ChatFormatting.RED));
 		} else {
-			tooltip.add(new TranslatableComponent("rootsclassic.error.unset").withStyle(ChatFormatting.GRAY));
+			tooltip.add(Component.translatable("rootsclassic.error.unset").withStyle(ChatFormatting.GRAY));
 		}
 	}
 }

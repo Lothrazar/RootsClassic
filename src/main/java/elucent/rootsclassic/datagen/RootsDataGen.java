@@ -10,7 +10,6 @@ import elucent.rootsclassic.registry.RootsEntities;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.registry.RootsTags;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.data.loot.EntityLoot;
@@ -47,6 +46,7 @@ import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nonnull;
@@ -58,7 +58,45 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static elucent.rootsclassic.registry.RootsRegistry.*;
+import static elucent.rootsclassic.registry.RootsRegistry.ACACIA_BARK;
+import static elucent.rootsclassic.registry.RootsRegistry.ACCELERATOR_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.AESTHETIC_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.ALTAR;
+import static elucent.rootsclassic.registry.RootsRegistry.ATTUNED_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.BARK_KNIFE;
+import static elucent.rootsclassic.registry.RootsRegistry.BIRCH_BARK;
+import static elucent.rootsclassic.registry.RootsRegistry.BLACKCURRANT;
+import static elucent.rootsclassic.registry.RootsRegistry.BRAZIER;
+import static elucent.rootsclassic.registry.RootsRegistry.DARK_OAK_BARK;
+import static elucent.rootsclassic.registry.RootsRegistry.DRAGONS_EYE;
+import static elucent.rootsclassic.registry.RootsRegistry.ELDERBERRY;
+import static elucent.rootsclassic.registry.RootsRegistry.ENTANGLER_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.FLARE_ORCHID;
+import static elucent.rootsclassic.registry.RootsRegistry.FRUIT_SALAD;
+import static elucent.rootsclassic.registry.RootsRegistry.GROWER_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.GROWTH_POWDER;
+import static elucent.rootsclassic.registry.RootsRegistry.HEALER_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.HEALING_POULTICE;
+import static elucent.rootsclassic.registry.RootsRegistry.IGNITER_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.IMBUER;
+import static elucent.rootsclassic.registry.RootsRegistry.JUNGLE_BARK;
+import static elucent.rootsclassic.registry.RootsRegistry.MIDNIGHT_BLOOM;
+import static elucent.rootsclassic.registry.RootsRegistry.MORTAR;
+import static elucent.rootsclassic.registry.RootsRegistry.MUNDANE_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.MUTATING_POWDER;
+import static elucent.rootsclassic.registry.RootsRegistry.NIGHTSHADE;
+import static elucent.rootsclassic.registry.RootsRegistry.OAK_BARK;
+import static elucent.rootsclassic.registry.RootsRegistry.OLD_ROOT;
+import static elucent.rootsclassic.registry.RootsRegistry.PESTLE;
+import static elucent.rootsclassic.registry.RootsRegistry.RADIANT_DAISY;
+import static elucent.rootsclassic.registry.RootsRegistry.REDCURRANT;
+import static elucent.rootsclassic.registry.RootsRegistry.REPULSOR_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.ROOTY_STEW;
+import static elucent.rootsclassic.registry.RootsRegistry.RUNIC_TABLET;
+import static elucent.rootsclassic.registry.RootsRegistry.SPRUCE_BARK;
+import static elucent.rootsclassic.registry.RootsRegistry.VACUUM_STANDING_STONE;
+import static elucent.rootsclassic.registry.RootsRegistry.VERDANT_SPRIG;
+import static elucent.rootsclassic.registry.RootsRegistry.WHITECURRANT;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RootsDataGen {
@@ -68,12 +106,12 @@ public class RootsDataGen {
 		DataGenerator generator = event.getGenerator();
 		ExistingFileHelper helper = event.getExistingFileHelper();
 		if (event.includeServer()) {
-			generator.addProvider(new Loots(generator));
-			generator.addProvider(new Recipes(generator));
-			generator.addProvider(new GLMProvider(generator));
+			generator.addProvider(event.includeServer(), new Loots(generator));
+			generator.addProvider(event.includeServer(), new Recipes(generator));
+			generator.addProvider(event.includeServer(), new GLMProvider(generator));
 			BlockTagsProvider provider;
-			generator.addProvider(provider = new RootsBlockTags(generator, helper));
-			generator.addProvider(new RootsItemTags(generator, provider, helper));
+			generator.addProvider(event.includeServer(), provider = new RootsBlockTags(generator, helper));
+			generator.addProvider(event.includeServer(), new RootsItemTags(generator, provider, helper));
 		}
 	}
 
@@ -117,7 +155,7 @@ public class RootsDataGen {
 
 			@Override
 			protected Iterable<Block> getKnownBlocks() {
-				return (Iterable<Block>) RootsRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
+				return RootsRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
 			}
 		}
 
@@ -136,7 +174,7 @@ public class RootsDataGen {
 			@Override
 			protected Iterable<EntityType<?>> getKnownEntities() {
 				Stream<EntityType<?>> entities = RootsEntities.ENTITIES.getEntries().stream().map(RegistryObject::get);
-				return (Iterable<EntityType<?>>) entities::iterator;
+				return entities::iterator;
 			}
 		}
 
@@ -173,7 +211,7 @@ public class RootsDataGen {
 				.pattern("X  ").pattern(" XX").pattern(" XX").unlockedBy("has_diorite", has(Blocks.DIORITE)).save(consumer);
 			ShapedRecipeBuilder.shaped(PESTLE.get()).define('X', Blocks.DIORITE).group("pestle")
 				.pattern("  X").pattern("XX ").pattern("XX ").unlockedBy("has_diorite", has(Blocks.DIORITE))
-				.save(consumer, Registry.ITEM.getKey(PESTLE.get()) + "2");
+				.save(consumer, ForgeRegistries.ITEMS.getKey(PESTLE.get()) + "2");
 			ShapedRecipeBuilder.shaped(MORTAR.get()).define('X', Tags.Items.STONE)
 				.pattern("X X").pattern("X X").pattern(" X ").unlockedBy("has_stone", has(Tags.Items.STONE)).save(consumer);
 			ShapedRecipeBuilder.shaped(IMBUER.get()).define('X', Tags.Items.RODS_WOODEN).define('L', ItemTags.LOGS).define('S', Blocks.CHISELED_STONE_BRICKS)

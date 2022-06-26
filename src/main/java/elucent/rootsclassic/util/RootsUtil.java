@@ -2,6 +2,7 @@ package elucent.rootsclassic.util;
 
 import elucent.rootsclassic.Const;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -287,7 +288,7 @@ public class RootsUtil {
 		return recipe.size() == 0;
 	}
 
-	public static void randomlyRepair(Random rnd, ItemStack stack) {
+	public static void randomlyRepair(RandomSource rnd, ItemStack stack) {
 		if (stack.isDamaged() && rnd.nextInt(80) == 0) {
 			stack.setDamageValue(stack.getDamageValue() - 1);
 		}
