@@ -16,15 +16,12 @@ import elucent.rootsclassic.item.StaffItem;
 import elucent.rootsclassic.registry.RootsEntities;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.util.RootsUtil;
-import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class ClientHandler {
@@ -32,12 +29,6 @@ public class ClientHandler {
 	public static final ModelLayerLocation WILDWOOD_ARMOR = new ModelLayerLocation(new ResourceLocation(Const.MODID, "main"), "wildwood_armor");
 
 	public static void onClientSetup(final FMLClientSetupEvent event) {
-		ItemBlockRenderTypes.setRenderLayer(RootsRegistry.MIDNIGHT_BLOOM.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(RootsRegistry.FLARE_ORCHID.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(RootsRegistry.RADIANT_DAISY.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(RootsRegistry.ALTAR.get(), RenderType.cutout());
-		ItemBlockRenderTypes.setRenderLayer(RootsRegistry.BRAZIER.get(), RenderType.cutout());
-
 		ItemProperties.register(RootsRegistry.STAFF.get(), new ResourceLocation("imbued"), (stack, world, livingEntity, unused) ->
 			stack.getTag() != null && stack.getTag().contains(Const.NBT_EFFECT) ? 1.0F : 0.0F);
 	}
@@ -58,9 +49,8 @@ public class ClientHandler {
 		event.registerLayerDefinition(WILDWOOD_ARMOR, WildwoodArmorModel::createArmorDefinition);
 	}
 
-	public static void registerItemColors(final ColorHandlerEvent.Item event) {
-		ItemColors colors = event.getItemColors();
-		colors.register((stack, tintIndex) -> {
+	public static void registerItemColors(final RegisterColorHandlersEvent.Item event) {
+		event.register((stack, tintIndex) -> {
 			if (stack.hasTag() && stack.getItem() instanceof StaffItem) {
 				CompoundTag tag = stack.getTag();
 				ResourceLocation compName = ResourceLocation.tryParse(tag.getString(Const.NBT_EFFECT));
@@ -78,7 +68,7 @@ public class ClientHandler {
 			}
 			return RootsUtil.intColor(255, 255, 255);
 		}, RootsRegistry.STAFF.get());
-		colors.register((stack, tintIndex) -> {
+		event.register((stack, tintIndex) -> {
 			if (stack.getItem() instanceof CrystalStaffItem && stack.hasTag()) {
 				String effect = CrystalStaffItem.getEffect(stack);
 				if (effect != null) {

@@ -13,9 +13,9 @@ import elucent.rootsclassic.client.ClientInfo;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.item.IManaRelatedItem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -31,10 +31,7 @@ public class ManaBarEvent {
 	}
 
 	@SubscribeEvent
-	public void onGameOverlayRender(RenderGameOverlayEvent.Post event) {
-		if (event.getType() != ElementType.TEXT) {
-			return;
-		}
+	public void onGameOverlayRender(RenderGuiOverlayEvent.Post event) {
 		Player player = Minecraft.getInstance().player;
 		boolean showBar = player.getMainHandItem().getItem() instanceof IManaRelatedItem || player.getOffhandItem().getItem() instanceof IManaRelatedItem;
 		//		if (player.abilities.isCreativeMode) {
@@ -49,12 +46,13 @@ public class ManaBarEvent {
 		}
 	}
 
-	private void drawManaBar(RenderGameOverlayEvent.Post event, Player player, IManaCapability capability) {
+	private void drawManaBar(RenderGuiOverlayEvent.Post event, Player player, IManaCapability capability) {
 		PoseStack poseStack = event.getPoseStack();
 		RenderSystem.disableDepthTest();
 		RenderSystem.disableCull();
 		poseStack.pushPose();
 		RenderSystem.enableBlend();
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, Const.manaBar);
 		Tesselator tess = Tesselator.getInstance();
 		BufferBuilder b = tess.getBuilder();

@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.block.AttunedStandingStoneBlock;
-import elucent.rootsclassic.lootmodifiers.DropModifier;
 import elucent.rootsclassic.lootmodifiers.DropModifier.BlockDropModifier;
 import elucent.rootsclassic.registry.RootsEntities;
 import elucent.rootsclassic.registry.RootsRegistry;
@@ -192,7 +191,7 @@ public class RootsDataGen {
 
 		@Override
 		protected void start() {
-			add("rootsclassic_drops", DropModifier.ROOTSCLASSIC_DROPS.get(), new BlockDropModifier(
+			add("rootsclassic_drops", new BlockDropModifier(
 				new LootItemCondition[]{
 					InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().of(Tags.Items.SHEARS))).build()
 				}));

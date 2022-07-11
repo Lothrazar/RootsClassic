@@ -1,13 +1,14 @@
 package elucent.rootsclassic.lootmodifiers;
 
-import com.google.gson.JsonObject;
+import com.google.common.base.Supplier;
+import com.google.common.base.Suppliers;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.config.RootsConfig;
-import elucent.rootsclassic.lootmodifiers.DropModifier.BlockDropModifier.Serializer;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.registry.RootsTags;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -22,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -32,10 +33,12 @@ import javax.annotation.Nonnull;
 
 public class DropModifier {
 
-	public static final DeferredRegister<GlobalLootModifierSerializer<?>> GLM = DeferredRegister.create(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, Const.MODID);
-	public static final RegistryObject<Serializer> ROOTSCLASSIC_DROPS = GLM.register("rootsclassic_drops", BlockDropModifier.Serializer::new);
+	public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> GLM = DeferredRegister.create(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, Const.MODID);
+	public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ROOTSCLASSIC_DROPS = GLM.register("rootsclassic_drops", BlockDropModifier.CODEC);
 
 	public static class BlockDropModifier extends LootModifier {
+		public static final Supplier<Codec<BlockDropModifier>> CODEC = Suppliers.memoize(() ->
+			RecordCodecBuilder.create(inst -> codecStart(inst).apply(inst, BlockDropModifier::new)));
 
 		public BlockDropModifier(LootItemCondition[] lootConditions) {
 			super(lootConditions);
@@ -86,17 +89,9 @@ public class DropModifier {
 			return generatedLoot;
 		}
 
-		protected static class Serializer extends GlobalLootModifierSerializer<BlockDropModifier> {
-
-			@Override
-			public BlockDropModifier read(ResourceLocation location, JsonObject jsonObject, LootItemCondition[] lootConditions) {
-				return new BlockDropModifier(lootConditions);
-			}
-
-			@Override
-			public JsonObject write(BlockDropModifier instance) {
-				return makeConditions(instance.conditions);
-			}
+		@Override
+		public Codec<? extends IGlobalLootModifier> codec() {
+			return CODEC.get();
 		}
 	}
 }

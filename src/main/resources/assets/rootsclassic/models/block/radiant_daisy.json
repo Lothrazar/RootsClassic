@@ -1,5 +1,6 @@
 {
     "parent": "block/cross",
+		"render_type": "minecraft:cutout",
     "textures": {
         "cross": "rootsclassic:blocks/radiant_daisy",
         "particle": "rootsclassic:blocks/radiant_daisy"

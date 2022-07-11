@@ -103,7 +103,10 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    implementation fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
+
+//    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
 //    implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-${mc_version}:${crafttweaker_version}")
 }
 
@@ -126,7 +129,6 @@ jar.finalizedBy('reobfJar')
 
 
 task signJar(type: SignJar, dependsOn: jar) {
-
     keyStore = project.findProperty('keyStore')
     alias = project.findProperty('keyStoreAlias')
     storePass = project.findProperty('keyStorePass')
