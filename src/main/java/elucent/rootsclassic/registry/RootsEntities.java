@@ -16,12 +16,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class RootsEntities {
-	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Const.MODID);
-	public static final RegistryObject<EntityType<PhantomSkeletonEntity>> PHANTOM_SKELETON = ENTITIES.register("phantom_skeleton", () -> register("phantom_skeleton", EntityType.Builder.<PhantomSkeletonEntity>of(PhantomSkeletonEntity::new, MobCategory.MONSTER)
+	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Const.MODID);
+	public static final RegistryObject<EntityType<PhantomSkeletonEntity>> PHANTOM_SKELETON = ENTITY_TYPES.register("phantom_skeleton", () -> register("phantom_skeleton", EntityType.Builder.<PhantomSkeletonEntity>of(PhantomSkeletonEntity::new, MobCategory.MONSTER)
 		.sized(0.6F, 1.99F).clientTrackingRange(6)));
-	public static final RegistryObject<EntityType<EntityAccelerator>> ENTITY_ACCELERATOR = ENTITIES.register("entity_accelerator", () -> register("entity_accelerator", EntityType.Builder.<EntityAccelerator>of(EntityAccelerator::new, MobCategory.MISC)
+	public static final RegistryObject<EntityType<EntityAccelerator>> ENTITY_ACCELERATOR = ENTITY_TYPES.register("entity_accelerator", () -> register("entity_accelerator", EntityType.Builder.<EntityAccelerator>of(EntityAccelerator::new, MobCategory.MISC)
 		.sized(0.5F, 0.5F).clientTrackingRange(64).updateInterval(20).setShouldReceiveVelocityUpdates(true)));
-	public static final RegistryObject<EntityType<EntityTileAccelerator>> TILE_ACCELERATOR = ENTITIES.register("tile_accelerator", () -> register("tile_accelerator", EntityType.Builder.<EntityTileAccelerator>of(EntityTileAccelerator::new, MobCategory.MISC)
+	public static final RegistryObject<EntityType<EntityTileAccelerator>> TILE_ACCELERATOR = ENTITY_TYPES.register("tile_accelerator", () -> register("tile_accelerator", EntityType.Builder.<EntityTileAccelerator>of(EntityTileAccelerator::new, MobCategory.MISC)
 		.sized(0.5F, 0.5F).clientTrackingRange(64).updateInterval(20).setShouldReceiveVelocityUpdates(true)));
 
 	public static void registerSpawnPlacement() {

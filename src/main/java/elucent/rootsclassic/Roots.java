@@ -48,8 +48,8 @@ public class Roots {
 		eventBus.addListener(this::setup);
 		RootsRegistry.BLOCKS.register(eventBus);
 		RootsRegistry.ITEMS.register(eventBus);
-		RootsRegistry.BLOCK_ENTITIES.register(eventBus);
-		RootsEntities.ENTITIES.register(eventBus);
+		RootsRegistry.BLOCK_ENTITY_TYPES.register(eventBus);
+		RootsEntities.ENTITY_TYPES.register(eventBus);
 		RitualRegistry.RITUALS.register(eventBus);
 		ComponentRegistry.COMPONENTS.register(eventBus);
 		RootsRecipes.RECIPE_SERIALIZERS.register(eventBus);

@@ -12,7 +12,7 @@ import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,8 +22,8 @@ public class ComponentSpellsEvent {
 	public static int TICKS_PER_MANA_REGEN = 5;
 
 	@SubscribeEvent
-	public void onLivingTick(LivingUpdateEvent event) {
-		LivingEntity entity = event.getEntityLiving();
+	public void onLivingTick(LivingTickEvent event) {
+		final LivingEntity entity = event.getEntity();
 		if (entity instanceof Player) {
 			// armor regen if full set
 			this.wildwoodArmorRegenFullset((Player) entity);
@@ -32,7 +32,7 @@ public class ComponentSpellsEvent {
 		tickSkipMovementCurse(event, entity);
 	}
 
-	private void tickSkipMovementCurse(LivingUpdateEvent event, LivingEntity entity) {
+	private void tickSkipMovementCurse(LivingTickEvent event, LivingEntity entity) {
 		CompoundTag persistentData = entity.getPersistentData();
 		if (persistentData.contains(Const.NBT_TRACK_TICKS) && persistentData.contains(Const.NBT_SKIP_TICKS)) {
 			int skipTicks = persistentData.getInt(Const.NBT_SKIP_TICKS);
@@ -71,7 +71,7 @@ public class ComponentSpellsEvent {
 
 	@SubscribeEvent
 	public void onLivingDrops(LivingDropsEvent event) {
-		CompoundTag persistentData = event.getEntityLiving().getPersistentData();
+		CompoundTag persistentData = event.getEntity().getPersistentData();
 		if (persistentData.contains(Const.NBT_DONT_DROP)) {
 			if (!persistentData.getBoolean(Const.NBT_DONT_DROP)) {
 				event.setCanceled(true);
@@ -81,7 +81,7 @@ public class ComponentSpellsEvent {
 
 	@SubscribeEvent
 	public void onLivingXP(LivingExperienceDropEvent event) {
-		CompoundTag persistentData = event.getEntityLiving().getPersistentData();
+		CompoundTag persistentData = event.getEntity().getPersistentData();
 		if (persistentData.contains(Const.NBT_DONT_DROP)) {
 			if (!persistentData.getBoolean(Const.NBT_DONT_DROP)) {
 				event.setCanceled(true);
@@ -91,7 +91,7 @@ public class ComponentSpellsEvent {
 
 	@SubscribeEvent
 	public void onLivingDamage(LivingHurtEvent event) {
-		LivingEntity entityLiving = event.getEntityLiving();
+		LivingEntity entityLiving = event.getEntity();
 		CompoundTag persistentData = entityLiving.getPersistentData();
 		if (persistentData.contains(Const.NBT_VULN)) {
 			event.setAmount((float) (event.getAmount() * (1.0 + persistentData.getDouble(Const.NBT_VULN))));
