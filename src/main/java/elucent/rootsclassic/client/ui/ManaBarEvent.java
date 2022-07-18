@@ -13,6 +13,7 @@ import elucent.rootsclassic.client.ClientInfo;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.item.IManaRelatedItem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
@@ -55,6 +56,7 @@ public class ManaBarEvent {
 		RenderSystem.disableCull();
 		poseStack.pushPose();
 		RenderSystem.enableBlend();
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, Const.manaBar);
 		Tesselator tess = Tesselator.getInstance();
 		BufferBuilder b = tess.getBuilder();
