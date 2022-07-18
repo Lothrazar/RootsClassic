@@ -53,32 +53,32 @@ public class DropModifier {
 				Block block = state.getBlock();
 				RandomSource rand = context.getRandom();
 				if (block instanceof TallGrassBlock) {
-					if (rand.nextInt(RootsConfig.COMMON.oldRootDropChance.get()) == 0) {
+					if (RootsConfig.COMMON.oldRootDropChance.get() > 0 && rand.nextInt(RootsConfig.COMMON.oldRootDropChance.get()) == 0) {
 						generatedLoot.add(new ItemStack(RootsRegistry.OLD_ROOT.get(), 1));
 					}
 				}
 				if (block == Blocks.WHEAT || block == Blocks.CARROTS || block == Blocks.POTATOES || block == Blocks.BEETROOTS) {
 					if (((CropBlock) block).isMaxAge(state)) {
-						if (rand.nextInt(RootsConfig.COMMON.verdantSprigDropChance.get()) == 0) {
+						if (RootsConfig.COMMON.verdantSprigDropChance.get() > 0 && rand.nextInt(RootsConfig.COMMON.verdantSprigDropChance.get()) == 0) {
 							generatedLoot.add(new ItemStack(RootsRegistry.VERDANT_SPRIG.get(), 1));
 						}
 					}
 				}
 				if (block == Blocks.NETHER_WART) {
 					if (state.getValue(NetherWartBlock.AGE) == 3) {
-						if (rand.nextInt(RootsConfig.COMMON.infernalStemDropChance.get()) == 0) {
+						if (RootsConfig.COMMON.infernalStemDropChance.get() > 0 && rand.nextInt(RootsConfig.COMMON.infernalStemDropChance.get()) == 0) {
 							generatedLoot.add(new ItemStack(RootsRegistry.INFERNAL_BULB.get(), 1));
 						}
 					}
 				}
 				if (block == Blocks.CHORUS_FLOWER) {
-					if (rand.nextInt(RootsConfig.COMMON.dragonsEyeDropChance.get()) == 0) {
+					if (RootsConfig.COMMON.dragonsEyeDropChance.get() > 0 && rand.nextInt(RootsConfig.COMMON.dragonsEyeDropChance.get()) == 0) {
 						generatedLoot.add(new ItemStack(RootsRegistry.DRAGONS_EYE.get(), 1));
 					}
 				}
 				if (block instanceof LeavesBlock) {
 					if (!generatedLoot.stream().anyMatch((stack) -> stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() == block)) {
-						if (rand.nextInt(RootsConfig.COMMON.berriesDropChance.get()) == 0) {
+						if (RootsConfig.COMMON.berriesDropChance.get() > 0 && rand.nextInt(RootsConfig.COMMON.berriesDropChance.get()) == 0) {
 							Item berry = RootsRegistry.ELDERBERRY.get();
 							berry = ForgeRegistries.ITEMS.tags().getTag(RootsTags.BERRIES).getRandomElement(rand).orElse(berry);
 
@@ -92,7 +92,7 @@ public class DropModifier {
 
 		@Override
 		public Codec<? extends IGlobalLootModifier> codec() {
-			return CODEC.get();
+			return ROOTSCLASSIC_DROPS.get();
 		}
 	}
 }
