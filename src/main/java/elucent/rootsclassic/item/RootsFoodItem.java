@@ -23,14 +23,15 @@ public class RootsFoodItem extends Item {
 
 	@Override
 	public ItemStack finishUsingItem(ItemStack stack, Level levelAccessor, LivingEntity entityLiving) {
+		Item item = stack.getItem();
 		super.finishUsingItem(stack, levelAccessor, entityLiving);
-		if (stack.is(RootsRegistry.REDCURRANT.get())) {
+		if (item == RootsRegistry.REDCURRANT.get()) {
 			entityLiving.heal(HEAL_SMALL);
 		}
-		if (stack.is(RootsRegistry.ELDERBERRY.get())) {
+		if (item == RootsRegistry.ELDERBERRY.get()) {
 			entityLiving.removeAllEffects();
 		}
-		if (stack.is(RootsRegistry.HEALING_POULTICE.get())) {
+		if (item == RootsRegistry.HEALING_POULTICE.get()) {
 			entityLiving.heal(HEAL_LARGE);
 		}
 		return stack;
