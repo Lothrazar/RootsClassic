@@ -36,7 +36,8 @@ public abstract class RitualBase {
 		if (level < 0 || level > 2) {
 			throw new IllegalArgumentException("Level must be 0, 1 or 2");
 		}
-		this.blocks = new ArrayList<>();
+		this.blocks.clear();
+		this.positionsRelative.clear();
 		this.level = level;
 		//level 0 has no stones
 		if (level >= 1) {
@@ -82,7 +83,7 @@ public abstract class RitualBase {
 	public abstract void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses);
 
 	public boolean verifyPositionBlocks(Level levelAccessor, BlockPos pos) {
-		if (getPositionsRelative().size() > 0) {
+		if (!getPositionsRelative().isEmpty() && getPositionsRelative().size() == getBlocks().size()) {
 			for (int i = 0; i < getPositionsRelative().size(); i++) {
 				BlockPos loopPos = getPositionsRelative().get(i);
 				Block loopBlock = getBlocks().get(i);
