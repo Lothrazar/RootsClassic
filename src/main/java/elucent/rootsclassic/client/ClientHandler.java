@@ -3,6 +3,11 @@ package elucent.rootsclassic.client;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.client.model.SylvanArmorModel;
 import elucent.rootsclassic.client.model.WildwoodArmorModel;
+import elucent.rootsclassic.client.particles.MagicAltarLineParticleData;
+import elucent.rootsclassic.client.particles.MagicAltarParticleData;
+import elucent.rootsclassic.client.particles.MagicAuraParticleData;
+import elucent.rootsclassic.client.particles.MagicLineParticleData;
+import elucent.rootsclassic.client.particles.MagicParticleData;
 import elucent.rootsclassic.client.renderer.block.AltarBER;
 import elucent.rootsclassic.client.renderer.block.BrazierBER;
 import elucent.rootsclassic.client.renderer.block.ImbuerBER;
@@ -13,6 +18,7 @@ import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentBaseRegistry;
 import elucent.rootsclassic.item.CrystalStaffItem;
 import elucent.rootsclassic.item.StaffItem;
+import elucent.rootsclassic.registry.ParticleRegistry;
 import elucent.rootsclassic.registry.RootsEntities;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.util.RootsUtil;
@@ -22,6 +28,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class ClientHandler {
@@ -88,5 +95,13 @@ public class ClientHandler {
 			}
 			return RootsUtil.intColor(255, 255, 255);
 		}, RootsRegistry.CRYSTAL_STAFF.get());
+	}
+
+	public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
+		event.register(ParticleRegistry.MAGIC_TYPE.get(), MagicParticleData::new);
+		event.register(ParticleRegistry.MAGIC_AURA_TYPE.get(), MagicAuraParticleData::new);
+		event.register(ParticleRegistry.MAGIC_ALTAR_TYPE.get(), MagicAltarParticleData::new);
+		event.register(ParticleRegistry.MAGIC_ALTAR_LINE_TYPE.get(), MagicAltarLineParticleData::new);
+		event.register(ParticleRegistry.MAGIC_LINE_TYPE.get(), MagicLineParticleData::new);
 	}
 }

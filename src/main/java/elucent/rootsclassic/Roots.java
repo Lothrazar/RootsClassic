@@ -68,6 +68,7 @@ public class Roots {
 			eventBus.addListener(ClientHandler::registerEntityRenders);
 			eventBus.addListener(ClientHandler::registerLayerDefinitions);
 			eventBus.addListener(ClientHandler::registerItemColors);
+			eventBus.addListener(ClientHandler::registerParticleFactories);
 			MinecraftForge.EVENT_BUS.addListener(ResearchManager::onRecipesUpdated);
 		});
 	}
