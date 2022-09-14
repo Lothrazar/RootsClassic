@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -25,14 +25,14 @@ public class RootsUtil {
 		return scale + min;
 	}
 
-	public static BlockPos getRayTrace(Level levelAccessor, Player player, int reachDistance) {
-		double x = player.getX();
-		double y = player.getY() + player.getEyeHeight();
-		double z = player.getZ();
+	public static BlockPos getRayTrace(Level levelAccessor, LivingEntity livingEntity, int reachDistance) {
+		double x = livingEntity.getX();
+		double y = livingEntity.getY() + livingEntity.getEyeHeight();
+		double z = livingEntity.getZ();
 		for (int i = 0; i < reachDistance * 10.0; i++) {
-			x += player.getLookAngle().x * 0.1;
-			y += player.getLookAngle().y * 0.1;
-			z += player.getLookAngle().z * 0.1;
+			x += livingEntity.getLookAngle().x * 0.1;
+			y += livingEntity.getLookAngle().y * 0.1;
+			z += livingEntity.getLookAngle().z * 0.1;
 			if (levelAccessor.getBlockState(new BlockPos(x, y, z)).getBlock() != Blocks.AIR) {
 				return new BlockPos(x, y, z);
 			}
@@ -57,17 +57,17 @@ public class RootsUtil {
 		}
 	}
 
-	public static Entity getRayTraceEntity(Level levelAccessor, Player player, int reachDistance) {
-		double x = player.getX();
-		double y = player.getY() + player.getEyeHeight();
-		double z = player.getZ();
+	public static Entity getRayTraceEntity(Level levelAccessor, LivingEntity livingEntity, int reachDistance) {
+		double x = livingEntity.getX();
+		double y = livingEntity.getY() + livingEntity.getEyeHeight();
+		double z = livingEntity.getZ();
 		for (int i = 0; i < reachDistance * 10.0; i++) {
-			x += player.getLookAngle().x * 0.1;
-			y += player.getLookAngle().y * 0.1;
-			z += player.getLookAngle().z * 0.1;
+			x += livingEntity.getLookAngle().x * 0.1;
+			y += livingEntity.getLookAngle().y * 0.1;
+			z += livingEntity.getLookAngle().z * 0.1;
 			List<Entity> entities = levelAccessor.getEntitiesOfClass(Entity.class, new AABB(x - 0.1, y - 0.1, z - 0.1, x + 0.1, y + 0.1, z + 0.1));
 			if (entities.size() > 0) {
-				if (entities.get(0).getUUID() != player.getUUID()) {
+				if (entities.get(0).getUUID() != livingEntity.getUUID()) {
 					return entities.get(0);
 				}
 			}

@@ -1,10 +1,12 @@
 package elucent.rootsclassic.component.components;
 
+import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -21,29 +23,27 @@ public class ComponentRose extends ComponentBase {
 	}
 
 	@Override
-	public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-		if (type == EnumCastType.SPELL) {
+	public void doEffect(Level level, Entity casterEntity, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
+		if (type == EnumCastType.SPELL && casterEntity instanceof LivingEntity caster) {
 			ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size, y - size, z - size, x + size, y + size, z + size));
 			// int damageDealt = 0;
+			targets.removeIf(target -> target.getUUID() == casterEntity.getUUID());
 			for (LivingEntity target : targets) {
-				if (target.getUUID() != caster.getUUID()) {
-					if (target instanceof Player && RootsConfig.COMMON.disablePVP.get()) {
+				if (target instanceof Player && RootsConfig.COMMON.disablePVP.get()) {
+					//no pvp allowed
+				} else {
+					//            if (caster instanceof EntityPlayer) {
+					//              if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveSpellRose)) {
+					//                PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveSpellRose);
+					//              }
+					//            }
+					target.hurt(spellAttack(caster), (int) (9 + 2 * potency));
+					RootsUtil.addTickTracking(target);
+					target.getPersistentData().putFloat("RMOD_thornsDamage", 2.0f + (float) potency);
+					if (caster instanceof Player player) {
+						target.setLastHurtByPlayer(player);
 					} else {
-						//            if (caster instanceof EntityPlayer) {
-						//              if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveSpellRose)) {
-						//                PlayerManager.addAchievement(((EntityPlayer) caster), RegistryManager.achieveSpellRose);
-						//              }
-						//            }
-						target.hurt(DamageSource.CACTUS, (int) (9 + 2 * potency));
-						RootsUtil.addTickTracking(target);
-						target.getPersistentData().putFloat("RMOD_thornsDamage", 2.0f + (float) potency);
-						if (caster instanceof LivingEntity) {
-							if (caster instanceof Player) {
-								target.setLastHurtByPlayer((Player) caster);
-							} else {
-								target.setLastHurtByMob((LivingEntity) caster);
-							}
-						}
+						target.setLastHurtByMob(caster);
 					}
 				}
 			}
@@ -55,5 +55,9 @@ public class ComponentRose extends ComponentBase {
 			//        }
 			//      }
 		}
+	}
+
+	public static DamageSource spellAttack(LivingEntity attacker) {
+		return new EntityDamageSource(Const.MODID + ".cactus", attacker);
 	}
 }

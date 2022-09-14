@@ -517,5 +517,12 @@
     "rootsclassic.brazier.burning.on": "Brazier is now burning",
 
     "rootsclassic.gui.jei.category.mortar": "Mortar",
-    "rootsclassic.gui.jei.category.ritual": "Ritual"
+    "rootsclassic.gui.jei.category.ritual": "Ritual",
+
+    "death.attack.rootsclassic.generic": "%1$s died",
+    "death.attack.rootsclassic.generic.player": "%1$s died because of %2$s",
+    "death.attack.rootsclassic.fire": "%1$s burned to death",
+    "death.attack.rootsclassic.fire.player": "%1$s burned to death because of %2$s",
+    "death.attack.rootsclassic.wither": "%1$s withered away",
+    "death.attack.rootsclassic.wither.player": "%1$s ithered away because of %2$s"
 }

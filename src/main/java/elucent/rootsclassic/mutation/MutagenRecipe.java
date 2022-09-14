@@ -27,9 +27,8 @@ public class MutagenRecipe {
 		//Unused?
 	}
 
-	public MutagenRecipe addIngredient(ItemStack stack) {
+	public void addIngredient(ItemStack stack) {
 		inputs.add(stack);
-		return this;
 	}
 
 	public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {

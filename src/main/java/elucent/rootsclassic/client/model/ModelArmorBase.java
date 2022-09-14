@@ -140,10 +140,8 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
 		this.body.y = body.y - 1;
 		this.rightArm.x = rightArm.x + 5;
 		this.rightArm.y = rightArm.y - 1;
-		this.rightArm.z = rightArm.z;
 		this.leftArm.x = leftArm.x - 5;
 		this.leftArm.y = leftArm.y - 1;
-		this.leftArm.z = leftArm.z;
 		setRotation(body, body.xRot, body.yRot, body.zRot);
 		setRotation(rightArm, rightArm.xRot, rightArm.yRot, rightArm.zRot);
 		setRotation(leftArm, leftArm.xRot, leftArm.yRot, leftArm.zRot);
