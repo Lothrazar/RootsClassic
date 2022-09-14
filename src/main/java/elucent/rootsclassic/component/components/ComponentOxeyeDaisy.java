@@ -36,6 +36,7 @@ public class ComponentOxeyeDaisy extends ComponentBase {
 					if (level.getBlockEntity(pos) != null && !level.isClientSide) {
 						if (level.getEntitiesOfClass(EntityTileAccelerator.class, new AABB(pos.getX() - 0.1, pos.getY() - 0.1, pos.getZ() - 0.1, pos.getX() + 0.1, pos.getY() + 0.1, pos.getZ() + 0.1)).size() == 0) {
 							EntityTileAccelerator a = new EntityTileAccelerator(level, pos, (int) potency, (int) size);
+							a.setBEPosition(pos);
 							level.addFreshEntity(a);
 						}
 					}
