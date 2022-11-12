@@ -3,6 +3,7 @@ package elucent.rootsclassic.ritual;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.block.altar.AltarBlockEntity;
 import elucent.rootsclassic.block.brazier.BrazierBlockEntity;
+import elucent.rootsclassic.registry.RootsRecipes;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.ritual.rituals.RitualBanishRain;
 import elucent.rootsclassic.ritual.rituals.RitualCauseRain;
@@ -18,9 +19,11 @@ import elucent.rootsclassic.ritual.rituals.RitualSummoning;
 import elucent.rootsclassic.ritual.rituals.RitualTimeShift;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.DeferredRegister;
@@ -499,6 +502,17 @@ public class RitualRegistry {
 
 
 	public static RitualBase findMatchingByIngredients(AltarBlockEntity altar) {
+		List<ItemStack> altarInv = new ArrayList<>();
+		for (int i = 0; i < altar.inventory.getSlots(); i++) {
+			altarInv.add(altar.inventory.getStackInSlot(i));
+		}
+
+		var recipe = altar.getLevel().getRecipeManager().getAllRecipesFor(RootsRecipes.RITUAL_RECIPE_TYPE.get()).stream()
+			.filter(it -> it.matchesIngredients(altarInv))
+			.findFirst();
+
+		if(recipe.isPresent()) return recipe.get().getRitual();
+
 		for (RitualBase ritual : RitualBaseRegistry.RITUALS.get().getValues()) {
 			//      if (ritual.getName().equals("healer_stone_crafting")) {
 			//        Roots.logger.info("healer stone?");
@@ -511,10 +525,6 @@ public class RitualRegistry {
 			//        }
 			//        Roots.logger.info("----");
 			//      }
-			List<ItemStack> altarInv = new ArrayList<>();
-			for (int i = 0; i < altar.inventory.getSlots(); i++) {
-				altarInv.add(altar.inventory.getStackInSlot(i));
-			}
 			if (RootsUtil.itemListsMatchWithSize(ritual.getIngredients(), altarInv)) {
 				return ritual;
 			}
@@ -536,5 +546,15 @@ public class RitualRegistry {
 			}
 		}
 		return test;
+	}
+
+	public static RitualBase byName(ResourceLocation name, RecipeManager recipeManager) {
+			var recipe = recipeManager.getAllRecipesFor(RootsRecipes.RITUAL_RECIPE_TYPE.get())
+				.stream().filter(it -> it.getId().equals(name))
+				.findFirst();
+
+			if (recipe.isPresent()) return recipe.get().getRitual();
+
+			return RitualBaseRegistry.RITUALS.get().getValue(name);
 	}
 }

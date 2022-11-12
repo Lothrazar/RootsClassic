@@ -69,7 +69,7 @@ public class AltarBlockEntity extends BEBase {
 		}
 		if (tag.contains("ritualName")) {
 			setRitualNameFromString(tag.getString("ritualName"));
-			setRitualCurrent(RitualBaseRegistry.RITUALS.get().getValue(getRitualName()));
+			setRitualCurrent(RitualRegistry.byName(getRitualName(), level.getRecipeManager()));
 		}
 		if (tag.contains("progress")) {
 			setProgress(tag.getInt("progress"));

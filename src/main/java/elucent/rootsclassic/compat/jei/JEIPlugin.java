@@ -86,9 +86,12 @@ public class JEIPlugin implements IModPlugin {
 	}
 
 	public List<RitualWrapper> getRituals() {
+		var recipeManager = Minecraft.getInstance().level.getRecipeManager();
+
 		List<RitualWrapper> entries = new LinkedList<>();
 
 		RitualRegistry.RITUALS.getEntries().forEach(ritual -> entries.add(new RitualWrapper(ritual.get())));
+		recipeManager.getAllRecipesFor(RootsRecipes.RITUAL_RECIPE_TYPE.get()).forEach(recipe -> entries.add(new RitualWrapper(recipe.getRitual())));
 
 		return entries;
 	}
