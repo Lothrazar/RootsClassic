@@ -33,16 +33,8 @@ public class RitualRegistry {
 	public static final DeferredRegister<RitualBase> RITUALS = DeferredRegister.create(RitualBaseRegistry.registryLocation, Const.MODID);
 
 	public static final RegistryObject<RitualBase> STAFF_CRAFTING = RITUALS.register("staff_crafting", () ->
-		new RitualCrafting(2, 205, 86, 0)
+		new RitualCrafting(1, 205, 86, 0)
 			.setResult(new ItemStack(RootsRegistry.CRYSTAL_STAFF.get(), 1))
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), -3, 0, -3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), -3, 0, 3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 3, 0, -3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 3, 0, 3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 3, 0, 0)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), -3, 0, 0)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 0, 0, 3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 0, 0, -3)
 			.addIncense(new ItemStack(Blocks.COAL_BLOCK, 1))
 			.addIncense(new ItemStack(RootsRegistry.ACACIA_BARK.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.VERDANT_SPRIG.get(), 1))
@@ -54,18 +46,6 @@ public class RitualRegistry {
 	public static final RegistryObject<RitualBase> SYLVAN_HOOD_CRAFTING = RITUALS.register("sylvan_hood_crafting", () ->
 		new RitualCrafting(2, 62, 138, 62)
 			.setResult(new ItemStack(RootsRegistry.SYLVAN_HOOD.get(), 1))
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), -3, 0, -3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), -3, 0, 3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 3, 0, -3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 3, 0, 3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 3, 0, 0)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), -3, 0, 0)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 0, 0, 3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 0, 0, -3)
-			.addRitualPillar(RootsRegistry.ATTUNED_STANDING_STONE.get(), 5, 1, 0)
-			.addRitualPillar(RootsRegistry.ATTUNED_STANDING_STONE.get(), -5, 1, 0)
-			.addRitualPillar(RootsRegistry.ATTUNED_STANDING_STONE.get(), 0, 1, 5)
-			.addRitualPillar(RootsRegistry.ATTUNED_STANDING_STONE.get(), 0, 1, -5)
 			.addIncense(new ItemStack(RootsRegistry.BIRCH_BARK.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.BIRCH_BARK.get(), 1))
 			.addIncense(new ItemStack(Items.GOLDEN_APPLE, 1))
@@ -77,18 +57,6 @@ public class RitualRegistry {
 	public static final RegistryObject<RitualBase> SYLVAN_CHEST_CRAFTING = RITUALS.register("sylvan_chest_crafting", () ->
 		new RitualCrafting(2, 62, 138, 62)
 			.setResult(new ItemStack(RootsRegistry.SYLVAN_ROBE.get(), 1))
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), -3, 0, -3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), -3, 0, 3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 3, 0, -3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 3, 0, 3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 3, 0, 0)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), -3, 0, 0)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 0, 0, 3)
-			.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 0, 0, -3)
-			.addRitualPillar(RootsRegistry.ATTUNED_STANDING_STONE.get(), 5, 1, 0)
-			.addRitualPillar(RootsRegistry.ATTUNED_STANDING_STONE.get(), -5, 1, 0)
-			.addRitualPillar(RootsRegistry.ATTUNED_STANDING_STONE.get(), 0, 1, 5)
-			.addRitualPillar(RootsRegistry.ATTUNED_STANDING_STONE.get(), 0, 1, -5)
 			.addIncense(new ItemStack(RootsRegistry.BIRCH_BARK.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.BIRCH_BARK.get(), 1))
 			.addIncense(new ItemStack(Items.GOLDEN_APPLE, 1))
@@ -259,7 +227,7 @@ public class RitualRegistry {
 			.addIngredient(new ItemStack(Blocks.STONE, 1)));
 
 	public static final RegistryObject<RitualBase> RUNIC_FOCUS_CHARGING = RITUALS.register("runic_focus_charging", () ->
-		new RitualCrafting(2, 109, 242, 109)
+		new RitualCrafting(0, 109, 242, 109)
 			.setResult(new ItemStack(RootsRegistry.CHARGED_RUNIC_FOCUS.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.INFERNAL_BULB.get(), 1))
 			.addIncense(new ItemStack(Items.WHEAT, 1))
@@ -268,7 +236,7 @@ public class RitualRegistry {
 			.addIngredient(new ItemStack(Items.GLOWSTONE_DUST, 1)));
 
 	public static final RegistryObject<RitualBase> LIVING_PICKAXE_CRAFTING = RITUALS.register("living_pickaxe_crafting", () ->
-		new RitualCrafting(2, 146, 214, 43)
+		new RitualCrafting(0, 146, 214, 43)
 			.setResult(new ItemStack(RootsRegistry.LIVING_PICKAXE.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.OAK_BARK.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.OAK_BARK.get(), 1))
@@ -277,7 +245,7 @@ public class RitualRegistry {
 			.addIngredient(new ItemStack(Items.GOLD_NUGGET)));
 
 	public static final RegistryObject<RitualBase> LIVING_AXE_CRAFTING = RITUALS.register("living_axe_crafting", () ->
-		new RitualCrafting(2, 146, 214, 43)
+		new RitualCrafting(0, 146, 214, 43)
 			.setResult(new ItemStack(RootsRegistry.LIVING_AXE.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.OAK_BARK.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.OAK_BARK.get(), 1))
@@ -286,7 +254,7 @@ public class RitualRegistry {
 			.addIngredient(new ItemStack(Items.GOLD_NUGGET, 1)));
 
 	public static final RegistryObject<RitualBase> LIVING_SWORD_CRAFTING = RITUALS.register("living_sword_crafting", () ->
-		new RitualCrafting(2, 146, 214, 43)
+		new RitualCrafting(0, 146, 214, 43)
 			.setResult(new ItemStack(RootsRegistry.LIVING_SWORD.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.OAK_BARK.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.OAK_BARK.get(), 1))
@@ -295,7 +263,7 @@ public class RitualRegistry {
 			.addIngredient(new ItemStack(Items.GOLD_NUGGET, 1)));
 
 	public static final RegistryObject<RitualBase> LIVING_HOE_CRAFTING = RITUALS.register("living_hoe_crafting", () ->
-		new RitualCrafting(2, 146, 214, 43)
+		new RitualCrafting(0, 146, 214, 43)
 			.setResult(new ItemStack(RootsRegistry.LIVING_HOE.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.OAK_BARK.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.OAK_BARK.get(), 1))
@@ -304,7 +272,7 @@ public class RitualRegistry {
 			.addIngredient(new ItemStack(Items.GOLD_NUGGET, 1)));
 
 	public static final RegistryObject<RitualBase> LIVING_SHOVEL_CRAFTING = RITUALS.register("living_shovel_crafting", () ->
-		new RitualCrafting(2, 146, 214, 43)
+		new RitualCrafting(0, 146, 214, 43)
 			.setResult(new ItemStack(RootsRegistry.LIVING_SHOVEL.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.OAK_BARK.get(), 1))
 			.addIncense(new ItemStack(RootsRegistry.OAK_BARK.get(), 1))
@@ -313,19 +281,19 @@ public class RitualRegistry {
 			.addIngredient(new ItemStack(Items.GOLD_NUGGET, 1)));
 
 	public static final RegistryObject<RitualBase> CAUSE_RAIN = RITUALS.register("cause_rain", () ->
-		new RitualCauseRain(0, 23, 0, 138)
+		new RitualCauseRain(1, 23, 0, 138)
 			.addIncense(new ItemStack(Blocks.VINE, 1))
 			.addIncense(new ItemStack(RootsRegistry.OLD_ROOT.get(), 1))
 			.addIngredient(new ItemStack(Blocks.LILY_PAD, 1)));
 
 	public static final RegistryObject<RitualBase> BANISH_RAIN = RITUALS.register("banish_rain", () ->
-		new RitualBanishRain(0, 204, 159, 35)
+		new RitualBanishRain(1, 204, 159, 35)
 			.addIncense(new ItemStack(Blocks.VINE, 1))
 			.addIncense(new ItemStack(RootsRegistry.OLD_ROOT.get(), 1))
 			.addIngredient(new ItemStack(Items.WHEAT, 1)));
 
 	public static final RegistryObject<RitualBase> MASS_BREEDING = RITUALS.register("mass_breeding", () ->
-		new RitualMassBreed(0, 148, 61, 81)
+		new RitualMassBreed(2, 148, 61, 81)
 			.addIncense(new ItemStack(Items.CARROT, 1))
 			.addIncense(new ItemStack(Items.WHEAT, 1))
 			.addIncense(new ItemStack(Items.WHEAT_SEEDS, 1))
