@@ -504,14 +504,15 @@ public class RitualRegistry {
 	public static RitualBase findMatchingByIngredients(AltarBlockEntity altar) {
 		List<ItemStack> altarInv = new ArrayList<>();
 		for (int i = 0; i < altar.inventory.getSlots(); i++) {
-			altarInv.add(altar.inventory.getStackInSlot(i));
+			var stack = altar.inventory.getStackInSlot(i);
+			if (!stack.isEmpty()) altarInv.add(stack);
 		}
 
 		var recipe = altar.getLevel().getRecipeManager().getAllRecipesFor(RootsRecipes.RITUAL_RECIPE_TYPE.get()).stream()
 			.filter(it -> it.matchesIngredients(altarInv))
 			.findFirst();
 
-		if(recipe.isPresent()) return recipe.get().getRitual();
+		if (recipe.isPresent()) return recipe.get().getRitual();
 
 		for (RitualBase ritual : RitualBaseRegistry.RITUALS.get().getValues()) {
 			//      if (ritual.getName().equals("healer_stone_crafting")) {
@@ -549,12 +550,12 @@ public class RitualRegistry {
 	}
 
 	public static RitualBase byName(ResourceLocation name, RecipeManager recipeManager) {
-			var recipe = recipeManager.getAllRecipesFor(RootsRecipes.RITUAL_RECIPE_TYPE.get())
-				.stream().filter(it -> it.getId().equals(name))
-				.findFirst();
+		var recipe = recipeManager.getAllRecipesFor(RootsRecipes.RITUAL_RECIPE_TYPE.get())
+			.stream().filter(it -> it.getId().equals(name))
+			.findFirst();
 
-			if (recipe.isPresent()) return recipe.get().getRitual();
+		if (recipe.isPresent()) return recipe.get().getRitual();
 
-			return RitualBaseRegistry.RITUALS.get().getValue(name);
+		return RitualBaseRegistry.RITUALS.get().getValue(name);
 	}
 }
