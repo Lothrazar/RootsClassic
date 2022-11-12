@@ -61,9 +61,6 @@ public class RitualRecipe implements Recipe<Container> {
 
         materials.forEach(ritual::addIngredient);
         incenses.forEach(ritual::addIncense);
-
-        ritual.addRitualPillar(RootsRegistry.MUNDANE_STANDING_STONE.get(), 0, 0, -3);
-        ritual.addRitualPillar(RootsRegistry.ATTUNED_STANDING_STONE.get(), 5, 1, 0);
     }
 
     @Override
