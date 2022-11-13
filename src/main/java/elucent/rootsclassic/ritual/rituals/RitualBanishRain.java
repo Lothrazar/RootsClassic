@@ -1,6 +1,7 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.ritual.RitualEffect;
+import elucent.rootsclassic.ritual.SimpleRitualEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -8,11 +9,8 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class RitualBanishRain extends RitualBase {
+public class RitualBanishRain extends SimpleRitualEffect {
 
-	public RitualBanishRain(int level, double r, double g, double b) {
-		super(level, r, g, b);
-	}
 	//	@Override
 	//	public boolean incenseMatches(Level level, BlockPos pos) {
 	//		if (super.incenseMatches(world, pos)) {

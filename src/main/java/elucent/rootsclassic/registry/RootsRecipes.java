@@ -21,7 +21,7 @@ public class RootsRecipes {
 	});
 	public static final RegistryObject<SerializeComponentRecipe> COMPONENT_SERIALIZER = RECIPE_SERIALIZERS.register("component", SerializeComponentRecipe::new);
 
-	public static final RegistryObject<RecipeType<RitualRecipe>> RITUAL_RECIPE_TYPE = RECIPE_TYPES.register("ritual", () -> new RecipeType<>() {
+	public static final RegistryObject<RecipeType<RitualRecipe<?>>> RITUAL_RECIPE_TYPE = RECIPE_TYPES.register("ritual", () -> new RecipeType<>() {
 	});
 
 	public static final RegistryObject<SerializeRitualRecipe> RITUAL_SERIALIZER = RECIPE_SERIALIZERS.register("ritual", SerializeRitualRecipe::new);

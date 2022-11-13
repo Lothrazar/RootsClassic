@@ -72,9 +72,9 @@ public class JEIPlugin implements IModPlugin {
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
 		for (RegistryObject<Item> registryObject : RootsRegistry.ITEMS.getEntries()) {
-			Item item = registryObject.get();
-			if (item != null) {
-				registration.addIngredientInfo(new ItemStack(item), VanillaTypes.ITEM, new TranslatableComponent(item.getDescriptionId() + ".guide"));
+			ItemStack stack = new ItemStack(registryObject.get());
+			if (!stack.isEmpty()) {
+				registration.addIngredientInfo(stack, VanillaTypes.ITEM_STACK, new TranslatableComponent(stack.getDescriptionId() + ".guide"));
 			}
 		}
 		ErrorUtil.checkNotNull(MORTAR_TYPE, "mortarType");
@@ -90,8 +90,7 @@ public class JEIPlugin implements IModPlugin {
 
 		List<RitualWrapper> entries = new LinkedList<>();
 
-		RitualRegistry.RITUALS.getEntries().forEach(ritual -> entries.add(new RitualWrapper(ritual.get())));
-		recipeManager.getAllRecipesFor(RootsRecipes.RITUAL_RECIPE_TYPE.get()).forEach(recipe -> entries.add(new RitualWrapper(recipe.getRitual())));
+		recipeManager.getAllRecipesFor(RootsRecipes.RITUAL_RECIPE_TYPE.get()).forEach(recipe -> entries.add(new RitualWrapper(recipe)));
 
 		return entries;
 	}

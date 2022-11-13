@@ -1,190 +1,192 @@
 package elucent.rootsclassic.recipe;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import elucent.rootsclassic.Const;
+import elucent.rootsclassic.block.brazier.BrazierBlockEntity;
 import elucent.rootsclassic.registry.RootsRecipes;
-import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.ritual.RitualBaseRegistry;
+import elucent.rootsclassic.ritual.RitualEffect;
+import elucent.rootsclassic.ritual.RitualPillars;
 import elucent.rootsclassic.ritual.rituals.RitualCrafting;
+import elucent.rootsclassic.util.RootsUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-public class RitualRecipe implements Recipe<Container> {
-    private final ResourceLocation id;
+public class RitualRecipe<C> implements Recipe<Container> {
+	private final ResourceLocation id;
 
-    private final ItemStack result;
+	private final NonNullList<Ingredient> materials;
+	private final NonNullList<Ingredient> incenses;
 
-    private final NonNullList<ItemStack> materials;
-    private final NonNullList<ItemStack> incenses;
+	public final int level;
 
-    private final NonNullList<Ingredient> ingredients;
+	public final int red;
+	public final int green;
+	public final int blue;
 
-    private final int level;
+	public final RitualEffect<C> effect;
+	public final C effectConfig;
 
-    private final double red;
-    private final double green;
-    private final double blue;
+	public RitualRecipe(ResourceLocation id, RitualEffect<C> effect, C effectConfig, NonNullList<Ingredient> materials, NonNullList<Ingredient> incenses, int level, int red, int green, int blue) {
+		this.id = id;
+		this.materials = materials;
+		this.incenses = incenses;
+		this.level = level;
+		this.red = red;
+		this.green = green;
+		this.blue = blue;
+		this.effect = effect;
+		this.effectConfig = effectConfig;
+	}
 
-    private final RitualCrafting ritual;
+	@Override
+	public ResourceLocation getId() {
+		return id;
+	}
 
-    public RitualRecipe(ResourceLocation id, ItemStack result, NonNullList<ItemStack> materials, NonNullList<ItemStack> incenses, int level, double red, double green, double blue) {
-        this.id = id;
-        this.result = result;
-        this.materials = materials;
-        this.incenses = incenses;
-        this.level = level;
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
+	@Override
+	public RecipeSerializer<?> getSerializer() {
+		return RootsRecipes.RITUAL_SERIALIZER.get();
+	}
 
-        this.ingredients = NonNullList.withSize(materials.size(), Ingredient.EMPTY);
-        for (int i = 0; i < materials.size(); i++) {
-            ingredients.set(i, Ingredient.of(materials.get(i)));
-        }
+	@Override
+	public ItemStack assemble(Container inventory) {
+		return getResultItem();
+	}
 
-        ritual = new RitualCrafting(level, red, green, blue).setResult(result);
+	@Override
+	public ItemStack getResultItem() {
+		return effect.getResult(effectConfig).copy();
+	}
 
-        materials.forEach(ritual::addIngredient);
-        incenses.forEach(ritual::addIncense);
-    }
+	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		return materials;
+	}
 
-    @Override
-    public ResourceLocation getId() {
-        return id;
-    }
+	@Override
+	public RecipeType<?> getType() {
+		return RootsRecipes.RITUAL_RECIPE_TYPE.get();
+	}
 
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return RootsRecipes.RITUAL_SERIALIZER.get();
-    }
+	public TranslatableComponent getLocalizedName() {
+		return new TranslatableComponent(Const.MODID + ".ritual." + this.getId());
+	}
 
-    @Override
-    public ItemStack assemble(Container inventory) {
-        return getResultItem();
-    }
+	@Override
+	public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
+		return false;
+	}
 
-    @Override
-    public ItemStack getResultItem() {
-        return result.copy();
-    }
+	@Override
+	public boolean matches(Container inventory, Level worldIn) {
+		return false;
+	}
 
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return ingredients;
-    }
+	public List<Ingredient> getIncenses() {
+		return incenses;
+	}
 
-    @Override
-    public RecipeType<?> getType() {
-        return RootsRecipes.RITUAL_RECIPE_TYPE.get();
-    }
+	public static class SerializeRitualRecipe extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<RitualRecipe<?>> {
 
-    public TranslatableComponent getLocalizedName() {
-        return new TranslatableComponent(Const.MODID + ".ritual." + this.getId());
-    }
+		public RitualRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+			var ingredients = readIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
+			var incenses = readIngredients(GsonHelper.getAsJsonArray(json, "incenses"));
+			if (ingredients.isEmpty() && incenses.isEmpty()) {
+				throw new JsonParseException("No ingredients for ritual recipe");
+			} else {
+				var level = GsonHelper.getAsInt(json, "level");
+				if (level < 0 || level > 2) throw new IllegalArgumentException("Level must be 0, 1 or 2");
 
-    @Override
-    public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
-        return false;
-    }
+				var red = GsonHelper.getAsInt(json, "red");
+				var green = GsonHelper.getAsInt(json, "green");
+				var blue = GsonHelper.getAsInt(json, "blue");
 
-    @Override
-    public boolean matches(Container inventory, Level worldIn) {
-        return false;
-    }
+				var effectId = new ResourceLocation(GsonHelper.getAsString(json, "effect"));
+				var effect = RitualBaseRegistry.RITUALS.get().getValue(effectId);
+				var effectConfig = effect.fromJSON(json);
 
-    public boolean matchesIngredients(List<ItemStack> altarInv) {
-        if (altarInv.size() != materials.size()) return false;
+				return new RitualRecipe(recipeId, effect, effectConfig, ingredients, incenses, level, red, green, blue);
+			}
+		}
 
-        var available = new ArrayList<>(altarInv);
-        return materials.stream().allMatch(ingredient -> {
-            var match = available.stream().filter(it -> ItemStack.matches(it, ingredient)).findFirst();
-            match.ifPresent(available::remove);
-            return match.isPresent();
-        });
-    }
+		private static NonNullList<Ingredient> readIngredients(JsonArray ingredientArray) {
+			NonNullList<Ingredient> list = NonNullList.create();
+			for (int i = 0; i < ingredientArray.size(); ++i) {
+				var stack = Ingredient.fromJson(ingredientArray.get(i).getAsJsonObject());
+				if (!stack.isEmpty()) {
+					list.add(stack);
+				}
+			}
+			return list;
+		}
 
-    public RitualBase getRitual() {
-        return ritual;
-    }
+		public RitualRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+			var level = buffer.readVarInt();
+			var red = buffer.readVarInt();
+			var green = buffer.readVarInt();
+			var blue = buffer.readVarInt();
 
-    public static class SerializeRitualRecipe extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<RitualRecipe> {
+			var size = buffer.readVarInt();
+			var ingredients = NonNullList.withSize(size, Ingredient.EMPTY);
+			ingredients.replaceAll(ignored -> Ingredient.fromNetwork(buffer));
 
-        public RitualRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            var ingredients = readIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
-            var incenses = readIngredients(GsonHelper.getAsJsonArray(json, "incenses"));
-            if (ingredients.isEmpty() && incenses.isEmpty()) {
-                throw new JsonParseException("No ingredients for ritual recipe");
-            } else {
-                var result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-                var level = GsonHelper.getAsInt(json, "level");
-                var red = GsonHelper.getAsDouble(json, "red");
-                var green = GsonHelper.getAsDouble(json, "green");
-                var blue = GsonHelper.getAsDouble(json, "blue");
-                return new RitualRecipe(recipeId, result, ingredients, incenses, level, red, green, blue);
-            }
-        }
+			size = buffer.readVarInt();
+			var incenses = NonNullList.withSize(size, Ingredient.EMPTY);
+			incenses.replaceAll(ignored -> Ingredient.fromNetwork(buffer));
 
-        private static NonNullList<ItemStack> readIngredients(JsonArray ingredientArray) {
-            NonNullList<ItemStack> list = NonNullList.create();
-            for (int i = 0; i < ingredientArray.size(); ++i) {
-                var stack = ShapedRecipe.itemStackFromJson(ingredientArray.get(i).getAsJsonObject());
-                if (!stack.isEmpty()) {
-                    list.add(stack);
-                }
-            }
-            return list;
-        }
+			var effectId = new ResourceLocation(buffer.readUtf());
+			var effect = RitualBaseRegistry.RITUALS.get().getValue(effectId);
+			var effectConfig = effect.fromNetwork(buffer);
 
-        public RitualRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            var level = buffer.readVarInt();
-            var red = buffer.readDouble();
-            var green = buffer.readDouble();
-            var blue = buffer.readDouble();
+			return new RitualRecipe(recipeId, effect, effectConfig, ingredients, incenses, level, red, green, blue);
+		}
 
-            var size = buffer.readVarInt();
-            var ingredients = NonNullList.withSize(size, ItemStack.EMPTY);
-            ingredients.replaceAll(ignored -> buffer.readItem());
+		public void toNetwork(FriendlyByteBuf buffer, RitualRecipe recipe) {
+			buffer.writeVarInt(recipe.level);
+			buffer.writeVarInt(recipe.red);
+			buffer.writeVarInt(recipe.green);
+			buffer.writeVarInt(recipe.blue);
 
-            size = buffer.readVarInt();
-            var incenses = NonNullList.withSize(size, ItemStack.EMPTY);
-            incenses.replaceAll(ignored -> buffer.readItem());
+			buffer.writeCollection((List<Ingredient>) recipe.materials, (buf, it) -> it.toNetwork(buf));
+			buffer.writeCollection((List<Ingredient>) recipe.incenses, (buf, it) -> it.toNetwork(buf));
 
-            ItemStack result = buffer.readItem();
-            return new RitualRecipe(recipeId, result, ingredients, incenses, level, red, green, blue);
-        }
+			buffer.writeUtf(recipe.effect.getRegistryName().toString());
+			recipe.effect.toNetwork(recipe.effectConfig, buffer);
+		}
+	}
 
-        public void toNetwork(FriendlyByteBuf buffer, RitualRecipe recipe) {
-            buffer.writeVarInt(recipe.level);
-            buffer.writeDouble(recipe.red);
-            buffer.writeDouble(recipe.green);
-            buffer.writeDouble(recipe.blue);
+	public boolean incenseMatches(Level levelAccessor, BlockPos pos) {
+		ArrayList<ItemStack> incenseFromNearby = new ArrayList<>();
+		List<BrazierBlockEntity> braziers = RitualPillars.getRecipeBraziers(levelAccessor, pos);
+		for (BrazierBlockEntity brazier : braziers) {
+			if (!brazier.getHeldItem().isEmpty()) {
+				//              Roots.logger.info("found brazier item " + brazier.getHeldItem());
+				incenseFromNearby.add(brazier.getHeldItem());
+			}
+		}
+		return RootsUtil.matchesIngredients(incenseFromNearby, incenses);
+	}
 
-            buffer.writeVarInt(recipe.materials.size());
-            for (ItemStack stack : recipe.materials) {
-                buffer.writeItem(stack);
-            }
 
-            buffer.writeVarInt(recipe.incenses.size());
-            for (ItemStack stack : recipe.incenses) {
-                buffer.writeItem(stack);
-            }
+	public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+		effect.doEffect(levelAccessor, pos, inventory, incenses, effectConfig);
+	}
 
-            buffer.writeItem(recipe.result);
-        }
-    }
 }
