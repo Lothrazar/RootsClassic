@@ -1,0 +1,22 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:crafting",
+  "level": 2,
+  "red": 145,
+  "green": 115,
+  "blue": 65,
+  "ingredients": [
+    { "item": "minecraft:diamond" },
+    { "item": "minecraft:iron_leggings" },
+    { "item": "minecraft:oak_planks" }
+  ],
+  "incenses": [
+    { "item": "rootsclassic:oak_bark" },
+    { "item": "rootsclassic:oak_bark" },
+    { "item": "minecraft:wheat" },
+    { "item": "minecraft:oak_sapling" }
+  ],
+  "result": {
+    "item": "rootsclassic:wildwood_leggings"
+  }
+}

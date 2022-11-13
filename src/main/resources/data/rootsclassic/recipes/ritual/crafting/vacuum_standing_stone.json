@@ -1,0 +1,22 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:crafting",
+  "level": 2,
+  "red": 0,
+  "green": 105,
+  "blue": 73,
+  "ingredients": [
+    { "item": "rootsclassic:attuned_standing_stone" },
+    { "item": "minecraft:glowstone_dust_dust" },
+    { "item": "minecraft:nether_bricks" }
+  ],
+  "incenses": [
+    { "item": "rootsclassic:verdant_sprig" },
+    { "item": "rootsclassic:infernal_bulb" },
+    { "item": "minecraft:wheat" },
+    { "item": "rootsclassic:dark_oak_bark" }
+  ],
+  "result": {
+    "item": "rootsclassic:vacuum_standing_stone"
+  }
+}

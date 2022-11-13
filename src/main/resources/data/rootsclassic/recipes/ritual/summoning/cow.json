@@ -1,0 +1,11 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:summoning",
+  "level": 1,
+  "red": 199,
+  "green": 105,
+  "blue": 193,
+  "ingredients": [{ "item": "minecraft:beef" }, { "item": "minecraft:leather" }, { "item": "minecraft:bone" }],
+  "incenses": [{ "item": "minecraft:wheat_seeds" }, { "item": "minecraft:nether_wart" }],
+  "entity": "minecraft:cow"
+}

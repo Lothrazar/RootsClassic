@@ -1,0 +1,11 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:summoning",
+  "level": 2,
+  "red": 58,
+  "green": 2,
+  "blue": 84,
+  "ingredients": [{ "item": "minecraft:string" }, { "item": "minecraft:spider_eye" }, { "item": "minecraft:bone" }],
+  "incenses": [{ "item": "minecraft:coal" }, { "item": "minecraft:nether_wart" }],
+  "entity": "minecraft:spider"
+}

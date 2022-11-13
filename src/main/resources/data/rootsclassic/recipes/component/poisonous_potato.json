@@ -4,15 +4,15 @@
     {
       "item": "minecraft:poisonous_potato"
     },
-	{
-	  "item": "minecraft:glass"
-	},
-	{
-	  "item": "minecraft:glowstone"
-	},
-	{
-	  "item": "minecraft:sugar_cane"
-	}
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "item": "minecraft:sugar_cane"
+    }
   ],
   "effect": "rootsclassic:poisonous_potato"
 }

@@ -1,0 +1,11 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:summoning",
+  "level": 2,
+  "red": 58,
+  "green": 2,
+  "blue": 84,
+  "ingredients": [{ "item": "minecraft:gunpowder" }, { "item": "minecraft:gunpowder" }, { "item": "minecraft:bone" }],
+  "incenses": [{ "item": "minecraft:coal" }, { "item": "minecraft:nether_wart" }],
+  "entity": "minecraft:creeper"
+}

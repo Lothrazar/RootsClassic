@@ -1,0 +1,22 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:crafting",
+  "level": 2,
+  "red": 0,
+  "green": 242,
+  "blue": 109,
+  "ingredients": [
+    { "item": "rootsclassic:verdant_sprig" },
+    { "item": "minecraft:diamond" },
+    { "item": "minecraft:stone" }
+  ],
+  "incenses": [
+    { "item": "rootsclassic:oak_bark" },
+    { "item": "rootsclassic:spruce_bark" },
+    { "item": "rootsclassic:acacia_bark" },
+    { "item": "rootsclassic:jungle_bark" }
+  ],
+  "result": {
+    "item": "rootsclassic:runic_focus"
+  }
+}

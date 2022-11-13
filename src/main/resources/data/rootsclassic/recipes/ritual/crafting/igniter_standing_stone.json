@@ -1,0 +1,22 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:crafting",
+  "level": 2,
+  "red": 0,
+  "green": 105,
+  "blue": 73,
+  "ingredients": [
+    { "item": "rootsclassic:attuned_standing_stone" },
+    { "item": "minecraft:redstone" },
+    { "item": "minecraft:cracked_stone_bricks" }
+  ],
+  "incenses": [
+    { "item": "rootsclassic:verdant_sprig" },
+    { "item": "rootsclassic:infernal_bulb" },
+    { "item": "minecraft:wheat" },
+    { "item": "rootsclassic:acacia_bark" }
+  ],
+  "result": {
+    "item": "rootsclassic:igniter_standing_stone"
+  }
+}

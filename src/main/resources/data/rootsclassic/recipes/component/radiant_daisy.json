@@ -4,15 +4,15 @@
     {
       "item": "rootsclassic:radiant_daisy"
     },
-	{
-	  "item": "minecraft:glowstone"
-	},
-	{
-	  "item": "rootsclassic:nightshade"
-	},
-	{
-	  "item": "minecraft:redstone_block"
-	}
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "item": "rootsclassic:nightshade"
+    },
+    {
+      "item": "minecraft:redstone_block"
+    }
   ],
   "effect": "rootsclassic:radiant_daisy"
 }

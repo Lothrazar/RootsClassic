@@ -1,0 +1,17 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:crafting",
+  "level": 2,
+  "red": 146,
+  "green": 214,
+  "blue": 43,
+  "ingredients": [
+    { "item": "minecraft:wooden_pickaxe" },
+    { "item": "rootsclassic:verdant_sprig" },
+    { "item": "minecraft:gold_nugget" }
+  ],
+  "incenses": [{ "item": "rootsclassic:oak_bark" }, { "item": "rootsclassic:oak_bark" }],
+  "result": {
+    "item": "rootsclassic:living_pickaxe"
+  }
+}
