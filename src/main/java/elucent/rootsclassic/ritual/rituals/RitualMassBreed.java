@@ -1,6 +1,7 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.ritual.RitualEffect;
+import elucent.rootsclassic.ritual.SimpleRitualEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.animal.Animal;
@@ -10,11 +11,7 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
-public class RitualMassBreed extends RitualBase {
-
-	public RitualMassBreed(int level, double r, double g, double b) {
-		super(level, r, g, b);
-	}
+public class RitualMassBreed extends SimpleRitualEffect {
 
 	@Override
 	public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {

@@ -3,7 +3,8 @@ package elucent.rootsclassic.ritual.rituals;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.item.CrystalStaffItem;
 import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.ritual.RitualEffect;
+import elucent.rootsclassic.ritual.SimpleRitualEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
@@ -13,11 +14,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class RitualImbuer extends RitualBase {
-
-	public RitualImbuer() {
-		super(1, 255, 255, 255);
-	}
+public class RitualImbuer extends SimpleRitualEffect {
 
 	@Override
 	public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {

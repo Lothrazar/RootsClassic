@@ -9,8 +9,10 @@ import elucent.rootsclassic.research.EnumPageType;
 import elucent.rootsclassic.research.ResearchBase;
 import elucent.rootsclassic.research.ResearchGroup;
 import elucent.rootsclassic.research.ResearchPage;
+import elucent.rootsclassic.ritual.RitualPillars;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
@@ -93,7 +95,7 @@ public class TabletPageScreen extends Screen {
 			&& mouseY >= (height / 2.0f) - 138 && mouseY < (height / 2.0f) - 40) {
 			if (researchInfo.get(currentPage).recipe == EnumPageType.TYPE_MORTAR) {
 				//Roots.lang("rootsclassic.recipe.chat") +
-				player.sendSystemMessage(Component.translatable(researchInfo.get(currentPage).mortarRecipe.toString()));
+				player.sendSystemMessage(Component.literal(researchInfo.get(currentPage).mortarRecipe.toString()));
 			} else if (researchInfo.get(currentPage).recipe == EnumPageType.TYPE_ALTAR) {
 				player.sendSystemMessage(Component.translatable(researchInfo.get(currentPage).altarRecipe.toString()));
 			}
@@ -169,31 +171,37 @@ public class TabletPageScreen extends Screen {
 			case TYPE_ALTAR -> {
 				RenderSystem.setShaderTexture(0, Const.tabletAltar);
 				this.blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
-				for (int i = 0; i < page.altarRecipe.getBlocks().size(); i++) {
+
+				RitualPillars.getRitualPillars(page.altarRecipe.level).forEach((pos, block) -> {
+
 					RenderSystem.setShaderTexture(0, Const.tabletAltar);
 					int u = 192;
 					int v = 240;
 					int xShift = 0;
 					int yShift = 0;
 					this.blit(poseStack, basePosX + 93, basePosY + 153, 192, 32, 16, 16);
-					if (page.altarRecipe.getBlocks().get(i).equals(RootsRegistry.MUNDANE_STANDING_STONE.get())) {
+					if (block.equals(RootsRegistry.MUNDANE_STANDING_STONE.get())) {
 						v = 48;
-						xShift = 8 * (int) page.altarRecipe.getPositionsRelative().get(i).getX();
-						yShift = 8 * (int) page.altarRecipe.getPositionsRelative().get(i).getZ();
+						xShift = 8 * pos.getX();
+						yShift = 8 * pos.getZ();
 					}
-					if (page.altarRecipe.getBlocks().get(i).equals(RootsRegistry.ATTUNED_STANDING_STONE.get())) {
+					if (block.equals(RootsRegistry.ATTUNED_STANDING_STONE.get())) {
 						v = 64;
-						xShift = 8 * (int) page.altarRecipe.getPositionsRelative().get(i).getX();
-						yShift = 8 * (int) page.altarRecipe.getPositionsRelative().get(i).getZ();
+						xShift = 8 * pos.getX();
+						yShift = 8 * pos.getZ();
 					}
 					this.blit(poseStack, basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16);
-				}
+				});
+
 				for (int i = 0; i < page.altarRecipe.getIngredients().size(); i++) {
-					slots.add(new ScreenSlotInstance(page.altarRecipe.getIngredients().get(i), (int) basePosX + 64 + 24 * i, (int) basePosY + 56));
+					var stack = page.altarRecipe.getIngredients().get(i).getItems()[0];
+					slots.add(new ScreenSlotInstance(stack, (int) basePosX + 64 + 24 * i, (int) basePosY + 56));
 				}
 				for (int i = 0; i < page.altarRecipe.getIncenses().size(); i++) {
-					slots.add(new ScreenSlotInstance(page.altarRecipe.getIncenses().get(i), (int) basePosX + 76 + 16 * i, (int) basePosY + 88));
+					var stack = page.altarRecipe.getIncenses().get(i).getItems()[0];
+					slots.add(new ScreenSlotInstance(stack, (int) basePosX + 76 + 16 * i, (int) basePosY + 88));
 				}
+
 				title = makeTitle();
 				textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
 			}

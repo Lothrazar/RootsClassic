@@ -1,6 +1,7 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.ritual.RitualEffect;
+import elucent.rootsclassic.ritual.SimpleRitualEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
@@ -10,11 +11,7 @@ import net.minecraft.world.level.block.BonemealableBlock;
 
 import java.util.List;
 
-public class RitualGrow extends RitualBase {
-
-	public RitualGrow(int level, double r, double g, double b) {
-		super(level, r, g, b);
-	}
+public class RitualGrow extends SimpleRitualEffect {
 
 	@Override
 	public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {

@@ -1,6 +1,7 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.ritual.RitualEffect;
+import elucent.rootsclassic.ritual.SimpleRitualEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,12 +16,11 @@ import net.minecraft.world.phys.AABB;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RitualSacrifice extends RitualBase {
+public class RitualSacrifice extends SimpleRitualEffect {
 
-	public ArrayList<ItemStack> potentialDrops = new ArrayList<>();
+	private ArrayList<ItemStack> potentialDrops = new ArrayList<>();
 
-	public RitualSacrifice(int level, double r, double g, double b) {
-		super(level, r, g, b);
+	public RitualSacrifice() {
 		potentialDrops.add(new ItemStack(Items.WHEAT_SEEDS, 1));
 		potentialDrops.add(new ItemStack(Items.WHEAT_SEEDS, 1));
 		potentialDrops.add(new ItemStack(Items.PUMPKIN_SEEDS, 1));

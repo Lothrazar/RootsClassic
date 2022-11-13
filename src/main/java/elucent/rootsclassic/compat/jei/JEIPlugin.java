@@ -81,14 +81,7 @@ public class JEIPlugin implements IModPlugin {
 
 		ClientLevel world = Objects.requireNonNull(Minecraft.getInstance().level);
 		registration.addRecipes(MORTAR_TYPE, world.getRecipeManager().getAllRecipesFor(RootsRecipes.COMPONENT_RECIPE_TYPE.get()));
-		registration.addRecipes(RITUAL_TYPE, getRituals());
-	}
-
-	public List<RitualWrapper> getRituals() {
-		List<RitualWrapper> entries = new LinkedList<>();
-
-		RitualRegistry.RITUALS.getEntries().forEach(ritual -> entries.add(new RitualWrapper(ritual.get())));
-
-		return entries;
+		var ritualRecipes = world.getRecipeManager().getAllRecipesFor(RootsRecipes.RITUAL_RECIPE_TYPE.get());
+		registration.addRecipes(RITUAL_TYPE, ritualRecipes.stream().map(RitualWrapper::new).toList());
 	}
 }

@@ -1,42 +1,36 @@
 package elucent.rootsclassic.compat.jei.wrapper;
 
-import elucent.rootsclassic.ritual.RitualBase;
-import elucent.rootsclassic.ritual.rituals.RitualCrafting;
+import elucent.rootsclassic.recipe.RitualRecipe;
+import elucent.rootsclassic.ritual.RitualPillars;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RitualWrapper implements IRecipeCategoryExtension {
-	private final RitualBase ritual;
+	private final RitualRecipe<?> ritual;
 
-	public ArrayList<Block> getBlocks() {
-		return ritual.getBlocks();
+	public Map<BlockPos, Block> getPillars() {
+		return RitualPillars.getRitualPillars(ritual.level);
 	}
 
-	public ArrayList<BlockPos> getPositionsRelative() {
-		return ritual.getPositionsRelative();
-	}
-
-	public List<ItemStack> getIngredients() {
+	public List<Ingredient> getIngredients() {
 		return ritual.getIngredients();
 	}
 
-	public List<ItemStack> getIncenses() {
+	public List<Ingredient> getIncenses() {
 		return ritual.getIncenses();
 	}
 
 	public ItemStack getResult() {
-		if (ritual instanceof RitualCrafting ritualCrafting) {
-			return ritualCrafting.result;
-		}
-		return ItemStack.EMPTY;
+		return ritual.getResultItem();
 	}
 
-	public RitualWrapper(RitualBase ritual) {
+	public RitualWrapper(RitualRecipe<?> ritual) {
 		this.ritual = ritual;
 	}
 }

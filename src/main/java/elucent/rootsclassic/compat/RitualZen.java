@@ -3,7 +3,7 @@ package elucent.rootsclassic.compat;
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotation.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IItemStack;
-import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.ritual.RitualEffect;
 import elucent.rootsclassic.ritual.RitualBaseRegistry;
 import elucent.rootsclassic.ritual.rituals.RitualCrafting;
 import net.minecraft.resources.ResourceLocation;
@@ -22,6 +22,7 @@ public class RitualZen {
 	public RitualZen() {
 	}
 
+	/*
 	@Method
 	public static void addCraftingRitual(String uniqueName, IItemStack output, int level, double r, double g, double b,
 																			 IItemStack[] incenses, IItemStack[] ingredients) {
@@ -62,6 +63,7 @@ public class RitualZen {
 	 * <p>
 	 * Starting with rootsclassic (Example: "rootsclassic:staff_crafting")
 	 */
+	/*
 	@Method
 	public static void setRitualIngredients(ResourceLocation name, IItemStack[] items) {
 		RitualBase found = findRitualByName(name);
@@ -102,4 +104,5 @@ public class RitualZen {
 			return output;
 		}
 	}
+	*/
 }

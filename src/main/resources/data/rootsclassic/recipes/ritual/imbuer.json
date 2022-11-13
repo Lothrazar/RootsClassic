@@ -1,0 +1,15 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:imbuer",
+  "level": 1,
+  "color": "#ffffff",
+  "ingredients": [
+    {
+      "item": "rootsclassic:crystal_staff"
+    },
+    {
+      "item": "rootsclassic:verdant_sprig"
+    }
+  ],
+  "incenses": []
+}
