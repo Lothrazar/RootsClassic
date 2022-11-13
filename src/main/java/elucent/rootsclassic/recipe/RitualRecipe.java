@@ -29,6 +29,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,13 +41,13 @@ public class RitualRecipe<C> implements Recipe<Container> {
 
 	public final int level;
 
-	public final BlockPos color;
-	public final BlockPos secondaryColor;
+	public final Color color;
+	public final Color secondaryColor;
 
 	public final RitualEffect<C> effect;
 	public final C effectConfig;
 
-	public RitualRecipe(ResourceLocation id, RitualEffect<C> effect, C effectConfig, NonNullList<Ingredient> materials, NonNullList<Ingredient> incenses, int level, BlockPos color, BlockPos secondaryColor) {
+	public RitualRecipe(ResourceLocation id, RitualEffect<C> effect, C effectConfig, NonNullList<Ingredient> materials, NonNullList<Ingredient> incenses, int level, Color color, Color secondaryColor) {
 		this.id = id;
 		this.materials = materials;
 		this.incenses = incenses;
@@ -120,11 +121,8 @@ public class RitualRecipe<C> implements Recipe<Container> {
 				var effect = RitualBaseRegistry.RITUALS.get().getValue(effectId);
 				var effectConfig = effect.fromJSON(json);
 
-				var colorJson = GsonHelper.getAsJsonObject(json, "color");
-				var color = new BlockPos(GsonHelper.getAsInt(colorJson, "red"), GsonHelper.getAsInt(colorJson, "blue"), GsonHelper.getAsInt(colorJson, "green"));
-
-				var secondaryColorJson = json.has("secondaryColor") ? GsonHelper.getAsJsonObject(json, "secondaryColor") : colorJson;
-				var secondaryColor = new BlockPos(GsonHelper.getAsInt(secondaryColorJson, "red"), GsonHelper.getAsInt(secondaryColorJson, "blue"), GsonHelper.getAsInt(secondaryColorJson, "green"));
+				var color = Color.decode(GsonHelper.getAsString(json, "color"));
+				var secondaryColor = json.has("secondaryColor") ? Color.decode(GsonHelper.getAsString(json, "secondaryColor")) : color;
 
 				return new RitualRecipe(recipeId, effect, effectConfig, ingredients, incenses, level, color, secondaryColor);
 			}
@@ -144,8 +142,8 @@ public class RitualRecipe<C> implements Recipe<Container> {
 		public RitualRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
 			var level = buffer.readVarInt();
 
-			var color = buffer.readBlockPos();
-			var secondaryColor = buffer.readBlockPos();
+			var color = new Color(buffer.readVarInt());
+			var secondaryColor = new Color(buffer.readVarInt());
 
 			var size = buffer.readVarInt();
 			var ingredients = NonNullList.withSize(size, Ingredient.EMPTY);
@@ -165,8 +163,8 @@ public class RitualRecipe<C> implements Recipe<Container> {
 		public void toNetwork(FriendlyByteBuf buffer, RitualRecipe recipe) {
 			buffer.writeVarInt(recipe.level);
 
-			buffer.writeBlockPos(recipe.color);
-			buffer.writeBlockPos(recipe.secondaryColor);
+			buffer.writeVarInt(recipe.color.getRGB());
+			buffer.writeVarInt(recipe.secondaryColor.getRGB());
 
 			buffer.writeCollection((List<Ingredient>) recipe.materials, (buf, it) -> it.toNetwork(buf));
 			buffer.writeCollection((List<Ingredient>) recipe.incenses, (buf, it) -> it.toNetwork(buf));

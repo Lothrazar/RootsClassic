@@ -2,16 +2,27 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:mass_breeding",
   "level": 0,
-  "color": {
-    "red": 148,
-    "green": 61,
-    "blue": 81
-  },
-  "ingredients": [{ "item": "minecraft:glowstone_dust" }, { "item": "minecraft:bone" }],
+  "color": "#943d51",
+  "ingredients": [
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ],
   "incenses": [
-    { "item": "minecraft:carrot" },
-    { "item": "minecraft:wheat" },
-    { "item": "minecraft:wheat_seeds" },
-    { "item": "minecraft:cod" }
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "minecraft:wheat_seeds"
+    },
+    {
+      "item": "minecraft:cod"
+    }
   ]
 }

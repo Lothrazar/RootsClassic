@@ -2,11 +2,18 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:banish_rain",
   "level": 0,
-  "color": {
-    "red": 204,
-    "green": 159,
-    "blue": 35
-  },
-  "ingredients": [{ "item": "minecraft:wheat" }],
-  "incenses": [{ "item": "minecraft:vine" }, { "item": "rootsclassic:old_root" }]
+  "color": "#cc9f23",
+  "ingredients": [
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
+  "incenses": [
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "rootsclassic:old_root"
+    }
+  ]
 }

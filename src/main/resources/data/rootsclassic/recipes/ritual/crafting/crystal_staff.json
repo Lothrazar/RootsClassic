@@ -2,21 +2,31 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:crafting",
   "level": 2,
-  "color": {
-    "red": 205,
-    "green": 86,
-    "blue": 0
-  },
+  "color": "#cd5600",
   "ingredients": [
-    { "item": "minecraft:diamond_block" },
-    { "item": "minecraft:stick" },
-    { "item": "minecraft:blaze_powder" }
+    {
+      "item": "minecraft:diamond_block"
+    },
+    {
+      "item": "minecraft:stick"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    }
   ],
   "incenses": [
-    { "item": "minecraft:coal_block" },
-    { "item": "rootsclassic:acacia_bark" },
-    { "item": "rootsclassic:verdant_sprig" },
-    { "item": "rootsclassic:birch_bark" }
+    {
+      "item": "minecraft:coal_block"
+    },
+    {
+      "item": "rootsclassic:acacia_bark"
+    },
+    {
+      "item": "rootsclassic:verdant_sprig"
+    },
+    {
+      "item": "rootsclassic:birch_bark"
+    }
   ],
   "result": {
     "item": "rootsclassic:crystal_staff"

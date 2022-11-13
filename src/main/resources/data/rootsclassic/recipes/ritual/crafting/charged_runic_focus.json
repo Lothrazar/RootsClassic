@@ -2,17 +2,26 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:crafting",
   "level": 2,
-  "color": {
-    "red": 0,
-    "green": 242,
-    "blue": 109
-  },
+  "color": "#00f26d",
   "ingredients": [
-    { "item": "rootsclassic:runic_focus" },
-    { "item": "minecraft:redstone" },
-    { "item": "minecraft:glowstone_dust" }
+    {
+      "item": "rootsclassic:runic_focus"
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    }
   ],
-  "incenses": [{ "item": "rootsclassic:infernal_bulb" }, { "item": "minecraft:wheat" }],
+  "incenses": [
+    {
+      "item": "rootsclassic:infernal_bulb"
+    },
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
   "result": {
     "item": "rootsclassic:charged_runic_focus"
   }

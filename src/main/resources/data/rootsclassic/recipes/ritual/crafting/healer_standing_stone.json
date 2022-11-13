@@ -2,21 +2,31 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:crafting",
   "level": 2,
-  "color": {
-    "red": 0,
-    "green": 105,
-    "blue": 73
-  },
+  "color": "#006949",
   "ingredients": [
-    { "item": "rootsclassic:attuned_standing_stone" },
-    { "item": "minecraft:redstone" },
-    { "item": "minecraft:chiseled_stone_bricks" }
+    {
+      "item": "rootsclassic:attuned_standing_stone"
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:chiseled_stone_bricks"
+    }
   ],
   "incenses": [
-    { "item": "rootsclassic:verdant_sprig" },
-    { "item": "rootsclassic:infernal_bulb" },
-    { "item": "minecraft:wheat" },
-    { "item": "minecraft:ghast_tear" }
+    {
+      "item": "rootsclassic:verdant_sprig"
+    },
+    {
+      "item": "rootsclassic:infernal_bulb"
+    },
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "minecraft:ghast_tear"
+    }
   ],
   "result": {
     "item": "rootsclassic:healer_standing_stone"

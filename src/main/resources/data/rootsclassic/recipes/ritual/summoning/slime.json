@@ -2,16 +2,25 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:summoning",
   "level": 2,
-  "color": {
-    "red": 58,
-    "green": 2,
-    "blue": 84
-  },
+  "color": "#3a0254",
   "ingredients": [
-    { "item": "minecraft:slime_ball" },
-    { "item": "minecraft:slime_ball" },
-    { "item": "minecraft:slime_ball" }
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    }
   ],
-  "incenses": [{ "item": "minecraft:coal" }, { "item": "minecraft:nether_wart" }],
+  "incenses": [
+    {
+      "item": "minecraft:coal"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ],
   "entity": "minecraft:slime"
 }

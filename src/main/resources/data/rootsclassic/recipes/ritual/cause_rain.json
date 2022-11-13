@@ -2,11 +2,18 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:cause_rain",
   "level": 0,
-  "color": {
-    "red": 23,
-    "green": 0,
-    "blue": 138
-  },
-  "ingredients": [{ "item": "minecraft:lily_pad" }],
-  "incenses": [{ "item": "minecraft:vine" }, { "item": "rootsclassic:old_root" }]
+  "color": "#17008a",
+  "ingredients": [
+    {
+      "item": "minecraft:lily_pad"
+    }
+  ],
+  "incenses": [
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "rootsclassic:old_root"
+    }
+  ]
 }
