@@ -24,10 +24,10 @@ public class ManaBarEvent {
 	private void drawQuad(BufferBuilder vertexConsumer, float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, int minU, int minV, int maxU, int maxV) {
 		float f = 0.00390625F;
 		float f1 = 0.00390625F;
-		vertexConsumer.vertex(x1 + 0.0F, y1 + 0.0F, 0).uv((minU + 0) * f, (minV + maxV) * f1).endVertex();
+		vertexConsumer.vertex(x1 + 0.0F, y1 + 0.0F, 0).uv((minU) * f, (minV + maxV) * f1).endVertex();
 		vertexConsumer.vertex(x2 + 0.0F, y2 + 0.0F, 0).uv((minU + maxU) * f, (minV + maxV) * f1).endVertex();
-		vertexConsumer.vertex(x3 + 0.0F, y3 + 0.0F, 0).uv((minU + maxU) * f, (minV + 0) * f1).endVertex();
-		vertexConsumer.vertex(x4 + 0.0F, y4 + 0.0F, 0).uv((minU + 0) * f, (minV + 0) * f1).endVertex();
+		vertexConsumer.vertex(x3 + 0.0F, y3 + 0.0F, 0).uv((minU + maxU) * f, (minV) * f1).endVertex();
+		vertexConsumer.vertex(x4 + 0.0F, y4 + 0.0F, 0).uv((minU) * f, (minV) * f1).endVertex();
 	}
 
 	@SubscribeEvent
