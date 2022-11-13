@@ -2,9 +2,11 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:crafting",
   "level": 2,
-  "red": 146,
-  "green": 214,
-  "blue": 43,
+  "color": {
+    "red": 146,
+    "green": 214,
+    "blue": 43
+  },
   "ingredients": [
     { "item": "minecraft:wooden_pickaxe" },
     { "item": "rootsclassic:verdant_sprig" },

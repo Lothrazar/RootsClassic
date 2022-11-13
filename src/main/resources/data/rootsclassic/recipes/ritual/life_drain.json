@@ -2,9 +2,11 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:life_drain",
   "level": 0,
-  "red": 139,
-  "green": 22,
-  "blue": 40,
+  "color": {
+    "red": 139,
+    "green": 22,
+    "blue": 40
+  },
   "ingredients": [{ "item": "minecraft:blaze_powder" }, { "item": "minecraft:bone" }],
   "incenses": [
     { "item": "minecraft:wooden_sword" },

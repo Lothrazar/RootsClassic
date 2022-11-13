@@ -2,9 +2,11 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:crafting",
   "level": 2,
-  "red": 205,
-  "green": 86,
-  "blue": 0,
+  "color": {
+    "red": 205,
+    "green": 86,
+    "blue": 0
+  },
   "ingredients": [
     { "item": "minecraft:diamond_block" },
     { "item": "minecraft:stick" },

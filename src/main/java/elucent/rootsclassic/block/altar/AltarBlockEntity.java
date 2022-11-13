@@ -14,6 +14,7 @@ import elucent.rootsclassic.util.InventoryUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,6 +32,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,9 +43,11 @@ public class AltarBlockEntity extends BEBase {
 	private int ticker = 0;
 	private int progress = 0;
 
+	@Nullable
 	private RitualRecipe<?> ritualCurrent = null;
 	private int clientRitualLevel;
-	private Vec3 clientRitualColor;
+	private BlockPos clientRitualColor = BlockPos.ZERO;
+	private BlockPos clientRitualSecondaryColor = BlockPos.ZERO;
 
 	public final ItemStackHandler inventory = new ItemStackHandler(3) {
 
@@ -84,7 +88,8 @@ public class AltarBlockEntity extends BEBase {
 		if (level != null && level.isClientSide() && tag.contains("ritual", 10)) {
 			var ritualTag = tag.getCompound("ritual");
 			clientRitualLevel = ritualTag.getInt("level");
-			clientRitualColor = new Vec3(ritualTag.getInt("red"), ritualTag.getInt("green"), ritualTag.getInt("blue"));
+			clientRitualColor = NbtUtils.readBlockPos(ritualTag.getCompound("color"));
+			clientRitualSecondaryColor = NbtUtils.readBlockPos(ritualTag.getCompound("secondaryColor"));
 		}
 
 		if (tag.contains("progress")) {
@@ -113,12 +118,12 @@ public class AltarBlockEntity extends BEBase {
 		}
 		*/
 
-		if (level != null && !level.isClientSide()) {
+		if (level != null && !level.isClientSide() && ritualCurrent != null) {
 			var ritualTag = new CompoundTag();
 			ritualTag.putInt("level", ritualCurrent.level);
-			ritualTag.putInt("red", ritualCurrent.red);
-			ritualTag.putInt("green", ritualCurrent.green);
-			ritualTag.putInt("blue", ritualCurrent.blue);
+			ritualTag.put("color", NbtUtils.writeBlockPos(ritualCurrent.color));
+			ritualTag.put("secondaryColor", NbtUtils.writeBlockPos(ritualCurrent.secondaryColor));
+			tag.put("ritual", ritualTag);
 		}
 
 		tag.putInt("progress", getProgress());
@@ -238,7 +243,7 @@ public class AltarBlockEntity extends BEBase {
 			//      }
 			if (tile.getProgress() == 0 && tile.ritualCurrent != null) {
 				tile.ritualCurrent.doEffect(level, pos, InventoryUtil.createIInventory(tile.inventory), tile.incenses);
-				
+
 				tile.setRitual(null);
 				tile.emptyAltar();
 				tile.setChanged();
@@ -253,54 +258,54 @@ public class AltarBlockEntity extends BEBase {
 			var pillars = RitualPillars.getRitualPillars(tile.clientRitualLevel);
 			var pillarPositions = pillars.keySet().stream().toList();
 			var color = tile.clientRitualColor;
-			var secondaryColor = tile.clientRitualColor;
+			var secondaryColor = tile.clientRitualSecondaryColor;
 
 			if (!pillars.isEmpty()) {
 				BlockPos particlePos = pillarPositions.get(level.random.nextInt(pillars.size())).above().offset(pos);
 				if (level.random.nextInt(6) == 0) {
-					level.addParticle(MagicLineParticleData.createData(color.x, color.y, color.z),
+					level.addParticle(MagicLineParticleData.createData(color.getX(), color.getY(), color.getZ()),
 						particlePos.getX() + 0.5, particlePos.getY() + 0.125, particlePos.getZ() + 0.5,
 						particlePos.getX() + 0.5, particlePos.getY() + 0.875, particlePos.getZ() + 0.5);
 				} else {
-					level.addParticle(MagicLineParticleData.createData(secondaryColor.x, secondaryColor.y, secondaryColor.z),
+					level.addParticle(MagicLineParticleData.createData(secondaryColor.getX(), secondaryColor.getY(), secondaryColor.getZ()),
 						particlePos.getX() + 0.5, particlePos.getY() + 0.125, particlePos.getZ() + 0.5,
 						particlePos.getX() + 0.5, particlePos.getY() + 0.875, particlePos.getZ() + 0.5);
 				}
 			}
 
 			if (level.random.nextInt(4) == 0) {
-				level.addParticle(MagicAltarParticleData.createData(color.x, color.y, color.z),
+				level.addParticle(MagicAltarParticleData.createData(color.getX(), color.getY(), color.getZ()),
 					pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
 					0.125 * Math.sin(Math.toRadians(360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(360.0 * (tile.getProgress() % 100) / 100.0)));
 			} else {
-				level.addParticle(MagicAltarParticleData.createData(secondaryColor.x, secondaryColor.y, secondaryColor.z),
+				level.addParticle(MagicAltarParticleData.createData(secondaryColor.getX(), secondaryColor.getY(), secondaryColor.getZ()),
 					pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
 					0.125 * Math.sin(Math.toRadians(360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(360.0 * (tile.getProgress() % 100) / 100.0)));
 			}
 			if (level.random.nextInt(4) == 0) {
-				level.addParticle(MagicAltarParticleData.createData(color.x, color.y, color.z),
+				level.addParticle(MagicAltarParticleData.createData(color.getX(), color.getY(), color.getZ()),
 					pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
 					.125 * Math.sin(Math.toRadians(90.0 + 360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(90.0 + 360.0 * (tile.getProgress() % 100) / 100.0)));
 			} else {
-				level.addParticle(MagicAltarParticleData.createData(secondaryColor.x, secondaryColor.y, secondaryColor.z),
+				level.addParticle(MagicAltarParticleData.createData(secondaryColor.getX(), secondaryColor.getY(), secondaryColor.getZ()),
 					pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
 					.125 * Math.sin(Math.toRadians(90.0 + 360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(90.0 + 360.0 * (tile.getProgress() % 100) / 100.0)));
 			}
 			if (level.random.nextInt(4) == 0) {
-				level.addParticle(MagicAltarParticleData.createData(color.x, color.y, color.z),
+				level.addParticle(MagicAltarParticleData.createData(color.getX(), color.getY(), color.getZ()),
 					pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
 					.125 * Math.sin(Math.toRadians(180.0 + 360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(180.0 + 360.0 * (tile.getProgress() % 100) / 100.0)));
 			} else {
-				level.addParticle(MagicAltarParticleData.createData(secondaryColor.x, secondaryColor.y, secondaryColor.z),
+				level.addParticle(MagicAltarParticleData.createData(secondaryColor.getX(), secondaryColor.getY(), secondaryColor.getZ()),
 					pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
 					.125 * Math.sin(Math.toRadians(180.0 + 360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(180.0 + 360.0 * (tile.getProgress() % 100) / 100.0)));
 			}
 			if (level.random.nextInt(4) == 0) {
-				level.addParticle(MagicAltarParticleData.createData(color.x, color.y, color.z),
+				level.addParticle(MagicAltarParticleData.createData(color.getX(), color.getY(), color.getZ()),
 					pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
 					.125 * Math.sin(Math.toRadians(270.0 + 360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(270.0 + 360.0 * (tile.getProgress() % 100) / 100.0)));
 			} else {
-				level.addParticle(MagicAltarParticleData.createData(secondaryColor.x, secondaryColor.y, secondaryColor.z),
+				level.addParticle(MagicAltarParticleData.createData(secondaryColor.getX(), secondaryColor.getY(), secondaryColor.getZ()),
 					pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
 					.125 * Math.sin(Math.toRadians(270.0 + 360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(270.0 + 360.0 * (tile.getProgress() % 100) / 100.0)));
 			}
@@ -336,6 +341,7 @@ public class AltarBlockEntity extends BEBase {
 
 	public void setRitual(RitualRecipe<?> ritualCurrent) {
 		this.ritualCurrent = ritualCurrent;
+		setChanged();
 	}
 
 	public void emptyAltar() {

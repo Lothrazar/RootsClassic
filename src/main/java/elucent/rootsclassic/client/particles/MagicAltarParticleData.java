@@ -24,7 +24,7 @@ public class MagicAltarParticleData implements ParticleProvider<MagicParticleTyp
 		return new MagicParticleTypeData(ParticleRegistry.MAGIC_ALTAR_TYPE.get(), color);
 	}
 
-	public static ParticleOptions createData(double r, double g, double b) {
+	public static ParticleOptions createData(int r, int g, int b) {
 		return new MagicParticleTypeData(ParticleRegistry.MAGIC_ALTAR_TYPE.get(), new ParticleColor(r, g, b));
 	}
 }

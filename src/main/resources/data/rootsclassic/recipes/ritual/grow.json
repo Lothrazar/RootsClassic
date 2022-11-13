@@ -2,9 +2,11 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:grow",
   "level": 0,
-  "red": 82,
-  "green": 212,
-  "blue": 47,
+  "color": {
+    "red": 82,
+    "green": 212,
+    "blue": 47
+  },
   "ingredients": [
     { "item": "minecraft:redstone" },
     { "item": "minecraft:bone_meal" },

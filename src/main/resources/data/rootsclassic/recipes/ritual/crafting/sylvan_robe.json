@@ -2,9 +2,11 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:crafting",
   "level": 2,
-  "red": 62,
-  "green": 138,
-  "blue": 62,
+  "color": {
+    "red": 62,
+    "green": 138,
+    "blue": 62
+  },
   "ingredients": [
     { "item": "minecraft:diamond" },
     { "item": "minecraft:leather_chestplate" },

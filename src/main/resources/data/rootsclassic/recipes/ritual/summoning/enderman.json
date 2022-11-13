@@ -2,9 +2,11 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:summoning",
   "level": 2,
-  "red": 58,
-  "green": 2,
-  "blue": 84,
+  "color": {
+    "red": 58,
+    "green": 2,
+    "blue": 84
+  },
   "ingredients": [
     { "item": "minecraft:ender_pearl" },
     { "item": "minecraft:ender_pearl" },

@@ -22,6 +22,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
@@ -36,23 +37,21 @@ public class RitualRecipe<C> implements Recipe<Container> {
 
 	public final int level;
 
-	public final int red;
-	public final int green;
-	public final int blue;
+	public final BlockPos color;
+	public final BlockPos secondaryColor;
 
 	public final RitualEffect<C> effect;
 	public final C effectConfig;
 
-	public RitualRecipe(ResourceLocation id, RitualEffect<C> effect, C effectConfig, NonNullList<Ingredient> materials, NonNullList<Ingredient> incenses, int level, int red, int green, int blue) {
+	public RitualRecipe(ResourceLocation id, RitualEffect<C> effect, C effectConfig, NonNullList<Ingredient> materials, NonNullList<Ingredient> incenses, int level, BlockPos color, BlockPos secondaryColor) {
 		this.id = id;
 		this.materials = materials;
 		this.incenses = incenses;
 		this.level = level;
-		this.red = red;
-		this.green = green;
-		this.blue = blue;
 		this.effect = effect;
 		this.effectConfig = effectConfig;
+		this.color = color;
+		this.secondaryColor = secondaryColor;
 	}
 
 	@Override
@@ -114,15 +113,17 @@ public class RitualRecipe<C> implements Recipe<Container> {
 				var level = GsonHelper.getAsInt(json, "level");
 				if (level < 0 || level > 2) throw new IllegalArgumentException("Level must be 0, 1 or 2");
 
-				var red = GsonHelper.getAsInt(json, "red");
-				var green = GsonHelper.getAsInt(json, "green");
-				var blue = GsonHelper.getAsInt(json, "blue");
-
 				var effectId = new ResourceLocation(GsonHelper.getAsString(json, "effect"));
 				var effect = RitualBaseRegistry.RITUALS.get().getValue(effectId);
 				var effectConfig = effect.fromJSON(json);
 
-				return new RitualRecipe(recipeId, effect, effectConfig, ingredients, incenses, level, red, green, blue);
+				var colorJson = GsonHelper.getAsJsonObject(json, "color");
+				var color = new BlockPos(GsonHelper.getAsInt(colorJson, "red"), GsonHelper.getAsInt(colorJson, "blue"), GsonHelper.getAsInt(colorJson, "green"));
+
+				var secondaryColorJson = json.has("secondaryColor") ? GsonHelper.getAsJsonObject(json, "secondaryColor") : colorJson;
+				var secondaryColor = new BlockPos(GsonHelper.getAsInt(secondaryColorJson, "red"), GsonHelper.getAsInt(secondaryColorJson, "blue"), GsonHelper.getAsInt(secondaryColorJson, "green"));
+
+				return new RitualRecipe(recipeId, effect, effectConfig, ingredients, incenses, level, color, secondaryColor);
 			}
 		}
 
@@ -139,9 +140,9 @@ public class RitualRecipe<C> implements Recipe<Container> {
 
 		public RitualRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
 			var level = buffer.readVarInt();
-			var red = buffer.readVarInt();
-			var green = buffer.readVarInt();
-			var blue = buffer.readVarInt();
+
+			var color = buffer.readBlockPos();
+			var secondaryColor = buffer.readBlockPos();
 
 			var size = buffer.readVarInt();
 			var ingredients = NonNullList.withSize(size, Ingredient.EMPTY);
@@ -155,14 +156,14 @@ public class RitualRecipe<C> implements Recipe<Container> {
 			var effect = RitualBaseRegistry.RITUALS.get().getValue(effectId);
 			var effectConfig = effect.fromNetwork(buffer);
 
-			return new RitualRecipe(recipeId, effect, effectConfig, ingredients, incenses, level, red, green, blue);
+			return new RitualRecipe(recipeId, effect, effectConfig, ingredients, incenses, level, color, secondaryColor);
 		}
 
 		public void toNetwork(FriendlyByteBuf buffer, RitualRecipe recipe) {
 			buffer.writeVarInt(recipe.level);
-			buffer.writeVarInt(recipe.red);
-			buffer.writeVarInt(recipe.green);
-			buffer.writeVarInt(recipe.blue);
+
+			buffer.writeBlockPos(recipe.color);
+			buffer.writeBlockPos(recipe.secondaryColor);
 
 			buffer.writeCollection((List<Ingredient>) recipe.materials, (buf, it) -> it.toNetwork(buf));
 			buffer.writeCollection((List<Ingredient>) recipe.incenses, (buf, it) -> it.toNetwork(buf));

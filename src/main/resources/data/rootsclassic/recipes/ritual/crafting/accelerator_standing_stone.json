@@ -2,12 +2,14 @@
   "type": "rootsclassic:ritual",
   "effect": "rootsclassic:crafting",
   "level": 2,
-  "red": 0,
-  "green": 105,
-  "blue": 73,
+  "color": {
+    "red": 0,
+    "green": 105,
+    "blue": 73
+  },
   "ingredients": [
     { "item": "rootsclassic:attuned_standing_stone" },
-    { "item": "minecraft:glowstone_dust_dust" },
+    { "item": "minecraft:glowstone_dust" },
     { "item": "minecraft:stone_bricks" }
   ],
   "incenses": [
