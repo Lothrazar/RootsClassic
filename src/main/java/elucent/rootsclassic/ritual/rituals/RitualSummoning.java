@@ -1,10 +1,15 @@
 package elucent.rootsclassic.ritual.rituals;
 
 import com.google.gson.JsonObject;
+import elucent.rootsclassic.Const;
 import elucent.rootsclassic.ritual.RitualEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.GsonHelper;
@@ -16,6 +21,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 
 import java.util.List;
 
@@ -39,6 +45,21 @@ public class RitualSummoning extends RitualEffect<RitualSummoning.RitualSummonin
 				tile.setChanged();
 			}
 		}
+	}
+
+	@Override
+	public MutableComponent getInfoText(RitualSummoningConfig config) {
+		var egg = ForgeSpawnEggItem.fromEntityType(config.entityType);
+		if (egg == null) return new TextComponent("");
+		return new TranslatableComponent(Const.MODID + ".jei.tooltip.summoning", config.entityType.getDescription());
+	}
+
+	@Override
+	public ItemStack getResult(RitualSummoningConfig config) {
+		var egg = ForgeSpawnEggItem.fromEntityType(config.entityType);
+		if (egg == null) return super.getResult(config);
+		var display = getInfoText(config);
+		return new ItemStack(egg).setHoverName(display.withStyle(Style.EMPTY.withItalic(false)));
 	}
 
 	@Override

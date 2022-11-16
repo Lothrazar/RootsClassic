@@ -517,5 +517,17 @@
     "rootsclassic.brazier.burning.on": "Brazier is now burning",
 
     "rootsclassic.gui.jei.category.mortar": "Mortar",
-    "rootsclassic.gui.jei.category.ritual": "Ritual"
+    "rootsclassic.gui.jei.category.ritual": "Ritual",
+
+		"rootsclassic.jei.tooltip.crafting": "",
+		"rootsclassic.jei.tooltip.engraved_crafting": "",
+		"rootsclassic.jei.tooltip.imbuer": "Imbuer",
+		"rootsclassic.jei.tooltip.life_drain": "Life Drain",
+		"rootsclassic.jei.tooltip.cause_rain": "Cause Rain",
+		"rootsclassic.jei.tooltip.banish_rain": "Banish Rain",
+		"rootsclassic.jei.tooltip.sacrifice": "Sacrifice",
+		"rootsclassic.jei.tooltip.mass_breeding": "Mass Breeding",
+		"rootsclassic.jei.tooltip.flare": "Flare",
+		"rootsclassic.jei.tooltip.time_shift": "Shift Time",
+		"rootsclassic.jei.tooltip.summoning": "Summons %s"
 }

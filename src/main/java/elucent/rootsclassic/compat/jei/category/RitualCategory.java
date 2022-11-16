@@ -15,6 +15,8 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -40,7 +42,7 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 	private final Component localizedName;
 
 	public RitualCategory(IGuiHelper guiHelper) {
-		this.background = guiHelper.drawableBuilder(backgroundLocation, 0, 0, 94, 100).addPadding(0, 0, 0, 0).build();
+		this.background = guiHelper.drawableBuilder(backgroundLocation, 0, 0, 94, 110).addPadding(0, 0, 0, 0).build();
 
 		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(RootsRegistry.ALTAR.get()));
 
@@ -130,5 +132,10 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 		});
 
 		stack.popPose();
+
+		Minecraft minecraft = Minecraft.getInstance();
+		Font font = minecraft.font;
+		var infoText = recipe.getInfoText();
+		font.draw(stack, infoText, (94 - font.width(infoText)) / 2F, 100, 0x8b8b8b);
 	}
 }
