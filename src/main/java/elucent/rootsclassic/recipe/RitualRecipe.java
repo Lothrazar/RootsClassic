@@ -15,6 +15,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
@@ -102,6 +103,10 @@ public class RitualRecipe<C> implements Recipe<Container> {
 
 	public List<Ingredient> getIncenses() {
 		return incenses;
+	}
+
+	public MutableComponent getInfoText() {
+		return effect.getInfoText(effectConfig);
 	}
 
 	public static class SerializeRitualRecipe implements RecipeSerializer<RitualRecipe<?>> {
