@@ -132,10 +132,10 @@ public class RootsRegistry {
 	public static final RegistryObject<Item> SYLVAN_ROBE = ITEMS.register("sylvan_robe", () -> new SylvanArmorItem(RootsArmorMaterial.SYLVAN, EquipmentSlot.CHEST, itemBuilder().tab(Roots.tab)));
 	public static final RegistryObject<Item> SYLVAN_TUNIC = ITEMS.register("sylvan_tunic", () -> new SylvanArmorItem(RootsArmorMaterial.SYLVAN, EquipmentSlot.LEGS, itemBuilder().tab(Roots.tab)));
 	public static final RegistryObject<Item> SYLVAN_BOOTS = ITEMS.register("sylvan_boots", () -> new SylvanArmorItem(RootsArmorMaterial.SYLVAN, EquipmentSlot.FEET, itemBuilder().tab(Roots.tab)));
-	public static final RegistryObject<Item> WILDWOOD_MASK = ITEMS.register("wildwood_mask", () -> new WildwoodArmorItem(RootsArmorMaterial.SYLVAN, EquipmentSlot.HEAD, itemBuilder().tab(Roots.tab)));
-	public static final RegistryObject<Item> WILDWOOD_PLATE = ITEMS.register("wildwood_plate", () -> new WildwoodArmorItem(RootsArmorMaterial.SYLVAN, EquipmentSlot.CHEST, itemBuilder().tab(Roots.tab)));
-	public static final RegistryObject<Item> WILDWOOD_LEGGINGS = ITEMS.register("wildwood_leggings", () -> new WildwoodArmorItem(RootsArmorMaterial.SYLVAN, EquipmentSlot.LEGS, itemBuilder().tab(Roots.tab)));
-	public static final RegistryObject<Item> WILDWOOD_BOOTS = ITEMS.register("wildwood_boots", () -> new WildwoodArmorItem(RootsArmorMaterial.SYLVAN, EquipmentSlot.FEET, itemBuilder().tab(Roots.tab)));
+	public static final RegistryObject<Item> WILDWOOD_MASK = ITEMS.register("wildwood_mask", () -> new WildwoodArmorItem(RootsArmorMaterial.WILDWOOD, EquipmentSlot.HEAD, itemBuilder().tab(Roots.tab)));
+	public static final RegistryObject<Item> WILDWOOD_PLATE = ITEMS.register("wildwood_plate", () -> new WildwoodArmorItem(RootsArmorMaterial.WILDWOOD, EquipmentSlot.CHEST, itemBuilder().tab(Roots.tab)));
+	public static final RegistryObject<Item> WILDWOOD_LEGGINGS = ITEMS.register("wildwood_leggings", () -> new WildwoodArmorItem(RootsArmorMaterial.WILDWOOD, EquipmentSlot.LEGS, itemBuilder().tab(Roots.tab)));
+	public static final RegistryObject<Item> WILDWOOD_BOOTS = ITEMS.register("wildwood_boots", () -> new WildwoodArmorItem(RootsArmorMaterial.WILDWOOD, EquipmentSlot.FEET, itemBuilder().tab(Roots.tab)));
 	public static final RegistryObject<Item> RUNIC_TABLET = ITEMS.register("runic_tablet", () -> new RunicTabletItem(itemBuilder().stacksTo(1).tab(Roots.tab)));
 	public static final RegistryObject<Item> GROWTH_POWDER = ITEMS.register("growth_powder", () -> new GrowthPowderItem(itemBuilder().tab(Roots.tab)));
 	public static final RegistryObject<Item> MUTATING_POWDER = ITEMS.register("mutating_powder", () -> new MutatingPowderItem(itemBuilder().stacksTo(1).tab(Roots.tab)));
