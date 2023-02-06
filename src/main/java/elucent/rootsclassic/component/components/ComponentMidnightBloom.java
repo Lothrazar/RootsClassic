@@ -10,7 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ComponentMidnightBloom extends ComponentBase {
 
@@ -21,7 +21,7 @@ public class ComponentMidnightBloom extends ComponentBase {
 	@Override
 	public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
 		if (type == EnumCastType.SPELL) {
-			ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size * 6.0, y - size * 6.0, z - size * 6.0, x + size * 6.0, y + size * 6.0, z + size * 6.0));
+			List<LivingEntity> targets =  level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size * 6.0, y - size * 6.0, z - size * 6.0, x + size * 6.0, y + size * 6.0, z + size * 6.0));
 			for (LivingEntity target : targets) {
 				if (target.getUUID() != caster.getUUID()) {
 					CompoundTag persistentData = target.getPersistentData();

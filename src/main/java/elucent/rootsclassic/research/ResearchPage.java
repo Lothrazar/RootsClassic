@@ -6,23 +6,24 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ResearchPage {
-	public ArrayList<ItemStack> craftingRecipe = new ArrayList<>();
+	public List<ItemStack> craftingRecipe = new ArrayList<>();
 	public ComponentRecipe mortarRecipe = null;
 	public RitualBase altarRecipe = null;
-	public ArrayList<ItemStack> smeltingRecipe = new ArrayList<>();
+	public List<ItemStack> smeltingRecipe = new ArrayList<>();
 	public EnumPageType recipe = EnumPageType.TYPE_NULL;
 	public ItemStack displayItem = null;
-	public ArrayList<String> info = new ArrayList<>();
+	public List<String> info = new ArrayList<>();
 	public String title = "";
 
 	public ResearchPage() {
 	}
 
-	public ArrayList<String> makeLines(String s) {
-		ArrayList<String> list = new ArrayList<>();
-		ArrayList<String> words = new ArrayList<>();
+	public List<String> makeLines(String s) {
+		List<String> list = new ArrayList<>();
+		List<String> words = new ArrayList<>();
 		StringBuilder temp = new StringBuilder();
 		int counter = 0;
 		for (int i = 0; i < s.length(); i++) {

@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ComponentBlueOrchid extends ComponentBase {
 
@@ -34,7 +34,7 @@ public class ComponentBlueOrchid extends ComponentBase {
 						level.setBlockAndUpdate(pos, state);
 					}
 					level.setBlockAndUpdate(pos.above(), state);
-					ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.getX() - size, pos.getY() - size, pos.getZ() - size, pos.getX() + size, pos.getY() + size, pos.getZ() + size));
+					List<LivingEntity> targets = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.getX() - size, pos.getY() - size, pos.getZ() - size, pos.getX() + size, pos.getY() + size, pos.getZ() + size));
 					for (LivingEntity target : targets) {
 						if (target.getUUID() != caster.getUUID()) {
 							target.push(0, 3, 0);

@@ -89,7 +89,7 @@ public class TabletPageScreen extends Screen {
 				this.currentPage++;
 			}
 		}
-		ArrayList<ResearchPage> researchInfo = research.getInfo();
+		List<ResearchPage> researchInfo = research.getInfo();
 		if (player.level.isClientSide
 			&& mouseX >= (width / 2.0f) - 110 && mouseX < (width / 2.0f) + 40
 			&& mouseY >= (height / 2.0f) - 138 && mouseY < (height / 2.0f) - 40) {
@@ -118,7 +118,7 @@ public class TabletPageScreen extends Screen {
 
 		poseStack.pushPose();
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		ArrayList<ResearchPage> researchInfo = research.getInfo();
+		List<ResearchPage> researchInfo = research.getInfo();
 		this.showLeftArrow = this.currentPage != 0;
 		this.showRightArrow = this.currentPage != researchInfo.size() - 1;
 		int basePosX = (int) ((width / 2.0f) - 96);
@@ -130,7 +130,7 @@ public class TabletPageScreen extends Screen {
 		List<ScreenSlotInstance> slots = new ArrayList<>();
 		List<ScreenTextInstance> textLines = new ArrayList<>();
 		ResearchPage page = researchInfo.get(currentPage);
-		ArrayList<String> info;
+		List<String> info;
 		String title;
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		switch (page.recipe) {

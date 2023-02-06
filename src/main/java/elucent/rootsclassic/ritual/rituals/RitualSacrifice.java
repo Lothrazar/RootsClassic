@@ -17,7 +17,7 @@ import java.util.List;
 
 public class RitualSacrifice extends RitualBase {
 
-	public ArrayList<ItemStack> potentialDrops = new ArrayList<>();
+	public List<ItemStack> potentialDrops = new ArrayList<>();
 
 	public RitualSacrifice(int level, double r, double g, double b) {
 		super(level, r, g, b);

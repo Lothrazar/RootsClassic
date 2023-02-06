@@ -10,6 +10,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ComponentApple extends ComponentBase {
 
@@ -21,7 +22,7 @@ public class ComponentApple extends ComponentBase {
 	public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
 		if (type == EnumCastType.SPELL) {
 			if (caster instanceof Player player) {
-				ArrayList<MobEffectInstance> effects = new ArrayList<>(player.getActiveEffects());
+				List<MobEffectInstance> effects = new ArrayList<>(player.getActiveEffects());
 				player.removeAllEffects();
 				for (MobEffectInstance effect : effects) {
 					if (effect.getEffect().getDescriptionId().equals("Soul Fray")) { //TODO: Check if Blood magic uses this name still

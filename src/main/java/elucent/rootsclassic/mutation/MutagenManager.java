@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MutagenManager {
 
-	public static ArrayList<MutagenRecipe> recipes = new ArrayList<>();
+	public static List<MutagenRecipe> recipes = new ArrayList<>();
 
 	public static void reload() {
 		recipes.add(new MutagenMidnightBloomRecipe());

@@ -30,10 +30,11 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AltarBlockEntity extends BEBase {
 	private static final int RECIPE_PROGRESS_TIME = 200;
-	private ArrayList<ItemStack> incenses = new ArrayList<>();
+	private List<ItemStack> incenses = new ArrayList<>();
 	private int ticker = 0;
 	private int progress = 0;
 	private ResourceLocation ritualName = null;
@@ -277,11 +278,11 @@ public class AltarBlockEntity extends BEBase {
 	//    }
 	//  }
 
-	public ArrayList<ItemStack> getIncenses() {
+	public List<ItemStack> getIncenses() {
 		return incenses;
 	}
 
-	public void setIncenses(ArrayList<ItemStack> incenses) {
+	public void setIncenses(List<ItemStack> incenses) {
 		this.incenses = incenses;
 	}
 

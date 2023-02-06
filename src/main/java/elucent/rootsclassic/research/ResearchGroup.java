@@ -1,11 +1,12 @@
 package elucent.rootsclassic.research;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ResearchGroup {
 	private String name = "";
 	private String properName = "";
-	public ArrayList<ResearchBase> researches = new ArrayList<>();
+	public List<ResearchBase> researches = new ArrayList<>();
 
 	public ResearchGroup(String name, String properName) {
 		this.name = name;

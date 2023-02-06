@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ComponentWhiteTulip extends ComponentBase {
 
@@ -25,7 +25,7 @@ public class ComponentWhiteTulip extends ComponentBase {
 	public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
 		if (type == EnumCastType.SPELL) {
 			//   int damageDealt = 0;
-			ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size, y - size, z - size, x + size, y + size, z + size));
+			List<LivingEntity> targets =  level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size, y - size, z - size, x + size, y + size, z + size));
 			for (LivingEntity target : targets) {
 				if (target.getUUID() != caster.getUUID()) {
 					if (target instanceof Player && RootsConfig.COMMON.disablePVP.get()) {

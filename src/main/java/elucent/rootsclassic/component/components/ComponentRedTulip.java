@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ComponentRedTulip extends ComponentBase {
 
@@ -25,7 +25,7 @@ public class ComponentRedTulip extends ComponentBase {
 	@Override
 	public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
 		if (type == EnumCastType.SPELL && !level.isClientSide) {
-			ArrayList<LivingEntity> targets = (ArrayList<LivingEntity>) level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size * 2.4, y - size * 2.4, z - size * 2.4, x + size * 2.4, y + size * 2.4, z + size * 2.4));
+			List<LivingEntity> targets =  level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size * 2.4, y - size * 2.4, z - size * 2.4, x + size * 2.4, y + size * 2.4, z + size * 2.4));
 			if (targets.size() > 0) {
 				PhantomSkeletonEntity skeleton = new PhantomSkeletonEntity(level);
 				skeleton.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(new BlockPos(x, y, z)), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);

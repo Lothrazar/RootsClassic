@@ -8,7 +8,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ComponentPoppy extends ComponentBase {
 
@@ -19,7 +19,7 @@ public class ComponentPoppy extends ComponentBase {
 	@Override
 	public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
 		if (type == EnumCastType.SPELL) {
-			ArrayList<Monster> targets = (ArrayList<Monster>) level.getEntitiesOfClass(Monster.class, new AABB(x - size * 2.4, y - size * 2.4, z - size * 2.4, x + size * 2.4, y + size * 2.4, z + size * 2.4));
+			List<Monster> targets = level.getEntitiesOfClass(Monster.class, new AABB(x - size * 2.4, y - size * 2.4, z - size * 2.4, x + size * 2.4, y + size * 2.4, z + size * 2.4));
 			for (int i = 0; i < targets.size(); i++) {
 				targets.get(i).setTarget(null);
 				int j = level.random.nextInt(targets.size());

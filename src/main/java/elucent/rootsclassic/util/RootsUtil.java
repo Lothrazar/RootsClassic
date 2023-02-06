@@ -79,11 +79,11 @@ public class RootsUtil {
 	}
 
 	public static boolean itemListMatchInventoryWithSize(Container i1, List<ItemStack> i2) {
-		ArrayList<ItemStack> recipe = new ArrayList<>();
+		List<ItemStack> recipe = new ArrayList<>();
 		for (int i = 0; i < i1.getContainerSize(); i++) {
 			recipe.add(i1.getItem(i));
 		}
-		ArrayList<ItemStack> available = new ArrayList<>(i2);
+		List<ItemStack> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
 			if (recipe.get(i).isEmpty()) {
 				recipe.remove(i);
@@ -111,11 +111,11 @@ public class RootsUtil {
 	}
 
 	public static boolean itemListMatchInventory(Container i1, List<ItemStack> i2) {
-		ArrayList<ItemStack> recipe = new ArrayList<>();
+		List<ItemStack> recipe = new ArrayList<>();
 		for (int i = 0; i < i1.getContainerSize(); i++) {
 			recipe.add(i1.getItem(i));
 		}
-		ArrayList<ItemStack> available = new ArrayList<>(i2);
+		List<ItemStack> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
 			if (recipe.get(i).isEmpty()) {
 				recipe.remove(i);
@@ -143,8 +143,8 @@ public class RootsUtil {
 	}
 
 	public static boolean itemListMatchesIngredients(List<Ingredient> i1, List<ItemStack> i2) {
-		ArrayList<Ingredient> recipe = new ArrayList<>(i1);
-		ArrayList<ItemStack> available = new ArrayList<>(i2);
+		List<Ingredient> recipe = new ArrayList<>(i1);
+		List<ItemStack> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
 			if (recipe.get(i).isEmpty()) {
 				recipe.remove(i);
@@ -172,8 +172,8 @@ public class RootsUtil {
 	}
 
 	public static boolean itemListMatchesIngredientsWithSize(List<Ingredient> i1, List<ItemStack> i2) {
-		ArrayList<Ingredient> recipe = new ArrayList<>(i1);
-		ArrayList<ItemStack> available = new ArrayList<>(i2);
+		List<Ingredient> recipe = new ArrayList<>(i1);
+		List<ItemStack> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
 			if (recipe.get(i).isEmpty()) {
 				recipe.remove(i);
@@ -201,8 +201,8 @@ public class RootsUtil {
 	}
 
 	public static boolean itemListsMatchWithSize(List<ItemStack> i1, List<ItemStack> i2) {
-		ArrayList<ItemStack> recipe = new ArrayList<>(i1);
-		ArrayList<ItemStack> available = new ArrayList<>(i2);
+		List<ItemStack> recipe = new ArrayList<>(i1);
+		List<ItemStack> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
 			if (recipe.get(i).isEmpty()) {
 				recipe.remove(i);
@@ -230,8 +230,8 @@ public class RootsUtil {
 	}
 
 	public static boolean itemListsMatch(List<ItemStack> i1, List<ItemStack> i2) {
-		ArrayList<ItemStack> recipe = new ArrayList<>(i1);
-		ArrayList<ItemStack> available = new ArrayList<>(i2);
+		List<ItemStack> recipe = new ArrayList<>(i1);
+		List<ItemStack> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
 			if (recipe.get(i).isEmpty()) {
 				recipe.remove(i);
@@ -259,8 +259,8 @@ public class RootsUtil {
 	}
 
 	public static boolean ingredientListMatch(List<Ingredient> i1, List<Ingredient> i2) {
-		ArrayList<Ingredient> recipe = new ArrayList<>(i1);
-		ArrayList<Ingredient> available = new ArrayList<>(i2);
+		List<Ingredient> recipe = new ArrayList<>(i1);
+		List<Ingredient> available = new ArrayList<>(i2);
 		for (int i = 0; i < recipe.size(); i++) {
 			if (recipe.get(i).isEmpty()) {
 				recipe.remove(i);

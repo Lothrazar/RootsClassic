@@ -1,10 +1,8 @@
 package elucent.rootsclassic.block;
 
-import elucent.rootsclassic.blockentity.BEBase;
 import elucent.rootsclassic.blockentity.RepulsorStandingStoneTile;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
