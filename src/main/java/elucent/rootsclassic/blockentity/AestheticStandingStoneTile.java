@@ -1,6 +1,6 @@
 package elucent.rootsclassic.blockentity;
 
-import elucent.rootsclassic.client.particles.MagicLineParticleData;
+import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -83,7 +83,7 @@ public class AestheticStandingStoneTile extends BEBase {
 			for (double i = 0; i < 720; i += 45.0) {
 				double xShift = 0.5 * Math.sin(Math.PI * (i / 360.0));
 				double zShift = 0.5 * Math.cos(Math.PI * (i / 360.0));
-				level.addParticle(MagicLineParticleData.createData(tile.r, tile.g, tile.b),
+				level.addParticle(MagicAuraParticleData.createData(tile.r, tile.g, tile.b),
 					pos.getX() + 0.5 + xShift, pos.getY() + 0.5, pos.getZ() + 0.5 + zShift, 0, 0, 0);
 			}
 		}
