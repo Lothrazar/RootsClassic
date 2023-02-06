@@ -15,9 +15,10 @@ import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ResearchManager {
-	public static ArrayList<ResearchGroup> globalResearches = new ArrayList<>();
+	public static List<ResearchGroup> globalResearches = new ArrayList<>();
 
 	public static void onRecipesUpdated(RecipesUpdatedEvent event) {
 		reload(event.getRecipeManager());

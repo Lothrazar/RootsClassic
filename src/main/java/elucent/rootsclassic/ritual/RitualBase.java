@@ -18,8 +18,8 @@ import java.util.List;
 public abstract class RitualBase {
 
 	private static final int RADIUS = 4;
-	private ArrayList<Block> blocks = new ArrayList<>();
-	private ArrayList<BlockPos> positionsRelative = new ArrayList<>();
+	private List<Block> blocks = new ArrayList<>();
+	private List<BlockPos> positionsRelative = new ArrayList<>();
 	private List<ItemStack> incenses = new ArrayList<>();
 	private List<ItemStack> ingredients = new ArrayList<>();
 	private Vec3 color = new Vec3(255, 255, 255);
@@ -114,7 +114,7 @@ public abstract class RitualBase {
 	}
 
 	public boolean incenseMatches(Level levelAccessor, BlockPos pos) {
-		ArrayList<ItemStack> incenseFromNearby = new ArrayList<>();
+		List<ItemStack> incenseFromNearby = new ArrayList<>();
 		List<BrazierBlockEntity> braziers = getRecipeBraziers(levelAccessor, pos);
 		for (BrazierBlockEntity brazier : braziers) {
 			if (!brazier.getHeldItem().isEmpty()) {
@@ -162,19 +162,19 @@ public abstract class RitualBase {
 		this.incenses = incenses;
 	}
 
-	public ArrayList<BlockPos> getPositionsRelative() {
+	public List<BlockPos> getPositionsRelative() {
 		return positionsRelative;
 	}
 
-	public void setPositionsRelative(ArrayList<BlockPos> positionsRelative) {
+	public void setPositionsRelative(List<BlockPos> positionsRelative) {
 		this.positionsRelative = positionsRelative;
 	}
 
-	public ArrayList<Block> getBlocks() {
+	public List<Block> getBlocks() {
 		return blocks;
 	}
 
-	public void setBlocks(ArrayList<Block> blocks) {
+	public void setBlocks(List<Block> blocks) {
 		this.blocks = blocks;
 	}
 

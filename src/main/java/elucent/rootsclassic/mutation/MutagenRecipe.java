@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MutagenRecipe {
 
-	final ArrayList<ItemStack> inputs = new ArrayList<>();
+	final List<ItemStack> inputs = new ArrayList<>();
 	final ResourceLocation name;
 	final BlockState plantBlock;
 	public final BlockState result;
@@ -33,7 +33,7 @@ public class MutagenRecipe {
 
 	public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
 		if (levelAccessor.getBlockState(pos).getBlock() == plantBlock.getBlock()) {
-			ArrayList<ItemStack> tempItems = new ArrayList<>(items);
+			List<ItemStack> tempItems = new ArrayList<>(items);
 			for (ItemStack input : inputs) {
 				boolean endIteration = false;
 				for (int j = 0; j < tempItems.size() && !endIteration; j++) {

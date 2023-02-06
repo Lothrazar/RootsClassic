@@ -3,6 +3,7 @@ package elucent.rootsclassic.research;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ResearchBase {
 	public double posX = 0;
@@ -10,7 +11,7 @@ public class ResearchBase {
 	private String name = "";
 	private final ItemStack icon;
 	private final ResearchBase req = null;
-	private final ArrayList<ResearchPage> info = new ArrayList<>();
+	private final List<ResearchPage> info = new ArrayList<>();
 
 	public ResearchBase(String name, ItemStack icon) {
 		this.name = name;
@@ -34,7 +35,7 @@ public class ResearchBase {
 		return req;
 	}
 
-	public ArrayList<ResearchPage> getInfo() {
+	public List<ResearchPage> getInfo() {
 		return info;
 	}
 }

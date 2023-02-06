@@ -38,7 +38,7 @@ public class MutatingPowderItem extends Item {
 		}
 		BlockPos pos = RootsUtil.getRayTrace(levelAccessor, player, 4);
 		List<ItemEntity> itemEntities = levelAccessor.getEntitiesOfClass(ItemEntity.class, new AABB(pos.getX() - 2, pos.getY() - 2, pos.getZ() - 2, pos.getX() + 3, pos.getY() + 3, pos.getZ() + 3));
-		ArrayList<ItemStack> items = new ArrayList<>();
+		List<ItemStack> items = new ArrayList<>();
 		for (ItemEntity itemEntity : itemEntities) {
 			items.add(itemEntity.getItem());
 		}

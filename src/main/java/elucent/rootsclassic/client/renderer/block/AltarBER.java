@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AltarBER implements BlockEntityRenderer<AltarBlockEntity> {
 
@@ -19,7 +20,7 @@ public class AltarBER implements BlockEntityRenderer<AltarBlockEntity> {
 
 	@Override
 	public void render(AltarBlockEntity altarTile, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
-		ArrayList<ItemStack> renderItems = new ArrayList<>();
+		List<ItemStack> renderItems = new ArrayList<>();
 		for (int i = 0; i < altarTile.inventory.getSlots(); i++) {
 			renderItems.add(altarTile.inventory.getStackInSlot(i));
 		}

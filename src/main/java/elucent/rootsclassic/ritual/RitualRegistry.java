@@ -490,8 +490,8 @@ public class RitualRegistry {
 		return null;
 	}
 
-	public static ArrayList<ItemStack> getIncenses(Level level, BlockPos pos) {
-		ArrayList<ItemStack> test = new ArrayList<>();
+	public static List<ItemStack> getIncenses(Level level, BlockPos pos) {
+		List<ItemStack> test = new ArrayList<>();
 		for (int i = -4; i < 5; i++) {
 			for (int j = -4; j < 5; j++) {
 				if (level.getBlockState(pos.offset(i, 0, j)).getBlock() == RootsRegistry.BRAZIER.get()) {

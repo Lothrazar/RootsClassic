@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class HealerStandingStone extends BEBase {
 	private static final int RADIUS = 10;
@@ -40,7 +40,7 @@ public class HealerStandingStone extends BEBase {
 	public static void serverTick(Level level, BlockPos pos, BlockState state, HealerStandingStone tile) {
 		tile.ticker++;
 		if (tile.ticker % 20 == 0) {
-			ArrayList<LivingEntity> nearbyCreatures = (ArrayList<LivingEntity>) level.getEntitiesOfClass(LivingEntity.class,
+			List<LivingEntity> nearbyCreatures = level.getEntitiesOfClass(LivingEntity.class,
 				new AABB(pos.getX() - RADIUS, pos.getY() - RADIUS, pos.getZ() - RADIUS,
 					pos.getX() + RADIUS, pos.getY() + RADIUS, pos.getZ() + RADIUS));
 			for (LivingEntity nearbyCreature : nearbyCreatures) {

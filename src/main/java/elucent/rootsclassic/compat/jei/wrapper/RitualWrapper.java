@@ -7,17 +7,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RitualWrapper implements IRecipeCategoryExtension {
 	private final RitualBase ritual;
 
-	public ArrayList<Block> getBlocks() {
+	public List<Block> getBlocks() {
 		return ritual.getBlocks();
 	}
 
-	public ArrayList<BlockPos> getPositionsRelative() {
+	public List<BlockPos> getPositionsRelative() {
 		return ritual.getPositionsRelative();
 	}
 
