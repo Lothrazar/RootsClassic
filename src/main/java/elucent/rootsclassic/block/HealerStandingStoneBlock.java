@@ -21,14 +21,6 @@ public class HealerStandingStoneBlock extends AttunedStandingStoneBlock implemen
 		super(properties);
 	}
 
-	@Override
-	public void playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
-		super.playerWillDestroy(levelAccessor, pos, state, player);
-		if (levelAccessor.getBlockEntity(pos) instanceof BEBase) {
-			((BEBase) levelAccessor.getBlockEntity(pos)).breakBlock(levelAccessor, pos, state, player);
-		}
-	}
-
 	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
