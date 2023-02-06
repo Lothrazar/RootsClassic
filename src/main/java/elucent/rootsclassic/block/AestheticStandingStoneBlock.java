@@ -1,10 +1,8 @@
 package elucent.rootsclassic.block;
 
 import elucent.rootsclassic.blockentity.AestheticStandingStoneTile;
-import elucent.rootsclassic.blockentity.BEBase;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -19,14 +17,6 @@ public class AestheticStandingStoneBlock extends AttunedStandingStoneBlock imple
 
 	public AestheticStandingStoneBlock(Properties properties) {
 		super(properties);
-	}
-
-	@Override
-	public void playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
-		super.playerWillDestroy(levelAccessor, pos, state, player);
-		if (levelAccessor.getBlockEntity(pos) instanceof BEBase) {
-			((BEBase) levelAccessor.getBlockEntity(pos)).breakBlock(levelAccessor, pos, state, player);
-		}
 	}
 
 	@Nullable
