@@ -18,7 +18,6 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import mezz.jei.util.ErrorUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -74,11 +73,11 @@ public class JEIPlugin implements IModPlugin {
 		for (RegistryObject<Item> registryObject : RootsRegistry.ITEMS.getEntries()) {
 			Item item = registryObject.get();
 			if (item != null) {
-				registration.addIngredientInfo(new ItemStack(item), VanillaTypes.ITEM, new TranslatableComponent(item.getDescriptionId() + ".guide"));
+				registration.addIngredientInfo(new ItemStack(item), VanillaTypes.ITEM_STACK, new TranslatableComponent(item.getDescriptionId() + ".guide"));
 			}
 		}
-		ErrorUtil.checkNotNull(MORTAR_TYPE, "mortarType");
-		ErrorUtil.checkNotNull(RITUAL_TYPE, "ritualType");
+		assert MORTAR_TYPE != null;
+		assert RITUAL_TYPE != null;
 
 		ClientLevel world = Objects.requireNonNull(Minecraft.getInstance().level);
 		registration.addRecipes(MORTAR_TYPE, world.getRecipeManager().getAllRecipesFor(RootsRecipes.COMPONENT_RECIPE_TYPE.get()));

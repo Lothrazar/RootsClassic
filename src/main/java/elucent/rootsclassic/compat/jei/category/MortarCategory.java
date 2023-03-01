@@ -28,7 +28,7 @@ public class MortarCategory implements IRecipeCategory<ComponentRecipe> {
 
 	public MortarCategory(IGuiHelper guiHelper) {
 		this.background = guiHelper.drawableBuilder(backgroundLocation, 21, 30, 142, 45).addPadding(0, 0, 0, 0).build();
-		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(RootsRegistry.MORTAR.get()));
+		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RootsRegistry.MORTAR.get()));
 		this.localizedName = new TranslatableComponent("rootsclassic.gui.jei.category.mortar");
 	}
 

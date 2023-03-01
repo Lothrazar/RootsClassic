@@ -41,7 +41,7 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 	public RitualCategory(IGuiHelper guiHelper) {
 		this.background = guiHelper.drawableBuilder(backgroundLocation, 0, 0, 94, 100).addPadding(0, 0, 0, 0).build();
 
-		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(RootsRegistry.ALTAR.get()));
+		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RootsRegistry.ALTAR.get()));
 
 		this.ingredientBackground = guiHelper.createDrawable(location, 61, 53, 70, 22);
 		this.resultBackground = guiHelper.createDrawable(location, 61, 53, 22, 22);
