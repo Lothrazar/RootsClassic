@@ -88,11 +88,14 @@ public class EntityTileAccelerator extends Entity {
 							getX() + random.nextDouble(), getY() + random.nextDouble(), getZ() + 1.0, 0, 0, 0);
 					}
 				}
-			} else {
-				if (this.tickCount >= lifetime) {
-					this.level.broadcastEntityEvent(this, (byte) 3);
-					this.discard();
-				}
+			}
+		}
+
+		if (!level.isClientSide) {
+			lifetime--;
+			if (lifetime <= 0) {
+				this.level.broadcastEntityEvent(this, (byte) 3);
+				this.discard();
 			}
 		}
 	}

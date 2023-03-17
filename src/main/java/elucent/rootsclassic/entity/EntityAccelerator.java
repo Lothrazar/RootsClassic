@@ -73,10 +73,12 @@ public class EntityAccelerator extends Entity {
 				}
 			}
 		}
-		lifetime--;
-		if (lifetime <= 0) {
-			this.level.broadcastEntityEvent(this, (byte) 3);
-			this.discard();
+		if (!level.isClientSide) {
+			lifetime--;
+			if (lifetime <= 0) {
+				this.level.broadcastEntityEvent(this, (byte) 3);
+				this.discard();
+			}
 		}
 	}
 
