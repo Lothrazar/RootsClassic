@@ -1,11 +1,10 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.config.RootsConfig;
+import elucent.rootsclassic.registry.RootsDamageTypes;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -40,6 +39,6 @@ public class ComponentPinkTulip extends ComponentBase {
 	}
 
 	public static DamageSource spellAttack(LivingEntity attacker) {
-		return new EntityDamageSource(Const.MODID + ".wither", attacker).bypassArmor();
+		return attacker.damageSources().source(RootsDamageTypes.WITHER, attacker);
 	}
 }

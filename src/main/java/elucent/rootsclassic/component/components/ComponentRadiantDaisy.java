@@ -1,14 +1,13 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.config.RootsConfig;
+import elucent.rootsclassic.registry.RootsDamageTypes;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -60,27 +59,27 @@ public class ComponentRadiantDaisy extends ComponentBase {
 							}
 						}
 					}
-					if (level.getBlockState(new BlockPos(posX, posY, posZ)).canOcclude()) {
+					if (level.getBlockState(BlockPos.containing(posX, posY, posZ)).canOcclude()) {
 						if (potency - potencyMod == -1.0) {
 							didHit = true;
 						} else {
 							potencyMod -= 0.5;
-							if (!level.getBlockState(new BlockPos(posX + 1.0, posY, posZ)).canOcclude() && motionX < 0) {
+							if (!level.getBlockState(BlockPos.containing(posX + 1.0, posY, posZ)).canOcclude() && motionX < 0) {
 								motionX *= -1;
 							}
-							if (!level.getBlockState(new BlockPos(posX - 1.0, posY, posZ)).canOcclude() && motionX > 0) {
+							if (!level.getBlockState(BlockPos.containing(posX - 1.0, posY, posZ)).canOcclude() && motionX > 0) {
 								motionX *= -1;
 							}
-							if (!level.getBlockState(new BlockPos(posX, posY + 1.0, posZ)).canOcclude() && motionY < 0) {
+							if (!level.getBlockState(BlockPos.containing(posX, posY + 1.0, posZ)).canOcclude() && motionY < 0) {
 								motionY *= -1;
 							}
-							if (!level.getBlockState(new BlockPos(posX, posY - 1.0, posZ)).canOcclude() && motionY > 0) {
+							if (!level.getBlockState(BlockPos.containing(posX, posY - 1.0, posZ)).canOcclude() && motionY > 0) {
 								motionY *= -1;
 							}
-							if (!level.getBlockState(new BlockPos(posX, posY, posZ + 1.0)).canOcclude() && motionZ < 0) {
+							if (!level.getBlockState(BlockPos.containing(posX, posY, posZ + 1.0)).canOcclude() && motionZ < 0) {
 								motionZ *= -1;
 							}
-							if (!level.getBlockState(new BlockPos(posX, posY, posZ - 1.0)).canOcclude() && motionZ > 0) {
+							if (!level.getBlockState(BlockPos.containing(posX, posY, posZ - 1.0)).canOcclude() && motionZ > 0) {
 								motionZ *= -1;
 							}
 						}
@@ -94,6 +93,6 @@ public class ComponentRadiantDaisy extends ComponentBase {
 	}
 
 	public static DamageSource spellAttack(LivingEntity attacker) {
-		return new EntityDamageSource(Const.MODID + ".generic", attacker).bypassArmor();
+		return attacker.damageSources().source(RootsDamageTypes.GENERIC, attacker);
 	}
 }

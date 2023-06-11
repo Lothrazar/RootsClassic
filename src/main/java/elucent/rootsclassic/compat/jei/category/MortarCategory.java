@@ -14,8 +14,12 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -53,11 +57,18 @@ public class MortarCategory implements IRecipeCategory<ComponentRecipe> {
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, ComponentRecipe recipe, IFocusGroup focuses) {
+		Minecraft minecraft = Minecraft.getInstance();
+		ClientLevel level = minecraft.level;
+		if (level == null) {
+			throw new NullPointerException("level must not be null.");
+		}
+		RegistryAccess registryAccess = level.registryAccess();
+
 		for (int i = 0; i < recipe.getIngredients().size(); i++) {
 			Ingredient ingredient = recipe.getIngredients().get(i);
 			builder.addSlot(RecipeIngredientRole.INPUT, 3 + (i * 16), 26).addIngredients(ingredient);
 		}
-		builder.addSlot(RecipeIngredientRole.OUTPUT, 123, 26).addItemStack(recipe.assemble(null));
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 123, 26).addItemStack(recipe.assemble(new SimpleContainer(), registryAccess));
 	}
 
 	@Override

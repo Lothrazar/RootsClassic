@@ -1,11 +1,10 @@
 package elucent.rootsclassic.component.components;
 
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.config.RootsConfig;
+import elucent.rootsclassic.registry.RootsDamageTypes;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -44,7 +43,7 @@ public class ComponentSunflower extends ComponentBase {
 					} else {
 						damageDealt += (int) (3 + 2 * potency);
 					}
-					target.hurt(DamageSource.IN_FIRE, damageDealt);
+					target.hurt(caster.damageSources().inFire(), damageDealt);
 					target.setLastHurtMob(caster);
 					target.setLastHurtByMob(caster);
 				}
@@ -53,6 +52,6 @@ public class ComponentSunflower extends ComponentBase {
 	}
 
 	public static DamageSource spellAttack(LivingEntity attacker) {
-		return new EntityDamageSource(Const.MODID + ".fire", attacker).bypassArmor().setIsFire();
+		return attacker.damageSources().source(RootsDamageTypes.FIRE, attacker);
 	}
 }

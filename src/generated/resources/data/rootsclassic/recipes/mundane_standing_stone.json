@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "rootsclassic:mundane_standing_stone"
-  }
+  },
+  "show_notification": true
 }

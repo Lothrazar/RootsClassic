@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "rootsclassic:attuned_standing_stone"
-  }
+  },
+  "show_notification": true
 }

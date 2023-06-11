@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "rootsclassic:bark_knife"
-  }
+  },
+  "show_notification": true
 }

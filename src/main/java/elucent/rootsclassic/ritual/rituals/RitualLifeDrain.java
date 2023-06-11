@@ -3,7 +3,6 @@ package elucent.rootsclassic.ritual.rituals;
 import elucent.rootsclassic.ritual.RitualBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +25,7 @@ public class RitualLifeDrain extends RitualBase {
 		float drainedHealth = 0;
 		if (enemies.size() > 0) {
 			for (Monster enemy : enemies) {
-				enemy.hurt(DamageSource.CACTUS, 9);
+				enemy.hurt(levelAccessor.damageSources().cactus(), 9);
 				drainedHealth += 9;
 			}
 		}

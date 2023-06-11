@@ -7,6 +7,7 @@ import elucent.rootsclassic.item.powder.SpellPowderItem;
 import elucent.rootsclassic.registry.RootsRecipes;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -64,8 +65,8 @@ public class ComponentRecipe implements Recipe<Container> {
 	}
 
 	@Override
-	public ItemStack assemble(Container inventory) {
-		ItemStack outputStack = getResultItem();
+	public ItemStack assemble(Container inventory, RegistryAccess access) {
+		ItemStack outputStack = getResultItem(access);
 		if (outputStack.getItem() instanceof SpellPowderItem) {
 			SpellPowderItem.createData(outputStack, this.getEffectResult(), inventory);
 		}
@@ -78,7 +79,7 @@ public class ComponentRecipe implements Recipe<Container> {
 	}
 
 	@Override
-	public ItemStack getResultItem() {
+	public ItemStack getResultItem(RegistryAccess registryAccess) {
 		return recipeOutput.copy();
 	}
 
@@ -124,7 +125,7 @@ public class ComponentRecipe implements Recipe<Container> {
 		int i = 0;
 		for (int j = 0; j < inventory.getContainerSize(); j++) {
 			ItemStack stack = inventory.getItem(j);
-			if (!stack.isEmpty() && !isSupplementItem(stack)) {
+			if (!stack.isEmpty() && !isSupplementItem(stack, levelAccessor.registryAccess())) {
 				++i;
 				inputs.add(stack);
 			}
@@ -138,8 +139,8 @@ public class ComponentRecipe implements Recipe<Container> {
 	 * @param stack The stack to check
 	 * @return True if the stack is a supplement
 	 */
-	private boolean isSupplementItem(ItemStack stack) {
-		if (getResultItem().getItem() instanceof SpellPowderItem) {
+	private boolean isSupplementItem(ItemStack stack, RegistryAccess access) {
+		if (getResultItem(access).getItem() instanceof SpellPowderItem) {
 			return stack.getItem() == RootsRegistry.OLD_ROOT.get() ||
 				stack.getItem() == RootsRegistry.VERDANT_SPRIG.get() ||
 				stack.getItem() == RootsRegistry.INFERNAL_BULB.get() ||

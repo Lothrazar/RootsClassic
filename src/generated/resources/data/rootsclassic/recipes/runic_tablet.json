@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "rootsclassic:runic_tablet"
-  }
+  },
+  "show_notification": true
 }

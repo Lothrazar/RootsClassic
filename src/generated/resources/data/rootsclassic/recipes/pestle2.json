@@ -14,5 +14,6 @@
   ],
   "result": {
     "item": "rootsclassic:pestle"
-  }
+  },
+  "show_notification": true
 }

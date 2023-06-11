@@ -82,7 +82,7 @@ public class Roots {
 		event.registerCreativeModeTab(new ResourceLocation(Const.MODID, "tab"), builder ->
 			builder.icon(() -> new ItemStack(RootsRegistry.SPELL_POWDER.get()))
 				.title(Component.translatable("itemGroup.rootsclassic"))
-				.displayItems((featureFlagSet, output, display) -> {
+				.displayItems((displayParameters, output) -> {
 					List<ItemStack> stacks = RootsRegistry.ITEMS.getEntries().stream().map(reg -> new ItemStack(reg.get()))
 						.filter(stack -> !stack.is(RootsRegistry.MANA_RESEARCH_ICON.get())).toList();
 					output.acceptAll(stacks);

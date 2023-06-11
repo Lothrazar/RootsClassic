@@ -161,7 +161,7 @@ public class StaffItem extends Item implements IManaRelatedItem {
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
+	public void onUseTick(Level level, LivingEntity player, ItemStack stack, int count) {
 		if (stack.hasTag()) {
 			CompoundTag tag = stack.getTag();
 			ResourceLocation componentName = ResourceLocation.tryParse(tag.getString(Const.NBT_EFFECT));

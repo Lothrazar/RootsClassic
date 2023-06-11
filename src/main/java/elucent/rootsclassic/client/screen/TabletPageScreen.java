@@ -11,12 +11,16 @@ import elucent.rootsclassic.research.ResearchGroup;
 import elucent.rootsclassic.research.ResearchPage;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -68,7 +72,6 @@ public class TabletPageScreen extends Screen {
 	protected void init() {
 		super.init();
 		this.addRenderableWidget(new Button.Builder(Component.empty(), (button) -> {
-			//TODO: Check if we can replace part of the mouseClicked check with this
 		}).bounds(20, 20, 20, 60).build());
 	}
 
@@ -136,7 +139,7 @@ public class TabletPageScreen extends Screen {
 			case TYPE_NULL -> {//text only
 				//        Roots.logger.info("null type ");??
 				RenderSystem.setShaderTexture(0, Const.tabletGui);
-				this.blit(poseStack, basePosX, basePosY, 64, 0, 192, 256);
+				blit(poseStack, basePosX, basePosY, 64, 0, 192, 256);
 				info = page.makeLines(makeInfo());
 				for (int i = 0; i < info.size(); i++) {
 					textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 32 + i * 11));
@@ -146,7 +149,7 @@ public class TabletPageScreen extends Screen {
 			}
 			case TYPE_SMELTING -> {
 				RenderSystem.setShaderTexture(0, Const.tabletSmelting);
-				this.blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
+				blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
 				slots.add(new ScreenSlotInstance(page.smeltingRecipe.get(0), (int) basePosX + 56, (int) basePosY + 40));
 				slots.add(new ScreenSlotInstance(page.smeltingRecipe.get(1), (int) basePosX + 144, (int) basePosY + 56));
 				info = page.makeLines(makeInfo());
@@ -158,7 +161,7 @@ public class TabletPageScreen extends Screen {
 			}
 			case TYPE_DISPLAY -> {
 				RenderSystem.setShaderTexture(0, Const.tabletDisplay);
-				this.blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
+				blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
 				slots.add(new ScreenSlotInstance(page.displayItem, (int) basePosX + 88, (int) basePosY + 48));
 				info = page.makeLines(makeInfo());
 				for (int i = 0; i < info.size(); i++) {
@@ -169,14 +172,14 @@ public class TabletPageScreen extends Screen {
 			}
 			case TYPE_ALTAR -> {
 				RenderSystem.setShaderTexture(0, Const.tabletAltar);
-				this.blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
+				blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
 				for (int i = 0; i < page.altarRecipe.getBlocks().size(); i++) {
 					RenderSystem.setShaderTexture(0, Const.tabletAltar);
 					int u = 192;
 					int v = 240;
 					int xShift = 0;
 					int yShift = 0;
-					this.blit(poseStack, basePosX + 93, basePosY + 153, 192, 32, 16, 16);
+					blit(poseStack, basePosX + 93, basePosY + 153, 192, 32, 16, 16);
 					if (page.altarRecipe.getBlocks().get(i).equals(RootsRegistry.MUNDANE_STANDING_STONE.get())) {
 						v = 48;
 						xShift = 8 * (int) page.altarRecipe.getPositionsRelative().get(i).getX();
@@ -187,7 +190,7 @@ public class TabletPageScreen extends Screen {
 						xShift = 8 * (int) page.altarRecipe.getPositionsRelative().get(i).getX();
 						yShift = 8 * (int) page.altarRecipe.getPositionsRelative().get(i).getZ();
 					}
-					this.blit(poseStack, basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16);
+					blit(poseStack, basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16);
 				}
 				for (int i = 0; i < page.altarRecipe.getIngredients().size(); i++) {
 					slots.add(new ScreenSlotInstance(page.altarRecipe.getIngredients().get(i), (int) basePosX + 64 + 24 * i, (int) basePosY + 56));
@@ -200,7 +203,7 @@ public class TabletPageScreen extends Screen {
 			}
 			case TYPE_MORTAR -> {
 				RenderSystem.setShaderTexture(0, Const.tabletMortar);
-				this.blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
+				blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
 				title = makeTitle();
 				if (page.mortarRecipe != null) {
 					for (int i = 0; i < page.mortarRecipe.getIngredients().size(); i++) {
@@ -211,7 +214,11 @@ public class TabletPageScreen extends Screen {
 							slots.add(new ScreenSlotInstance(getStackFromIngredient(ingredient), (int) basePosX + 24 + i * 16, (int) basePosY + 56));
 						}
 					}
-					slots.add(new ScreenSlotInstance(page.mortarRecipe.assemble(null), (int) basePosX + 144, (int) basePosY + 56));
+					ClientLevel level = minecraft.level;
+					if (level != null) {
+						RegistryAccess registryAccess = level.registryAccess();
+						slots.add(new ScreenSlotInstance(page.mortarRecipe.assemble(new SimpleContainer(), registryAccess), (int) basePosX + 144, (int) basePosY + 56));
+					}
 					info = page.makeLines(makeInfo());
 					for (int i = 0; i < info.size(); i++) {
 						textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 96 + i * 11, RootsUtil.intColor(255, 255, 255)));
@@ -224,7 +231,7 @@ public class TabletPageScreen extends Screen {
 			}
 		}//end of big switch
 		for (ScreenSlotInstance s : slots) {
-			this.itemRenderer.renderGuiItem(s.getStack(), s.getX(), s.getY());
+			this.itemRenderer.renderGuiItem(poseStack, s.getStack(), s.getX(), s.getY());
 		}
 		for (ScreenTextInstance line : textLines) {
 			if (line.isShadow())
@@ -236,16 +243,16 @@ public class TabletPageScreen extends Screen {
 		RenderSystem.setShaderTexture(0, Const.tabletGui);
 		if (showLeftArrow) {
 			if (mouseX >= basePosX + 16 && mouseX < basePosX + 48 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
-				this.blit(poseStack, basePosX + 16, basePosY + 224, 32, 80, 32, 16);
+				blit(poseStack, basePosX + 16, basePosY + 224, 32, 80, 32, 16);
 			} else {
-				this.blit(poseStack, basePosX + 16, basePosY + 224, 32, 64, 32, 16);
+				blit(poseStack, basePosX + 16, basePosY + 224, 32, 64, 32, 16);
 			}
 		}
 		if (showRightArrow) {
 			if (mouseX >= basePosX + 144 && mouseX < basePosX + 176 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
-				this.blit(poseStack, basePosX + 144, basePosY + 224, 0, 80, 32, 16);
+				blit(poseStack, basePosX + 144, basePosY + 224, 0, 80, 32, 16);
 			} else {
-				this.blit(poseStack, basePosX + 144, basePosY + 224, 0, 64, 32, 16);
+				blit(poseStack, basePosX + 144, basePosY + 224, 0, 64, 32, 16);
 			}
 		}
 		//tooltips must be AFTER rendering arrow images

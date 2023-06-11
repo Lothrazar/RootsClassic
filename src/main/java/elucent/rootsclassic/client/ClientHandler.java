@@ -98,10 +98,10 @@ public class ClientHandler {
 	}
 
 	public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
-		event.register(ParticleRegistry.MAGIC_TYPE.get(), MagicParticleData::new);
-		event.register(ParticleRegistry.MAGIC_AURA_TYPE.get(), MagicAuraParticleData::new);
-		event.register(ParticleRegistry.MAGIC_ALTAR_TYPE.get(), MagicAltarParticleData::new);
-		event.register(ParticleRegistry.MAGIC_ALTAR_LINE_TYPE.get(), MagicAltarLineParticleData::new);
-		event.register(ParticleRegistry.MAGIC_LINE_TYPE.get(), MagicLineParticleData::new);
+		event.registerSpriteSet(ParticleRegistry.MAGIC_TYPE.get(), MagicParticleData::new);
+		event.registerSpriteSet(ParticleRegistry.MAGIC_AURA_TYPE.get(), MagicAuraParticleData::new);
+		event.registerSpriteSet(ParticleRegistry.MAGIC_ALTAR_TYPE.get(), MagicAltarParticleData::new);
+		event.registerSpriteSet(ParticleRegistry.MAGIC_ALTAR_LINE_TYPE.get(), MagicAltarLineParticleData::new);
+		event.registerSpriteSet(ParticleRegistry.MAGIC_LINE_TYPE.get(), MagicLineParticleData::new);
 	}
 }

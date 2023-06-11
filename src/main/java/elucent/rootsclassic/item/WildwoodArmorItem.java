@@ -32,9 +32,9 @@ public class WildwoodArmorItem extends ArmorItem {
 
 	private final LazyLoadedValue<HumanoidModel<?>> model;
 
-	public WildwoodArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Item.Properties builderIn) {
-		super(materialIn, slot, builderIn);
-		this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(slot)),
+	public WildwoodArmorItem(ArmorMaterial materialIn, ArmorItem.Type type, Item.Properties builderIn) {
+		super(materialIn, type, builderIn);
+		this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(type)),
 			() -> () -> null);
 	}
 
@@ -44,8 +44,8 @@ public class WildwoodArmorItem extends ArmorItem {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public HumanoidModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
-		return new WildwoodArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ClientHandler.WILDWOOD_ARMOR), slot);
+	public HumanoidModel<?> provideArmorModelForSlot(ArmorItem.Type type) {
+		return new WildwoodArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ClientHandler.WILDWOOD_ARMOR), type);
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class WildwoodArmorItem extends ArmorItem {
 		super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
 		tooltip.add(Component.empty());
 		tooltip.add(Component.translatable("rootsclassic.attribute.equipped").withStyle(ChatFormatting.GRAY));
-		tooltip.add(Component.translatable(" ").append(Component.translatable("rootsclassic.attribute.increasedmanaregen")).withStyle(ChatFormatting.BLUE));
+		tooltip.add(Component.literal(" ").append(Component.translatable("rootsclassic.attribute.increasedmanaregen")).withStyle(ChatFormatting.BLUE));
 	}
 
 	@Override

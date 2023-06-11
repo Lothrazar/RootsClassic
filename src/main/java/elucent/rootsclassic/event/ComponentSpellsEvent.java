@@ -24,9 +24,9 @@ public class ComponentSpellsEvent {
 	@SubscribeEvent
 	public void onLivingTick(LivingTickEvent event) {
 		final LivingEntity entity = event.getEntity();
-		if (entity instanceof Player) {
+		if (entity instanceof Player player) {
 			// armor regen if full set
-			this.wildwoodArmorRegenFullset((Player) entity);
+			this.wildwoodArmorRegenFullset(player);
 			tickManaRegen(entity);
 		}
 		tickSkipMovementCurse(event, entity);
@@ -97,8 +97,9 @@ public class ComponentSpellsEvent {
 			event.setAmount((float) (event.getAmount() * (1.0 + persistentData.getDouble(Const.NBT_VULN))));
 			persistentData.remove(Const.NBT_VULN);
 		}
-		if (persistentData.contains(Const.NBT_THORNS) && event.getSource().getEntity() instanceof LivingEntity) {
-			((LivingEntity) event.getSource().getEntity()).hurt(DamageSource.CACTUS, persistentData.getFloat(Const.NBT_THORNS));
+		DamageSource source = event.getSource();
+		if (persistentData.contains(Const.NBT_THORNS) && source != null && source.getEntity() instanceof LivingEntity) {
+			((LivingEntity) event.getSource().getEntity()).hurt(entityLiving.damageSources().cactus(), persistentData.getFloat(Const.NBT_THORNS));
 			persistentData.remove(Const.NBT_THORNS);
 			RootsUtil.decrementTickTracking(entityLiving);
 		}
@@ -114,9 +115,8 @@ public class ComponentSpellsEvent {
 				}
 			}
 		}
-		if (event.getSource().getEntity() instanceof Player) {
+		if (source != null && source.getEntity() instanceof Player player) {
 			if (!event.getEntity().getCommandSenderWorld().isClientSide) {
-				Player player = (Player) event.getSource().getEntity();
 				if (!player.getInventory().getSelected().isEmpty() && player.getInventory().getSelected().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
 					ItemStack sword = player.getInventory().getSelected();
 					if (sword.hasTag()) {
@@ -124,7 +124,7 @@ public class ComponentSpellsEvent {
 						if (tag.contains("aquatic")) {
 							int aquaLvl = tag.getInt("aquatic");
 							float amount = aquaLvl * 0.5f;
-							event.getEntity().hurt(DamageSource.DROWN, amount);
+							event.getEntity().hurt(entityLiving.damageSources().drown(), amount);
 						}
 						if ((tag.contains("holy")) && entityLiving.getMobType() == MobType.UNDEAD) {
 							int holyLvl = tag.getInt("holy");

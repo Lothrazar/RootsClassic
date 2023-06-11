@@ -22,7 +22,7 @@ public class ComponentRedTulip extends ComponentBase {
 	public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
 		if (type == EnumCastType.SPELL && !level.isClientSide) {
 			PhantomSkeletonEntity skeleton = new PhantomSkeletonEntity(level);
-			skeleton.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(new BlockPos(x, y, z)), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
+			skeleton.finalizeSpawn((ServerLevel) level, level.getCurrentDifficultyAt(BlockPos.containing(x, y, z)), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
 			//				skeleton.setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
 			//				skeleton.getPersistentData().putBoolean(Const.NBT_DONT_DROP, false);
 			//				skeleton.getPersistentData().putUniqueId("RMOD_dontTarget", caster.getUniqueID());

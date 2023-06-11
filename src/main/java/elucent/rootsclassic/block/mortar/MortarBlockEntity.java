@@ -138,7 +138,7 @@ public class MortarBlockEntity extends BEBase {
 			return InteractionResult.PASS;
 		}
 		if (!level.isClientSide) {
-			level.addFreshEntity(new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, recipe.assemble(InventoryUtil.createIInventory(inventory))));
+			level.addFreshEntity(new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.5, getBlockPos().getZ() + 0.5, recipe.assemble(InventoryUtil.createIInventory(inventory), level.registryAccess())));
 		}
 		InventoryUtil.clearInventory(inventory);
 		setChanged();

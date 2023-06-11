@@ -3,11 +3,16 @@ package elucent.rootsclassic.datagen;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.block.AttunedStandingStoneBlock;
 import elucent.rootsclassic.lootmodifiers.DropModifier.BlockDropModifier;
+import elucent.rootsclassic.registry.RootsDamageTypes;
 import elucent.rootsclassic.registry.RootsEntities;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.registry.RootsTags;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -19,11 +24,14 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageEffects;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.flag.FeatureFlags;
@@ -42,6 +50,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -114,8 +123,23 @@ public class RootsDataGen {
 			generator.addProvider(event.includeServer(), new GLMProvider(packOutput));
 			BlockTagsProvider provider;
 			generator.addProvider(event.includeServer(), provider = new RootsBlockTags(packOutput, lookupProvider, helper));
-			generator.addProvider(event.includeServer(), new RootsItemTags(packOutput, lookupProvider, provider, helper));
+			generator.addProvider(event.includeServer(), new RootsItemTags(packOutput, lookupProvider, provider.contentsGetter(), helper));
+
+			generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(
+				packOutput, CompletableFuture.supplyAsync(RootsDataGen::getProvider), Set.of(Const.MODID)));
 		}
+	}
+
+	private static HolderLookup.Provider getProvider() {
+		final RegistrySetBuilder registryBuilder = new RegistrySetBuilder();
+		registryBuilder.add(Registries.DAMAGE_TYPE, context -> {
+			context.register(RootsDamageTypes.GENERIC, new DamageType(Const.MODID + ".generic", 0.0F));
+			context.register(RootsDamageTypes.FIRE, new DamageType(Const.MODID + ".fire", 0.1F, DamageEffects.BURNING));
+			context.register(RootsDamageTypes.WITHER, new DamageType(Const.MODID + ".wither", 0.0F));
+			context.register(RootsDamageTypes.CACTUS, new DamageType(Const.MODID + ".cactus", 0.1F));
+		});
+		RegistryAccess.Frozen regAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
+		return registryBuilder.buildPatch(regAccess, VanillaRegistries.createLookup());
 	}
 
 	private static class Loots extends LootTableProvider {
@@ -277,7 +301,7 @@ public class RootsDataGen {
 
 	public static class RootsItemTags extends ItemTagsProvider {
 		public RootsItemTags(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
-												 TagsProvider<Block> blockTagProvider, ExistingFileHelper existingFileHelper) {
+												 CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider, ExistingFileHelper existingFileHelper) {
 			super(output, lookupProvider, blockTagProvider, Const.MODID, existingFileHelper);
 		}
 

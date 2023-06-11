@@ -8,23 +8,23 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.item.ArmorItem;
 
 public class ModelArmorBase extends HumanoidModel<LivingEntity> {
-	public final EquipmentSlot slot;
+	public final ArmorItem.Type slot;
 	public float armorScale = 1.05f;
 
 	public final ModelPart rightFoot;
 	public final ModelPart leftFoot;
 
-	public ModelArmorBase(ModelPart root, EquipmentSlot slot) {
+	public ModelArmorBase(ModelPart root, ArmorItem.Type armorType) {
 		super(root);
 		this.rightFoot = root.getChild("right_foot");
 		this.leftFoot = root.getChild("left_foot");
 
-		this.slot = slot;
+		this.slot = armorType;
 		this.young = false;
 	}
 
@@ -85,14 +85,14 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
 		this.setChestRotation();
 		this.setLegsRotation();
 		this.setBootRotation();
-		head.visible = slot == EquipmentSlot.HEAD;
-		body.visible = slot == EquipmentSlot.CHEST;
-		rightArm.visible = slot == EquipmentSlot.CHEST;
-		leftArm.visible = slot == EquipmentSlot.CHEST;
-		rightLeg.visible = slot == EquipmentSlot.LEGS;
-		leftLeg.visible = slot == EquipmentSlot.LEGS;
-		rightFoot.visible = slot == EquipmentSlot.FEET;
-		leftFoot.visible = slot == EquipmentSlot.FEET;
+		head.visible = slot == ArmorItem.Type.HELMET;
+		body.visible = slot == ArmorItem.Type.CHESTPLATE;
+		rightArm.visible = slot == ArmorItem.Type.CHESTPLATE;
+		leftArm.visible = slot == ArmorItem.Type.CHESTPLATE;
+		rightLeg.visible = slot == ArmorItem.Type.LEGGINGS;
+		leftLeg.visible = slot == ArmorItem.Type.LEGGINGS;
+		rightFoot.visible = slot == ArmorItem.Type.BOOTS;
+		leftFoot.visible = slot == ArmorItem.Type.BOOTS;
 		if (this.young) {
 			float f = 2.0F;
 			poseStack.pushPose();

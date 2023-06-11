@@ -33,11 +33,11 @@ public class RootsUtil {
 			x += livingEntity.getLookAngle().x * 0.1;
 			y += livingEntity.getLookAngle().y * 0.1;
 			z += livingEntity.getLookAngle().z * 0.1;
-			if (levelAccessor.getBlockState(new BlockPos(x, y, z)).getBlock() != Blocks.AIR) {
-				return new BlockPos(x, y, z);
+			if (levelAccessor.getBlockState(BlockPos.containing(x, y, z)).getBlock() != Blocks.AIR) {
+				return BlockPos.containing(x, y, z);
 			}
 		}
-		return new BlockPos(x, y, z);
+		return BlockPos.containing(x, y, z);
 	}
 
 	public static void addTickTracking(Entity entity) {
