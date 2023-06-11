@@ -1,8 +1,8 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "rootsclassic:blocks/attuned_standing_stone_bottom",
-        "particle": "rootsclassic:blocks/attuned_standing_stone_bottom"
+        "0": "rootsclassic:block/attuned_standing_stone_bottom",
+        "particle": "rootsclassic:block/attuned_standing_stone_bottom"
     },
     "elements": [
         {

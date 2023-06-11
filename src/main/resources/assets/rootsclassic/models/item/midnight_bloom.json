@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:blocks/midnight_bloom"
+        "layer0" : "rootsclassic:block/midnight_bloom"
     }
 }

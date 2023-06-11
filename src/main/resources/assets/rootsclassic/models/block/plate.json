@@ -1,8 +1,8 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "rootsclassic:blocks/plate",
-        "particle": "rootsclassic:blocks/plate"
+        "0": "rootsclassic:block/plate",
+        "particle": "rootsclassic:block/plate"
     },
     "elements": [
         {

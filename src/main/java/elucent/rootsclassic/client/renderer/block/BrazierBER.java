@@ -1,7 +1,7 @@
 package elucent.rootsclassic.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import elucent.rootsclassic.block.brazier.BrazierBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -20,7 +20,7 @@ public class BrazierBER implements BlockEntityRenderer<BrazierBlockEntity> {
 			matrixStackIn.pushPose();
 			matrixStackIn.translate(0.5, 0.5, 0.5);
 			matrixStackIn.scale(0.5F, 0.5F, 0.5F);
-			matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(brazierTile.getTicker()));
+			matrixStackIn.mulPose(Axis.YP.rotationDegrees(brazierTile.getTicker()));
 			Minecraft.getInstance().getItemRenderer().renderStatic(brazierTile.getHeldItem(), TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn, 0);
 			matrixStackIn.popPose();
 		}

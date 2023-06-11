@@ -1,9 +1,9 @@
 {
 	"parent": "block/block",
 	"textures": {
-		"0": "rootsclassic:blocks/attuned_standing_stone_top",
-		"1": "rootsclassic:blocks/attuned_standing_stone_bottom",
-		"particle": "rootsclassic:blocks/attuned_standing_stone_top"
+		"0": "rootsclassic:block/attuned_standing_stone_top",
+		"1": "rootsclassic:block/attuned_standing_stone_bottom",
+		"particle": "rootsclassic:block/attuned_standing_stone_top"
 	},
 	"elements": [
 		{

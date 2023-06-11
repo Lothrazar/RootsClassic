@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:blocks/radiant_daisy"
+        "layer0" : "rootsclassic:block/radiant_daisy"
     }
 }

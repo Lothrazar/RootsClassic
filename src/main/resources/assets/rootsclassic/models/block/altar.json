@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"render_type": "minecraft:cutout",
 	"textures": {
-		"0": "rootsclassic:blocks/altar",
-		"particle": "rootsclassic:blocks/altar"
+		"0": "rootsclassic:block/altar",
+		"particle": "rootsclassic:block/altar"
 	},
 	"elements": [
 		{

@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/runic_tablet"
+        "layer0" : "rootsclassic:item/runic_tablet"
     }
 }

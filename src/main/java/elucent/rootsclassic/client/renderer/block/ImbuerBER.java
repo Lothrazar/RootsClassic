@@ -1,7 +1,7 @@
 package elucent.rootsclassic.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import elucent.rootsclassic.block.imbuer.ImbuerBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -21,7 +21,7 @@ public class ImbuerBER implements BlockEntityRenderer<ImbuerBlockEntity> {
 		if (!stickStack.isEmpty()) {
 			matrixStackIn.pushPose();
 			matrixStackIn.translate(0.5, 0.3125, 0.5);
-			matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(imbuerTile.spin));
+			matrixStackIn.mulPose(Axis.YP.rotationDegrees(imbuerTile.spin));
 			Minecraft.getInstance().getItemRenderer().renderStatic(stickStack, TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn, 0);
 			matrixStackIn.popPose();
 		}
@@ -29,7 +29,7 @@ public class ImbuerBER implements BlockEntityRenderer<ImbuerBlockEntity> {
 		if (!dustStack.isEmpty()) {
 			matrixStackIn.pushPose();
 			matrixStackIn.translate(0.5, 0.125, (1 / 16F) * 6);
-			matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(90));
+			matrixStackIn.mulPose(Axis.XP.rotationDegrees(90));
 			Minecraft.getInstance().getItemRenderer().renderStatic(dustStack, TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn, 0);
 			matrixStackIn.popPose();
 		}

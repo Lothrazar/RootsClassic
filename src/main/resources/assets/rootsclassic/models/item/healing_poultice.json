@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/healing_poultice"
+        "layer0" : "rootsclassic:item/healing_poultice"
     }
 }

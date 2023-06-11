@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/spell_powder"
+        "layer0" : "rootsclassic:item/spell_powder"
     }
 }

@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/rooty_stew"
+        "layer0" : "rootsclassic:item/rooty_stew"
     }
 }

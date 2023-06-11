@@ -1,7 +1,7 @@
 package elucent.rootsclassic.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import elucent.rootsclassic.block.mortar.MortarBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -28,7 +28,7 @@ public class MortarBER implements BlockEntityRenderer<MortarBlockEntity> {
 				Random random = new Random(stack.hashCode());
 				matrixStackIn.translate(0.475 + random.nextFloat() / 20.0, 0.05 + random.nextFloat() / 20.0, 0.475 + random.nextFloat() / 20.0);
 				matrixStackIn.scale(0.65F, 0.65F, 0.65F);
-				matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(random.nextInt(360)));
+				matrixStackIn.mulPose(Axis.YP.rotationDegrees(random.nextInt(360)));
 				Minecraft.getInstance().getItemRenderer().renderStatic(stack, TransformType.GROUND, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn, 0);
 				matrixStackIn.popPose();
 			}

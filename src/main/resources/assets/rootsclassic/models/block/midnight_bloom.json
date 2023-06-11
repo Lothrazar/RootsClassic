@@ -2,7 +2,7 @@
     "parent": "block/cross",
 		"render_type": "minecraft:cutout",
     "textures": {
-        "cross": "rootsclassic:blocks/midnight_bloom",
-        "particle": "rootsclassic:blocks/midnight_bloom"
+        "cross": "rootsclassic:block/midnight_bloom",
+        "particle": "rootsclassic:block/midnight_bloom"
     }
 }

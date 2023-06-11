@@ -93,9 +93,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        url = "https://dvs1.progwml6.com/files/maven"
-    }
-    maven {
         url "https://maven.blamejared.com"
     }
 }
@@ -108,7 +105,7 @@ dependencies {
 
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
 
-    implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-${mc_version}:${crafttweaker_version}")
+//    implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-${mc_version}:${crafttweaker_version}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

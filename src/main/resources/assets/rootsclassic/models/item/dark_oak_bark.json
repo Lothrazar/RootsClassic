@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/dark_oak_bark"
+        "layer0" : "rootsclassic:item/dark_oak_bark"
     }
 }

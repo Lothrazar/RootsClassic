@@ -1,7 +1,7 @@
 {
     "parent": "rootsclassic:item/standing_stone_item",
 	"textures": {
-        "0": "rootsclassic:blocks/grower_standing_stone",
-        "particle": "rootsclassic:blocks/grower_standing_stone"
+        "0": "rootsclassic:block/grower_standing_stone",
+        "particle": "rootsclassic:block/grower_standing_stone"
 	}
 }

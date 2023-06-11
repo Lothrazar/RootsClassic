@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/infernal_bulb"
+        "layer0" : "rootsclassic:item/infernal_bulb"
     }
 }

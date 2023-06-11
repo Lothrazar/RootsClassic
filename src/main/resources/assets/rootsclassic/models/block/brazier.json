@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"render_type": "minecraft:cutout",
 	"textures": {
-		"0": "rootsclassic:blocks/brazier",
-		"particle": "rootsclassic:blocks/brazier"
+		"0": "rootsclassic:block/brazier",
+		"particle": "rootsclassic:block/brazier"
 	},
 	"elements": [
 		{

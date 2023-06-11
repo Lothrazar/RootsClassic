@@ -1,7 +1,7 @@
 {
     "parent": "rootsclassic:item/standing_stone_item",
 	"textures": {
-        "0": "rootsclassic:blocks/entangler_standing_stone",
-        "particle": "rootsclassic:blocks/entangler_standing_stone"
+        "0": "rootsclassic:block/entangler_standing_stone",
+        "particle": "rootsclassic:block/entangler_standing_stone"
 	}
 }

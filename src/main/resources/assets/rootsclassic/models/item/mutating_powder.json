@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/mutating_powder"
+        "layer0" : "rootsclassic:item/mutating_powder"
     }
 }

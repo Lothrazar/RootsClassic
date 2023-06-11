@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/handheld",
     "textures" : {
-        "layer0" : "rootsclassic:items/staff_base"
+        "layer0" : "rootsclassic:item/staff_base"
     }
 }

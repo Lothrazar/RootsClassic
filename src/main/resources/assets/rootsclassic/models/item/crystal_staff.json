@@ -1,8 +1,8 @@
 {
     "parent" : "minecraft:item/handheld",
     "textures" : {
-        "layer0" : "rootsclassic:items/crystal_staff",
-        "layer1" : "rootsclassic:items/crystal_staff_glow1",
-        "layer2" : "rootsclassic:items/crystal_staff_glow2"
+        "layer0" : "rootsclassic:item/crystal_staff",
+        "layer1" : "rootsclassic:item/crystal_staff_glow1",
+        "layer2" : "rootsclassic:item/crystal_staff_glow2"
     }
 }

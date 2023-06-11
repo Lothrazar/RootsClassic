@@ -1,7 +1,7 @@
 {
     "parent": "rootsclassic:block/base_powered_standing_stone",
 	"textures": {
-        "0": "rootsclassic:blocks/igniter_standing_stone",
-        "particle": "rootsclassic:blocks/igniter_standing_stone"
+        "0": "rootsclassic:block/igniter_standing_stone",
+        "particle": "rootsclassic:block/igniter_standing_stone"
 	}
 }

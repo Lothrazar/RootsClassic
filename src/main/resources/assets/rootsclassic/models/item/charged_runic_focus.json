@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/charged_runic_focus"
+        "layer0" : "rootsclassic:item/charged_runic_focus"
     }
 }

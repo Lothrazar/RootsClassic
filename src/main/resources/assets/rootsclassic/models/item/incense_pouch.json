@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/incense_pouch"
+        "layer0" : "rootsclassic:item/incense_pouch"
     }
 }

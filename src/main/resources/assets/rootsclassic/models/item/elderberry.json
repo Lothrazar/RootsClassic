@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/elderberry"
+        "layer0" : "rootsclassic:item/elderberry"
     }
 }

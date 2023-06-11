@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/handheld",
     "textures" : {
-        "layer0" : "rootsclassic:items/spruce_bark"
+        "layer0" : "rootsclassic:item/spruce_bark"
     }
 }

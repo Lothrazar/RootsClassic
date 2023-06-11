@@ -67,8 +67,9 @@ public class TabletPageScreen extends Screen {
 	@Override
 	protected void init() {
 		super.init();
-		this.addRenderableWidget(new Button(20, 20, 20, 60, Component.empty(), (button) -> {
-		}));
+		this.addRenderableWidget(new Button.Builder(Component.empty(), (button) -> {
+			//TODO: Check if we can replace part of the mouseClicked check with this
+		}).bounds(20, 20, 20, 60).build());
 	}
 
 	@Override

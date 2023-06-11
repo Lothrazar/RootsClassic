@@ -1,6 +1,6 @@
 {
     "parent" : "minecraft:item/generated",
     "textures" : {
-        "layer0" : "rootsclassic:items/wildwood_mask"
+        "layer0" : "rootsclassic:item/wildwood_mask"
     }
 }
