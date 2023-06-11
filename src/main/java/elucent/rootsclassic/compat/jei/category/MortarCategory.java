@@ -1,6 +1,5 @@
 package elucent.rootsclassic.compat.jei.category;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.compat.jei.JEIPlugin;
 import elucent.rootsclassic.recipe.ComponentRecipe;
@@ -15,6 +14,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
@@ -72,7 +72,7 @@ public class MortarCategory implements IRecipeCategory<ComponentRecipe> {
 	}
 
 	@Override
-	public void draw(ComponentRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
-		IRecipeCategory.super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
+	public void draw(ComponentRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+		IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
 	}
 }

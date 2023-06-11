@@ -34,7 +34,7 @@ public class EntityAccelerator extends Entity {
 	public void tick() {
 		super.tick();
 		if (entity == null) {
-			this.level.broadcastEntityEvent(this, (byte) 3);
+			this.level().broadcastEntityEvent(this, (byte) 3);
 			this.discard();
 		} else {
 			this.setPosRaw((entity.getBoundingBox().maxX + entity.getBoundingBox().minX) / 2.0 - 0.5,
@@ -45,39 +45,39 @@ public class EntityAccelerator extends Entity {
 				entity.baseTick();
 			}
 		}
-		if (level.isClientSide) {
+		if (level().isClientSide) {
 			for (int i = 0; i < 2; i++) {
 				int side = random.nextInt(6);
 				if (side == 0) {
-					level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+					level().addParticle(MagicAuraParticleData.createData(255, 255, 255),
 						getX(), getY() + random.nextDouble(), getZ() + random.nextDouble(), 0, 0, 0);
 				}
 				if (side == 1) {
-					level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+					level().addParticle(MagicAuraParticleData.createData(255, 255, 255),
 						getX() + 1.0, getY() + random.nextDouble(), getZ() + random.nextDouble(), 0, 0, 0);
 				}
 				if (side == 2) {
-					level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+					level().addParticle(MagicAuraParticleData.createData(255, 255, 255),
 						getX() + random.nextDouble(), getY(), getZ() + random.nextDouble(), 0, 0, 0);
 				}
 				if (side == 3) {
-					level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+					level().addParticle(MagicAuraParticleData.createData(255, 255, 255),
 						getX() + random.nextDouble(), getY() + 1.0, getZ() + random.nextDouble(), 0, 0, 0);
 				}
 				if (side == 4) {
-					level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+					level().addParticle(MagicAuraParticleData.createData(255, 255, 255),
 						getX() + random.nextDouble(), getY() + random.nextDouble(), getZ(), 0, 0, 0);
 				}
 				if (side == 5) {
-					level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+					level().addParticle(MagicAuraParticleData.createData(255, 255, 255),
 						getX() + random.nextDouble(), getY() + random.nextDouble(), getZ() + 1.0, 0, 0, 0);
 				}
 			}
 		}
-		if (!level.isClientSide) {
+		if (!level().isClientSide) {
 			lifetime--;
 			if (lifetime <= 0) {
-				this.level.broadcastEntityEvent(this, (byte) 3);
+				this.level().broadcastEntityEvent(this, (byte) 3);
 				this.discard();
 			}
 		}

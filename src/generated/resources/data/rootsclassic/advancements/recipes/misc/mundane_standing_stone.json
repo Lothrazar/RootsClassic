@@ -28,5 +28,6 @@
     "recipes": [
       "rootsclassic:mundane_standing_stone"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

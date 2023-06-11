@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[45,)"
+loaderVersion="[46,)"
 issueTrackerURL="https://github.com/Lothrazar/RootsClassic/issues"
 license="MIT"
 
@@ -16,12 +16,6 @@ Classic port of Roots, the Druidic Magic Mod
 [[dependencies.rootsclassic]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.19.4,1.20)"
-ordering="NONE"
-side="BOTH"
-[[dependencies.rootsclassic]]
-modId="forge"
-mandatory=true
-versionRange="[45.1.0,)"
+versionRange="[1.20,1.21)"
 ordering="NONE"
 side="BOTH"

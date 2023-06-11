@@ -63,7 +63,7 @@ public class ComponentSpellsEvent {
 			legs.getItem() == RootsRegistry.WILDWOOD_LEGGINGS.get() &&
 			feet.getItem() == RootsRegistry.WILDWOOD_BOOTS.get()) {
 			//
-			if (entity.level.random.nextDouble() < 0.02 && entity.getHealth() < entity.getMaxHealth()) {
+			if (entity.level().random.nextDouble() < 0.02 && entity.getHealth() < entity.getMaxHealth()) {
 				entity.heal(1);//1 half heart
 			}
 		}

@@ -101,7 +101,7 @@ public class RootsUtil {
 			for (ItemStack itemStack : available) {
 				boolean endIteration = false;
 				for (int i = 0; i < recipe.size() && !endIteration; i++) {
-					if (itemStack.sameItem(recipe.get(i))) {
+					if (ItemStack.isSameItem(itemStack, recipe.get(i))) {
 						recipe.remove(i);
 						endIteration = true;
 					}
@@ -133,7 +133,7 @@ public class RootsUtil {
 			for (ItemStack itemStack : available) {
 				boolean endIteration = false;
 				for (int i = 0; i < recipe.size() && !endIteration; i++) {
-					if (itemStack.sameItem(recipe.get(i))) {
+					if (ItemStack.isSameItem(itemStack, recipe.get(i))) {
 						recipe.remove(i);
 						endIteration = true;
 					}
@@ -220,7 +220,7 @@ public class RootsUtil {
 			for (ItemStack itemStack : available) {
 				boolean endIteration = false;
 				for (int i = 0; i < recipe.size() && !endIteration; i++) {
-					if (itemStack.sameItem(recipe.get(i))) {
+					if (ItemStack.isSameItem(itemStack, recipe.get(i))) {
 						recipe.remove(i);
 						endIteration = true;
 					}
@@ -249,7 +249,7 @@ public class RootsUtil {
 			for (ItemStack itemStack : available) {
 				boolean endIteration = false;
 				for (int i = 0; i < recipe.size() && !endIteration; i++) {
-					if (itemStack.sameItem(recipe.get(i))) {
+					if (ItemStack.isSameItem(itemStack, recipe.get(i))) {
 						recipe.remove(i);
 						endIteration = true;
 					}
@@ -278,7 +278,7 @@ public class RootsUtil {
 			for (Ingredient ingredient : available) {
 				boolean endIteration = false;
 				for (int i = 0; i < recipe.size() && !endIteration; i++) {
-					if (ingredient.getItems()[0].sameItem(recipe.get(i).getItems()[0])) {
+					if (ItemStack.isSameItem(ingredient.getItems()[0], recipe.get(i).getItems()[0])) {
 						recipe.remove(i);
 						endIteration = true;
 					}

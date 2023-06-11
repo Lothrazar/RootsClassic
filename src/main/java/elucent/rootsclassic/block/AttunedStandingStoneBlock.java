@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -90,11 +89,6 @@ public class AttunedStandingStoneBlock extends BaseBEBlock {
 		BlockPos blockpos = pos.below();
 		BlockState blockstate = levelAccessor.getBlockState(blockpos);
 		return state.getValue(HALF) == DoubleBlockHalf.LOWER ? blockstate.isFaceSturdy(levelAccessor, blockpos, Direction.UP) : blockstate.is(this);
-	}
-
-	@Override
-	public PushReaction getPistonPushReaction(BlockState state) {
-		return PushReaction.DESTROY;
 	}
 
 	@Override

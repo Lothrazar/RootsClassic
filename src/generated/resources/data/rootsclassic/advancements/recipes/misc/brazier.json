@@ -30,5 +30,6 @@
     "recipes": [
       "rootsclassic:brazier"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

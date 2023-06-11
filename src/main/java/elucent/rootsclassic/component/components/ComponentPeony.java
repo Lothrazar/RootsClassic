@@ -27,7 +27,7 @@ public class ComponentPeony extends ComponentBase {
 
 	@Override
 	public void castingAction(Player player, int count, int potency, int efficiency, int size) {
-		Level levelAccessor = player.level;
+		Level levelAccessor = player.level();
 		int x = player.blockPosition().getX();
 		int y = player.blockPosition().getY();
 		int z = player.blockPosition().getZ();
@@ -35,10 +35,11 @@ public class ComponentPeony extends ComponentBase {
 		for (int x2 = -range; x2 < range; x2++) {
 			for (int z2 = -range; z2 < range; z2++) {
 				for (int y2 = -1; y2 < 2; y2++) {
-					if (levelAccessor.getBlockState(new BlockPos(x + x2, y + y2, z + z2)).getBlock() instanceof TallFlowerBlock ||
-						levelAccessor.getBlockState(new BlockPos(x + x2, y + y2, z + z2)).getBlock() instanceof FlowerBlock ||
-						levelAccessor.getBlockState(new BlockPos(x + x2, y + y2, z + z2)).getBlock() instanceof DoublePlantBlock) {
-						pos.add(new BlockPos(x + x2, y + y2, z + z2));
+					BlockPos position = new BlockPos(x + x2, y + y2, z + z2);
+					if (levelAccessor.getBlockState(position).getBlock() instanceof TallFlowerBlock ||
+						levelAccessor.getBlockState(position).getBlock() instanceof FlowerBlock ||
+						levelAccessor.getBlockState(position).getBlock() instanceof DoublePlantBlock) {
+						pos.add(position);
 					}
 				}
 			}

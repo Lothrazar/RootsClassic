@@ -47,7 +47,7 @@ public class ManaBarEvent {
 	}
 
 	private void drawManaBar(RenderGuiOverlayEvent.Post event, Player player, IManaCapability capability) {
-		PoseStack poseStack = event.getPoseStack();
+		PoseStack poseStack = event.getGuiGraphics().pose();
 		RenderSystem.disableDepthTest();
 		RenderSystem.disableCull();
 		poseStack.pushPose();

@@ -11,7 +11,7 @@ import elucent.rootsclassic.research.ResearchGroup;
 import elucent.rootsclassic.research.ResearchPage;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -92,7 +92,7 @@ public class TabletPageScreen extends Screen {
 			}
 		}
 		List<ResearchPage> researchInfo = research.getInfo();
-		if (player.level.isClientSide
+		if (player.level().isClientSide
 			&& mouseX >= (width / 2.0f) - 110 && mouseX < (width / 2.0f) + 40
 			&& mouseY >= (height / 2.0f) - 138 && mouseY < (height / 2.0f) - 40) {
 			if (researchInfo.get(currentPage).recipe == EnumPageType.TYPE_MORTAR) {
@@ -114,10 +114,11 @@ public class TabletPageScreen extends Screen {
 	}
 
 	@Override
-	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(poseStack);
+	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
+		this.renderBackground(guiGraphics);
 		//   super.drawScreen(mouseX, mouseY, partialTicks);
 
+		PoseStack poseStack = guiGraphics.pose();
 		poseStack.pushPose();
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		List<ResearchPage> researchInfo = research.getInfo();
@@ -138,8 +139,7 @@ public class TabletPageScreen extends Screen {
 		switch (page.recipe) {
 			case TYPE_NULL -> {//text only
 				//        Roots.logger.info("null type ");??
-				RenderSystem.setShaderTexture(0, Const.tabletGui);
-				blit(poseStack, basePosX, basePosY, 64, 0, 192, 256);
+				guiGraphics.blit(Const.tabletGui, basePosX, basePosY, 64, 0, 192, 256);
 				info = page.makeLines(makeInfo());
 				for (int i = 0; i < info.size(); i++) {
 					textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 32 + i * 11));
@@ -148,8 +148,7 @@ public class TabletPageScreen extends Screen {
 				textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
 			}
 			case TYPE_SMELTING -> {
-				RenderSystem.setShaderTexture(0, Const.tabletSmelting);
-				blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
+				guiGraphics.blit(Const.tabletSmelting, basePosX, basePosY, 0, 0, 192, 256);
 				slots.add(new ScreenSlotInstance(page.smeltingRecipe.get(0), (int) basePosX + 56, (int) basePosY + 40));
 				slots.add(new ScreenSlotInstance(page.smeltingRecipe.get(1), (int) basePosX + 144, (int) basePosY + 56));
 				info = page.makeLines(makeInfo());
@@ -160,8 +159,7 @@ public class TabletPageScreen extends Screen {
 				textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
 			}
 			case TYPE_DISPLAY -> {
-				RenderSystem.setShaderTexture(0, Const.tabletDisplay);
-				blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
+				guiGraphics.blit(Const.tabletDisplay, basePosX, basePosY, 0, 0, 192, 256);
 				slots.add(new ScreenSlotInstance(page.displayItem, (int) basePosX + 88, (int) basePosY + 48));
 				info = page.makeLines(makeInfo());
 				for (int i = 0; i < info.size(); i++) {
@@ -171,15 +169,13 @@ public class TabletPageScreen extends Screen {
 				textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
 			}
 			case TYPE_ALTAR -> {
-				RenderSystem.setShaderTexture(0, Const.tabletAltar);
-				blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
+				guiGraphics.blit(Const.tabletAltar, basePosX, basePosY, 0, 0, 192, 256);
 				for (int i = 0; i < page.altarRecipe.getBlocks().size(); i++) {
-					RenderSystem.setShaderTexture(0, Const.tabletAltar);
 					int u = 192;
 					int v = 240;
 					int xShift = 0;
 					int yShift = 0;
-					blit(poseStack, basePosX + 93, basePosY + 153, 192, 32, 16, 16);
+					guiGraphics.blit(Const.tabletAltar, basePosX + 93, basePosY + 153, 192, 32, 16, 16);
 					if (page.altarRecipe.getBlocks().get(i).equals(RootsRegistry.MUNDANE_STANDING_STONE.get())) {
 						v = 48;
 						xShift = 8 * (int) page.altarRecipe.getPositionsRelative().get(i).getX();
@@ -190,7 +186,7 @@ public class TabletPageScreen extends Screen {
 						xShift = 8 * (int) page.altarRecipe.getPositionsRelative().get(i).getX();
 						yShift = 8 * (int) page.altarRecipe.getPositionsRelative().get(i).getZ();
 					}
-					blit(poseStack, basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16);
+					guiGraphics.blit(Const.tabletAltar, basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16);
 				}
 				for (int i = 0; i < page.altarRecipe.getIngredients().size(); i++) {
 					slots.add(new ScreenSlotInstance(page.altarRecipe.getIngredients().get(i), (int) basePosX + 64 + 24 * i, (int) basePosY + 56));
@@ -202,8 +198,7 @@ public class TabletPageScreen extends Screen {
 				textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
 			}
 			case TYPE_MORTAR -> {
-				RenderSystem.setShaderTexture(0, Const.tabletMortar);
-				blit(poseStack, basePosX, basePosY, 0, 0, 192, 256);
+				guiGraphics.blit(Const.tabletMortar, basePosX, basePosY, 0, 0, 192, 256);
 				title = makeTitle();
 				if (page.mortarRecipe != null) {
 					for (int i = 0; i < page.mortarRecipe.getIngredients().size(); i++) {
@@ -231,34 +226,33 @@ public class TabletPageScreen extends Screen {
 			}
 		}//end of big switch
 		for (ScreenSlotInstance s : slots) {
-			this.itemRenderer.renderGuiItem(poseStack, s.getStack(), s.getX(), s.getY());
+			guiGraphics.renderItem(s.getStack(), s.getX(), s.getY());
 		}
 		for (ScreenTextInstance line : textLines) {
 			if (line.isShadow())
-				font.drawShadow(poseStack, line.getLine(), line.getX(), line.getY(), line.getColor());
+				guiGraphics.drawString(font, line.getLine(), line.getX(), line.getY(), line.getColor(), true);
 			else
-				font.draw(poseStack, line.getLine(), (int) line.getX(), (int) line.getY(), line.getColor());
+				guiGraphics.drawString(font, line.getLine(), line.getX(), line.getY(), line.getColor(), false);
 		}
 		//TODO: arrows go black on rituals
-		RenderSystem.setShaderTexture(0, Const.tabletGui);
 		if (showLeftArrow) {
 			if (mouseX >= basePosX + 16 && mouseX < basePosX + 48 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
-				blit(poseStack, basePosX + 16, basePosY + 224, 32, 80, 32, 16);
+				guiGraphics.blit(Const.tabletGui, basePosX + 16, basePosY + 224, 32, 80, 32, 16);
 			} else {
-				blit(poseStack, basePosX + 16, basePosY + 224, 32, 64, 32, 16);
+				guiGraphics.blit(Const.tabletGui, basePosX + 16, basePosY + 224, 32, 64, 32, 16);
 			}
 		}
 		if (showRightArrow) {
 			if (mouseX >= basePosX + 144 && mouseX < basePosX + 176 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
-				blit(poseStack, basePosX + 144, basePosY + 224, 0, 80, 32, 16);
+				guiGraphics.blit(Const.tabletGui, basePosX + 144, basePosY + 224, 0, 80, 32, 16);
 			} else {
-				blit(poseStack, basePosX + 144, basePosY + 224, 0, 64, 32, 16);
+				guiGraphics.blit(Const.tabletGui, basePosX + 144, basePosY + 224, 0, 64, 32, 16);
 			}
 		}
 		//tooltips must be AFTER rendering arrow images
 		for (ScreenSlotInstance s : slots) {
 			if (s.isMouseover(mouseX, mouseY)) {
-				this.renderTooltip(poseStack, s.getStack(), mouseX, mouseY);
+				guiGraphics.renderTooltip(font, s.getStack(), mouseX, mouseY);
 			}
 		}
 		poseStack.popPose();

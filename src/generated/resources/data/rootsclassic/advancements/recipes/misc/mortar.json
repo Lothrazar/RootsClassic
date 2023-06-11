@@ -28,5 +28,6 @@
     "recipes": [
       "rootsclassic:mortar"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

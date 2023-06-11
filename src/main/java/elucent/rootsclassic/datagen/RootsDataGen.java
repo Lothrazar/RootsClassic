@@ -42,7 +42,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.InvertedLootItemCondition;
@@ -210,7 +209,7 @@ public class RootsDataGen {
 
 		@Override
 		protected void validate(Map<ResourceLocation, LootTable> map, @Nonnull ValidationContext validationtracker) {
-			map.forEach((name, table) -> LootTables.validate(validationtracker, name, table));
+			map.forEach((name, table) -> table.validate(validationtracker));
 		}
 	}
 

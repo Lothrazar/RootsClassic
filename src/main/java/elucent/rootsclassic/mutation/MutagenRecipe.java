@@ -37,7 +37,7 @@ public class MutagenRecipe {
 			for (ItemStack input : inputs) {
 				boolean endIteration = false;
 				for (int j = 0; j < tempItems.size() && !endIteration; j++) {
-					if (input.sameItem(tempItems.get(j))) {
+					if (ItemStack.isSameItem(input, tempItems.get(j))) {
 						tempItems.remove(j);
 						endIteration = true;
 					}

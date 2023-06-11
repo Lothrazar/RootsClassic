@@ -30,5 +30,6 @@
     "recipes": [
       "rootsclassic:mutating_powder"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

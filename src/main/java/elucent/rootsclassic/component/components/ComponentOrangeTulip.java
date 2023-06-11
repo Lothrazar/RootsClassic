@@ -28,7 +28,7 @@ public class ComponentOrangeTulip extends ComponentBase {
 	public void castingAction(Player player, int count, int potency, int efficiency, int size) {
 		super.castingAction(player, count, potency, efficiency, size);
 		if (count % 1 == 0) {
-			List<Entity> entities = player.level.getEntitiesOfClass(Entity.class,
+			List<Entity> entities = player.level().getEntitiesOfClass(Entity.class,
 				new AABB(player.getX() - (1.0 + 0.5 * size), player.getY() - (1.0 + 0.5 * size), player.getZ() - (1.0 + 0.5 * size),
 					player.getX() + (1.0 + 0.5 * size), player.getY() + (1.0 + 0.5 * size), player.getZ() + (1.0 + 0.5 * size)));
 			entities.removeIf(entity -> entity instanceof LivingEntity || entity instanceof AbstractArrow);

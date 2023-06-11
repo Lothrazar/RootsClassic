@@ -28,5 +28,6 @@
     "recipes": [
       "rootsclassic:bark_knife"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

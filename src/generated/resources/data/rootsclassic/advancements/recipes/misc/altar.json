@@ -28,5 +28,6 @@
     "recipes": [
       "rootsclassic:altar"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }
