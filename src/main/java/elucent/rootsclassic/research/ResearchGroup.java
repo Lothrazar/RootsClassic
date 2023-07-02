@@ -14,7 +14,7 @@ public class ResearchGroup {
 	}
 
 	public ResearchGroup addResearch(ResearchBase research) {
-		researches.add(research);
+		if(!research.getInfo().isEmpty()) researches.add(research);
 		return this;
 	}
 

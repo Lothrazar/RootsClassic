@@ -15,10 +15,13 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 
 import java.util.List;
@@ -38,7 +41,7 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 	private final Component localizedName;
 
 	public RitualCategory(IGuiHelper guiHelper) {
-		this.background = guiHelper.drawableBuilder(backgroundLocation, 0, 0, 94, 100).addPadding(0, 0, 0, 0).build();
+		this.background = guiHelper.drawableBuilder(backgroundLocation, 0, 0, 94, 110).addPadding(0, 0, 0, 0).build();
 
 		this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RootsRegistry.ALTAR.get()));
 
@@ -75,12 +78,12 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, RitualWrapper recipe, IFocusGroup focuses) {
 		for (int i = 0; i < recipe.getIngredients().size(); i++) {
-			ItemStack stack = recipe.getIngredients().get(i);
-			builder.addSlot(RecipeIngredientRole.INPUT, 15 + (i * 24), 3).addItemStack(stack);
+			Ingredient ingredient = recipe.getIngredients().get(i);
+			builder.addSlot(RecipeIngredientRole.INPUT, 15 + (i * 24), 3).addIngredients(ingredient);
 		}
 		for (int i = 0; i < recipe.getIncenses().size(); i++) {
-			ItemStack stack = recipe.getIncenses().get(i);
-			builder.addSlot(RecipeIngredientRole.CATALYST, 28 + (i * 16), 27).addItemStack(stack);
+			Ingredient ingredient = recipe.getIncenses().get(i);
+			builder.addSlot(RecipeIngredientRole.CATALYST, 28 + (i * 16), 27).addIngredients(ingredient);
 		}
 
 		if (!recipe.getResult().isEmpty()) {
@@ -101,23 +104,26 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 
 		int basePosX = 63;
 		int basePosY = 135;
-		final List<Block> blocks = recipe.getBlocks();
-		final List<BlockPos> relativePosition = recipe.getPositionsRelative();
-		for (int i = 0; i < blocks.size(); i++) {
+		recipe.getPillars().forEach((pos, block) -> {
 			int xShift = 0;
 			int yShift = 0;
 			stone.draw(stack, basePosX, basePosY);
-			if (blocks.get(i).equals(RootsRegistry.MUNDANE_STANDING_STONE.get())) {
-				xShift = 8 * (int) relativePosition.get(i).getX();
-				yShift = 8 * (int) relativePosition.get(i).getZ();
+			if (block.equals(RootsRegistry.MUNDANE_STANDING_STONE.get())) {
+				xShift = 8 * pos.getX();
+				yShift = 8 * pos.getZ();
 				mundaneStone.draw(stack, basePosX + xShift, basePosY + yShift);
 			}
-			if (blocks.get(i).equals(RootsRegistry.ATTUNED_STANDING_STONE.get())) {
-				xShift = 8 * (int) relativePosition.get(i).getX();
-				yShift = 8 * (int) relativePosition.get(i).getZ();
+			if (block.equals(RootsRegistry.ATTUNED_STANDING_STONE.get())) {
+				xShift = 8 * pos.getX();
+				yShift = 8 * pos.getZ();
 				attunedStone.draw(stack, basePosX + xShift, basePosY + yShift);
 			}
-		}
+		});
 		stack.popPose();
+
+		Minecraft minecraft = Minecraft.getInstance();
+		Font font = minecraft.font;
+		var infoText = recipe.getInfoText();
+		font.draw(stack, infoText, (94 - font.width(infoText)) / 2F, 100, 0x8b8b8b);
 	}
 }

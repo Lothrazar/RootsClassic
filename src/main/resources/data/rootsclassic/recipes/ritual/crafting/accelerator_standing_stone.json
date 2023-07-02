@@ -1,0 +1,34 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:crafting",
+  "level": 2,
+  "color": "#006949",
+  "ingredients": [
+    {
+      "item": "rootsclassic:attuned_standing_stone"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "item": "minecraft:stone_bricks"
+    }
+  ],
+  "incenses": [
+    {
+      "item": "rootsclassic:verdant_sprig"
+    },
+    {
+      "item": "rootsclassic:infernal_bulb"
+    },
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "rootsclassic:jungle_bark"
+    }
+  ],
+  "result": {
+    "item": "rootsclassic:accelerator_standing_stone"
+  }
+}
