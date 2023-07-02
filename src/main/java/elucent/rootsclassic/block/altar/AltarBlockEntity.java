@@ -6,7 +6,6 @@ import elucent.rootsclassic.client.particles.MagicAltarParticleData;
 import elucent.rootsclassic.client.particles.MagicLineParticleData;
 import elucent.rootsclassic.recipe.RitualRecipe;
 import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.ritual.RitualBaseRegistry;
 import elucent.rootsclassic.ritual.RitualPillars;
 import elucent.rootsclassic.ritual.RitualRegistry;
 import elucent.rootsclassic.util.InventoryUtil;
@@ -146,7 +145,7 @@ public class AltarBlockEntity extends BEBase {
 				}
 			} else if (player.isShiftKeyDown() && heldItem.isEmpty() && this.getProgress() == 0) {
 				// Try to start a new ritual
-				setRitual(null);
+				setRitualCurrent(null);
 				var optionalRitual = RitualRegistry.findMatchingByIngredients(this);
 				if (optionalRitual.isEmpty()) {
 					player.displayClientMessage(Component.translatable("rootsclassic.error.noritual.ingredients"), true);
@@ -160,7 +159,7 @@ public class AltarBlockEntity extends BEBase {
 				}
 				//does it match everything else?
 				if (ritual.incenseMatches(level, pos)) {
-					setRitual(ritual);
+					setRitualCurrent(ritual);
 					setIncenses(RitualRegistry.getIncenses(levelAccessor, pos));
 					setProgress(RECIPE_PROGRESS_TIME);
 					for (BrazierBlockEntity brazier : RitualPillars.getRecipeBraziers(levelAccessor, pos)) {
@@ -199,7 +198,7 @@ public class AltarBlockEntity extends BEBase {
 		if (tile.getTicker() > 360) {
 			tile.setTicker(0);
 		}
-		if (tile.getProgress() > 0 && tile.ritualCurrent != null) {
+		if (tile.getProgress() > 0 && tile.getRitualCurrent() != null) {
 			tile.setProgress(tile.getProgress() - 1);
 			//      if (tile.getProgress() % 40 == 0) {
 			//        setIncenses(RitualManager.getIncenses(getWorld(), getPos()));
@@ -216,7 +215,7 @@ public class AltarBlockEntity extends BEBase {
 			//      }
 			if (tile.getProgress() == 0 && tile.getRitualCurrent() != null) {
 				tile.getRitualCurrent().doEffect(level, pos, InventoryUtil.createIInventory(tile.inventory), tile.getIncenses());
-				tile.setRitual(null);
+				tile.setRitualCurrent(null);
 				tile.emptyAltar();
 				tile.setChanged();
 				level.sendBlockUpdated(pos, state, state, 3);
@@ -323,7 +322,7 @@ public class AltarBlockEntity extends BEBase {
 		return this.ritualCurrent;
 	}
 
-	public void setRitual(RitualRecipe<?> ritualCurrent) {
+	public void setRitualCurrent(RitualRecipe<?> ritualCurrent) {
 		this.ritualCurrent = ritualCurrent;
 		setChanged();
 	}
