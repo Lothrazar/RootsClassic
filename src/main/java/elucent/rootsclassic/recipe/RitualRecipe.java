@@ -183,4 +183,9 @@ public class RitualRecipe<C> implements Recipe<Container> {
   public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     effect.doEffect(levelAccessor, pos, inventory, incenses, effectConfig);
   }
+
+  @Override
+  public String toString() {
+    return "RitualRecipe [id=" + id + ", level=" + level + ", effect=" + effect + "]";
+  }
 }
