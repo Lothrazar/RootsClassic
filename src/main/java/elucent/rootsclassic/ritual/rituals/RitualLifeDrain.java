@@ -1,6 +1,6 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import elucent.rootsclassic.ritual.RitualBase;
+import elucent.rootsclassic.ritual.SimpleRitualEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.damagesource.DamageSource;
@@ -12,11 +12,7 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
-public class RitualLifeDrain extends RitualBase {
-
-	public RitualLifeDrain(int level, double r, double g, double b) {
-		super(level, r, g, b);
-	}
+public class RitualLifeDrain extends SimpleRitualEffect {
 
 	@Override
 	public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {

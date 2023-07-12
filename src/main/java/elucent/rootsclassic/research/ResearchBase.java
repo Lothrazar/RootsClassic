@@ -1,9 +1,12 @@
 package elucent.rootsclassic.research;
 
+import elucent.rootsclassic.Roots;
+import elucent.rootsclassic.recipe.RitualRecipe;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ResearchBase {
 	public double posX = 0;
@@ -37,5 +40,14 @@ public class ResearchBase {
 
 	public List<ResearchPage> getInfo() {
 		return info;
+	}
+
+	public ResearchBase addPageOf(Optional<RitualRecipe<?>> optionalRitual) {
+		optionalRitual.ifPresentOrElse(ritual -> {
+			info.add(new ResearchPage().addAltarRecipe(ritual));
+		}, () -> {
+			Roots.LOGGER.warn("Missing altar recipe for page {}", name);
+		});
+		return this;
 	}
 }

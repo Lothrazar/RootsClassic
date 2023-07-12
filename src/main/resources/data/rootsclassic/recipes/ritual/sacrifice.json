@@ -1,0 +1,25 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:sacrifice",
+  "level": 2,
+  "color": "#5e0938",
+  "ingredients": [
+    {
+      "item": "minecraft:flint"
+    },
+    {
+      "item": "minecraft:iron_sword"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ],
+  "incenses": [
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "rootsclassic:dark_oak_bark"
+    }
+  ]
+}

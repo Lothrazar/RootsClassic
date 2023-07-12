@@ -24,6 +24,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nullable;
@@ -81,14 +82,11 @@ public class JEIPlugin implements IModPlugin {
 
 		ClientLevel world = Objects.requireNonNull(Minecraft.getInstance().level);
 		registration.addRecipes(MORTAR_TYPE, world.getRecipeManager().getAllRecipesFor(RootsRecipes.COMPONENT_RECIPE_TYPE.get()));
-		registration.addRecipes(RITUAL_TYPE, getRituals());
+		registration.addRecipes(RITUAL_TYPE, getRituals(world));
 	}
 
-	public List<RitualWrapper> getRituals() {
-		List<RitualWrapper> entries = new LinkedList<>();
-
-		RitualRegistry.RITUALS.getEntries().forEach(ritual -> entries.add(new RitualWrapper(ritual.get())));
-
-		return entries;
+	public List<RitualWrapper> getRituals(Level world) {
+		var ritualRecipes = world.getRecipeManager().getAllRecipesFor(RootsRecipes.RITUAL_RECIPE_TYPE.get());
+		return ritualRecipes.stream().map(RitualWrapper::new).toList();
 	}
 }

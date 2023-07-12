@@ -524,5 +524,17 @@
     "death.attack.rootsclassic.fire": "%1$s burned to death",
     "death.attack.rootsclassic.fire.player": "%1$s burned to death because of %2$s",
     "death.attack.rootsclassic.wither": "%1$s withered away",
-    "death.attack.rootsclassic.wither.player": "%1$s ithered away because of %2$s"
+    "death.attack.rootsclassic.wither.player": "%1$s ithered away because of %2$s",
+
+		"rootsclassic.jei.tooltip.crafting": "",
+		"rootsclassic.jei.tooltip.engraved_crafting": "",
+		"rootsclassic.jei.tooltip.imbuer": "Imbuer",
+		"rootsclassic.jei.tooltip.life_drain": "Life Drain",
+		"rootsclassic.jei.tooltip.cause_rain": "Cause Rain",
+		"rootsclassic.jei.tooltip.banish_rain": "Banish Rain",
+		"rootsclassic.jei.tooltip.sacrifice": "Sacrifice",
+		"rootsclassic.jei.tooltip.mass_breeding": "Mass Breeding",
+		"rootsclassic.jei.tooltip.flare": "Flare",
+		"rootsclassic.jei.tooltip.time_shift": "Shift Time",
+		"rootsclassic.jei.tooltip.summoning": "Summons %s"
 }

@@ -1,8 +1,6 @@
 package elucent.rootsclassic.ritual.rituals;
 
 import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.ritual.RitualBase;
-import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
@@ -15,27 +13,16 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RitualEngravedSword extends RitualBase {
-
-	public ItemStack result = null;
-
-	public RitualBase setResult(ItemStack stack) {
-		this.result = stack;
-		return this;
-	}
-
-	public RitualEngravedSword(int level, double r, double g, double b) {
-		super(level, r, g, b);
-	}
+public class RitualEngravedSword extends RitualCrafting {
 
 	@Override
-	public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+	public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, RitualCraftingConfig config) {
 		List<Item> items = new ArrayList<>();
 		for (ItemStack i : incenses) {
 			items.add(i.getItem());
 		}
-		if (RootsUtil.itemListMatchInventoryWithSize(inventory, this.getIngredients())) {
-			ItemStack toSpawn = result.copy();
+
+			ItemStack toSpawn = config.result().copy();
 			if (!levelAccessor.isClientSide) {
 				int mods = 0;
 				ItemEntity item = new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
@@ -71,7 +58,7 @@ public class RitualEngravedSword extends RitualBase {
 			if (tile != null) {
 				tile.setChanged();
 			}
-		}
+
 	}
 
 	public void addMod(CompoundTag tag, String name) {

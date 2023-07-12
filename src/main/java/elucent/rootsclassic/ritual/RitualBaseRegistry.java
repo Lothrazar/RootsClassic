@@ -14,11 +14,11 @@ import java.util.function.Supplier;
 public class RitualBaseRegistry {
 	public static final ResourceLocation registryLocation = new ResourceLocation(Const.MODID, "ritual");
 
-	public static Supplier<IForgeRegistry<RitualBase>> RITUALS;
+	public static Supplier<IForgeRegistry<RitualEffect<?>>> RITUALS;
 
 	@SubscribeEvent
 	public static void onNewRegistry(NewRegistryEvent event) {
-		RegistryBuilder<RitualBase> registryBuilder = new RegistryBuilder<>();
+		RegistryBuilder<RitualEffect<?>> registryBuilder = new RegistryBuilder<>();
 		registryBuilder.setName(registryLocation);
 		registryBuilder.allowModification();
 		registryBuilder.missing(null);

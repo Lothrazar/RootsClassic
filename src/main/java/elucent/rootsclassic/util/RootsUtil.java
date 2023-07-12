@@ -293,4 +293,15 @@ public class RootsUtil {
 			stack.setDamageValue(stack.getDamageValue() - 1);
 		}
 	}
+
+	public static boolean matchesIngredients(List<ItemStack> inv, List<Ingredient> ingredients) {
+		if (inv.size() != ingredients.size()) return false;
+
+		var available = new ArrayList<>(inv);
+		return ingredients.stream().allMatch(ingredient -> {
+			var match = available.stream().filter(ingredient).findFirst();
+			match.ifPresent(available::remove);
+			return match.isPresent();
+		});
+	}
 }

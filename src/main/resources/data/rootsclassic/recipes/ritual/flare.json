@@ -1,0 +1,25 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:flare",
+  "level": 1,
+  "color": "#ff5b19",
+  "ingredients": [
+    {
+      "item": "minecraft:flint"
+    },
+    {
+      "item": "minecraft:coal"
+    },
+    {
+      "item": "minecraft:charcoal"
+    }
+  ],
+  "incenses": [
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "rootsclassic:infernal_bulb"
+    }
+  ]
+}
