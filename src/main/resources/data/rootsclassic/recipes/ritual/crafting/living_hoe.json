@@ -1,0 +1,28 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:crafting",
+  "level": 0,
+  "color": "#92d62b",
+  "ingredients": [
+    {
+      "item": "minecraft:wooden_hoe"
+    },
+    {
+      "item": "rootsclassic:verdant_sprig"
+    },
+    {
+      "item": "minecraft:gold_nugget"
+    }
+  ],
+  "incenses": [
+    {
+      "item": "rootsclassic:oak_bark"
+    },
+    {
+      "item": "rootsclassic:oak_bark"
+    }
+  ],
+  "result": {
+    "item": "rootsclassic:living_hoe"
+  }
+}

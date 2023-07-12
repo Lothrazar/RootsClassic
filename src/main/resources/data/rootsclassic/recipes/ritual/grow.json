@@ -1,0 +1,31 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:grow",
+  "level": 0,
+  "color": "#52d42f",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "item": "rootsclassic:verdant_sprig"
+    }
+  ],
+  "incenses": [
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "minecraft:beetroot"
+    },
+    {
+      "item": "minecraft:potato"
+    },
+    {
+      "item": "minecraft:carrot"
+    }
+  ]
+}

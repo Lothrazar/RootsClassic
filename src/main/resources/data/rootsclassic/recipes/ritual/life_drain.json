@@ -1,0 +1,28 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:life_drain",
+  "level": 0,
+  "color": "#8b1628",
+  "ingredients": [
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ],
+  "incenses": [
+    {
+      "item": "minecraft:wooden_sword"
+    },
+    {
+      "item": "minecraft:wooden_axe"
+    },
+    {
+      "item": "rootsclassic:dark_oak_bark"
+    },
+    {
+      "item": "rootsclassic:birch_bark"
+    }
+  ]
+}
