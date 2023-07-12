@@ -139,12 +139,8 @@ task signJar(type: SignJar, dependsOn: jar) {
     outputFile = jar.archivePath
 }
 
-task copyJar(type: Copy) {
-    from jar
-    into "${dist_folder}"
-}
 
-cleanJar {
+task cleanJar {
   delete 'build/libs'
 }
 
