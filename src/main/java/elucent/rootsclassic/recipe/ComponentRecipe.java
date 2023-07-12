@@ -84,6 +84,10 @@ public class ComponentRecipe implements Recipe<Container> {
     return recipeOutput.copy();
   }
 
+  public ItemStack getResultItem() {
+    return recipeOutput.copy();
+  }
+
   @Override
   public NonNullList<Ingredient> getIngredients() {
     return materials;

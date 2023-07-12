@@ -106,7 +106,7 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
 
 // !!
-//    implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-${mc_version}:${crafttweaker_version}")
+   implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-${mc_version}:${crafttweaker_version}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
@@ -141,7 +141,7 @@ task copyJar(type: Copy) {
     into "${dist_folder}"
 }
 
-cleanJar {
+task cleanJar {
   delete 'build/libs'
 }
 
