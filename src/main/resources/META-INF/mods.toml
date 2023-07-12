@@ -5,7 +5,7 @@ license="MIT"
 
 [[mods]]
 modId="rootsclassic"
-version="${file.jarVersion}"
+version="${mod_version}"
 displayName="Roots Classic"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/roots-classic"
 updateJSONURL="https://raw.githubusercontent.com/Lothrazar/RootsClassic/trunk/1.18/update.json"
@@ -19,3 +19,9 @@ mandatory=true
 versionRange="[1.20,1.21)"
 ordering="NONE"
 side="BOTH"
+[[dependencies.rootsclassic]]
+    modId="flib"
+    mandatory=false
+    versionRange="[0.0.4,)"
+    ordering="NONE"
+    side="BOTH"

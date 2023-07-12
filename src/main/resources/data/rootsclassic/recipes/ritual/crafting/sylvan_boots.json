@@ -1,0 +1,34 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:crafting",
+  "level": 2,
+  "color": "#3e8a3e",
+  "ingredients": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:leather_boots"
+    },
+    {
+      "item": "minecraft:vine"
+    }
+  ],
+  "incenses": [
+    {
+      "item": "rootsclassic:birch_bark"
+    },
+    {
+      "item": "rootsclassic:birch_bark"
+    },
+    {
+      "item": "minecraft:golden_apple"
+    },
+    {
+      "item": "minecraft:poppy"
+    }
+  ],
+  "result": {
+    "item": "rootsclassic:sylvan_boots"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "rootsclassic:ritual",
+  "effect": "rootsclassic:engraved_crafting",
+  "level": 2,
+  "color": "#686a6b",
+  "ingredients": [
+    {
+      "item": "minecraft:stone_sword"
+    },
+    {
+      "item": "rootsclassic:runic_focus"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    }
+  ],
+  "incenses": [
+    {
+      "item": "minecraft:golden_carrot"
+    },
+    {
+      "item": "minecraft:golden_apple"
+    }
+  ],
+  "result": {
+    "item": "rootsclassic:engraved_blade"
+  }
+}
