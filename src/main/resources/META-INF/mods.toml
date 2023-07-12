@@ -25,3 +25,9 @@ mandatory=true
 versionRange="[45.1.0,)"
 ordering="NONE"
 side="BOTH"
+[[dependencies.rootsclassic]]
+    modId="flib"
+    mandatory=false
+    versionRange="[0.0.4,)"
+    ordering="NONE"
+    side="BOTH"
