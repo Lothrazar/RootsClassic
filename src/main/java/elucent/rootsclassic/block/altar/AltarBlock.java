@@ -1,6 +1,6 @@
 package elucent.rootsclassic.block.altar;
 
-import javax.annotation.Nullable;
+import elucent.rootsclassic.block.BaseTEBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -10,11 +10,9 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import elucent.rootsclassic.block.BaseTEBlock;
 
+import javax.annotation.Nullable;
 import java.util.stream.Stream;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class AltarBlock extends BaseTEBlock {
   private static final VoxelShape SHAPE = Stream.of(

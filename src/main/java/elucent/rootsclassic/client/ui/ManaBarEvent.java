@@ -1,6 +1,12 @@
 package elucent.rootsclassic.client.ui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.capability.IManaCapability;
+import elucent.rootsclassic.capability.RootsCapabilityManager;
+import elucent.rootsclassic.client.ClientInfo;
+import elucent.rootsclassic.config.RootsConfig;
+import elucent.rootsclassic.item.IManaRelatedItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
@@ -11,12 +17,6 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.capability.IManaCapability;
-import elucent.rootsclassic.capability.RootsCapabilityManager;
-import elucent.rootsclassic.client.ClientInfo;
-import elucent.rootsclassic.config.RootsConfig;
-import elucent.rootsclassic.item.IManaRelatedItem;
 
 public class ManaBarEvent {
 

@@ -1,19 +1,19 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.util.List;
+import elucent.rootsclassic.ritual.RitualBase;
 import net.minecraft.block.IGrowable;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import elucent.rootsclassic.ritual.RitualBase;
+
+import java.util.List;
 
 public class RitualGrow extends RitualBase {
 
-  public RitualGrow(ResourceLocation name, int level, double r, double g, double b) {
-    super(name, level, r, g, b);
+  public RitualGrow(int level, double r, double g, double b) {
+    super(level, r, g, b);
   }
 
   @Override

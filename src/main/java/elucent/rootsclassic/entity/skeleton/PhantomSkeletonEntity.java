@@ -1,6 +1,6 @@
 package elucent.rootsclassic.entity.skeleton;
 
-import javax.annotation.Nullable;
+import elucent.rootsclassic.registry.RootsEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -19,7 +19,6 @@ import net.minecraft.entity.ai.goal.RestrictSunGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.monster.AbstractSkeletonEntity;
 import net.minecraft.entity.monster.EndermanEntity;
-import net.minecraft.entity.monster.EndermiteEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.monster.ZombieEntity;
@@ -34,8 +33,8 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
-import elucent.rootsclassic.registry.RootsEntities;
 
+import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 public class PhantomSkeletonEntity extends SkeletonEntity {

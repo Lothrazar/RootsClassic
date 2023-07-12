@@ -1,6 +1,9 @@
 package elucent.rootsclassic.component.components;
 
-import java.util.ArrayList;
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.component.ComponentBase;
+import elucent.rootsclassic.component.EnumCastType;
+import elucent.rootsclassic.config.RootsConfig;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,10 +12,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-import elucent.rootsclassic.Const;
-import elucent.rootsclassic.component.ComponentBase;
-import elucent.rootsclassic.component.EnumCastType;
-import elucent.rootsclassic.config.RootsConfig;
+
+import java.util.ArrayList;
 
 public class ComponentNetherWart extends ComponentBase {
 

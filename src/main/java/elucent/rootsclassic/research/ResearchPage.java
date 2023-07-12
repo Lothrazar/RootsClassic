@@ -1,10 +1,11 @@
 package elucent.rootsclassic.research;
 
-import java.util.ArrayList;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
 import elucent.rootsclassic.recipe.ComponentRecipe;
 import elucent.rootsclassic.ritual.RitualBase;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
+
+import java.util.ArrayList;
 
 public class ResearchPage {
 

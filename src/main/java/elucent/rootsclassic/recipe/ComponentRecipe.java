@@ -3,6 +3,9 @@ package elucent.rootsclassic.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import elucent.rootsclassic.item.SpellPowderItem;
+import elucent.rootsclassic.registry.RootsRecipes;
+import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -18,9 +21,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import elucent.rootsclassic.item.SpellPowderItem;
-import elucent.rootsclassic.registry.RootsRecipes;
-import elucent.rootsclassic.registry.RootsRegistry;
 
 public class ComponentRecipe implements IRecipe<IInventory> {
 
@@ -31,6 +31,11 @@ public class ComponentRecipe implements IRecipe<IInventory> {
   private final ItemStack recipeOutput;
   private final NonNullList<Ingredient> materials;
   private final boolean needsMixin;
+
+  @Override
+  public boolean isSpecial() {
+    return true;
+  }
 
   public ComponentRecipe(ResourceLocation idIn, ResourceLocation effectResult, String groupIn, ItemStack recipeOutputIn, NonNullList<Ingredient> recipeItemsIn, boolean needsMixin) {
     this.id = idIn;

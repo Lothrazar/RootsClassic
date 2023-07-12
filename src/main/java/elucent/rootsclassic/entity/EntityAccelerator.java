@@ -1,14 +1,15 @@
 package elucent.rootsclassic.entity;
 
-import java.util.Random;
+import elucent.rootsclassic.client.particles.MagicAuraParticleData;
+import elucent.rootsclassic.registry.RootsEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-import elucent.rootsclassic.client.particles.MagicAuraParticleData;
-import elucent.rootsclassic.registry.RootsEntities;
+
+import java.util.Random;
 
 public class EntityAccelerator extends Entity {
   private Entity entity;
@@ -31,14 +32,14 @@ public class EntityAccelerator extends Entity {
   @Override
   public void tick() {
     super.tick();
-    this.setPosRaw((entity.getBoundingBox().maxX + entity.getBoundingBox().minX) / 2.0 - 0.5,
-        (entity.getBoundingBox().maxY + entity.getBoundingBox().minY) / 2.0 - 0.5,
-        (entity.getBoundingBox().maxZ + entity.getBoundingBox().minZ) / 2.0 - 0.5);
     if (entity == null) {
       this.level.broadcastEntityEvent(this, (byte) 3);
       this.remove();
     }
     else {
+      this.setPosRaw((entity.getBoundingBox().maxX + entity.getBoundingBox().minX) / 2.0 - 0.5,
+              (entity.getBoundingBox().maxY + entity.getBoundingBox().minY) / 2.0 - 0.5,
+              (entity.getBoundingBox().maxZ + entity.getBoundingBox().minZ) / 2.0 - 0.5);
       for (int i = 0; i < potency; i++) {
         entity.tick();
         entity.baseTick();

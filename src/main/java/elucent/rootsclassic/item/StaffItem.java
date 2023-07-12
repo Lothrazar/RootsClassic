@@ -19,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -32,8 +33,6 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
-
-import net.minecraft.item.Item.Properties;
 
 public class StaffItem extends Item implements IManaRelatedItem {
 
@@ -144,10 +143,11 @@ public class StaffItem extends Item implements IManaRelatedItem {
 
   @Override
   public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-    if (stack.hasTag()) {
+    if (stack.hasTag() && stack.getItem() == this) {
       CompoundNBT tag = stack.getTag();
-      if (tag.getInt(NBT_USES) <= 0 && entityIn instanceof PlayerEntity) {
-        ((PlayerEntity) entityIn).inventory.setItem(itemSlot, ItemStack.EMPTY);
+      if (tag.contains(NBT_USES) && tag.getInt(NBT_USES) <= 0 && entityIn instanceof PlayerEntity) {
+        stack.shrink(1);
+        ((PlayerEntity)entityIn).awardStat(Stats.ITEM_BROKEN.get(stack.getItem()));
       }
     }
   }

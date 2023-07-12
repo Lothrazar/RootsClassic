@@ -8,8 +8,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class RadiantDaisyBlock extends BushBlock {
 
   private static final VoxelShape SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 8.0D, 10.0D);

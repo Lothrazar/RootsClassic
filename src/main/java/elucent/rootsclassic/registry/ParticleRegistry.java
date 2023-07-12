@@ -1,13 +1,5 @@
 package elucent.rootsclassic.registry;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.particles.ParticleType;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.client.particles.MagicAltarLineParticleData;
 import elucent.rootsclassic.client.particles.MagicAltarParticleData;
@@ -16,6 +8,14 @@ import elucent.rootsclassic.client.particles.MagicLineParticleData;
 import elucent.rootsclassic.client.particles.MagicParticleData;
 import elucent.rootsclassic.client.particles.factory.MagicParticleType;
 import elucent.rootsclassic.client.particles.factory.MagicParticleTypeData;
+import net.minecraft.client.Minecraft;
+import net.minecraft.particles.ParticleType;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber(modid = Const.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ParticleRegistry {

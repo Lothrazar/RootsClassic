@@ -1,6 +1,7 @@
 package elucent.rootsclassic.entity;
 
-import java.util.Random;
+import elucent.rootsclassic.client.particles.MagicAuraParticleData;
+import elucent.rootsclassic.registry.RootsEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
@@ -9,8 +10,8 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-import elucent.rootsclassic.client.particles.MagicAuraParticleData;
-import elucent.rootsclassic.registry.RootsEntities;
+
+import java.util.Random;
 
 public class EntityTileAccelerator extends Entity {
   private BlockPos pos;
@@ -49,31 +50,33 @@ public class EntityTileAccelerator extends Entity {
       this.level.broadcastEntityEvent(this, (byte) 3);
       this.remove();
     }
-    for (int i = 0; i < 2; i++) {
-      int side = random.nextInt(6);
-      if (side == 0) {
-        level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getX(), getY() + random.nextDouble(), getZ() + random.nextDouble(), 0, 0, 0);
-      }
-      if (side == 1) {
-        level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getX() + 1.0, getY() + random.nextDouble(), getZ() + random.nextDouble(), 0, 0, 0);
-      }
-      if (side == 2) {
-        level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getX() + random.nextDouble(), getY(), getZ() + random.nextDouble(), 0, 0, 0);
-      }
-      if (side == 3) {
-        level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getX() + random.nextDouble(), getY() + 1.0, getZ() + random.nextDouble(), 0, 0, 0);
-      }
-      if (side == 4) {
-        level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getX() + random.nextDouble(), getY() + random.nextDouble(), getZ(), 0, 0, 0);
-      }
-      if (side == 5) {
-        level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
-            getX() + random.nextDouble(), getY() + random.nextDouble(), getZ() + 1.0, 0, 0, 0);
+    if (level.isClientSide) {
+      for (int i = 0; i < 2; i++) {
+        int side = random.nextInt(6);
+        if (side == 0) {
+          level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+                  getX(), getY() + random.nextDouble(), getZ() + random.nextDouble(), 0, 0, 0);
+        }
+        if (side == 1) {
+          level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+                  getX() + 1.0, getY() + random.nextDouble(), getZ() + random.nextDouble(), 0, 0, 0);
+        }
+        if (side == 2) {
+          level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+                  getX() + random.nextDouble(), getY(), getZ() + random.nextDouble(), 0, 0, 0);
+        }
+        if (side == 3) {
+          level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+                  getX() + random.nextDouble(), getY() + 1.0, getZ() + random.nextDouble(), 0, 0, 0);
+        }
+        if (side == 4) {
+          level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+                  getX() + random.nextDouble(), getY() + random.nextDouble(), getZ(), 0, 0, 0);
+        }
+        if (side == 5) {
+          level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
+                  getX() + random.nextDouble(), getY() + random.nextDouble(), getZ() + 1.0, 0, 0, 0);
+        }
       }
     }
     lifetime--;
