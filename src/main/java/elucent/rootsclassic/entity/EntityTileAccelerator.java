@@ -39,6 +39,7 @@ public class EntityTileAccelerator extends Entity {
     this.bePosition = pos;
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public void tick() {
     super.tick();

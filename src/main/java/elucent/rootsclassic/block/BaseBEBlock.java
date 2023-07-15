@@ -27,6 +27,7 @@ public class BaseBEBlock extends Block {
     }
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public InteractionResult use(BlockState state, Level levelAccessor, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
     if (levelAccessor.getBlockEntity(pos) instanceof BEBase) {
@@ -35,6 +36,7 @@ public class BaseBEBlock extends Block {
     return super.use(state, levelAccessor, pos, player, handIn, hit);
   }
 
+  @SuppressWarnings("unchecked")
   @Nullable
   protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> typeA, BlockEntityType<E> typeE, BlockEntityTicker<? super E> typeE2) {
     return typeE == typeA ? (BlockEntityTicker<A>) typeE2 : null;

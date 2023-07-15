@@ -23,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class RitualSummoning extends RitualEffect<RitualSummoning.RitualSummoningConfig> {
@@ -32,8 +33,8 @@ public class RitualSummoning extends RitualEffect<RitualSummoning.RitualSummonin
     if (!levelAccessor.isClientSide) {
       Entity toSpawn = config.entityType.create(levelAccessor);
       if (toSpawn != null) {
-        if (toSpawn instanceof Mob mob) {
-          mob.finalizeSpawn((ServerLevel) levelAccessor, levelAccessor.getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
+        if (toSpawn instanceof Mob mob && levelAccessor instanceof ServerLevel sl) {
+          ForgeEventFactory.onFinalizeSpawn(mob, sl, levelAccessor.getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
         }
         toSpawn.setPos(pos.getX() + 0.5, pos.getY() + 2.0, pos.getZ() + 0.5);
         inventory.clearContent();

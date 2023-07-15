@@ -25,7 +25,8 @@ public class ComponentLilac extends ComponentBase {
       BlockPos pos = RootsUtil.getRayTrace(level, caster, 4 + 2 * (int) size);
       boolean fullEfficiency = growBlockSafe(level, pos, (int) potency) && growBlockSafe(level, pos.east(), (int) potency) &&
           growBlockSafe(level, pos.west(), (int) potency) && growBlockSafe(level, pos.north(), (int) potency) && growBlockSafe(level, pos.south(), (int) potency);
-      //			if (fullEfficiency) { TODO: Re-implement the advancements maybe?
+      //  if (fullEfficiency) { 
+      // TODO: Re-implement the advancements maybe?
       //				ServerPlayerEntity player = (ServerPlayerEntity)caster;
       //				Advancement advancementIn = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation(Const.MODID + ":achieve_spell_growth"));
       //				if (advancementIn != null) {
@@ -35,8 +36,7 @@ public class ComponentLilac extends ComponentBase {
       //							player.getAdvancements().grantCriterion(advancementIn, s);
       //						}
       //					}
-      //				}
-      //			}
+      // 			}
     }
   }
 
