@@ -116,7 +116,7 @@ dependencies {
    implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-${mc_version}:${crafttweaker_version}")
    
    
- implementation fg.deobf("blank:flib-1.20.1:0.0.7-SNAPSHOT")
+ implementation fg.deobf("blank:flib-1.20.1:${flib_version}")
 // implementation fg.deobf("curse.maven:flib-661261:4583429")
 }
 tasks.named('processResources', ProcessResources).configure {
