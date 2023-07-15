@@ -1,5 +1,6 @@
 package elucent.rootsclassic.entity;
 
+import java.util.Random;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsEntities;
 import net.minecraft.nbt.CompoundTag;
@@ -9,8 +10,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
-
-import java.util.Random;
 
 public class EntityAccelerator extends Entity {
 	private Entity entity;

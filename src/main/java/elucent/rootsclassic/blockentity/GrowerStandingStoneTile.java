@@ -1,5 +1,8 @@
 package elucent.rootsclassic.blockentity;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.item.GrowthPowderItem;
 import elucent.rootsclassic.registry.RootsRegistry;
@@ -8,10 +11,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class GrowerStandingStoneTile extends BEBase {
 	private static final double PCT_CHANCE_PER_BLOCK = 0.03;

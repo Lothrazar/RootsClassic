@@ -1,5 +1,7 @@
 package elucent.rootsclassic.ritual.rituals;
 
+import java.util.ArrayList;
+import java.util.List;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -9,9 +11,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RitualEngravedSword extends RitualCrafting {
 

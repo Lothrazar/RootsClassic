@@ -1,13 +1,12 @@
 package elucent.rootsclassic.capability;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ManaCapability implements IManaCapability, ICapabilitySerializable<CompoundTag> {
 	private float maxMana = 40;

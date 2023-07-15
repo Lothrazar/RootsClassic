@@ -4,9 +4,9 @@ import java.util.Map;
 import java.util.function.Supplier;
 import com.google.common.collect.ImmutableMap.Builder;
 import com.lothrazar.library.item.ItemFlib;
+import com.lothrazar.library.util.ItemStackUtil;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -52,7 +52,7 @@ public class DruidKnifeItem extends ItemFlib {
 
   @Override
   public void inventoryTick(ItemStack stack, Level levelAccessor, Entity entity, int slot, boolean selected) {
-    RootsUtil.randomlyRepair(levelAccessor.random, stack);
+    ItemStackUtil.randomlyRepair(levelAccessor.random, stack, 80);
   }
 
   public InteractionResult useOn(UseOnContext context) {

@@ -2,6 +2,7 @@ package elucent.rootsclassic.client.screen;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.lothrazar.library.util.RenderUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import elucent.rootsclassic.Const;
@@ -12,7 +13,6 @@ import elucent.rootsclassic.research.ResearchBase;
 import elucent.rootsclassic.research.ResearchGroup;
 import elucent.rootsclassic.research.ResearchPage;
 import elucent.rootsclassic.ritual.RitualPillars;
-import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -146,7 +146,7 @@ public class TabletPageScreen extends Screen {
           textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 32 + i * 11));
         }
         title = makeTitle();
-        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
+        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RenderUtil.intColor(255, 255, 255)));
       }
       case TYPE_SMELTING -> {
         //        RenderSystem.setShaderTexture(0, Const.tabletSmelting);
@@ -155,10 +155,10 @@ public class TabletPageScreen extends Screen {
         slots.add(new ScreenSlotInstance(page.smeltingRecipe.get(1), basePosX + 144, basePosY + 56));
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
-          textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 104 + i * 11, RootsUtil.intColor(255, 255, 255)));
+          textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 104 + i * 11, RenderUtil.intColor(255, 255, 255)));
         }
         title = makeTitle();
-        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
+        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RenderUtil.intColor(255, 255, 255)));
       }
       case TYPE_DISPLAY -> {
         //        RenderSystem.setShaderTexture(0, Const.tabletDisplay);
@@ -166,10 +166,10 @@ public class TabletPageScreen extends Screen {
         slots.add(new ScreenSlotInstance(page.displayItem, basePosX + 88, basePosY + 48));
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
-          textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 80 + i * 11, RootsUtil.intColor(255, 255, 255)));
+          textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 80 + i * 11, RenderUtil.intColor(255, 255, 255)));
         }
         title = makeTitle();
-        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
+        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RenderUtil.intColor(255, 255, 255)));
       }
       case TYPE_ALTAR -> {
         //        RenderSystem.setShaderTexture(0, Const.tabletAltar);
@@ -202,7 +202,7 @@ public class TabletPageScreen extends Screen {
           slots.add(new ScreenSlotInstance(stack, basePosX + 76 + 16 * i, basePosY + 88));
         }
         title = makeTitle();
-        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
+        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RenderUtil.intColor(255, 255, 255)));
       }
       case TYPE_MORTAR -> {
         //        RenderSystem.setShaderTexture(0, Const.tabletMortar);
@@ -225,14 +225,14 @@ public class TabletPageScreen extends Screen {
           }
           info = page.makeLines(makeInfo());
           for (int i = 0; i < info.size(); i++) {
-            textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 96 + i * 11, RootsUtil.intColor(255, 255, 255)));
+            textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 96 + i * 11, RenderUtil.intColor(255, 255, 255)));
           }
         }
         else {
           //Disabled?
           title = ChatFormatting.RED + I18n.get("rootsclassic.research.disabled");
         }
-        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
+        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RenderUtil.intColor(255, 255, 255)));
       }
     }//end of big switch
     for (ScreenSlotInstance s : slots) {

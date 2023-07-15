@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 import elucent.rootsclassic.Const;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -73,16 +72,6 @@ public class RootsUtil {
       }
     }
     return null;
-  }
-
-  public static int intColor(int r, int g, int b) {
-    return (r * 65536 + g * 256 + b);
-  }
-
-  public static void randomlyRepair(RandomSource rnd, ItemStack stack) {
-    if (stack.isDamaged() && rnd.nextInt(80) == 0) {
-      stack.setDamageValue(stack.getDamageValue() - 1);
-    }
   }
 
   public static boolean matchesIngredients(List<ItemStack> inv, List<Ingredient> ingredients) {

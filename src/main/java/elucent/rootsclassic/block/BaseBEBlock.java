@@ -1,5 +1,6 @@
 package elucent.rootsclassic.block;
 
+import javax.annotation.Nullable;
 import elucent.rootsclassic.blockentity.BEBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -12,8 +13,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-
-import javax.annotation.Nullable;
 
 public class BaseBEBlock extends Block {
 

@@ -1,5 +1,6 @@
 package elucent.rootsclassic.blockentity;
 
+import java.util.List;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
@@ -10,8 +11,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.List;
 
 public class VacuumStandingStoneTile extends BEBase {
 	private int ticker = 0;

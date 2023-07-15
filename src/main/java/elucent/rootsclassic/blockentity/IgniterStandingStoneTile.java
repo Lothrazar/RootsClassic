@@ -1,5 +1,6 @@
 package elucent.rootsclassic.blockentity;
 
+import java.util.List;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
@@ -9,8 +10,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-
-import java.util.List;
 
 public class IgniterStandingStoneTile extends BEBase {
 	private static final int RADIUS = 10;

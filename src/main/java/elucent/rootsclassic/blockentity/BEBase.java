@@ -16,30 +16,34 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public abstract class BEBase extends BlockEntity {
 
-	public BEBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
-		super(tileEntityTypeIn, pos, state);
-	}
+  public static final String NBT_INVENTORY = "InventoryHandler";
+  public static final String NBT_PROGRESS = "progress";
+  public static final String NBT_BURNING = "burning";
 
-	@Override
-	public ClientboundBlockEntityDataPacket getUpdatePacket() {
-		return ClientboundBlockEntityDataPacket.create(this, BlockEntity::getUpdateTag);
-	}
+  public BEBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
+    super(tileEntityTypeIn, pos, state);
+  }
 
-	@Override
-	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet) {
-		super.onDataPacket(net, packet);
-	}
+  @Override
+  public ClientboundBlockEntityDataPacket getUpdatePacket() {
+    return ClientboundBlockEntityDataPacket.create(this, BlockEntity::getUpdateTag);
+  }
 
-	@Override
-	public CompoundTag getUpdateTag() {
-		return super.saveWithoutMetadata();
-	}
+  @Override
+  public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet) {
+    super.onDataPacket(net, packet);
+  }
 
-	public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
-		this.setRemoved();
-	}
+  @Override
+  public CompoundTag getUpdateTag() {
+    return super.saveWithoutMetadata();
+  }
 
-	public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
-		return InteractionResult.PASS;
-	}
+  public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
+    this.setRemoved();
+  }
+
+  public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
+    return InteractionResult.PASS;
+  }
 }

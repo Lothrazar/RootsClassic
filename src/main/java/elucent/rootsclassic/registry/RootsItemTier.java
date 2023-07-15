@@ -1,13 +1,12 @@
 package elucent.rootsclassic.registry;
 
+import java.util.List;
 import elucent.rootsclassic.Const;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import net.minecraftforge.common.ForgeTier;
 import net.minecraftforge.common.TierSortingRegistry;
-
-import java.util.List;
 
 public class RootsItemTier {
 	public static final Tier LIVING = TierSortingRegistry.registerTier(

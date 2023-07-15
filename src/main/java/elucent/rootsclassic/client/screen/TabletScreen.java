@@ -1,5 +1,6 @@
 package elucent.rootsclassic.client.screen;
 
+import com.lothrazar.library.util.RenderUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -12,7 +13,6 @@ import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.research.ResearchBase;
 import elucent.rootsclassic.research.ResearchGroup;
 import elucent.rootsclassic.research.ResearchManager;
-import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -145,11 +145,11 @@ public class TabletScreen extends Screen {
       }
       if (mouseX >= basePosX + 32 * xShift && mouseX < basePosX + 32 * xShift + 24 && mouseY >= 32 + 40 * yShift && mouseY < 32 + 40 * yShift + 24) {
         String name = I18n.get(researchName + "." + ResearchManager.globalResearches.get(currentGroup).researches.get(i).getName());
-        guiGraphics.drawString(font, name, basePosX + 32 * xShift + 12 - (font.width(name) / 2.0f), 32 + 40 * yShift + 25, RootsUtil.intColor(255, 255, 255), true);
+        guiGraphics.drawString(font, name, basePosX + 32 * xShift + 12 - (font.width(name) / 2.0f), 32 + 40 * yShift + 25, RenderUtil.intColor(255, 255, 255), true);
       }
     }
     String formattedName = I18n.get(researchName);
-    guiGraphics.drawString(font, formattedName, width / 2.0f - (font.width(formattedName) / 2.0f), height - 16.0f, RootsUtil.intColor(255, 255, 255), true);
+    guiGraphics.drawString(font, formattedName, width / 2.0f - (font.width(formattedName) / 2.0f), height - 16.0f, RenderUtil.intColor(255, 255, 255), true);
     if (mouseX >= 32 && mouseX < 64 && mouseY >= height - 48 && mouseY < height - 32) {
       guiGraphics.blit(Const.tabletGui, 32, height - 48, 32, 80, 32, 16);
     }

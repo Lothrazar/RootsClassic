@@ -1,5 +1,7 @@
 package elucent.rootsclassic.registry;
 
+import java.util.EnumMap;
+import java.util.function.Supplier;
 import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -9,9 +11,6 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.util.EnumMap;
-import java.util.function.Supplier;
 
 public enum RootsArmorMaterial implements ArmorMaterial {
 	SYLVAN("rootsclassic:sylvan", 10, Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {

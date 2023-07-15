@@ -1,5 +1,7 @@
 package elucent.rootsclassic.component;
 
+import java.util.List;
+import java.util.Optional;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.components.ComponentAllium;
 import elucent.rootsclassic.component.components.ComponentApple;
@@ -32,9 +34,6 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.List;
-import java.util.Optional;
 
 public class ComponentRegistry {
 	public static final DeferredRegister<ComponentBase> COMPONENTS = DeferredRegister.create(ComponentBaseRegistry.registryLocation, Const.MODID);

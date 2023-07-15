@@ -1,5 +1,6 @@
 package elucent.rootsclassic.ritual;
 
+import java.util.List;
 import com.google.gson.JsonObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -8,8 +9,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-
-import java.util.List;
 
 public abstract class RitualEffect<C> {
 

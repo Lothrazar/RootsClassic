@@ -1,5 +1,8 @@
 package elucent.rootsclassic.ritual;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import com.google.common.collect.ImmutableMap;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.block.brazier.BrazierBlockEntity;
@@ -10,10 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class RitualPillars {
 

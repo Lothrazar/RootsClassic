@@ -1,5 +1,8 @@
 package elucent.rootsclassic.ritual;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.block.altar.AltarBlockEntity;
 import elucent.rootsclassic.block.brazier.BrazierBlockEntity;
@@ -26,10 +29,6 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 public class RitualRegistry {
 	public static final DeferredRegister<RitualEffect> RITUALS = DeferredRegister.create(RitualBaseRegistry.registryLocation, Const.MODID);

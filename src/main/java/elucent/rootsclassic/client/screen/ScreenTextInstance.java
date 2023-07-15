@@ -1,67 +1,68 @@
 package elucent.rootsclassic.client.screen;
 
-import elucent.rootsclassic.util.RootsUtil;
+import com.lothrazar.library.util.RenderUtil;
 
 public class ScreenTextInstance {
-	private String line;
-	private float x;
-	private float y;
-	private int color;
-	private boolean shadow = true;
 
-	public ScreenTextInstance(String line, float x, float y, int color, boolean shadow) {
-		this.setLine(line);
-		this.setX(x);
-		this.setY(y);
-		this.setColor(color);
-		this.setShadow(shadow);
-	}
+  private String line;
+  private float x;
+  private float y;
+  private int color;
+  private boolean shadow = true;
 
-	public ScreenTextInstance(String line, float x, float y, int color) {
-		this(line, x, y, color, true);
-	}
+  public ScreenTextInstance(String line, float x, float y, int color, boolean shadow) {
+    this.setLine(line);
+    this.setX(x);
+    this.setY(y);
+    this.setColor(color);
+    this.setShadow(shadow);
+  }
 
-	public ScreenTextInstance(String line, float x, float y) {
-		this(line, x, y, RootsUtil.intColor(255, 255, 255));
-	}
+  public ScreenTextInstance(String line, float x, float y, int color) {
+    this(line, x, y, color, true);
+  }
 
-	public String getLine() {
-		return line;
-	}
+  public ScreenTextInstance(String line, float x, float y) {
+    this(line, x, y, RenderUtil.intColor(255, 255, 255));
+  }
 
-	public void setLine(String line) {
-		this.line = line;
-	}
+  public String getLine() {
+    return line;
+  }
 
-	public float getX() {
-		return x;
-	}
+  public void setLine(String line) {
+    this.line = line;
+  }
 
-	public void setX(float x) {
-		this.x = x;
-	}
+  public float getX() {
+    return x;
+  }
 
-	public float getY() {
-		return y;
-	}
+  public void setX(float x) {
+    this.x = x;
+  }
 
-	public void setY(float y) {
-		this.y = y;
-	}
+  public float getY() {
+    return y;
+  }
 
-	public int getColor() {
-		return color;
-	}
+  public void setY(float y) {
+    this.y = y;
+  }
 
-	public void setColor(int color) {
-		this.color = color;
-	}
+  public int getColor() {
+    return color;
+  }
 
-	public boolean isShadow() {
-		return shadow;
-	}
+  public void setColor(int color) {
+    this.color = color;
+  }
 
-	public void setShadow(boolean shadow) {
-		this.shadow = shadow;
-	}
+  public boolean isShadow() {
+    return shadow;
+  }
+
+  public void setShadow(boolean shadow) {
+    this.shadow = shadow;
+  }
 }

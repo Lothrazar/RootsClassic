@@ -1,5 +1,7 @@
 package elucent.rootsclassic.block.altar;
 
+import java.util.stream.Stream;
+import javax.annotation.Nullable;
 import elucent.rootsclassic.block.BaseBEBlock;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
@@ -15,9 +17,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import javax.annotation.Nullable;
-import java.util.stream.Stream;
 
 public class AltarBlock extends BaseBEBlock implements EntityBlock {
 	private static final VoxelShape SHAPE = Stream.of(

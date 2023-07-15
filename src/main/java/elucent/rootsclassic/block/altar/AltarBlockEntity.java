@@ -1,5 +1,10 @@
 package elucent.rootsclassic.block.altar;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import elucent.rootsclassic.block.brazier.BrazierBlockEntity;
 import elucent.rootsclassic.blockentity.BEBase;
 import elucent.rootsclassic.client.particles.MagicAltarParticleData;
@@ -26,12 +31,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AltarBlockEntity extends BEBase {
 	private static final int RECIPE_PROGRESS_TIME = 200;

@@ -1,5 +1,7 @@
 package elucent.rootsclassic.entity.skeleton;
 
+import java.util.function.Predicate;
+import javax.annotation.Nullable;
 import elucent.rootsclassic.registry.RootsEntities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
@@ -33,9 +35,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.common.util.FakePlayer;
-
-import javax.annotation.Nullable;
-import java.util.function.Predicate;
 
 public class PhantomSkeletonEntity extends Skeleton {
 

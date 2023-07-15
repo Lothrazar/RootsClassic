@@ -1,5 +1,6 @@
 package elucent.rootsclassic.ritual.rituals;
 
+import java.util.List;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.item.CrystalStaffItem;
 import elucent.rootsclassic.registry.RootsRegistry;
@@ -10,8 +11,6 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-
-import java.util.List;
 
 public class RitualImbuer extends SimpleRitualEffect {
 

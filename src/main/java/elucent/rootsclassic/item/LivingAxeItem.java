@@ -1,6 +1,6 @@
 package elucent.rootsclassic.item;
 
-import elucent.rootsclassic.util.RootsUtil;
+import com.lothrazar.library.util.ItemStackUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
@@ -16,7 +16,7 @@ public class LivingAxeItem extends AxeItem {
 
   @Override
   public void inventoryTick(ItemStack stack, Level levelAccessor, Entity entity, int slot, boolean selected) {
-    RootsUtil.randomlyRepair(levelAccessor.random, stack);
+    ItemStackUtil.randomlyRepair(levelAccessor.random, stack, 80);
   }
 
   @Override

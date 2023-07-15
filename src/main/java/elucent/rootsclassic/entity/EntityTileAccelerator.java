@@ -1,5 +1,6 @@
 package elucent.rootsclassic.entity;
 
+import java.util.Random;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsEntities;
 import net.minecraft.core.BlockPos;
@@ -14,8 +15,6 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.NetworkHooks;
-
-import java.util.Random;
 
 public class EntityTileAccelerator extends Entity {
 	private BlockPos bePosition;

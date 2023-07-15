@@ -1,5 +1,6 @@
 package elucent.rootsclassic.registry;
 
+import java.util.List;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.block.AcceleratorStandingStoneBlock;
 import elucent.rootsclassic.block.AestheticStandingStoneBlock;
@@ -67,8 +68,6 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.List;
 
 public class RootsRegistry {
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Const.MODID);

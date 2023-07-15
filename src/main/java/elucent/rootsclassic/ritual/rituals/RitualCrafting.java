@@ -1,5 +1,6 @@
 package elucent.rootsclassic.ritual.rituals;
 
+import java.util.List;
 import com.google.gson.JsonObject;
 import elucent.rootsclassic.ritual.RitualEffect;
 import net.minecraft.core.BlockPos;
@@ -10,8 +11,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
-
-import java.util.List;
 
 public class RitualCrafting extends RitualEffect<RitualCrafting.RitualCraftingConfig> {
 

@@ -1,5 +1,6 @@
 package elucent.rootsclassic.block.mortar;
 
+import javax.annotation.Nonnull;
 import elucent.rootsclassic.blockentity.BEBase;
 import elucent.rootsclassic.recipe.ComponentRecipe;
 import elucent.rootsclassic.registry.RootsRecipes;
@@ -22,8 +23,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
-
-import javax.annotation.Nonnull;
 
 public class MortarBlockEntity extends BEBase {
 	public final ItemStackHandler inventory = new ItemStackHandler(8) {

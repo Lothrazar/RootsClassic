@@ -1,5 +1,6 @@
 package elucent.rootsclassic.client.renderer.block;
 
+import java.util.Random;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import elucent.rootsclassic.block.mortar.MortarBlockEntity;
@@ -10,8 +11,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
-
-import java.util.Random;
 
 public class MortarBER implements BlockEntityRenderer<MortarBlockEntity> {
 
