@@ -7,17 +7,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
 public class AcceleratorRenderer<T extends Entity> extends EntityRenderer<T> {
-	public AcceleratorRenderer(EntityRendererProvider.Context context) {
-		super(context);
-	}
 
-	@Override
-	public boolean shouldRender(T livingEntityIn, Frustum camera, double camX, double camY, double camZ) {
-		return false;
-	}
+  public AcceleratorRenderer(EntityRendererProvider.Context context) {
+    super(context);
+  }
 
-	@Override
-	public ResourceLocation getTextureLocation(T entity) {
-		return null;
-	}
+  @Override
+  public boolean shouldRender(T livingEntityIn, Frustum camera, double camX, double camY, double camZ) {
+    return false;
+  }
+
+  @Override
+  public ResourceLocation getTextureLocation(T entity) {
+    return null;
+  }
 }

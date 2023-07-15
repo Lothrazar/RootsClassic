@@ -13,29 +13,28 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public class AcceleratorStandingStoneBlock extends AttunedStandingStoneBlock implements EntityBlock {
-	public AcceleratorStandingStoneBlock(Properties properties) {
-		super(properties);
-	}
 
-	@Nullable
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-			return new AcceleratorStandingStoneTile(pos, state);
-		}
-		return null;
-	}
+  public AcceleratorStandingStoneBlock(Properties properties) {
+    super(properties);
+  }
 
-	@Nullable
-	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
-		return createStandingStoneTicker(level, entityType, RootsRegistry.ACCELERATOR_STANDING_STONE_TILE.get());
-	}
+  @Nullable
+  @Override
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
+      return new AcceleratorStandingStoneTile(pos, state);
+    }
+    return null;
+  }
 
-	@Nullable
-	protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends AcceleratorStandingStoneTile> standingStoneType) {
-		return level.isClientSide ?
-			createTickerHelper(entityType, standingStoneType, AcceleratorStandingStoneTile::clientTick) :
-			createTickerHelper(entityType, standingStoneType, AcceleratorStandingStoneTile::serverTick);
-	}
+  @Nullable
+  @Override
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+    return createStandingStoneTicker(level, entityType, RootsRegistry.ACCELERATOR_STANDING_STONE_TILE.get());
+  }
+
+  @Nullable
+  protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends AcceleratorStandingStoneTile> standingStoneType) {
+    return level.isClientSide ? createTickerHelper(entityType, standingStoneType, AcceleratorStandingStoneTile::clientTick) : createTickerHelper(entityType, standingStoneType, AcceleratorStandingStoneTile::serverTick);
+  }
 }

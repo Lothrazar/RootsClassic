@@ -29,6 +29,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
+@SuppressWarnings("rawtypes")
 public class RitualRecipe<C> implements Recipe<Container> {
 
   private final ResourceLocation id;
@@ -107,6 +108,7 @@ public class RitualRecipe<C> implements Recipe<Container> {
     return effect.getInfoText(effectConfig);
   }
 
+  @SuppressWarnings("unchecked")
   public static class SerializeRitualRecipe implements RecipeSerializer<RitualRecipe<?>> {
 
     @Override

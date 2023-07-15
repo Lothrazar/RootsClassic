@@ -11,16 +11,16 @@ import net.minecraftforge.registries.RegistryBuilder;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = Const.MODID)
 public class ComponentBaseRegistry {
-	public static final ResourceLocation registryLocation = new ResourceLocation(Const.MODID, "component");
 
-	public static Supplier<IForgeRegistry<ComponentBase>> COMPONENTS;
+  public static final ResourceLocation registryLocation = new ResourceLocation(Const.MODID, "component");
+  public static Supplier<IForgeRegistry<ComponentBase>> COMPONENTS;
 
-	@SubscribeEvent
-	public static void onNewRegistry(NewRegistryEvent event) {
-		RegistryBuilder<ComponentBase> registryBuilder = new RegistryBuilder<>();
-		registryBuilder.setName(registryLocation);
-		registryBuilder.allowModification();
-		registryBuilder.missing(null);
-		COMPONENTS = event.create(registryBuilder);
-	}
+  @SubscribeEvent
+  public static void onNewRegistry(NewRegistryEvent event) {
+    RegistryBuilder<ComponentBase> registryBuilder = new RegistryBuilder<>();
+    registryBuilder.setName(registryLocation);
+    registryBuilder.allowModification();
+    registryBuilder.missing(null);
+    COMPONENTS = event.create(registryBuilder);
+  }
 }

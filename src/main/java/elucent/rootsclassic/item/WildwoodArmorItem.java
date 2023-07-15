@@ -27,6 +27,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.fml.DistExecutor;
 
+@SuppressWarnings("deprecation")
 public class WildwoodArmorItem extends ArmorItem {
 
   private final LazyLoadedValue<HumanoidModel<?>> model;

@@ -9,9 +9,9 @@ import net.minecraft.world.level.Level;
 
 public class RitualBanishRain extends SimpleRitualEffect {
 
-	@Override
-	public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
-		inventory.clearContent();
-		levelAccessor.getLevelData().setRaining(false);
-	}
+  @Override
+  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+    inventory.clearContent();
+    levelAccessor.getLevelData().setRaining(false);
+  }
 }

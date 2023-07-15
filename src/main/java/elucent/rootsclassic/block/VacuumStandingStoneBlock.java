@@ -14,29 +14,27 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public class VacuumStandingStoneBlock extends AttunedStandingStoneBlock implements EntityBlock {
 
-	public VacuumStandingStoneBlock(Properties properties) {
-		super(properties);
-	}
+  public VacuumStandingStoneBlock(Properties properties) {
+    super(properties);
+  }
 
-	@Nullable
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
-			return new VacuumStandingStoneTile(pos, state);
-		}
-		return null;
-	}
+  @Nullable
+  @Override
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
+      return new VacuumStandingStoneTile(pos, state);
+    }
+    return null;
+  }
 
-	@Nullable
-	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
-		return createStandingStoneTicker(level, entityType, RootsRegistry.VACUUM_STANDING_STONE_TILE.get());
-	}
+  @Nullable
+  @Override
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+    return createStandingStoneTicker(level, entityType, RootsRegistry.VACUUM_STANDING_STONE_TILE.get());
+  }
 
-	@Nullable
-	protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends VacuumStandingStoneTile> standingStoneType) {
-		return level.isClientSide ?
-			createTickerHelper(entityType, standingStoneType, VacuumStandingStoneTile::clientTick) :
-			createTickerHelper(entityType, standingStoneType, VacuumStandingStoneTile::serverTick);
-	}
+  @Nullable
+  protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends VacuumStandingStoneTile> standingStoneType) {
+    return level.isClientSide ? createTickerHelper(entityType, standingStoneType, VacuumStandingStoneTile::clientTick) : createTickerHelper(entityType, standingStoneType, VacuumStandingStoneTile::serverTick);
+  }
 }

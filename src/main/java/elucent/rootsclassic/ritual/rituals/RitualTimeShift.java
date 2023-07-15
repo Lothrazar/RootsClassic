@@ -13,23 +13,23 @@ import net.minecraft.world.level.Level;
 
 public class RitualTimeShift extends SimpleRitualEffect {
 
-	@Override
-	public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
-		long shiftAmount = 0;
-		List<Item> items = new ArrayList<>();
-		for (ItemStack i : incenses) {
-			items.add(i.getItem());
-		}
-		for (Item i : items) {
-			if (i == Items.CLOCK) {
-				shiftAmount += 1000;
-			}
-		}
-		inventory.clearContent();
-		if (!levelAccessor.isClientSide && levelAccessor.getServer() != null) {
-			for (ServerLevel serverLevel : levelAccessor.getServer().getAllLevels()) {
-				serverLevel.setDayTime(serverLevel.getDayTime() + (long) shiftAmount);
-			}
-		}
-	}
+  @Override
+  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+    long shiftAmount = 0;
+    List<Item> items = new ArrayList<>();
+    for (ItemStack i : incenses) {
+      items.add(i.getItem());
+    }
+    for (Item i : items) {
+      if (i == Items.CLOCK) {
+        shiftAmount += 1000;
+      }
+    }
+    inventory.clearContent();
+    if (!levelAccessor.isClientSide && levelAccessor.getServer() != null) {
+      for (ServerLevel serverLevel : levelAccessor.getServer().getAllLevels()) {
+        serverLevel.setDayTime(serverLevel.getDayTime() + (long) shiftAmount);
+      }
+    }
+  }
 }

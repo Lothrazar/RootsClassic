@@ -16,33 +16,32 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ImbuerBlock extends BaseBEBlock implements EntityBlock {
-	private static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 2.0D, 11.0D);
 
-	public ImbuerBlock(Properties properties) {
-		super(properties);
-	}
+  private static final VoxelShape SHAPE = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 2.0D, 11.0D);
 
-	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
-		return SHAPE;
-	}
+  public ImbuerBlock(Properties properties) {
+    super(properties);
+  }
 
-	@Nullable
-	@Override
-	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new ImbuerBlockEntity(pos, state);
-	}
+  @Override
+  public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
+    return SHAPE;
+  }
 
-	@Nullable
-	@Override
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
-		return createStandingStoneTicker(level, entityType, RootsRegistry.IMBUER_TILE.get());
-	}
+  @Nullable
+  @Override
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    return new ImbuerBlockEntity(pos, state);
+  }
 
-	@Nullable
-	protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends ImbuerBlockEntity> standingStoneType) {
-		return level.isClientSide ?
-			createTickerHelper(entityType, standingStoneType, ImbuerBlockEntity::clientTick) :
-			createTickerHelper(entityType, standingStoneType, ImbuerBlockEntity::serverTick);
-	}
+  @Nullable
+  @Override
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+    return createStandingStoneTicker(level, entityType, RootsRegistry.IMBUER_TILE.get());
+  }
+
+  @Nullable
+  protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends ImbuerBlockEntity> standingStoneType) {
+    return level.isClientSide ? createTickerHelper(entityType, standingStoneType, ImbuerBlockEntity::clientTick) : createTickerHelper(entityType, standingStoneType, ImbuerBlockEntity::serverTick);
+  }
 }

@@ -12,17 +12,17 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RootsCapabilityManager {
-	public static final Capability<IManaCapability> MANA_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
-	});
 
-	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-		event.register(IManaCapability.class);
-	}
+  public static final Capability<IManaCapability> MANA_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
 
-	@SubscribeEvent
-	public void onEntityConstruct(AttachCapabilitiesEvent<Entity> event) {
-		if (event.getObject() instanceof Player) {
-			event.addCapability(new ResourceLocation(Const.MODID, "manacapability"), new ManaCapability());
-		}
-	}
+  public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+    event.register(IManaCapability.class);
+  }
+
+  @SubscribeEvent
+  public void onEntityConstruct(AttachCapabilitiesEvent<Entity> event) {
+    if (event.getObject() instanceof Player) {
+      event.addCapability(new ResourceLocation(Const.MODID, "manacapability"), new ManaCapability());
+    }
+  }
 }

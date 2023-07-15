@@ -53,6 +53,7 @@ public class Roots {
     MinecraftForge.EVENT_BUS.register(new RootsCapabilityManager());
     MinecraftForge.EVENT_BUS.register(new ComponentSpellsEvent());
     eventBus.addListener(RootsEntities::registerEntityAttributes);
+    eventBus.addListener(RootsEntities::onSpawnPlacementRegisterEvent);
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
       MinecraftForge.EVENT_BUS.register(new ManaBarEvent());
       eventBus.addListener(ClientHandler::onClientSetup);
@@ -66,7 +67,6 @@ public class Roots {
 
   private void setup(final FMLCommonSetupEvent event) {
     RootsRegistry.registerCompostables();
-    RootsEntities.registerSpawnPlacement();
     //Initialize
     event.enqueueWork(MutagenManager::reload);
   }

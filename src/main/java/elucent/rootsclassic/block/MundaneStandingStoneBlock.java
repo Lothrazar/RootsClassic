@@ -9,14 +9,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class MundaneStandingStoneBlock extends Block {
 
-	private static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+  private static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
 
-	public MundaneStandingStoneBlock(Properties properties) {
-		super(properties);
-	}
+  public MundaneStandingStoneBlock(Properties properties) {
+    super(properties);
+  }
 
-	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
-		return SHAPE;
-	}
+  @Override
+  public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
+    return SHAPE;
+  }
 }

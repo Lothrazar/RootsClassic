@@ -9,14 +9,15 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class RadiantDaisyBlock extends BushBlock {
-	private static final VoxelShape SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 8.0D, 10.0D);
 
-	public RadiantDaisyBlock(Properties properties) {
-		super(properties);
-	}
+  private static final VoxelShape SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 8.0D, 10.0D);
 
-	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
-		return SHAPE;
-	}
+  public RadiantDaisyBlock(Properties properties) {
+    super(properties);
+  }
+
+  @Override
+  public VoxelShape getShape(BlockState state, BlockGetter levelAccessor, BlockPos pos, CollisionContext context) {
+    return SHAPE;
+  }
 }

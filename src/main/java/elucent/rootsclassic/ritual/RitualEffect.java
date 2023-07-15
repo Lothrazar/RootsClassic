@@ -12,22 +12,21 @@ import net.minecraft.world.level.Level;
 
 public abstract class RitualEffect<C> {
 
-	public abstract void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, C config);
+  public abstract void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, C config);
 
-	public ItemStack getResult(C config) {
-		return ItemStack.EMPTY;
-	}
+  public ItemStack getResult(C config) {
+    return ItemStack.EMPTY;
+  }
 
-	public MutableComponent getInfoText(C config) {
-		var id = RitualBaseRegistry.RITUALS.get().getKey(this);
-		if (id == null) return Component.empty();
-		return Component.translatable(id.getNamespace() + ".jei.tooltip." + id.getPath());
-	}
+  public MutableComponent getInfoText(C config) {
+    var id = RitualBaseRegistry.RITUALS.get().getKey(this);
+    if (id == null) return Component.empty();
+    return Component.translatable(id.getNamespace() + ".jei.tooltip." + id.getPath());
+  }
 
-	abstract public C fromJSON(JsonObject object);
+  abstract public C fromJSON(JsonObject object);
 
-	abstract public void toNetwork(C config, FriendlyByteBuf buffer);
+  abstract public void toNetwork(C config, FriendlyByteBuf buffer);
 
-	abstract public C fromNetwork(FriendlyByteBuf buffer);
-
+  abstract public C fromNetwork(FriendlyByteBuf buffer);
 }

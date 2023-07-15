@@ -23,9 +23,6 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class BrazierBlockEntity extends BEBase {
 
-  public static final String NBT_INVENTORY = "InventoryHandler";
-  public static final String NBT_PROGRESS = "progress";
-  public static final String NBT_BURNING = "burning";
   private static final int TOTAL_BURN_TIME = 2400;
   //	private ItemStack heldItem = ItemStack.EMPTY;
   private int ticker = 0;

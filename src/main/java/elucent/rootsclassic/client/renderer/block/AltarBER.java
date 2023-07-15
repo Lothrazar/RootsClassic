@@ -14,24 +14,23 @@ import net.minecraft.world.item.ItemStack;
 
 public class AltarBER implements BlockEntityRenderer<AltarBlockEntity> {
 
-	public AltarBER(BlockEntityRendererProvider.Context context) {
-	}
+  public AltarBER(BlockEntityRendererProvider.Context context) {}
 
-	@Override
-	public void render(AltarBlockEntity altarTile, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
-		List<ItemStack> renderItems = new ArrayList<>();
-		for (int i = 0; i < altarTile.inventory.getSlots(); i++) {
-			renderItems.add(altarTile.inventory.getStackInSlot(i));
-		}
-		for (int i = 0; i < altarTile.inventory.getSlots(); i++) {
-			poseStack.pushPose();
-			double shifted = altarTile.getTicker() + i * (360.0 / renderItems.size());
-			poseStack.translate(0.5, 1.0 + 0.1 * Math.sin(Math.toRadians((shifted * 4.0))), 0.5);
-			poseStack.mulPose(Axis.YP.rotationDegrees((float) shifted));
-			poseStack.translate(-0.5, 0, 0);
-			poseStack.mulPose(Axis.YP.rotationDegrees((float) shifted));
-			Minecraft.getInstance().getItemRenderer().renderStatic(renderItems.get(i), ItemDisplayContext.GROUND, combinedLightIn, combinedOverlayIn, poseStack, bufferIn, altarTile.getLevel(), 0);
-			poseStack.popPose();
-		}
-	}
+  @Override
+  public void render(AltarBlockEntity altarTile, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    List<ItemStack> renderItems = new ArrayList<>();
+    for (int i = 0; i < altarTile.inventory.getSlots(); i++) {
+      renderItems.add(altarTile.inventory.getStackInSlot(i));
+    }
+    for (int i = 0; i < altarTile.inventory.getSlots(); i++) {
+      poseStack.pushPose();
+      double shifted = altarTile.getTicker() + i * (360.0 / renderItems.size());
+      poseStack.translate(0.5, 1.0 + 0.1 * Math.sin(Math.toRadians((shifted * 4.0))), 0.5);
+      poseStack.mulPose(Axis.YP.rotationDegrees((float) shifted));
+      poseStack.translate(-0.5, 0, 0);
+      poseStack.mulPose(Axis.YP.rotationDegrees((float) shifted));
+      Minecraft.getInstance().getItemRenderer().renderStatic(renderItems.get(i), ItemDisplayContext.GROUND, combinedLightIn, combinedOverlayIn, poseStack, bufferIn, altarTile.getLevel(), 0);
+      poseStack.popPose();
+    }
+  }
 }
