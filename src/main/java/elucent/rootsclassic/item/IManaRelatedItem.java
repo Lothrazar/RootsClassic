@@ -1,4 +1,3 @@
 package elucent.rootsclassic.item;
-
-public interface IManaRelatedItem {
-}
+// @see ManaBarEvent::onGameOverlayRender
+public interface IManaRelatedItem {}

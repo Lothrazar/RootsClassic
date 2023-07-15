@@ -28,6 +28,7 @@
     "item.rootsclassic.spruce_bark": "Spruce Bark",
     "item.rootsclassic.spruce_bark.guide": "Use a Bark Knife on a log.",
     "item.rootsclassic.bark_knife": "Bark Knife",
+    "item.rootsclassic.bark_knife.tooltip": "Peels bark from logs to be used in magic rituals",
     "item.rootsclassic.bark_knife.guide": "Used to obtain bark from logs.",
     "item.rootsclassic.crystal_staff": "Crystal Staff",
     "item.rootsclassic.crystal_staff.guide": "Advanced spellcasting staff for the most powerful of magic.  See Runic Tablet for crafting instructions.",

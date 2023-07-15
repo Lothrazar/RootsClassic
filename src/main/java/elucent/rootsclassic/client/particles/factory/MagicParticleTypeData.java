@@ -1,10 +1,10 @@
 package elucent.rootsclassic.client.particles.factory;
 
+import com.lothrazar.library.particle.data.ParticleColor;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import elucent.rootsclassic.client.particles.ParticleColor;
 import elucent.rootsclassic.registry.ParticleRegistry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;

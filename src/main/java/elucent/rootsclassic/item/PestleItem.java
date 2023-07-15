@@ -1,21 +1,21 @@
 package elucent.rootsclassic.item;
 
-import net.minecraft.world.item.Item;
+import com.lothrazar.library.item.ItemFlib;
 import net.minecraft.world.item.ItemStack;
 
-public class PestleItem extends Item {
+public class PestleItem extends ItemFlib {
 
-	public PestleItem(Properties properties) {
-		super(properties);
-	}
+  public PestleItem(Properties properties) {
+    super(properties);
+  }
 
-	@Override
-	public ItemStack getCraftingRemainingItem(ItemStack stack) {
-		return new ItemStack(this, 1);
-	}
+  @Override
+  public ItemStack getCraftingRemainingItem(ItemStack stack) {
+    return new ItemStack(this, 1);
+  }
 
-	@Override
-	public boolean hasCraftingRemainingItem(ItemStack stack) {
-		return true;
-	}
+  @Override
+  public boolean hasCraftingRemainingItem(ItemStack stack) {
+    return true;
+  }
 }

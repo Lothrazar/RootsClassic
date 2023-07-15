@@ -1,6 +1,6 @@
 package elucent.rootsclassic.client.particles;
 
-import elucent.rootsclassic.client.particles.factory.ParticleRenderTypes;
+import com.lothrazar.library.render.type.ParticleRenderTypes;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;

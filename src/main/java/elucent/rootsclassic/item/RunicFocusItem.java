@@ -1,10 +1,10 @@
 package elucent.rootsclassic.item;
 
-import net.minecraft.world.item.Item;
+import com.lothrazar.library.item.ItemFlib;
 
-public class RunicFocusItem extends Item implements IManaRelatedItem {
+public class RunicFocusItem extends ItemFlib implements IManaRelatedItem {
 
-	public RunicFocusItem(Properties properties) {
-		super(properties);
-	}
+  public RunicFocusItem(Properties properties) {
+    super(properties);
+  }
 }

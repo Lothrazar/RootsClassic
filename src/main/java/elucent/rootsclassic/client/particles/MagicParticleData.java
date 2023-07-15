@@ -1,5 +1,6 @@
 package elucent.rootsclassic.client.particles;
 
+import com.lothrazar.library.particle.data.ParticleColor;
 import elucent.rootsclassic.client.particles.factory.MagicParticleTypeData;
 import elucent.rootsclassic.registry.ParticleRegistry;
 import net.minecraft.client.multiplayer.ClientLevel;

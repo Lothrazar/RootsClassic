@@ -1,5 +1,6 @@
 package elucent.rootsclassic.client;
 
+import elucent.rootsclassic.client.particles.MagicParticleData;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.client.model.SylvanArmorModel;
 import elucent.rootsclassic.client.model.WildwoodArmorModel;
@@ -7,7 +8,6 @@ import elucent.rootsclassic.client.particles.MagicAltarLineParticleData;
 import elucent.rootsclassic.client.particles.MagicAltarParticleData;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.client.particles.MagicLineParticleData;
-import elucent.rootsclassic.client.particles.MagicParticleData;
 import elucent.rootsclassic.client.renderer.block.AltarBER;
 import elucent.rootsclassic.client.renderer.block.BrazierBER;
 import elucent.rootsclassic.client.renderer.block.ImbuerBER;
