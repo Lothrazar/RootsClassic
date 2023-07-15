@@ -140,7 +140,7 @@ public class TabletPageScreen extends Screen {
       case TYPE_NULL -> {//text only
         //        Roots.logger.info("null type ");??
         //        RenderSystem.setShaderTexture(0, Const.tabletGui);
-        guiGraphics.blit(Const.tabletGui, basePosX, basePosY, 64, 0, 192, 256);
+        guiGraphics.blit(Const.TABLETGUI, basePosX, basePosY, 64, 0, 192, 256);
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
           textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 32 + i * 11));
@@ -150,7 +150,7 @@ public class TabletPageScreen extends Screen {
       }
       case TYPE_SMELTING -> {
         //        RenderSystem.setShaderTexture(0, Const.tabletSmelting);
-        guiGraphics.blit(Const.tabletSmelting, basePosX, basePosY, 0, 0, 192, 256);
+        guiGraphics.blit(Const.TABLETSMELTING, basePosX, basePosY, 0, 0, 192, 256);
         slots.add(new ScreenSlotInstance(page.smeltingRecipe.get(0), basePosX + 56, basePosY + 40));
         slots.add(new ScreenSlotInstance(page.smeltingRecipe.get(1), basePosX + 144, basePosY + 56));
         info = page.makeLines(makeInfo());
@@ -162,7 +162,7 @@ public class TabletPageScreen extends Screen {
       }
       case TYPE_DISPLAY -> {
         //        RenderSystem.setShaderTexture(0, Const.tabletDisplay);
-        guiGraphics.blit(Const.tabletDisplay, basePosX, basePosY, 0, 0, 192, 256);
+        guiGraphics.blit(Const.TABLETDISPLAY, basePosX, basePosY, 0, 0, 192, 256);
         slots.add(new ScreenSlotInstance(page.displayItem, basePosX + 88, basePosY + 48));
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
@@ -173,14 +173,14 @@ public class TabletPageScreen extends Screen {
       }
       case TYPE_ALTAR -> {
         //        RenderSystem.setShaderTexture(0, Const.tabletAltar);
-        guiGraphics.blit(Const.tabletAltar, basePosX, basePosY, 0, 0, 192, 256);
+        guiGraphics.blit(Const.TABLETALTAR, basePosX, basePosY, 0, 0, 192, 256);
         RitualPillars.getRitualPillars(page.altarRecipe.level).forEach((pos, block) -> {
-          RenderSystem.setShaderTexture(0, Const.tabletAltar);
+          RenderSystem.setShaderTexture(0, Const.TABLETALTAR);
           int u = 192;
           int v = 240;
           int xShift = 0;
           int yShift = 0;
-          guiGraphics.blit(Const.tabletAltar, basePosX + 93, basePosY + 153, 192, 32, 16, 16);
+          guiGraphics.blit(Const.TABLETALTAR, basePosX + 93, basePosY + 153, 192, 32, 16, 16);
           if (block.equals(RootsRegistry.MUNDANE_STANDING_STONE.get())) {
             v = 48;
             xShift = 8 * pos.getX();
@@ -191,7 +191,7 @@ public class TabletPageScreen extends Screen {
             xShift = 8 * pos.getX();
             yShift = 8 * pos.getZ();
           }
-          guiGraphics.blit(Const.tabletAltar, basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16);
+          guiGraphics.blit(Const.TABLETALTAR, basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16);
         });
         for (int i = 0; i < page.altarRecipe.getIngredients().size(); i++) {
           var stack = page.altarRecipe.getIngredients().get(i).getItems()[0];
@@ -206,7 +206,7 @@ public class TabletPageScreen extends Screen {
       }
       case TYPE_MORTAR -> {
         //        RenderSystem.setShaderTexture(0, Const.tabletMortar);
-        guiGraphics.blit(Const.tabletMortar, basePosX, basePosY, 0, 0, 192, 256);
+        guiGraphics.blit(Const.TABLETMORTAR, basePosX, basePosY, 0, 0, 192, 256);
         title = makeTitle();
         if (page.mortarRecipe != null) {
           for (int i = 0; i < page.mortarRecipe.getIngredients().size(); i++) {
@@ -245,21 +245,21 @@ public class TabletPageScreen extends Screen {
         guiGraphics.drawString(font, line.getLine(), line.getX(), line.getY(), line.getColor(), false);
     }
     //TODO: arrows go black on rituals
-    RenderSystem.setShaderTexture(0, Const.tabletGui);
+    RenderSystem.setShaderTexture(0, Const.TABLETGUI);
     if (showLeftArrow) {
       if (mouseX >= basePosX + 16 && mouseX < basePosX + 48 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
-        guiGraphics.blit(Const.tabletGui, basePosX + 16, basePosY + 224, 32, 80, 32, 16);
+        guiGraphics.blit(Const.TABLETGUI, basePosX + 16, basePosY + 224, 32, 80, 32, 16);
       }
       else {
-        guiGraphics.blit(Const.tabletGui, basePosX + 16, basePosY + 224, 32, 64, 32, 16);
+        guiGraphics.blit(Const.TABLETGUI, basePosX + 16, basePosY + 224, 32, 64, 32, 16);
       }
     }
     if (showRightArrow) {
       if (mouseX >= basePosX + 144 && mouseX < basePosX + 176 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
-        guiGraphics.blit(Const.tabletGui, basePosX + 144, basePosY + 224, 0, 80, 32, 16);
+        guiGraphics.blit(Const.TABLETGUI, basePosX + 144, basePosY + 224, 0, 80, 32, 16);
       }
       else {
-        guiGraphics.blit(Const.tabletGui, basePosX + 144, basePosY + 224, 0, 64, 32, 16);
+        guiGraphics.blit(Const.TABLETGUI, basePosX + 144, basePosY + 224, 0, 64, 32, 16);
       }
     }
     //tooltips must be AFTER rendering arrow images

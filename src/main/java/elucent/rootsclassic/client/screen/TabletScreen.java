@@ -54,7 +54,7 @@ public class TabletScreen extends Screen {
     ResearchGroup group = null;
     ResearchBase base = null;
     for (int i = 0; i < ResearchManager.globalResearches.get(currentGroup).researches.size(); i++) {
-      RenderSystem.setShaderTexture(0, Const.tabletGui);
+      RenderSystem.setShaderTexture(0, Const.TABLETGUI);
       float yShift = (float) Math.floor(i / 6);
       float xShift = i % 6;
       if (mouseX >= basePosX + 32 * xShift && mouseX < basePosX + 32 * xShift + 24 && mouseY >= 32 + 40 * yShift && mouseY < 32 + 40 * yShift + 24) {
@@ -121,7 +121,7 @@ public class TabletScreen extends Screen {
     float unit = width / 32.0f;
     if (RootsConfig.Client.showTabletWave.get()) {
       RenderSystem.enableBlend();
-      RenderSystem.setShaderTexture(0, Const.tabletGui);
+      RenderSystem.setShaderTexture(0, Const.TABLETGUI);
       RenderSystem.setShader(GameRenderer::getPositionTexShader);
       Tesselator tesselator = Tesselator.getInstance();
       BufferBuilder bufferBuilder = tesselator.getBuilder();
@@ -139,7 +139,7 @@ public class TabletScreen extends Screen {
     for (int i = 0; i < ResearchManager.globalResearches.get(currentGroup).researches.size(); i++) {
       int yShift = (int) (float) Math.floor(i / 6);
       int xShift = (int) (i % 6);
-      guiGraphics.blit(Const.tabletGui, basePosX + 32 * xShift, 32 + 40 * yShift, 16, 0, 24, 24);
+      guiGraphics.blit(Const.TABLETGUI, basePosX + 32 * xShift, 32 + 40 * yShift, 16, 0, 24, 24);
       if (ResearchManager.globalResearches.get(currentGroup).researches.get(i).getIcon() != null) {
         guiGraphics.renderItem(ResearchManager.globalResearches.get(currentGroup).researches.get(i).getIcon(), (int) (basePosX + xShift * 32 + 4), (int) (32 + 40 * yShift + 4));
       }
@@ -151,16 +151,16 @@ public class TabletScreen extends Screen {
     String formattedName = I18n.get(researchName);
     guiGraphics.drawString(font, formattedName, width / 2.0f - (font.width(formattedName) / 2.0f), height - 16.0f, RenderUtil.intColor(255, 255, 255), true);
     if (mouseX >= 32 && mouseX < 64 && mouseY >= height - 48 && mouseY < height - 32) {
-      guiGraphics.blit(Const.tabletGui, 32, height - 48, 32, 80, 32, 16);
+      guiGraphics.blit(Const.TABLETGUI, 32, height - 48, 32, 80, 32, 16);
     }
     else {
-      guiGraphics.blit(Const.tabletGui, 32, height - 48, 32, 64, 32, 16);
+      guiGraphics.blit(Const.TABLETGUI, 32, height - 48, 32, 64, 32, 16);
     }
     if (mouseX >= width - 64 && mouseX < width - 32 && mouseY >= height - 48 && mouseY < height - 32) {
-      guiGraphics.blit(Const.tabletGui, width - 64, height - 48, 0, 80, 32, 16);
+      guiGraphics.blit(Const.TABLETGUI, width - 64, height - 48, 0, 80, 32, 16);
     }
     else {
-      guiGraphics.blit(Const.tabletGui, width - 64, height - 48, 0, 64, 32, 16);
+      guiGraphics.blit(Const.TABLETGUI, width - 64, height - 48, 0, 64, 32, 16);
     }
     poseStack.popPose();
   }

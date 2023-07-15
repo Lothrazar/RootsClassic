@@ -52,7 +52,7 @@ public class ManaBarEvent {
     poseStack.pushPose();
     RenderSystem.enableBlend();
     RenderSystem.setShader(GameRenderer::getPositionTexShader);
-    RenderSystem.setShaderTexture(0, Const.manaBar);
+    RenderSystem.setShaderTexture(0, Const.MANABAR);
     Tesselator tess = Tesselator.getInstance();
     BufferBuilder b = tess.getBuilder();
     int w = event.getWindow().getGuiScaledWidth();
