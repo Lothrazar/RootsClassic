@@ -24,5 +24,6 @@
   
   "1.20.1":{
   	"1.3.0": "Ported to 1.20.1 along with flib-0.0.7.  Main config is now named 'rootsclassic.toml' (old name was rootsclassic-common.toml).  Bark knife now has a tooltip.  Moved to non-deprecated SpawnPlacement events.  Rituals & components are now defined with JSON recipes  (Merge pull request #96 from PssbleTrngle/feature/data-rituals Data-driven rituals).   Merge pull request #94 from Mr-Ao-Dragon/Mr-Ao-Dragon-patch-1    add chinese tran file.  (Merge pull request #94 from Mr-Ao-Dragon/Mr-Ao-Dragon-patch-1)    Translate into Russian. [MrBysco] Ported to 1.19.2, 1.19.3, 1.19.4, 1.20"
+  	,"1.3.1": "Nightshade and Elderberry can now be put in the (vanilla) Composter "
   }
 }

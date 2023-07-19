@@ -1,6 +1,8 @@
 package elucent.rootsclassic.registry;
 
 import java.util.List;
+import com.lothrazar.library.registry.RecipeCompostFactory;
+import com.lothrazar.library.registry.RecipeCompostFactory.FillValues;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.block.AcceleratorStandingStoneBlock;
 import elucent.rootsclassic.block.AestheticStandingStoneBlock;
@@ -60,7 +62,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -194,8 +195,10 @@ public class RootsRegistry {
       }).build());
 
   public static void registerCompostables() {
-    ComposterBlock.COMPOSTABLES.put(BLACKCURRANT.get(), 0.3F);
-    ComposterBlock.COMPOSTABLES.put(REDCURRANT.get(), 0.3F);
-    ComposterBlock.COMPOSTABLES.put(WHITECURRANT.get(), 0.3F);
+    RecipeCompostFactory.put(BLACKCURRANT.get(), FillValues.LEAVES);
+    RecipeCompostFactory.put(REDCURRANT.get(), FillValues.LEAVES);
+    RecipeCompostFactory.put(WHITECURRANT.get(), FillValues.LEAVES);
+    RecipeCompostFactory.put(NIGHTSHADE.get(), FillValues.FLOWER);
+    RecipeCompostFactory.put(ELDERBERRY.get(), FillValues.FLOWER);
   }
 }
