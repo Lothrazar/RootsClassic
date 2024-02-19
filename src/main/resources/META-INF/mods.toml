@@ -22,7 +22,7 @@ Classic port of Roots, the Druidic Magic Mod
 [[dependencies.rootsclassic]]
     modId="forge" 
     mandatory=true 
-    versionRange="[47,47.1.3]" 
+    versionRange="[47,]" 
     ordering="NONE"
     side="BOTH"
 # Here's another dependency
