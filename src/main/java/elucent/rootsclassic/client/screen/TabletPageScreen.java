@@ -88,7 +88,7 @@ public class TabletPageScreen extends Screen {
 			this.currentPage++;
 		}
     List<ResearchPage> researchInfo = research.getInfo();
-    if (player.level().isClientSide
+    if (player.level().isClientSide()
         && mouseX >= (width / 2.0f) - 110 && mouseX < (width / 2.0f) + 40
         && mouseY >= (height / 2.0f) - 138 && mouseY < (height / 2.0f) - 40) {
       if (researchInfo.get(currentPage).recipe == EnumPageType.TYPE_MORTAR) {
