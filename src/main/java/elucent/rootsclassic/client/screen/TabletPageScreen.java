@@ -76,21 +76,17 @@ public class TabletPageScreen extends Screen {
   }
 
   @Override
-  public boolean mouseClicked(double mouseX, double mouseY, int button) {
-    float basePosX = (width / 2.0f) - 96;
-    float basePosY = (height / 2.0f) - 128;
-    if (showLeftArrow) {
-      if (mouseX >= basePosX + 16 && mouseX < basePosX + 48 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
-        minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-        this.currentPage--;
-      }
-    }
-    if (showRightArrow) {
-      if (mouseX >= basePosX + 144 && mouseX < basePosX + 176 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
-        minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-        this.currentPage++;
-      }
-    }
+	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		float basePosX = (width / 2.0f) - 96;
+		float basePosY = (height / 2.0f) - 128;
+		if (showLeftArrow && mouseX >= basePosX + 16 && mouseX < basePosX + 48 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
+			minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+			this.currentPage--;
+		}
+		if (showRightArrow && mouseX >= basePosX + 144 && mouseX < basePosX + 176 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
+			minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+			this.currentPage++;
+		}
     List<ResearchPage> researchInfo = research.getInfo();
     if (player.level().isClientSide
         && mouseX >= (width / 2.0f) - 110 && mouseX < (width / 2.0f) + 40
