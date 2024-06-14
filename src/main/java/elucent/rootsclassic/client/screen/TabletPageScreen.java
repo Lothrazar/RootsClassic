@@ -240,10 +240,9 @@ public class TabletPageScreen extends Screen {
 		for (ScreenTextInstance line : textLines) {
 			guiGraphics.drawString(font, line.getLine(), line.getX(), line.getY(), line.getColor(), line.isShadow());
 		}
-		RenderSystem.setShaderTexture(0, Const.TABLETGUI);
+    RenderSystem.setShaderTexture(0, Const.TABLETGUI);
 		
     // TODO: arrows go black on rituals
-    RenderSystem.setShaderTexture(0, Const.TABLETGUI);
     if (showLeftArrow) {
       if (mouseX >= basePosX + 16 && mouseX < basePosX + 48 && mouseY >= basePosY + 224 && mouseY < basePosY + 240) {
         guiGraphics.blit(Const.TABLETGUI, basePosX + 16, basePosY + 224, 32, 80, 32, 16);
