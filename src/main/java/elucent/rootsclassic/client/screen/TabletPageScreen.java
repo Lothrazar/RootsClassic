@@ -235,15 +235,13 @@ public class TabletPageScreen extends Screen {
       }
     }//end of big switch
     for (ScreenSlotInstance s : slots) {
-      guiGraphics.renderItem(s.getStack(), s.getX(), s.getY());
-    }
-    for (ScreenTextInstance line : textLines) {
-      if (line.isShadow())
-        guiGraphics.drawString(font, line.getLine(), line.getX(), line.getY(), line.getColor(), true);
-      else
-        guiGraphics.drawString(font, line.getLine(), line.getX(), line.getY(), line.getColor(), false);
-    }
-
+			guiGraphics.renderItem(s.getStack(), s.getX(), s.getY());
+		}
+		for (ScreenTextInstance line : textLines) {
+			guiGraphics.drawString(font, line.getLine(), line.getX(), line.getY(), line.getColor(), line.isShadow());
+		}
+		RenderSystem.setShaderTexture(0, Const.TABLETGUI);
+		
     // TODO: arrows go black on rituals
     RenderSystem.setShaderTexture(0, Const.TABLETGUI);
     if (showLeftArrow) {
