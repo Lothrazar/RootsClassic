@@ -28,6 +28,7 @@
     "item.rootsclassic.spruce_bark": "Кора ели",
     "item.rootsclassic.spruce_bark.guide": "Используй Нож для Коры на бревне.",
     "item.rootsclassic.bark_knife": "Нож для Коры",
+    "item.rootsclassic.bark_knife.tooltip": "Снимает кору с бревен для использования в магических ритуалах.",
     "item.rootsclassic.bark_knife.guide": "Используется для получения Коры из брёвен.",
     "item.rootsclassic.crystal_staff": "Хрустальный посох",
     "item.rootsclassic.crystal_staff.guide": "Продвинутый посох бросания заклинаний для самой могущественной магии. смотри Рунный планшет для создание инструкций.",
@@ -141,10 +142,14 @@
     "rootsclassic.tooltip.shadowstep": "Тёмный ход",
 
     "rootsclassic.error.unset": "Не связан",
+	
     "rootsclassic.error.noritual.ingredients": "С этими ингредиентами по центру ритуал не обнаружен.",
+	
     "rootsclassic.error.noritual.stones": "Ритуал обнаружен, но камни размещены неправильно.",
+	
     "rootsclassic.error.noritual.incense": "Ритуал обнаружен, но ингредиенты для жаровни отсутствуют либо не горят.",
-    "rootsclassic.ritual.started": "Ритуал начался",
+	
+    "rootsclassic.ritual.started": "Ритуал начался",											 
 
     "rootsclassic.component.rootsclassic:allium": "Раздирающий удар",
     "rootsclassic.component.rootsclassic:apple": "Лечение природы",
@@ -180,8 +185,8 @@
     "rootsclassic.research.nature": "Естественное искусство",
 
     "rootsclassic.research.nature.bark_harvesting": "Сбор коры",
-    "rootsclassic.research.nature.bark_harvesting.page1info": "Деревья очень важны для естественной магии. Используя немного древесины и саженцев, ты можешь создать Нож, способный нежно собирать кору с деревьев, которых можно использовать в Рецептах и Ритуалах. Пкм по бревну, чтобы собрать кору с вероятностью разрушения бревна.",
     "rootsclassic.research.nature.bark_harvesting.page1title": "Простые материалы",
+    "rootsclassic.research.nature.bark_harvesting.page1info": "Деревья очень важны для естественной магии. Используя немного древесины и саженцев, ты можешь создать Нож, способный нежно собирать кору с деревьев, которых можно использовать в Рецептах и Ритуалах. Пкм по бревну, чтобы собрать кору с вероятностью разрушения бревна.",
 
     "rootsclassic.research.nature.magical_materials": "Редкие материалы",
     "rootsclassic.research.nature.magical_materials.page1title": "Корни магии",
@@ -332,7 +337,6 @@
     "rootsclassic.research.spells.midnight_bloom": "Компонент заклинания: Остановка времени",
     "rootsclassic.research.spells.midnight_bloom.page1title": "Эндер цветок",
     "rootsclassic.research.spells.midnight_bloom.page1info": "Использование видоизменяющего порошка в Крае, ты создал Чёрный как ночь цветок. Чтобы создать, посади Мак на 2 блока над обсидианом в Крае. Находясь под эффектом Замедление, брось Блок угля рядом со цветком и примени порошок по цветку.",
-
     "rootsclassic.research.spells.midnight_bloom.page2title": "Хрономаг",
     "rootsclassic.research.spells.midnight_bloom.page2info": "Новый цветок, который ты создал разрывается силами вне твоего контроля. Используя вышеупомянутый рецепт, ты можешь создать Заклинание, которое будет останавливать время для всех существ в вокруг области. Они не будут обновляться до тех пор, пока Заклинание не закончится. В ходе действия Заклинания, ты можешь двигаться, атаковать, или злорадствовать над ними.",
 
@@ -357,7 +361,7 @@
 
     "rootsclassic.research.ritual.grow": "Ритуал роста",
     "rootsclassic.research.ritual.grow.page1title": "Искра жизни",
-    "rootsclassic.research.ritual.grow.page1info": "С простыми способностями направления жизни Алтаря, ты разработал Ритуал, который будет способствовать выращиванию твоего урожая. Этот ритуал будет сканировать урожай в области 35x35x9 и некоторым, случайным образом, применять эффект Костной пыли.",
+    "rootsclassic.research.ritual.grow.page1info": "С простыми способностями направления жизни Алтаря, ты разработал Ритуал, который будет способствовать выращиванию твоего урожая. Этот ритуал будет сканировать урожай в области 35x35x9 и некоторым, случайным образом, применять эффект Костной пыли.",	   
     "rootsclassic.research.ritual.grow.page2title": "Ритуал: Рост",
 
     "rootsclassic.research.ritual.standing_stones": "Стоячие камни",
@@ -512,4 +516,26 @@
     "rootsclassic.brazier.burning.empty": "Пустая",
     "rootsclassic.brazier.burning.off": "Не подожжена",
     "rootsclassic.brazier.burning.on": "Жаровня сейчас подожжена."
+   
+    "rootsclassic.gui.jei.category.mortar": "Ступка",
+    "rootsclassic.gui.jei.category.ritual": "Ритуал",
+  
+    "death.attack.rootsclassic.generic": "%1$s умер",
+    "death.attack.rootsclassic.generic.player": "%1$s умер из-за %2$s",
+    "death.attack.rootsclassic.fire": "%1$s сгорел заживо",
+    "death.attack.rootsclassic.fire.player": "%1$s сгорел заживо из-за %2$s",
+    "death.attack.rootsclassic.wither": "%1$s засох",
+    "death.attack.rootsclassic.wither.player": "%1$s иссушен из-за %2$s",
+  
+  	"rootsclassic.jei.tooltip.crafting": "",
+  	"rootsclassic.jei.tooltip.engraved_crafting": "",
+	  "rootsclassic.jei.tooltip.imbuer": "Наполнитель",
+	  "rootsclassic.jei.tooltip.life_drain": "Утечка жизни",
+  	"rootsclassic.jei.tooltip.cause_rain": "Причина дождя",
+  	"rootsclassic.jei.tooltip.banish_rain": "Изгнать дождь",
+  	"rootsclassic.jei.tooltip.sacrifice": "Жертва",
+  	"rootsclassic.jei.tooltip.mass_breeding": "Массовое разведение",
+  	"rootsclassic.jei.tooltip.flare": "Вспышка",
+  	"rootsclassic.jei.tooltip.time_shift": "Время смены",
+  	"rootsclassic.jei.tooltip.summoning": "Вызов %s"	
 }
