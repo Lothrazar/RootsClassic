@@ -55,6 +55,7 @@ public class Roots {
     eventBus.addListener(RootsEntities::registerEntityAttributes);
     eventBus.addListener(RootsEntities::onSpawnPlacementRegisterEvent);
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+      //    if (FMLEnvironment.dist.isClient()) {
       MinecraftForge.EVENT_BUS.register(new ManaBarEvent());
       eventBus.addListener(ClientHandler::onClientSetup);
       eventBus.addListener(ClientHandler::registerEntityRenders);
@@ -62,6 +63,7 @@ public class Roots {
       eventBus.addListener(ClientHandler::registerItemColors);
       eventBus.addListener(ClientHandler::registerParticleFactories);
       MinecraftForge.EVENT_BUS.addListener(ResearchManager::onRecipesUpdated);
+      //    }
     });
   }
 
