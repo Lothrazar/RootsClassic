@@ -27,7 +27,7 @@ public class ComponentRose extends ComponentBase {
       // int damageDealt = 0;
       targets.removeIf(target -> target.getUUID() == casterEntity.getUUID());
       for (LivingEntity target : targets) {
-        if (target instanceof Player && RootsConfig.disablePVP.get()) {
+        if (target instanceof Player && RootsConfig.COMMON.disablePVP.get()) {
           //no pvp allowed
         }
         else {

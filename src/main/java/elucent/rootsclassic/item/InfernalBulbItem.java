@@ -1,11 +1,12 @@
 package elucent.rootsclassic.item;
 
-import javax.annotation.Nullable;
-import com.lothrazar.library.item.ItemFlib;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 
-public class InfernalBulbItem extends ItemFlib {
+import javax.annotation.Nullable;
+
+public class InfernalBulbItem extends Item {
 
   public InfernalBulbItem(Properties properties) {
     super(properties);

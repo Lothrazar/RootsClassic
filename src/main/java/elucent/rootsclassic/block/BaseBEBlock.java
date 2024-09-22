@@ -1,11 +1,11 @@
 package elucent.rootsclassic.block;
 
-import javax.annotation.Nullable;
 import elucent.rootsclassic.blockentity.BEBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
+import javax.annotation.Nullable;
+
 public class BaseBEBlock extends Block {
 
   public BaseBEBlock(Properties properties) {
@@ -21,20 +23,20 @@ public class BaseBEBlock extends Block {
   }
 
   @Override
-  public void playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
-    if (levelAccessor.getBlockEntity(pos) instanceof BEBase) {
-      ((BEBase) levelAccessor.getBlockEntity(pos)).breakBlock(levelAccessor, pos, state, player);
+  public BlockState playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
+    if (levelAccessor.getBlockEntity(pos) instanceof BEBase beBase) {
+	    beBase.breakBlock(levelAccessor, pos, state, player);
     }
+	  return super.playerWillDestroy(levelAccessor, pos, state, player);
   }
 
-  @SuppressWarnings("deprecation")
-  @Override
-  public InteractionResult use(BlockState state, Level levelAccessor, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-    if (levelAccessor.getBlockEntity(pos) instanceof BEBase) {
-      return ((BEBase) levelAccessor.getBlockEntity(pos)).activate(levelAccessor, pos, state, player, handIn, player.getItemInHand(handIn), hit);
-    }
-    return super.use(state, levelAccessor, pos, player, handIn, hit);
-  }
+	@Override
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (level.getBlockEntity(pos) instanceof BEBase beBase) {
+			return beBase.activate(level, pos, state, player, hand, player.getItemInHand(hand), hitResult);
+		}
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+	}
 
   @SuppressWarnings("unchecked")
   @Nullable

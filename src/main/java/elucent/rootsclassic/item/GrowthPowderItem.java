@@ -1,12 +1,12 @@
 package elucent.rootsclassic.item;
 
-import com.lothrazar.library.item.ItemFlib;
 import elucent.rootsclassic.client.particles.MagicParticleData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-public class GrowthPowderItem extends ItemFlib {
+public class GrowthPowderItem extends Item {
 
   public GrowthPowderItem(Properties properties) {
     super(properties);
@@ -52,7 +52,7 @@ public class GrowthPowderItem extends ItemFlib {
         }
     else {
       if (state.getBlock() instanceof BonemealableBlock igrowable) {
-        if (!igrowable.isValidBonemealTarget(levelAccessor, pos, state, levelAccessor.isClientSide)) {
+        if (!igrowable.isValidBonemealTarget(levelAccessor, pos, state)) {
           return false;
         }
         Block block = state.getBlock();
@@ -60,7 +60,7 @@ public class GrowthPowderItem extends ItemFlib {
         //TODO check if updateBlock is required here
         levelAccessor.blockUpdated(pos, block);
         if (!levelAccessor.isClientSide) {
-          block.randomTick(state, (ServerLevel) levelAccessor, pos, levelAccessor.random);
+	        state.randomTick((ServerLevel) levelAccessor, pos, levelAccessor.random);
         }
         return true;
       }

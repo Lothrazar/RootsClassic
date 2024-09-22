@@ -1,0 +1,22 @@
+{
+  "type": "rootsclassic:component",
+  "effect": "rootsclassic:rose_bush",
+  "ingredients": [
+    {
+      "item": "minecraft:rose_bush"
+    },
+    {
+      "item": "minecraft:fermented_spider_eye"
+    },
+    {
+      "item": "minecraft:iron_nugget"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "rootsclassic:spell_powder"
+  }
+}

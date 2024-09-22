@@ -47,9 +47,9 @@ public class ComponentLilac extends ComponentBase {
       return true;
     }
     if (state.getBlock() == Blocks.NETHER_WART && levelAccessor.random.nextInt(5 - potency) < 2) {
-      int age = state.getValue(NetherWartBlock.AGE).intValue();
+      int age = state.getValue(NetherWartBlock.AGE);
       if (age < 3) {
-        state = state.setValue(NetherWartBlock.AGE, Integer.valueOf(age + 1));
+        state = state.setValue(NetherWartBlock.AGE, age + 1);
         levelAccessor.setBlock(pos, state, 2);
         return true;
       }

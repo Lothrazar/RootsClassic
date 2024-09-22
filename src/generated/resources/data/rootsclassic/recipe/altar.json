@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "rootsclassic:verdant_sprig"
+    },
+    "C": {
+      "item": "minecraft:chiseled_stone_bricks"
+    },
+    "F": {
+      "item": "minecraft:poppy"
+    },
+    "G": {
+      "tag": "c:storage_blocks/gold"
+    },
+    "S": {
+      "tag": "c:stones"
+    }
+  },
+  "pattern": [
+    "BFB",
+    "SGS",
+    " C "
+  ],
+  "result": {
+    "count": 1,
+    "id": "rootsclassic:altar"
+  }
+}

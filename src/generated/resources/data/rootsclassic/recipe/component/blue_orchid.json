@@ -1,0 +1,22 @@
+{
+  "type": "rootsclassic:component",
+  "effect": "rootsclassic:blue_orchid",
+  "ingredients": [
+    {
+      "item": "minecraft:blue_orchid"
+    },
+    {
+      "item": "minecraft:prismarine_shard"
+    },
+    {
+      "item": "minecraft:lapis_lazuli"
+    },
+    {
+      "item": "minecraft:vine"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "rootsclassic:spell_powder"
+  }
+}

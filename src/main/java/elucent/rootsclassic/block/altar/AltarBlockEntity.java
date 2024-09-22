@@ -1,10 +1,5 @@
 package elucent.rootsclassic.block.altar;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import elucent.rootsclassic.block.brazier.BrazierBlockEntity;
 import elucent.rootsclassic.blockentity.BEBase;
 import elucent.rootsclassic.client.particles.MagicAltarParticleData;
@@ -15,22 +10,28 @@ import elucent.rootsclassic.ritual.RitualPillars;
 import elucent.rootsclassic.ritual.RitualRegistry;
 import elucent.rootsclassic.util.InventoryUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemStackHandler;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AltarBlockEntity extends BEBase {
 
@@ -39,7 +40,7 @@ public class AltarBlockEntity extends BEBase {
   private int ticker = 0;
   private int progress = 0;
   @Nullable
-  private RitualRecipe<?> ritualCurrent = null;
+  private RecipeHolder<RitualRecipe> currentRitual = null;
   private int clientRitualLevel;
   private Color clientRitualColor;
   private Color clientRitualSecondaryColor;
@@ -51,7 +52,6 @@ public class AltarBlockEntity extends BEBase {
       return 1;
     }
   };
-  private LazyOptional<IItemHandler> inventoryHolder = LazyOptional.of(() -> inventory);
 
   public AltarBlockEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
     super(tileEntityTypeIn, pos, state);
@@ -61,51 +61,52 @@ public class AltarBlockEntity extends BEBase {
     super(RootsRegistry.ALTAR_TILE.get(), pos, state);
   }
 
-  @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
-    inventory.deserializeNBT(tag.getCompound("InventoryHandler"));
-    setIncenses(new ArrayList<>());
-    if (tag.contains("incenses")) {
-      ListTag list = tag.getList("incenses", CompoundTag.TAG_COMPOUND);
-      for (int i = 0; i < list.size(); i++) {
-        getIncenses().add(ItemStack.of(list.getCompound(i)));
-      }
-    }
-    if (tag.contains("progress")) {
-      setProgress(tag.getInt("progress"));
-    }
-    if (level != null && level.isClientSide() && tag.contains("ritual", 10)) {
-      var ritualTag = tag.getCompound("ritual");
-      clientRitualLevel = ritualTag.getInt("level");
-      clientRitualColor = new Color(ritualTag.getInt("color"));
-      clientRitualSecondaryColor = new Color(ritualTag.getInt("secondaryColor"));
-    }
-  }
+	@Override
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
+		inventory.deserializeNBT(registries, tag.getCompound("InventoryHandler"));
+		setIncenses(new ArrayList<>());
+		if (tag.contains("incenses")) {
+			ListTag list = tag.getList("incenses", CompoundTag.TAG_COMPOUND);
+			for (int i = 0; i < list.size(); i++) {
+				getIncenses().add(ItemStack.parseOptional(registries, list.getCompound(i)));
+			}
+		}
+		if (tag.contains("progress")) {
+			setProgress(tag.getInt("progress"));
+		}
+		if (level != null && level.isClientSide() && tag.contains("ritual", 10)) {
+			var ritualTag = tag.getCompound("ritual");
+			clientRitualLevel = ritualTag.getInt("level");
+			clientRitualColor = new Color(ritualTag.getInt("color"));
+			clientRitualSecondaryColor = new Color(ritualTag.getInt("secondaryColor"));
+		}
+	}
 
-  @Override
-  public void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
-    tag.put("InventoryHandler", inventory.serializeNBT());
-    if (getIncenses().size() > 0) {
-      ListTag list = new ListTag();
-      for (int i = 0; i < getIncenses().size(); i++) {
-        //  ;
-        //        if (getIncenses().get(i) != null) {
-        list.add(getIncenses().get(i).save(new CompoundTag()));
-        //        }
-      }
-      tag.put("incenses", list);
-    }
-    tag.putInt("progress", getProgress());
-    if (level != null && !level.isClientSide() && ritualCurrent != null) {
-      var ritualTag = new CompoundTag();
-      ritualTag.putInt("level", ritualCurrent.level);
-      ritualTag.putInt("color", ritualCurrent.color.getRGB());
-      ritualTag.putInt("secondaryColor", ritualCurrent.secondaryColor.getRGB());
-      tag.put("ritual", ritualTag);
-    }
-  }
+	@Override
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
+		tag.put("InventoryHandler", inventory.serializeNBT(registries));
+		if (getIncenses().size() > 0) {
+			ListTag list = new ListTag();
+			for (int i = 0; i < getIncenses().size(); i++) {
+				//  ;
+				//        if (getIncenses().get(i) != null) {
+				list.add(getIncenses().get(i).save(registries, new CompoundTag()));
+				//        }
+			}
+			tag.put("incenses", list);
+		}
+		tag.putInt("progress", getProgress());
+		if (level != null && !level.isClientSide() && currentRitual != null) {
+			var ritualTag = new CompoundTag();
+			RitualRecipe ritual = currentRitual.value();
+			ritualTag.putInt("level", ritual.level);
+			ritualTag.putInt("color", ritual.getColorInt());
+			ritualTag.putInt("secondaryColor", ritual.getSecondaryColorInt());
+			tag.put("ritual", ritualTag);
+		}
+	}
 
   @Override
   public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
@@ -121,7 +122,7 @@ public class AltarBlockEntity extends BEBase {
   }
 
   @Override
-  public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
+  public ItemInteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
     if (hand == InteractionHand.MAIN_HAND) {
       if (heldItem.isEmpty() && !player.isShiftKeyDown() && this.getProgress() == 0) {
         //try to withdraw an item
@@ -135,25 +136,26 @@ public class AltarBlockEntity extends BEBase {
             setChanged();
             levelAccessor.sendBlockUpdated(pos, state, levelAccessor.getBlockState(pos), 3);
           }
-          return InteractionResult.SUCCESS;
+          return ItemInteractionResult.SUCCESS;
         }
       }
       else if (player.isShiftKeyDown() && heldItem.isEmpty() && this.getProgress() == 0) {
         // Try to start a new ritual
-        setRitualCurrent(null);
+        setCurrentRitual(null);
         var optionalRitual = RitualRegistry.findMatchingByIngredients(this);
         if (optionalRitual.isEmpty()) {
           player.displayClientMessage(Component.translatable("rootsclassic.error.noritual.ingredients"), true);
-          return InteractionResult.FAIL;
+          return ItemInteractionResult.FAIL;
         }
-        var ritual = optionalRitual.get();
-        if (!RitualPillars.verifyPositionBlocks(ritual, levelAccessor, pos)) {
+        var recipeHolder = optionalRitual.get();
+				var recipe = recipeHolder.value();
+        if (!RitualPillars.verifyPositionBlocks(recipe, levelAccessor, pos)) {
           player.displayClientMessage(Component.translatable("rootsclassic.error.noritual.stones"), true);
-          return InteractionResult.FAIL;
+          return ItemInteractionResult.FAIL;
         }
         //does it match everything else?
-        if (ritual.incenseMatches(level, pos)) {
-          setRitualCurrent(ritual);
+        if (recipe.incenseMatches(level, pos)) {
+          setCurrentRitual(recipeHolder);
           setIncenses(RitualRegistry.getIncenses(levelAccessor, pos));
           setProgress(RECIPE_PROGRESS_TIME);
           for (BrazierBlockEntity brazier : RitualPillars.getRecipeBraziers(levelAccessor, pos)) {
@@ -169,7 +171,7 @@ public class AltarBlockEntity extends BEBase {
         else {
           player.displayClientMessage(Component.translatable("rootsclassic.error.noritual.incense"), true);
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
       }
       else {
         //try to insert an item into the altar
@@ -182,11 +184,11 @@ public class AltarBlockEntity extends BEBase {
             setChanged();
             levelAccessor.sendBlockUpdated(pos, state, levelAccessor.getBlockState(pos), 3);
           }
-          return InteractionResult.SUCCESS;
+          return ItemInteractionResult.SUCCESS;
         }
       }
     }
-    return InteractionResult.PASS;
+    return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
   }
 
   public static void serverTick(Level level, BlockPos pos, BlockState state, AltarBlockEntity tile) {
@@ -194,7 +196,7 @@ public class AltarBlockEntity extends BEBase {
     if (tile.getTicker() > 360) {
       tile.setTicker(0);
     }
-    if (tile.getProgress() > 0 && tile.getRitualCurrent() != null) {
+    if (tile.getProgress() > 0 && tile.getCurrentRitual() != null) {
       tile.setProgress(tile.getProgress() - 1);
       //      if (tile.getProgress() % 40 == 0) {
       //        setIncenses(RitualManager.getIncenses(getWorld(), getPos()));
@@ -209,9 +211,9 @@ public class AltarBlockEntity extends BEBase {
       //          setRitualName(null);
       //        }
       //      }
-      if (tile.getProgress() == 0 && tile.getRitualCurrent() != null) {
-        tile.getRitualCurrent().doEffect(level, pos, InventoryUtil.createIInventory(tile.inventory), tile.getIncenses());
-        tile.setRitualCurrent(null);
+      if (tile.getProgress() == 0 && tile.getCurrentRitual() != null) {
+        tile.getCurrentRitual().value().doEffect(level, pos, InventoryUtil.createIInventory(tile.inventory), tile.getIncenses());
+        tile.setCurrentRitual(null);
         tile.emptyAltar();
         tile.setChanged();
         level.sendBlockUpdated(pos, state, state, 3);
@@ -220,7 +222,7 @@ public class AltarBlockEntity extends BEBase {
   }
 
   public static void clientTick(Level level, BlockPos pos, BlockState state, AltarBlockEntity tile) {
-    if (tile.getProgress() > 0 && tile.getRitualCurrent() != null) {
+    if (tile.getProgress() > 0 && tile.getCurrentRitual() != null) {
       tile.setProgress(tile.getProgress() - 1);
       var pillars = RitualPillars.getRitualPillars(tile.clientRitualLevel);
       var pillarPositions = pillars.keySet().stream().toList();
@@ -315,12 +317,12 @@ public class AltarBlockEntity extends BEBase {
   }
 
   @Nullable
-  public RitualRecipe<?> getRitualCurrent() {
-    return this.ritualCurrent;
+  public RecipeHolder<RitualRecipe> getCurrentRitual() {
+    return this.currentRitual;
   }
 
-  public void setRitualCurrent(RitualRecipe<?> ritualCurrent) {
-    this.ritualCurrent = ritualCurrent;
+  public void setCurrentRitual(RecipeHolder<RitualRecipe> currentRitual) {
+    this.currentRitual = currentRitual;
     setChanged();
   }
 
@@ -339,10 +341,4 @@ public class AltarBlockEntity extends BEBase {
   //		}
   //		this.resultItem = resultItem;
   //	}
-
-  @Override
-  public void invalidateCaps() {
-    super.invalidateCaps();
-    this.inventoryHolder.invalidate();
-  }
 }

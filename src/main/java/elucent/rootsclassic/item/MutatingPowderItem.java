@@ -1,8 +1,5 @@
 package elucent.rootsclassic.item;
 
-import java.util.ArrayList;
-import java.util.List;
-import com.lothrazar.library.item.ItemFlib;
 import elucent.rootsclassic.client.particles.MagicParticleData;
 import elucent.rootsclassic.mutation.MutagenManager;
 import elucent.rootsclassic.mutation.MutagenRecipe;
@@ -13,11 +10,15 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
-public class MutatingPowderItem extends ItemFlib {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MutatingPowderItem extends Item {
 
   public MutatingPowderItem(Properties properties) {
     super(properties);

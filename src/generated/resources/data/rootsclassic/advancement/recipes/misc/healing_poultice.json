@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_pestle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "rootsclassic:pestle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "rootsclassic:healing_poultice"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_pestle"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "rootsclassic:healing_poultice"
+    ]
+  }
+}

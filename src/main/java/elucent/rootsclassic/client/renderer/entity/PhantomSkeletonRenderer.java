@@ -8,11 +8,12 @@ import elucent.rootsclassic.Const;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 
 public class PhantomSkeletonRenderer extends SkeletonRenderer {
 
-  private static final ResourceLocation TEXTURE = new ResourceLocation(Const.MODID, "textures/entity/skeleton_ghost.png");
+  private static final ResourceLocation TEXTURE = Const.modLoc("textures/entity/skeleton_ghost.png");
 
   public PhantomSkeletonRenderer(EntityRendererProvider.Context context) {
     super(context);
@@ -24,9 +25,9 @@ public class PhantomSkeletonRenderer extends SkeletonRenderer {
   }
 
   @Override
-  protected void scale(AbstractSkeleton entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-    //allow transparency in textures to be rendered
-    RenderSystem.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_CONSTANT_ALPHA);
-    RenderSystem.enableBlend();
+  protected void scale(LivingEntity livingEntity, PoseStack poseStack, float partialTickTime) {
+	  super.scale(livingEntity, poseStack, partialTickTime);
+	  RenderSystem.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_CONSTANT_ALPHA);
+	  RenderSystem.enableBlend();
   }
 }

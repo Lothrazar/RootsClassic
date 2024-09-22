@@ -1,8 +1,5 @@
 package elucent.rootsclassic.client.screen;
 
-import java.util.ArrayList;
-import java.util.List;
-import com.lothrazar.library.util.RenderUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import elucent.rootsclassic.Const;
@@ -13,6 +10,7 @@ import elucent.rootsclassic.research.ResearchBase;
 import elucent.rootsclassic.research.ResearchGroup;
 import elucent.rootsclassic.research.ResearchPage;
 import elucent.rootsclassic.ritual.RitualPillars;
+import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -23,11 +21,14 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TabletPageScreen extends Screen {
 
@@ -116,7 +117,7 @@ public class TabletPageScreen extends Screen {
 
   @Override
   public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
-    this.renderBackground(guiGraphics);
+		super.render(guiGraphics, mouseX, mouseY, partialTicks);
     //   super.drawScreen(mouseX, mouseY, partialTicks);
     PoseStack ps = guiGraphics.pose();
     ps.pushPose();
@@ -146,7 +147,7 @@ public class TabletPageScreen extends Screen {
           textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 32 + i * 11));
         }
         title = makeTitle();
-        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RenderUtil.intColor(255, 255, 255)));
+        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
       }
       case TYPE_SMELTING -> {
         //        RenderSystem.setShaderTexture(0, Const.tabletSmelting);
@@ -155,10 +156,10 @@ public class TabletPageScreen extends Screen {
         slots.add(new ScreenSlotInstance(page.smeltingRecipe.get(1), basePosX + 144, basePosY + 56));
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
-          textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 104 + i * 11, RenderUtil.intColor(255, 255, 255)));
+          textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 104 + i * 11, RootsUtil.intColor(255, 255, 255)));
         }
         title = makeTitle();
-        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RenderUtil.intColor(255, 255, 255)));
+        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
       }
       case TYPE_DISPLAY -> {
         //        RenderSystem.setShaderTexture(0, Const.tabletDisplay);
@@ -166,15 +167,15 @@ public class TabletPageScreen extends Screen {
         slots.add(new ScreenSlotInstance(page.displayItem, basePosX + 88, basePosY + 48));
         info = page.makeLines(makeInfo());
         for (int i = 0; i < info.size(); i++) {
-          textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 80 + i * 11, RenderUtil.intColor(255, 255, 255)));
+          textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 80 + i * 11, RootsUtil.intColor(255, 255, 255)));
         }
         title = makeTitle();
-        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RenderUtil.intColor(255, 255, 255)));
+        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
       }
       case TYPE_ALTAR -> {
         //        RenderSystem.setShaderTexture(0, Const.tabletAltar);
         guiGraphics.blit(Const.TABLETALTAR, basePosX, basePosY, 0, 0, 192, 256);
-        RitualPillars.getRitualPillars(page.altarRecipe.level).forEach((pos, block) -> {
+        RitualPillars.getRitualPillars(page.altarRecipe.value().level).forEach((pos, block) -> {
           RenderSystem.setShaderTexture(0, Const.TABLETALTAR);
           int u = 192;
           int v = 240;
@@ -193,24 +194,24 @@ public class TabletPageScreen extends Screen {
           }
           guiGraphics.blit(Const.TABLETALTAR, basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16);
         });
-        for (int i = 0; i < page.altarRecipe.getIngredients().size(); i++) {
-          var stack = page.altarRecipe.getIngredients().get(i).getItems()[0];
+        for (int i = 0; i < page.altarRecipe.value().getIngredients().size(); i++) {
+          var stack = page.altarRecipe.value().getIngredients().get(i).getItems()[0];
           slots.add(new ScreenSlotInstance(stack, basePosX + 64 + 24 * i, basePosY + 56));
         }
-        for (int i = 0; i < page.altarRecipe.getIncenses().size(); i++) {
-          var stack = page.altarRecipe.getIncenses().get(i).getItems()[0];
+        for (int i = 0; i < page.altarRecipe.value().getIncenses().size(); i++) {
+          var stack = page.altarRecipe.value().getIncenses().get(i).getItems()[0];
           slots.add(new ScreenSlotInstance(stack, basePosX + 76 + 16 * i, basePosY + 88));
         }
         title = makeTitle();
-        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RenderUtil.intColor(255, 255, 255)));
+        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
       }
       case TYPE_MORTAR -> {
         //        RenderSystem.setShaderTexture(0, Const.tabletMortar);
         guiGraphics.blit(Const.TABLETMORTAR, basePosX, basePosY, 0, 0, 192, 256);
         title = makeTitle();
         if (page.mortarRecipe != null) {
-          for (int i = 0; i < page.mortarRecipe.getIngredients().size(); i++) {
-            Ingredient ingredient = page.mortarRecipe.getIngredients().get(i);
+          for (int i = 0; i < page.mortarRecipe.value().getIngredients().size(); i++) {
+            Ingredient ingredient = page.mortarRecipe.value().getIngredients().get(i);
             if (ingredient.isEmpty()) {
               slots.add(new ScreenSlotInstance(new ItemStack(Items.BARRIER), basePosX + 24 + i * 16, basePosY + 56));
             }
@@ -221,18 +222,18 @@ public class TabletPageScreen extends Screen {
           ClientLevel level = minecraft.level;
           if (level != null) {
             RegistryAccess registryAccess = level.registryAccess();
-            slots.add(new ScreenSlotInstance(page.mortarRecipe.assemble(new SimpleContainer(), registryAccess), basePosX + 144, basePosY + 56));
+            slots.add(new ScreenSlotInstance(page.mortarRecipe.value().assemble(new SingleRecipeInput(ItemStack.EMPTY), registryAccess), basePosX + 144, basePosY + 56));
           }
           info = page.makeLines(makeInfo());
           for (int i = 0; i < info.size(); i++) {
-            textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 96 + i * 11, RenderUtil.intColor(255, 255, 255)));
+            textLines.add(new ScreenTextInstance(info.get(i), basePosX + 16, basePosY + 96 + i * 11, RootsUtil.intColor(255, 255, 255)));
           }
         }
         else {
           //Disabled?
           title = ChatFormatting.RED + I18n.get("rootsclassic.research.disabled");
         }
-        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RenderUtil.intColor(255, 255, 255)));
+        textLines.add(new ScreenTextInstance(title, basePosX + 96 - (this.font.width(title) / 2.0f), basePosY + 12, RootsUtil.intColor(255, 255, 255)));
       }
     }//end of big switch
     for (ScreenSlotInstance s : slots) {

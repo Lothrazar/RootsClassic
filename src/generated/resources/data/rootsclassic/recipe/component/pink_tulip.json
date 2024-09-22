@@ -1,0 +1,22 @@
+{
+  "type": "rootsclassic:component",
+  "effect": "rootsclassic:pink_tulip",
+  "ingredients": [
+    {
+      "item": "minecraft:pink_tulip"
+    },
+    {
+      "item": "minecraft:melon_seeds"
+    },
+    {
+      "item": "minecraft:porkchop"
+    },
+    {
+      "item": "minecraft:granite"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "rootsclassic:spell_powder"
+  }
+}

@@ -1,19 +1,20 @@
 package elucent.rootsclassic.block.imbuer;
 
-import javax.annotation.Nonnull;
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.blockentity.BEBase;
 import elucent.rootsclassic.client.particles.MagicLineParticleData;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentBaseRegistry;
+import elucent.rootsclassic.datacomponent.SpellData;
 import elucent.rootsclassic.item.StaffItem;
 import elucent.rootsclassic.item.powder.SpellPowderItem;
+import elucent.rootsclassic.registry.RootsComponents;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -21,10 +22,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.items.ItemStackHandler;
+
+import javax.annotation.Nonnull;
 
 public class ImbuerBlockEntity extends BEBase {
 
@@ -49,7 +50,6 @@ public class ImbuerBlockEntity extends BEBase {
       }
     }
   };
-  private LazyOptional<IItemHandler> inventoryHolder = LazyOptional.of(() -> inventory);
 
   public ImbuerBlockEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
     super(tileEntityTypeIn, pos, state);
@@ -67,16 +67,16 @@ public class ImbuerBlockEntity extends BEBase {
     return inventory.getStackInSlot(DUST);
   }
 
-  @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
-    inventory.deserializeNBT(tag.getCompound(NBT_INVENTORY));
+	@Override
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
+    inventory.deserializeNBT(registries, tag.getCompound(NBT_INVENTORY));
   }
 
   @Override
-  public void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
-    tag.put(NBT_INVENTORY, inventory.serializeNBT());
+  public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    super.saveAdditional(tag, registries);
+    tag.put(NBT_INVENTORY, inventory.serializeNBT(registries));
   }
 
   @Override
@@ -91,7 +91,7 @@ public class ImbuerBlockEntity extends BEBase {
   }
 
   @Override
-  public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
+  public ItemInteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
     if (progress == 0 && hand == InteractionHand.MAIN_HAND) {
       if (heldItem.isEmpty()) {
         if (!getStick().isEmpty()) {
@@ -101,7 +101,7 @@ public class ImbuerBlockEntity extends BEBase {
           inventory.setStackInSlot(STICK, ItemStack.EMPTY);
           setChanged();
           levelAccessor.sendBlockUpdated(getBlockPos(), state, levelAccessor.getBlockState(pos), 3);
-          return InteractionResult.SUCCESS;
+          return ItemInteractionResult.SUCCESS;
         }
         else if (!getSpellPowder().isEmpty()) {
           if (!levelAccessor.isClientSide) {
@@ -110,7 +110,7 @@ public class ImbuerBlockEntity extends BEBase {
           inventory.setStackInSlot(DUST, ItemStack.EMPTY);
           setChanged();
           levelAccessor.sendBlockUpdated(getBlockPos(), state, levelAccessor.getBlockState(pos), 3);
-          return InteractionResult.SUCCESS;
+          return ItemInteractionResult.SUCCESS;
         }
       }
       else if (heldItem.is(Tags.Items.RODS_WOODEN)) {
@@ -121,7 +121,7 @@ public class ImbuerBlockEntity extends BEBase {
           heldItem.shrink(1);
           setChanged();
           levelAccessor.sendBlockUpdated(getBlockPos(), state, levelAccessor.getBlockState(pos), 3);
-          return InteractionResult.SUCCESS;
+          return ItemInteractionResult.SUCCESS;
         }
       }
       else if (heldItem.getItem() == RootsRegistry.SPELL_POWDER.get()) {
@@ -132,11 +132,11 @@ public class ImbuerBlockEntity extends BEBase {
           heldItem.shrink(1);
           setChanged();
           levelAccessor.sendBlockUpdated(getBlockPos(), state, levelAccessor.getBlockState(pos), 3);
-          return InteractionResult.SUCCESS;
+          return ItemInteractionResult.SUCCESS;
         }
       }
     }
-    return InteractionResult.PASS;
+    return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
   }
 
   public static void serverTick(Level level, BlockPos pos, BlockState state, ImbuerBlockEntity tile) {
@@ -155,14 +155,14 @@ public class ImbuerBlockEntity extends BEBase {
       if (tile.progress > 40) {
         tile.progress = 0;
         if (!dustStack.isEmpty() && !stickStack.isEmpty()) {
-          if (dustStack.hasTag()) {
+	        if (dustStack.has(RootsComponents.SPELL)) {
+		        SpellData data = dustStack.get(RootsComponents.SPELL);
             ItemStack staff = new ItemStack(RootsRegistry.STAFF.get(), 1);
-            CompoundTag tag = dustStack.getTag();
-            String effectName = tag.getString(Const.NBT_EFFECT);
-            int potency = tag.getInt(Const.NBT_POTENCY);
-            int duration = tag.getInt(Const.NBT_EFFICIENCY);
-            int size = tag.getInt(Const.NBT_SIZE);
-            StaffItem.createData(staff, effectName, potency, duration, size);
+            String effectName = data.effect();
+            int potency = data.potency();
+            int efficiency = data.efficiency();
+            int size = data.size();
+            StaffItem.createData(staff, effectName, potency, efficiency, size);
             if (!level.isClientSide) {
               level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, staff));
             }
@@ -190,74 +190,66 @@ public class ImbuerBlockEntity extends BEBase {
     }
     if (tile.progress != 0 && tile.progress % 1 == 0) {
       int chance = level.random.nextInt(4);
-      if (dustStack.hasTag()) {
-        CompoundTag tag = dustStack.getTag();
-        if (tag.contains(Const.NBT_EFFECT)) {
-          ResourceLocation compName = ResourceLocation.tryParse(tag.getString(Const.NBT_EFFECT));
-          if (compName != null) {
-            ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get().getValue(compName);
-            if (comp != null && level.isClientSide) {
-              if (chance == 0) {
-                if (level.random.nextBoolean()) {
-                  level.addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                      pos.getX() + 0.125, pos.getY() + 0.125, pos.getZ() + 0.125,
-                      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
-                }
-                else {
-                  level.addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                      pos.getX() + 0.125, pos.getY() + 0.125, pos.getZ() + 0.125,
-                      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
-                }
-              }
-              if (chance == 1) {
-                if (level.random.nextBoolean()) {
-                  level.addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                      pos.getX() + 0.875, pos.getY() + 0.125, pos.getZ() + 0.125,
-                      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
-                }
-                else {
-                  level.addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                      pos.getX() + 0.875, pos.getY() + 0.125, pos.getZ() + 0.125,
-                      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
-                }
-              }
-              if (chance == 2) {
-                if (level.random.nextBoolean()) {
-                  level.addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                      pos.getX() + 0.875, pos.getY() + 0.125, pos.getZ() + 0.875,
-                      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
-                }
-                else {
-                  level.addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                      pos.getX() + 0.875, pos.getY() + 0.125, pos.getZ() + 0.875,
-                      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
-                }
-              }
-              if (chance == 3) {
-                if (level.random.nextBoolean()) {
-                  level.addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                      pos.getX() + 0.125, pos.getY() + 0.125, pos.getZ() + 0.875,
-                      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
-                }
-                else {
-                  level.addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                      pos.getX() + 0.125, pos.getY() + 0.125, pos.getZ() + 0.875,
-                      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
-                }
-              }
-            }
-          }
-        }
+      if (dustStack.has(RootsComponents.SPELL)) {
+	      SpellData data = dustStack.get(RootsComponents.SPELL);
+	      ResourceLocation compName = ResourceLocation.tryParse(data.effect());
+	      if (compName != null) {
+		      ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get(compName);
+		      if (comp != null && level.isClientSide) {
+			      if (chance == 0) {
+				      if (level.random.nextBoolean()) {
+					      level.addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
+						      pos.getX() + 0.125, pos.getY() + 0.125, pos.getZ() + 0.125,
+						      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
+				      }
+				      else {
+					      level.addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
+						      pos.getX() + 0.125, pos.getY() + 0.125, pos.getZ() + 0.125,
+						      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
+				      }
+			      }
+			      if (chance == 1) {
+				      if (level.random.nextBoolean()) {
+					      level.addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
+						      pos.getX() + 0.875, pos.getY() + 0.125, pos.getZ() + 0.125,
+						      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
+				      }
+				      else {
+					      level.addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
+						      pos.getX() + 0.875, pos.getY() + 0.125, pos.getZ() + 0.125,
+						      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
+				      }
+			      }
+			      if (chance == 2) {
+				      if (level.random.nextBoolean()) {
+					      level.addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
+						      pos.getX() + 0.875, pos.getY() + 0.125, pos.getZ() + 0.875,
+						      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
+				      }
+				      else {
+					      level.addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
+						      pos.getX() + 0.875, pos.getY() + 0.125, pos.getZ() + 0.875,
+						      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
+				      }
+			      }
+			      if (chance == 3) {
+				      if (level.random.nextBoolean()) {
+					      level.addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
+						      pos.getX() + 0.125, pos.getY() + 0.125, pos.getZ() + 0.875,
+						      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
+				      }
+				      else {
+					      level.addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
+						      pos.getX() + 0.125, pos.getY() + 0.125, pos.getZ() + 0.875,
+						      pos.getX() + 0.5, pos.getY() + 0.625, pos.getZ() + 0.5);
+				      }
+			      }
+		      }
+	      }
       }
       if (tile.progress > 40) {
         tile.progress = 0;
       }
     }
-  }
-
-  @Override
-  public void invalidateCaps() {
-    super.invalidateCaps();
-    inventoryHolder.invalidate();
   }
 }

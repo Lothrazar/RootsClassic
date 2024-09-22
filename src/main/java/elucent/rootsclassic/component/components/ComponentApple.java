@@ -23,9 +23,9 @@ public class ComponentApple extends ComponentBase {
       List<MobEffectInstance> effects = new ArrayList<>(player.getActiveEffects());
       player.removeAllEffects();
       for (MobEffectInstance effect : effects) {
-        if (effect.getEffect().getDescriptionId().equals("Soul Fray")) { //TODO: Check if Blood magic uses this name still
-          player.addEffect(effect);
-        }
+//        if (effect.getEffect().getDescriptionId().equals("Soul Fray")) { //TODO: Check if Blood magic uses this name still
+//          player.addEffect(effect);
+//        }
         if (effect.getEffect() == MobEffects.MOVEMENT_SLOWDOWN) {
           player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, effect.getDuration(), effect.getAmplifier() + (int) potency));
         }

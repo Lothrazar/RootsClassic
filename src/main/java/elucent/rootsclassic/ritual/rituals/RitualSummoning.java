@@ -1,18 +1,17 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.util.List;
-import com.google.gson.JsonObject;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.ritual.RitualEffect;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -22,19 +21,24 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.neoforged.neoforge.event.EventHooks;
 
-public class RitualSummoning extends RitualEffect<RitualSummoning.RitualSummoningConfig> {
+import java.util.List;
+
+public class RitualSummoning extends RitualEffect {
 
   @Override
-  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, RitualSummoningConfig config) {
+  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, CompoundTag config) {
     if (!levelAccessor.isClientSide) {
-      Entity toSpawn = config.entityType.create(levelAccessor);
+	    ResourceLocation entityId = ResourceLocation.tryParse(config.getString("entity"));
+			if (entityId == null) return;
+			EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(entityId);
+			if (entityType == null) return;
+      Entity toSpawn = entityType.create(levelAccessor);
       if (toSpawn != null) {
         if (toSpawn instanceof Mob mob && levelAccessor instanceof ServerLevel sl) {
-          ForgeEventFactory.onFinalizeSpawn(mob, sl, levelAccessor.getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null, (CompoundTag) null);
+          EventHooks.finalizeMobSpawn(mob, sl, levelAccessor.getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null);
         }
         toSpawn.setPos(pos.getX() + 0.5, pos.getY() + 2.0, pos.getZ() + 0.5);
         inventory.clearContent();
@@ -48,38 +52,21 @@ public class RitualSummoning extends RitualEffect<RitualSummoning.RitualSummonin
   }
 
   @Override
-  public MutableComponent getInfoText(RitualSummoningConfig config) {
-    var egg = ForgeSpawnEggItem.fromEntityType(config.entityType);
+  public MutableComponent getInfoText(CompoundTag config) {
+	  EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.tryParse(config.getString("entity")));
+    var egg = DeferredSpawnEggItem.deferredOnlyById(entityType);
     if (egg == null) return Component.empty();
-    return Component.translatable(Const.MODID + ".jei.tooltip.summoning", config.entityType.getDescription());
+    return Component.translatable(Const.MODID + ".jei.tooltip.summoning", entityType.getDescription());
   }
 
   @Override
-  public ItemStack getResult(RitualSummoningConfig config) {
-    var egg = ForgeSpawnEggItem.fromEntityType(config.entityType);
-    if (egg == null) return super.getResult(config);
+  public ItemStack getResult(CompoundTag config, HolderLookup.Provider provider) {
+	  EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.tryParse(config.getString("entity")));
+	  var egg = DeferredSpawnEggItem.deferredOnlyById(entityType);
+    if (egg == null) return super.getResult(config, provider);
     var display = getInfoText(config);
-    return new ItemStack(egg).setHoverName(display.withStyle(Style.EMPTY.withItalic(false)));
+		ItemStack stack = new ItemStack(egg);
+	  stack.set(DataComponents.CUSTOM_NAME, display.withStyle(Style.EMPTY.withItalic(false)));
+    return stack;
   }
-
-  @Override
-  public RitualSummoningConfig fromJSON(JsonObject object) {
-    var id = GsonHelper.getAsString(object, "entity");
-    var type = ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation(id));
-    return new RitualSummoningConfig(type);
-  }
-
-  @Override
-  public void toNetwork(RitualSummoningConfig config, FriendlyByteBuf buffer) {
-    buffer.writeResourceLocation(ForgeRegistries.ENTITY_TYPES.getKey(config.entityType));
-  }
-
-  @Override
-  public RitualSummoningConfig fromNetwork(FriendlyByteBuf buffer) {
-    var id = buffer.readResourceLocation();
-    var type = ForgeRegistries.ENTITY_TYPES.getValue(id);
-    return new RitualSummoningConfig(type);
-  }
-
-  public record RitualSummoningConfig(EntityType<?> entityType) {}
 }

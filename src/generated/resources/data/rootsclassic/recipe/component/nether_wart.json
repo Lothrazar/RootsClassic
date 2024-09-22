@@ -1,0 +1,22 @@
+{
+  "type": "rootsclassic:component",
+  "effect": "rootsclassic:nether_wart",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "minecraft:coal"
+    },
+    {
+      "item": "minecraft:charcoal"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "rootsclassic:spell_powder"
+  }
+}

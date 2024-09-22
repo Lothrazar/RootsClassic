@@ -1,0 +1,28 @@
+{
+  "type": "rootsclassic:ritual",
+  "color": "#3a0254",
+  "effect": "rootsclassic:summoning",
+  "effectConfig": {
+    "entity": "minecraft:skeleton"
+  },
+  "incenses": [
+    {
+      "item": "minecraft:coal"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:arrow"
+    },
+    {
+      "item": "minecraft:bone"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ],
+  "level": 2
+}

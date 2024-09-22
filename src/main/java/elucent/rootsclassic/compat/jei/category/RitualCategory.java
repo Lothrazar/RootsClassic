@@ -18,6 +18,8 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -25,8 +27,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 
-  private final static ResourceLocation backgroundLocation = new ResourceLocation(Const.MODID, "textures/gui/jei/compat.png");
-  private final static ResourceLocation location = new ResourceLocation(Const.MODID, "textures/gui/tabletaltar.png");
+  private final static ResourceLocation backgroundLocation = Const.modLoc("textures/gui/jei/compat.png");
+  private final static ResourceLocation location = Const.modLoc("textures/gui/tabletaltar.png");
   private final IDrawable background;
   private final IDrawable icon;
   private final IDrawableStatic ingredientBackground;
@@ -73,6 +75,13 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, RitualWrapper recipe, IFocusGroup focuses) {
+	  Minecraft minecraft = Minecraft.getInstance();
+	  ClientLevel level = minecraft.level;
+	  if (level == null) {
+		  throw new NullPointerException("level must not be null.");
+	  }
+	  RegistryAccess registryAccess = level.registryAccess();
+
     for (int i = 0; i < recipe.getIngredients().size(); i++) {
       Ingredient ingredient = recipe.getIngredients().get(i);
       builder.addSlot(RecipeIngredientRole.INPUT, 15 + (i * 24), 3).addIngredients(ingredient);
@@ -81,8 +90,8 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
       Ingredient ingredient = recipe.getIncenses().get(i);
       builder.addSlot(RecipeIngredientRole.CATALYST, 28 + (i * 16), 27).addIngredients(ingredient);
     }
-    if (!recipe.getResult().isEmpty()) {
-      builder.addSlot(RecipeIngredientRole.OUTPUT, 67, 67).addItemStack(recipe.getResult());
+    if (!recipe.getResult(registryAccess).isEmpty()) {
+      builder.addSlot(RecipeIngredientRole.OUTPUT, 67, 67).addItemStack(recipe.getResult(registryAccess));
     }
   }
 

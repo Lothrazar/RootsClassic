@@ -1,9 +1,9 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.util.ArrayList;
-import java.util.List;
+import elucent.rootsclassic.registry.RootsComponents;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -12,43 +12,45 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
 public class RitualEngravedSword extends RitualCrafting {
 
   @Override
-  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, RitualCraftingConfig config) {
+  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, CompoundTag config) {
     List<Item> items = new ArrayList<>();
     for (ItemStack i : incenses) {
       items.add(i.getItem());
     }
-    ItemStack toSpawn = config.result().copy();
+	  ItemStack toSpawn = ItemStack.parseOptional(levelAccessor.registryAccess(), config.getCompound("result"));
     if (!levelAccessor.isClientSide) {
       int mods = 0;
       ItemEntity item = new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
       ItemStack stack = item.getItem();
-      CompoundTag tag = stack.getTag() != null ? stack.getTag() : new CompoundTag();
       for (Item i : items) {
         if (i == (RootsRegistry.ACACIA_BARK.get()) && mods < 4) {
-          addMod(tag, "spikes");
+          addMod(stack, RootsComponents.SPIKES);
           mods++;
         }
         if (i == RootsRegistry.SPRUCE_BARK.get() && mods < 4) {
-          addMod(tag, "forceful");
+          addMod(stack, RootsComponents.FORCEFUL);
           mods++;
         }
         if (i == RootsRegistry.BIRCH_BARK.get() && mods < 4) {
-          addMod(tag, "holy");
+          addMod(stack, RootsComponents.HOLY);
           mods++;
         }
         if (i == RootsRegistry.JUNGLE_BARK.get() && mods < 4) {
-          addMod(tag, "aquatic");
+          addMod(stack, RootsComponents.AQUATIC);
           mods++;
         }
         if (i == RootsRegistry.DARK_OAK_BARK.get() && mods < 4) {
-          addMod(tag, "shadowstep");
+          addMod(stack, RootsComponents.SHADOWSTEP);
           mods++;
         }
       }
-      stack.setTag(tag);
       levelAccessor.addFreshEntity(item);
     }
     inventory.clearContent();
@@ -58,12 +60,12 @@ public class RitualEngravedSword extends RitualCrafting {
     }
   }
 
-  public void addMod(CompoundTag tag, String name) {
-    if (tag.contains(name)) {
-      tag.putInt(name, tag.getInt(name) + 1);
+  public void addMod(ItemStack stack, Supplier<DataComponentType<Integer>> componentTypeSupplier) {
+    if (stack.has(componentTypeSupplier)) {
+      stack.set(componentTypeSupplier, stack.getOrDefault(componentTypeSupplier, 0) + 1);
     }
     else {
-      tag.putInt(name, 1);
+	    stack.set(componentTypeSupplier, 1);
     }
   }
 }

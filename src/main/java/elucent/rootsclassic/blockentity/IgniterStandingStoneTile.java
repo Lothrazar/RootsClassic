@@ -1,15 +1,17 @@
 package elucent.rootsclassic.blockentity;
 
-import java.util.List;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+
+import java.util.List;
 
 public class IgniterStandingStoneTile extends BEBase {
 
@@ -25,15 +27,15 @@ public class IgniterStandingStoneTile extends BEBase {
     this(RootsRegistry.IGNITER_STANDING_STONE_TILE.get(), pos, state);
   }
 
-  @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
-  }
+	@Override
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
+	}
 
-  @Override
-  public void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
-  }
+	@Override
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
+	}
 
   public static void serverTick(Level level, BlockPos pos, BlockState state, IgniterStandingStoneTile tile) {
     tile.ticker++;
@@ -43,7 +45,7 @@ public class IgniterStandingStoneTile extends BEBase {
               pos.getX() + RADIUS, pos.getY() + VRADIUS, pos.getZ() + RADIUS));
       if (nearbyCreatures.size() > 0) {
         for (LivingEntity nearbyCreature : nearbyCreatures) {
-          nearbyCreature.setSecondsOnFire(2);
+          nearbyCreature.igniteForSeconds(2);
         }
       }
     }

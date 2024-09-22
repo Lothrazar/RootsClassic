@@ -1,6 +1,5 @@
 package elucent.rootsclassic.client.particles;
 
-import com.lothrazar.library.particle.data.ParticleColor;
 import elucent.rootsclassic.client.particles.factory.MagicParticleTypeData;
 import elucent.rootsclassic.registry.ParticleRegistry;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -26,7 +25,11 @@ public class MagicParticleData implements ParticleProvider<MagicParticleTypeData
     return new MagicParticleTypeData(ParticleRegistry.MAGIC_TYPE.get(), color);
   }
 
-  public static ParticleOptions createData(double r, double g, double b) {
-    return new MagicParticleTypeData(ParticleRegistry.MAGIC_TYPE.get(), new ParticleColor(r, g, b));
-  }
+	public static ParticleOptions createData(double r, double g, double b) {
+		return new MagicParticleTypeData(ParticleRegistry.MAGIC_ALTAR_TYPE.get(), new ParticleColor(r, g, b, 1.0D));
+	}
+
+	public static ParticleOptions createData(double r, double g, double b, double a) {
+		return new MagicParticleTypeData(ParticleRegistry.MAGIC_ALTAR_TYPE.get(), new ParticleColor(r, g, b, a));
+	}
 }

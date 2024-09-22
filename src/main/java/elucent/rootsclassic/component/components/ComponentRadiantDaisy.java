@@ -47,7 +47,7 @@ public class ComponentRadiantDaisy extends ComponentBase {
           if (!targets.isEmpty()) {
             targets.removeIf(target -> target.getUUID() == livingCaster.getUUID());
             for (int j = 0; j < targets.size() && !didHit; j++) {
-              if (targets.get(j) instanceof Player && RootsConfig.disablePVP.get()) {
+              if (targets.get(j) instanceof Player && RootsConfig.COMMON.disablePVP.get()) {
                 //no pvp allowed
               }
               else {

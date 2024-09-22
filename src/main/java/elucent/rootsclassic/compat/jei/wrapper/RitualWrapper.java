@@ -1,19 +1,21 @@
 package elucent.rootsclassic.compat.jei.wrapper;
 
-import java.util.List;
-import java.util.Map;
 import elucent.rootsclassic.recipe.RitualRecipe;
 import elucent.rootsclassic.ritual.RitualPillars;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 
-public class RitualWrapper implements IRecipeCategoryExtension {
+import java.util.List;
+import java.util.Map;
 
-  private final RitualRecipe<?> ritual;
+public class RitualWrapper implements IRecipeCategoryExtension<RitualRecipe> {
+
+  private final RitualRecipe ritual;
 
   public Map<BlockPos, Block> getPillars() {
     return RitualPillars.getRitualPillars(ritual.level);
@@ -27,11 +29,11 @@ public class RitualWrapper implements IRecipeCategoryExtension {
     return ritual.getIncenses();
   }
 
-  public ItemStack getResult() {
-    return ritual.getResultItem();
+  public ItemStack getResult(HolderLookup.Provider provider) {
+    return ritual.getResultItem(provider);
   }
 
-  public RitualWrapper(RitualRecipe<?> ritual) {
+  public RitualWrapper(RitualRecipe ritual) {
     this.ritual = ritual;
   }
 

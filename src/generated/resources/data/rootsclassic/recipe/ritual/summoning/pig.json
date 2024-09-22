@@ -1,0 +1,28 @@
+{
+  "type": "rootsclassic:ritual",
+  "color": "#c769c1",
+  "effect": "rootsclassic:summoning",
+  "effectConfig": {
+    "entity": "minecraft:pig"
+  },
+  "incenses": [
+    {
+      "item": "minecraft:wheat_seeds"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:porkchop"
+    },
+    {
+      "item": "minecraft:porkchop"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ],
+  "level": 1
+}

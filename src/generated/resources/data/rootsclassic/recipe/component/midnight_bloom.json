@@ -1,0 +1,22 @@
+{
+  "type": "rootsclassic:component",
+  "effect": "rootsclassic:midnight_bloom",
+  "ingredients": [
+    {
+      "item": "minecraft:obsidian"
+    },
+    {
+      "item": "minecraft:dragon_breath"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "rootsclassic:midnight_bloom"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "rootsclassic:spell_powder"
+  }
+}

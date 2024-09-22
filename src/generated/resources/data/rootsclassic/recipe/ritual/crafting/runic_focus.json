@@ -1,0 +1,37 @@
+{
+  "type": "rootsclassic:ritual",
+  "color": "#00f26d",
+  "effect": "rootsclassic:crafting",
+  "effectConfig": {
+    "result": {
+      "count": 1,
+      "id": "rootsclassic:runic_focus"
+    }
+  },
+  "incenses": [
+    {
+      "item": "rootsclassic:oak_bark"
+    },
+    {
+      "item": "rootsclassic:spruce_bark"
+    },
+    {
+      "item": "rootsclassic:acacia_bark"
+    },
+    {
+      "item": "rootsclassic:jungle_bark"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "rootsclassic:verdant_sprig"
+    },
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:stone"
+    }
+  ],
+  "level": 2
+}

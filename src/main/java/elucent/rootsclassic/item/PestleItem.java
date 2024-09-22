@@ -1,9 +1,9 @@
 package elucent.rootsclassic.item;
 
-import com.lothrazar.library.item.ItemFlib;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class PestleItem extends ItemFlib {
+public class PestleItem extends Item {
 
   public PestleItem(Properties properties) {
     super(properties);

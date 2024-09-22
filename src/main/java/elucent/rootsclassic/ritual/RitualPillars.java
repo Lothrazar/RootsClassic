@@ -44,7 +44,7 @@ public class RitualPillars {
     });
   }
 
-  public static boolean verifyPositionBlocks(RitualRecipe<?> recipe, Level levelAccessor, BlockPos pos) {
+  public static boolean verifyPositionBlocks(RitualRecipe recipe, Level levelAccessor, BlockPos pos) {
     var pillars = getRitualPillars(recipe.level);
     return pillars.entrySet().stream().allMatch(entry -> {
       var loopPos = entry.getKey();

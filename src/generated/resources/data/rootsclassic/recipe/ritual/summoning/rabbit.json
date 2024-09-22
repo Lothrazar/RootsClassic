@@ -1,0 +1,28 @@
+{
+  "type": "rootsclassic:ritual",
+  "color": "#c769c1",
+  "effect": "rootsclassic:summoning",
+  "effectConfig": {
+    "entity": "minecraft:rabbit"
+  },
+  "incenses": [
+    {
+      "item": "minecraft:wheat_seeds"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:rabbit"
+    },
+    {
+      "item": "minecraft:rabbit_hide"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ],
+  "level": 1
+}

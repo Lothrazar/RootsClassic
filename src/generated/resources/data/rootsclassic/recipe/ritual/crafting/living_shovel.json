@@ -1,0 +1,31 @@
+{
+  "type": "rootsclassic:ritual",
+  "color": "#92d62b",
+  "effect": "rootsclassic:crafting",
+  "effectConfig": {
+    "result": {
+      "count": 1,
+      "id": "rootsclassic:living_shovel"
+    }
+  },
+  "incenses": [
+    {
+      "item": "rootsclassic:oak_bark"
+    },
+    {
+      "item": "rootsclassic:oak_bark"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:wooden_shovel"
+    },
+    {
+      "item": "rootsclassic:verdant_sprig"
+    },
+    {
+      "item": "minecraft:gold_nugget"
+    }
+  ],
+  "level": 0
+}

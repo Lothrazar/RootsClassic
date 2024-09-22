@@ -1,14 +1,14 @@
 package elucent.rootsclassic.item;
 
-import com.lothrazar.library.item.ItemFlib;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class RunicTabletItem extends ItemFlib {
+public class RunicTabletItem extends Item {
 
   public RunicTabletItem(Properties properties) {
     super(properties);

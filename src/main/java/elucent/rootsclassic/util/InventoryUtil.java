@@ -1,7 +1,8 @@
 package elucent.rootsclassic.util;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 public class InventoryUtil {
 
@@ -66,4 +67,9 @@ public class InventoryUtil {
     }
     return inventory;
   }
+
+	public static RecipeWrapper createWrappedInventory(IItemHandler itemHandler) {
+		if (itemHandler == null) return null;
+		return new RecipeWrapper(itemHandler);
+	}
 }

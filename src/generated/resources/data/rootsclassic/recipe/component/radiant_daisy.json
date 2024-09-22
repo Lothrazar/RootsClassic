@@ -1,0 +1,22 @@
+{
+  "type": "rootsclassic:component",
+  "effect": "rootsclassic:radiant_daisy",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone_block"
+    },
+    {
+      "item": "minecraft:glowstone"
+    },
+    {
+      "item": "rootsclassic:nightshade"
+    },
+    {
+      "item": "rootsclassic:radiant_daisy"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "rootsclassic:spell_powder"
+  }
+}

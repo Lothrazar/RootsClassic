@@ -1,0 +1,37 @@
+{
+  "type": "rootsclassic:ritual",
+  "color": "#3e8a3e",
+  "effect": "rootsclassic:crafting",
+  "effectConfig": {
+    "result": {
+      "count": 1,
+      "id": "rootsclassic:sylvan_hood"
+    }
+  },
+  "incenses": [
+    {
+      "item": "rootsclassic:birch_bark"
+    },
+    {
+      "item": "rootsclassic:birch_bark"
+    },
+    {
+      "item": "minecraft:golden_apple"
+    },
+    {
+      "item": "minecraft:poppy"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:leather_helmet"
+    },
+    {
+      "item": "minecraft:vine"
+    }
+  ],
+  "level": 2
+}

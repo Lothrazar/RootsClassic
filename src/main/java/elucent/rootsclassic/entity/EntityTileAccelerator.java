@@ -1,12 +1,10 @@
 package elucent.rootsclassic.entity;
 
-import java.util.Random;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -14,7 +12,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.NetworkHooks;
+
+import java.util.Random;
 
 public class EntityTileAccelerator extends Entity {
 
@@ -101,11 +100,12 @@ public class EntityTileAccelerator extends Entity {
       }
     }
   }
+	@Override
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 
-  @Override
-  protected void defineSynchedData() {}
+	}
 
-  @Override
+	@Override
   protected void readAdditionalSaveData(CompoundTag compound) {
     this.bePosition = new BlockPos(compound.getInt("posX"), compound.getInt("posY"), compound.getInt("posZ"));
     this.lifetime = compound.getInt("lifetime");
@@ -119,10 +119,5 @@ public class EntityTileAccelerator extends Entity {
     compound.putInt("posZ", bePosition.getZ());
     compound.putInt("lifetime", lifetime);
     compound.putInt("potency", potency);
-  }
-
-  @Override
-  public Packet<ClientGamePacketListener> getAddEntityPacket() {
-    return NetworkHooks.getEntitySpawningPacket(this);
   }
 }

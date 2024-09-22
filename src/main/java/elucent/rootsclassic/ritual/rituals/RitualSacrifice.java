@@ -47,7 +47,7 @@ public class RitualSacrifice extends SimpleRitualEffect {
     if (enemies.size() > 0) {
       for (LivingEntity enemy : enemies) {
         if (!(enemy instanceof Player)) {
-          enemies.get(0).setHealth(enemies.get(0).getHealth() - 60.0f);
+          enemies.getFirst().setHealth(enemies.getFirst().getHealth() - 60.0f);
           if (!levelAccessor.isClientSide) {
             ItemEntity item = new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, potentialDrops.get(levelAccessor.random.nextInt(potentialDrops.size())));
             levelAccessor.addFreshEntity(item);

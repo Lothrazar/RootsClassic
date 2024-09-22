@@ -1,0 +1,28 @@
+{
+  "type": "rootsclassic:ritual",
+  "color": "#3a0254",
+  "effect": "rootsclassic:summoning",
+  "effectConfig": {
+    "entity": "minecraft:zombie"
+  },
+  "incenses": [
+    {
+      "item": "minecraft:coal"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ],
+  "level": 2
+}

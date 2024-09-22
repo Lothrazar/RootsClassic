@@ -18,7 +18,7 @@ public class RitualLifeDrain extends SimpleRitualEffect {
     List<Monster> enemies = levelAccessor.getEntitiesOfClass(Monster.class, new AABB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
         pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
     float drainedHealth = 0;
-    if (enemies.size() > 0) {
+    if (!enemies.isEmpty()) {
       for (Monster enemy : enemies) {
         enemy.hurt(levelAccessor.damageSources().cactus(), 9);
         drainedHealth += 9;

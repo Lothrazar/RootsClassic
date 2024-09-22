@@ -4,6 +4,7 @@ import java.util.List;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
@@ -26,15 +27,15 @@ public class RepulsorStandingStoneTile extends BEBase {
     this(RootsRegistry.REPULSOR_STANDING_STONE_TILE.get(), pos, state);
   }
 
-  @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
-  }
+	@Override
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
+	}
 
-  @Override
-  public void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
-  }
+	@Override
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
+	}
 
   public static void serverTick(Level level, BlockPos pos, BlockState state, RepulsorStandingStoneTile tile) {
     tile.ticker++;

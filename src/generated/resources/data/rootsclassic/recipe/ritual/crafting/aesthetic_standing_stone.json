@@ -1,0 +1,24 @@
+{
+  "type": "rootsclassic:ritual",
+  "color": "#006949",
+  "effect": "rootsclassic:crafting",
+  "effectConfig": {
+    "result": {
+      "count": 1,
+      "id": "rootsclassic:aesthetic_standing_stone"
+    }
+  },
+  "incenses": [],
+  "ingredients": [
+    {
+      "item": "rootsclassic:attuned_standing_stone"
+    },
+    {
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "item": "minecraft:mossy_stone_bricks"
+    }
+  ],
+  "level": 2
+}

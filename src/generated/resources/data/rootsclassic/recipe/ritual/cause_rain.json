@@ -1,0 +1,16 @@
+{
+  "type": "rootsclassic:ritual",
+  "color": "#17008a",
+  "effect": "rootsclassic:cause_rain",
+  "incenses": [
+    {
+      "item": "minecraft:vine"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:lily_pad"
+    }
+  ],
+  "level": 1
+}

@@ -1,6 +1,6 @@
 package elucent.rootsclassic.client.screen;
 
-import com.lothrazar.library.util.RenderUtil;
+import elucent.rootsclassic.util.RootsUtil;
 
 public class ScreenTextInstance {
 
@@ -23,7 +23,7 @@ public class ScreenTextInstance {
   }
 
   public ScreenTextInstance(String line, float x, float y) {
-    this(line, x, y, RenderUtil.intColor(255, 255, 255));
+    this(line, x, y, RootsUtil.intColor(255, 255, 255));
   }
 
   public String getLine() {

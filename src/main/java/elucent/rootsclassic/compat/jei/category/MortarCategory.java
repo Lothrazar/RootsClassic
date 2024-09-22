@@ -19,13 +19,13 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 
 public class MortarCategory implements IRecipeCategory<ComponentRecipe> {
 
-  private final static ResourceLocation backgroundLocation = new ResourceLocation(Const.MODID, "textures/gui/tabletmortar.png");
+  private final static ResourceLocation backgroundLocation = Const.modLoc("textures/gui/tabletmortar.png");
   private final IDrawable background;
   private final IDrawable icon;
   private final Component localizedName;
@@ -68,7 +68,7 @@ public class MortarCategory implements IRecipeCategory<ComponentRecipe> {
       Ingredient ingredient = recipe.getIngredients().get(i);
       builder.addSlot(RecipeIngredientRole.INPUT, 3 + (i * 16), 26).addIngredients(ingredient);
     }
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 123, 26).addItemStack(recipe.assemble(new SimpleContainer(), registryAccess));
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 123, 26).addItemStack(recipe.assemble(new SingleRecipeInput(ItemStack.EMPTY), registryAccess));
   }
 
   @Override

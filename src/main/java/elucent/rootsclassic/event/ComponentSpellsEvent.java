@@ -1,38 +1,41 @@
 package elucent.rootsclassic.event;
 
 import elucent.rootsclassic.Const;
-import elucent.rootsclassic.capability.RootsCapabilityManager;
+import elucent.rootsclassic.attachment.ManaAttachment;
+import elucent.rootsclassic.attachment.RootsAttachments;
+import elucent.rootsclassic.registry.RootsComponents;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
-import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
+import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 public class ComponentSpellsEvent {
 
   public static int TICKS_PER_MANA_REGEN = 5;
 
   @SubscribeEvent
-  public void onLivingTick(LivingTickEvent event) {
-    final LivingEntity entity = event.getEntity();
-    if (entity instanceof Player player) {
-      // armor regen if full set
-      this.wildwoodArmorRegenFullset(player);
-      tickManaRegen(entity);
-    }
-    tickSkipMovementCurse(event, entity);
+  public void onLivingTick(EntityTickEvent.Pre event) {
+		if(event.getEntity() instanceof LivingEntity entity) {
+			if (event.getEntity() instanceof Player player) {
+				// armor regen if full set
+				this.wildwoodArmorRegenFullset(player);
+				tickManaRegen(entity);
+			}
+			tickSkipMovementCurse(event, entity);
+		}
   }
 
-  private void tickSkipMovementCurse(LivingTickEvent event, LivingEntity entity) {
+  private void tickSkipMovementCurse(EntityTickEvent.Pre event, LivingEntity entity) {
     CompoundTag persistentData = entity.getPersistentData();
     if (persistentData.contains(Const.NBT_TRACK_TICKS) && persistentData.contains(Const.NBT_SKIP_TICKS)) {
       int skipTicks = persistentData.getInt(Const.NBT_SKIP_TICKS);
@@ -49,7 +52,9 @@ public class ComponentSpellsEvent {
 
   private void tickManaRegen(LivingEntity entity) {
     if (entity.tickCount % TICKS_PER_MANA_REGEN == 0) {
-      entity.getCapability(RootsCapabilityManager.MANA_CAPABILITY).ifPresent(cap -> cap.setMana(cap.getMana() + 1.0f));
+      ManaAttachment attachment = entity.getData(RootsAttachments.MANA);
+			attachment.setMana(attachment.getMana() + 1);
+			entity.setData(RootsAttachments.MANA, attachment);
     }
   }
 
@@ -90,7 +95,7 @@ public class ComponentSpellsEvent {
   }
 
   @SubscribeEvent
-  public void onLivingDamage(LivingHurtEvent event) {
+  public void onLivingDamage(LivingIncomingDamageEvent event) {
     LivingEntity entityLiving = event.getEntity();
     CompoundTag persistentData = entityLiving.getPersistentData();
     if (persistentData.contains(Const.NBT_VULN)) {
@@ -106,8 +111,8 @@ public class ComponentSpellsEvent {
     if (entityLiving instanceof Player player) {
       if (!player.getInventory().getSelected().isEmpty() && player.getInventory().getSelected().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
         ItemStack sword = player.getInventory().getSelected();
-        if (sword.hasTag() && sword.getTag().contains("shadowstep")) {
-          int stepLvl = sword.getTag().getInt("shadowstep");
+        if (sword.has(RootsComponents.SHADOWSTEP)) {
+          int stepLvl = sword.getOrDefault(RootsComponents.SHADOWSTEP, 0);
           double chance = stepLvl * 12.5;
           if (player.getCommandSenderWorld().random.nextInt(100) < chance) {
             event.setCanceled(true);
@@ -119,26 +124,23 @@ public class ComponentSpellsEvent {
       if (!event.getEntity().getCommandSenderWorld().isClientSide) {
         if (!player.getInventory().getSelected().isEmpty() && player.getInventory().getSelected().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
           ItemStack sword = player.getInventory().getSelected();
-          if (sword.hasTag()) {
-            CompoundTag tag = sword.getTag();
-            if (tag.contains("aquatic")) {
-              int aquaLvl = tag.getInt("aquatic");
-              float amount = aquaLvl * 0.5f;
-              event.getEntity().hurt(entityLiving.damageSources().drown(), amount);
-            }
-            if ((tag.contains("holy")) && entityLiving.getMobType() == MobType.UNDEAD) {
-              int holyLvl = tag.getInt("holy");
-              float amount = holyLvl * 1.5f;
-              float currentAmount = event.getAmount();
-              event.setAmount(currentAmount + amount);
-            }
-            if (tag.contains("spikes")) {
-              int spikeLvl = tag.getInt("spikes");
-              float amount = spikeLvl;
-              float currentAmount = event.getAmount();
-              event.setAmount(currentAmount + amount);
-            }
-          }
+	        if (sword.has(RootsComponents.AQUATIC)) {
+		        int aquaLvl = sword.getOrDefault(RootsComponents.AQUATIC, 0);
+		        float amount = aquaLvl * 0.5f;
+		        event.getEntity().hurt(entityLiving.damageSources().drown(), amount);
+	        }
+	        if (sword.has(RootsComponents.HOLY) && entityLiving.getType().is(EntityTypeTags.UNDEAD)) {
+		        int holyLvl = sword.getOrDefault(RootsComponents.HOLY, 0);
+		        float amount = holyLvl * 1.5f;
+		        float currentAmount = event.getAmount();
+		        event.setAmount(currentAmount + amount);
+	        }
+	        if (sword.has(RootsComponents.SPIKES)) {
+		        int spikeLvl = sword.getOrDefault(RootsComponents.SPIKES, 0);
+		        float amount = spikeLvl;
+		        float currentAmount = event.getAmount();
+		        event.setAmount(currentAmount + amount);
+	        }
         }
       }
     }

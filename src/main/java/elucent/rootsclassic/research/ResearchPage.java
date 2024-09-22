@@ -6,12 +6,13 @@ import elucent.rootsclassic.recipe.ComponentRecipe;
 import elucent.rootsclassic.recipe.RitualRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class ResearchPage {
 
   public List<ItemStack> craftingRecipe = new ArrayList<>();
-  public ComponentRecipe mortarRecipe = null;
-  public RitualRecipe<?> altarRecipe = null;
+  public RecipeHolder<ComponentRecipe> mortarRecipe = null;
+  public RecipeHolder<RitualRecipe> altarRecipe = null;
   public List<ItemStack> smeltingRecipe = new ArrayList<>();
   public EnumPageType recipe = EnumPageType.TYPE_NULL;
   public ItemStack displayItem = null;
@@ -62,13 +63,13 @@ public class ResearchPage {
     return this;
   }
 
-  public ResearchPage addMortarRecipe(ComponentRecipe component) {
+  public ResearchPage addMortarRecipe(RecipeHolder<ComponentRecipe> component) {
     recipe = EnumPageType.TYPE_MORTAR;
     mortarRecipe = component;
     return this;
   }
 
-  public ResearchPage addAltarRecipe(RitualRecipe<?> ritual) {
+  public ResearchPage addAltarRecipe(RecipeHolder<RitualRecipe> ritual) {
     recipe = EnumPageType.TYPE_ALTAR;
     altarRecipe = ritual;
     return this;

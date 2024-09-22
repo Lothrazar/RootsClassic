@@ -1,17 +1,17 @@
 package elucent.rootsclassic.item;
 
-import java.util.List;
-import java.util.function.Consumer;
-import javax.annotation.Nullable;
-import com.lothrazar.library.util.ItemStackUtil;
 import elucent.rootsclassic.Const;
-import elucent.rootsclassic.capability.RootsCapabilityManager;
+import elucent.rootsclassic.attachment.ManaAttachment;
+import elucent.rootsclassic.attachment.RootsAttachments;
 import elucent.rootsclassic.client.ClientHandler;
 import elucent.rootsclassic.client.model.SylvanArmorModel;
+import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -23,40 +23,33 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.fml.DistExecutor;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+
+import java.util.List;
+import java.util.function.Consumer;
 
 @SuppressWarnings("deprecation")
 public class SylvanArmorItem extends ArmorItem {
 
-  private final LazyLoadedValue<HumanoidModel<?>> model;
-
-  public SylvanArmorItem(ArmorMaterial materialIn, ArmorItem.Type type, Item.Properties builderIn) {
-    super(materialIn, type, builderIn);
-    this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(type)),
-        () -> () -> null);
+  public SylvanArmorItem(Holder<ArmorMaterial> materialHolder, ArmorItem.Type type, Item.Properties builderIn) {
+    super(materialHolder, type, builderIn);
   }
 
   @Override
-  public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-    return Const.MODID + ":textures/models/armor/sylvan.png";
-  }
-
-  @OnlyIn(Dist.CLIENT)
-  public HumanoidModel<?> provideArmorModelForSlot(ArmorItem.Type type) {
-    return new SylvanArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ClientHandler.SYLVAN_ARMOR), type);
+  public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
+	  return Const.modLoc("textures/models/armor/sylvan.png");
   }
 
   @Override
-  public void onArmorTick(ItemStack stack, Level levelAccessor, Player player) {
-    ItemStackUtil.randomlyRepair(levelAccessor.random, stack, 80);
-    if (levelAccessor.random.nextInt(40) == 0) {
-      player.getCapability(RootsCapabilityManager.MANA_CAPABILITY).ifPresent(cap -> {
-        cap.setMana(cap.getMana() + 1.0f);
-      });
-    }
+  public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+	  if (slotId < 4) {
+		  RootsUtil.randomlyRepair(level.random, stack);
+		  if (level.random.nextInt(40) == 0 && entity instanceof Player player) {
+			  ManaAttachment mana = player.getData(RootsAttachments.MANA);
+			  mana.setMana(mana.getMana() + 1.0f);
+			  player.setData(RootsAttachments.MANA, mana);
+		  }
+	  }
   }
 
   @Override
@@ -65,20 +58,25 @@ public class SylvanArmorItem extends ArmorItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level levelAccessor, List<Component> tooltip, TooltipFlag flagIn) {
-    super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
-    tooltip.add(Component.empty());
-    tooltip.add(Component.translatable("rootsclassic.attribute.equipped").withStyle(ChatFormatting.GRAY));
-    tooltip.add(Component.literal(" ").append(Component.translatable("rootsclassic.attribute.increasedmanaregen")).withStyle(ChatFormatting.BLUE));
-    tooltip.add(Component.empty());
-    tooltip.add(Component.translatable("rootsclassic.attribute.fullset").withStyle(ChatFormatting.GRAY));
-    tooltip.add(Component.literal(" +1 ").append(Component.translatable("rootsclassic.attribute.potency")).withStyle(ChatFormatting.BLUE));
+  public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+	  super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+    tooltipComponents.add(Component.empty());
+    tooltipComponents.add(Component.translatable("rootsclassic.attribute.equipped").withStyle(ChatFormatting.GRAY));
+    tooltipComponents.add(Component.literal(" ").append(Component.translatable("rootsclassic.attribute.increasedmanaregen")).withStyle(ChatFormatting.BLUE));
+    tooltipComponents.add(Component.empty());
+    tooltipComponents.add(Component.translatable("rootsclassic.attribute.fullset").withStyle(ChatFormatting.GRAY));
+    tooltipComponents.add(Component.literal(" +1 ").append(Component.translatable("rootsclassic.attribute.potency")).withStyle(ChatFormatting.BLUE));
   }
 
+  @SuppressWarnings("removal")
   @Override
   public void initializeClient(Consumer<IClientItemExtensions> consumer) {
     consumer.accept(new IClientItemExtensions() {
+	    private final LazyLoadedValue<HumanoidModel<?>> model = new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(type));
 
+	    public HumanoidModel<?> provideArmorModelForSlot(ArmorItem.Type type) {
+		    return new SylvanArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ClientHandler.SYLVAN_ARMOR), type);
+	    }
       @Override
       public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
         return model.get();

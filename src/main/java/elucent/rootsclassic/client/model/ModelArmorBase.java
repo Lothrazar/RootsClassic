@@ -75,7 +75,7 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
   }
 
   @Override
-  public void renderToBuffer(PoseStack poseStack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+  public void renderToBuffer(PoseStack poseStack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, int color) {
     poseStack.pushPose();
     poseStack.scale(armorScale, armorScale, armorScale);
     this.setHeadRotation();
@@ -95,36 +95,36 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
       poseStack.pushPose();
       poseStack.scale(1.5F / f, 1.5F / f, 1.5F / f);
       poseStack.translate(0.0F, 16.0F * 1, 0.0F);
-      head.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      head.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, color);
       poseStack.popPose();
       poseStack.pushPose();
       poseStack.scale(1.0F / f, 1.0F / f, 1.0F / f);
       poseStack.translate(0.0F, 24.0F * 1, 0.0F);
-      body.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      body.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, color);
       poseStack.popPose();
     }
     else {
-      head.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      head.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, color);
       if (crouching) {
         poseStack.translate(0.0F, 0.2F, 0.0F);
       }
-      body.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      body.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, color);
       poseStack.pushPose();
       if (crouching) {
         poseStack.translate(0.0F, -0.15F, 0.0F);
       }
-      rightArm.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-      leftArm.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+      rightArm.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, color);
+      leftArm.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, color);
       poseStack.popPose();
     }
     poseStack.translate(0.0F, 1.25F, 0.0F);
     if (crouching) {
       poseStack.translate(0.0F, -0.15F, 0.05F);
     }
-    rightLeg.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    leftLeg.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    rightFoot.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    leftFoot.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    rightLeg.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, color);
+    leftLeg.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, color);
+    rightFoot.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, color);
+    leftFoot.render(poseStack, bufferIn, packedLightIn, packedOverlayIn, color);
     poseStack.popPose();
   }
 

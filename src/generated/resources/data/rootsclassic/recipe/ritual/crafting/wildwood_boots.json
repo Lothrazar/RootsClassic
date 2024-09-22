@@ -1,0 +1,37 @@
+{
+  "type": "rootsclassic:ritual",
+  "color": "#917341",
+  "effect": "rootsclassic:crafting",
+  "effectConfig": {
+    "result": {
+      "count": 1,
+      "id": "rootsclassic:wildwood_boots"
+    }
+  },
+  "incenses": [
+    {
+      "item": "rootsclassic:oak_bark"
+    },
+    {
+      "item": "rootsclassic:oak_bark"
+    },
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "minecraft:oak_sapling"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:iron_boots"
+    },
+    {
+      "item": "minecraft:oak_planks"
+    }
+  ],
+  "level": 2
+}

@@ -4,6 +4,7 @@ import java.util.List;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
@@ -24,15 +25,15 @@ public class VacuumStandingStoneTile extends BEBase {
     this(RootsRegistry.VACUUM_STANDING_STONE_TILE.get(), pos, state);
   }
 
-  @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
-  }
+	@Override
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
+	}
 
-  @Override
-  public void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
-  }
+	@Override
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
+	}
 
   public static void serverTick(Level level, BlockPos pos, BlockState state, VacuumStandingStoneTile tile) {
     tile.ticker++;
@@ -47,7 +48,7 @@ public class VacuumStandingStoneTile extends BEBase {
         }
         // constant force!
         float strength = 0.05F;
-        Vec3 entityVector = new Vec3(nearbyItem.getX(), nearbyItem.getY() - nearbyItem.getMyRidingOffset() + nearbyItem.getBbHeight() / 2, nearbyItem.getZ());
+        Vec3 entityVector = new Vec3(nearbyItem.getX(), nearbyItem.getY() - nearbyItem.getPassengerRidingPosition(nearbyItem).y() + nearbyItem.getBbHeight() / 2, nearbyItem.getZ());
         Vec3 finalVector = new Vec3(pos.getX(), pos.getY() + 0.5, pos.getZ()).subtract(entityVector);
         if (Math.sqrt(finalVector.x * finalVector.x + finalVector.y * finalVector.y + finalVector.z * finalVector.z) > 1) {
           finalVector = finalVector.normalize();

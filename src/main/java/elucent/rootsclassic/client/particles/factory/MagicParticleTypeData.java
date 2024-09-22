@@ -1,58 +1,46 @@
 package elucent.rootsclassic.client.particles.factory;
 
-import com.lothrazar.library.particle.data.ParticleColor;
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import elucent.rootsclassic.client.particles.ParticleColor;
 import elucent.rootsclassic.registry.ParticleRegistry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 
 public class MagicParticleTypeData implements ParticleOptions {
 
   private ParticleType<MagicParticleTypeData> type;
-  public static final Codec<MagicParticleTypeData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-      Codec.FLOAT.fieldOf("r").forGetter(d -> d.color.getRed()),
-      Codec.FLOAT.fieldOf("g").forGetter(d -> d.color.getGreen()),
-      Codec.FLOAT.fieldOf("b").forGetter(d -> d.color.getBlue()))
-      .apply(instance, MagicParticleTypeData::new));
+
+	public static final MapCodec<MagicParticleTypeData> CODEC = RecordCodecBuilder.mapCodec(
+		instance -> instance.group(
+				ParticleColor.CODEC.fieldOf("color").forGetter(p_253371_ -> p_253371_.color)
+			)
+			.apply(instance, MagicParticleTypeData::new)
+	);
+
   public ParticleColor color;
-  @SuppressWarnings("deprecation")
-  static final ParticleOptions.Deserializer<MagicParticleTypeData> DESERIALIZER = new ParticleOptions.Deserializer<MagicParticleTypeData>() {
 
-    @Override
-    public MagicParticleTypeData fromCommand(ParticleType<MagicParticleTypeData> type, StringReader reader) throws CommandSyntaxException {
-      reader.expect(' ');
-      return new MagicParticleTypeData(type, ParticleColor.deserialize(reader.readString()));
-    }
-
-    @Override
-    public MagicParticleTypeData fromNetwork(ParticleType<MagicParticleTypeData> type, FriendlyByteBuf buffer) {
-      return new MagicParticleTypeData(type, ParticleColor.deserialize(buffer.readUtf()));
-    }
-  };
+	public static final StreamCodec<RegistryFriendlyByteBuf, MagicParticleTypeData> STREAM_CODEC = StreamCodec.composite(
+		ParticleColor.STREAM_CODEC, p_319429_ -> p_319429_.color, MagicParticleTypeData::new
+	);
 
   public MagicParticleTypeData(ParticleType<MagicParticleTypeData> particleTypeData, ParticleColor color) {
     this.type = particleTypeData;
     this.color = color;
   }
 
-  public MagicParticleTypeData(float r, float g, float b) {
-    this(ParticleRegistry.MAGIC_TYPE.get(), new ParticleColor(r, g, b));
+  public MagicParticleTypeData(float r, float g, float b, float a) {
+    this(ParticleRegistry.MAGIC_TYPE.get(), new ParticleColor(r, g, b, a));
   }
+
+	public MagicParticleTypeData(ParticleColor vector3f) {
+		this(ParticleRegistry.MAGIC_TYPE.get(), vector3f);
+	}
 
   @Override
   public ParticleType<?> getType() {
     return type;
-  }
-
-  @Override
-  public void writeToNetwork(FriendlyByteBuf buffer) {}
-
-  @Override
-  public String writeToString() {
-    return null;
   }
 }

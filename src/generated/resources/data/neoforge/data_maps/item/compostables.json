@@ -1,0 +1,19 @@
+{
+  "values": {
+    "rootsclassic:blackcurrant": {
+      "chance": 0.3
+    },
+    "rootsclassic:elderberry": {
+      "chance": 0.65
+    },
+    "rootsclassic:nightshade": {
+      "chance": 0.65
+    },
+    "rootsclassic:redcurrant": {
+      "chance": 0.3
+    },
+    "rootsclassic:whitecurrant": {
+      "chance": 0.3
+    }
+  }
+}

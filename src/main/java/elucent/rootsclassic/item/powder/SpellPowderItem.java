@@ -1,22 +1,22 @@
 package elucent.rootsclassic.item.powder;
 
-import java.util.List;
-import javax.annotation.Nullable;
-import com.lothrazar.library.item.ItemFlib;
-import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentBaseRegistry;
+import elucent.rootsclassic.datacomponent.SpellData;
+import elucent.rootsclassic.registry.RootsComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.crafting.RecipeInput;
 
-public class SpellPowderItem extends ItemFlib {
+import java.util.List;
+
+public class SpellPowderItem extends Item {
 
   public SpellPowderItem(Properties properties) {
     super(properties);
@@ -27,15 +27,14 @@ public class SpellPowderItem extends ItemFlib {
     return slotChanged;
   }
 
-  public static void createData(ItemStack stack, ResourceLocation effect, Container inventory) {
+  public static void createData(ItemStack stack, ResourceLocation effect, RecipeInput recipeInput) {
     CompoundTag nbt = new CompoundTag();
     int potency = 0;
     int efficiency = 0;
     int size = 0;
-    nbt.putString(Const.NBT_EFFECT, effect.toString());
-    if (inventory != null) {
-      for (int i = 0; i < inventory.getContainerSize(); i++) {
-        ItemStack itemStack = inventory.getItem(i);
+    if (recipeInput != null) {
+      for (int i = 0; i < recipeInput.size(); i++) {
+        ItemStack itemStack = recipeInput.getItem(i);
         if (!itemStack.isEmpty()) {
           //TODO: Make this into a tag
           if (itemStack.getItem() == Items.GLOWSTONE_DUST) {
@@ -50,30 +49,27 @@ public class SpellPowderItem extends ItemFlib {
         }
       }
     }
-    nbt.putInt(Const.NBT_POTENCY, potency);
-    nbt.putInt(Const.NBT_EFFICIENCY, efficiency);
-    nbt.putInt(Const.NBT_SIZE, size);
-    stack.setTag(nbt);
+		stack.set(RootsComponents.SPELL, new SpellData(potency, efficiency, size, effect.toString()));
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level levelAccessor, List<Component> tooltip, TooltipFlag flagIn) {
-    super.appendHoverText(stack, levelAccessor, tooltip, flagIn);
-    if (stack.hasTag()) {
-      CompoundTag tag = stack.getTag();
-      ResourceLocation compName = ResourceLocation.tryParse(tag.getString(Const.NBT_EFFECT));
+  public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
+	  super.appendHoverText(stack, context, tooltip, tooltipFlag);
+    if (stack.has(RootsComponents.SPELL)) {
+	    SpellData spell = stack.get(RootsComponents.SPELL);
+      ResourceLocation compName = ResourceLocation.tryParse(spell.effect());
       if (compName != null) {
-        ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get().getValue(compName);
+        ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get(compName);
         if (comp != null) {
           tooltip.add(Component.translatable("rootsclassic.tooltip.spelltypeheading")
               .append(": ").withStyle(ChatFormatting.GOLD).append(comp.getEffectName().withStyle(comp.getTextColor())));
         }
       }
-      tooltip.add(Component.translatable("  +" + tag.getInt(Const.NBT_POTENCY) + " ")
+      tooltip.add(Component.translatable("  +" + spell.potency() + " ")
           .append(Component.translatable("rootsclassic.tooltip.spellpotency")).append(".").withStyle(ChatFormatting.RED));
-      tooltip.add(Component.translatable("  +" + tag.getInt(Const.NBT_EFFICIENCY) + " ")
+      tooltip.add(Component.translatable("  +" + spell.efficiency() + " ")
           .append(Component.translatable("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(ChatFormatting.RED));
-      tooltip.add(Component.translatable("  +" + tag.getInt(Const.NBT_SIZE) + " ")
+      tooltip.add(Component.translatable("  +" + spell.size() + " ")
           .append(Component.translatable("rootsclassic.tooltip.spellsize")).append(".").withStyle(ChatFormatting.RED));
     }
     else {

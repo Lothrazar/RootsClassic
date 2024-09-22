@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "tag": "c:rods/wooden"
+    },
+    "V": {
+      "tag": "minecraft:saplings"
+    }
+  },
+  "pattern": [
+    " VV",
+    "VPV",
+    "SV "
+  ],
+  "result": {
+    "count": 1,
+    "id": "rootsclassic:bark_knife"
+  }
+}

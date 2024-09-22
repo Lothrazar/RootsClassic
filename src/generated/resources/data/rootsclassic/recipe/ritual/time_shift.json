@@ -1,0 +1,20 @@
+{
+  "type": "rootsclassic:ritual",
+  "color": "#f0f563",
+  "effect": "rootsclassic:time_shift",
+  "incenses": [
+    {
+      "item": "minecraft:clock"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:clock"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  ],
+  "level": 1,
+  "secondaryColor": "#fca223"
+}

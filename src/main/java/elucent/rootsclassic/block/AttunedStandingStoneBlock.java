@@ -50,11 +50,11 @@ public class AttunedStandingStoneBlock extends BaseBEBlock {
   }
 
   @Override
-  public void playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
+  public BlockState playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
     if (!levelAccessor.isClientSide && player.isCreative()) {
       AttunedStandingStoneBlock.removeBottomHalf(levelAccessor, pos, state, player);
     }
-    super.playerWillDestroy(levelAccessor, pos, state, player);
+    return super.playerWillDestroy(levelAccessor, pos, state, player);
   }
 
   public static void removeBottomHalf(Level levelAccessor, BlockPos pos, BlockState state, Player player) {

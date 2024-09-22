@@ -1,14 +1,14 @@
 package elucent.rootsclassic.block.brazier;
 
-import javax.annotation.Nonnull;
 import elucent.rootsclassic.blockentity.BEBase;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -17,9 +17,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+
+import javax.annotation.Nonnull;
 
 public class BrazierBlockEntity extends BEBase {
 
@@ -35,7 +35,6 @@ public class BrazierBlockEntity extends BEBase {
       return 1;
     }
   };
-  private LazyOptional<IItemHandler> inventoryHolder = LazyOptional.of(() -> inventory);
 
   public BrazierBlockEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
     super(tileEntityTypeIn, pos, state);
@@ -45,10 +44,10 @@ public class BrazierBlockEntity extends BEBase {
     super(RootsRegistry.BRAZIER_TILE.get(), pos, state);
   }
 
-  @Override
-  public void load(CompoundTag tag) {
-    super.load(tag);
-    inventory.deserializeNBT(tag.getCompound(NBT_INVENTORY));
+	@Override
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
+    inventory.deserializeNBT(registries, tag.getCompound(NBT_INVENTORY));
     if (tag.contains(NBT_BURNING)) {
       setBurning(tag.getBoolean(NBT_BURNING));
     }
@@ -58,9 +57,9 @@ public class BrazierBlockEntity extends BEBase {
   }
 
   @Override
-  public void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
-    tag.put(NBT_INVENTORY, inventory.serializeNBT());
+  public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    super.saveAdditional(tag, registries);
+    tag.put(NBT_INVENTORY, inventory.serializeNBT(registries));
     tag.putBoolean(NBT_BURNING, isBurning());
     tag.putInt(NBT_PROGRESS, progress);
   }
@@ -86,7 +85,7 @@ public class BrazierBlockEntity extends BEBase {
   }
 
   @Override
-  public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack playerItem, BlockHitResult hit) {
+  public ItemInteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack playerItem, BlockHitResult hit) {
     if (playerItem.isEmpty()) {
       if (!getHeldItem().isEmpty() && !isBurning()) {
         if (player.isShiftKeyDown()) {
@@ -97,14 +96,14 @@ public class BrazierBlockEntity extends BEBase {
           notifyUpdate(state);
           player.displayClientMessage(Component.translatable("rootsclassic.brazier.burning.empty"), true);
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
       }
       else if (isBurning()) {
         if (player.isShiftKeyDown()) {
           player.displayClientMessage(Component.translatable("rootsclassic.brazier.burning.off"), true);
           stopBurning();
           notifyUpdate(state);
-          return InteractionResult.SUCCESS;
+          return ItemInteractionResult.SUCCESS;
         }
       }
     }
@@ -113,22 +112,19 @@ public class BrazierBlockEntity extends BEBase {
         startBurning();
         player.displayClientMessage(Component.translatable("rootsclassic.brazier.burning.on"), true);
         notifyUpdate(state);
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
       }
     }
     else {
       if (getHeldItem().isEmpty()) {
-        setHeldItem(new ItemStack(playerItem.getItem(), 1));
-        if (playerItem.hasTag()) {
-          getHeldItem().setTag(playerItem.getTag());
-        }
+        setHeldItem(playerItem.copyWithCount(1));
         playerItem.shrink(1);
         player.displayClientMessage(Component.translatable("rootsclassic.brazier.burning.added"), true);
         notifyUpdate(state);
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
       }
     }
-    return InteractionResult.PASS;
+    return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
   }
 
   private void startBurning() {
@@ -203,11 +199,5 @@ public class BrazierBlockEntity extends BEBase {
 
   public void setHeldItem(ItemStack heldItem) {
     inventory.setStackInSlot(0, heldItem);
-  }
-
-  @Override
-  public void invalidateCaps() {
-    super.invalidateCaps();
-    inventoryHolder.invalidate();
   }
 }

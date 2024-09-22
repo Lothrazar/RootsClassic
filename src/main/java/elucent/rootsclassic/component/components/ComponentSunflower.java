@@ -30,14 +30,14 @@ public class ComponentSunflower extends ComponentBase {
       List<LivingEntity> targets = level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size, y - size, z - size, x + size, y + size, z + size));
       targets.removeIf(target -> target.getUUID() == casterEntity.getUUID());
       for (LivingEntity target : targets) {
-        if (target instanceof Player && RootsConfig.disablePVP.get()) {
+        if (target instanceof Player && RootsConfig.COMMON.disablePVP.get()) {
           //no pvp allowed
         }
         else {
           if (target.isInvertedHealAndHarm()) {
             damageDealt += (int) (5 + 4 * potency);
             target.hurt(spellAttack(caster), damageDealt);
-            target.setSecondsOnFire(damageDealt);
+            target.igniteForSeconds(damageDealt);
             target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, POTION_DURATION, 2 + (int) potency));
             target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, POTION_DURATION, 2 + (int) potency));
           }

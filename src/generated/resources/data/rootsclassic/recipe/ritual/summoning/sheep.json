@@ -1,0 +1,28 @@
+{
+  "type": "rootsclassic:ritual",
+  "color": "#c769c1",
+  "effect": "rootsclassic:summoning",
+  "effectConfig": {
+    "entity": "minecraft:sheep"
+  },
+  "incenses": [
+    {
+      "item": "minecraft:wheat_seeds"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:mutton"
+    },
+    {
+      "tag": "minecraft:wool"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ],
+  "level": 1
+}

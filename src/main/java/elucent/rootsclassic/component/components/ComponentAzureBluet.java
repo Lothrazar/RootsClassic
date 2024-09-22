@@ -11,7 +11,6 @@ import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.TierSortingRegistry;
 
 public class ComponentAzureBluet extends ComponentBase {
 
@@ -32,7 +31,7 @@ public class ComponentAzureBluet extends ComponentBase {
     else {
       usedTier = Tiers.IRON;
     }
-    if (TierSortingRegistry.isCorrectTierForDrops(usedTier, state) && state.getDestroySpeed(levelAccessor, pos) != -1) {
+    if (!state.is(usedTier.getIncorrectBlocksForDrops()) && state.getDestroySpeed(levelAccessor, pos) != -1) {
       levelAccessor.destroyBlock(pos, true);
     }
   }

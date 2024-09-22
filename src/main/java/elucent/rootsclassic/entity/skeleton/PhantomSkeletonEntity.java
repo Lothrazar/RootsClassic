@@ -1,9 +1,7 @@
 package elucent.rootsclassic.entity.skeleton;
 
-import java.util.function.Predicate;
-import javax.annotation.Nullable;
+import elucent.rootsclassic.Const;
 import elucent.rootsclassic.registry.RootsEntities;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
@@ -34,14 +32,15 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraftforge.common.util.FakePlayer;
+import net.neoforged.neoforge.common.util.FakePlayer;
+
+import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
 public class PhantomSkeletonEntity extends Skeleton {
 
   public static final boolean appliesSlowPotion = true;
-  private static final Predicate<LivingEntity> SKELETON_SELECTOR = (livingEntity) -> {
-    return !(livingEntity instanceof PhantomSkeletonEntity);
-  };
+  private static final Predicate<LivingEntity> SKELETON_SELECTOR = (livingEntity) -> !(livingEntity instanceof PhantomSkeletonEntity);
 
   public PhantomSkeletonEntity(EntityType<? extends PhantomSkeletonEntity> type, Level levelAccessor) {
     super(type, levelAccessor);
@@ -72,10 +71,10 @@ public class PhantomSkeletonEntity extends Skeleton {
     this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Skeleton.class, 10, true, false, SKELETON_SELECTOR));
   }
 
-  @Override
-  public boolean canBreatheUnderwater() {
-    return false;
-  }
+//  @Override
+//  public boolean canBreatheUnderwater() {
+//    return false;
+//  }
 
   @Override
   protected SoundEvent getAmbientSound() {
@@ -94,8 +93,10 @@ public class PhantomSkeletonEntity extends Skeleton {
 
   @Nullable
   @Override
-  public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-    getAttribute(Attributes.FOLLOW_RANGE).addPermanentModifier(new AttributeModifier("Random spawn bonus", random.nextGaussian() * 0.05D, Operation.MULTIPLY_BASE));
+  public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyIn,
+                                      MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn) {
+    getAttribute(Attributes.FOLLOW_RANGE).addPermanentModifier(
+			new AttributeModifier(Const.modLoc("spawn_multiplier"), random.nextGaussian() * 0.05D, Operation.ADD_MULTIPLIED_BASE));
     float f = difficultyIn.getSpecialMultiplier();
     this.setCanPickUpLoot(this.random.nextFloat() < 0.55F * f);
     setCanPickUpLoot(random.nextFloat() < 0.55F * f);

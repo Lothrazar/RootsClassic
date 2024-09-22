@@ -3,17 +3,17 @@ package elucent.rootsclassic.blockentity;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.Tags.Items;
+import net.neoforged.neoforge.common.Tags;
 
 public class AestheticStandingStoneTile extends BEBase {
 
@@ -31,52 +31,52 @@ public class AestheticStandingStoneTile extends BEBase {
   }
 
   @Override
-  public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
+  public ItemInteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
     if (heldItem != null) {
       int amount = 5;
       if (heldItem.is(Tags.Items.DYES_RED)) {
         if (r < 255) {
           r += amount;
-          return InteractionResult.SUCCESS;
+          return ItemInteractionResult.SUCCESS;
         }
       }
       if (heldItem.is(Tags.Items.DYES_GREEN)) {
         if (g < 255) {
           g += amount;
-          return InteractionResult.SUCCESS;
+          return ItemInteractionResult.SUCCESS;
         }
       }
       if (heldItem.is(Tags.Items.DYES_BLUE)) {
         if (b < 255) {
           b += amount;
-          return InteractionResult.SUCCESS;
+          return ItemInteractionResult.SUCCESS;
         }
       }
-      if (heldItem.is(Items.DYES_WHITE)) {
+      if (heldItem.is(Tags.Items.DYES_WHITE)) {
         r = 0;
         g = 0;
         b = 0;
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
       }
     }
-    return InteractionResult.SUCCESS;
+    return ItemInteractionResult.SUCCESS;
   }
 
-  @Override
-  public void load(CompoundTag nbt) {
-    super.load(nbt);
-    this.r = nbt.getInt("red");
-    this.b = nbt.getInt("blue");
-    this.g = nbt.getInt("green");
-  }
+	@Override
+	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.loadAdditional(tag, registries);
+		this.r = tag.getInt("red");
+		this.b = tag.getInt("blue");
+		this.g = tag.getInt("green");
+	}
 
-  @Override
-  public void saveAdditional(CompoundTag tag) {
-    super.saveAdditional(tag);
-    tag.putInt("red", r);
-    tag.putInt("blue", b);
-    tag.putInt("green", g);
-  }
+	@Override
+	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		super.saveAdditional(tag, registries);
+		tag.putInt("red", r);
+		tag.putInt("blue", b);
+		tag.putInt("green", g);
+	}
 
   public static void clientTick(Level level, BlockPos pos, BlockState state, AestheticStandingStoneTile tile) {
     tile.ticker++;

@@ -1,10 +1,6 @@
 package elucent.rootsclassic.item;
 
-import java.util.Map;
-import java.util.function.Supplier;
 import com.google.common.collect.ImmutableMap.Builder;
-import com.lothrazar.library.item.ItemFlib;
-import com.lothrazar.library.util.ItemStackUtil;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
@@ -12,7 +8,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +18,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class DruidKnifeItem extends ItemFlib {
+import java.util.Map;
+import java.util.function.Supplier;
+
+public class DruidKnifeItem extends Item {
 
   protected static final Map<Block, Block> BLOCK_STRIPPING_MAP = (new Builder<Block, Block>())
       .put(Blocks.OAK_WOOD, Blocks.STRIPPED_OAK_WOOD).put(Blocks.OAK_LOG, Blocks.STRIPPED_OAK_LOG)
@@ -46,14 +44,14 @@ public class DruidKnifeItem extends ItemFlib {
       //			.put(Blocks.CRIMSON_STEM, Items.STRIPPED_CRIMSON_STEM).put(Blocks.CRIMSON_HYPHAE, Items.STRIPPED_CRIMSON_HYPHAE)
       .build();
 
-  public DruidKnifeItem(Properties properties) {
-    super(properties, new ItemFlib.Settings().tooltip());
-  }
+	public DruidKnifeItem(Properties properties) {
+		super(properties);
+	}
 
-  @Override
-  public void inventoryTick(ItemStack stack, Level levelAccessor, Entity entity, int slot, boolean selected) {
-    ItemStackUtil.randomlyRepair(levelAccessor.random, stack, 80);
-  }
+//  @Override
+//  public void inventoryTick(ItemStack stack, Level levelAccessor, Entity entity, int slot, boolean selected) {
+//    ItemStackUtil.randomlyRepair(levelAccessor.random, stack, 80);
+//  }
 
   public InteractionResult useOn(UseOnContext context) {
     Level levelAccessor = context.getLevel();
@@ -66,8 +64,8 @@ public class DruidKnifeItem extends ItemFlib {
       InteractionHand hand = context.getHand();
       Player playerIn = context.getPlayer();
       playerIn.spawnAtLocation(barkDrop, 1.0f);
-      stack.hurtAndBreak(1, playerIn, e -> e.broadcastBreakEvent(hand));
-      if (levelAccessor.random.nextDouble() < RootsConfig.barkKnifeBlockStripChance.get()) {
+      stack.hurtAndBreak(1, playerIn, Player.getSlotForHand(hand));
+      if (levelAccessor.random.nextDouble() < RootsConfig.COMMON.barkKnifeBlockStripChance.get()) {
         levelAccessor.playSound(playerIn, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
         if (!levelAccessor.isClientSide) {
           levelAccessor.setBlock(pos, strippedState, 11);

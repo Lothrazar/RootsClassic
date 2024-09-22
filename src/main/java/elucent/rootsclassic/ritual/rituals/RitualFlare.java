@@ -1,6 +1,5 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.util.List;
 import elucent.rootsclassic.ritual.SimpleRitualEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
@@ -10,6 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+
+import java.util.List;
 
 public class RitualFlare extends SimpleRitualEffect {
 
@@ -33,7 +34,7 @@ public class RitualFlare extends SimpleRitualEffect {
         pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
     if (enemies.size() > 0) {
       for (LivingEntity enemy : enemies) {
-        enemy.setSecondsOnFire(levelAccessor.random.nextInt(5) + 14);
+        enemy.igniteForSeconds(levelAccessor.random.nextInt(5) + 14);
       }
     }
   }

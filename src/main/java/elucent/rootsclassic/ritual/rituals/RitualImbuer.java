@@ -1,28 +1,31 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.util.List;
-import elucent.rootsclassic.Const;
+import elucent.rootsclassic.datacomponent.SpellData;
 import elucent.rootsclassic.item.CrystalStaffItem;
+import elucent.rootsclassic.registry.RootsComponents;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.ritual.SimpleRitualEffect;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+
+import java.util.List;
 
 public class RitualImbuer extends SimpleRitualEffect {
 
   @Override
   public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     ItemStack toSpawn = new ItemStack(RootsRegistry.CRYSTAL_STAFF.get(), 1);
-    CrystalStaffItem.createData(toSpawn);
     for (int i = 0; i < incenses.size() && i < 4; i++) {
-      if (incenses.get(i) != null) {
-        if (incenses.get(i).getItem() == RootsRegistry.SPELL_POWDER.get() && incenses.get(i).hasTag()) {
-          CompoundTag tag = incenses.get(i).getTag();
-          CrystalStaffItem.addEffect(toSpawn, i + 1, tag.getString(Const.NBT_EFFECT), tag.getInt(Const.NBT_POTENCY), tag.getInt(Const.NBT_EFFICIENCY), tag.getInt(Const.NBT_SIZE));
+			ItemStack incense = incenses.get(i);
+      if (incense != null && !incense.isEmpty()) {
+        if (incense.getItem() == RootsRegistry.SPELL_POWDER.get() && incense.has(RootsComponents.SPELL)) {
+	        SpellData spellData = incense.get(RootsComponents.SPELL);
+	        ResourceLocation effect = ResourceLocation.tryParse(spellData.effect());
+          CrystalStaffItem.addEffect(toSpawn, i + 1, effect.toString(), spellData.potency(), spellData.efficiency(), spellData.size());
         }
       }
     }

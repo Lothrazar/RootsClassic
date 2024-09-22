@@ -6,6 +6,7 @@ import java.util.Optional;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.recipe.RitualRecipe;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class ResearchBase {
 
@@ -42,7 +43,8 @@ public class ResearchBase {
     return info;
   }
 
-  public ResearchBase addPageOf(Optional<RitualRecipe<?>> optionalRitual) {
+  @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+  public ResearchBase addPageOf(Optional<RecipeHolder<RitualRecipe>> optionalRitual) {
     optionalRitual.ifPresentOrElse(ritual -> {
       info.add(new ResearchPage().addAltarRecipe(ritual));
     }, () -> {

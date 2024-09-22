@@ -26,11 +26,11 @@ public class ComponentNetherWart extends ComponentBase {
       List<LivingEntity> targets = level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size, y - size, z - size, x + size, y + size, z + size));
       for (LivingEntity target : targets) {
         if (target.getUUID() != casterEntity.getUUID() && casterEntity instanceof LivingEntity caster) {
-          if (target instanceof Player && RootsConfig.disablePVP.get()) {}
+          if (target instanceof Player && RootsConfig.COMMON.disablePVP.get()) {}
           else {
             //    damageDealt += (int) (5 + 3 * potency);
             target.hurt(spellAttack(caster), (int) (5 + 3 * potency));
-            target.setSecondsOnFire((int) (4 + 3 * potency));
+            target.igniteForSeconds((int) (4 + 3 * potency));
             target.setLastHurtMob(caster);
             target.setLastHurtByMob((LivingEntity) caster);
           }

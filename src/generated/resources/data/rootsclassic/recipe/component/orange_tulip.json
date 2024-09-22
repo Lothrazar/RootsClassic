@@ -1,0 +1,22 @@
+{
+  "type": "rootsclassic:component",
+  "effect": "rootsclassic:orange_tulip",
+  "ingredients": [
+    {
+      "item": "minecraft:orange_tulip"
+    },
+    {
+      "item": "minecraft:sponge"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "rootsclassic:redcurrant"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "rootsclassic:spell_powder"
+  }
+}

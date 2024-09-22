@@ -1,15 +1,14 @@
 package elucent.rootsclassic.entity;
 
-import java.util.Random;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsEntities;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkHooks;
+
+import java.util.Random;
 
 public class EntityAccelerator extends Entity {
 
@@ -85,7 +84,9 @@ public class EntityAccelerator extends Entity {
   }
 
   @Override
-  protected void defineSynchedData() {}
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+
+  }
 
   @Override
   protected void readAdditionalSaveData(CompoundTag compound) {
@@ -97,10 +98,5 @@ public class EntityAccelerator extends Entity {
   protected void addAdditionalSaveData(CompoundTag compound) {
     compound.putInt("lifetime", lifetime);
     compound.putInt("potency", potency);
-  }
-
-  @Override
-  public Packet<ClientGamePacketListener> getAddEntityPacket() {
-    return NetworkHooks.getEntitySpawningPacket(this);
   }
 }

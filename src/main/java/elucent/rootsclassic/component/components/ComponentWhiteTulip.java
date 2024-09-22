@@ -28,7 +28,7 @@ public class ComponentWhiteTulip extends ComponentBase {
       List<LivingEntity> targets = level.getEntitiesOfClass(LivingEntity.class, new AABB(x - size, y - size, z - size, x + size, y + size, z + size));
       targets.removeIf(target -> target.getUUID() == casterEntity.getUUID());
       for (LivingEntity target : targets) {
-        if (target instanceof Player && RootsConfig.disablePVP.get()) {
+        if (target instanceof Player && RootsConfig.COMMON.disablePVP.get()) {
           //no pvp allowed
         }
         else {

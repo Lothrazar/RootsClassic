@@ -1,57 +1,46 @@
 package elucent.rootsclassic.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import elucent.rootsclassic.item.powder.SpellPowderItem;
 import elucent.rootsclassic.registry.RootsRecipes;
 import elucent.rootsclassic.registry.RootsRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.util.RecipeMatcher;
 
-public class ComponentRecipe implements Recipe<Container> {
+public class ComponentRecipe implements Recipe<RecipeInput> {
 
   private static final int MAX_INGREDIENTS = 4;
-  private final ResourceLocation id;
   private final ResourceLocation effectResult;
   private final String group;
   private final ItemStack recipeOutput;
   private final NonNullList<Ingredient> materials;
   private final boolean needsMixin;
 
-  public ComponentRecipe(ResourceLocation idIn, ResourceLocation effectResult, String groupIn, ItemStack recipeOutputIn, NonNullList<Ingredient> recipeItemsIn, boolean needsMixin) {
-    this.id = idIn;
-    this.effectResult = effectResult;
-    this.group = groupIn;
-    this.recipeOutput = recipeOutputIn;
-    this.materials = recipeItemsIn;
+  public ComponentRecipe(ResourceLocation effect, String group, ItemStack result, NonNullList<Ingredient> materials, boolean needsMixin) {
+    this.effectResult = effect;
+    this.group = group;
+    this.recipeOutput = result;
+    this.materials = materials;
     this.needsMixin = needsMixin;
   }
 
-  public ComponentRecipe(ResourceLocation idIn, ResourceLocation effectResult, String groupIn, NonNullList<Ingredient> recipeItemsIn, boolean needsMixin) {
-    this(idIn, effectResult, groupIn, new ItemStack(RootsRegistry.SPELL_POWDER.get()), recipeItemsIn, needsMixin);
-  }
-
-  @Override
-  public ResourceLocation getId() {
-    return id;
-  }
-
-  public ResourceLocation getEffectResult() {
+	public ResourceLocation getEffectResult() {
     return effectResult;
   }
 
@@ -66,8 +55,8 @@ public class ComponentRecipe implements Recipe<Container> {
   }
 
   @Override
-  public ItemStack assemble(Container inventory, RegistryAccess access) {
-    ItemStack outputStack = getResultItem(access);
+  public ItemStack assemble(RecipeInput inventory, HolderLookup.Provider provider) {
+    ItemStack outputStack = getResultItem(provider);
     if (outputStack.getItem() instanceof SpellPowderItem) {
       SpellPowderItem.createData(outputStack, this.getEffectResult(), inventory);
     }
@@ -80,7 +69,7 @@ public class ComponentRecipe implements Recipe<Container> {
   }
 
   @Override
-  public ItemStack getResultItem(RegistryAccess registryAccess) {
+  public ItemStack getResultItem(HolderLookup.Provider provider) {
     return recipeOutput.copy();
   }
 
@@ -107,22 +96,18 @@ public class ComponentRecipe implements Recipe<Container> {
     return needsMixin;
   }
 
-  public MutableComponent getLocalizedName() {
-    return Component.translatable("rootsclassic.component." + this.getId());
-  }
-
   @Override
-  public boolean matches(Container inventory, Level levelAccessor) {
+  public boolean matches(RecipeInput recipeInput, Level levelAccessor) {
     java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
     int i = 0;
-    for (int j = 0; j < inventory.getContainerSize(); j++) {
-      ItemStack stack = inventory.getItem(j);
+    for (int j = 0; j < recipeInput.size(); j++) {
+      ItemStack stack = recipeInput.getItem(j);
       if (!stack.isEmpty() && !isSupplementItem(stack, levelAccessor.registryAccess())) {
         ++i;
         inputs.add(stack);
       }
     }
-    return i == this.materials.size() && net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.materials) != null;
+    return i == this.materials.size() && RecipeMatcher.findMatches(inputs, this.materials) != null;
   }
 
   /**
@@ -147,9 +132,9 @@ public class ComponentRecipe implements Recipe<Container> {
     }
   }
 
-  public static int getModifierCapacity(Container inventory) {
+  public static int getModifierCapacity(RecipeInput inventory) {
     int maxCapacity = -1;
-    for (int i = 0; i < inventory.getContainerSize(); i++) {
+    for (int i = 0; i < inventory.size(); i++) {
       ItemStack stack = inventory.getItem(i);
       if (stack.getItem() == RootsRegistry.OLD_ROOT.get() && maxCapacity < 0) {
         maxCapacity = 0;
@@ -167,9 +152,9 @@ public class ComponentRecipe implements Recipe<Container> {
     return maxCapacity;
   }
 
-  public static int getModifierCount(Container inventory) {
+  public static int getModifierCount(RecipeInput inventory) {
     int count = 0;
-    for (int i = 0; i < inventory.getContainerSize(); i++) {
+    for (int i = 0; i < inventory.size(); i++) {
       ItemStack stack = inventory.getItem(i);
       if (stack.getItem() == Items.GLOWSTONE_DUST) {
         count++;
@@ -185,72 +170,73 @@ public class ComponentRecipe implements Recipe<Container> {
   }
 
   public static class SerializeComponentRecipe implements RecipeSerializer<ComponentRecipe> {
+	  private static final MapCodec<ComponentRecipe> CODEC = RecordCodecBuilder.mapCodec(
+		  instance -> instance.group(
+				  ResourceLocation.CODEC.fieldOf("effect").forGetter(recipe -> recipe.effectResult),
+				  Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
+				  ItemStack.STRICT_CODEC.optionalFieldOf("result", RootsRegistry.SPELL_POWDER.toStack()).forGetter(recipe -> recipe.recipeOutput),
+				  Ingredient.CODEC_NONEMPTY
+					  .listOf()
+					  .fieldOf("ingredients")
+					  .flatXmap(
+						  p_301021_ -> {
+							  Ingredient[] aingredient = p_301021_.toArray(Ingredient[]::new); 
+							  if (aingredient.length == 0) {
+								  return DataResult.error(() -> "No ingredients for component recipe");
+							  } else {
+								  return aingredient.length > MAX_INGREDIENTS
+									  ? DataResult.error(() -> "Too many ingredients for component recipe. The maximum is: %s".formatted(MAX_INGREDIENTS))
+									  : DataResult.success(NonNullList.of(Ingredient.EMPTY, aingredient));
+							  }
+						  },
+						  DataResult::success
+					  )
+					  .forGetter(recipe -> recipe.materials),
+				  Codec.BOOL.optionalFieldOf("need_mixin", true).forGetter(recipe -> recipe.needsMixin)
+			  )
+			  .apply(instance, ComponentRecipe::new)
+	  );
+	  public static final StreamCodec<RegistryFriendlyByteBuf, ComponentRecipe> STREAM_CODEC = StreamCodec.of(
+		  SerializeComponentRecipe::toNetwork, SerializeComponentRecipe::fromNetwork
+	  );
 
-    @Override
-    public ComponentRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-      String s = GsonHelper.getAsString(json, "group", "");
-      NonNullList<Ingredient> nonnulllist = readIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
-      if (nonnulllist.isEmpty()) {
-        throw new JsonParseException("No ingredients for component recipe");
-      }
-      else if (nonnulllist.size() > MAX_INGREDIENTS) {
-        throw new JsonParseException("Too many ingredients for component recipe the max is " + MAX_INGREDIENTS);
-      }
-      else {
-        boolean needsMixin = GsonHelper.getAsBoolean(json, "needs_mixin", true);
-        String effect = GsonHelper.getAsString(json, "effect");
-        ResourceLocation effectResult = ResourceLocation.tryParse(effect);
-        ItemStack itemstack;
-        if (GsonHelper.isValidNode(json, "result")) {
-          itemstack = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-          return new ComponentRecipe(recipeId, effectResult, s, itemstack, nonnulllist, needsMixin);
-        }
-        else {
-          return new ComponentRecipe(recipeId, effectResult, s, nonnulllist, needsMixin);
-        }
-      }
-    }
+	  @Override
+	  public MapCodec<ComponentRecipe> codec() {
+		  return CODEC;
+	  }
 
-    private static NonNullList<Ingredient> readIngredients(JsonArray ingredientArray) {
-      NonNullList<Ingredient> nonnulllist = NonNullList.create();
-      for (int i = 0; i < ingredientArray.size(); ++i) {
-        Ingredient ingredient = Ingredient.fromJson(ingredientArray.get(i));
-        if (!ingredient.isEmpty()) {
-          nonnulllist.add(ingredient);
-        }
-      }
-      return nonnulllist;
-    }
+	  @Override
+	  public StreamCodec<RegistryFriendlyByteBuf, ComponentRecipe> streamCodec() {
+		  return STREAM_CODEC;
+	  }
 
-    @Override
-    public ComponentRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-      String s = buffer.readUtf(32767);
+    public static ComponentRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
+	    ResourceLocation effectResult = buffer.readResourceLocation();
+      String s = buffer.readUtf();
+	    ItemStack itemstack = ItemStack.STREAM_CODEC.decode(buffer);
       int i = buffer.readVarInt();
       NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i, Ingredient.EMPTY);
       for (int j = 0; j < nonnulllist.size(); ++j) {
-        nonnulllist.set(j, Ingredient.fromNetwork(buffer));
+				nonnulllist.set(j, Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
       }
       boolean needsMixin = buffer.readBoolean();
-      ResourceLocation effectResult = buffer.readResourceLocation();
-      ItemStack itemstack = buffer.readItem();
-      return new ComponentRecipe(recipeId, effectResult, s, itemstack, nonnulllist, needsMixin);
+      return new ComponentRecipe(effectResult, s, itemstack, nonnulllist, needsMixin);
     }
 
-    @Override
-    public void toNetwork(FriendlyByteBuf buffer, ComponentRecipe recipe) {
+    private static void toNetwork(RegistryFriendlyByteBuf buffer, ComponentRecipe recipe) {
+	    buffer.writeResourceLocation(recipe.effectResult);
       buffer.writeUtf(recipe.group);
+	    ItemStack.STREAM_CODEC.encode(buffer, recipe.recipeOutput);
       buffer.writeVarInt(recipe.materials.size());
       for (Ingredient ingredient : recipe.materials) {
-        ingredient.toNetwork(buffer);
+	      Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, ingredient);
       }
       buffer.writeBoolean(recipe.needsMixin);
-      buffer.writeResourceLocation(recipe.effectResult);
-      buffer.writeItem(recipe.recipeOutput);
     }
   }
 
-  @Override
-  public String toString() {
-    return "ComponentRecipe [id=" + id + ", effectResult=" + effectResult + ", recipeOutput=" + recipeOutput + "]";
-  }
+	@Override
+	public String toString() {
+		return "ComponentRecipe [effectResult=" + effectResult + ", recipeOutput=" + recipeOutput + "]";
+	}
 }

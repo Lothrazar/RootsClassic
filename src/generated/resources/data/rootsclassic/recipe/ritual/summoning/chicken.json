@@ -1,0 +1,28 @@
+{
+  "type": "rootsclassic:ritual",
+  "color": "#c769c1",
+  "effect": "rootsclassic:summoning",
+  "effectConfig": {
+    "entity": "minecraft:chicken"
+  },
+  "incenses": [
+    {
+      "item": "minecraft:wheat_seeds"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    }
+  ],
+  "ingredients": [
+    {
+      "item": "minecraft:chicken"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ],
+  "level": 1
+}

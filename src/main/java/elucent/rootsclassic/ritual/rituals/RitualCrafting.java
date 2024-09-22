@@ -1,52 +1,35 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.util.List;
-import com.google.gson.JsonObject;
 import elucent.rootsclassic.ritual.RitualEffect;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
-public class RitualCrafting extends RitualEffect<RitualCrafting.RitualCraftingConfig> {
+import java.util.List;
+
+public class RitualCrafting extends RitualEffect {
 
   @Override
-  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, RitualCraftingConfig config) {
+  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, CompoundTag config) {
     // if (Util.itemListsMatchWithSize(inventory, this.ingredients)) {
-    ItemStack toSpawn = config.result.copy();
+    ItemStack toSpawn = ItemStack.parseOptional(levelAccessor.registryAccess(), config.getCompound("result"));
     if (!levelAccessor.isClientSide) {
       ItemEntity item = new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
       levelAccessor.addFreshEntity(item);
     }
     inventory.clearContent();
-    levelAccessor.getBlockEntity(pos).setChanged();
+		var blockEntity = levelAccessor.getBlockEntity(pos);
+		if (blockEntity != null)
+			blockEntity.setChanged();
     //}
   }
 
   @Override
-  public RitualCraftingConfig fromJSON(JsonObject object) {
-    var result = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(object, "result"));
-    return new RitualCraftingConfig(result);
+  public ItemStack getResult(CompoundTag config, HolderLookup.Provider provider) {
+    return ItemStack.parseOptional(provider, config.getCompound("result"));
   }
-
-  @Override
-  public ItemStack getResult(RitualCraftingConfig config) {
-    return config.result;
-  }
-
-  @Override
-  public void toNetwork(RitualCraftingConfig config, FriendlyByteBuf buffer) {
-    buffer.writeItem(config.result);
-  }
-
-  @Override
-  public RitualCraftingConfig fromNetwork(FriendlyByteBuf buffer) {
-    return new RitualCraftingConfig(buffer.readItem());
-  }
-
-  public record RitualCraftingConfig(ItemStack result) {}
 }

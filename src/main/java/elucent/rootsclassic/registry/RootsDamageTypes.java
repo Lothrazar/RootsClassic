@@ -3,7 +3,6 @@ package elucent.rootsclassic.registry;
 import elucent.rootsclassic.Const;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageType;
 
 public class RootsDamageTypes {
@@ -14,6 +13,6 @@ public class RootsDamageTypes {
   public static final ResourceKey<DamageType> WITHER = register("wither"); //Bypasses armor
 
   private static ResourceKey<DamageType> register(String name) {
-    return ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(Const.MODID, name));
+    return ResourceKey.create(Registries.DAMAGE_TYPE, Const.modLoc(name));
   }
 }
