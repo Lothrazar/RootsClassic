@@ -13,7 +13,6 @@ import elucent.rootsclassic.ritual.RitualPillars;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.resources.language.I18n;
@@ -73,7 +72,6 @@ public class TabletPageScreen extends Screen {
   @Override
   protected void init() {
     super.init();
-    this.addRenderableWidget(new Button.Builder(Component.empty(), (button) -> {}).bounds(20, 20, 20, 60).build());
   }
 
   @Override
