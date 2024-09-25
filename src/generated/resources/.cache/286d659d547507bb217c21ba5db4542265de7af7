@@ -1,3 +1,4 @@
-// 1.21.1	2024-09-22T00:55:31.9909577	Tags for minecraft:block mod id rootsclassic
+// 1.21.1	2024-09-25T17:51:47.158258	Tags for minecraft:block mod id rootsclassic
+c562cbec8c2f4d335783e3b1c51164a73181c27e data/minecraft/tags/block/mineable/pickaxe.json
 950a086f855d118e00d3fc9697663c7721c42db1 data/rootsclassic/tags/block/incorrect_for_engraved_tool.json
 950a086f855d118e00d3fc9697663c7721c42db1 data/rootsclassic/tags/block/incorrect_for_living_tool.json
