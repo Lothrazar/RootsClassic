@@ -1,10 +1,9 @@
-import net.neoforged.gradle.common.tasks.PotentiallySignJar
 plugins {
   id 'java-library'
   id 'eclipse'
   id 'idea'
   id 'maven-publish'
-  id 'net.neoforged.gradle.userdev' version '7.0.163'
+  id 'net.neoforged.gradle.userdev' version '7.0.165'
 }
 
 version = "${mc_version}-${mod_version}"
@@ -86,12 +85,12 @@ dependencies {
   compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
   compileOnly "mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}"
 
-  runtimeOnly "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
+  localRuntime "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
 
   implementation "com.blamejared.crafttweaker:CraftTweaker-neoforge-${mc_version}:${crafttweaker_version}"
 
   compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
-  runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+  localRuntime "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
   compileOnly "vazkii.patchouli:Patchouli:${patchouli_version}"
   localRuntime "vazkii.patchouli:Patchouli:${patchouli_version}"
