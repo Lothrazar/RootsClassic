@@ -78,11 +78,10 @@ public class DropModifier {
           }
         }
         if (block instanceof LeavesBlock) {
-          if (!generatedLoot.stream().anyMatch((stack) -> stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() == block)) {
+          if (generatedLoot.stream().noneMatch((stack) -> stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() == block)) {
             if (RootsConfig.COMMON.berriesDropChance.get() > 0 && rand.nextInt(RootsConfig.COMMON.berriesDropChance.get()) == 0) {
-              Holder<Item> berry = RootsRegistry.ELDERBERRY;
-              berry = BuiltInRegistries.ITEM.getTag(RootsTags.BERRIES).get().getRandomElement(rand).orElse(berry);
-              generatedLoot.add(new ItemStack(berry));
+              generatedLoot.add(new ItemStack(BuiltInRegistries.ITEM.getTag(RootsTags.BERRIES)
+	              .flatMap(tag -> tag.getRandomElement(rand)).orElse(RootsRegistry.ELDERBERRY)));
             }
           }
         }
