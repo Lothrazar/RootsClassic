@@ -32,15 +32,15 @@ public class Roots {
   public static final Logger LOGGER = LogUtils.getLogger();
 
   public Roots(IEventBus eventBus, Dist dist, ModContainer container) {
-	  container.registerConfig(ModConfig.Type.COMMON, RootsConfig.commonSpec);
-	  container.registerConfig(ModConfig.Type.CLIENT, RootsConfig.clientSpec);
+    container.registerConfig(ModConfig.Type.COMMON, RootsConfig.commonSpec);
+    container.registerConfig(ModConfig.Type.CLIENT, RootsConfig.clientSpec);
 
     eventBus.addListener(this::setup);
 
-	  RitualRegistry.RITUALS.register(eventBus);
-	  ComponentRegistry.COMPONENTS.register(eventBus);
+    RitualRegistry.RITUALS.register(eventBus);
+    ComponentRegistry.COMPONENTS.register(eventBus);
 
-	  RootsComponents.COMPONENT_TYPE.register(eventBus);
+    RootsComponents.COMPONENT_TYPE.register(eventBus);
     RootsRegistry.BLOCKS.register(eventBus);
     RootsRegistry.ITEMS.register(eventBus);
     RootsRegistry.BLOCK_ENTITY_TYPES.register(eventBus);
@@ -50,7 +50,7 @@ public class Roots {
     RootsRecipes.RECIPE_TYPES.register(eventBus);
     DropModifier.GLM.register(eventBus);
     ParticleRegistry.PARTICLE_TYPES.register(eventBus);
-	  RootsAttachments.ATTACHMENT_TYPES.register(eventBus);
+    RootsAttachments.ATTACHMENT_TYPES.register(eventBus);
 
     NeoForge.EVENT_BUS.register(new RootsReloadManager());
     NeoForge.EVENT_BUS.register(new ComponentSpellsEvent());
@@ -59,7 +59,8 @@ public class Roots {
     eventBus.addListener(RootsEntities::onSpawnPlacementRegisterEvent);
 
     if (dist.isClient()) {
-      NeoForge.EVENT_BUS.register(new ManaBarEvent());
+      NeoForge.EVENT_BUS.addListener(ManaBarEvent::clientTickEnd);
+      eventBus.addListener(ManaBarEvent::onRegisterLayer);
       eventBus.addListener(ClientHandler::onClientSetup);
       eventBus.addListener(ClientHandler::registerEntityRenders);
       eventBus.addListener(ClientHandler::registerLayerDefinitions);
