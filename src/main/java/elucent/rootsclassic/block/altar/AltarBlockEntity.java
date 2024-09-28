@@ -152,7 +152,7 @@ public class AltarBlockEntity extends BEBase {
           return InteractionResult.FAIL;
         }
         //does it match everything else?
-        if (ritual.incenseMatches(level, pos)) {
+        if (ritual.incenseMatches(level, pos) || ritual.getIncenses().isEmpty()) {
           setRitualCurrent(ritual);
           setIncenses(RitualRegistry.getIncenses(levelAccessor, pos));
           setProgress(RECIPE_PROGRESS_TIME);
