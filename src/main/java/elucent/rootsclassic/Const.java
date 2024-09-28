@@ -12,6 +12,7 @@ public class Const {
   public static final ResourceLocation TABLETDISPLAY = new ResourceLocation(MODID, "textures/gui/tabletdisplay.png");
   public static final ResourceLocation TABLETALTAR = new ResourceLocation(MODID, "textures/gui/tabletaltar.png");
   public static final ResourceLocation TABLETMORTAR = new ResourceLocation(MODID, "textures/gui/tabletmortar.png");
+  public static final ResourceLocation MANA_OVERLAY = new ResourceLocation(MODID, "mana_overlay");
   public static final String NBT_THORNS = MODID + ":RMOD_thornsDamage";
   public static final String NBT_VULN = MODID + ":RMOD_vuln";
   public static final String NBT_DONT_DROP = MODID + ":RMOD_dropItems";

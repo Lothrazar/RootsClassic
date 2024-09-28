@@ -56,7 +56,7 @@ public class Roots {
     eventBus.addListener(RootsEntities::onSpawnPlacementRegisterEvent);
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
       //    if (FMLEnvironment.dist.isClient()) {
-      MinecraftForge.EVENT_BUS.register(new ManaBarEvent());
+	    eventBus.addListener(ManaBarEvent::onRegisterLayer);
       eventBus.addListener(ClientHandler::onClientSetup);
       eventBus.addListener(ClientHandler::registerEntityRenders);
       eventBus.addListener(ClientHandler::registerLayerDefinitions);
