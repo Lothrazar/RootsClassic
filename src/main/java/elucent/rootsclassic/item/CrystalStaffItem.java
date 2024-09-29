@@ -173,8 +173,19 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
   public static void addEffect(ItemStack stack, int slot, String effect, int potency, int efficiency, int size) {
 		SpellData data = new SpellData(potency, efficiency, size, effect);
 		SpellDataList spells = stack.getOrDefault(RootsComponents.SPELLS, SpellDataList.EMPTY);
-		NonNullList<SpellData> newSpellList = NonNullList.copyOf(spells.spellList());
-	  newSpellList.set(slot - 1, data);
+		NonNullList<SpellData> newSpellList = NonNullList.createWithCapacity(spells.spellList().size());
+		if (slot < 1 || slot > spells.spellList().size()) {
+			throw new IndexOutOfBoundsException("Slot " + slot + " is out of bounds for spell list of size " + spells.spellList().size());
+		}
+
+    for (int i = 0; i < spells.spellList().size(); i++) {
+			if (i == slot - 1) {
+				newSpellList.add(data);
+			} else {
+      	newSpellList.add(spells.spellList().get(i));
+			}
+		}
+
 		stack.set(RootsComponents.SPELLS, new SpellDataList(newSpellList));
   }
 
