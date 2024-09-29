@@ -42,11 +42,11 @@ public class GrowthPowderItem extends Item {
   @SuppressWarnings("deprecation")
   public static boolean applyGrowthHere(Level levelAccessor, BlockPos pos) {
     BlockState state = levelAccessor.getBlockState(pos);
-    if (state.getBlock() == Blocks.DIRT) {
+    if (state.is(Blocks.DIRT)) {
       levelAccessor.setBlockAndUpdate(pos, Blocks.GRASS_BLOCK.defaultBlockState());
       return true;
     }
-    else if (state.getBlock() == Blocks.WATER && //TODO: Check if this still fires at water
+    else if (state.is(Blocks.WATER) && //TODO: Check if this still fires at water
         levelAccessor.isEmptyBlock(pos.above())) {
           levelAccessor.setBlockAndUpdate(pos.above(), Blocks.LILY_PAD.defaultBlockState());
         }

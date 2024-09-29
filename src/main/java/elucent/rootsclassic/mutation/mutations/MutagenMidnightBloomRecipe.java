@@ -28,7 +28,7 @@ public class MutagenMidnightBloomRecipe extends MutagenRecipe {
   public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
     if (super.matches(items, levelAccessor, pos, player)) {
       return levelAccessor.dimension() == Level.END &&
-	      levelAccessor.getBlockState(pos.below(2)).getBlock() == Blocks.OBSIDIAN &&
+	      levelAccessor.getBlockState(pos.below(2)).is(Blocks.OBSIDIAN) &&
 	      player.getEffect(MobEffects.MOVEMENT_SLOWDOWN) != null;
     }
     return false;

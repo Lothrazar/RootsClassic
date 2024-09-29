@@ -31,14 +31,14 @@ public class MutagenFlareOrchidRecipe extends MutagenRecipe {
   public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
     if (super.matches(items, levelAccessor, pos, player)) {
       return levelAccessor.dimension() == Level.NETHER && player.getEffect(MobEffects.FIRE_RESISTANCE) != null
-          && levelAccessor.getBlockState(pos.east()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.west()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.north()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.south()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.east().north()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.west().south()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.north().west()).getBlock() == Blocks.NETHERRACK
-          && levelAccessor.getBlockState(pos.south().east()).getBlock() == Blocks.NETHERRACK;
+          && levelAccessor.getBlockState(pos.east()).is(Blocks.NETHERRACK)
+          && levelAccessor.getBlockState(pos.west()).is(Blocks.NETHERRACK)
+          && levelAccessor.getBlockState(pos.north()).is(Blocks.NETHERRACK)
+          && levelAccessor.getBlockState(pos.south()).is(Blocks.NETHERRACK)
+          && levelAccessor.getBlockState(pos.east().north()).is(Blocks.NETHERRACK)
+          && levelAccessor.getBlockState(pos.west().south()).is(Blocks.NETHERRACK)
+          && levelAccessor.getBlockState(pos.north().west()).is(Blocks.NETHERRACK)
+          && levelAccessor.getBlockState(pos.south().east()).is(Blocks.NETHERRACK);
     }
     return false;
   }

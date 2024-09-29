@@ -63,7 +63,7 @@ public class RitualRegistry {
     ArrayList<ItemStack> test = new ArrayList<>();
     for (int i = -4; i < 5; i++) {
       for (int j = -4; j < 5; j++) {
-        if (level.getBlockState(pos.offset(i, 0, j)).getBlock() == RootsRegistry.BRAZIER.get()) {
+        if (level.getBlockState(pos.offset(i, 0, j)).is(RootsRegistry.BRAZIER)) {
           if (level.getBlockEntity(pos.offset(i, 0, j)) instanceof BrazierBlockEntity brazierBlockEntity) {
             if (brazierBlockEntity.isBurning()) {
               test.add(brazierBlockEntity.getHeldItem());

@@ -46,7 +46,7 @@ public class ComponentLilac extends ComponentBase {
       ((BonemealableBlock) state.getBlock()).performBonemeal((ServerLevel) levelAccessor, levelAccessor.random, pos, state);
       return true;
     }
-    if (state.getBlock() == Blocks.NETHER_WART && levelAccessor.random.nextInt(5 - potency) < 2) {
+    if (state.is(Blocks.NETHER_WART) && levelAccessor.random.nextInt(5 - potency) < 2) {
       int age = state.getValue(NetherWartBlock.AGE);
       if (age < 3) {
         state = state.setValue(NetherWartBlock.AGE, age + 1);

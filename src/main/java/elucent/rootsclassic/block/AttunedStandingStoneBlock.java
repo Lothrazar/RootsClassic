@@ -62,7 +62,7 @@ public class AttunedStandingStoneBlock extends BaseBEBlock {
     if (doubleblockhalf == DoubleBlockHalf.UPPER) {
       BlockPos blockpos = pos.below();
       BlockState blockstate = levelAccessor.getBlockState(blockpos);
-      if (blockstate.getBlock() == state.getBlock() && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER) {
+      if (blockstate.is(state.getBlock()) && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER) {
         levelAccessor.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 35);
         levelAccessor.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
       }

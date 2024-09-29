@@ -65,7 +65,7 @@ public class RitualPillars {
     BlockEntity tileHere;
     for (int i = -1 * INCENSE_RADIUS; i <= INCENSE_RADIUS; i++) {
       for (int j = -1 * INCENSE_RADIUS; j <= INCENSE_RADIUS; j++) {
-        if (levelAccessor.getBlockState(pos.offset(i, 0, j)).getBlock() == RootsRegistry.BRAZIER.get()) {
+        if (levelAccessor.getBlockState(pos.offset(i, 0, j)).is(RootsRegistry.BRAZIER)) {
           tileHere = levelAccessor.getBlockEntity(pos.offset(i, 0, j));
           if (tileHere instanceof BrazierBlockEntity brazier) {
             links.add(brazier);

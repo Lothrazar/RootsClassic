@@ -31,7 +31,7 @@ public class MutagenRecipe {
   }
 
   public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
-    if (levelAccessor.getBlockState(pos).getBlock() == plantBlock.getBlock()) {
+    if (levelAccessor.getBlockState(pos).is(plantBlock.getBlock())) {
       List<ItemStack> tempItems = new ArrayList<>(items);
       for (ItemStack input : inputs) {
         boolean endIteration = false;
