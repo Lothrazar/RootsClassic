@@ -11,6 +11,7 @@ import elucent.rootsclassic.ritual.RitualRegistry;
 import elucent.rootsclassic.util.InventoryUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
@@ -87,13 +88,12 @@ public class AltarBlockEntity extends BEBase {
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.saveAdditional(tag, registries);
 		tag.put("InventoryHandler", inventory.serializeNBT(registries));
-		if (getIncenses().size() > 0) {
+		if (!getIncenses().isEmpty()) {
 			ListTag list = new ListTag();
 			for (int i = 0; i < getIncenses().size(); i++) {
-				//  ;
-				//        if (getIncenses().get(i) != null) {
-				list.add(getIncenses().get(i).save(registries, new CompoundTag()));
-				//        }
+				if (!getIncenses().get(i).isEmpty()) {
+					list.add(getIncenses().get(i).saveOptional(registries));
+				}
 			}
 			tag.put("incenses", list);
 		}
