@@ -1,4 +1,16 @@
-// 1.21.1	2024-09-22T00:55:31.988958	Tags for minecraft:item mod id rootsclassic
+// 1.21.1	2024-10-12T14:27:48.7081522	Tags for minecraft:item mod id rootsclassic
+305a860bb71fcbbf622c49615c613e8e64f52c49 data/c/tags/item/foods.json
+c93c28c54153bab27fce66d4c787d35c58585b85 data/c/tags/item/foods/berry.json
+6af53b8a2764d27cf5d2794ff905431abcc7960b data/c/tags/item/foods/soup.json
+cf573d90f46e08b68cb7430637d61fd2628f82d8 data/minecraft/tags/item/axes.json
+0442b18905d5be09fb8d2d250c138dc37f7a7ebc data/minecraft/tags/item/chest_armor.json
+82d693ade025d950ac39e19f18945dd8dcc0e8a6 data/minecraft/tags/item/foot_armor.json
+e8d72fec83ebfe75a4eb358217bb562d1075460b data/minecraft/tags/item/head_armor.json
+8858071896c8f4fb8fd2a9c4ac38e40b02376a09 data/minecraft/tags/item/hoes.json
+76c5011315ae445c9c7ae581b4679b62f34cd770 data/minecraft/tags/item/leg_armor.json
+a44d9ffc2fd10ae9dbb86858bdbf04cf1753ced5 data/minecraft/tags/item/pickaxes.json
+75351c03add548410837ca446315387a7ae11382 data/minecraft/tags/item/shovels.json
+c891a8be5715984de3797eb9c3f187485b5e71cb data/minecraft/tags/item/swords.json
 35eac428592b750d11c1cf1de4a1bd3514bc10f6 data/rootsclassic/tags/item/barks.json
 9dba0a2956e1c0e115cc8079755a0ee102f301ab data/rootsclassic/tags/item/barks/acacia.json
 a745da3593566a775d84f3d68de5334d9cf85cc3 data/rootsclassic/tags/item/barks/birch.json
