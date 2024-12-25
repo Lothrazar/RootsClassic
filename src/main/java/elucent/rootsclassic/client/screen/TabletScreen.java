@@ -50,7 +50,7 @@ public class TabletScreen extends Screen {
 
   @Override
   public boolean mouseClicked(double mouseX, double mouseY, int button) {
-    float basePosX = (width / 2.0f) - 108;
+    float basePosX = (width / 2.0f) - 92;
     ResearchGroup group = null;
     ResearchBase base = null;
     for (int i = 0; i < ResearchManager.globalResearches.get(currentGroup).researches.size(); i++) {
@@ -76,16 +76,16 @@ public class TabletScreen extends Screen {
       }
     }
     if (mouseX >= 32 && mouseX < 64 && mouseY >= height - 48 && mouseY < height - 32) {
+      minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
       currentGroup--;
       if (currentGroup < 0) {
-        minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
         currentGroup = ResearchManager.globalResearches.size() - 1;
       }
     }
     if (mouseX >= width - 64 && mouseX < width - 32 && mouseY >= height - 48 && mouseY < height - 32) {
+      minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
       currentGroup++;
       if (currentGroup == ResearchManager.globalResearches.size()) {
-        minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
         currentGroup = 0;
       }
     }
@@ -134,7 +134,7 @@ public class TabletScreen extends Screen {
       tesselator.end();
       RenderSystem.disableBlend();
     }
-    int basePosX = (int) ((width / 2.0f) - 108);
+    int basePosX = (int) ((width / 2.0f) - 92);
     String researchName = "rootsclassic.research." + ResearchManager.globalResearches.get(currentGroup).getName();
     for (int i = 0; i < ResearchManager.globalResearches.get(currentGroup).researches.size(); i++) {
       int yShift = (int) (float) Math.floor(i / 6);
