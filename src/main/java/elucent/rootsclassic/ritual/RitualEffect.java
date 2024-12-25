@@ -2,6 +2,8 @@ package elucent.rootsclassic.ritual;
 
 import java.util.List;
 import com.google.gson.JsonObject;
+import elucent.rootsclassic.recipe.RitualRecipe;
+import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -29,4 +31,8 @@ public abstract class RitualEffect<C> {
   abstract public void toNetwork(C config, FriendlyByteBuf buffer);
 
   abstract public C fromNetwork(FriendlyByteBuf buffer);
+  
+  public boolean incenseMatches(List<ItemStack> incensesFromNearby, RitualRecipe<C> recipe) {
+    return RootsUtil.matchesIngredients(incensesFromNearby, recipe.getIncenses());
+  }
 }
