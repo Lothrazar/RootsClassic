@@ -50,18 +50,9 @@ public class TabletPageScreen extends Screen {
   }
 
   @Override
-  public boolean keyPressed(int keyCode, int scanCode, int modifiers) { // Used to be keyTyped
-    if (keyCode == 256) {
-      minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-      this.minecraft.setScreen(new TabletScreen(player));
-      return true;
-    }
-    return super.keyPressed(keyCode, scanCode, modifiers);
-  }
-
-  @Override
-  public boolean shouldCloseOnEsc() {
-    return false;
+  public void onClose() {
+    minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+    this.minecraft.setScreen(new TabletScreen(player));
   }
 
   @Override
