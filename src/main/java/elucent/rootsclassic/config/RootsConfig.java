@@ -54,7 +54,7 @@ public class RootsConfig {
 				.defineInRange("berriesDropChance", 25, 0, 32767);
 			barkKnifeBlockStripChance = builder
 				.comment("Chance that the bark knife will strip the log, 1 is always strip on first harvest")
-				.defineInRange("barkKnifeBlockStripChance", 0.3F, 0.1F, 1.0F);
+				.defineInRange("barkKnifeBlockStripChance", 0.3D, 0.1D, 1.0D);
 			builder.pop();
 			builder.comment("Settings related to actual gameplay-affecting features")
 				.push("magic");
