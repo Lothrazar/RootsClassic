@@ -1,7 +1,10 @@
 package elucent.rootsclassic.ritual.rituals;
 
+import elucent.rootsclassic.recipe.RitualRecipe;
 import elucent.rootsclassic.registry.RootsComponents;
 import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.registry.RootsTags;
+import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.nbt.CompoundTag;
@@ -66,6 +69,18 @@ public class RitualEngravedSword extends RitualCrafting {
     }
     else {
 	    stack.set(componentTypeSupplier, 1);
+    }
+  }
+
+  @Override
+  public boolean incenseMatches(List<ItemStack> incensesFromNearby, RitualRecipe recipe) {
+    List<ItemStack> incensesWithoutBarks = new ArrayList<>(incensesFromNearby);
+    incensesWithoutBarks.removeIf(stack -> stack.is(RootsTags.BARKS));
+
+    if(incensesFromNearby.size() - incensesWithoutBarks.size() > 4) {
+      return false; //Too much bark.
+    } else {
+      return RootsUtil.matchesIngredients(incensesWithoutBarks, recipe.getIncenses());
     }
   }
 }

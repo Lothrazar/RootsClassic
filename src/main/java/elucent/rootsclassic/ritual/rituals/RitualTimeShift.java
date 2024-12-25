@@ -1,8 +1,8 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.util.ArrayList;
-import java.util.List;
+import elucent.rootsclassic.recipe.RitualRecipe;
 import elucent.rootsclassic.ritual.SimpleRitualEffect;
+import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
@@ -10,6 +10,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RitualTimeShift extends SimpleRitualEffect {
 
@@ -30,6 +33,21 @@ public class RitualTimeShift extends SimpleRitualEffect {
       for (ServerLevel serverLevel : levelAccessor.getServer().getAllLevels()) {
         serverLevel.setDayTime(serverLevel.getDayTime() + (long) shiftAmount);
       }
+    }
+  }
+  
+  @Override
+  public boolean incenseMatches(List<ItemStack> incensesFromNearby, RitualRecipe recipe) {
+    List<ItemStack> incensesWithoutClocks = new ArrayList<>(incensesFromNearby);
+    incensesWithoutClocks.removeIf(stack -> stack.is(Items.CLOCK));
+    
+    if(incensesFromNearby.size() == incensesWithoutClocks.size()) {
+      //No clocks.
+      return false;
+    } else {
+      //The JSON recipe contains exactly one clock incense, so add back one clock.
+      incensesWithoutClocks.add(new ItemStack(Items.CLOCK));
+      return RootsUtil.matchesIngredients(incensesWithoutClocks, recipe.getIncenses());
     }
   }
 }

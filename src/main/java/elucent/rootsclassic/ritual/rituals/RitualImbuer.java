@@ -2,9 +2,11 @@ package elucent.rootsclassic.ritual.rituals;
 
 import elucent.rootsclassic.datacomponent.SpellData;
 import elucent.rootsclassic.item.CrystalStaffItem;
+import elucent.rootsclassic.recipe.RitualRecipe;
 import elucent.rootsclassic.registry.RootsComponents;
 import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.ritual.SimpleRitualEffect;
+import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -12,6 +14,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RitualImbuer extends SimpleRitualEffect {
@@ -35,5 +38,17 @@ public class RitualImbuer extends SimpleRitualEffect {
     }
     inventory.clearContent();
     levelAccessor.getBlockEntity(pos).setChanged();
+  }
+  
+  @Override
+  public boolean incenseMatches(List<ItemStack> incensesFromNearby, RitualRecipe recipe) {
+    List<ItemStack> incensesWithoutPowders = new ArrayList<>(incensesFromNearby);
+    incensesWithoutPowders.removeIf(stack -> stack.is(RootsRegistry.SPELL_POWDER.get()));
+    
+    if(incensesWithoutPowders.size() == incensesFromNearby.size()) {
+      return false; //Need to add at least one spell powder.
+    } else {
+      return RootsUtil.matchesIngredients(incensesWithoutPowders, recipe.getIncenses());
+    }
   }
 }

@@ -1,5 +1,7 @@
 package elucent.rootsclassic.ritual;
 
+import elucent.rootsclassic.recipe.RitualRecipe;
+import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -23,5 +25,9 @@ public abstract class RitualEffect {
     var id = RitualBaseRegistry.RITUALS.getKey(this);
     if (id == null) return Component.empty();
     return Component.translatable(id.getNamespace() + ".jei.tooltip." + id.getPath());
+  }
+  
+  public boolean incenseMatches(List<ItemStack> incensesFromNearby, RitualRecipe recipe) {
+    return RootsUtil.matchesIngredients(incensesFromNearby, recipe.getIncenses());
   }
 }

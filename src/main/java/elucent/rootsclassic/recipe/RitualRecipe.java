@@ -237,7 +237,7 @@ public class RitualRecipe implements Recipe<RecipeInput> {
 				incenseFromNearby.add(brazier.getHeldItem());
 			}
 		}
-		return RootsUtil.matchesIngredients(incenseFromNearby, incenses);
+    return effect.incenseMatches(incenseFromNearby, this);
 	}
 
 	public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {

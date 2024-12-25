@@ -11,7 +11,6 @@ import elucent.rootsclassic.ritual.RitualRegistry;
 import elucent.rootsclassic.util.InventoryUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
@@ -154,7 +153,7 @@ public class AltarBlockEntity extends BEBase {
           return ItemInteractionResult.FAIL;
         }
         //does it match everything else?
-        if (recipe.incenseMatches(level, pos) || recipe.getIncenses().isEmpty()) {
+        if (recipe.incenseMatches(level, pos)) {
           setCurrentRitual(recipeHolder);
           setIncenses(RitualRegistry.getIncenses(levelAccessor, pos));
           setProgress(RECIPE_PROGRESS_TIME);
