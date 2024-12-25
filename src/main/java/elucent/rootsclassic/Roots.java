@@ -33,7 +33,6 @@ public class Roots {
 
   public Roots(IEventBus eventBus, Dist dist, ModContainer container) {
     container.registerConfig(ModConfig.Type.COMMON, RootsConfig.commonSpec);
-    container.registerConfig(ModConfig.Type.CLIENT, RootsConfig.clientSpec);
 
     eventBus.addListener(this::setup);
 
@@ -59,6 +58,7 @@ public class Roots {
     eventBus.addListener(RootsEntities::onSpawnPlacementRegisterEvent);
 
     if (dist.isClient()) {
+      container.registerConfig(ModConfig.Type.CLIENT, RootsConfig.clientSpec);
       NeoForge.EVENT_BUS.addListener(ManaBarEvent::clientTickEnd);
       eventBus.addListener(ManaBarEvent::onRegisterLayer);
       eventBus.addListener(ClientHandler::onClientSetup);
