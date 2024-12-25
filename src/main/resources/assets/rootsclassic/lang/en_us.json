@@ -537,5 +537,24 @@
 		"rootsclassic.jei.tooltip.mass_breeding": "Mass Breeding",
 		"rootsclassic.jei.tooltip.flare": "Flare",
 		"rootsclassic.jei.tooltip.time_shift": "Shift Time",
-		"rootsclassic.jei.tooltip.summoning": "Summons %s"
+		"rootsclassic.jei.tooltip.summoning": "Summons %s",
+
+    "rootsclassic.configuration.dragonsEyeDropChance": "Dragon's Eye Drop Chance",
+    "rootsclassic.configuration.disablePVP": "Disable PVP",
+    "rootsclassic.configuration.ticksPerManaRegen": "Ticks per Mana Regen",
+    "rootsclassic.configuration.staffUsesEfficiency": "Staff Uses Efficiency",
+    "rootsclassic.configuration.client": "Client",
+    "rootsclassic.configuration.infernalStemDropChance": "Infernal Stem Drop Chance",
+    "rootsclassic.configuration.staffUses": "Staff Uses",
+    "rootsclassic.configuration.barkKnifeBlockStripChance": "Bark Knife Block Strip Chance",
+    "rootsclassic.configuration.oldRootDropChance": "Old Root Drop Chance",
+    "rootsclassic.configuration.staffUsesBasic": "Staff Uses Basic",
+    "rootsclassic.configuration.staffChargeTicks": "Staff Charge Ticks",
+    "rootsclassic.configuration.showTabletWave": "Show Tablet Wave",
+    "rootsclassic.configuration.manaBarOffset": "Mana Bar Offset",
+    "rootsclassic.configuration.items": "Items",
+    "rootsclassic.configuration.berriesDropChance": "Berries Drop Chance",
+    "rootsclassic.configuration.efficiencyBonusUses": "Efficiency Bonus Uses",
+    "rootsclassic.configuration.magic": "Magic",
+    "rootsclassic.configuration.verdantSprigDropChance": "Verdant Sprig Drop Chance"
 }
