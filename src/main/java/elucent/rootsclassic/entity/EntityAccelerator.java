@@ -32,7 +32,7 @@ public class EntityAccelerator extends Entity {
   @Override
   public void tick() {
     super.tick();
-    if (entity == null) {
+    if (entity == null || !entity.isAlive()) {
       this.level().broadcastEntityEvent(this, (byte) 3);
       this.discard();
     }
@@ -41,8 +41,10 @@ public class EntityAccelerator extends Entity {
           (entity.getBoundingBox().maxY + entity.getBoundingBox().minY) / 2.0 - 0.5,
           (entity.getBoundingBox().maxZ + entity.getBoundingBox().minZ) / 2.0 - 0.5);
       for (int i = 0; i < potency; i++) {
-        entity.tick();
-        entity.baseTick();
+        if (entity.isAlive()) {
+          entity.tick();
+          entity.baseTick();
+        }
       }
     }
     if (level().isClientSide) {
