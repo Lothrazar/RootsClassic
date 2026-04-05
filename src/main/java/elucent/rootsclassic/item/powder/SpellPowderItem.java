@@ -7,14 +7,15 @@ import elucent.rootsclassic.registry.RootsComponents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.crafting.RecipeInput;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class SpellPowderItem extends Item {
 
@@ -27,7 +28,7 @@ public class SpellPowderItem extends Item {
     return slotChanged;
   }
 
-  public static void createData(ItemStack stack, ResourceLocation effect, RecipeInput recipeInput) {
+  public static void createData(ItemStack stack, Identifier effect, RecipeInput recipeInput) {
     CompoundTag nbt = new CompoundTag();
     int potency = 0;
     int efficiency = 0;
@@ -53,27 +54,26 @@ public class SpellPowderItem extends Item {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
-	  super.appendHoverText(stack, context, tooltip, tooltipFlag);
-    if (stack.has(RootsComponents.SPELL)) {
-	    SpellData spell = stack.get(RootsComponents.SPELL);
-      ResourceLocation compName = ResourceLocation.tryParse(spell.effect());
+  public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+    if (itemStack.has(RootsComponents.SPELL)) {
+	    SpellData spell = itemStack.get(RootsComponents.SPELL);
+      Identifier compName = Identifier.tryParse(spell.effect());
       if (compName != null) {
-        ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get(compName);
+        ComponentBase comp = ComponentBaseRegistry.COMPONENTS.getValue(compName);
         if (comp != null) {
-          tooltip.add(Component.translatable("rootsclassic.tooltip.spelltypeheading")
+          builder.accept(Component.translatable("rootsclassic.tooltip.spelltypeheading")
               .append(": ").withStyle(ChatFormatting.GOLD).append(comp.getEffectName().withStyle(comp.getTextColor())));
         }
       }
-      tooltip.add(Component.translatable("  +" + spell.potency() + " ")
+      builder.accept(Component.translatable("  +" + spell.potency() + " ")
           .append(Component.translatable("rootsclassic.tooltip.spellpotency")).append(".").withStyle(ChatFormatting.RED));
-      tooltip.add(Component.translatable("  +" + spell.efficiency() + " ")
+      builder.accept(Component.translatable("  +" + spell.efficiency() + " ")
           .append(Component.translatable("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(ChatFormatting.RED));
-      tooltip.add(Component.translatable("  +" + spell.size() + " ")
+      builder.accept(Component.translatable("  +" + spell.size() + " ")
           .append(Component.translatable("rootsclassic.tooltip.spellsize")).append(".").withStyle(ChatFormatting.RED));
     }
     else {
-      tooltip.add(Component.translatable("rootsclassic.error.unset").withStyle(ChatFormatting.GRAY));
+      builder.accept(Component.translatable("rootsclassic.error.unset").withStyle(ChatFormatting.GRAY));
     }
   }
 }

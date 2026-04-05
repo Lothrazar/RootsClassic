@@ -1,7 +1,7 @@
 package elucent.rootsclassic.block.altar;
 
 import java.util.stream.Stream;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import elucent.rootsclassic.block.BaseBEBlock;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
@@ -51,6 +51,6 @@ public class AltarBlock extends BaseBEBlock implements EntityBlock {
 
   @Nullable
   protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends AltarBlockEntity> standingStoneType) {
-    return level.isClientSide ? createTickerHelper(entityType, standingStoneType, AltarBlockEntity::clientTick) : createTickerHelper(entityType, standingStoneType, AltarBlockEntity::serverTick);
+    return level.isClientSide() ? createTickerHelper(entityType, standingStoneType, AltarBlockEntity::clientTick) : createTickerHelper(entityType, standingStoneType, AltarBlockEntity::serverTick);
   }
 }

@@ -20,10 +20,12 @@ import elucent.rootsclassic.ritual.rituals.RitualSummoning;
 import elucent.rootsclassic.ritual.rituals.RitualTimeShift;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeMap;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -54,9 +56,12 @@ public class RitualRegistry {
       var stack = altar.inventory.getStackInSlot(i);
       if (!stack.isEmpty()) altarInv.add(stack);
     }
-    return altar.getLevel().getRecipeManager().getAllRecipesFor(RootsRecipes.RITUAL_RECIPE_TYPE.get()).stream()
+    if (altar.getLevel() instanceof ServerLevel serverLevel) {
+      return serverLevel.recipeAccess().recipeMap().byType(RootsRecipes.RITUAL_RECIPE_TYPE.get()).stream()
         .filter(it -> RootsUtil.matchesIngredients(altarInv, it.value().getIngredients()))
         .findFirst();
+    }
+    return Optional.empty();
   }
 
   public static List<ItemStack> getIncenses(Level level, BlockPos pos) {
@@ -75,9 +80,9 @@ public class RitualRegistry {
     return test;
   }
 
-  public static Optional<RecipeHolder<RitualRecipe>> recipeByName(RecipeManager recipeManager, ResourceLocation id) {
-    return recipeManager.getAllRecipesFor(RootsRecipes.RITUAL_RECIPE_TYPE.get()).stream()
-        .filter(it -> it.id().equals(id))
+  public static Optional<RecipeHolder<RitualRecipe>> recipeByName(RecipeMap recipeMap, Identifier id) {
+    return recipeMap.byType(RootsRecipes.RITUAL_RECIPE_TYPE.get()).stream()
+        .filter(it -> it.id().identifier().equals(id))
         .findFirst();
   }
 }

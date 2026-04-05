@@ -4,26 +4,28 @@ import elucent.rootsclassic.recipe.ComponentRecipe;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.Objects;
 
 public class ComponentRecipeBuilder implements RecipeBuilder {
-	private final ResourceLocation effectResult;
+	private final Identifier effectResult;
 	private String group;
-	private ItemStack output = RootsRegistry.SPELL_POWDER.toStack();
+	private ItemStackTemplate output = new ItemStackTemplate(RootsRegistry.SPELL_POWDER);
 	private final NonNullList<Ingredient> materials = NonNullList.create();
 	private boolean needsMixin = true;
 
-	public ComponentRecipeBuilder(ResourceLocation effectResult) {
+	public ComponentRecipeBuilder(Identifier effectResult) {
 		this.effectResult = effectResult;
 	}
 
@@ -38,18 +40,18 @@ public class ComponentRecipeBuilder implements RecipeBuilder {
 		return this;
 	}
 
-	public ComponentRecipeBuilder output(ItemStack output) {
+	public ComponentRecipeBuilder output(ItemStackTemplate output) {
 		this.output = output;
 		return this;
 	}
 
 	public ComponentRecipeBuilder output(Item output) {
-		this.output = new ItemStack(output);
+		this.output = new ItemStackTemplate(output);
 		return this;
 	}
 
 	public ComponentRecipeBuilder output(Item output, int count) {
-		this.output = new ItemStack(output, count);
+		this.output = new ItemStackTemplate(output, count);
 		return this;
 	}
 
@@ -63,15 +65,19 @@ public class ComponentRecipeBuilder implements RecipeBuilder {
 		return this;
 	}
 
-	@Override
-	public Item getResult() {
-		return output != null ? output.getItem() : Items.AIR;
-	}
+  @Override
+  public ResourceKey<Recipe<?>> defaultId() {
+    return RecipeBuilder.getDefaultRecipeId(this.output);
+  }
 
-	@Override
-	public void save(RecipeOutput recipeOutput, ResourceLocation id) {
-		ComponentRecipe upgradeRecipe = new ComponentRecipe(effectResult,
-			Objects.requireNonNullElse(this.group, ""), output, materials, needsMixin);
-		recipeOutput.accept(id, upgradeRecipe, null);
-	}
+  @Override
+  public void save(RecipeOutput output, ResourceKey<Recipe<?>> location) {
+    ComponentRecipe upgradeRecipe = new ComponentRecipe(effectResult,
+      Objects.requireNonNullElse(this.group, ""), this.output, materials, needsMixin);
+    output.accept(location, upgradeRecipe, null);
+  }
+
+  public void save(RecipeOutput output, Identifier identifier) {
+    save(output, ResourceKey.create(Registries.RECIPE, identifier));
+  }
 }

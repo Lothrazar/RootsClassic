@@ -1,6 +1,6 @@
 package elucent.rootsclassic.block.brazier;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import elucent.rootsclassic.block.BaseBEBlock;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
@@ -42,6 +42,6 @@ public class BlockBrazier extends BaseBEBlock implements EntityBlock {
 
   @Nullable
   protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends BrazierBlockEntity> standingStoneType) {
-    return level.isClientSide ? createTickerHelper(entityType, standingStoneType, BrazierBlockEntity::clientTick) : createTickerHelper(entityType, standingStoneType, BrazierBlockEntity::serverTick);
+    return level.isClientSide() ? createTickerHelper(entityType, standingStoneType, BrazierBlockEntity::clientTick) : createTickerHelper(entityType, standingStoneType, BrazierBlockEntity::serverTick);
   }
 }

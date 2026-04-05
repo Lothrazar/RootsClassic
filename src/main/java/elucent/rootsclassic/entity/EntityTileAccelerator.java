@@ -3,8 +3,9 @@ package elucent.rootsclassic.entity;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -12,6 +13,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.Random;
 
@@ -42,9 +45,9 @@ public class EntityTileAccelerator extends Entity {
   @Override
   public void tick() {
     super.tick();
-    if (!this.level().isClientSide) {
+    if (!this.level().isClientSide()) {
       if (bePosition == null || this.level().getBlockState(bePosition).isAir()) {
-        if (this.tickCount > 20 && !level().isClientSide) {
+        if (this.tickCount > 20 && !level().isClientSide()) {
           this.level().broadcastEntityEvent(this, (byte) 3);
           this.discard();
         }
@@ -60,39 +63,38 @@ public class EntityTileAccelerator extends Entity {
           }
         }
       }
-    }
-    else {
-      if (level().isClientSide) {
+    } else {
+      if (level().isClientSide()) {
         for (int i = 0; i < 2; i++) {
           int side = random.nextInt(6);
           if (side == 0) {
             level().addParticle(MagicAuraParticleData.createData(255, 255, 255),
-                getX(), getY() + random.nextDouble(), getZ() + random.nextDouble(), 0, 0, 0);
+              getX(), getY() + random.nextDouble(), getZ() + random.nextDouble(), 0, 0, 0);
           }
           if (side == 1) {
             level().addParticle(MagicAuraParticleData.createData(255, 255, 255),
-                getX() + 1.0, getY() + random.nextDouble(), getZ() + random.nextDouble(), 0, 0, 0);
+              getX() + 1.0, getY() + random.nextDouble(), getZ() + random.nextDouble(), 0, 0, 0);
           }
           if (side == 2) {
             level().addParticle(MagicAuraParticleData.createData(255, 255, 255),
-                getX() + random.nextDouble(), getY(), getZ() + random.nextDouble(), 0, 0, 0);
+              getX() + random.nextDouble(), getY(), getZ() + random.nextDouble(), 0, 0, 0);
           }
           if (side == 3) {
             level().addParticle(MagicAuraParticleData.createData(255, 255, 255),
-                getX() + random.nextDouble(), getY() + 1.0, getZ() + random.nextDouble(), 0, 0, 0);
+              getX() + random.nextDouble(), getY() + 1.0, getZ() + random.nextDouble(), 0, 0, 0);
           }
           if (side == 4) {
             level().addParticle(MagicAuraParticleData.createData(255, 255, 255),
-                getX() + random.nextDouble(), getY() + random.nextDouble(), getZ(), 0, 0, 0);
+              getX() + random.nextDouble(), getY() + random.nextDouble(), getZ(), 0, 0, 0);
           }
           if (side == 5) {
             level().addParticle(MagicAuraParticleData.createData(255, 255, 255),
-                getX() + random.nextDouble(), getY() + random.nextDouble(), getZ() + 1.0, 0, 0, 0);
+              getX() + random.nextDouble(), getY() + random.nextDouble(), getZ() + 1.0, 0, 0, 0);
           }
         }
       }
     }
-    if (!level().isClientSide) {
+    if (!level().isClientSide()) {
       lifetime--;
       if (lifetime <= 0) {
         this.level().broadcastEntityEvent(this, (byte) 3);
@@ -100,24 +102,28 @@ public class EntityTileAccelerator extends Entity {
       }
     }
   }
-	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 
-	}
-
-	@Override
-  protected void readAdditionalSaveData(CompoundTag compound) {
-    this.bePosition = new BlockPos(compound.getInt("posX"), compound.getInt("posY"), compound.getInt("posZ"));
-    this.lifetime = compound.getInt("lifetime");
-    this.potency = compound.getInt("potency");
+  @Override
+  public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+    return false;
   }
 
   @Override
-  protected void addAdditionalSaveData(CompoundTag compound) {
-    compound.putInt("posX", bePosition.getX());
-    compound.putInt("posY", bePosition.getY());
-    compound.putInt("posZ", bePosition.getZ());
-    compound.putInt("lifetime", lifetime);
-    compound.putInt("potency", potency);
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+
+  }
+
+  @Override
+  protected void readAdditionalSaveData(ValueInput input) {
+    this.bePosition = input.read("bePos", BlockPos.CODEC).orElse(null);
+    this.lifetime = input.getIntOr("lifetime", 0);
+    this.potency = input.getIntOr("potency", 1);
+  }
+
+  @Override
+  protected void addAdditionalSaveData(ValueOutput output) {
+    output.store("bePos",  BlockPos.CODEC, bePosition);
+    output.putInt("lifetime", lifetime);
+    output.putInt("potency", potency);
   }
 }

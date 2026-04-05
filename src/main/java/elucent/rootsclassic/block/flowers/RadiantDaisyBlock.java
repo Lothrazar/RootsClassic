@@ -10,12 +10,12 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class RadiantDaisyBlock extends BushBlock {
-	public static final MapCodec<RadiantDaisyBlock> CODEC = simpleCodec(RadiantDaisyBlock::new);
+  public static final MapCodec<BushBlock> CODEC = simpleCodec(RadiantDaisyBlock::new);
 
-	@Override
-	protected MapCodec<? extends BushBlock> codec() {
-		return CODEC;
-	}
+  @Override
+  public MapCodec<BushBlock> codec() {
+    return CODEC;
+  }
 
   private static final VoxelShape SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 8.0D, 10.0D);
 

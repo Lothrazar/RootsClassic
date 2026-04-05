@@ -2,7 +2,7 @@ package elucent.rootsclassic.util;
 
 import elucent.rootsclassic.Const;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -43,7 +43,7 @@ public class RootsUtil {
 
   public static void addTickTracking(Entity entity) {
     if (entity.getPersistentData().contains(Const.NBT_TRACK_TICKS)) {
-      entity.getPersistentData().putInt(Const.NBT_TRACK_TICKS, entity.getPersistentData().getInt(Const.NBT_TRACK_TICKS) + 1);
+      entity.getPersistentData().putInt(Const.NBT_TRACK_TICKS, entity.getPersistentData().getIntOr(Const.NBT_TRACK_TICKS, 0) + 1);
     }
     else {
       entity.getPersistentData().putInt(Const.NBT_TRACK_TICKS, 1);
@@ -52,8 +52,8 @@ public class RootsUtil {
 
   public static void decrementTickTracking(Entity entity) {
     if (entity.getPersistentData().contains(Const.NBT_TRACK_TICKS)) {
-      entity.getPersistentData().putInt(Const.NBT_TRACK_TICKS, entity.getPersistentData().getInt(Const.NBT_TRACK_TICKS) - 1);
-      if (entity.getPersistentData().getInt(Const.NBT_TRACK_TICKS) == 0) {
+      entity.getPersistentData().putInt(Const.NBT_TRACK_TICKS, entity.getPersistentData().getIntOr(Const.NBT_TRACK_TICKS, 0) - 1);
+      if (entity.getPersistentData().getIntOr(Const.NBT_TRACK_TICKS, 0) == 0) {
         entity.removeTag(Const.NBT_TRACK_TICKS);
       }
     }
@@ -94,7 +94,7 @@ public class RootsUtil {
 	}
 
 	public static int intColor(int r, int g, int b) {
-		return FastColor.ARGB32.color(r, g, b);
+		return ARGB.color(r, g, b);
 	}
 
 	public static int intColorFromHexString(String hex) {
@@ -105,7 +105,7 @@ public class RootsUtil {
 		//Check if right size
 		if (hex.length() != 6) return 0;
 
-		return FastColor.ARGB32.color(
+		return ARGB.color(
 			Integer.parseInt(hex.substring(0, 2), 16),
 			Integer.parseInt(hex.substring(2, 4), 16),
 			Integer.parseInt(hex.substring(4, 6), 16)

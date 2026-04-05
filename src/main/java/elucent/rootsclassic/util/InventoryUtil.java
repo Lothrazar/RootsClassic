@@ -1,74 +1,80 @@
 package elucent.rootsclassic.util;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class InventoryUtil {
 
-  public static int getFirstEmptyStack(IItemHandler itemHandler) {
+  public static int getFirstEmptyStack(ResourceHandler<ItemResource> itemHandler) {
     if (itemHandler == null) return -1;
-    for (int i = 0; i < itemHandler.getSlots(); i++) {
-      if (itemHandler.getStackInSlot(i).isEmpty()) {
+    for (int i = 0; i < itemHandler.size(); i++) {
+      if (itemHandler.getResource(i).isEmpty()) {
         return i;
       }
     }
     return -1;
   }
 
-  public static boolean isFull(IItemHandler itemHandler) {
+  public static boolean isFull(ResourceHandler<ItemResource> itemHandler) {
     if (itemHandler == null) return true;
-    for (int i = 0; i < itemHandler.getSlots(); i++) {
-      ItemStack stack = itemHandler.getStackInSlot(i);
-      if (stack.isEmpty() || (stack.getCount() < stack.getMaxStackSize())) {
+    for (int i = 0; i < itemHandler.size(); i++) {
+      ItemResource resource = itemHandler.getResource(i);
+      if (resource.isEmpty() || (itemHandler.getAmountAsInt(i) < resource.getMaxStackSize())) {
         return false;
       }
     }
     return true;
   }
 
-  public static boolean isEmpty(IItemHandler itemHandler) {
+  public static boolean isEmpty(ResourceHandler<ItemResource> itemHandler) {
     if (itemHandler == null) return true;
-    for (int i = 0; i < itemHandler.getSlots(); i++) {
-      ItemStack stack = itemHandler.getStackInSlot(i);
-      if (!stack.isEmpty()) {
+    for (int i = 0; i < itemHandler.size(); i++) {
+      ItemResource resource = itemHandler.getResource(i);
+      if (!resource.isEmpty()) {
         return false;
       }
     }
     return true;
   }
 
-  public static void clearInventory(IItemHandler itemHandler) {
+  public static void clearInventory(ResourceHandler<ItemResource> itemHandler) {
     if (itemHandler == null) return;
-    for (int i = 0; i < itemHandler.getSlots(); i++) {
-      ItemStack stack = itemHandler.getStackInSlot(i);
-      if (!stack.isEmpty()) {
-        stack.shrink(1);
+    try (Transaction tx = Transaction.openRoot()) {
+      for (int i = 0; i < itemHandler.size(); i++) {
+        ItemResource resource = itemHandler.getResource(i);
+        if (!resource.isEmpty()) {
+          itemHandler.extract(resource, itemHandler.getAmountAsInt(i), tx);
+        }
       }
+      tx.commit();
     }
   }
 
-  public static ItemStack getLastStack(IItemHandler itemHandler) {
-    if (itemHandler == null) return ItemStack.EMPTY;
-    for (int i = itemHandler.getSlots() - 1; i >= 0; i--) {
-      ItemStack stack = itemHandler.getStackInSlot(i);
-      if (!stack.isEmpty()) {
-        return stack;
+  public static Pair<Integer, ItemResource> getLastResource(ResourceHandler<ItemResource> resourceHandler) {
+    if (resourceHandler == null) return Pair.of(-1, ItemResource.EMPTY);
+    for (int i = resourceHandler.size() - 1; i >= 0; i--) {
+      ItemResource resource = resourceHandler.getResource(i);
+      if (!resource.isEmpty()) {
+        return Pair.of(i, resource);
       }
     }
-    return ItemStack.EMPTY;
+    return Pair.of(-1, ItemResource.EMPTY);
   }
 
-  public static CustomInventory createIInventory(IItemHandler itemHandler) {
+  public static CustomInventory createIInventory(ResourceHandler<ItemResource> itemHandler) {
     if (itemHandler == null) return null;
-    CustomInventory inventory = new CustomInventory(itemHandler.getSlots());
-    for (int i = 0; i < itemHandler.getSlots(); i++) {
-      inventory.setItem(i, itemHandler.getStackInSlot(i));
+    CustomInventory inventory = new CustomInventory(itemHandler.size());
+    for (int i = 0; i < itemHandler.size(); i++) {
+      inventory.setItem(i, itemHandler.getResource(i).toStack(itemHandler.getAmountAsInt(i)));
     }
     return inventory;
   }
 
-	public static RecipeWrapper createWrappedInventory(IItemHandler itemHandler) {
+	public static RecipeWrapper createWrappedInventory(ResourceHandler<ItemResource> itemHandler) {
 		if (itemHandler == null) return null;
 		return new RecipeWrapper(itemHandler);
 	}

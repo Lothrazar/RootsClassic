@@ -47,8 +47,8 @@ public class DropModifier {
     @Nonnull
     @Override
     protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-      if (context.hasParam(LootContextParams.BLOCK_STATE)) {
-        BlockState state = context.getParamOrNull(LootContextParams.BLOCK_STATE);
+      if (context.hasParameter(LootContextParams.BLOCK_STATE)) {
+        BlockState state = context.getOptionalParameter(LootContextParams.BLOCK_STATE);
         Block block = state.getBlock();
         RandomSource rand = context.getRandom();
         if (block instanceof TallGrassBlock) {
@@ -78,7 +78,7 @@ public class DropModifier {
         if (block instanceof LeavesBlock) {
           if (generatedLoot.stream().noneMatch((stack) -> stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() == block)) {
             if (RootsConfig.COMMON.berriesDropChance.get() > 0 && rand.nextInt(RootsConfig.COMMON.berriesDropChance.get()) == 0) {
-              generatedLoot.add(new ItemStack(BuiltInRegistries.ITEM.getTag(RootsTags.BERRIES)
+              generatedLoot.add(new ItemStack(BuiltInRegistries.ITEM.get(RootsTags.BERRIES)
 	              .flatMap(tag -> tag.getRandomElement(rand)).orElse(RootsRegistry.ELDERBERRY)));
             }
           }

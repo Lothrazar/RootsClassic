@@ -1,10 +1,11 @@
 package elucent.rootsclassic.attachment;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.attachment.IAttachmentHolder;
+import net.neoforged.neoforge.attachment.IAttachmentSerializer;
 
-public class ManaAttachment implements IMana, INBTSerializable<CompoundTag> {
+public class ManaAttachment implements IMana, IAttachmentSerializer<ManaAttachment> {
 
   private float maxMana = 40;
   private float mana = 40;
@@ -41,24 +42,19 @@ public class ManaAttachment implements IMana, INBTSerializable<CompoundTag> {
   }
 
   @Override
-  public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-    return writeNBT(this);
+  public ManaAttachment read(IAttachmentHolder holder, ValueInput input) {
+    ManaAttachment attachment = new ManaAttachment();
+
+    attachment.setMana(input.getFloatOr("mana", 40));
+    attachment.setMaxMana(input.getFloatOr("maxMana", 40));
+
+    return attachment;
   }
 
   @Override
-  public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
-    readNBT(this, tag);
-  }
-
-  public CompoundTag writeNBT(ManaAttachment instance) {
-    CompoundTag tag = new CompoundTag();
-    tag.putFloat("mana", instance.getMana());
-    tag.putFloat("maxMana", instance.getMaxMana());
-    return tag;
-  }
-
-  public void readNBT(ManaAttachment instance, CompoundTag tag) {
-    instance.setMana(tag.getFloat("mana"));
-    instance.setMaxMana(tag.getFloat("maxMana"));
+  public boolean write(ManaAttachment attachment, ValueOutput output) {
+    output.putFloat("mana", attachment.getMana());
+    output.putFloat("maxMana", attachment.getMaxMana());
+    return true;
   }
 }

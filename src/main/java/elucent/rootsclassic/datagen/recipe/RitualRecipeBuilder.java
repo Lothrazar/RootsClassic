@@ -3,19 +3,21 @@ package elucent.rootsclassic.datagen.recipe;
 import elucent.rootsclassic.recipe.RitualRecipe;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public class RitualRecipeBuilder implements RecipeBuilder {
-	public final ResourceLocation effectId;
+	public final Identifier effectId;
 	public CompoundTag effectConfig = null;
 	private final NonNullList<Ingredient> materials = NonNullList.create();
 	private final NonNullList<Ingredient> incenses = NonNullList.create();
@@ -23,7 +25,7 @@ public class RitualRecipeBuilder implements RecipeBuilder {
 	public String color = "";
 	public String secondaryColor = "";
 
-	public RitualRecipeBuilder(ResourceLocation effectId) {
+	public RitualRecipeBuilder(Identifier effectId) {
 		this.effectId = effectId;
 	}
 
@@ -67,10 +69,10 @@ public class RitualRecipeBuilder implements RecipeBuilder {
 		return this;
 	}
 
-	@Override
-	public Item getResult() {
-		return Items.AIR;
-	}
+  @Override
+  public ResourceKey<Recipe<?>> defaultId() {
+    return ResourceKey.create(Registries.RECIPE, effectId);
+  }
 
 	@Override
 	public void save(RecipeOutput recipeOutput) {
@@ -78,8 +80,12 @@ public class RitualRecipeBuilder implements RecipeBuilder {
 	}
 
 	@Override
-	public void save(RecipeOutput recipeOutput, ResourceLocation id) {
-		RitualRecipe upgradeRecipe = new RitualRecipe(effectId, effectConfig, materials, incenses, level, color, secondaryColor);
-		recipeOutput.accept(id, upgradeRecipe, null);
+  public void save(RecipeOutput output, ResourceKey<Recipe<?>> location) {
+		RitualRecipe upgradeRecipe = new RitualRecipe(effectId, Optional.ofNullable(effectConfig), materials, incenses, level, color, secondaryColor);
+    output.accept(location, upgradeRecipe, null);
 	}
+
+  public void save(RecipeOutput output, Identifier identifier) {
+    save(output, ResourceKey.create(Registries.RECIPE, identifier));
+  }
 }

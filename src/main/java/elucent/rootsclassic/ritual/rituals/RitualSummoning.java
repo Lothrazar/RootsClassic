@@ -10,13 +10,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -29,21 +29,21 @@ import java.util.List;
 public class RitualSummoning extends RitualEffect {
 
   @Override
-  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, CompoundTag config) {
-    if (!levelAccessor.isClientSide) {
-	    ResourceLocation entityId = ResourceLocation.tryParse(config.getString("entity"));
+  public void doEffect(Level level, BlockPos pos, Container inventory, List<ItemStack> incenses, CompoundTag config) {
+    if (!level.isClientSide()) {
+	    Identifier entityId = Identifier.tryParse(config.getStringOr("entity", ""));
 			if (entityId == null) return;
-			EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(entityId);
+			EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.getValue(entityId);
 			if (entityType == null) return;
-      Entity toSpawn = entityType.create(levelAccessor);
+      Entity toSpawn = entityType.create(level, EntitySpawnReason.MOB_SUMMONED);
       if (toSpawn != null) {
-        if (toSpawn instanceof Mob mob && levelAccessor instanceof ServerLevel sl) {
-          EventHooks.finalizeMobSpawn(mob, sl, levelAccessor.getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, (SpawnGroupData) null);
+        if (toSpawn instanceof Mob mob && level instanceof ServerLevel serverLevel) {
+          EventHooks.finalizeMobSpawn(mob, serverLevel, serverLevel.getCurrentDifficultyAt(pos), EntitySpawnReason.MOB_SUMMONED, (SpawnGroupData) null);
         }
         toSpawn.setPos(pos.getX() + 0.5, pos.getY() + 2.0, pos.getZ() + 0.5);
         inventory.clearContent();
-        levelAccessor.addFreshEntity(toSpawn);
-        BlockEntity tile = levelAccessor.getBlockEntity(pos);
+        level.addFreshEntity(toSpawn);
+        BlockEntity tile = level.getBlockEntity(pos);
         if (tile != null) {
           tile.setChanged();
         }
@@ -53,7 +53,7 @@ public class RitualSummoning extends RitualEffect {
 
   @Override
   public MutableComponent getInfoText(CompoundTag config) {
-	  EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.tryParse(config.getString("entity")));
+	  EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(Identifier.tryParse(config.getString("entity")));
     var egg = DeferredSpawnEggItem.deferredOnlyById(entityType);
     if (egg == null) return Component.empty();
     return Component.translatable(Const.MODID + ".jei.tooltip.summoning", entityType.getDescription());
@@ -61,7 +61,7 @@ public class RitualSummoning extends RitualEffect {
 
   @Override
   public ItemStack getResult(CompoundTag config, HolderLookup.Provider provider) {
-	  EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.tryParse(config.getString("entity")));
+	  EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(Identifier.tryParse(config.getString("entity")));
 	  var egg = DeferredSpawnEggItem.deferredOnlyById(entityType);
     if (egg == null) return super.getResult(config, provider);
     var display = getInfoText(config);

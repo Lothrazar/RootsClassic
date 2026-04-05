@@ -1,6 +1,6 @@
 package elucent.rootsclassic.block.mortar;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import elucent.rootsclassic.block.BaseBEBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;

@@ -3,8 +3,6 @@ package elucent.rootsclassic.blockentity;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,23 +27,13 @@ public class AcceleratorStandingStoneTile extends BEBase {
     this(RootsRegistry.ACCELERATOR_STANDING_STONE_TILE.get(), pos, state);
   }
 
-	@Override
-	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.loadAdditional(tag, registries);
-	}
-
-	@Override
-	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.saveAdditional(tag, registries);
-	}
-
   public static void serverTick(Level level, BlockPos pos, BlockState state, AcceleratorStandingStoneTile tile) {
     tile.ticker++;
     if (tile.ticker % 20 == 0) {
       List<LivingEntity> nearbyCreatures = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.getX() - RADIUS, pos.getY() - RADIUS, pos.getZ() - RADIUS, pos.getX() + RADIUS, pos.getY() + RADIUS, pos.getZ() + RADIUS));
       if (nearbyCreatures.size() > 0) {
         for (LivingEntity nearbyCreature : nearbyCreatures) {
-          nearbyCreature.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, POTION_SECONDS * 20, 1));
+          nearbyCreature.addEffect(new MobEffectInstance(MobEffects.SPEED, POTION_SECONDS * 20, 1));
         }
       }
       tile.ticker = 0;
@@ -54,7 +42,7 @@ public class AcceleratorStandingStoneTile extends BEBase {
 
   public static void clientTick(Level level, BlockPos pos, BlockState state, AcceleratorStandingStoneTile tile) {
     tile.ticker++;
-    if (tile.ticker % 5 == 0 && level.isClientSide) {
+    if (tile.ticker % 5 == 0 && level.isClientSide()) {
       for (double i = 0; i < 720; i += 45.0) {
         double xShift = 0.5 * Math.sin(Math.PI * (i / 360.0));
         double zShift = 0.5 * Math.cos(Math.PI * (i / 360.0));

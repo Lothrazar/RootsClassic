@@ -3,7 +3,6 @@ package elucent.rootsclassic.ritual;
 import elucent.rootsclassic.recipe.RitualRecipe;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -17,7 +16,7 @@ public abstract class RitualEffect {
 
   public abstract void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, CompoundTag config);
 
-  public ItemStack getResult(CompoundTag config, HolderLookup.Provider provider) {
+  public ItemStack getResult(CompoundTag config) {
     return ItemStack.EMPTY;
   }
 

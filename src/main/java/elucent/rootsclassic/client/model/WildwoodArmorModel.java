@@ -10,7 +10,7 @@ import net.minecraft.world.item.ArmorItem;
 
 public class WildwoodArmorModel extends ModelArmorBase {
 
-  public WildwoodArmorModel(ModelPart root, ArmorItem.Type type) {
+  public WildwoodArmorModel(ModelPart root, ArmorType type) {
     super(root, type);
     this.armorScale = 1.2f;
   }

@@ -10,10 +10,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class MidnightBloomBlock extends BushBlock {
-	public static final MapCodec<MidnightBloomBlock> CODEC = simpleCodec(MidnightBloomBlock::new);
+	public static final MapCodec<BushBlock> CODEC = simpleCodec(MidnightBloomBlock::new);
 
 	@Override
-	protected MapCodec<? extends BushBlock> codec() {
+	public MapCodec<BushBlock> codec() {
 		return CODEC;
 	}
 

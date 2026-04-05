@@ -17,7 +17,7 @@ public class RitualCrafting extends RitualEffect {
   public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, CompoundTag config) {
     // if (Util.itemListsMatchWithSize(inventory, this.ingredients)) {
     ItemStack toSpawn = ItemStack.parseOptional(levelAccessor.registryAccess(), config.getCompound("result"));
-    if (!levelAccessor.isClientSide) {
+    if (!levelAccessor.isClientSide()) {
       ItemEntity item = new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
       levelAccessor.addFreshEntity(item);
     }

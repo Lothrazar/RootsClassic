@@ -17,7 +17,7 @@ public class DragonsEyeItem extends RootsFoodItem {
   @Override
   public ItemStack finishUsingItem(ItemStack stack, Level levelAccessor, LivingEntity entityLiving) {
     super.finishUsingItem(stack, levelAccessor, entityLiving);
-    if (!levelAccessor.isClientSide) {
+    if (!levelAccessor.isClientSide()) {
       double d0 = entityLiving.getX();
       double d1 = entityLiving.getY();
       double d2 = entityLiving.getZ();
@@ -34,8 +34,8 @@ public class DragonsEyeItem extends RootsFoodItem {
           break;
         }
       }
-      if (entityLiving instanceof Player) {
-        ((Player) entityLiving).getCooldowns().addCooldown(this, 20);
+      if (entityLiving instanceof Player player) {
+        player.getCooldowns().addCooldown(stack, 20);
       }
     }
     return stack;

@@ -2,6 +2,7 @@ package elucent.rootsclassic.entity.skeleton;
 
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.registry.RootsEntities;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
@@ -9,9 +10,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
@@ -24,23 +24,22 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RestrictSunGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.EnderMan;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.monster.Spider;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
+import net.minecraft.world.entity.monster.skeleton.Skeleton;
+import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.common.util.FakePlayer;
-
-import javax.annotation.Nullable;
-import java.util.function.Predicate;
+import org.jspecify.annotations.Nullable;
 
 public class PhantomSkeletonEntity extends Skeleton {
 
   public static final boolean appliesSlowPotion = true;
-  private static final Predicate<LivingEntity> SKELETON_SELECTOR = (livingEntity) -> !(livingEntity instanceof PhantomSkeletonEntity);
+  private static final TargetingConditions.Selector SKELETON_SELECTOR = (livingEntity, serverLevel) -> !(livingEntity instanceof PhantomSkeletonEntity);
 
   public PhantomSkeletonEntity(EntityType<? extends PhantomSkeletonEntity> type, Level levelAccessor) {
     super(type, levelAccessor);
@@ -94,7 +93,7 @@ public class PhantomSkeletonEntity extends Skeleton {
   @Nullable
   @Override
   public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyIn,
-                                      MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn) {
+                                      EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn) {
     getAttribute(Attributes.FOLLOW_RANGE).addPermanentModifier(
 			new AttributeModifier(Const.modLoc("spawn_multiplier"), random.nextGaussian() * 0.05D, Operation.ADD_MULTIPLIED_BASE));
     float f = difficultyIn.getSpecialMultiplier();
@@ -104,12 +103,12 @@ public class PhantomSkeletonEntity extends Skeleton {
   }
 
   @Override
-  public boolean doHurtTarget(Entity entityIn) {
-    if (appliesSlowPotion && entityIn instanceof Player player && !(entityIn instanceof FakePlayer)) {
-      if (!player.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
-        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 10 * 20, 0)); // is 10seconds
+  public boolean doHurtTarget(ServerLevel level, Entity target) {
+    if (appliesSlowPotion && target instanceof Player player && !(target instanceof FakePlayer)) {
+      if (!player.hasEffect(MobEffects.SLOWNESS)) {
+        player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 10 * 20, 0)); // is 10seconds
       }
     }
-    return super.doHurtTarget(entityIn);
+    return super.doHurtTarget(level, target);
   }
 }

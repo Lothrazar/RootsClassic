@@ -1,6 +1,6 @@
 package elucent.rootsclassic.block.imbuer;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import elucent.rootsclassic.block.BaseBEBlock;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
@@ -42,6 +42,6 @@ public class ImbuerBlock extends BaseBEBlock implements EntityBlock {
 
   @Nullable
   protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends ImbuerBlockEntity> standingStoneType) {
-    return level.isClientSide ? createTickerHelper(entityType, standingStoneType, ImbuerBlockEntity::clientTick) : createTickerHelper(entityType, standingStoneType, ImbuerBlockEntity::serverTick);
+    return level.isClientSide() ? createTickerHelper(entityType, standingStoneType, ImbuerBlockEntity::clientTick) : createTickerHelper(entityType, standingStoneType, ImbuerBlockEntity::serverTick);
   }
 }

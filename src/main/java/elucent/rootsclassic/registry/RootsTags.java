@@ -13,4 +13,6 @@ public class RootsTags {
   public static final TagKey<Block> INCORRECT_FOR_ENGRAVED_TOOL = BlockTags.create(Const.modLoc("incorrect_for_engraved_tool"));
   public static final TagKey<Item> BARKS = ItemTags.create(Const.modLoc("barks"));
   public static final TagKey<Item> BERRIES = ItemTags.create(Const.modLoc("berries"));
+  public static final TagKey<Item> LIVING_TOOL_MATERIALS = ItemTags.create(Const.modLoc("living_tool_materials"));
+  public static final TagKey<Item> ENGRAVED_TOOL_MATERIALS = ItemTags.create(Const.modLoc("engraved_tool_materials"));
 }

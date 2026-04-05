@@ -14,12 +14,12 @@ import net.minecraft.world.item.ArmorItem;
 
 public class ModelArmorBase extends HumanoidModel<LivingEntity> {
 
-  public final ArmorItem.Type slot;
+  public final ArmorType slot;
   public float armorScale = 1.05f;
   public final ModelPart rightFoot;
   public final ModelPart leftFoot;
 
-  public ModelArmorBase(ModelPart root, ArmorItem.Type armorType) {
+  public ModelArmorBase(ModelPart root, ArmorType armorType) {
     super(root);
     this.rightFoot = root.getChild("right_foot");
     this.leftFoot = root.getChild("left_foot");
@@ -82,14 +82,14 @@ public class ModelArmorBase extends HumanoidModel<LivingEntity> {
     this.setChestRotation();
     this.setLegsRotation();
     this.setBootRotation();
-    head.visible = slot == ArmorItem.Type.HELMET;
-    body.visible = slot == ArmorItem.Type.CHESTPLATE;
-    rightArm.visible = slot == ArmorItem.Type.CHESTPLATE;
-    leftArm.visible = slot == ArmorItem.Type.CHESTPLATE;
-    rightLeg.visible = slot == ArmorItem.Type.LEGGINGS;
-    leftLeg.visible = slot == ArmorItem.Type.LEGGINGS;
-    rightFoot.visible = slot == ArmorItem.Type.BOOTS;
-    leftFoot.visible = slot == ArmorItem.Type.BOOTS;
+    head.visible = slot == ArmorType.HELMET;
+    body.visible = slot == ArmorType.CHESTPLATE;
+    rightArm.visible = slot == ArmorType.CHESTPLATE;
+    leftArm.visible = slot == ArmorType.CHESTPLATE;
+    rightLeg.visible = slot == ArmorType.LEGGINGS;
+    leftLeg.visible = slot == ArmorType.LEGGINGS;
+    rightFoot.visible = slot == ArmorType.BOOTS;
+    leftFoot.visible = slot == ArmorType.BOOTS;
     if (this.young) {
       float f = 2.0F;
       poseStack.pushPose();

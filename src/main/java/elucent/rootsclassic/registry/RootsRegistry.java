@@ -35,7 +35,6 @@ import elucent.rootsclassic.item.DragonsEyeItem;
 import elucent.rootsclassic.item.DruidKnifeItem;
 import elucent.rootsclassic.item.EngravedBladeItem;
 import elucent.rootsclassic.item.GrowthPowderItem;
-import elucent.rootsclassic.item.InfernalBulbItem;
 import elucent.rootsclassic.item.LivingAxeItem;
 import elucent.rootsclassic.item.LivingHoeItem;
 import elucent.rootsclassic.item.LivingPickaxeItem;
@@ -58,6 +57,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -80,38 +80,38 @@ public class RootsRegistry {
    */
   //registerBlock(druidChalice = new BlockDruidChalice(), "druidChalice");
   public static final DeferredBlock<MortarBlock> MORTAR = BLOCKS.register("mortar", () -> new MortarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.CLAY).strength(1.0F)));
-  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MortarBlockEntity>> MORTAR_TILE = BLOCK_ENTITY_TYPES.register("mortar", () -> BlockEntityType.Builder.of(MortarBlockEntity::new,
-      RootsRegistry.MORTAR.get()).build(null));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MortarBlockEntity>> MORTAR_TILE = BLOCK_ENTITY_TYPES.register("mortar", () -> new BlockEntityType<>(MortarBlockEntity::new,
+      RootsRegistry.MORTAR.get()));
   public static final DeferredBlock<AltarBlock> ALTAR = BLOCKS.register("altar", () -> new AltarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.CLAY).strength(1.0F)));
-  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AltarBlockEntity>> ALTAR_TILE = BLOCK_ENTITY_TYPES.register("altar", () -> BlockEntityType.Builder.of(AltarBlockEntity::new,
-      RootsRegistry.ALTAR.get()).build(null));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AltarBlockEntity>> ALTAR_TILE = BLOCK_ENTITY_TYPES.register("altar", () -> new BlockEntityType<>(AltarBlockEntity::new,
+      RootsRegistry.ALTAR.get()));
   public static final DeferredBlock<BlockBrazier> BRAZIER = BLOCKS.register("brazier", () -> new BlockBrazier(BlockBehaviour.Properties.of().mapColor(MapColor.CLAY).strength(1.0F)));
-  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BrazierBlockEntity>> BRAZIER_TILE = BLOCK_ENTITY_TYPES.register("brazier", () -> BlockEntityType.Builder.of(BrazierBlockEntity::new,
-      RootsRegistry.BRAZIER.get()).build(null));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BrazierBlockEntity>> BRAZIER_TILE = BLOCK_ENTITY_TYPES.register("brazier", () -> new BlockEntityType<>(BrazierBlockEntity::new,
+      RootsRegistry.BRAZIER.get()));
   public static final DeferredBlock<ImbuerBlock> IMBUER = BLOCKS.register("imbuer", () -> new ImbuerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.CLAY).strength(1.0F)));
-  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ImbuerBlockEntity>> IMBUER_TILE = BLOCK_ENTITY_TYPES.register("imbuer", () -> BlockEntityType.Builder.of(ImbuerBlockEntity::new,
-      RootsRegistry.IMBUER.get()).build(null));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ImbuerBlockEntity>> IMBUER_TILE = BLOCK_ENTITY_TYPES.register("imbuer", () -> new BlockEntityType<>(ImbuerBlockEntity::new,
+      RootsRegistry.IMBUER.get()));
   public static final DeferredBlock<MundaneStandingStoneBlock> MUNDANE_STANDING_STONE = BLOCKS.register("mundane_standing_stone", () -> new MundaneStandingStoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).pushReaction(PushReaction.DESTROY).strength(1.0F)));
   public static final DeferredBlock<AttunedStandingStoneBlock> ATTUNED_STANDING_STONE = BLOCKS.register("attuned_standing_stone", () -> new AttunedStandingStoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).pushReaction(PushReaction.DESTROY).strength(1.0F)));
   public static final DeferredBlock<VacuumStandingStoneBlock> VACUUM_STANDING_STONE = BLOCKS.register("vacuum_standing_stone", () -> new VacuumStandingStoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).pushReaction(PushReaction.DESTROY).strength(1.0F)));
-  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<VacuumStandingStoneTile>> VACUUM_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("vacuum_standing_stone", () -> BlockEntityType.Builder.of(VacuumStandingStoneTile::new, RootsRegistry.VACUUM_STANDING_STONE.get()).build(null));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<VacuumStandingStoneTile>> VACUUM_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("vacuum_standing_stone", () -> new BlockEntityType<>(VacuumStandingStoneTile::new, RootsRegistry.VACUUM_STANDING_STONE.get()));
   public static final DeferredBlock<RepulsorStandingStoneBlock> REPULSOR_STANDING_STONE = BLOCKS.register("repulsor_standing_stone", () -> new RepulsorStandingStoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).pushReaction(PushReaction.DESTROY).strength(1.0F)));
-  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RepulsorStandingStoneTile>> REPULSOR_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("repulsor_standing_stone", () -> BlockEntityType.Builder.of(RepulsorStandingStoneTile::new, RootsRegistry.REPULSOR_STANDING_STONE.get()).build(null));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<RepulsorStandingStoneTile>> REPULSOR_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("repulsor_standing_stone", () -> new BlockEntityType<>(RepulsorStandingStoneTile::new, RootsRegistry.REPULSOR_STANDING_STONE.get()));
   public static final DeferredBlock<AcceleratorStandingStoneBlock> ACCELERATOR_STANDING_STONE = BLOCKS.register("accelerator_standing_stone", () -> new AcceleratorStandingStoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).pushReaction(PushReaction.DESTROY).strength(1.0F)));
-  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AcceleratorStandingStoneTile>> ACCELERATOR_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("accelerator_standing_stone", () -> BlockEntityType.Builder.of(AcceleratorStandingStoneTile::new, RootsRegistry.ACCELERATOR_STANDING_STONE.get()).build(null));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AcceleratorStandingStoneTile>> ACCELERATOR_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("accelerator_standing_stone", () -> new BlockEntityType<>(AcceleratorStandingStoneTile::new, RootsRegistry.ACCELERATOR_STANDING_STONE.get()));
   public static final DeferredBlock<AestheticStandingStoneBlock> AESTHETIC_STANDING_STONE = BLOCKS.register("aesthetic_standing_stone", () -> new AestheticStandingStoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).pushReaction(PushReaction.DESTROY).strength(1.0F)));
-  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AestheticStandingStoneTile>> AESTHETIC_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("aesthetic_standing_stone", () -> BlockEntityType.Builder.of(AestheticStandingStoneTile::new, RootsRegistry.AESTHETIC_STANDING_STONE.get()).build(null));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AestheticStandingStoneTile>> AESTHETIC_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("aesthetic_standing_stone", () -> new BlockEntityType<>(AestheticStandingStoneTile::new, RootsRegistry.AESTHETIC_STANDING_STONE.get()));
   public static final DeferredBlock<EntanglerStandingStoneBlock> ENTANGLER_STANDING_STONE = BLOCKS.register("entangler_standing_stone", () -> new EntanglerStandingStoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).pushReaction(PushReaction.DESTROY).strength(1.0F)));
-  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<EntanglerStandingStoneTile>> ENTANGLER_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("entangler_standing_stone", () -> BlockEntityType.Builder.of(EntanglerStandingStoneTile::new, RootsRegistry.ENTANGLER_STANDING_STONE.get()).build(null));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<EntanglerStandingStoneTile>> ENTANGLER_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("entangler_standing_stone", () -> new BlockEntityType<>(EntanglerStandingStoneTile::new, RootsRegistry.ENTANGLER_STANDING_STONE.get()));
   public static final DeferredBlock<IgniterStandingStoneBlock> IGNITER_STANDING_STONE = BLOCKS.register("igniter_standing_stone", () -> new IgniterStandingStoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).pushReaction(PushReaction.DESTROY).strength(1.0F)));
-  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<IgniterStandingStoneTile>> IGNITER_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("igniter_standing_stone", () -> BlockEntityType.Builder.of(IgniterStandingStoneTile::new, RootsRegistry.IGNITER_STANDING_STONE.get()).build(null));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<IgniterStandingStoneTile>> IGNITER_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("igniter_standing_stone", () -> new BlockEntityType<>(IgniterStandingStoneTile::new, RootsRegistry.IGNITER_STANDING_STONE.get()));
   public static final DeferredBlock<GrowerStandingStoneBlock> GROWER_STANDING_STONE = BLOCKS.register("grower_standing_stone", () -> new GrowerStandingStoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).pushReaction(PushReaction.DESTROY).strength(1.0F)));
-  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GrowerStandingStoneTile>> GROWER_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("grower_standing_stone", () -> BlockEntityType.Builder.of(GrowerStandingStoneTile::new, RootsRegistry.GROWER_STANDING_STONE.get()).build(null));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GrowerStandingStoneTile>> GROWER_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("grower_standing_stone", () -> new BlockEntityType<>(GrowerStandingStoneTile::new, RootsRegistry.GROWER_STANDING_STONE.get()));
   public static final DeferredBlock<HealerStandingStoneBlock> HEALER_STANDING_STONE = BLOCKS.register("healer_standing_stone", () -> new HealerStandingStoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).pushReaction(PushReaction.DESTROY).strength(1.0F)));
-  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HealerStandingStone>> HEALER_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("healer_standing_stone", () -> BlockEntityType.Builder.of(HealerStandingStone::new, RootsRegistry.HEALER_STANDING_STONE.get()).build(null));
-  public static final DeferredBlock<MidnightBloomBlock> MIDNIGHT_BLOOM = BLOCKS.register("midnight_bloom", () -> new MidnightBloomBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().pushReaction(PushReaction.DESTROY)));
-  public static final DeferredBlock<FlareOrchidBlock> FLARE_ORCHID = BLOCKS.register("flare_orchid", () -> new FlareOrchidBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().pushReaction(PushReaction.DESTROY)));
-  public static final DeferredBlock<RadiantDaisyBlock> RADIANT_DAISY = BLOCKS.register("radiant_daisy", () -> new RadiantDaisyBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().pushReaction(PushReaction.DESTROY)));
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HealerStandingStone>> HEALER_STANDING_STONE_TILE = BLOCK_ENTITY_TYPES.register("healer_standing_stone", () -> new BlockEntityType<>(HealerStandingStone::new, RootsRegistry.HEALER_STANDING_STONE.get()));
+  public static final DeferredBlock<MidnightBloomBlock> MIDNIGHT_BLOOM = BLOCKS.register("midnight_bloom", () -> new MidnightBloomBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollision().instabreak().pushReaction(PushReaction.DESTROY)));
+  public static final DeferredBlock<FlareOrchidBlock> FLARE_ORCHID = BLOCKS.register("flare_orchid", () -> new FlareOrchidBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollision().instabreak().pushReaction(PushReaction.DESTROY)));
+  public static final DeferredBlock<RadiantDaisyBlock> RADIANT_DAISY = BLOCKS.register("radiant_daisy", () -> new RadiantDaisyBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollision().instabreak().pushReaction(PushReaction.DESTROY)));
   /**
    * Items
    */
@@ -122,7 +122,7 @@ public class RootsRegistry {
   public static final DeferredItem<CrystalStaffItem> CRYSTAL_STAFF = ITEMS.register("crystal_staff", () -> new CrystalStaffItem(itemBuilder().stacksTo(1)));
   public static final DeferredItem<RootsFoodItem> OLD_ROOT = ITEMS.register("old_root", () -> new RootsFoodItem(itemBuilder().food(RootsFoods.OLD_ROOT)));
   public static final DeferredItem<Item> VERDANT_SPRIG = ITEMS.registerSimpleItem("verdant_sprig");
-  public static final DeferredItem<InfernalBulbItem> INFERNAL_BULB = ITEMS.register("infernal_bulb", () -> new InfernalBulbItem(itemBuilder()));
+  public static final DeferredItem<Item> INFERNAL_BULB = ITEMS.registerSimpleItem("infernal_bulb");
   public static final DeferredItem<DragonsEyeItem> DRAGONS_EYE = ITEMS.register("dragons_eye", () -> new DragonsEyeItem(itemBuilder().food(RootsFoods.DRAGONS_EYE)));
   public static final DeferredItem<Item> OAK_BARK = ITEMS.registerSimpleItem("oak_bark");
   public static final DeferredItem<Item> SPRUCE_BARK = ITEMS.registerSimpleItem("spruce_bark");
@@ -135,18 +135,18 @@ public class RootsRegistry {
   public static final DeferredItem<LivingPickaxeItem> LIVING_PICKAXE = ITEMS.register("living_pickaxe", () -> new LivingPickaxeItem(RootsItemTier.LIVING, 1, -2.8F, itemBuilder()));
   public static final DeferredItem<LivingAxeItem> LIVING_AXE = ITEMS.register("living_axe", () -> new LivingAxeItem(RootsItemTier.LIVING, 7.0F, -3.2F, itemBuilder()));
   public static final DeferredItem<LivingHoeItem> LIVING_HOE = ITEMS.register("living_hoe", () -> new LivingHoeItem(RootsItemTier.LIVING, -1, -2.0F, itemBuilder()));
-  public static final DeferredItem<SylvanArmorItem> SYLVAN_HOOD = ITEMS.register("sylvan_hood", () -> new SylvanArmorItem(RootsArmorMaterial.SYLVAN, ArmorItem.Type.HELMET, itemBuilder()));
-  public static final DeferredItem<SylvanArmorItem> SYLVAN_ROBE = ITEMS.register("sylvan_robe", () -> new SylvanArmorItem(RootsArmorMaterial.SYLVAN, ArmorItem.Type.CHESTPLATE, itemBuilder()));
-  public static final DeferredItem<SylvanArmorItem> SYLVAN_TUNIC = ITEMS.register("sylvan_tunic", () -> new SylvanArmorItem(RootsArmorMaterial.SYLVAN, ArmorItem.Type.LEGGINGS, itemBuilder()));
-  public static final DeferredItem<SylvanArmorItem> SYLVAN_BOOTS = ITEMS.register("sylvan_boots", () -> new SylvanArmorItem(RootsArmorMaterial.SYLVAN, ArmorItem.Type.BOOTS, itemBuilder()));
-  public static final DeferredItem<WildwoodArmorItem> WILDWOOD_MASK = ITEMS.register("wildwood_mask", () -> new WildwoodArmorItem(RootsArmorMaterial.WILDWOOD, ArmorItem.Type.HELMET, itemBuilder()));
-  public static final DeferredItem<WildwoodArmorItem> WILDWOOD_PLATE = ITEMS.register("wildwood_plate", () -> new WildwoodArmorItem(RootsArmorMaterial.WILDWOOD, ArmorItem.Type.CHESTPLATE, itemBuilder()));
-  public static final DeferredItem<WildwoodArmorItem> WILDWOOD_LEGGINGS = ITEMS.register("wildwood_leggings", () -> new WildwoodArmorItem(RootsArmorMaterial.WILDWOOD, ArmorItem.Type.LEGGINGS, itemBuilder()));
-  public static final DeferredItem<WildwoodArmorItem> WILDWOOD_BOOTS = ITEMS.register("wildwood_boots", () -> new WildwoodArmorItem(RootsArmorMaterial.WILDWOOD, ArmorItem.Type.BOOTS, itemBuilder()));
+  public static final DeferredItem<SylvanArmorItem> SYLVAN_HOOD = ITEMS.register("sylvan_hood", () -> new SylvanArmorItem(RootsArmorMaterial.SYLVAN, ArmorType.HELMET, itemBuilder()));
+  public static final DeferredItem<SylvanArmorItem> SYLVAN_ROBE = ITEMS.register("sylvan_robe", () -> new SylvanArmorItem(RootsArmorMaterial.SYLVAN, ArmorType.CHESTPLATE, itemBuilder()));
+  public static final DeferredItem<SylvanArmorItem> SYLVAN_TUNIC = ITEMS.register("sylvan_tunic", () -> new SylvanArmorItem(RootsArmorMaterial.SYLVAN, ArmorType.LEGGINGS, itemBuilder()));
+  public static final DeferredItem<SylvanArmorItem> SYLVAN_BOOTS = ITEMS.register("sylvan_boots", () -> new SylvanArmorItem(RootsArmorMaterial.SYLVAN, ArmorType.BOOTS, itemBuilder()));
+  public static final DeferredItem<WildwoodArmorItem> WILDWOOD_MASK = ITEMS.register("wildwood_mask", () -> new WildwoodArmorItem(RootsArmorMaterial.WILDWOOD, ArmorType.HELMET, itemBuilder()));
+  public static final DeferredItem<WildwoodArmorItem> WILDWOOD_PLATE = ITEMS.register("wildwood_plate", () -> new WildwoodArmorItem(RootsArmorMaterial.WILDWOOD, ArmorType.CHESTPLATE, itemBuilder()));
+  public static final DeferredItem<WildwoodArmorItem> WILDWOOD_LEGGINGS = ITEMS.register("wildwood_leggings", () -> new WildwoodArmorItem(RootsArmorMaterial.WILDWOOD, ArmorType.LEGGINGS, itemBuilder()));
+  public static final DeferredItem<WildwoodArmorItem> WILDWOOD_BOOTS = ITEMS.register("wildwood_boots", () -> new WildwoodArmorItem(RootsArmorMaterial.WILDWOOD, ArmorType.BOOTS, itemBuilder()));
   public static final DeferredItem<RunicTabletItem> RUNIC_TABLET = ITEMS.register("runic_tablet", () -> new RunicTabletItem(itemBuilder().stacksTo(1)));
   public static final DeferredItem<GrowthPowderItem> GROWTH_POWDER = ITEMS.register("growth_powder", () -> new GrowthPowderItem(itemBuilder()));
   public static final DeferredItem<MutatingPowderItem> MUTATING_POWDER = ITEMS.register("mutating_powder", () -> new MutatingPowderItem(itemBuilder().stacksTo(1)));
-  public static final DeferredItem<RootsFoodItem> NIGHTSHADE = ITEMS.register("nightshade", () -> new RootsFoodItem(itemBuilder().food(RootsFoods.NIGHTSHADE)));
+  public static final DeferredItem<RootsFoodItem> NIGHTSHADE = ITEMS.register("nightshade", () -> new RootsFoodItem(itemBuilder().food(RootsFoods.NIGHTSHADE, RootsConsumables.NIGHTSHADE)));
   public static final DeferredItem<RootsFoodItem> BLACKCURRANT = ITEMS.register("blackcurrant", () -> new RootsFoodItem(itemBuilder().food(RootsFoods.BLACKCURRANT)));
   public static final DeferredItem<RootsFoodItem> REDCURRANT = ITEMS.register("redcurrant", () -> new RootsFoodItem(itemBuilder().food(RootsFoods.REDCURRANT)));
   public static final DeferredItem<RootsFoodItem> WHITECURRANT = ITEMS.register("whitecurrant", () -> new RootsFoodItem(itemBuilder().food(RootsFoods.WHITECURRANT)));

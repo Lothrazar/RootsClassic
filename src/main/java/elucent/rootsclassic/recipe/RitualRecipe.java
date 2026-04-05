@@ -12,23 +12,24 @@ import elucent.rootsclassic.ritual.RitualEffect;
 import elucent.rootsclassic.ritual.RitualPillars;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,26 +37,62 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class RitualRecipe implements Recipe<RecipeInput> {
+  private static final MapCodec<RitualRecipe> CODEC = RecordCodecBuilder.mapCodec(
+    instance -> instance.group(
+        Identifier.CODEC.fieldOf("effect").forGetter(recipe -> recipe.effectId),
+        CompoundTag.CODEC.optionalFieldOf("effectConfig").forGetter(o -> o.effectConfig),
+        Codec.lazyInitialized(() -> Ingredient.CODEC.listOf(1, 4)).fieldOf("ingredients").forGetter(o -> o.materials),
+        Codec.lazyInitialized(() -> Ingredient.CODEC.listOf(1, 4)).fieldOf("incenses").forGetter(o -> o.materials),
+        Codec.INT.fieldOf("level").validate((level) -> {
+          if (level < 0 || level > 2) {
+            return DataResult.error(() -> "Level must be between 0 and 3, you tried " + level);
+          } else {
+            return DataResult.success(level);
+          }
+        }).forGetter(recipe -> recipe.level),
 
-	private final NonNullList<Ingredient> materials;
-	private final NonNullList<Ingredient> incenses;
+        Codec.STRING.fieldOf("color").forGetter(recipe -> recipe.color),
+        Codec.STRING.optionalFieldOf("secondaryColor", "").forGetter(recipe -> recipe.secondaryColor)
+      )
+      .apply(instance, RitualRecipe::new)
+  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, RitualRecipe> STREAM_CODEC = composite(
+    Identifier.STREAM_CODEC,
+    o -> o.effectId,
+    ByteBufCodecs.optional(ByteBufCodecs.COMPOUND_TAG),
+    o -> o.effectConfig,
+    Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
+    o -> o.materials,
+    Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
+    o -> o.incenses,
+    ByteBufCodecs.INT,
+    o -> o.level,
+    ByteBufCodecs.STRING_UTF8,
+    o -> o.color,
+    ByteBufCodecs.STRING_UTF8,
+    o -> o.secondaryColor,
+    RitualRecipe::new
+  );
+  public static final RecipeSerializer<RitualRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+
+	private final List<Ingredient> materials;
+	private final List<Ingredient> incenses;
 	public final int level;
 	public final String color;
 	private final int colorInt;
 	public final String secondaryColor;
 	private final int secondaryColorInt;
-	public final ResourceLocation effectId;
+	public final Identifier effectId;
 	public final RitualEffect effect;
-	@Nullable
-	public final CompoundTag effectConfig;
+	public final Optional<CompoundTag> effectConfig;
 
-	public RitualRecipe(ResourceLocation effectId, @Nullable CompoundTag effectConfig, NonNullList<Ingredient> materials,
-	                    NonNullList<Ingredient> incenses, int level, String color, String secondaryColor) {
+	public RitualRecipe(Identifier effectId, Optional<CompoundTag> effectConfig, List<Ingredient> materials,
+                      List<Ingredient> incenses, int level, String color, String secondaryColor) {
 		this.materials = materials;
 		this.incenses = incenses;
 		this.level = level;
 		this.effectId = effectId;
-		this.effect = RitualBaseRegistry.RITUALS.get(effectId);
+		this.effect = RitualBaseRegistry.RITUALS.getValue(effectId);
 		this.effectConfig = effectConfig;
 		this.color = color;
 		this.colorInt = RootsUtil.intColorFromHexString(color);
@@ -63,42 +100,52 @@ public class RitualRecipe implements Recipe<RecipeInput> {
 		this.secondaryColorInt = RootsUtil.intColorFromHexString(secondaryColor);
 	}
 
-	public RitualRecipe(ResourceLocation effectId, Optional<CompoundTag> optionalConfig, NonNullList<Ingredient> materials,
-	                    NonNullList<Ingredient> incenses, int level, String color, String secondaryColor) {
-		this(effectId, optionalConfig.orElse(null), materials, incenses, level, color, secondaryColor);
-	}
-
 	@Override
-	public RecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<RitualRecipe> getSerializer() {
 		return RootsRecipes.RITUAL_SERIALIZER.get();
 	}
 
 	@Override
-	public ItemStack assemble(RecipeInput recipeInput, HolderLookup.Provider provider) {
-		return getResultItem(provider);
+	public ItemStack assemble(RecipeInput recipeInput) {
+		return getResultItem();
+	}
+
+  public List<Ingredient> getIngredients() {
+    return this.materials;
+  }
+
+  @Override
+  public boolean showNotification() {
+    return false;
+  }
+
+  @Override
+  public String group() {
+    return "";
+  }
+
+  public ItemStack getResultItem() {
+		return effect.getResult(effectConfig.orElse(null)).copy();
 	}
 
 	@Override
-	public ItemStack getResultItem(HolderLookup.Provider provider) {
-		return effect.getResult(effectConfig, provider).copy();
-	}
-
-	@Override
-	public NonNullList<Ingredient> getIngredients() {
-		return materials;
-	}
-
-	@Override
-	public RecipeType<?> getType() {
+	public RecipeType<RitualRecipe> getType() {
 		return RootsRecipes.RITUAL_RECIPE_TYPE.get();
 	}
 
-	@Override
-	public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
-		return false;
-	}
+  @NotNull
+  @Override
+  public PlacementInfo placementInfo() {
+    return PlacementInfo.NOT_PLACEABLE;
+  }
 
-	@Override
+  @NotNull
+  @Override
+  public RecipeBookCategory recipeBookCategory() {
+    return RecipeBookCategories.CRAFTING_MISC;
+  }
+
+  @Override
 	public boolean matches(RecipeInput recipeInput, Level level) {
 		return false;
 	}
@@ -108,7 +155,7 @@ public class RitualRecipe implements Recipe<RecipeInput> {
 	}
 
 	public MutableComponent getInfoText() {
-		return effect.getInfoText(effectConfig);
+		return effect.getInfoText(effectConfig.orElse(null));
 	}
 
 	public int getColorInt() {
@@ -117,115 +164,6 @@ public class RitualRecipe implements Recipe<RecipeInput> {
 
 	public int getSecondaryColorInt() {
 		return secondaryColorInt;
-	}
-
-	public static class SerializeRitualRecipe implements RecipeSerializer<RitualRecipe> {
-		private static final MapCodec<RitualRecipe> CODEC = RecordCodecBuilder.mapCodec(
-			instance -> instance.group(
-					ResourceLocation.CODEC.fieldOf("effect").forGetter(recipe -> recipe.effectId),
-					CompoundTag.CODEC.optionalFieldOf("effectConfig").forGetter(recipe -> Optional.ofNullable(recipe.effectConfig)),
-					Ingredient.CODEC_NONEMPTY
-						.listOf()
-						.fieldOf("ingredients")
-						.flatXmap(
-							p_301021_ -> {
-								Ingredient[] aingredient = p_301021_.toArray(Ingredient[]::new);
-								if (aingredient.length == 0) {
-									return DataResult.error(() -> "No ingredients for ritual recipe");
-								} else {
-									return DataResult.success(NonNullList.of(Ingredient.EMPTY, aingredient));
-								}
-							},
-							DataResult::success
-						)
-						.forGetter(recipe -> recipe.materials),
-					Ingredient.CODEC_NONEMPTY
-						.listOf()
-						.fieldOf("incenses")
-						.flatXmap(
-							p_301021_ -> {
-								Ingredient[] aingredient = p_301021_.toArray(Ingredient[]::new);
-								if (aingredient.length > 4) {
-									return DataResult.error(() -> "Too many ingredients for ritual recipe, the max is 4");
-								} else {
-									return DataResult.success(NonNullList.of(Ingredient.EMPTY, aingredient));
-								}
-							},
-							DataResult::success
-						)
-						.forGetter(recipe -> recipe.incenses),
-					Codec.INT.fieldOf("level").validate((level) -> {
-						if (level < 0 || level > 2) {
-							return DataResult.error(() -> "Level must be between 0 and 3, you tried " + level);
-						} else {
-							return DataResult.success(level);
-						}
-					}).forGetter(recipe -> recipe.level),
-
-					Codec.STRING.fieldOf("color").forGetter(recipe -> recipe.color),
-					Codec.STRING.optionalFieldOf("secondaryColor", "").forGetter(recipe -> recipe.secondaryColor)
-				)
-				.apply(instance, RitualRecipe::new)
-		);
-		public static final StreamCodec<RegistryFriendlyByteBuf, RitualRecipe> STREAM_CODEC = StreamCodec.of(
-			SerializeRitualRecipe::toNetwork, SerializeRitualRecipe::fromNetwork
-		);
-
-		@Override
-		public MapCodec<RitualRecipe> codec() {
-			return CODEC;
-		}
-
-		@Override
-		public StreamCodec<RegistryFriendlyByteBuf, RitualRecipe> streamCodec() {
-			return STREAM_CODEC;
-		}
-
-		private static RitualRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-			ResourceLocation effect = buffer.readResourceLocation();
-			Optional<CompoundTag> effectConfig = ByteBufCodecs.optional(ByteBufCodecs.COMPOUND_TAG).decode(buffer);
-
-			var size = buffer.readVarInt();
-			NonNullList<Ingredient> ingredients = NonNullList.withSize(size, Ingredient.EMPTY);
-			for (int i = 0; i < size; i++) {
-				ingredients.set(i, Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
-			}
-
-			size = buffer.readVarInt();
-			NonNullList<Ingredient> incenses = NonNullList.create();
-			if (size > 0) {
-				for (int i = 0; i < size; i++) {
-					incenses.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
-				}
-			}
-
-			var level = buffer.readVarInt();
-			var color = buffer.readUtf();
-			var secondaryColor = buffer.readUtf();
-
-			return new RitualRecipe(effect, effectConfig, ingredients, incenses, level, color, secondaryColor);
-		}
-
-		private static void toNetwork(RegistryFriendlyByteBuf buffer, RitualRecipe recipe) {
-			buffer.writeResourceLocation(recipe.effectId);
-			ByteBufCodecs.optional(ByteBufCodecs.COMPOUND_TAG).encode(buffer, Optional.ofNullable(recipe.effectConfig));
-
-			buffer.writeVarInt(recipe.materials.size());
-			for (int i = 0; i < recipe.materials.size(); i++) {
-				Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.materials.get(i));
-			}
-
-			buffer.writeVarInt(recipe.incenses.size());
-			if (recipe.incenses.size() > 0) {
-				for (int i = 0; i < recipe.incenses.size(); i++) {
-					Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.incenses.get(i));
-				}
-			}
-
-			buffer.writeVarInt(recipe.level);
-			buffer.writeUtf(recipe.color);
-			buffer.writeUtf(recipe.secondaryColor);
-		}
 	}
 
 	public boolean incenseMatches(Level levelAccessor, BlockPos pos) {
@@ -241,12 +179,7 @@ public class RitualRecipe implements Recipe<RecipeInput> {
 	}
 
 	public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
-		effect.doEffect(levelAccessor, pos, inventory, incenses, effectConfig);
-	}
-
-	@Override
-	public String toString() {
-		return "RitualRecipe [level=" + level + ", effect=" + RitualBaseRegistry.RITUALS.getKey(effect) + ", config=" + effectConfig + "]";
+		effect.doEffect(levelAccessor, pos, inventory, incenses, effectConfig.orElse(null));
 	}
 
 	public static <B, C, T1, T2, T3, T4, T5, T6, T7> StreamCodec<B, C> composite(

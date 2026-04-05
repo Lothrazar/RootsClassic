@@ -1,6 +1,6 @@
 package elucent.rootsclassic.block;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import elucent.rootsclassic.blockentity.IgniterStandingStoneTile;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
@@ -35,6 +35,6 @@ public class IgniterStandingStoneBlock extends AttunedStandingStoneBlock impleme
 
   @Nullable
   protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends IgniterStandingStoneTile> standingStoneType) {
-    return level.isClientSide ? createTickerHelper(entityType, standingStoneType, IgniterStandingStoneTile::clientTick) : createTickerHelper(entityType, standingStoneType, IgniterStandingStoneTile::serverTick);
+    return level.isClientSide() ? createTickerHelper(entityType, standingStoneType, IgniterStandingStoneTile::clientTick) : createTickerHelper(entityType, standingStoneType, IgniterStandingStoneTile::serverTick);
   }
 }

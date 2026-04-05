@@ -11,21 +11,18 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.RegistryAccess;
+import mezz.jei.api.recipe.types.IRecipeType;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 
 public class MortarCategory implements IRecipeCategory<ComponentRecipe> {
 
-  private final static ResourceLocation backgroundLocation = Const.modLoc("textures/gui/tabletmortar.png");
+  private final static Identifier backgroundLocation = Const.modLoc("textures/gui/tabletmortar.png");
   private final IDrawable background;
   private final IDrawable icon;
   private final Component localizedName;
@@ -37,13 +34,18 @@ public class MortarCategory implements IRecipeCategory<ComponentRecipe> {
   }
 
   @Override
-  public RecipeType<ComponentRecipe> getRecipeType() {
+  public IRecipeType<ComponentRecipe> getRecipeType() {
     return JEIPlugin.MORTAR_TYPE;
   }
 
   @Override
-  public IDrawable getBackground() {
-    return background;
+  public int getWidth() {
+    return 142;
+  }
+
+  @Override
+  public int getHeight() {
+    return 45;
   }
 
   @Override
@@ -58,21 +60,15 @@ public class MortarCategory implements IRecipeCategory<ComponentRecipe> {
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, ComponentRecipe recipe, IFocusGroup focuses) {
-    Minecraft minecraft = Minecraft.getInstance();
-    ClientLevel level = minecraft.level;
-    if (level == null) {
-      throw new NullPointerException("level must not be null.");
-    }
-    RegistryAccess registryAccess = level.registryAccess();
     for (int i = 0; i < recipe.getIngredients().size(); i++) {
       Ingredient ingredient = recipe.getIngredients().get(i);
-      builder.addSlot(RecipeIngredientRole.INPUT, 3 + (i * 16), 26).addIngredients(ingredient);
+      builder.addSlot(RecipeIngredientRole.INPUT, 3 + (i * 16), 26).add(ingredient);
     }
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 123, 26).addItemStack(recipe.assemble(new SingleRecipeInput(ItemStack.EMPTY), registryAccess));
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 123, 26).add(recipe.assemble(new SingleRecipeInput(ItemStack.EMPTY)));
   }
 
   @Override
-  public void draw(ComponentRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+  public void draw(ComponentRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
     IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
   }
 }

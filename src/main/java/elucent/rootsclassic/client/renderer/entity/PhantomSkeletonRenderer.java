@@ -7,20 +7,20 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import elucent.rootsclassic.Const;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 
 public class PhantomSkeletonRenderer extends SkeletonRenderer {
 
-  private static final ResourceLocation TEXTURE = Const.modLoc("textures/entity/skeleton_ghost.png");
+  private static final Identifier TEXTURE = Const.modLoc("textures/entity/skeleton_ghost.png");
 
   public PhantomSkeletonRenderer(EntityRendererProvider.Context context) {
     super(context);
   }
 
   @Override
-  public ResourceLocation getTextureLocation(AbstractSkeleton entity) {
+  public Identifier getTextureLocation(AbstractSkeleton entity) {
     return TEXTURE;
   }
 

@@ -26,6 +26,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import org.slf4j.Logger;
 
 @Mod(Const.MODID)
@@ -55,6 +56,7 @@ public class Roots {
 
     NeoForge.EVENT_BUS.register(new RootsReloadManager());
     NeoForge.EVENT_BUS.register(new ComponentSpellsEvent());
+    NeoForge.EVENT_BUS.addListener(this::onDatapackSync);
 
     eventBus.addListener(RootsEntities::registerEntityAttributes);
     eventBus.addListener(RootsEntities::onSpawnPlacementRegisterEvent);
@@ -69,12 +71,16 @@ public class Roots {
       eventBus.addListener(ClientHandler::registerLayerDefinitions);
       eventBus.addListener(ClientHandler::registerItemColors);
       eventBus.addListener(ClientHandler::registerParticleFactories);
-      NeoForge.EVENT_BUS.addListener(ResearchManager::onRecipesUpdated);
+      NeoForge.EVENT_BUS.addListener(ResearchManager::onRecipesReceived);
     }
   }
 
   private void setup(final FMLCommonSetupEvent event) {
     //Initialize
     event.enqueueWork(MutagenManager::reload);
+  }
+
+  private void onDatapackSync(OnDatapackSyncEvent event) {
+    event.sendRecipes(RootsRecipes.RITUAL_RECIPE_TYPE.get(), RootsRecipes.COMPONENT_RECIPE_TYPE.get());
   }
 }

@@ -8,7 +8,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = Const.MODID)
+@EventBusSubscriber(modid = Const.MODID)
 public class ComponentBaseRegistry {
 	public static final ResourceKey<Registry<ComponentBase>> COMPONENTS_KEY = ResourceKey.createRegistryKey(Const.modLoc("component"));
 	public static final Registry<ComponentBase> COMPONENTS = (new RegistryBuilder<>(COMPONENTS_KEY)).create();

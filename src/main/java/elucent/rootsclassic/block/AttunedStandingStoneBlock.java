@@ -1,6 +1,8 @@
 package elucent.rootsclassic.block;
 
-import javax.annotation.Nullable;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ScheduledTickAccess;
+import org.jspecify.annotations.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -39,19 +41,20 @@ public class AttunedStandingStoneBlock extends BaseBEBlock {
 
   @SuppressWarnings("deprecation")
   @Override
-  public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor levelAccessor, BlockPos currentPos, BlockPos facingPos) {
-    DoubleBlockHalf doubleblockhalf = stateIn.getValue(HALF);
-    if (facing.getAxis() == Direction.Axis.Y && doubleblockhalf == DoubleBlockHalf.LOWER == (facing == Direction.UP)) {
-      return facingState.is(this) && facingState.getValue(HALF) != doubleblockhalf ? stateIn : Blocks.AIR.defaultBlockState();
+  protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos,
+                                   Direction directionToNeighbour, BlockPos neighbourPos, BlockState neighbourState, RandomSource random) {
+    DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
+    if (directionToNeighbour.getAxis() == Direction.Axis.Y && doubleblockhalf == DoubleBlockHalf.LOWER == (directionToNeighbour == Direction.UP)) {
+      return neighbourState.is(this) && neighbourState.getValue(HALF) != doubleblockhalf ? state : Blocks.AIR.defaultBlockState();
     }
     else {
-      return doubleblockhalf == DoubleBlockHalf.LOWER && facing == Direction.DOWN && !stateIn.canSurvive(levelAccessor, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(stateIn, facing, facingState, levelAccessor, currentPos, facingPos);
+      return doubleblockhalf == DoubleBlockHalf.LOWER && directionToNeighbour == Direction.DOWN && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);
     }
   }
 
   @Override
   public BlockState playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
-    if (!levelAccessor.isClientSide && player.isCreative()) {
+    if (!levelAccessor.isClientSide() && player.isCreative()) {
       AttunedStandingStoneBlock.removeBottomHalf(levelAccessor, pos, state, player);
     }
     return super.playerWillDestroy(levelAccessor, pos, state, player);

@@ -26,7 +26,7 @@ import elucent.rootsclassic.registry.RootsRegistry;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
@@ -38,7 +38,7 @@ public class ClientHandler {
   public static final ModelLayerLocation WILDWOOD_ARMOR = new ModelLayerLocation(Const.modLoc("main"), "wildwood_armor");
 
   public static void onClientSetup(final FMLClientSetupEvent event) {
-    ItemProperties.register(RootsRegistry.STAFF.get(), ResourceLocation.withDefaultNamespace("imbued"), (stack, world, livingEntity, unused) ->
+    ItemProperties.register(RootsRegistry.STAFF.get(), Identifier.withDefaultNamespace("imbued"), (stack, world, livingEntity, unused) ->
 	    stack.has(RootsComponents.SPELL) ? 1.0F : 0.0F);
   }
 
@@ -61,7 +61,7 @@ public class ClientHandler {
     event.register((stack, tintIndex) -> {
       if (stack.has(RootsComponents.SPELL) && stack.getItem() instanceof StaffItem) {
 	      SpellData data = stack.get(RootsComponents.SPELL);
-        ResourceLocation compName = ResourceLocation.tryParse(data.effect());
+        Identifier compName = Identifier.tryParse(data.effect());
         if (compName != null) {
           ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get(compName);
           if (comp != null) {
@@ -81,7 +81,7 @@ public class ClientHandler {
 				SpellData selectedSpell = CrystalStaffItem.getSelectedSpell(stack);
         String effect = selectedSpell.effect();
         if (effect != null) {
-          ResourceLocation compName = ResourceLocation.tryParse(effect);
+          Identifier compName = Identifier.tryParse(effect);
           if (compName != null) {
             ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get(compName);
             if (comp != null) {

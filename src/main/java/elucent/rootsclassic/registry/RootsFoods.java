@@ -1,14 +1,12 @@
 package elucent.rootsclassic.registry;
 
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 
 public class RootsFoods {
 
   public static final FoodProperties OLD_ROOT = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.1F).build();
   public static final FoodProperties DRAGONS_EYE = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.1F).build();
-  public static final FoodProperties NIGHTSHADE = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.1F).effect(() -> new MobEffectInstance(MobEffects.POISON, 320), 1.0F).build();
+  public static final FoodProperties NIGHTSHADE = (new FoodProperties.Builder()).nutrition(2).saturationModifier(0.1F).build();
   public static final FoodProperties BLACKCURRANT = (new FoodProperties.Builder()).nutrition(4).saturationModifier(0.4F).build();
   public static final FoodProperties REDCURRANT = (new FoodProperties.Builder()).nutrition(4).saturationModifier(0.4F).build();
   public static final FoodProperties WHITECURRANT = (new FoodProperties.Builder()).nutrition(4).saturationModifier(0.4F).build();

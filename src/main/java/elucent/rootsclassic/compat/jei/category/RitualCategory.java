@@ -1,6 +1,5 @@
 package elucent.rootsclassic.compat.jei.category;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.compat.jei.JEIPlugin;
 import elucent.rootsclassic.compat.jei.wrapper.RitualWrapper;
@@ -13,22 +12,21 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.joml.Matrix3x2fStack;
 
 public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 
-  private final static ResourceLocation backgroundLocation = Const.modLoc("textures/gui/jei/compat.png");
-  private final static ResourceLocation location = Const.modLoc("textures/gui/tabletaltar.png");
+  private final static Identifier backgroundLocation = Const.modLoc("textures/gui/jei/compat.png");
+  private final static Identifier location = Const.modLoc("textures/gui/tabletaltar.png");
   private final IDrawable background;
   private final IDrawable icon;
   private final IDrawableStatic ingredientBackground;
@@ -54,13 +52,18 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
   }
 
   @Override
-  public RecipeType<RitualWrapper> getRecipeType() {
+  public IRecipeType<RitualWrapper> getRecipeType() {
     return JEIPlugin.RITUAL_TYPE;
   }
 
   @Override
-  public IDrawable getBackground() {
-    return background;
+  public int getWidth() {
+    return 94;
+  }
+
+  @Override
+  public int getHeight() {
+    return 110;
   }
 
   @Override
@@ -75,35 +78,28 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, RitualWrapper recipe, IFocusGroup focuses) {
-	  Minecraft minecraft = Minecraft.getInstance();
-	  ClientLevel level = minecraft.level;
-	  if (level == null) {
-		  throw new NullPointerException("level must not be null.");
-	  }
-	  RegistryAccess registryAccess = level.registryAccess();
-
     for (int i = 0; i < recipe.getIngredients().size(); i++) {
       Ingredient ingredient = recipe.getIngredients().get(i);
-      builder.addSlot(RecipeIngredientRole.INPUT, 15 + (i * 24), 3).addIngredients(ingredient);
+      builder.addSlot(RecipeIngredientRole.INPUT, 15 + (i * 24), 3).add(ingredient);
     }
     for (int i = 0; i < recipe.getIncenses().size(); i++) {
       Ingredient ingredient = recipe.getIncenses().get(i);
-      builder.addSlot(RecipeIngredientRole.CATALYST, 28 + (i * 16), 27).addIngredients(ingredient);
+      builder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 28 + (i * 16), 27).add(ingredient);
     }
-    if (!recipe.getResult(registryAccess).isEmpty()) {
-      builder.addSlot(RecipeIngredientRole.OUTPUT, 67, 67).addItemStack(recipe.getResult(registryAccess));
+    if (!recipe.getResult().isEmpty()) {
+      builder.addSlot(RecipeIngredientRole.OUTPUT, 67, 67).add(recipe.getResult());
     }
   }
 
   @Override
-  public void draw(RitualWrapper recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+  public void draw(RitualWrapper recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
     IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
     ingredientBackground.draw(guiGraphics, 12, 0);
     incenseBackground.draw(guiGraphics, 0, 24);
     resultBackground.draw(guiGraphics, 64, 64);
-    PoseStack poseStack = guiGraphics.pose();
-    poseStack.pushPose();
-    poseStack.scale(0.5F, 0.5F, 1);
+    Matrix3x2fStack poseStack = guiGraphics.pose();
+    poseStack.pushMatrix();
+    poseStack.scale(0.5F, 0.5F);
     grid.draw(guiGraphics, 20, 100);
     int basePosX = 63;
     int basePosY = 135;
@@ -122,11 +118,10 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
         attunedStone.draw(guiGraphics, basePosX + xShift, basePosY + yShift);
       }
     });
-    poseStack.popPose();
+    poseStack.popMatrix();
     Minecraft minecraft = Minecraft.getInstance();
     Font font = minecraft.font;
     var infoText = recipe.getInfoText();
-    guiGraphics.drawString(font, infoText, (int) ((94 - font.width(infoText)) / 2F), 100, 0x8b8b8b);
-    //>>>>>>> trunk/1.19
+    guiGraphics.text(font, infoText, (int) ((94 - font.width(infoText)) / 2F), 100, 0x8b8b8b);
   }
 }

@@ -1,7 +1,5 @@
 package elucent.rootsclassic.ritual.rituals;
 
-import java.util.ArrayList;
-import java.util.List;
 import elucent.rootsclassic.ritual.SimpleRitualEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
@@ -13,6 +11,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RitualSacrifice extends SimpleRitualEffect {
 
@@ -41,16 +42,16 @@ public class RitualSacrifice extends SimpleRitualEffect {
   }
 
   @Override
-  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+  public void doEffect(Level level, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     inventory.clearContent();
-    List<LivingEntity> enemies = levelAccessor.getEntitiesOfClass(LivingEntity.class, new AABB(pos.getX() - 2, pos.getY() - 2, pos.getZ() - 2, pos.getX() + 3, pos.getY() + 3, pos.getZ() + 3));
+    List<LivingEntity> enemies = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.getX() - 2, pos.getY() - 2, pos.getZ() - 2, pos.getX() + 3, pos.getY() + 3, pos.getZ() + 3));
     if (enemies.size() > 0) {
       for (LivingEntity enemy : enemies) {
         if (!(enemy instanceof Player)) {
           enemies.getFirst().setHealth(enemies.getFirst().getHealth() - 60.0f);
-          if (!levelAccessor.isClientSide) {
-            ItemEntity item = new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, potentialDrops.get(levelAccessor.random.nextInt(potentialDrops.size())));
-            levelAccessor.addFreshEntity(item);
+          if (!level.isClientSide()) {
+            ItemEntity item = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, potentialDrops.get(level.getRandom().nextInt(potentialDrops.size())));
+            level.addFreshEntity(item);
           }
         }
       }

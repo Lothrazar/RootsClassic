@@ -17,7 +17,7 @@ import java.util.List;
 public class RitualTimeShift extends SimpleRitualEffect {
 
   @Override
-  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses) {
+  public void doEffect(Level level, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     long shiftAmount = 0;
     List<Item> items = new ArrayList<>();
     for (ItemStack i : incenses) {
@@ -29,8 +29,8 @@ public class RitualTimeShift extends SimpleRitualEffect {
       }
     }
     inventory.clearContent();
-    if (!levelAccessor.isClientSide && levelAccessor.getServer() != null) {
-      for (ServerLevel serverLevel : levelAccessor.getServer().getAllLevels()) {
+    if (!level.isClientSide() && level.getServer() != null) {
+      for (ServerLevel serverLevel : level.getServer().getAllLevels()) {
         serverLevel.setDayTime(serverLevel.getDayTime() + (long) shiftAmount);
       }
     }

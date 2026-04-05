@@ -23,8 +23,8 @@ public class ComponentPoppy extends ComponentBase {
       for (int i = 0; i < targets.size(); i++) {
         Monster target = targets.get(i);
         target.setTarget(null);
-        int j = level.random.nextInt(targets.size());
-        if (j != i && level.random.nextDouble() >= 1.0 / (potency + 1.0)) {
+        int j = level.getRandom().nextInt(targets.size());
+        if (j != i && level.getRandom().nextDouble() >= 1.0 / (potency + 1.0)) {
           //          if (caster instanceof EntityPlayer) {
           //            if (!((EntityPlayer) caster).hasAchievement(RegistryManager.achieveSpellInsanity)) {
           //              PlayerManager.addAchievement((EntityPlayer) caster, RegistryManager.achieveSpellInsanity);

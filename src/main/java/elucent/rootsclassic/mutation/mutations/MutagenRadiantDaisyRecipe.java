@@ -31,7 +31,7 @@ public class MutagenRadiantDaisyRecipe extends MutagenRecipe {
   public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
     if (super.matches(items, levelAccessor, pos, player)) {
       return levelAccessor.dimension() == Level.OVERWORLD && player.getEffect(MobEffects.NIGHT_VISION) != null &&
-	      player.getCommandSenderWorld().getDayTime() > 5000 && player.getCommandSenderWorld().getDayTime() < 7000;
+	      player.level().getDayTime() > 5000 && player.level().getDayTime() < 7000;
     }
     return false;
   }

@@ -4,19 +4,15 @@ import elucent.rootsclassic.block.AttunedStandingStoneBlock;
 import elucent.rootsclassic.registry.RootsEntities;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.WritableRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -82,19 +78,14 @@ public class RootsLootsProvider extends LootTableProvider {
 			this.add(RootsEntities.PHANTOM_SKELETON.get(), LootTable.lootTable());
 		}
 
-		@Override
-		protected boolean canHaveLootTable(EntityType<?> entityType) {
-			return entityType.getCategory() != MobCategory.MISC;
-		}
+//		@Override
+//		protected boolean canHaveLootTable(EntityType<?> entityType) {
+//			return entityType.getCategory() != MobCategory.MISC;
+//		}
 
 		@Override
 		protected Stream<EntityType<?>> getKnownEntityTypes() {
 			return RootsEntities.ENTITY_TYPES.getEntries().stream().map(DeferredHolder::get);
 		}
-	}
-
-	@Override
-	protected void validate(WritableRegistry<LootTable> writableregistry, ValidationContext validationcontext, ProblemReporter.Collector problemreporter$collector) {
-		super.validate(writableregistry, validationcontext, problemreporter$collector);
 	}
 }

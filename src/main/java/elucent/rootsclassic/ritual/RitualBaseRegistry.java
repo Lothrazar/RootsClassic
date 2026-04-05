@@ -8,7 +8,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = Const.MODID)
+@EventBusSubscriber(modid = Const.MODID)
 public class RitualBaseRegistry {
 	public static final ResourceKey<Registry<RitualEffect>> RITUAL_KEY = ResourceKey.createRegistryKey(Const.modLoc("ritual"));
 	public static final Registry<RitualEffect> RITUALS = (new RegistryBuilder<>(RITUAL_KEY)).sync(true).create();

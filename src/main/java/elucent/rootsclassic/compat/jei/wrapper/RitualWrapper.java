@@ -29,8 +29,8 @@ public class RitualWrapper implements IRecipeCategoryExtension<RitualRecipe> {
     return ritual.getIncenses();
   }
 
-  public ItemStack getResult(HolderLookup.Provider provider) {
-    return ritual.getResultItem(provider);
+  public ItemStack getResult() {
+    return ritual.getResultItem();
   }
 
   public RitualWrapper(RitualRecipe ritual) {

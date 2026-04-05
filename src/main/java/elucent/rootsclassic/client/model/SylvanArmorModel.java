@@ -10,7 +10,7 @@ import net.minecraft.world.item.ArmorItem;
 
 public class SylvanArmorModel extends ModelArmorBase {
 
-  public SylvanArmorModel(ModelPart root, ArmorItem.Type slot) {
+  public SylvanArmorModel(ModelPart root, ArmorType slot) {
     super(root, slot);
     this.armorScale = 1.1f;
   }

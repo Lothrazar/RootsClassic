@@ -2,11 +2,14 @@ package elucent.rootsclassic.entity;
 
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.registry.RootsEntities;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.Random;
 
@@ -47,7 +50,7 @@ public class EntityAccelerator extends Entity {
         }
       }
     }
-    if (level().isClientSide) {
+    if (level().isClientSide()) {
       for (int i = 0; i < 2; i++) {
         int side = random.nextInt(6);
         if (side == 0) {
@@ -76,7 +79,7 @@ public class EntityAccelerator extends Entity {
         }
       }
     }
-    if (!level().isClientSide) {
+    if (!level().isClientSide()) {
       lifetime--;
       if (lifetime <= 0) {
         this.level().broadcastEntityEvent(this, (byte) 3);
@@ -86,19 +89,24 @@ public class EntityAccelerator extends Entity {
   }
 
   @Override
+  public boolean hurtServer(ServerLevel level, DamageSource source, float damage) {
+    return false;
+  }
+
+  @Override
   protected void defineSynchedData(SynchedEntityData.Builder builder) {
 
   }
 
   @Override
-  protected void readAdditionalSaveData(CompoundTag compound) {
-    this.lifetime = compound.getInt("lifetime");
-    this.potency = compound.getInt("potency");
+  protected void readAdditionalSaveData(ValueInput input) {
+    this.lifetime = input.getIntOr("lifetime", 0);
+    this.potency = input.getIntOr("potency", 1);
   }
 
   @Override
-  protected void addAdditionalSaveData(CompoundTag compound) {
-    compound.putInt("lifetime", lifetime);
-    compound.putInt("potency", potency);
+  protected void addAdditionalSaveData(ValueOutput output) {
+    output.putInt("lifetime", lifetime);
+    output.putInt("potency", potency);
   }
 }

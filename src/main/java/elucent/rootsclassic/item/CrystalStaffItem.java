@@ -14,20 +14,20 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class CrystalStaffItem extends Item implements IManaRelatedItem {
 
@@ -39,8 +39,8 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
   }
 
   @Override
-  public UseAnim getUseAnimation(ItemStack stack) {
-    return UseAnim.BOW;
+  public ItemUseAnimation getUseAnimation(ItemStack stack) {
+    return ItemUseAnimation.BOW;
   }
 
 	@Override
@@ -49,16 +49,16 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
 	}
 
 	@Override
-  public void releaseUsing(ItemStack stack, Level levelAccessor, LivingEntity caster, int timeLeft) {
+  public boolean releaseUsing(ItemStack stack, Level levelAccessor, LivingEntity caster, int timeLeft) {
 		SpellData selectedSpell = getSelectedSpell(stack);
     if (timeLeft < (72000 - 12) && selectedSpell != null) {
       //BlockPos pos = new BlockPos(player.posX, player.posY, player.posZ);
       Player player = (Player) caster;
-      ResourceLocation compName = ResourceLocation.tryParse(selectedSpell.effect());
+      Identifier compName = Identifier.tryParse(selectedSpell.effect());
       if (compName != null) {
-        ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get(compName);
+        ComponentBase comp = ComponentBaseRegistry.COMPONENTS.getValue(compName);
         if (comp == null || !caster.hasData(RootsAttachments.MANA)) {
-          return;
+          return false;
         }
 
         int potency = selectedSpell.potency() + 1;
@@ -77,16 +77,16 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
           manaCap.setMana(manaCap.getMana() - ((comp.getManaCost()) / (efficiency + 1)));
           comp.doEffect(levelAccessor, caster, EnumCastType.SPELL, caster.getX() + 3.0 * caster.getLookAngle().x, caster.getY() + 3.0 * caster.getLookAngle().y,
               caster.getZ() + 3.0 * caster.getLookAngle().z, potency, efficiency, 3.0 + 2.0 * size);
-          if (levelAccessor.isClientSide) {
+          if (levelAccessor.isClientSide()) {
             for (int i = 0; i < 90; i++) {
-              double offX = levelAccessor.random.nextFloat() * 0.5 - 0.25;
-              double offY = levelAccessor.random.nextFloat() * 0.5 - 0.25;
-              double offZ = levelAccessor.random.nextFloat() * 0.5 - 0.25;
+              double offX = levelAccessor.getRandom().nextFloat() * 0.5 - 0.25;
+              double offY = levelAccessor.getRandom().nextFloat() * 0.5 - 0.25;
+              double offZ = levelAccessor.getRandom().nextFloat() * 0.5 - 0.25;
               double coeff = (offX + offY + offZ) / 1.5 + 0.5;
               double dx = (caster.getLookAngle().x + offX) * coeff;
               double dy = (caster.getLookAngle().y + offY) * coeff;
               double dz = (caster.getLookAngle().z + offZ) * coeff;
-              if (levelAccessor.random.nextBoolean()) {
+              if (levelAccessor.getRandom().nextBoolean()) {
                 levelAccessor.addParticle(MagicParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
                     caster.getX() + dx, caster.getY() + 1.5 + dy, caster.getZ() + dz, dx, dy, dz);
               }
@@ -96,22 +96,24 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
               }
             }
           }
+          return true;
         }
       }
     }
+    return false;
   }
 
   @Override
-  public InteractionResultHolder<ItemStack> use(Level levelAccessor, Player player, InteractionHand hand) {
+  public InteractionResult use(Level level, Player player, InteractionHand hand) {
     ItemStack stack = player.getItemInHand(hand);
     if (stack.has(RootsComponents.SELECTED_SPELL)) {
       if (!player.isShiftKeyDown()) {
-        if (levelAccessor.isClientSide && Minecraft.getInstance().screen != null) {
-          return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
+        if (level.isClientSide() && Minecraft.getInstance().screen != null) {
+          return InteractionResult.FAIL;
         }
         else {
           player.startUsingItem(hand);
-          return new InteractionResultHolder<>(InteractionResult.PASS, stack);
+          return InteractionResult.PASS;
         }
       }
       else {
@@ -120,10 +122,10 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
 	        selected = 1;
         }
 	      stack.set(RootsComponents.SELECTED_SPELL, selected);
-        return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
+        return InteractionResult.FAIL;
       }
     }
-    return new InteractionResultHolder<>(InteractionResult.FAIL, stack);
+    return InteractionResult.FAIL;
   }
 
   @Override
@@ -144,22 +146,22 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
     if (stack.has(RootsComponents.SPELLS)) {
 			SpellData spell = getSelectedSpell(stack);
       if (spell != null) {
-        ResourceLocation componentName = ResourceLocation.tryParse(spell.effect());
+        Identifier componentName = Identifier.tryParse(spell.effect());
         if (componentName != null) {
-          ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get(componentName);
+          ComponentBase comp = ComponentBaseRegistry.COMPONENTS.getValue(componentName);
           if (comp != null) {
             int potency = spell.potency();
             int efficiency = spell.efficiency();
             int size = spell.size();
             comp.castingAction((Player) player, count, potency, efficiency, size);
-            if (player.getCommandSenderWorld().isClientSide) {
+            if (level.isClientSide()) {
               if (player.getRandom().nextBoolean()) {
-                player.getCommandSenderWorld().addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
+                level.addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
                     player.getX() + 2.0 * (player.getRandom().nextFloat() - 0.5), player.getY() + 2.0 * (player.getRandom().nextFloat() - 0.5) + 1.0, player.getZ() + 2.0 * (player.getRandom().nextFloat() - 0.5),
                     player.getX(), player.getY() + 1.0, player.getZ());
               }
               else {
-                player.getCommandSenderWorld().addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
+                level.addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
                     player.getX() + 2.0 * (player.getRandom().nextFloat() - 0.5), player.getY() + 2.0 * (player.getRandom().nextFloat() - 0.5) + 1.0, player.getZ() + 2.0 * (player.getRandom().nextFloat() - 0.5),
                     player.getX(), player.getY() + 1.0, player.getZ());
               }
@@ -202,27 +204,26 @@ public class CrystalStaffItem extends Item implements IManaRelatedItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
-		super.appendHoverText(stack, context, tooltip, tooltipFlag);
+  public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
 		SpellData selectedSpell = getSelectedSpell(stack);
 		if (selectedSpell != null) {
 			String effect = selectedSpell.effect();
-			ResourceLocation compName = ResourceLocation.tryParse(effect);
+			Identifier compName = Identifier.tryParse(effect);
 			if (compName != null) {
-				ComponentBase comp = ComponentBaseRegistry.COMPONENTS.get(compName);
+				ComponentBase comp = ComponentBaseRegistry.COMPONENTS.getValue(compName);
 				if (comp != null) {
-					tooltip.add(Component.translatable("rootsclassic.tooltip.spelltypeheading")
+					builder.accept(Component.translatable("rootsclassic.tooltip.spelltypeheading")
 						.append(": ").withStyle(ChatFormatting.GOLD).append(comp.getEffectName().withStyle(comp.getTextColor())));
 				}
 			}
-			tooltip.add(Component.translatable("  +" + selectedSpell.potency() + " ")
+			builder.accept(Component.translatable("  +" + selectedSpell.potency() + " ")
 				.append(Component.translatable("rootsclassic.tooltip.spellpotency")).append(".").withStyle(ChatFormatting.RED));
-			tooltip.add(Component.translatable("  +" + selectedSpell.efficiency() + " ")
+			builder.accept(Component.translatable("  +" + selectedSpell.efficiency() + " ")
 				.append(Component.translatable("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(ChatFormatting.RED));
-			tooltip.add(Component.translatable("  +" + selectedSpell.size() + " ")
+			builder.accept(Component.translatable("  +" + selectedSpell.size() + " ")
 				.append(Component.translatable("rootsclassic.tooltip.spellsize")).append(".").withStyle(ChatFormatting.RED));
 		} else {
-			tooltip.add(Component.translatable("rootsclassic.error.unset").withStyle(ChatFormatting.GRAY));
+			builder.accept(Component.translatable("rootsclassic.error.unset").withStyle(ChatFormatting.GRAY));
 		}
   }
 }

@@ -1,31 +1,22 @@
 package elucent.rootsclassic.item;
 
 import elucent.rootsclassic.util.RootsUtil;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.ToolMaterial;
+import org.jspecify.annotations.Nullable;
 
-public class LivingPickaxeItem extends PickaxeItem {
+public class LivingPickaxeItem extends Item {
 
-  public LivingPickaxeItem(Tier tier, int attackDamageIn, float attackSpeedIn, Item.Properties properties) {
-	  super(tier, properties.attributes(PickaxeItem.createAttributes(tier, attackDamageIn, attackSpeedIn)));
+  public LivingPickaxeItem(ToolMaterial material, int attackDamageIn, float attackSpeedIn, Item.Properties properties) {
+	  super(properties.pickaxe(material, attackDamageIn, attackSpeedIn).setNoCombineRepair());
   }
 
   @Override
-  public void inventoryTick(ItemStack stack, Level levelAccessor, Entity entityIn, int itemSlot, boolean isSelected) {
-	  RootsUtil.randomlyRepair(levelAccessor.random, stack);
-  }
-
-  @Override
-  public boolean isRepairable(ItemStack stack) {
-    return false;
-  }
-
-  @Override
-  public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
-    return false;
+  public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity owner, @Nullable EquipmentSlot slot) {
+    RootsUtil.randomlyRepair(level.getRandom(), itemStack);
   }
 }

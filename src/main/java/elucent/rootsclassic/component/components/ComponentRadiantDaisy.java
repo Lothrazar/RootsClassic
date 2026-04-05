@@ -35,11 +35,11 @@ public class ComponentRadiantDaisy extends ComponentBase {
       double motionZ = livingCaster.getLookAngle().z * 0.25;
       for (int i = 0; i < 200 + 100 * size; i++) {
         boolean didHit = false;
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
           level.addParticle(MagicAuraParticleData.createData(255, 255, 255),
               posX, posY, posZ, 0, 0, 0);
         }
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
           posX += motionX;
           posY += motionY;
           posZ += motionZ;

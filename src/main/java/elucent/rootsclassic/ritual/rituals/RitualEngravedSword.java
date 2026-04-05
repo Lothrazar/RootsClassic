@@ -28,7 +28,7 @@ public class RitualEngravedSword extends RitualCrafting {
       items.add(i.getItem());
     }
 	  ItemStack toSpawn = ItemStack.parseOptional(levelAccessor.registryAccess(), config.getCompound("result"));
-    if (!levelAccessor.isClientSide) {
+    if (!levelAccessor.isClientSide()) {
       int mods = 0;
       ItemEntity item = new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
       ItemStack stack = item.getItem();

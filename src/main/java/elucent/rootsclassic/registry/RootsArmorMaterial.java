@@ -5,7 +5,7 @@ import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
@@ -17,37 +17,37 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class RootsArmorMaterial {
-	public static final Holder<ArmorMaterial> SYLVAN = register("sylvan", Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
-		map.put(ArmorItem.Type.BOOTS, 1);
-		map.put(ArmorItem.Type.LEGGINGS, 5);
-		map.put(ArmorItem.Type.CHESTPLATE, 6);
-		map.put(ArmorItem.Type.BODY, 6);
-		map.put(ArmorItem.Type.HELMET, 2);
+	public static final Holder<ArmorMaterial> SYLVAN = register("sylvan", Util.make(new EnumMap<>(ArmorType.class), (map) -> {
+		map.put(ArmorType.BOOTS, 1);
+		map.put(ArmorType.LEGGINGS, 5);
+		map.put(ArmorType.CHESTPLATE, 6);
+		map.put(ArmorType.BODY, 6);
+		map.put(ArmorType.HELMET, 2);
 	}), 20, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> Ingredient.EMPTY);
-	public static final Holder<ArmorMaterial> WILDWOOD = register("wildwood", Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
-		map.put(ArmorItem.Type.BOOTS, 2);
-		map.put(ArmorItem.Type.LEGGINGS, 5);
-		map.put(ArmorItem.Type.CHESTPLATE, 7);
-		map.put(ArmorItem.Type.BODY, 7);
-		map.put(ArmorItem.Type.HELMET, 3);
+	public static final Holder<ArmorMaterial> WILDWOOD = register("wildwood", Util.make(new EnumMap<>(ArmorType.class), (map) -> {
+		map.put(ArmorType.BOOTS, 2);
+		map.put(ArmorType.LEGGINGS, 5);
+		map.put(ArmorType.CHESTPLATE, 7);
+		map.put(ArmorType.BODY, 7);
+		map.put(ArmorType.HELMET, 3);
 	}), 10, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0f, 0.0F, () -> Ingredient.EMPTY);
 
 	private static Holder<ArmorMaterial> register(
 		String pName,
-		EnumMap<ArmorItem.Type, Integer> pDefense,
+		EnumMap<ArmorType, Integer> pDefense,
 		int pEnchantmentValue,
 		Holder<SoundEvent> pEquipSound,
 		float pToughness,
 		float pKnockbackResistance,
 		Supplier<Ingredient> pRepairIngredient
 	) {
-		List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(ResourceLocation.tryParse(pName)));
+		List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(Identifier.tryParse(pName)));
 		return register(pName, pDefense, pEnchantmentValue, pEquipSound, pToughness, pKnockbackResistance, pRepairIngredient, list);
 	}
 
 	private static Holder<ArmorMaterial> register(
 		String pName,
-		EnumMap<ArmorItem.Type, Integer> pDefense,
+		EnumMap<ArmorType, Integer> pDefense,
 		int pEnchantmentValue,
 		Holder<SoundEvent> pEquipSound,
 		float pToughness,
@@ -55,9 +55,9 @@ public class RootsArmorMaterial {
 		Supplier<Ingredient> pRepairIngridient,
 		List<ArmorMaterial.Layer> pLayers
 	) {
-		EnumMap<ArmorItem.Type, Integer> enummap = new EnumMap<>(ArmorItem.Type.class);
+		EnumMap<ArmorType, Integer> enummap = new EnumMap<>(ArmorType.class);
 
-		for (ArmorItem.Type armoritem$type : ArmorItem.Type.values()) {
+		for (ArmorType armoritem$type : ArmorType.values()) {
 			enummap.put(armoritem$type, pDefense.get(armoritem$type));
 		}
 

@@ -38,7 +38,7 @@ public class ComponentSpellsEvent {
   private void tickSkipMovementCurse(EntityTickEvent.Pre event, LivingEntity entity) {
     CompoundTag persistentData = entity.getPersistentData();
     if (persistentData.contains(Const.NBT_TRACK_TICKS) && persistentData.contains(Const.NBT_SKIP_TICKS)) {
-      int skipTicks = persistentData.getInt(Const.NBT_SKIP_TICKS);
+      int skipTicks = persistentData.getIntOr(Const.NBT_SKIP_TICKS, 0);
       if (skipTicks > 0) {
         persistentData.putInt(Const.NBT_SKIP_TICKS, skipTicks - 1);
         if (skipTicks <= 0) {
@@ -68,7 +68,7 @@ public class ComponentSpellsEvent {
         legs.getItem() == RootsRegistry.WILDWOOD_LEGGINGS.get() &&
         feet.getItem() == RootsRegistry.WILDWOOD_BOOTS.get()) {
       //
-      if (entity.level().random.nextDouble() < 0.02 && entity.getHealth() < entity.getMaxHealth()) {
+      if (entity.level().getRandom().nextDouble() < 0.02 && entity.getHealth() < entity.getMaxHealth()) {
         entity.heal(1);//1 half heart
       }
     }
@@ -78,7 +78,7 @@ public class ComponentSpellsEvent {
   public void onLivingDrops(LivingDropsEvent event) {
     CompoundTag persistentData = event.getEntity().getPersistentData();
     if (persistentData.contains(Const.NBT_DONT_DROP)) {
-      if (!persistentData.getBoolean(Const.NBT_DONT_DROP)) {
+      if (!persistentData.getBooleanOr(Const.NBT_DONT_DROP, false)) {
         event.setCanceled(true);
       }
     }
@@ -88,7 +88,7 @@ public class ComponentSpellsEvent {
   public void onLivingXP(LivingExperienceDropEvent event) {
     CompoundTag persistentData = event.getEntity().getPersistentData();
     if (persistentData.contains(Const.NBT_DONT_DROP)) {
-      if (!persistentData.getBoolean(Const.NBT_DONT_DROP)) {
+      if (!persistentData.getBooleanOr(Const.NBT_DONT_DROP, false)) {
         event.setCanceled(true);
       }
     }
@@ -99,37 +99,37 @@ public class ComponentSpellsEvent {
     LivingEntity entityLiving = event.getEntity();
     CompoundTag persistentData = entityLiving.getPersistentData();
     if (persistentData.contains(Const.NBT_VULN)) {
-      event.setAmount((float) (event.getAmount() * (1.0 + persistentData.getDouble(Const.NBT_VULN))));
+      event.setAmount((float) (event.getAmount() * (1.0 + persistentData.getDoubleOr(Const.NBT_VULN, 0))));
       persistentData.remove(Const.NBT_VULN);
     }
     DamageSource source = event.getSource();
     if (persistentData.contains(Const.NBT_THORNS) && source != null && source.getEntity() instanceof LivingEntity) {
-      ((LivingEntity) event.getSource().getEntity()).hurt(entityLiving.damageSources().cactus(), persistentData.getFloat(Const.NBT_THORNS));
+      ((LivingEntity) event.getSource().getEntity()).hurt(entityLiving.damageSources().cactus(), persistentData.getFloatOr(Const.NBT_THORNS, 0));
       persistentData.remove(Const.NBT_THORNS);
       RootsUtil.decrementTickTracking(entityLiving);
     }
     if (entityLiving instanceof Player player) {
-      if (!player.getInventory().getSelected().isEmpty() && player.getInventory().getSelected().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
-        ItemStack sword = player.getInventory().getSelected();
+      if (!player.getInventory().getSelectedItem().isEmpty() && player.getInventory().getSelectedItem().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
+        ItemStack sword = player.getInventory().getSelectedItem();
         if (sword.has(RootsComponents.SHADOWSTEP)) {
           int stepLvl = sword.getOrDefault(RootsComponents.SHADOWSTEP, 0);
           double chance = stepLvl * 12.5;
-          if (player.getCommandSenderWorld().random.nextInt(100) < chance) {
+          if (player.level().getRandom().nextInt(100) < chance) {
             event.setCanceled(true);
           }
         }
       }
     }
     if (source != null && source.getEntity() instanceof Player player) {
-      if (!event.getEntity().getCommandSenderWorld().isClientSide) {
-        if (!player.getInventory().getSelected().isEmpty() && player.getInventory().getSelected().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
-          ItemStack sword = player.getInventory().getSelected();
+      if (!event.getEntity().level().isClientSide()) {
+        if (!player.getInventory().getSelectedItem().isEmpty() && player.getInventory().getSelectedItem().getItem() == RootsRegistry.ENGRAVED_BLADE.get()) {
+          ItemStack sword = player.getInventory().getSelectedItem();
 	        if (sword.has(RootsComponents.AQUATIC)) {
 		        int aquaLvl = sword.getOrDefault(RootsComponents.AQUATIC, 0);
 		        float amount = aquaLvl * 0.5f;
 		        event.getEntity().hurt(entityLiving.damageSources().drown(), amount);
 	        }
-	        if (sword.has(RootsComponents.HOLY) && entityLiving.getType().is(EntityTypeTags.UNDEAD)) {
+	        if (sword.has(RootsComponents.HOLY) && entityLiving.is(EntityTypeTags.UNDEAD)) {
 		        int holyLvl = sword.getOrDefault(RootsComponents.HOLY, 0);
 		        float amount = holyLvl * 1.5f;
 		        float currentAmount = event.getAmount();

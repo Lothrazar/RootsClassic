@@ -28,7 +28,7 @@ public class ComponentLilac extends ComponentBase {
       //  if (fullEfficiency) { 
       // TODO: Re-implement the advancements maybe?
       //				ServerPlayerEntity player = (ServerPlayerEntity)caster;
-      //				Advancement advancementIn = player.getServer().getAdvancementManager().getAdvancement(new ResourceLocation(Const.MODID + ":achieve_spell_growth"));
+      //				Advancement advancementIn = player.getServer().getAdvancementManager().getAdvancement(new Identifier(Const.MODID + ":achieve_spell_growth"));
       //				if (advancementIn != null) {
       //					AdvancementProgress advancementprogress = player.getAdvancements().getProgress(advancementIn);
       //					if(!advancementprogress.isDone()) {

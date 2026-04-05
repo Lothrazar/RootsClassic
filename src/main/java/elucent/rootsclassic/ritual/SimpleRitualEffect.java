@@ -11,9 +11,9 @@ import java.util.List;
 public abstract class SimpleRitualEffect extends RitualEffect {
 
   @Override
-  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, CompoundTag config) {
-    doEffect(levelAccessor, pos, inventory, incenses);
+  public void doEffect(Level level, BlockPos pos, Container inventory, List<ItemStack> incenses, CompoundTag config) {
+    doEffect(level, pos, inventory, incenses);
   }
 
-  public abstract void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses);
+  public abstract void doEffect(Level level, BlockPos pos, Container inventory, List<ItemStack> incenses);
 }

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap.Builder;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -54,24 +55,24 @@ public class DruidKnifeItem extends Item {
 //  }
 
   public InteractionResult useOn(UseOnContext context) {
-    Level levelAccessor = context.getLevel();
+    Level level = context.getLevel();
     BlockPos pos = context.getClickedPos();
-    BlockState state = levelAccessor.getBlockState(pos);
+    BlockState state = level.getBlockState(pos);
     BlockState strippedState = getStrippingState(state);
     ItemStack barkDrop = getBarkDrop(state);
-    if (!barkDrop.isEmpty() && strippedState != null) {
+    if (!barkDrop.isEmpty() && strippedState != null && level instanceof ServerLevel serverLevel) {
       ItemStack stack = context.getItemInHand();
       InteractionHand hand = context.getHand();
       Player playerIn = context.getPlayer();
-      playerIn.spawnAtLocation(barkDrop, 1.0f);
-      stack.hurtAndBreak(1, playerIn, Player.getSlotForHand(hand));
-      if (levelAccessor.random.nextDouble() < RootsConfig.COMMON.barkKnifeBlockStripChance.get()) {
-        levelAccessor.playSound(playerIn, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
-        if (!levelAccessor.isClientSide) {
-          levelAccessor.setBlock(pos, strippedState, 11);
+      playerIn.spawnAtLocation(serverLevel, barkDrop, 1.0f);
+      stack.hurtAndBreak(1, playerIn, hand.asEquipmentSlot());
+      if (level.getRandom().nextDouble() < RootsConfig.COMMON.barkKnifeBlockStripChance.get()) {
+        level.playSound(playerIn, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+        if (!level.isClientSide()) {
+          level.setBlock(pos, strippedState, 11);
         }
       }
-      return InteractionResult.sidedSuccess(levelAccessor.isClientSide);
+      return InteractionResult.SUCCESS;
     }
     else {
       return InteractionResult.PASS;

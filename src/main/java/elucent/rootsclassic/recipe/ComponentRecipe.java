@@ -1,38 +1,66 @@
 package elucent.rootsclassic.recipe;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import elucent.rootsclassic.item.powder.SpellPowderItem;
 import elucent.rootsclassic.registry.RootsRecipes;
 import elucent.rootsclassic.registry.RootsRegistry;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.RecipeMatcher;
 
-public class ComponentRecipe implements Recipe<RecipeInput> {
+import java.util.List;
 
+public class ComponentRecipe implements Recipe<RecipeInput> {
   private static final int MAX_INGREDIENTS = 4;
-  private final ResourceLocation effectResult;
+  private static final MapCodec<ComponentRecipe> CODEC = RecordCodecBuilder.mapCodec(
+    instance -> instance.group(
+        Identifier.CODEC.fieldOf("effect").forGetter(recipe -> recipe.effectResult),
+        Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
+        ItemStackTemplate.CODEC.optionalFieldOf("result", new ItemStackTemplate(RootsRegistry.SPELL_POWDER)).forGetter(recipe -> recipe.recipeOutput),
+        Codec.lazyInitialized(() -> Ingredient.CODEC.listOf(1, MAX_INGREDIENTS)).fieldOf("ingredients").forGetter(o -> o.materials),
+        Codec.BOOL.optionalFieldOf("need_mixin", true).forGetter(recipe -> recipe.needsMixin)
+      )
+      .apply(instance, ComponentRecipe::new)
+  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, ComponentRecipe> STREAM_CODEC = StreamCodec.composite(
+    Identifier.STREAM_CODEC,
+    o -> o.effectResult,
+    ByteBufCodecs.STRING_UTF8,
+    o -> o.group,
+    ItemStackTemplate.STREAM_CODEC,
+    o -> o.recipeOutput,
+    Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
+    o -> o.materials,
+    ByteBufCodecs.BOOL,
+    o -> o.needsMixin,
+    ComponentRecipe::new
+  );
+  public static final RecipeSerializer<ComponentRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+
+  private final Identifier effectResult;
   private final String group;
-  private final ItemStack recipeOutput;
-  private final NonNullList<Ingredient> materials;
+  private final ItemStackTemplate recipeOutput;
+  private final List<Ingredient> materials;
   private final boolean needsMixin;
 
-  public ComponentRecipe(ResourceLocation effect, String group, ItemStack result, NonNullList<Ingredient> materials, boolean needsMixin) {
+  public ComponentRecipe(Identifier effect, String group, ItemStackTemplate result, List<Ingredient> materials, boolean needsMixin) {
     this.effectResult = effect;
     this.group = group;
     this.recipeOutput = result;
@@ -40,23 +68,18 @@ public class ComponentRecipe implements Recipe<RecipeInput> {
     this.needsMixin = needsMixin;
   }
 
-	public ResourceLocation getEffectResult() {
+	public Identifier getEffectResult() {
     return effectResult;
   }
 
   @Override
-  public RecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<ComponentRecipe> getSerializer() {
     return RootsRecipes.COMPONENT_SERIALIZER.get();
   }
 
   @Override
-  public String getGroup() {
-    return group;
-  }
-
-  @Override
-  public ItemStack assemble(RecipeInput inventory, HolderLookup.Provider provider) {
-    ItemStack outputStack = getResultItem(provider);
+  public ItemStack assemble(RecipeInput inventory) {
+    ItemStack outputStack = recipeOutput.create();
     if (outputStack.getItem() instanceof SpellPowderItem) {
       SpellPowderItem.createData(outputStack, this.getEffectResult(), inventory);
     }
@@ -64,27 +87,22 @@ public class ComponentRecipe implements Recipe<RecipeInput> {
   }
 
   @Override
-  public boolean canCraftInDimensions(int width, int height) {
-    return false;
+  public RecipeType<ComponentRecipe> getType() {
+    return RootsRecipes.COMPONENT_RECIPE_TYPE.get();
   }
 
-  @Override
-  public ItemStack getResultItem(HolderLookup.Provider provider) {
-    return recipeOutput.copy();
-  }
-
-  public ItemStack getResultItem() {
-    return recipeOutput.copy();
-  }
-
-  @Override
-  public NonNullList<Ingredient> getIngredients() {
+  public List<Ingredient> getIngredients() {
     return materials;
   }
 
   @Override
-  public RecipeType<?> getType() {
-    return RootsRecipes.COMPONENT_RECIPE_TYPE.get();
+  public PlacementInfo placementInfo() {
+    return PlacementInfo.NOT_PLACEABLE;
+  }
+
+  @Override
+  public RecipeBookCategory recipeBookCategory() {
+    return RecipeBookCategories.CRAFTING_MISC;
   }
 
   @Override
@@ -92,17 +110,27 @@ public class ComponentRecipe implements Recipe<RecipeInput> {
     return true;
   }
 
+  @Override
+  public boolean showNotification() {
+    return false;
+  }
+
+  @Override
+  public String group() {
+    return group;
+  }
+
   public boolean needsMixin() {
     return needsMixin;
   }
 
   @Override
-  public boolean matches(RecipeInput recipeInput, Level levelAccessor) {
+  public boolean matches(RecipeInput recipeInput, Level level) {
     java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
     int i = 0;
     for (int j = 0; j < recipeInput.size(); j++) {
       ItemStack stack = recipeInput.getItem(j);
-      if (!stack.isEmpty() && !isSupplementItem(stack, levelAccessor.registryAccess())) {
+      if (!stack.isEmpty() && !isSupplementItem(stack, level.registryAccess())) {
         ++i;
         inputs.add(stack);
       }
@@ -118,7 +146,7 @@ public class ComponentRecipe implements Recipe<RecipeInput> {
    * @return True if the stack is a supplement
    */
   private boolean isSupplementItem(ItemStack stack, RegistryAccess access) {
-    if (getResultItem(access).getItem() instanceof SpellPowderItem) {
+    if (recipeOutput.create().getItem() instanceof SpellPowderItem) {
       return stack.getItem() == RootsRegistry.OLD_ROOT.get() ||
           stack.getItem() == RootsRegistry.VERDANT_SPRIG.get() ||
           stack.getItem() == RootsRegistry.INFERNAL_BULB.get() ||
@@ -168,75 +196,4 @@ public class ComponentRecipe implements Recipe<RecipeInput> {
     }
     return count;
   }
-
-  public static class SerializeComponentRecipe implements RecipeSerializer<ComponentRecipe> {
-	  private static final MapCodec<ComponentRecipe> CODEC = RecordCodecBuilder.mapCodec(
-		  instance -> instance.group(
-				  ResourceLocation.CODEC.fieldOf("effect").forGetter(recipe -> recipe.effectResult),
-				  Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
-				  ItemStack.STRICT_CODEC.optionalFieldOf("result", RootsRegistry.SPELL_POWDER.toStack()).forGetter(recipe -> recipe.recipeOutput),
-				  Ingredient.CODEC_NONEMPTY
-					  .listOf()
-					  .fieldOf("ingredients")
-					  .flatXmap(
-						  p_301021_ -> {
-							  Ingredient[] aingredient = p_301021_.toArray(Ingredient[]::new); 
-							  if (aingredient.length == 0) {
-								  return DataResult.error(() -> "No ingredients for component recipe");
-							  } else {
-								  return aingredient.length > MAX_INGREDIENTS
-									  ? DataResult.error(() -> "Too many ingredients for component recipe. The maximum is: %s".formatted(MAX_INGREDIENTS))
-									  : DataResult.success(NonNullList.of(Ingredient.EMPTY, aingredient));
-							  }
-						  },
-						  DataResult::success
-					  )
-					  .forGetter(recipe -> recipe.materials),
-				  Codec.BOOL.optionalFieldOf("need_mixin", true).forGetter(recipe -> recipe.needsMixin)
-			  )
-			  .apply(instance, ComponentRecipe::new)
-	  );
-	  public static final StreamCodec<RegistryFriendlyByteBuf, ComponentRecipe> STREAM_CODEC = StreamCodec.of(
-		  SerializeComponentRecipe::toNetwork, SerializeComponentRecipe::fromNetwork
-	  );
-
-	  @Override
-	  public MapCodec<ComponentRecipe> codec() {
-		  return CODEC;
-	  }
-
-	  @Override
-	  public StreamCodec<RegistryFriendlyByteBuf, ComponentRecipe> streamCodec() {
-		  return STREAM_CODEC;
-	  }
-
-    public static ComponentRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-	    ResourceLocation effectResult = buffer.readResourceLocation();
-      String s = buffer.readUtf();
-	    ItemStack itemstack = ItemStack.STREAM_CODEC.decode(buffer);
-      int i = buffer.readVarInt();
-      NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i, Ingredient.EMPTY);
-      for (int j = 0; j < nonnulllist.size(); ++j) {
-				nonnulllist.set(j, Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
-      }
-      boolean needsMixin = buffer.readBoolean();
-      return new ComponentRecipe(effectResult, s, itemstack, nonnulllist, needsMixin);
-    }
-
-    private static void toNetwork(RegistryFriendlyByteBuf buffer, ComponentRecipe recipe) {
-	    buffer.writeResourceLocation(recipe.effectResult);
-      buffer.writeUtf(recipe.group);
-	    ItemStack.STREAM_CODEC.encode(buffer, recipe.recipeOutput);
-      buffer.writeVarInt(recipe.materials.size());
-      for (Ingredient ingredient : recipe.materials) {
-	      Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, ingredient);
-      }
-      buffer.writeBoolean(recipe.needsMixin);
-    }
-  }
-
-	@Override
-	public String toString() {
-		return "ComponentRecipe [effectResult=" + effectResult + ", recipeOutput=" + recipeOutput + "]";
-	}
 }

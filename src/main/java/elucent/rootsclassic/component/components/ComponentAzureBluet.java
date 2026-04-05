@@ -6,7 +6,7 @@ import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -38,25 +38,25 @@ public class ComponentAzureBluet extends ComponentBase {
 
   @Override
   public void doEffect(Level level, Entity casterEntity, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (type == EnumCastType.SPELL && casterEntity instanceof LivingEntity caster && !level.isClientSide) {
+    if (type == EnumCastType.SPELL && casterEntity instanceof LivingEntity caster && !level.isClientSide()) {
       BlockPos pos = RootsUtil.getRayTrace(level, caster, 4 + 2 * (int) size);
       destroyBlockSafe(level, pos, (int) potency);
-      if (level.random.nextBoolean()) {
+      if (level.getRandom().nextBoolean()) {
         destroyBlockSafe(level, pos.above(), (int) potency);
       }
-      if (level.random.nextBoolean()) {
+      if (level.getRandom().nextBoolean()) {
         destroyBlockSafe(level, pos.below(), (int) potency);
       }
-      if (level.random.nextBoolean()) {
+      if (level.getRandom().nextBoolean()) {
         destroyBlockSafe(level, pos.east(), (int) potency);
       }
-      if (level.random.nextBoolean()) {
+      if (level.getRandom().nextBoolean()) {
         destroyBlockSafe(level, pos.west(), (int) potency);
       }
-      if (level.random.nextBoolean()) {
+      if (level.getRandom().nextBoolean()) {
         destroyBlockSafe(level, pos.north(), (int) potency);
       }
-      if (level.random.nextBoolean()) {
+      if (level.getRandom().nextBoolean()) {
         destroyBlockSafe(level, pos.south(), (int) potency);
       }
     }

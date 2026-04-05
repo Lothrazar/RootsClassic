@@ -7,9 +7,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class RootsFoodItem extends Item {
 
@@ -36,20 +37,19 @@ public class RootsFoodItem extends Item {
     return stack;
   }
 
-	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
-		super.appendHoverText(stack, context, tooltip, tooltipFlag);
+  @Override
+  public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
     if (stack.is(RootsRegistry.REDCURRANT.get())) {
-      tooltip.add(Component.translatable("rootsclassic.healingitem.tooltip").withStyle(ChatFormatting.GRAY));
+      builder.accept(Component.translatable("rootsclassic.healingitem.tooltip").withStyle(ChatFormatting.GRAY));
     }
     if (stack.is(RootsRegistry.ELDERBERRY.get())) {
-      tooltip.add(Component.translatable("rootsclassic.clearpotionsitem.tooltip").withStyle(ChatFormatting.GRAY));
+      builder.accept(Component.translatable("rootsclassic.clearpotionsitem.tooltip").withStyle(ChatFormatting.GRAY));
     }
     if (stack.is(RootsRegistry.HEALING_POULTICE.get())) {
-      tooltip.add(Component.translatable("rootsclassic.healingitem.tooltip").withStyle(ChatFormatting.GRAY));
+      builder.accept(Component.translatable("rootsclassic.healingitem.tooltip").withStyle(ChatFormatting.GRAY));
     }
     if (stack.is(RootsRegistry.NIGHTSHADE.get())) {
-      tooltip.add(Component.translatable("rootsclassic.poisonitem.tooltip").withStyle(ChatFormatting.GRAY));
+      builder.accept(Component.translatable("rootsclassic.poisonitem.tooltip").withStyle(ChatFormatting.GRAY));
     }
   }
 }

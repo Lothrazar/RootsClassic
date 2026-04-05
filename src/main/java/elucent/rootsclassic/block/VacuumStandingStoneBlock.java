@@ -1,6 +1,6 @@
 package elucent.rootsclassic.block;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import elucent.rootsclassic.blockentity.VacuumStandingStoneTile;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
@@ -35,6 +35,6 @@ public class VacuumStandingStoneBlock extends AttunedStandingStoneBlock implemen
 
   @Nullable
   protected static <T extends BlockEntity> BlockEntityTicker<T> createStandingStoneTicker(Level level, BlockEntityType<T> entityType, BlockEntityType<? extends VacuumStandingStoneTile> standingStoneType) {
-    return level.isClientSide ? createTickerHelper(entityType, standingStoneType, VacuumStandingStoneTile::clientTick) : createTickerHelper(entityType, standingStoneType, VacuumStandingStoneTile::serverTick);
+    return level.isClientSide() ? createTickerHelper(entityType, standingStoneType, VacuumStandingStoneTile::clientTick) : createTickerHelper(entityType, standingStoneType, VacuumStandingStoneTile::serverTick);
   }
 }

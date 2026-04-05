@@ -5,6 +5,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.neoforged.neoforge.registries.datamaps.builtin.Compostable;
+import net.neoforged.neoforge.registries.datamaps.builtin.FurnaceFuel;
 import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 
 import java.util.concurrent.CompletableFuture;
@@ -14,8 +15,8 @@ public class RootsDataMapProvider  extends DataMapProvider {
 		super(packOutput, lookupProvider);
 	}
 
-	@Override
-	protected void gather() {
+  @Override
+  protected void gather(HolderLookup.Provider provider) {
 		final float LEAVES = 0.3F;
 		final float FLOWER = 0.65F;
 
@@ -25,5 +26,8 @@ public class RootsDataMapProvider  extends DataMapProvider {
 		compostables.add(RootsRegistry.WHITECURRANT, new Compostable(LEAVES), false);
 		compostables.add(RootsRegistry.NIGHTSHADE, new Compostable(FLOWER), false);
 		compostables.add(RootsRegistry.ELDERBERRY, new Compostable(FLOWER), false);
+
+    final var fuels = builder(NeoForgeDataMaps.FURNACE_FUELS);
+    fuels.add(RootsRegistry.INFERNAL_BULB, new FurnaceFuel(2400), false);
 	}
 }

@@ -26,11 +26,11 @@ import elucent.rootsclassic.component.components.ComponentWhiteTulip;
 import elucent.rootsclassic.recipe.ComponentRecipe;
 import elucent.rootsclassic.registry.RootsRecipes;
 import net.minecraft.ChatFormatting;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.crafting.RecipeMap;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -66,11 +66,11 @@ public class ComponentRegistry {
    *
    * public static boolean isValidEffectItem(ItemStack stack) { for (int i = 0; i < components.size(); i++) { if (components.get(i).getItem() != null && stack != null) { if
    * (components.get(i).getItem().getItem() == stack.getItem() && components.get(i).getItem().getMetadata() == stack.getMetadata()) { return true; } } } return false; } */
-  public static RecipeHolder<ComponentRecipe> getSpellFromName(RecipeManager mgr, ResourceLocation name) {
+  public static RecipeHolder<ComponentRecipe> getSpellFromName(RecipeMap recipeMap, Identifier name) {
     if (name.getNamespace().equals(Const.MODID) && name.getPath().equals("none")) {
       return null;
     }
-    for (RecipeHolder<ComponentRecipe> recipe : mgr.getAllRecipesFor(RootsRecipes.COMPONENT_RECIPE_TYPE.get())) {
+    for (RecipeHolder<ComponentRecipe> recipe : recipeMap.byType(RootsRecipes.COMPONENT_RECIPE_TYPE.get())) {
       if (recipe.value().getEffectResult().equals(name)) {
         return recipe;
       }
@@ -78,8 +78,8 @@ public class ComponentRegistry {
     return null;
   }
 
-  public static RecipeHolder<ComponentRecipe> getRecipeFromInput(Level levelAccessor, RecipeInput inventory) {
-    Optional<RecipeHolder<ComponentRecipe>> recipe = levelAccessor.getRecipeManager().getRecipeFor(RootsRecipes.COMPONENT_RECIPE_TYPE.get(), inventory, levelAccessor);
+  public static RecipeHolder<ComponentRecipe> getRecipeFromInput(ServerLevel serverLevel, RecipeInput inventory) {
+    Optional<RecipeHolder<ComponentRecipe>> recipe = serverLevel.recipeAccess().getRecipeFor(RootsRecipes.COMPONENT_RECIPE_TYPE.get(), inventory, serverLevel);
     return recipe.orElse(null);
   }
 }

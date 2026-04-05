@@ -1,5 +1,8 @@
 package elucent.rootsclassic.block.altar;
 
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import elucent.rootsclassic.block.brazier.BrazierBlockEntity;
 import elucent.rootsclassic.blockentity.BEBase;
 import elucent.rootsclassic.client.particles.MagicAltarParticleData;
@@ -10,12 +13,12 @@ import elucent.rootsclassic.ritual.RitualPillars;
 import elucent.rootsclassic.ritual.RitualRegistry;
 import elucent.rootsclassic.util.InventoryUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.ARGB;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,13 +26,15 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+import org.jspecify.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,13 +47,13 @@ public class AltarBlockEntity extends BEBase {
   @Nullable
   private RecipeHolder<RitualRecipe> currentRitual = null;
   private int clientRitualLevel;
-  private Color clientRitualColor;
-  private Color clientRitualSecondaryColor;
+  private int clientRitualColor;
+  private int clientRitualSecondaryColor;
   //	private ItemStack resultItem = ItemStack.EMPTY; TODO: Unused
-  public final ItemStackHandler inventory = new ItemStackHandler(3) {
+  public final ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(3) {
 
     @Override
-    protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+    protected int getCapacity(int slot, @Nonnull ItemResource stack) {
       return 1;
     }
   };
@@ -61,81 +66,80 @@ public class AltarBlockEntity extends BEBase {
     super(RootsRegistry.ALTAR_TILE.get(), pos, state);
   }
 
-	@Override
-	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.loadAdditional(tag, registries);
-		inventory.deserializeNBT(registries, tag.getCompound("InventoryHandler"));
-		setIncenses(new ArrayList<>());
-		if (tag.contains("incenses")) {
-			ListTag list = tag.getList("incenses", CompoundTag.TAG_COMPOUND);
-			for (int i = 0; i < list.size(); i++) {
-				getIncenses().add(ItemStack.parseOptional(registries, list.getCompound(i)));
-			}
-		}
-		if (tag.contains("progress")) {
-			setProgress(tag.getInt("progress"));
-		}
-		if (level != null && level.isClientSide() && tag.contains("ritual", 10)) {
-			var ritualTag = tag.getCompound("ritual");
-			clientRitualLevel = ritualTag.getInt("level");
-			clientRitualColor = new Color(ritualTag.getInt("color"));
-			clientRitualSecondaryColor = new Color(ritualTag.getInt("secondaryColor"));
+  @Override
+  protected void loadAdditional(ValueInput input) {
+    super.loadAdditional(input);
+    inventory.deserialize(input);
+
+    List<ItemStack> incenses = input.read("incenses", ItemStack.CODEC.listOf()).orElse(new ArrayList<>());
+    setIncenses(incenses);
+
+    setProgress(input.getIntOr("progress", 0));
+
+    RitualInfo ritualInfo = input.read("ritual", RitualInfo.CODEC).orElse(null);
+		if (level != null && level.isClientSide() && ritualInfo != null) {
+			clientRitualLevel = ritualInfo.level;
+			clientRitualColor = ritualInfo.color;
+			clientRitualSecondaryColor = ritualInfo.secondaryColor;
 		}
 	}
 
-	@Override
-	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-		super.saveAdditional(tag, registries);
-		tag.put("InventoryHandler", inventory.serializeNBT(registries));
+  @Override
+  protected void saveAdditional(ValueOutput output) {
+    super.saveAdditional(output);
+    inventory.serialize(output);
 		if (!getIncenses().isEmpty()) {
-			ListTag list = new ListTag();
-			for (int i = 0; i < getIncenses().size(); i++) {
-				if (!getIncenses().get(i).isEmpty()) {
-					list.add(getIncenses().get(i).saveOptional(registries));
-				}
-			}
-			tag.put("incenses", list);
+      output.store("incenses", ItemStack.CODEC.listOf(), getIncenses());
 		}
-		tag.putInt("progress", getProgress());
+
+    output.putInt("progress", getProgress());
 		if (level != null && !level.isClientSide() && currentRitual != null) {
 			var ritualTag = new CompoundTag();
 			RitualRecipe ritual = currentRitual.value();
-			ritualTag.putInt("level", ritual.level);
-			ritualTag.putInt("color", ritual.getColorInt());
-			ritualTag.putInt("secondaryColor", ritual.getSecondaryColorInt());
-			tag.put("ritual", ritualTag);
+      output.store("ritual", RitualInfo.CODEC, new RitualInfo(ritual.level, ritual.getColorInt(), ritual.getSecondaryColorInt()));
 		}
 	}
 
   @Override
-  public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
-    for (int i = 0; i < inventory.getSlots(); i++) {
-      if (!levelAccessor.isClientSide) {
-        ItemStack slotStack = inventory.getStackInSlot(i);
-        if (!slotStack.isEmpty()) {
-          levelAccessor.addFreshEntity(new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, slotStack));
-        }
+  public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+    super.preRemoveSideEffects(pos, state);
+    try (Transaction tx = Transaction.openRoot()) {
+      for (int i = 0; i < inventory.size(); ++i) {
+        if (!inventory.getResource(i).isEmpty())
+          Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), inventory.getResource(i).toStack());
       }
+      tx.commit();
     }
-    this.setRemoved();
   }
 
   @Override
-  public ItemInteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
+  public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
     if (hand == InteractionHand.MAIN_HAND) {
       if (heldItem.isEmpty() && !player.isShiftKeyDown() && this.getProgress() == 0) {
         //try to withdraw an item
-        if (inventory.getSlots() > 0) {
-          ItemStack lastStack = InventoryUtil.getLastStack(inventory);
-          if (!lastStack.isEmpty()) {
-            if (!levelAccessor.isClientSide) {
-              levelAccessor.addFreshEntity(new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, lastStack.copy()));
+        if (inventory.size() > 0) {
+          try (Transaction tx = Transaction.openRoot()) {
+            Pair<Integer, ItemResource> lastResourcePair = InventoryUtil.getLastResource(inventory);
+            if (lastResourcePair.getFirst() == -1) {
+              return InteractionResult.PASS;
+            } else {
+              if (!lastResourcePair.getSecond().isEmpty()) {
+                if (inventory.extract(lastResourcePair.getSecond(), 1, tx) != 1) return InteractionResult.PASS;
+
+                if (!levelAccessor.isClientSide()) {
+                  levelAccessor.addFreshEntity(new ItemEntity(levelAccessor,
+                    pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5,
+                    lastResourcePair.getSecond().toStack()));
+                }
+                setChanged();
+                levelAccessor.sendBlockUpdated(pos, state, levelAccessor.getBlockState(pos), 3);
+                tx.commit();
+              }
+
             }
-            lastStack.shrink(1);
-            setChanged();
-            levelAccessor.sendBlockUpdated(pos, state, levelAccessor.getBlockState(pos), 3);
+
+            return InteractionResult.SUCCESS;
           }
-          return ItemInteractionResult.SUCCESS;
         }
       }
       else if (player.isShiftKeyDown() && heldItem.isEmpty() && this.getProgress() == 0) {
@@ -143,14 +147,14 @@ public class AltarBlockEntity extends BEBase {
         setCurrentRitual(null);
         var optionalRitual = RitualRegistry.findMatchingByIngredients(this);
         if (optionalRitual.isEmpty()) {
-          player.displayClientMessage(Component.translatable("rootsclassic.error.noritual.ingredients"), true);
-          return ItemInteractionResult.FAIL;
+          player.sendOverlayMessage(Component.translatable("rootsclassic.error.noritual.ingredients"));
+          return InteractionResult.FAIL;
         }
         var recipeHolder = optionalRitual.get();
 				var recipe = recipeHolder.value();
         if (!RitualPillars.verifyPositionBlocks(recipe, levelAccessor, pos)) {
-          player.displayClientMessage(Component.translatable("rootsclassic.error.noritual.stones"), true);
-          return ItemInteractionResult.FAIL;
+          player.sendOverlayMessage(Component.translatable("rootsclassic.error.noritual.stones"));
+          return InteractionResult.FAIL;
         }
         //does it match everything else?
         if (recipe.incenseMatches(level, pos)) {
@@ -165,29 +169,33 @@ public class AltarBlockEntity extends BEBase {
           //          System.out.println(" ritual STARTED " + ritual.name);
           setChanged();
           levelAccessor.sendBlockUpdated(pos, state, levelAccessor.getBlockState(pos), 3);
-          player.displayClientMessage(Component.translatable("rootsclassic.ritual.started"), true);
+          player.sendOverlayMessage(Component.translatable("rootsclassic.ritual.started"));
         }
         else {
-          player.displayClientMessage(Component.translatable("rootsclassic.error.noritual.incense"), true);
+          player.sendOverlayMessage(Component.translatable("rootsclassic.error.noritual.incense"));
         }
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
       }
       else {
         //try to insert an item into the altar
         if (!InventoryUtil.isFull(inventory) && getProgress() == 0) {
-          ItemStack copyStack = heldItem.copy();
-          copyStack.setCount(1);
-          ItemStack remaining = ItemHandlerHelper.insertItem(inventory, copyStack, false);
-          if (remaining.isEmpty()) {
-            heldItem.shrink(1);
-            setChanged();
-            levelAccessor.sendBlockUpdated(pos, state, levelAccessor.getBlockState(pos), 3);
+          try (Transaction tx = Transaction.openRoot()) {
+            ItemStack copyStack = heldItem.copy();
+            copyStack.setCount(1);
+            if (inventory.insert(ItemResource.of(copyStack), 1, tx) != 1) {
+              return InteractionResult.PASS;
+            } else {
+              tx.commit();
+              heldItem.shrink(1);
+              setChanged();
+              levelAccessor.sendBlockUpdated(pos, state, levelAccessor.getBlockState(pos), 3);
+            }
           }
-          return ItemInteractionResult.SUCCESS;
+          return InteractionResult.SUCCESS;
         }
       }
     }
-    return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    return InteractionResult.PASS;
   }
 
   public static void serverTick(Level level, BlockPos pos, BlockState state, AltarBlockEntity tile) {
@@ -227,58 +235,58 @@ public class AltarBlockEntity extends BEBase {
       var pillarPositions = pillars.keySet().stream().toList();
       var color = tile.clientRitualColor;
       var secondaryColor = tile.clientRitualSecondaryColor;
-      if (color == null || secondaryColor == null) return;
+      if (color == -1 || secondaryColor == -1) return;
       if (pillarPositions.size() > 0) {
-        BlockPos particlePos = pillarPositions.get(level.random.nextInt(pillarPositions.size())).above()
+        BlockPos particlePos = pillarPositions.get(level.getRandom().nextInt(pillarPositions.size())).above()
             .offset(pos.getX(), pos.getY(), pos.getZ());
-        if (level.random.nextInt(6) == 0) {
-          level.addParticle(MagicLineParticleData.createData(color.getRed(), color.getGreen(), color.getBlue()),
+        if (level.getRandom().nextInt(6) == 0) {
+          level.addParticle(MagicLineParticleData.createData(ARGB.red(color), ARGB.green(color), ARGB.blue(color)),
               particlePos.getX() + 0.5, particlePos.getY() + 0.125, particlePos.getZ() + 0.5,
               particlePos.getX() + 0.5, particlePos.getY() + 0.875, particlePos.getZ() + 0.5);
         }
         else {
-          level.addParticle(MagicLineParticleData.createData(secondaryColor.getRed(), secondaryColor.getGreen(), secondaryColor.getBlue()),
+          level.addParticle(MagicLineParticleData.createData(ARGB.red(secondaryColor), ARGB.green(secondaryColor), ARGB.blue(secondaryColor)),
               particlePos.getX() + 0.5, particlePos.getY() + 0.125, particlePos.getZ() + 0.5,
               particlePos.getX() + 0.5, particlePos.getY() + 0.875, particlePos.getZ() + 0.5);
         }
       }
-      if (level.random.nextInt(4) == 0) {
-        level.addParticle(MagicAltarParticleData.createData(color.getRed(), color.getGreen(), color.getBlue()),
+      if (level.getRandom().nextInt(4) == 0) {
+        level.addParticle(MagicAltarParticleData.createData(ARGB.red(color), ARGB.green(color), ARGB.blue(color)),
             pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
             0.125 * Math.sin(Math.toRadians(360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(360.0 * (tile.getProgress() % 100) / 100.0)));
       }
       else {
-        level.addParticle(MagicAltarParticleData.createData(secondaryColor.getRed(), secondaryColor.getGreen(), secondaryColor.getBlue()),
+        level.addParticle(MagicAltarParticleData.createData(ARGB.red(secondaryColor), ARGB.green(secondaryColor), ARGB.blue(secondaryColor)),
             pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
             0.125 * Math.sin(Math.toRadians(360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(360.0 * (tile.getProgress() % 100) / 100.0)));
       }
-      if (level.random.nextInt(4) == 0) {
-        level.addParticle(MagicAltarParticleData.createData(color.getRed(), color.getGreen(), color.getBlue()),
+      if (level.getRandom().nextInt(4) == 0) {
+        level.addParticle(MagicAltarParticleData.createData(ARGB.red(color), ARGB.green(color), ARGB.blue(color)),
             pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
             .125 * Math.sin(Math.toRadians(90.0 + 360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(90.0 + 360.0 * (tile.getProgress() % 100) / 100.0)));
       }
       else {
-        level.addParticle(MagicAltarParticleData.createData(secondaryColor.getRed(), secondaryColor.getGreen(), secondaryColor.getBlue()),
+        level.addParticle(MagicAltarParticleData.createData(ARGB.red(secondaryColor), ARGB.green(secondaryColor), ARGB.blue(secondaryColor)),
             pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
             .125 * Math.sin(Math.toRadians(90.0 + 360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(90.0 + 360.0 * (tile.getProgress() % 100) / 100.0)));
       }
-      if (level.random.nextInt(4) == 0) {
-        level.addParticle(MagicAltarParticleData.createData(color.getRed(), color.getGreen(), color.getBlue()),
+      if (level.getRandom().nextInt(4) == 0) {
+        level.addParticle(MagicAltarParticleData.createData(ARGB.red(color), ARGB.green(color), ARGB.blue(color)),
             pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
             .125 * Math.sin(Math.toRadians(180.0 + 360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(180.0 + 360.0 * (tile.getProgress() % 100) / 100.0)));
       }
       else {
-        level.addParticle(MagicAltarParticleData.createData(secondaryColor.getRed(), secondaryColor.getGreen(), secondaryColor.getBlue()),
+        level.addParticle(MagicAltarParticleData.createData(ARGB.red(secondaryColor), ARGB.green(secondaryColor), ARGB.blue(secondaryColor)),
             pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
             .125 * Math.sin(Math.toRadians(180.0 + 360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(180.0 + 360.0 * (tile.getProgress() % 100) / 100.0)));
       }
-      if (level.random.nextInt(4) == 0) {
-        level.addParticle(MagicAltarParticleData.createData(color.getRed(), color.getGreen(), color.getBlue()),
+      if (level.getRandom().nextInt(4) == 0) {
+        level.addParticle(MagicAltarParticleData.createData(ARGB.red(color), ARGB.green(color), ARGB.blue(color)),
             pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
             .125 * Math.sin(Math.toRadians(270.0 + 360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(270.0 + 360.0 * (tile.getProgress() % 100) / 100.0)));
       }
       else {
-        level.addParticle(MagicAltarParticleData.createData(secondaryColor.getRed(), secondaryColor.getGreen(), secondaryColor.getBlue()),
+        level.addParticle(MagicAltarParticleData.createData(ARGB.red(secondaryColor), ARGB.green(secondaryColor), ARGB.blue(secondaryColor)),
             pos.getX() + 0.5, pos.getY() + 0.875, pos.getZ() + 0.5,
             .125 * Math.sin(Math.toRadians(270.0 + 360.0 * (tile.getProgress() % 100) / 100.0)), 0, 0.125 * Math.cos(Math.toRadians(270.0 + 360.0 * (tile.getProgress() % 100) / 100.0)));
       }
@@ -326,8 +334,11 @@ public class AltarBlockEntity extends BEBase {
   }
 
   public void emptyAltar() {
-    for (int i = 0; i < inventory.getSlots(); i++) {
-      inventory.setStackInSlot(i, ItemStack.EMPTY);
+    try (Transaction tx = Transaction.openRoot()) {
+      for (int i = 0; i < inventory.size(); i++) {
+        inventory.set(i, ItemResource.EMPTY, 0);
+      }
+      tx.commit();
     }
   }
   //	public ItemStack getResultItem() { TODO: Unused?
@@ -340,4 +351,12 @@ public class AltarBlockEntity extends BEBase {
   //		}
   //		this.resultItem = resultItem;
   //	}
+
+  private static record RitualInfo(int level, int color, int secondaryColor) {
+    private static final Codec<RitualInfo> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+      Codec.INT.fieldOf("level").forGetter(RitualInfo::level),
+      Codec.INT.fieldOf("color").forGetter(RitualInfo::color),
+      Codec.INT.fieldOf("secondaryColor").forGetter(RitualInfo::secondaryColor)
+    ).apply(instance, RitualInfo::new));
+  }
 }

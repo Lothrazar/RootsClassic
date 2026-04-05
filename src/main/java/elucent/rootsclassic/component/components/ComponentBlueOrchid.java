@@ -23,7 +23,7 @@ public class ComponentBlueOrchid extends ComponentBase {
 
   @Override
   public void doEffect(Level level, Entity casterEntity, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (type == EnumCastType.SPELL && casterEntity instanceof LivingEntity caster && !level.isClientSide) {
+    if (type == EnumCastType.SPELL && casterEntity instanceof LivingEntity caster && !level.isClientSide()) {
       BlockPos pos = RootsUtil.getRayTrace(level, caster, 4 + 2 * (int) size);
       BlockState state = level.getBlockState(pos);
       if (state.is(BlockTags.BASE_STONE_OVERWORLD) || state.is(BlockTags.DIRT) || state.is(Blocks.GRASS_BLOCK) || state.is(BlockTags.SAND) || state.is(Blocks.GRAVEL)) {
@@ -37,46 +37,46 @@ public class ComponentBlueOrchid extends ComponentBase {
         for (LivingEntity target : targets) {
           target.push(0, 3, 0);
           Vec3 motion = target.getDeltaMovement();
-          target.setDeltaMovement(motion.x, 0.65 + level.random.nextDouble() + 0.25 * potency, motion.z);
+          target.setDeltaMovement(motion.x, 0.65 + level.getRandom().nextDouble() + 0.25 * potency, motion.z);
           if (target instanceof Player targetPlayer) {
             targetPlayer.hurtMarked = true;
           }
         }
-        if (level.random.nextInt(3) == 0) {
+        if (level.getRandom().nextInt(3) == 0) {
           level.setBlockAndUpdate(pos.above().west().north(), state);
         }
-        if (level.random.nextInt(3) == 0) {
+        if (level.getRandom().nextInt(3) == 0) {
           level.setBlockAndUpdate(pos.above().east().south(), state);
         }
-        if (level.random.nextInt(3) == 0) {
+        if (level.getRandom().nextInt(3) == 0) {
           level.setBlockAndUpdate(pos.above().north().east(), state);
         }
-        if (level.random.nextInt(3) == 0) {
+        if (level.getRandom().nextInt(3) == 0) {
           level.setBlockAndUpdate(pos.above().south().west(), state);
         }
-        if (level.random.nextInt(1) == 0) {
+        if (level.getRandom().nextInt(1) == 0) {
           level.setBlockAndUpdate(pos.above().west(), state);
         }
-        if (level.random.nextInt(1) == 0) {
+        if (level.getRandom().nextInt(1) == 0) {
           level.setBlockAndUpdate(pos.above().east(), state);
         }
-        if (level.random.nextInt(1) == 0) {
+        if (level.getRandom().nextInt(1) == 0) {
           level.setBlockAndUpdate(pos.above().north(), state);
         }
-        if (level.random.nextInt(1) == 0) {
+        if (level.getRandom().nextInt(1) == 0) {
           level.setBlockAndUpdate(pos.above().south(), state);
         }
         level.setBlockAndUpdate(pos.above().above(), state);
-        if (level.random.nextInt(3) == 0) {
+        if (level.getRandom().nextInt(3) == 0) {
           level.setBlockAndUpdate(pos.above().above().west(), state);
         }
-        if (level.random.nextInt(3) == 0) {
+        if (level.getRandom().nextInt(3) == 0) {
           level.setBlockAndUpdate(pos.above().above().east(), state);
         }
-        if (level.random.nextInt(3) == 0) {
+        if (level.getRandom().nextInt(3) == 0) {
           level.setBlockAndUpdate(pos.above().above().north(), state);
         }
-        if (level.random.nextInt(3) == 0) {
+        if (level.getRandom().nextInt(3) == 0) {
           level.setBlockAndUpdate(pos.above().above().south(), state);
         }
         level.setBlockAndUpdate(pos.above().above().above(), state);
