@@ -6,23 +6,14 @@
     "entity": "minecraft:chicken"
   },
   "incenses": [
-    {
-      "item": "minecraft:wheat_seeds"
-    },
-    {
-      "item": "minecraft:nether_wart"
-    }
+    "minecraft:chicken",
+    "minecraft:feather",
+    "minecraft:bone"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:chicken"
-    },
-    {
-      "item": "minecraft:feather"
-    },
-    {
-      "item": "minecraft:bone"
-    }
+    "minecraft:chicken",
+    "minecraft:feather",
+    "minecraft:bone"
   ],
   "level": 1
 }

@@ -4,28 +4,18 @@
   "effect": "rootsclassic:crafting",
   "effectConfig": {
     "result": {
-      "count": 1,
       "id": "rootsclassic:charged_runic_focus"
     }
   },
   "incenses": [
-    {
-      "item": "rootsclassic:infernal_bulb"
-    },
-    {
-      "item": "minecraft:wheat"
-    }
+    "rootsclassic:runic_focus",
+    "minecraft:redstone",
+    "minecraft:glowstone_dust"
   ],
   "ingredients": [
-    {
-      "item": "rootsclassic:runic_focus"
-    },
-    {
-      "item": "minecraft:redstone"
-    },
-    {
-      "item": "minecraft:glowstone_dust"
-    }
+    "rootsclassic:runic_focus",
+    "minecraft:redstone",
+    "minecraft:glowstone_dust"
   ],
   "level": 0
 }

@@ -6,23 +6,14 @@
     "entity": "minecraft:enderman"
   },
   "incenses": [
-    {
-      "item": "minecraft:coal"
-    },
-    {
-      "item": "minecraft:nether_wart"
-    }
+    "minecraft:ender_pearl",
+    "minecraft:ender_pearl",
+    "minecraft:bone"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:ender_pearl"
-    },
-    {
-      "item": "minecraft:ender_pearl"
-    },
-    {
-      "item": "minecraft:bone"
-    }
+    "minecraft:ender_pearl",
+    "minecraft:ender_pearl",
+    "minecraft:bone"
   ],
   "level": 2
 }

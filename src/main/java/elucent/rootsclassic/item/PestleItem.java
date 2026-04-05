@@ -7,6 +7,6 @@ import net.minecraft.world.item.ItemStackTemplate;
 public class PestleItem extends Item {
 
   public PestleItem(Properties properties) {
-    super(properties.craftRemainder(new ItemStackTemplate(RootsRegistry.PESTLE.get(), 1)));
+    super(properties.craftRemainder(new ItemStackTemplate(RootsRegistry.PESTLE, 1)));
   }
 }

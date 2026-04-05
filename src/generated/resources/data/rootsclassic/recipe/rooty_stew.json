@@ -2,18 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:crops/wheat"
-    },
-    {
-      "item": "minecraft:bowl"
-    },
-    {
-      "item": "rootsclassic:old_root"
-    }
+    "#c:crops/wheat",
+    "minecraft:bowl",
+    "rootsclassic:old_root"
   ],
   "result": {
-    "count": 1,
     "id": "rootsclassic:rooty_stew"
   }
 }

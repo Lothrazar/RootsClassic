@@ -3,23 +3,14 @@
   "color": "#ff5b19",
   "effect": "rootsclassic:flare",
   "incenses": [
-    {
-      "item": "minecraft:gunpowder"
-    },
-    {
-      "item": "rootsclassic:infernal_bulb"
-    }
+    "minecraft:flint",
+    "minecraft:coal",
+    "minecraft:charcoal"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:flint"
-    },
-    {
-      "item": "minecraft:coal"
-    },
-    {
-      "item": "minecraft:charcoal"
-    }
+    "minecraft:flint",
+    "minecraft:coal",
+    "minecraft:charcoal"
   ],
   "level": 1
 }

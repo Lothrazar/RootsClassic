@@ -6,23 +6,14 @@
     "entity": "minecraft:rabbit"
   },
   "incenses": [
-    {
-      "item": "minecraft:wheat_seeds"
-    },
-    {
-      "item": "minecraft:nether_wart"
-    }
+    "minecraft:rabbit",
+    "minecraft:rabbit_hide",
+    "minecraft:bone"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:rabbit"
-    },
-    {
-      "item": "minecraft:rabbit_hide"
-    },
-    {
-      "item": "minecraft:bone"
-    }
+    "minecraft:rabbit",
+    "minecraft:rabbit_hide",
+    "minecraft:bone"
   ],
   "level": 1
 }

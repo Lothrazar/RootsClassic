@@ -6,23 +6,14 @@
     "entity": "minecraft:slime"
   },
   "incenses": [
-    {
-      "item": "minecraft:coal"
-    },
-    {
-      "item": "minecraft:nether_wart"
-    }
+    "minecraft:slime_ball",
+    "minecraft:slime_ball",
+    "minecraft:slime_ball"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:slime_ball"
-    },
-    {
-      "item": "minecraft:slime_ball"
-    },
-    {
-      "item": "minecraft:slime_ball"
-    }
+    "minecraft:slime_ball",
+    "minecraft:slime_ball",
+    "minecraft:slime_ball"
   ],
   "level": 2
 }

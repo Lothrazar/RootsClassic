@@ -4,34 +4,18 @@
   "effect": "rootsclassic:crafting",
   "effectConfig": {
     "result": {
-      "count": 1,
       "id": "rootsclassic:sylvan_boots"
     }
   },
   "incenses": [
-    {
-      "item": "rootsclassic:birch_bark"
-    },
-    {
-      "item": "rootsclassic:birch_bark"
-    },
-    {
-      "item": "minecraft:golden_apple"
-    },
-    {
-      "item": "minecraft:poppy"
-    }
+    "minecraft:diamond",
+    "minecraft:leather_boots",
+    "minecraft:vine"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:diamond"
-    },
-    {
-      "item": "minecraft:leather_boots"
-    },
-    {
-      "item": "minecraft:vine"
-    }
+    "minecraft:diamond",
+    "minecraft:leather_boots",
+    "minecraft:vine"
   ],
   "level": 2
 }

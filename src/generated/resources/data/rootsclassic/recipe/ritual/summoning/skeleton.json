@@ -6,23 +6,14 @@
     "entity": "minecraft:skeleton"
   },
   "incenses": [
-    {
-      "item": "minecraft:coal"
-    },
-    {
-      "item": "minecraft:nether_wart"
-    }
+    "minecraft:arrow",
+    "minecraft:bone",
+    "minecraft:bone"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:arrow"
-    },
-    {
-      "item": "minecraft:bone"
-    },
-    {
-      "item": "minecraft:bone"
-    }
+    "minecraft:arrow",
+    "minecraft:bone",
+    "minecraft:bone"
   ],
   "level": 2
 }

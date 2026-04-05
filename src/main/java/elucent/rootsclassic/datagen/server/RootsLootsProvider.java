@@ -1,32 +1,26 @@
 package elucent.rootsclassic.datagen.server;
 
 import elucent.rootsclassic.block.AttunedStandingStoneBlock;
-import elucent.rootsclassic.registry.RootsEntities;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Stream;
 
 public class RootsLootsProvider extends LootTableProvider {
 
 	public RootsLootsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
 		super(packOutput, Set.of(), List.of(
-			new SubProviderEntry(RootsBlockLoot::new, LootContextParamSets.BLOCK),
-			new SubProviderEntry(RootsEntityLoot::new, LootContextParamSets.ENTITY)
+			new SubProviderEntry(RootsBlockLoot::new, LootContextParamSets.BLOCK)
 		), lookupProvider);
 	}
 
@@ -64,28 +58,6 @@ public class RootsLootsProvider extends LootTableProvider {
 		@Override
 		protected Iterable<Block> getKnownBlocks() {
 			return RootsRegistry.BLOCKS.getEntries().stream().map(holder -> (Block)holder.value())::iterator;
-		}
-	}
-
-	private static class RootsEntityLoot extends EntityLootSubProvider {
-
-		protected RootsEntityLoot(HolderLookup.Provider provider) {
-			super(FeatureFlags.REGISTRY.allFlags(), provider);
-		}
-
-		@Override
-		public void generate() {
-			this.add(RootsEntities.PHANTOM_SKELETON.get(), LootTable.lootTable());
-		}
-
-//		@Override
-//		protected boolean canHaveLootTable(EntityType<?> entityType) {
-//			return entityType.getCategory() != MobCategory.MISC;
-//		}
-
-		@Override
-		protected Stream<EntityType<?>> getKnownEntityTypes() {
-			return RootsEntities.ENTITY_TYPES.getEntries().stream().map(DeferredHolder::get);
 		}
 	}
 }

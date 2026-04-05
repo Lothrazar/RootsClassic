@@ -2,21 +2,9 @@
   "type": "rootsclassic:component",
   "effect": "rootsclassic:chorus",
   "ingredients": [
-    {
-      "item": "minecraft:chorus_fruit"
-    },
-    {
-      "item": "minecraft:ender_pearl"
-    },
-    {
-      "item": "minecraft:purple_dye"
-    },
-    {
-      "item": "minecraft:popped_chorus_fruit"
-    }
-  ],
-  "result": {
-    "count": 1,
-    "id": "rootsclassic:spell_powder"
-  }
+    "minecraft:chorus_fruit",
+    "minecraft:ender_pearl",
+    "minecraft:purple_dye",
+    "minecraft:popped_chorus_fruit"
+  ]
 }

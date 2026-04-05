@@ -6,23 +6,14 @@
     "entity": "minecraft:cow"
   },
   "incenses": [
-    {
-      "item": "minecraft:wheat_seeds"
-    },
-    {
-      "item": "minecraft:nether_wart"
-    }
+    "minecraft:beef",
+    "minecraft:leather",
+    "minecraft:bone"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:beef"
-    },
-    {
-      "item": "minecraft:leather"
-    },
-    {
-      "item": "minecraft:bone"
-    }
+    "minecraft:beef",
+    "minecraft:leather",
+    "minecraft:bone"
   ],
   "level": 1
 }

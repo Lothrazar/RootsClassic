@@ -2,21 +2,9 @@
   "type": "rootsclassic:component",
   "effect": "rootsclassic:white_tulip",
   "ingredients": [
-    {
-      "item": "minecraft:white_tulip"
-    },
-    {
-      "item": "minecraft:snowball"
-    },
-    {
-      "item": "minecraft:birch_sapling"
-    },
-    {
-      "item": "rootsclassic:whitecurrant"
-    }
-  ],
-  "result": {
-    "count": 1,
-    "id": "rootsclassic:spell_powder"
-  }
+    "minecraft:white_tulip",
+    "minecraft:snowball",
+    "minecraft:birch_sapling",
+    "rootsclassic:whitecurrant"
+  ]
 }

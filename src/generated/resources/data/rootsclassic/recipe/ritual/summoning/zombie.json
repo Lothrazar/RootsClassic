@@ -6,23 +6,14 @@
     "entity": "minecraft:zombie"
   },
   "incenses": [
-    {
-      "item": "minecraft:coal"
-    },
-    {
-      "item": "minecraft:nether_wart"
-    }
+    "minecraft:rotten_flesh",
+    "minecraft:rotten_flesh",
+    "minecraft:bone"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:rotten_flesh"
-    },
-    {
-      "item": "minecraft:rotten_flesh"
-    },
-    {
-      "item": "minecraft:bone"
-    }
+    "minecraft:rotten_flesh",
+    "minecraft:rotten_flesh",
+    "minecraft:bone"
   ],
   "level": 2
 }

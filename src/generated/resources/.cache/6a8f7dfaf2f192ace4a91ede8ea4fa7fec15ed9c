@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-12T14:27:48.7081522	Tags for minecraft:item mod id rootsclassic
+// 26.1.1	2026-04-05T18:43:31.5156473	Tags for minecraft:item mod id rootsclassic
 305a860bb71fcbbf622c49615c613e8e64f52c49 data/c/tags/item/foods.json
 c93c28c54153bab27fce66d4c787d35c58585b85 data/c/tags/item/foods/berry.json
 6af53b8a2764d27cf5d2794ff905431abcc7960b data/c/tags/item/foods/soup.json
@@ -19,3 +19,7 @@ c4051d254858a3362e0addf7c78c6dd59f7573d1 data/rootsclassic/tags/item/barks/jungl
 d1b46b84935a0a490d9425020c3181076293da75 data/rootsclassic/tags/item/barks/oak.json
 1b24c59ba81afe379e5c7f55a3a366d6250b3fe7 data/rootsclassic/tags/item/barks/spruce.json
 f1d46d02faa59923ed7d8dbe15b07f641f21dfbe data/rootsclassic/tags/item/berries.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/rootsclassic/tags/item/engraved_tool_materials.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/rootsclassic/tags/item/living_tool_materials.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/rootsclassic/tags/item/repairs_sylvan.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/rootsclassic/tags/item/repairs_wildwood.json

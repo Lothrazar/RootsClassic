@@ -3,29 +3,14 @@
   "color": "#52d42f",
   "effect": "rootsclassic:grow",
   "incenses": [
-    {
-      "item": "minecraft:wheat"
-    },
-    {
-      "item": "minecraft:beetroot"
-    },
-    {
-      "item": "minecraft:potato"
-    },
-    {
-      "item": "minecraft:carrot"
-    }
+    "minecraft:redstone",
+    "minecraft:bone_meal",
+    "rootsclassic:verdant_sprig"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:redstone"
-    },
-    {
-      "item": "minecraft:bone_meal"
-    },
-    {
-      "item": "rootsclassic:verdant_sprig"
-    }
+    "minecraft:redstone",
+    "minecraft:bone_meal",
+    "rootsclassic:verdant_sprig"
   ],
   "level": 0
 }

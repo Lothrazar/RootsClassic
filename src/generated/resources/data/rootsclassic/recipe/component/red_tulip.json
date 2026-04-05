@@ -2,21 +2,9 @@
   "type": "rootsclassic:component",
   "effect": "rootsclassic:red_tulip",
   "ingredients": [
-    {
-      "item": "minecraft:red_tulip"
-    },
-    {
-      "item": "minecraft:nether_brick"
-    },
-    {
-      "item": "minecraft:quartz"
-    },
-    {
-      "item": "minecraft:red_sand"
-    }
-  ],
-  "result": {
-    "count": 1,
-    "id": "rootsclassic:spell_powder"
-  }
+    "minecraft:red_tulip",
+    "minecraft:nether_brick",
+    "minecraft:quartz",
+    "minecraft:red_sand"
+  ]
 }

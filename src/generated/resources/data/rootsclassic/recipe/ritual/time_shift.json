@@ -3,17 +3,12 @@
   "color": "#f0f563",
   "effect": "rootsclassic:time_shift",
   "incenses": [
-    {
-      "item": "minecraft:clock"
-    }
+    "minecraft:clock",
+    "minecraft:iron_ingot"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:clock"
-    },
-    {
-      "item": "minecraft:iron_ingot"
-    }
+    "minecraft:clock",
+    "minecraft:iron_ingot"
   ],
   "level": 1,
   "secondaryColor": "#fca223"

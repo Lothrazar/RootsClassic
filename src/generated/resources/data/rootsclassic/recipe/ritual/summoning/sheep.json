@@ -6,23 +6,14 @@
     "entity": "minecraft:sheep"
   },
   "incenses": [
-    {
-      "item": "minecraft:wheat_seeds"
-    },
-    {
-      "item": "minecraft:nether_wart"
-    }
+    "minecraft:mutton",
+    "#minecraft:wool",
+    "minecraft:bone"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:mutton"
-    },
-    {
-      "tag": "minecraft:wool"
-    },
-    {
-      "item": "minecraft:bone"
-    }
+    "minecraft:mutton",
+    "#minecraft:wool",
+    "minecraft:bone"
   ],
   "level": 1
 }

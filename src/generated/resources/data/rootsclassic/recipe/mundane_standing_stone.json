@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "minecraft:stone_bricks"
-    },
-    "L": {
-      "tag": "c:storage_blocks/lapis"
-    },
-    "S": {
-      "tag": "c:stones"
-    }
+    "B": "minecraft:stone_bricks",
+    "L": "#c:storage_blocks/lapis",
+    "S": "#c:stones"
   },
   "pattern": [
     "SBS",
@@ -18,7 +12,6 @@
     "SBS"
   ],
   "result": {
-    "count": 1,
     "id": "rootsclassic:mundane_standing_stone"
   }
 }

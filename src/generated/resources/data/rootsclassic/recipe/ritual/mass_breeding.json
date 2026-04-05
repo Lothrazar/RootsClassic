@@ -3,26 +3,12 @@
   "color": "#943d51",
   "effect": "rootsclassic:mass_breeding",
   "incenses": [
-    {
-      "item": "minecraft:carrot"
-    },
-    {
-      "item": "minecraft:wheat"
-    },
-    {
-      "item": "minecraft:wheat_seeds"
-    },
-    {
-      "item": "minecraft:cod"
-    }
+    "minecraft:glowstone_dust",
+    "minecraft:bone"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:glowstone_dust"
-    },
-    {
-      "item": "minecraft:bone"
-    }
+    "minecraft:glowstone_dust",
+    "minecraft:bone"
   ],
   "level": 2
 }

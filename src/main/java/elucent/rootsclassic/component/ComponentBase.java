@@ -7,13 +7,14 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 
 public class ComponentBase {
 
-  private ItemStack itemSource = ItemStack.EMPTY;
+  private ItemStackTemplate itemSource = null;
   public Vec3 primaryColor = new Vec3(0, 0, 0);
   public Vec3 secondaryColor = new Vec3(0, 0, 0);
   private float manaCost = 0;
@@ -34,17 +35,17 @@ public class ComponentBase {
     return this;
   }
 
-  public ComponentBase(ItemStack item, int cost) {
+  public ComponentBase(ItemStackTemplate item, int cost) {
     this.setManaCost(cost);
     itemSource = item;
   }
 
   public ComponentBase(Item item, int cost) {
-    this(new ItemStack(item), cost);
+    this(new ItemStackTemplate(item), cost);
   }
 
   public ComponentBase(Block block, int cost) {
-    this(new ItemStack(block), cost);
+    this(new ItemStackTemplate(block.asItem()), cost);
   }
 
   public MutableComponent getEffectName() {
@@ -56,7 +57,7 @@ public class ComponentBase {
   }
 
   public ItemStack getItem() {
-    return itemSource;
+    return itemSource.create();
   }
 
   public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {}

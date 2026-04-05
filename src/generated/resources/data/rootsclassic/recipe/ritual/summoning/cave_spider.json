@@ -6,23 +6,14 @@
     "entity": "minecraft:cave_spider"
   },
   "incenses": [
-    {
-      "item": "minecraft:coal"
-    },
-    {
-      "item": "minecraft:nether_wart"
-    }
+    "minecraft:string",
+    "minecraft:fermented_spider_eye",
+    "minecraft:bone"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:string"
-    },
-    {
-      "item": "minecraft:fermented_spider_eye"
-    },
-    {
-      "item": "minecraft:bone"
-    }
+    "minecraft:string",
+    "minecraft:fermented_spider_eye",
+    "minecraft:bone"
   ],
   "level": 2
 }

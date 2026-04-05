@@ -6,23 +6,14 @@
     "entity": "minecraft:pig"
   },
   "incenses": [
-    {
-      "item": "minecraft:wheat_seeds"
-    },
-    {
-      "item": "minecraft:nether_wart"
-    }
+    "minecraft:porkchop",
+    "minecraft:porkchop",
+    "minecraft:bone"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:porkchop"
-    },
-    {
-      "item": "minecraft:porkchop"
-    },
-    {
-      "item": "minecraft:bone"
-    }
+    "minecraft:porkchop",
+    "minecraft:porkchop",
+    "minecraft:bone"
   ],
   "level": 1
 }

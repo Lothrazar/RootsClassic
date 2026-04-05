@@ -2,21 +2,9 @@
   "type": "rootsclassic:component",
   "effect": "rootsclassic:allium",
   "ingredients": [
-    {
-      "item": "minecraft:allium"
-    },
-    {
-      "item": "minecraft:soul_sand"
-    },
-    {
-      "item": "minecraft:brown_mushroom"
-    },
-    {
-      "item": "rootsclassic:elderberry"
-    }
-  ],
-  "result": {
-    "count": 1,
-    "id": "rootsclassic:spell_powder"
-  }
+    "minecraft:allium",
+    "minecraft:soul_sand",
+    "minecraft:brown_mushroom",
+    "rootsclassic:elderberry"
+  ]
 }

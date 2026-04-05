@@ -2,21 +2,9 @@
   "type": "rootsclassic:component",
   "effect": "rootsclassic:poisonous_potato",
   "ingredients": [
-    {
-      "item": "minecraft:poisonous_potato"
-    },
-    {
-      "item": "minecraft:glass"
-    },
-    {
-      "item": "minecraft:glowstone"
-    },
-    {
-      "item": "minecraft:sugar_cane"
-    }
-  ],
-  "result": {
-    "count": 1,
-    "id": "rootsclassic:spell_powder"
-  }
+    "minecraft:poisonous_potato",
+    "minecraft:glass",
+    "minecraft:glowstone",
+    "minecraft:sugar_cane"
+  ]
 }

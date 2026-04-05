@@ -4,28 +4,18 @@
   "effect": "rootsclassic:engraved_crafting",
   "effectConfig": {
     "result": {
-      "count": 1,
       "id": "rootsclassic:engraved_blade"
     }
   },
   "incenses": [
-    {
-      "item": "minecraft:golden_carrot"
-    },
-    {
-      "item": "minecraft:golden_apple"
-    }
+    "minecraft:stone_sword",
+    "rootsclassic:runic_focus",
+    "minecraft:glowstone_dust"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:stone_sword"
-    },
-    {
-      "item": "rootsclassic:runic_focus"
-    },
-    {
-      "item": "minecraft:glowstone_dust"
-    }
+    "minecraft:stone_sword",
+    "rootsclassic:runic_focus",
+    "minecraft:glowstone_dust"
   ],
   "level": 2
 }

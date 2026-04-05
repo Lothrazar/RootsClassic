@@ -3,14 +3,10 @@
   "color": "#17008a",
   "effect": "rootsclassic:cause_rain",
   "incenses": [
-    {
-      "item": "minecraft:vine"
-    }
+    "minecraft:lily_pad"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:lily_pad"
-    }
+    "minecraft:lily_pad"
   ],
   "level": 1
 }

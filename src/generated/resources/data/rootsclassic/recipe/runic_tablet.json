@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "tag": "c:stones"
-    },
-    "R": {
-      "item": "rootsclassic:old_root"
-    },
-    "S": {
-      "tag": "c:seeds/wheat"
-    }
+    "B": "#c:stones",
+    "R": "rootsclassic:old_root",
+    "S": "#c:seeds/wheat"
   },
   "pattern": [
     " R ",
@@ -18,7 +12,6 @@
     " S "
   ],
   "result": {
-    "count": 1,
     "id": "rootsclassic:runic_tablet"
   }
 }

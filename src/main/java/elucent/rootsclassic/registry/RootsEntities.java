@@ -28,6 +28,7 @@ public class RootsEntities {
       .eyeHeight(0.45F)
       .clientTrackingRange(6)
       .notInPeaceful()
+      .noLootTable()
   );
   public static final Supplier<EntityType<EntityAccelerator>> ENTITY_ACCELERATOR = ENTITY_TYPES.registerEntityType("entity_accelerator",
     EntityAccelerator::new,
@@ -37,6 +38,7 @@ public class RootsEntities {
       .clientTrackingRange(64)
       .updateInterval(20)
       .setShouldReceiveVelocityUpdates(true)
+      .noLootTable()
   );
   public static final Supplier<EntityType<EntityTileAccelerator>> TILE_ACCELERATOR = ENTITY_TYPES.registerEntityType("tile_accelerator",
     EntityTileAccelerator::new,
@@ -46,6 +48,7 @@ public class RootsEntities {
       .clientTrackingRange(64)
       .updateInterval(20)
       .setShouldReceiveVelocityUpdates(true)
+      .noLootTable()
   );
 
   public static void onSpawnPlacementRegisterEvent(RegisterSpawnPlacementsEvent event) {

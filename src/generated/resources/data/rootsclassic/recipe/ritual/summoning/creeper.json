@@ -6,23 +6,14 @@
     "entity": "minecraft:creeper"
   },
   "incenses": [
-    {
-      "item": "minecraft:coal"
-    },
-    {
-      "item": "minecraft:nether_wart"
-    }
+    "minecraft:gunpowder",
+    "minecraft:gunpowder",
+    "minecraft:bone"
   ],
   "ingredients": [
-    {
-      "item": "minecraft:gunpowder"
-    },
-    {
-      "item": "minecraft:gunpowder"
-    },
-    {
-      "item": "minecraft:bone"
-    }
+    "minecraft:gunpowder",
+    "minecraft:gunpowder",
+    "minecraft:bone"
   ],
   "level": 2
 }

@@ -2,21 +2,9 @@
   "type": "rootsclassic:component",
   "effect": "rootsclassic:lily_pad",
   "ingredients": [
-    {
-      "item": "minecraft:lily_pad"
-    },
-    {
-      "item": "minecraft:wet_sponge"
-    },
-    {
-      "item": "minecraft:beetroot"
-    },
-    {
-      "item": "rootsclassic:blackcurrant"
-    }
-  ],
-  "result": {
-    "count": 1,
-    "id": "rootsclassic:spell_powder"
-  }
+    "minecraft:lily_pad",
+    "minecraft:wet_sponge",
+    "minecraft:beetroot",
+    "rootsclassic:blackcurrant"
+  ]
 }

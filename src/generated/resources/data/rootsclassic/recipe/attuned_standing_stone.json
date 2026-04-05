@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "D": {
-      "tag": "c:gems/diamond"
-    },
-    "N": {
-      "item": "minecraft:nether_brick"
-    },
-    "S": {
-      "tag": "c:stones"
-    }
+    "D": "#c:gems/diamond",
+    "N": "minecraft:nether_brick",
+    "S": "#c:stones"
   },
   "pattern": [
     "SNS",
@@ -18,7 +12,6 @@
     "SNS"
   ],
   "result": {
-    "count": 1,
     "id": "rootsclassic:attuned_standing_stone"
   }
 }
