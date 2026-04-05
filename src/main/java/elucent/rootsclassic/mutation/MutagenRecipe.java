@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class MutagenRecipe {
 
-  final List<ItemStack> inputs = new ArrayList<>();
+  final List<ItemStackTemplate> inputs = new ArrayList<>();
   final Identifier name;
   final BlockState plantBlock;
   public final BlockState result;
@@ -27,17 +28,17 @@ public class MutagenRecipe {
     //Unused?
   }
 
-  public void addIngredient(ItemStack stack) {
+  public void addIngredient(ItemStackTemplate stack) {
     inputs.add(stack);
   }
 
   public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
     if (levelAccessor.getBlockState(pos).is(plantBlock.getBlock())) {
       List<ItemStack> tempItems = new ArrayList<>(items);
-      for (ItemStack input : inputs) {
+      for (ItemStackTemplate input : inputs) {
         boolean endIteration = false;
         for (int j = 0; j < tempItems.size() && !endIteration; j++) {
-          if (ItemStack.isSameItem(input, tempItems.get(j))) {
+          if (ItemStack.isSameItem(tempItems.get(j), input)) {
             tempItems.remove(j);
             endIteration = true;
           }

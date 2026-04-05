@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -18,8 +19,8 @@ public class MutagenFlareOrchidRecipe extends MutagenRecipe {
   public MutagenFlareOrchidRecipe() {
     super(Const.modLoc("flare_orchid"), Blocks.BLUE_ORCHID.defaultBlockState(),
 	    RootsRegistry.FLARE_ORCHID.get().defaultBlockState());
-    addIngredient(new ItemStack(Items.BLAZE_ROD, 1));
-    addIngredient(new ItemStack(Items.LAVA_BUCKET, 1));
+    addIngredient(new ItemStackTemplate(Items.BLAZE_ROD, 1));
+    addIngredient(new ItemStackTemplate(Items.LAVA_BUCKET, 1));
   }
 
   @Override

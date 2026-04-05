@@ -9,6 +9,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -20,8 +21,8 @@ public class MutagenRadiantDaisyRecipe extends MutagenRecipe {
   public MutagenRadiantDaisyRecipe() {
     super(Const.modLoc("radiant_daisy"), Blocks.OXEYE_DAISY.defaultBlockState(),
 	    RootsRegistry.RADIANT_DAISY.get().defaultBlockState());
-    addIngredient(new ItemStack(Blocks.GLOWSTONE, 1));
-    addIngredient(new ItemStack(Items.PRISMARINE_CRYSTALS, 1));
+    addIngredient(new ItemStackTemplate(Items.GLOWSTONE, 1));
+    addIngredient(new ItemStackTemplate(Items.PRISMARINE_CRYSTALS, 1));
   }
 
   @Override

@@ -7,6 +7,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
@@ -17,7 +19,7 @@ public class MutagenMidnightBloomRecipe extends MutagenRecipe {
   public MutagenMidnightBloomRecipe() {
     super(Const.modLoc("midnight_bloom"), Blocks.POPPY.defaultBlockState(),
 	    RootsRegistry.MIDNIGHT_BLOOM.get().defaultBlockState());
-    addIngredient(new ItemStack(Blocks.COAL_BLOCK, 1));
+    addIngredient(new ItemStackTemplate(Items.COAL_BLOCK, 1));
   }
 
   @Override
