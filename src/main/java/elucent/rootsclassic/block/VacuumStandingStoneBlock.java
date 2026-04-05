@@ -1,6 +1,5 @@
 package elucent.rootsclassic.block;
 
-import org.jspecify.annotations.Nullable;
 import elucent.rootsclassic.blockentity.VacuumStandingStoneTile;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
@@ -11,6 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import org.jspecify.annotations.Nullable;
 
 public class VacuumStandingStoneBlock extends AttunedStandingStoneBlock implements EntityBlock {
 

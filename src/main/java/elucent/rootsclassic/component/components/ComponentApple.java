@@ -1,7 +1,5 @@
 package elucent.rootsclassic.component.components;
 
-import java.util.ArrayList;
-import java.util.List;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -10,6 +8,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ComponentApple extends ComponentBase {
 

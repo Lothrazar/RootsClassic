@@ -4,7 +4,6 @@ import elucent.rootsclassic.recipe.RitualRecipe;
 import elucent.rootsclassic.ritual.RitualPillars;
 import mezz.jei.api.recipe.category.extensions.IRecipeCategoryExtension;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;

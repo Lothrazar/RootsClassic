@@ -1,12 +1,13 @@
 package elucent.rootsclassic.research;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import elucent.rootsclassic.Roots;
 import elucent.rootsclassic.recipe.RitualRecipe;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class ResearchBase {
 

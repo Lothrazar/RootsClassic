@@ -1,6 +1,5 @@
 package elucent.rootsclassic.component.components;
 
-import java.util.List;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
@@ -10,6 +9,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+
+import java.util.List;
 
 public class ComponentMidnightBloom extends ComponentBase {
 

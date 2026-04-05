@@ -1,6 +1,5 @@
 package elucent.rootsclassic.block.mortar;
 
-import org.jspecify.annotations.Nullable;
 import elucent.rootsclassic.block.BaseBEBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -10,6 +9,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jspecify.annotations.Nullable;
 
 public class MortarBlock extends BaseBEBlock implements EntityBlock {
 

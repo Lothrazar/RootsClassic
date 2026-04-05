@@ -1,7 +1,5 @@
 package elucent.rootsclassic.component.components;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import elucent.rootsclassic.client.particles.MagicAuraParticleData;
 import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.EnumCastType;
@@ -15,6 +13,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.TallFlowerBlock;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ComponentPeony extends ComponentBase {
 

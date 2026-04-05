@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
 public class RootsDataGen {
 
   @SubscribeEvent
-  public static void gatherData(GatherDataEvent event) {
+  public static void gatherData(GatherDataEvent.Client event) {
     DataGenerator generator = event.getGenerator();
     PackOutput packOutput = generator.getPackOutput();
     CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();

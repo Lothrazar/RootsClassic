@@ -15,4 +15,6 @@ public class RootsTags {
   public static final TagKey<Item> BERRIES = ItemTags.create(Const.modLoc("berries"));
   public static final TagKey<Item> LIVING_TOOL_MATERIALS = ItemTags.create(Const.modLoc("living_tool_materials"));
   public static final TagKey<Item> ENGRAVED_TOOL_MATERIALS = ItemTags.create(Const.modLoc("engraved_tool_materials"));
+  public static final TagKey<Item> REPAIRS_SYLVAN = ItemTags.create(Const.modLoc("repairs_sylvan"));
+  public static final TagKey<Item> REPAIRS_WILDWOOD = ItemTags.create(Const.modLoc("repairs_wildwood"));
 }

@@ -1,19 +1,17 @@
 package elucent.rootsclassic.client.particles;
 
-import elucent.rootsclassic.client.particles.factory.ParticleRenderTypes;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
 
-public class MagicAltarParticle extends TextureSheetParticle {
+public class MagicAltarParticle extends SingleQuadParticle {
 
   public double colorR = 0;
   public double colorG = 0;
   public double colorB = 0;
 
   public MagicAltarParticle(ClientLevel levelAccessor, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b, SpriteSet sprite) {
-    super(levelAccessor, x, y, z, 0, 0, 0);
+    super(levelAccessor, x, y, z, 0, 0, 0, sprite.get(0, 1));
     this.colorR = r;
     this.colorG = g;
     this.colorB = b;
@@ -32,7 +30,6 @@ public class MagicAltarParticle extends TextureSheetParticle {
     this.yd = vy;
     this.zd = vz;
     this.quadSize = 0.05f;
-    this.pickSprite(sprite);
   }
 
   @Override
@@ -59,9 +56,14 @@ public class MagicAltarParticle extends TextureSheetParticle {
   }
 
   @Override
-  public ParticleRenderType getRenderType() {
-    return ParticleRenderTypes.MAGIC_RENDER;
+  protected SingleQuadParticle.Layer getLayer() {
+    return SingleQuadParticle.Layer.TRANSLUCENT;
   }
+
+//  @Override
+//  public ParticleRenderType getRenderType() {
+//    return ParticleRenderTypes.MAGIC_RENDER;
+//  }
 
   @Override
   public boolean isAlive() {

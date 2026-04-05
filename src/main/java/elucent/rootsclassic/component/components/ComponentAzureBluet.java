@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ToolMaterial;
-import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,17 +20,17 @@ public class ComponentAzureBluet extends ComponentBase {
   public void destroyBlockSafe(Level levelAccessor, BlockPos pos, int potency) {
     BlockState state = levelAccessor.getBlockState(pos);
     int tier = 2 + potency;
-    Tier usedTier;
+    ToolMaterial usedTier;
     if (tier == 3) {
-      usedTier = Tiers.DIAMOND;
+      usedTier = ToolMaterial.DIAMOND;
     }
     else if (tier > 3) {
-      usedTier = Tiers.NETHERITE;
+      usedTier = ToolMaterial.NETHERITE;
     }
     else {
-      usedTier = Tiers.IRON;
+      usedTier = ToolMaterial.IRON;
     }
-    if (!state.is(usedTier.getIncorrectBlocksForDrops()) && state.getDestroySpeed(levelAccessor, pos) != -1) {
+    if (!state.is(usedTier.incorrectBlocksForDrops()) && state.getDestroySpeed(levelAccessor, pos) != -1) {
       levelAccessor.destroyBlock(pos, true);
     }
   }

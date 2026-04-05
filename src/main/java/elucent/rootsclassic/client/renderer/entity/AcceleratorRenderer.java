@@ -4,7 +4,6 @@ import elucent.rootsclassic.client.renderer.entity.state.AcceleratorRenderState;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 
 public class AcceleratorRenderer<T extends Entity> extends EntityRenderer<T, AcceleratorRenderState> {

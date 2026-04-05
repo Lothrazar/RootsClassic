@@ -1,6 +1,5 @@
 package elucent.rootsclassic.block.brazier;
 
-import org.jspecify.annotations.Nullable;
 import elucent.rootsclassic.block.BaseBEBlock;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
@@ -14,6 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jspecify.annotations.Nullable;
 
 public class BlockBrazier extends BaseBEBlock implements EntityBlock {
 
