@@ -19,7 +19,7 @@ public class ComponentLilyPad extends ComponentBase {
 
   @Override
   public void doEffect(Level level, Entity casterEntity, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (!level.isClientSide && type == EnumCastType.SPELL && casterEntity instanceof LivingEntity caster) {
+    if (!level.isClientSide() && type == EnumCastType.SPELL && casterEntity instanceof LivingEntity caster) {
       BlockPos pos = RootsUtil.getRayTrace(level, caster, 4 + 2 * (int) size);
       if (level.getBlockState(pos.above()).canBeReplaced(Fluids.WATER)) {
         level.setBlock(pos.above(), Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, 15), 3);

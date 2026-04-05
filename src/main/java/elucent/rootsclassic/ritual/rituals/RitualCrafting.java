@@ -1,9 +1,11 @@
 package elucent.rootsclassic.ritual.rituals;
 
+import com.mojang.serialization.DynamicOps;
 import elucent.rootsclassic.ritual.RitualEffect;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -14,22 +16,23 @@ import java.util.List;
 public class RitualCrafting extends RitualEffect {
 
   @Override
-  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, CompoundTag config) {
+  public void doEffect(Level level, BlockPos pos, Container inventory, List<ItemStack> incenses, CompoundTag config) {
     // if (Util.itemListsMatchWithSize(inventory, this.ingredients)) {
-    ItemStack toSpawn = ItemStack.parseOptional(levelAccessor.registryAccess(), config.getCompound("result"));
-    if (!levelAccessor.isClientSide()) {
-      ItemEntity item = new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
-      levelAccessor.addFreshEntity(item);
+    DynamicOps<Tag> ops = level.registryAccess().createSerializationContext(NbtOps.INSTANCE);
+    ItemStack toSpawn = config.read("result", ItemStack.CODEC, ops).orElse(ItemStack.EMPTY);
+    if (!level.isClientSide()) {
+      ItemEntity item = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
+      level.addFreshEntity(item);
     }
     inventory.clearContent();
-		var blockEntity = levelAccessor.getBlockEntity(pos);
+		var blockEntity = level.getBlockEntity(pos);
 		if (blockEntity != null)
 			blockEntity.setChanged();
     //}
   }
 
   @Override
-  public ItemStack getResult(CompoundTag config, HolderLookup.Provider provider) {
-    return ItemStack.parseOptional(provider, config.getCompound("result"));
+  public ItemStack getResult(CompoundTag config) {
+    return config.read("result", ItemStack.CODEC).orElse(ItemStack.EMPTY);
   }
 }

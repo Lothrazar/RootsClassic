@@ -1,5 +1,6 @@
 package elucent.rootsclassic.ritual.rituals;
 
+import com.mojang.serialization.DynamicOps;
 import elucent.rootsclassic.recipe.RitualRecipe;
 import elucent.rootsclassic.registry.RootsComponents;
 import elucent.rootsclassic.registry.RootsRegistry;
@@ -8,6 +9,8 @@ import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
@@ -22,15 +25,16 @@ import java.util.function.Supplier;
 public class RitualEngravedSword extends RitualCrafting {
 
   @Override
-  public void doEffect(Level levelAccessor, BlockPos pos, Container inventory, List<ItemStack> incenses, CompoundTag config) {
+  public void doEffect(Level level, BlockPos pos, Container inventory, List<ItemStack> incenses, CompoundTag config) {
     List<Item> items = new ArrayList<>();
     for (ItemStack i : incenses) {
       items.add(i.getItem());
     }
-	  ItemStack toSpawn = ItemStack.parseOptional(levelAccessor.registryAccess(), config.getCompound("result"));
-    if (!levelAccessor.isClientSide()) {
+    DynamicOps<Tag> ops = level.registryAccess().createSerializationContext(NbtOps.INSTANCE);
+    ItemStack toSpawn = config.read("result", ItemStack.CODEC, ops).orElse(ItemStack.EMPTY);
+    if (!level.isClientSide()) {
       int mods = 0;
-      ItemEntity item = new ItemEntity(levelAccessor, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
+      ItemEntity item = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, toSpawn);
       ItemStack stack = item.getItem();
       for (Item i : items) {
         if (i == (RootsRegistry.ACACIA_BARK.get()) && mods < 4) {
@@ -54,10 +58,10 @@ public class RitualEngravedSword extends RitualCrafting {
           mods++;
         }
       }
-      levelAccessor.addFreshEntity(item);
+      level.addFreshEntity(item);
     }
     inventory.clearContent();
-    BlockEntity tile = levelAccessor.getBlockEntity(pos);
+    BlockEntity tile = level.getBlockEntity(pos);
     if (tile != null) {
       tile.setChanged();
     }

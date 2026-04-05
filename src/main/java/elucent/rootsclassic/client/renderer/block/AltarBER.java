@@ -1,35 +1,67 @@
 package elucent.rootsclassic.client.renderer.block;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import elucent.rootsclassic.block.altar.AltarBlockEntity;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
+import elucent.rootsclassic.client.renderer.block.state.AltarRenderState;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import org.jspecify.annotations.Nullable;
 
-public class AltarBER implements BlockEntityRenderer<AltarBlockEntity> {
+import java.util.ArrayList;
 
-  public AltarBER(BlockEntityRendererProvider.Context context) {}
+public class AltarBER implements BlockEntityRenderer<AltarBlockEntity, AltarRenderState> {
+  private final ItemModelResolver itemModelResolver;
+
+  public AltarBER(BlockEntityRendererProvider.Context context) {
+    this.itemModelResolver = context.itemModelResolver();
+  }
 
   @Override
-  public void render(AltarBlockEntity altarTile, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
-    List<ItemStack> renderItems = new ArrayList<>();
-    for (int i = 0; i < altarTile.inventory.getSlots(); i++) {
-      renderItems.add(altarTile.inventory.getStackInSlot(i));
+  public AltarRenderState createRenderState() {
+    return new AltarRenderState();
+  }
+
+  @Override
+  public void extractRenderState(AltarBlockEntity blockEntity, AltarRenderState state, float partialTicks,
+                                 Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
+    BlockEntityRenderer.super.extractRenderState(blockEntity, state, partialTicks, cameraPosition, breakProgress);
+    int seed = (int)blockEntity.getBlockPos().asLong();
+    state.items = new ArrayList<>();
+
+    ResourceHandler<ItemResource> inventory = blockEntity.inventory;
+    for (int slot = 0; slot < inventory.size(); slot++) {
+      ItemStackRenderState itemState = new ItemStackRenderState();
+      this.itemModelResolver
+        .updateForTopItem(itemState, inventory.getResource(slot).toStack(inventory.getAmountAsInt(slot)),
+          ItemDisplayContext.GROUND, blockEntity.getLevel(), null, seed + slot);
+      state.items.add(itemState);
     }
-    for (int i = 0; i < altarTile.inventory.getSlots(); i++) {
+    state.ticker = blockEntity.getTicker();
+  }
+
+  @Override
+  public void submit(AltarRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+
+    for (int i = 0; i < state.items.size(); i++) {
+      ItemStackRenderState itemState = state.items.get(i);
       poseStack.pushPose();
-      double shifted = altarTile.getTicker() + i * (360.0 / renderItems.size());
+      double shifted = state.ticker + i * (360.0 / state.items.size());
       poseStack.translate(0.5, 1.0 + 0.1 * Math.sin(Math.toRadians((shifted * 4.0))), 0.5);
       poseStack.mulPose(Axis.YP.rotationDegrees((float) shifted));
       poseStack.translate(-0.5, 0, 0);
       poseStack.mulPose(Axis.YP.rotationDegrees((float) shifted));
-      Minecraft.getInstance().getItemRenderer().renderStatic(renderItems.get(i), ItemDisplayContext.GROUND, combinedLightIn, combinedOverlayIn, poseStack, bufferIn, altarTile.getLevel(), 0);
+      itemState.submit(poseStack, submitNodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
       poseStack.popPose();
     }
   }

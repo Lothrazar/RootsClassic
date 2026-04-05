@@ -48,7 +48,7 @@ public class ComponentPeony extends ComponentBase {
       int fY = temp.getY();
       int fZ = temp.getZ();
       double factor = 0.15;
-      if (levelAccessor.isClientSide && levelAccessor.random.nextInt(10 * pos.size()) == 0) {
+      if (levelAccessor.isClientSide() && levelAccessor.getRandom().nextInt(10 * pos.size()) == 0) {
         levelAccessor.addParticle(MagicAuraParticleData.createData(138, 42, 235),
             fX + RootsUtil.randomDouble(0.0, 0.5), fY + RootsUtil.randomDouble(0.1, 0.5), fZ + RootsUtil.randomDouble(0.0, 0.5),
             (player.getX() - fX) * factor, (player.getY() - fY) * factor, (player.getZ() - fZ) * factor);

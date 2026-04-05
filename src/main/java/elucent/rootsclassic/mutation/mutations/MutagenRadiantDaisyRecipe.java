@@ -5,6 +5,10 @@ import elucent.rootsclassic.Const;
 import elucent.rootsclassic.mutation.MutagenRecipe;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.clock.ServerClockManager;
+import net.minecraft.world.clock.WorldClock;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
@@ -28,10 +32,11 @@ public class MutagenRadiantDaisyRecipe extends MutagenRecipe {
   }
 
   @Override
-  public boolean matches(List<ItemStack> items, Level levelAccessor, BlockPos pos, Player player) {
-    if (super.matches(items, levelAccessor, pos, player)) {
-      return levelAccessor.dimension() == Level.OVERWORLD && player.getEffect(MobEffects.NIGHT_VISION) != null &&
-	      player.level().getDayTime() > 5000 && player.level().getDayTime() < 7000;
+  public boolean matches(List<ItemStack> items, Level level, BlockPos pos, Player player) {
+    if (super.matches(items, level, pos, player) && level instanceof ServerLevel serverLevel) {
+      long time = serverLevel.getDefaultClockTime();
+      return level.dimension() == Level.OVERWORLD && player.getEffect(MobEffects.NIGHT_VISION) != null &&
+        time > 5000 && time < 7000;
     }
     return false;
   }

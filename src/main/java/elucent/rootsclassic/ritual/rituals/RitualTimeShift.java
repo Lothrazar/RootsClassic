@@ -4,8 +4,11 @@ import elucent.rootsclassic.recipe.RitualRecipe;
 import elucent.rootsclassic.ritual.SimpleRitualEffect;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
+import net.minecraft.world.clock.ServerClockManager;
+import net.minecraft.world.clock.WorldClock;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -29,10 +32,9 @@ public class RitualTimeShift extends SimpleRitualEffect {
       }
     }
     inventory.clearContent();
-    if (!level.isClientSide() && level.getServer() != null) {
-      for (ServerLevel serverLevel : level.getServer().getAllLevels()) {
-        serverLevel.setDayTime(serverLevel.getDayTime() + (long) shiftAmount);
-      }
+    if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
+      Holder<WorldClock> clock = level.dimensionType().defaultClock().orElseThrow();
+      serverLevel.clockManager().setTotalTicks(clock, serverLevel.getDefaultClockTime() + (long) shiftAmount);
     }
   }
   

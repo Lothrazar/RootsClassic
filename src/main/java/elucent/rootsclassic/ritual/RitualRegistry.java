@@ -52,8 +52,8 @@ public class RitualRegistry {
 
   public static Optional<RecipeHolder<RitualRecipe>> findMatchingByIngredients(AltarBlockEntity altar) {
     List<ItemStack> altarInv = new ArrayList<>();
-    for (int i = 0; i < altar.inventory.getSlots(); i++) {
-      var stack = altar.inventory.getStackInSlot(i);
+    for (int i = 0; i < altar.inventory.size(); i++) {
+      var stack = altar.inventory.getResource(i).toStack();
       if (!stack.isEmpty()) altarInv.add(stack);
     }
     if (altar.getLevel() instanceof ServerLevel serverLevel) {

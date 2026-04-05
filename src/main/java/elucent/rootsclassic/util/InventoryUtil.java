@@ -1,8 +1,6 @@
 package elucent.rootsclassic.util;
 
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;

@@ -40,7 +40,7 @@ public class ComponentRose extends ComponentBase {
           RootsUtil.addTickTracking(target);
           target.getPersistentData().putFloat("RMOD_thornsDamage", 2.0f + (float) potency);
           if (caster instanceof Player player) {
-            target.setLastHurtByPlayer(player);
+            target.setLastHurtByPlayer(player, 100);
           }
           else {
             target.setLastHurtByMob(caster);

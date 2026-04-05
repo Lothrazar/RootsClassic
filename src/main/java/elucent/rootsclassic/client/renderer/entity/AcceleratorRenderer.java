@@ -1,12 +1,13 @@
 package elucent.rootsclassic.client.renderer.entity;
 
+import elucent.rootsclassic.client.renderer.entity.state.AcceleratorRenderState;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 
-public class AcceleratorRenderer<T extends Entity> extends EntityRenderer<T> {
+public class AcceleratorRenderer<T extends Entity> extends EntityRenderer<T, AcceleratorRenderState> {
 
   public AcceleratorRenderer(EntityRendererProvider.Context context) {
     super(context);
@@ -18,7 +19,7 @@ public class AcceleratorRenderer<T extends Entity> extends EntityRenderer<T> {
   }
 
   @Override
-  public Identifier getTextureLocation(T entity) {
-    return null;
+  public AcceleratorRenderState createRenderState() {
+    return new AcceleratorRenderState();
   }
 }

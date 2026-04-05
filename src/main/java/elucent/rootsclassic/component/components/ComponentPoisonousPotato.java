@@ -5,6 +5,7 @@ import elucent.rootsclassic.component.EnumCastType;
 import elucent.rootsclassic.util.RootsUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,11 +20,11 @@ public class ComponentPoisonousPotato extends ComponentBase {
 
   @Override
   public void doEffect(Level level, Entity casterEntity, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (!level.isClientSide && type == EnumCastType.SPELL && casterEntity instanceof LivingEntity caster) {
+    if (!level.isClientSide() && type == EnumCastType.SPELL && casterEntity instanceof LivingEntity caster) {
       BlockPos pos = RootsUtil.getRayTrace(level, caster, 4 + 2 * (int) size);
-      LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level);
+      LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.EVENT);
       if (lightningBolt != null) {
-        lightningBolt.moveTo(pos.getX(), pos.getY(), pos.getZ());
+        lightningBolt.snapTo(pos.getX(), pos.getY(), pos.getZ());
         lightningBolt.setVisualOnly(false);
         level.addFreshEntity(lightningBolt);
       }

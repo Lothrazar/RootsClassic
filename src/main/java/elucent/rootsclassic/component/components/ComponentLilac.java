@@ -21,7 +21,7 @@ public class ComponentLilac extends ComponentBase {
 
   @Override
   public void doEffect(Level level, Entity casterEntity, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
-    if (!level.isClientSide && type == EnumCastType.SPELL && casterEntity instanceof LivingEntity caster) {
+    if (!level.isClientSide() && type == EnumCastType.SPELL && casterEntity instanceof LivingEntity caster) {
       BlockPos pos = RootsUtil.getRayTrace(level, caster, 4 + 2 * (int) size);
       boolean fullEfficiency = growBlockSafe(level, pos, (int) potency) && growBlockSafe(level, pos.east(), (int) potency) &&
           growBlockSafe(level, pos.west(), (int) potency) && growBlockSafe(level, pos.north(), (int) potency) && growBlockSafe(level, pos.south(), (int) potency);
@@ -42,11 +42,11 @@ public class ComponentLilac extends ComponentBase {
 
   public boolean growBlockSafe(Level levelAccessor, BlockPos pos, int potency) {
     BlockState state = levelAccessor.getBlockState(pos);
-    if (state.getBlock() instanceof BonemealableBlock && levelAccessor.random.nextInt(5 - potency) < 2) {
-      ((BonemealableBlock) state.getBlock()).performBonemeal((ServerLevel) levelAccessor, levelAccessor.random, pos, state);
+    if (state.getBlock() instanceof BonemealableBlock && levelAccessor.getRandom().nextInt(5 - potency) < 2) {
+      ((BonemealableBlock) state.getBlock()).performBonemeal((ServerLevel) levelAccessor, levelAccessor.getRandom(), pos, state);
       return true;
     }
-    if (state.is(Blocks.NETHER_WART) && levelAccessor.random.nextInt(5 - potency) < 2) {
+    if (state.is(Blocks.NETHER_WART) && levelAccessor.getRandom().nextInt(5 - potency) < 2) {
       int age = state.getValue(NetherWartBlock.AGE);
       if (age < 3) {
         state = state.setValue(NetherWartBlock.AGE, age + 1);

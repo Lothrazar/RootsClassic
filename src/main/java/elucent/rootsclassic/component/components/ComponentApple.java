@@ -26,11 +26,11 @@ public class ComponentApple extends ComponentBase {
 //        if (effect.getEffect().getDescriptionId().equals("Soul Fray")) { //TODO: Check if Blood magic uses this name still
 //          player.addEffect(effect);
 //        }
-        if (effect.getEffect() == MobEffects.MOVEMENT_SLOWDOWN) {
-          player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, effect.getDuration(), effect.getAmplifier() + (int) potency));
+        if (effect.getEffect() == MobEffects.SLOWNESS) {
+          player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, effect.getDuration(), effect.getAmplifier() + (int) potency));
         }
-        if (effect.getEffect() == MobEffects.DIG_SLOWDOWN) {
-          player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, effect.getDuration(), effect.getAmplifier() + (int) potency));
+        if (effect.getEffect() == MobEffects.MINING_FATIGUE) {
+          player.addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, effect.getDuration(), effect.getAmplifier() + (int) potency));
         }
         if (effect.getEffect() == MobEffects.POISON) {
           player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, effect.getDuration(), effect.getAmplifier() + (int) potency));
@@ -41,14 +41,14 @@ public class ComponentApple extends ComponentBase {
         if (effect.getEffect() == MobEffects.BLINDNESS) {
           player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, effect.getDuration(), effect.getAmplifier() + (int) potency));
         }
-        if (effect.getEffect() == MobEffects.CONFUSION) {
-          player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, effect.getDuration(), effect.getAmplifier() + (int) potency));
+        if (effect.getEffect() == MobEffects.NAUSEA) {
+          player.addEffect(new MobEffectInstance(MobEffects.NAUSEA, effect.getDuration(), effect.getAmplifier() + (int) potency));
         }
         if (effect.getEffect() == MobEffects.HUNGER) {
           player.addEffect(new MobEffectInstance(MobEffects.SATURATION, effect.getDuration(), effect.getAmplifier() + (int) potency));
         }
         if (effect.getEffect() == MobEffects.WEAKNESS) {
-          player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, effect.getDuration(), effect.getAmplifier() + (int) potency));
+          player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, effect.getDuration(), effect.getAmplifier() + (int) potency));
         }
       }
     }

@@ -1,6 +1,5 @@
 package elucent.rootsclassic.client.ui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.attachment.IMana;
 import elucent.rootsclassic.attachment.ManaAttachment;
@@ -10,7 +9,8 @@ import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.item.IManaRelatedItem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
@@ -24,7 +24,7 @@ public class ManaBarEvent {
     );
   }
 
-  private static void onDrawManaBar(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+  private static void onDrawManaBar(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
     final Minecraft mc = Minecraft.getInstance();
     Player player = mc.player;
     boolean showBar = player.getMainHandItem().getItem() instanceof IManaRelatedItem || player.getOffhandItem().getItem() instanceof IManaRelatedItem;
@@ -39,18 +39,18 @@ public class ManaBarEvent {
     }
   }
 
-  private static void drawManaBar(GuiGraphics guiGraphics, Minecraft mc, IMana capability) {
+  private static void drawManaBar(GuiGraphicsExtractor guiGraphics, Minecraft mc, IMana capability) {
     final int manaBarOffset = RootsConfig.CLIENT.manaBarOffset.get();
     final int w = mc.getWindow().getGuiScaledWidth();
     final int h = mc.getWindow().getGuiScaledHeight();
     int manaNumber = Math.round(capability.getMana());
     int maxManaNumber = Math.round(capability.getMaxMana());
-    RenderSystem.enableBlend();
+//    RenderSystem.enableBlend();
     int offsetX = 0;
 
     // Draw the mana container backdrop
     for (int i = 0; i < maxManaNumber; i += 4) {
-      guiGraphics.blitSprite(Const.MANA_CONTAINER, (w / 2) + 10 + offsetX, h - manaBarOffset, 9, 9);
+      guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Const.MANA_CONTAINER, (w / 2) + 10 + offsetX, h - manaBarOffset, 9, 9);
       offsetX += 8;
     }
 
@@ -59,22 +59,22 @@ public class ManaBarEvent {
     // Draw the mana levels
     while (manaNumber > 0) {
       if (manaNumber >= 4) {
-        guiGraphics.blitSprite(Const.MANA_FULL, (w / 2) + 10 + offsetX, h - manaBarOffset, 9, 9);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Const.MANA_FULL, (w / 2) + 10 + offsetX, h - manaBarOffset, 9, 9);
         manaNumber -= 4;
       } else if (manaNumber == 3) {
-        guiGraphics.blitSprite(Const.MANA_ALMOST_FULL, (w / 2) + 10 + offsetX, h - manaBarOffset, 9, 9);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Const.MANA_ALMOST_FULL, (w / 2) + 10 + offsetX, h - manaBarOffset, 9, 9);
         manaNumber = 0;
       } else if (manaNumber == 2) {
-        guiGraphics.blitSprite(Const.MANA_HALF, (w / 2) + 10 + offsetX, h - manaBarOffset, 9, 9);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Const.MANA_HALF, (w / 2) + 10 + offsetX, h - manaBarOffset, 9, 9);
         manaNumber = 0;
       } else if (manaNumber == 1) {
-        guiGraphics.blitSprite(Const.MANA_ALMOST_EMPTY, (w / 2) + 10 + offsetX, h - manaBarOffset, 9, 9);
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, Const.MANA_ALMOST_EMPTY, (w / 2) + 10 + offsetX, h - manaBarOffset, 9, 9);
         manaNumber = 0;
       }
       offsetX += 8;
     }
 
-    RenderSystem.disableBlend();
+//    RenderSystem.disableBlend();
   }
 
   public static void clientTickEnd(ClientTickEvent.Post event) {

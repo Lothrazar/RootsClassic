@@ -39,7 +39,7 @@ public class ComponentSunflower extends ComponentBase {
             target.hurt(spellAttack(caster), damageDealt);
             target.igniteForSeconds(damageDealt);
             target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, POTION_DURATION, 2 + (int) potency));
-            target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, POTION_DURATION, 2 + (int) potency));
+            target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, POTION_DURATION, 2 + (int) potency));
           }
           else {
             damageDealt += (int) (3 + 2 * potency);

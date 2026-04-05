@@ -1,15 +1,13 @@
 package elucent.rootsclassic.client.renderer.entity;
 
-import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
-import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import elucent.rootsclassic.Const;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
+import net.minecraft.client.renderer.entity.state.SkeletonRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
+import org.jspecify.annotations.Nullable;
 
 public class PhantomSkeletonRenderer extends SkeletonRenderer {
 
@@ -20,14 +18,13 @@ public class PhantomSkeletonRenderer extends SkeletonRenderer {
   }
 
   @Override
-  public Identifier getTextureLocation(AbstractSkeleton entity) {
+  public Identifier getTextureLocation(SkeletonRenderState state) {
     return TEXTURE;
   }
 
   @Override
-  protected void scale(LivingEntity livingEntity, PoseStack poseStack, float partialTickTime) {
-	  super.scale(livingEntity, poseStack, partialTickTime);
-	  RenderSystem.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_CONSTANT_ALPHA);
-	  RenderSystem.enableBlend();
+  protected @Nullable RenderType getRenderType(SkeletonRenderState state, boolean isBodyVisible, boolean forceTransparent, boolean appearGlowing) {
+    Identifier texture = this.getTextureLocation(state);
+    return RenderTypes.entityTranslucentCullItemTarget(texture);
   }
 }
