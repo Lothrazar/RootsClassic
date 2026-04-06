@@ -55,7 +55,7 @@ public class MortarBER implements BlockEntityRenderer<MortarBlockEntity, MortarR
     for (int i = 0; i < state.items.size(); i++) {
       ItemStackRenderState itemState = state.items.get(i);
       poseStack.pushPose();
-      Random random = new Random(itemState.hashCode());
+      Random random = new Random(i);
       poseStack.translate(0.475 + random.nextFloat() / 20.0, 0.05 + random.nextFloat() / 20.0, 0.475 + random.nextFloat() / 20.0);
       poseStack.scale(0.65F, 0.65F, 0.65F);
       poseStack.mulPose(Axis.YP.rotationDegrees(random.nextInt(360)));

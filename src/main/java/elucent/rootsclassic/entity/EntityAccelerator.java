@@ -16,7 +16,6 @@ import java.util.Random;
 public class EntityAccelerator extends Entity {
 
   private Entity entity;
-  private final Random random = new Random();
   private int lifetime = 0;
   private int potency = 1;
 

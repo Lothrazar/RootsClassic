@@ -21,7 +21,6 @@ import java.util.Random;
 public class EntityTileAccelerator extends Entity {
 
   private BlockPos bePosition;
-  private final Random random = new Random();
   private int lifetime = 0;
   private int potency = 1;
 

@@ -95,9 +95,8 @@ public class MortarBlockEntity extends BEBase {
 
   private InteractionResult tryInsertItem(Level levelAccessor, BlockPos pos, BlockState state, ItemStack heldItem) {
     if (!heldItem.isEmpty() && !InventoryUtil.isFull(inventory)) {
-      ItemStack heldCopy = heldItem.copy();
-      heldCopy.setCount(1);
-      if (heldItem.getItem() == Items.GLOWSTONE_DUST || heldItem.getItem() == Items.REDSTONE || heldItem.getItem() == Items.GUNPOWDER) {
+      ItemStack heldCopy = heldItem.copyWithCount(1);
+      if (heldCopy.is(Items.GLOWSTONE_DUST) || heldCopy.is(Items.REDSTONE) || heldCopy.is(Items.GUNPOWDER)) {
         int maxCapacity = ComponentRecipe.getModifierCapacity(InventoryUtil.createWrappedInventory(inventory));
         int modifierCount = ComponentRecipe.getModifierCount(InventoryUtil.createWrappedInventory(inventory));
         if (modifierCount < maxCapacity) {
@@ -114,7 +113,7 @@ public class MortarBlockEntity extends BEBase {
         }
       } else {
         try (Transaction tx = Transaction.openRoot()) {
-          if (inventory.insert(ItemResource.of(heldCopy), 1, tx) != 0) {
+          if (inventory.insert(ItemResource.of(heldCopy), 1, tx) != 1) {
             return InteractionResult.FAIL;
           }
           heldItem.shrink(1);

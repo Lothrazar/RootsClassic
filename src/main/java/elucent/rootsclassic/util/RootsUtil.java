@@ -18,7 +18,7 @@ import java.util.Random;
 
 public class RootsUtil {
 
-  private static final Random random = new Random();
+  private static final RandomSource random = RandomSource.create();
 
   public static double randomDouble(double min, double max) {
     double range = max - min;

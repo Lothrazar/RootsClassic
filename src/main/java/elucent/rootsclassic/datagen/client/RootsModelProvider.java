@@ -111,8 +111,8 @@ public class RootsModelProvider extends ModelProvider {
     Identifier model = BASE_POWERED_STANDING_STONE.create(block.get(), mapping, blockModels.modelOutput);
 
     blockModels.createDoubleBlock(block.get(),
-      BlockModelGenerators.plainVariant(Const.modLoc("attuned_standing_stone_bottom")),
-      BlockModelGenerators.plainVariant(model)
+      BlockModelGenerators.plainVariant(model),
+      BlockModelGenerators.plainVariant(Const.modLoc("block/attuned_standing_stone_bottom"))
     );
 
     TextureMapping itemMapping = new TextureMapping();

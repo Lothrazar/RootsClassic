@@ -4,17 +4,11 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import elucent.rootsclassic.util.RootsUtil;
-import net.minecraft.client.color.item.ItemTintSource;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
-import org.jspecify.annotations.Nullable;
 
-public record SpellDataList(NonNullList<SpellData> spellList) implements ItemTintSource {
+public record SpellDataList(NonNullList<SpellData> spellList) {
 	public static final SpellDataList EMPTY = new SpellDataList(NonNullList.withSize(4, SpellData.EMPTY));
 	public static final Codec<SpellDataList> CODEC = RecordCodecBuilder.create(inst -> inst.group(
 			SpellData.CODEC.listOf().fieldOf("spellList")
@@ -53,30 +47,4 @@ public record SpellDataList(NonNullList<SpellData> spellList) implements ItemTin
 			SpellData.STREAM_CODEC.encode(byteBuf, data.spellList().get(i));
 		}
 	}
-
-  @Override
-  public int calculate(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity owner) {
-//    SpellData selectedSpell = CrystalStaffItem.getSelectedSpell(stack);
-//    String effect = selectedSpell.effect();
-//    if (effect != null) {
-//      Identifier compName = Identifier.tryParse(effect);
-//      if (compName != null) {
-//        ComponentBase comp = ComponentBaseRegistry.COMPONENTS.getValue(compName);
-//        if (comp != null) {
-//          if (tintIndex == 2) {
-//            return RootsUtil.intColor((int) comp.primaryColor.x, (int) comp.primaryColor.y, (int) comp.primaryColor.z);
-//          }
-//          if (tintIndex == 1) {
-//            return RootsUtil.intColor((int) comp.secondaryColor.x, (int) comp.secondaryColor.y, (int) comp.secondaryColor.z);
-//          }
-//        }
-//      }
-//    }
-    return RootsUtil.intColor(255, 255, 255);
-  }
-
-  @Override
-  public MapCodec<? extends ItemTintSource> type() {
-    return MAP_CODEC;
-  }
 }
