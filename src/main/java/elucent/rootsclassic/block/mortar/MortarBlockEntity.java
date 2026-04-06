@@ -5,6 +5,7 @@ import elucent.rootsclassic.blockentity.BEBase;
 import elucent.rootsclassic.recipe.ComponentRecipe;
 import elucent.rootsclassic.registry.RootsRecipes;
 import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.registry.RootsTags;
 import elucent.rootsclassic.util.InventoryUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -96,7 +97,7 @@ public class MortarBlockEntity extends BEBase {
   private InteractionResult tryInsertItem(Level levelAccessor, BlockPos pos, BlockState state, ItemStack heldItem) {
     if (!heldItem.isEmpty() && !InventoryUtil.isFull(inventory)) {
       ItemStack heldCopy = heldItem.copyWithCount(1);
-      if (heldCopy.is(Items.GLOWSTONE_DUST) || heldCopy.is(Items.REDSTONE) || heldCopy.is(Items.GUNPOWDER)) {
+      if (heldCopy.is(RootsTags.POTENCY) || heldCopy.is(RootsTags.EFFICIENCY) || heldCopy.is(RootsTags.SIZE)) {
         int maxCapacity = ComponentRecipe.getModifierCapacity(InventoryUtil.createWrappedInventory(inventory));
         int modifierCount = ComponentRecipe.getModifierCount(InventoryUtil.createWrappedInventory(inventory));
         if (modifierCount < maxCapacity) {

@@ -17,4 +17,8 @@ public class RootsTags {
   public static final TagKey<Item> ENGRAVED_TOOL_MATERIALS = ItemTags.create(Const.modLoc("engraved_tool_materials"));
   public static final TagKey<Item> REPAIRS_SYLVAN = ItemTags.create(Const.modLoc("repairs_sylvan"));
   public static final TagKey<Item> REPAIRS_WILDWOOD = ItemTags.create(Const.modLoc("repairs_wildwood"));
+
+  public static final TagKey<Item> POTENCY = ItemTags.create(Const.modLoc("spell/potency"));
+  public static final TagKey<Item> EFFICIENCY = ItemTags.create(Const.modLoc("spell/efficiency"));
+  public static final TagKey<Item> SIZE = ItemTags.create(Const.modLoc("spell/size"));
 }

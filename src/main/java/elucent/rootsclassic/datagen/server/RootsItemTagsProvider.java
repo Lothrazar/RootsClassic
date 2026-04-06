@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ItemTagsProvider;
 
@@ -60,6 +61,10 @@ public class RootsItemTagsProvider extends ItemTagsProvider {
       RootsRegistry.FLARE_ORCHID_ITEM.get(),
       RootsRegistry.RADIANT_DAISY_ITEM.get()
     );
+
+    this.tag(RootsTags.POTENCY).add(Items.GLOWSTONE);
+    this.tag(RootsTags.EFFICIENCY).add(Items.REDSTONE);
+    this.tag(RootsTags.SIZE).add(Items.GUNPOWDER);
 	}
 
 	private void addBark(Item item, String treeType) {

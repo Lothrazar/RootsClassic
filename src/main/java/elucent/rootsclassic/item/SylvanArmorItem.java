@@ -19,18 +19,12 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-//TODO: Fix models / textures
 @SuppressWarnings("deprecation")
 public class SylvanArmorItem extends Item {
 
   public SylvanArmorItem(ArmorMaterial materialHolder, ArmorType type, Item.Properties properties) {
     super(properties.humanoidArmor(materialHolder, type).setNoCombineRepair());
   }
-//
-//  @Override
-//  public Identifier getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-//	  return Const.modLoc("textures/models/armor/sylvan.png");
-//  }
 
   @Override
   public void inventoryTick(ItemStack stack, ServerLevel level, Entity owner, @Nullable EquipmentSlot slot) {
@@ -54,20 +48,4 @@ public class SylvanArmorItem extends Item {
     builder.accept(Component.translatable("rootsclassic.attribute.fullset").withStyle(ChatFormatting.GRAY));
     builder.accept(Component.literal(" +1 ").append(Component.translatable("rootsclassic.attribute.potency")).withStyle(ChatFormatting.BLUE));
   }
-
-//  @SuppressWarnings("removal")
-//  @Override
-//  public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-//    consumer.accept(new IClientItemExtensions() {
-//	    private final LazyLoadedValue<HumanoidModel<?>> model = new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(type));
-//
-//	    public HumanoidModel<?> provideArmorModelForSlot(ArmorType type) {
-//		    return new SylvanArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ClientHandler.SYLVAN_ARMOR), type);
-//	    }
-//      @Override
-//      public HumanoidModel<?> getHumanoidArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
-//        return model.get();
-//      }
-//    });
-//  }
 }

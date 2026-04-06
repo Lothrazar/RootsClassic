@@ -4,6 +4,7 @@ import elucent.rootsclassic.component.ComponentBase;
 import elucent.rootsclassic.component.ComponentBaseRegistry;
 import elucent.rootsclassic.datacomponent.SpellData;
 import elucent.rootsclassic.registry.RootsComponents;
+import elucent.rootsclassic.registry.RootsTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -37,14 +38,13 @@ public class SpellPowderItem extends Item {
       for (int i = 0; i < recipeInput.size(); i++) {
         ItemStack itemStack = recipeInput.getItem(i);
         if (!itemStack.isEmpty()) {
-          //TODO: Make this into a tag
-          if (itemStack.getItem() == Items.GLOWSTONE_DUST) {
+          if (itemStack.is(RootsTags.POTENCY)) {
             potency++;
           }
-          if (itemStack.getItem() == Items.REDSTONE) {
+          if (itemStack.is(RootsTags.EFFICIENCY)) {
             efficiency++;
           }
-          if (itemStack.getItem() == Items.GUNPOWDER) {
+          if (itemStack.is(RootsTags.SIZE)) {
             size++;
           }
         }

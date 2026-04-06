@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import elucent.rootsclassic.item.powder.SpellPowderItem;
 import elucent.rootsclassic.registry.RootsRecipes;
 import elucent.rootsclassic.registry.RootsRegistry;
+import elucent.rootsclassic.registry.RootsTags;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -151,9 +152,9 @@ public class ComponentRecipe implements Recipe<RecipeInput> {
           stack.getItem() == RootsRegistry.VERDANT_SPRIG.get() ||
           stack.getItem() == RootsRegistry.INFERNAL_BULB.get() ||
           stack.getItem() == RootsRegistry.DRAGONS_EYE.get() ||
-          stack.getItem() == Items.GLOWSTONE_DUST ||
-          stack.getItem() == Items.REDSTONE ||
-          stack.getItem() == Items.GUNPOWDER;
+          stack.is(RootsTags.POTENCY) ||
+          stack.is(RootsTags.EFFICIENCY) ||
+          stack.is(RootsTags.SIZE);
     }
     else {
       return false;
@@ -184,13 +185,13 @@ public class ComponentRecipe implements Recipe<RecipeInput> {
     int count = 0;
     for (int i = 0; i < inventory.size(); i++) {
       ItemStack stack = inventory.getItem(i);
-      if (stack.getItem() == Items.GLOWSTONE_DUST) {
+      if (stack.is(RootsTags.POTENCY)) {
         count++;
       }
-      else if (stack.getItem() == Items.REDSTONE) {
+      else if (stack.is(RootsTags.EFFICIENCY)) {
         count++;
       }
-      else if (stack.getItem() == Items.GUNPOWDER) {
+      else if (stack.is(RootsTags.SIZE)) {
         count++;
       }
     }

@@ -49,7 +49,6 @@ public class AltarBlockEntity extends BEBase {
   private int clientRitualLevel;
   private int clientRitualColor;
   private int clientRitualSecondaryColor;
-  //	private ItemStack resultItem = ItemStack.EMPTY; TODO: Unused
   public final ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(3) {
 
     @Override
@@ -57,10 +56,6 @@ public class AltarBlockEntity extends BEBase {
       return 1;
     }
   };
-
-  public AltarBlockEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
-    super(tileEntityTypeIn, pos, state);
-  }
 
   public AltarBlockEntity(BlockPos pos, BlockState state) {
     super(RootsRegistry.ALTAR_TILE.get(), pos, state);
@@ -342,16 +337,6 @@ public class AltarBlockEntity extends BEBase {
       tx.commit();
     }
   }
-  //	public ItemStack getResultItem() { TODO: Unused?
-  //		return resultItem;
-  //	}
-  //
-  //	public void setResultItem(ItemStack resultItem) {
-  //		if (resultItem == null) {
-  //			resultItem = ItemStack.EMPTY;
-  //		}
-  //		this.resultItem = resultItem;
-  //	}
 
   private record RitualInfo(int level, int color, int secondaryColor) {
     private static final Codec<RitualInfo> CODEC = RecordCodecBuilder.create(instance -> instance.group(

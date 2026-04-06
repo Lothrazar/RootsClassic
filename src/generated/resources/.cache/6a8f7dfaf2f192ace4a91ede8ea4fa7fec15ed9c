@@ -1,4 +1,4 @@
-// 26.1.1	2026-04-06T02:34:55.6696621	Tags for minecraft:item mod id rootsclassic
+// 26.1.1	2026-04-06T19:26:18.7763261	Tags for minecraft:item mod id rootsclassic
 41a6c8d6004a36dfdae41a77959fedd2ccf0d656 data/c/tags/item/fertilizers.json
 f4a0231565ec7cc28908cb8fc626a3eac00140af data/c/tags/item/flowers/small.json
 305a860bb71fcbbf622c49615c613e8e64f52c49 data/c/tags/item/foods.json
@@ -26,3 +26,6 @@ f1d46d02faa59923ed7d8dbe15b07f641f21dfbe data/rootsclassic/tags/item/berries.jso
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/rootsclassic/tags/item/living_tool_materials.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/rootsclassic/tags/item/repairs_sylvan.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/rootsclassic/tags/item/repairs_wildwood.json
+5db69586b6c50b2befacf44de1aedc4a5af092fe data/rootsclassic/tags/item/spell/efficiency.json
+2e32a7b83e54ddce24aaeff94c215bb46e0c6628 data/rootsclassic/tags/item/spell/potency.json
+92a0e8cf12f15341cd2d07e7a517ec9ea22502fd data/rootsclassic/tags/item/spell/size.json
