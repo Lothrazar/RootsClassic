@@ -37,10 +37,10 @@ public record CrystalStaffSource(int tintIndex) implements ItemTintSource {
         if (compName != null) {
           ComponentBase comp = ComponentBaseRegistry.COMPONENTS.getValue(compName);
           if (comp != null) {
-            if (tintIndex == 2) {
+            if (tintIndex == 1) {
               return RootsUtil.intColor((int) comp.primaryColor.x, (int) comp.primaryColor.y, (int) comp.primaryColor.z);
             }
-            if (tintIndex == 1) {
+            if (tintIndex == 0) {
               return RootsUtil.intColor((int) comp.secondaryColor.x, (int) comp.secondaryColor.y, (int) comp.secondaryColor.z);
             }
           }

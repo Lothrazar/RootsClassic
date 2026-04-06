@@ -23,16 +23,12 @@ public class MagicParticleTypeData implements ParticleOptions {
   public final ParticleColor color;
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, MagicParticleTypeData> STREAM_CODEC = StreamCodec.composite(
-		ParticleColor.STREAM_CODEC, p_319429_ -> p_319429_.color, MagicParticleTypeData::new
+		ParticleColor.STREAM_CODEC, data -> data.color, MagicParticleTypeData::new
 	);
 
   public MagicParticleTypeData(ParticleType<MagicParticleTypeData> particleTypeData, ParticleColor color) {
     this.type = particleTypeData;
     this.color = color;
-  }
-
-  public MagicParticleTypeData(float r, float g, float b, float a) {
-    this(ParticleRegistry.MAGIC_TYPE.get(), new ParticleColor(r, g, b, a));
   }
 
 	public MagicParticleTypeData(ParticleColor vector3f) {

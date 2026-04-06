@@ -27,10 +27,10 @@ public class MagicParticleData implements ParticleProvider<MagicParticleTypeData
   }
 
 	public static ParticleOptions createData(double r, double g, double b) {
-		return new MagicParticleTypeData(ParticleRegistry.MAGIC_ALTAR_TYPE.get(), new ParticleColor(r, g, b, 1.0D));
+		return new MagicParticleTypeData(ParticleRegistry.MAGIC_TYPE.get(), new ParticleColor(r, g, b, 1.0D));
 	}
 
 	public static ParticleOptions createData(double r, double g, double b, double a) {
-		return new MagicParticleTypeData(ParticleRegistry.MAGIC_ALTAR_TYPE.get(), new ParticleColor(r, g, b, a));
+		return new MagicParticleTypeData(ParticleRegistry.MAGIC_TYPE.get(), new ParticleColor(r, g, b, a));
 	}
 }
