@@ -40,7 +40,7 @@
   "death.attack.rootsclassic.wither": "%1$s withered away",
   "death.attack.rootsclassic.wither.player": "%1$s ithered away because of %2$s",
   "entity.rootsclassic.entity_accelerator": "Entity Accelerator",
-  "entity.rootsclassic.skeleton_phantom": "Phantom Skeleton",
+  "entity.rootsclassic.phantom_skeleton": "Phantom Skeleton",
   "entity.rootsclassic.tile_accelerator": "Tile Accelerator",
   "item.rootsclassic.acacia_bark": "Acacia Bark",
   "item.rootsclassic.acacia_bark.guide": "Use a Bark Knife on a log.",

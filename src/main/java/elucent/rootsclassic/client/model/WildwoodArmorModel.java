@@ -171,7 +171,7 @@ public class WildwoodArmorModel extends ModelArmorBase {
             .texOffs(8, 16)
             .addBox(-1F, -4F, -1F, 2, 4, 2).mirror(),
         PartPose.offsetAndRotation(2.5F, 7F, -1F, -1.832596F, 2.879793F, 0F));
-    PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.ZERO);
+    PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.offset(-5.0F, 2.0F, 0.0F));
     right_arm.addOrReplaceChild("right_arm1",
         CubeListBuilder.create()
             .texOffs(32, 16)
@@ -202,7 +202,7 @@ public class WildwoodArmorModel extends ModelArmorBase {
             .texOffs(0, 16)
             .addBox(-1F, -6F, -1F, 2, 6, 2).mirror(),
         PartPose.offsetAndRotation(-6.5F, 4F, 0F, -1.047198F, -0.3926991F, 0F));
-    PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.ZERO);
+    PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.offset(5.0F, 2.0F, 0.0F));
     left_arm.addOrReplaceChild("left_arm1",
         CubeListBuilder.create()
             .texOffs(16, 32)
@@ -233,7 +233,7 @@ public class WildwoodArmorModel extends ModelArmorBase {
             .texOffs(8, 16)
             .addBox(-1F, -4F, -1F, 2, 4, 2).mirror(),
         PartPose.offsetAndRotation(6F, 0F, -1F, -0.2617994F, 0F, 0.1308997F));
-    PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create(), PartPose.offset(0, -12, 0));
+    PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create(), PartPose.offset(-1.9F, 36, 0.0F));
     right_leg.addOrReplaceChild("right_leg1",
         CubeListBuilder.create()
             .texOffs(32, 16)
@@ -264,7 +264,7 @@ public class WildwoodArmorModel extends ModelArmorBase {
             .texOffs(32, 16)
             .addBox(-2F, 0F, -1F, 4, 4, 2).mirror(),
         PartPose.offsetAndRotation(-4F, 0F, -0.5F, -0.2617994F, 1.570796F, 0F));
-    PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create(), PartPose.offset(0, -12, 0));
+    PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create(), PartPose.offset(0, 36, 0.0F));
     left_leg.addOrReplaceChild("left_leg1",
         CubeListBuilder.create()
             .texOffs(32, 16)
@@ -295,7 +295,7 @@ public class WildwoodArmorModel extends ModelArmorBase {
             .texOffs(32, 16)
             .addBox(-2F, 0F, -1F, 4, 4, 2).mirror(),
         PartPose.offsetAndRotation(4F, 0F, -0.5F, -0.2617994F, -1.570796F, 0F));
-    PartDefinition right_foot = partdefinition.addOrReplaceChild("right_foot", CubeListBuilder.create(), PartPose.offset(0, -12, 0));
+    PartDefinition right_foot = partdefinition.addOrReplaceChild("right_foot", CubeListBuilder.create(), PartPose.offset(0, 36, 0));
     right_foot.addOrReplaceChild("right_foot1",
         CubeListBuilder.create()
             .texOffs(16, 32)
@@ -311,7 +311,7 @@ public class WildwoodArmorModel extends ModelArmorBase {
             .texOffs(32, 16)
             .addBox(-1F, -4F, -1F, 2, 4, 2).mirror(),
         PartPose.offsetAndRotation(-3F, 7F, -1F, -1.832596F, -0.7853982F, 0F));
-    PartDefinition left_foot = partdefinition.addOrReplaceChild("left_foot", CubeListBuilder.create(), PartPose.offset(0, -12, 0));
+    PartDefinition left_foot = partdefinition.addOrReplaceChild("left_foot", CubeListBuilder.create(), PartPose.offset(0, 36, 0));
     left_foot.addOrReplaceChild("left_foot1",
         CubeListBuilder.create()
             .texOffs(16, 32)

@@ -1,0 +1,61 @@
+package elucent.rootsclassic.client.extension;
+
+import elucent.rootsclassic.Const;
+import elucent.rootsclassic.client.model.WildwoodArmorModel;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.resources.model.EquipmentClientInfo;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.Equippable;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
+public class WildwoodItemExtension implements IClientItemExtensions {
+  private final WildwoodArmorModel HEAD_MODEL;
+  private final WildwoodArmorModel CHEST_MODEL;
+  private final WildwoodArmorModel LEGGINGS_MODEL;
+  private final WildwoodArmorModel FEET_MODEL;
+
+  public WildwoodItemExtension() {
+    HEAD_MODEL = new WildwoodArmorModel(WildwoodArmorModel.createArmorDefinition().bakeRoot(), ArmorType.HELMET);
+    CHEST_MODEL = new WildwoodArmorModel(WildwoodArmorModel.createArmorDefinition().bakeRoot(), ArmorType.CHESTPLATE);
+    LEGGINGS_MODEL = new WildwoodArmorModel(WildwoodArmorModel.createArmorDefinition().bakeRoot(), ArmorType.LEGGINGS);
+    FEET_MODEL = new WildwoodArmorModel(WildwoodArmorModel.createArmorDefinition().bakeRoot(), ArmorType.BOOTS);
+  }
+
+  @Override
+  public @Nullable Identifier getArmorTexture(@NonNull ItemStack stack, EquipmentClientInfo.@NonNull LayerType type,
+                                              EquipmentClientInfo.@NonNull Layer layer, @NonNull Identifier _default) {
+    return Const.modLoc("textures/models/armor/wildwood.png");
+  }
+
+  @Override
+  public @NonNull Model getHumanoidArmorModel(ItemStack itemStack, EquipmentClientInfo.@NonNull LayerType layerType, @NonNull Model original) {
+    Equippable equippable = itemStack.get(DataComponents.EQUIPPABLE);
+    EquipmentSlot slot = equippable != null ? equippable.slot() : null;
+
+    WildwoodArmorModel model = switch (slot) {
+      case HEAD -> HEAD_MODEL;
+      case CHEST -> CHEST_MODEL;
+      case LEGS -> LEGGINGS_MODEL;
+      case FEET -> FEET_MODEL;
+      default -> null;
+    };
+
+    model.head.visible = slot == EquipmentSlot.HEAD;
+    model.body.visible = slot == EquipmentSlot.CHEST;
+    model.rightArm.visible = slot == EquipmentSlot.CHEST;
+    model.leftArm.visible = slot == EquipmentSlot.CHEST;
+    model.rightLeg.visible = slot == EquipmentSlot.LEGS;
+    model.leftLeg.visible = slot == EquipmentSlot.LEGS;
+    model.rightFoot.visible = slot == EquipmentSlot.FEET;
+    model.leftFoot.visible = slot == EquipmentSlot.FEET;
+
+    model.updateRotations();
+    return model;
+  }
+}

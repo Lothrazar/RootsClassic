@@ -1,6 +1,7 @@
 package elucent.rootsclassic.datagen.client;
 
 import elucent.rootsclassic.Const;
+import elucent.rootsclassic.registry.RootsEntities;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -13,6 +14,10 @@ public class RootsLanguageProvider extends LanguageProvider {
   @Override
   protected void addTranslations() {
     this.add("itemGroup.rootsclassic", "Roots Classic");
+
+    this.addEntityType(RootsEntities.PHANTOM_SKELETON, "Phantom Skeleton");
+    this.addEntityType(RootsEntities.ENTITY_ACCELERATOR, "Entity Accelerator");
+    this.addEntityType(RootsEntities.TILE_ACCELERATOR, "Tile Accelerator");
 
     this.addItem(RootsRegistry.ACACIA_BARK, "Acacia Bark");
     this.addItem(RootsRegistry.BARK_KNIFE, "Bark Knife");
@@ -520,10 +525,6 @@ public class RootsLanguageProvider extends LanguageProvider {
     this.add("rootsclassic.mortar.invalid", "Recipe invalid; verify items and order");
     this.add("rootsclassic.mortar.disabled", "Recipe disabled");
     this.add("rootsclassic.mortar.mixin", "Recipe found but missing a Rare Material mixin");
-
-    this.add("entity.rootsclassic.skeleton_phantom", "Phantom Skeleton");
-    this.add("entity.rootsclassic.tile_accelerator", "Tile Accelerator");
-    this.add("entity.rootsclassic.entity_accelerator", "Entity Accelerator");
 
     this.add("rootsclassic.brazier.burning.added", "Item added");
     this.add("rootsclassic.brazier.burning.empty", "Empty");

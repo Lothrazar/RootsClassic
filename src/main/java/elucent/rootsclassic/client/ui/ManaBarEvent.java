@@ -12,12 +12,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
+@EventBusSubscriber(Dist.CLIENT)
 public class ManaBarEvent {
 
+  @SubscribeEvent
   public static void onRegisterLayer(RegisterGuiLayersEvent event) {
     event.registerAbove(VanillaGuiLayers.FOOD_LEVEL, Const.MANA_LAYER,
       ManaBarEvent::onDrawManaBar
@@ -77,6 +82,7 @@ public class ManaBarEvent {
 //    RenderSystem.disableBlend();
   }
 
+  @SubscribeEvent
   public static void clientTickEnd(ClientTickEvent.Post event) {
     ClientInfo.ticksInGame++;
   }

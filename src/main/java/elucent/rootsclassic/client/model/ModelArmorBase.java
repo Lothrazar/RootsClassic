@@ -26,8 +26,8 @@ public class ModelArmorBase extends HumanoidModel<HumanoidRenderState> {
   public static MeshDefinition createArmorMesh() {
     MeshDefinition meshdefinition = new MeshDefinition();
     PartDefinition partdefinition = meshdefinition.getRoot();
-    partdefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
-    partdefinition.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+    PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
+    head.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
     partdefinition.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.ZERO);
     partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.ZERO);
     partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.ZERO);
@@ -41,10 +41,6 @@ public class ModelArmorBase extends HumanoidModel<HumanoidRenderState> {
   @Override
   public void setupAnim(HumanoidRenderState state) {
     super.setupAnim(state);
-    this.setHeadRotation();
-    this.setChestRotation();
-    this.setLegsRotation();
-    this.setBootRotation();
     head.visible = slot == ArmorType.HELMET;
     body.visible = slot == ArmorType.CHESTPLATE;
     rightArm.visible = slot == ArmorType.CHESTPLATE;
@@ -54,6 +50,14 @@ public class ModelArmorBase extends HumanoidModel<HumanoidRenderState> {
     rightFoot.visible = slot == ArmorType.BOOTS;
     leftFoot.visible = slot == ArmorType.BOOTS;
 
+    updateRotations();
+  }
+
+  public void updateRotations() {
+    this.setHeadRotation();
+    this.setChestRotation();
+    this.setLegsRotation();
+    this.setBootRotation();
   }
 
   public void setHeadRotation() {

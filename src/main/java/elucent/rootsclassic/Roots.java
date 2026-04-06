@@ -2,8 +2,6 @@ package elucent.rootsclassic;
 
 import com.mojang.logging.LogUtils;
 import elucent.rootsclassic.attachment.RootsAttachments;
-import elucent.rootsclassic.client.ClientHandler;
-import elucent.rootsclassic.client.ui.ManaBarEvent;
 import elucent.rootsclassic.component.ComponentRegistry;
 import elucent.rootsclassic.config.RootsConfig;
 import elucent.rootsclassic.event.ComponentSpellsEvent;
@@ -15,7 +13,6 @@ import elucent.rootsclassic.registry.RootsComponents;
 import elucent.rootsclassic.registry.RootsEntities;
 import elucent.rootsclassic.registry.RootsRecipes;
 import elucent.rootsclassic.registry.RootsRegistry;
-import elucent.rootsclassic.research.ResearchManager;
 import elucent.rootsclassic.ritual.RitualRegistry;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -64,13 +61,6 @@ public class Roots {
     if (dist.isClient()) {
       container.registerConfig(ModConfig.Type.CLIENT, RootsConfig.clientSpec);
       container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-      NeoForge.EVENT_BUS.addListener(ManaBarEvent::clientTickEnd);
-      eventBus.addListener(ManaBarEvent::onRegisterLayer);
-      eventBus.addListener(ClientHandler::registerEntityRenders);
-      eventBus.addListener(ClientHandler::registerLayerDefinitions);
-      eventBus.addListener(ClientHandler::registerItemColors);
-      eventBus.addListener(ClientHandler::registerParticleFactories);
-      NeoForge.EVENT_BUS.addListener(ResearchManager::onRecipesReceived);
     }
   }
 

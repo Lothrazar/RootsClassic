@@ -13,16 +13,21 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeMap;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@EventBusSubscriber(Dist.CLIENT)
 public class ResearchManager {
 
   public static final List<ResearchGroup> globalResearches = new ArrayList<>();
 
+  @SubscribeEvent
   public static void onRecipesReceived(RecipesReceivedEvent event) {
     reload(event.getRecipeMap());
 
