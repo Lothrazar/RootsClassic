@@ -41,9 +41,10 @@ public class MagicAltarLineParticle extends TextureSheetParticle {
   public void tick() {
     super.tick();
     float lifeCoeff = ((float) this.lifetime - (float) this.age) / this.lifetime;
-    this.rCol = Math.min(1.0f, (float) colorR * (1.5f - lifeCoeff) + lifeCoeff);
-    this.gCol = Math.min(1.0f, (float) colorG * (1.5f - lifeCoeff) + lifeCoeff);
-    this.bCol = Math.min(1.0f, (float) colorB * (1.5f - lifeCoeff) + lifeCoeff);
+    float brightness = 0.5f + 0.5f * lifeCoeff;
+    this.rCol = Math.min(1.0f, (float) colorR * brightness);
+    this.gCol = Math.min(1.0f, (float) colorG * brightness);
+    this.bCol = Math.min(1.0f, (float) colorB * brightness);
     this.alpha = 1.0f - lifeCoeff;
     this.quadSize = 0.1F * (0.5f + 2.0f * (1.0f - lifeCoeff));
   }
