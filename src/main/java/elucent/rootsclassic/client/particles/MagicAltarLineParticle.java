@@ -6,23 +6,23 @@ import net.minecraft.client.particle.SpriteSet;
 
 public class MagicAltarLineParticle extends SingleQuadParticle {
 
-  public double colorR = 0;
-  public double colorG = 0;
-  public double colorB = 0;
+  public float colorR = 0;
+  public float colorG = 0;
+  public float colorB = 0;
 
-  public MagicAltarLineParticle(ClientLevel levelAccessor, double x, double y, double z, double vx, double vy, double vz, double r, double g, double b, SpriteSet sprite) {
+  public MagicAltarLineParticle(ClientLevel levelAccessor, double x, double y, double z, double vx, double vy, double vz, float r, float g, float b, SpriteSet sprite) {
     super(levelAccessor, x, y, z, 0, 0, 0, sprite.get(0, 1));
     this.colorR = r;
     this.colorG = g;
     this.colorB = b;
     if (this.colorR > 1.0) {
-      this.colorR = this.colorR / 255.0;
+      this.colorR = this.colorR / 255;
     }
     if (this.colorG > 1.0) {
-      this.colorG = this.colorG / 255.0;
+      this.colorG = this.colorG / 255;
     }
     if (this.colorB > 1.0) {
-      this.colorB = this.colorB / 255.0;
+      this.colorB = this.colorB / 255;
     }
     this.setColor(1, 1, 1);
     this.lifetime = 16;
@@ -38,9 +38,10 @@ public class MagicAltarLineParticle extends SingleQuadParticle {
   public void tick() {
     super.tick();
     float lifeCoeff = ((float) this.lifetime - (float) this.age) / this.lifetime;
-    this.rCol = Math.min(1.0f, (float) colorR * (1.5f - lifeCoeff) + lifeCoeff);
-    this.gCol = Math.min(1.0f, (float) colorG * (1.5f - lifeCoeff) + lifeCoeff);
-    this.bCol = Math.min(1.0f, (float) colorB * (1.5f - lifeCoeff) + lifeCoeff);
+    float brightness = 0.5f + 0.5f * lifeCoeff;
+    this.rCol = Math.min(1.0f, colorR * brightness);
+    this.gCol = Math.min(1.0f, colorG * brightness);
+    this.bCol = Math.min(1.0f, colorB * brightness);
     this.alpha = 1.0f - lifeCoeff;
     this.quadSize = 0.1F * (0.5f + 2.0f * (1.0f - lifeCoeff));
   }
