@@ -121,18 +121,22 @@ public class TabletScreen extends Screen {
     poseStack.pushMatrix();
     float unit = width / 32.0f;
     if (RootsConfig.CLIENT.showTabletWave.get()) {
-//      RenderSystem.enableBlend();
-//      RenderSystem.setShaderTexture(0, Const.TABLETGUI);
-//      RenderSystem.setShader(GameRenderer::getPositionTexShader);
-      Tesselator tesselator = Tesselator.getInstance();
-      BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
       for (float i = 0; i < width; i += unit) {
         float height1 = 12.0f * ((float) Math.cos(((ClientInfo.ticksInGame / 36.0) + (i / (width / 4.0))) * Math.PI) + 1.0f);
-        float height2 = 12.0f * ((float) Math.cos(((ClientInfo.ticksInGame / 36.0) + ((i + unit) / (width / 4.0))) * Math.PI) + 1.0f);
-        this.drawQuad(bufferBuilder, i, height - (24.0f + height1), i + unit, height - (24.0f + height2), i + unit, height, i, height, 16, 96, 16, 64);
+        int stripX = (int) i;
+        int stripEndX = (int) (i + unit);
+        int stripW = Math.max(1, stripEndX - stripX);
+        int stripH = (int) (24.0f + height1);
+        int stripY = height - stripH;
+        guiGraphics.blit(
+          RenderPipelines.GUI_TEXTURED, Const.TABLETGUI,
+          stripX, stripY,
+          16.0f, 96.0f,
+          stripW, stripH,
+          16, 64,
+          256, 256
+        );
       }
-//	    BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
-//      RenderSystem.disableBlend();
     }
     int basePosX = (int) ((width / 2.0f) - 92);
     String researchName = "rootsclassic.research." + ResearchManager.globalResearches.get(currentGroup).getName();
