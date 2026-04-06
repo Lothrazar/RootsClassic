@@ -38,6 +38,9 @@ public class WildwoodItemExtension implements IClientItemExtensions {
       case FEET -> FEET_MODEL;
       default -> null;
     };
+    if (model == null) {
+      return original;
+    }
 
     model.head.visible = slot == EquipmentSlot.HEAD;
     model.body.visible = slot == EquipmentSlot.CHEST;
