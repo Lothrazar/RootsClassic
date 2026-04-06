@@ -1,6 +1,8 @@
 package elucent.rootsclassic.datagen;
 
 import elucent.rootsclassic.Const;
+import elucent.rootsclassic.datagen.client.RootsLanguageProvider;
+import elucent.rootsclassic.datagen.client.RootsModelProvider;
 import elucent.rootsclassic.datagen.server.RootsBlockTagsProvider;
 import elucent.rootsclassic.datagen.server.RootsDataMapProvider;
 import elucent.rootsclassic.datagen.server.RootsDatapackProvider;
@@ -26,6 +28,9 @@ public class RootsDataGen {
     DataGenerator generator = event.getGenerator();
     PackOutput packOutput = generator.getPackOutput();
     CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+      generator.addProvider(true, new RootsLanguageProvider(packOutput));
+      generator.addProvider(true, new RootsModelProvider(packOutput));
+
       generator.addProvider(true, new RootsLootsProvider(packOutput, lookupProvider));
       generator.addProvider(true, new RootsRecipeProvider.Runner(packOutput, lookupProvider));
       generator.addProvider(true, new RootsGLMProvider(packOutput, lookupProvider));

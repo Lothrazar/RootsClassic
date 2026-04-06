@@ -31,7 +31,7 @@ public class IgniterStandingStoneTile extends BEBase {
       List<LivingEntity> nearbyCreatures = level.getEntitiesOfClass(LivingEntity.class,
           new AABB(pos.getX() - RADIUS, pos.getY() - VRADIUS, pos.getZ() - RADIUS,
               pos.getX() + RADIUS, pos.getY() + VRADIUS, pos.getZ() + RADIUS));
-      if (nearbyCreatures.size() > 0) {
+      if (!nearbyCreatures.isEmpty()) {
         for (LivingEntity nearbyCreature : nearbyCreatures) {
           nearbyCreature.igniteForSeconds(2);
         }

@@ -68,7 +68,7 @@ public class RootsUtil {
       y += livingEntity.getLookAngle().y * 0.1;
       z += livingEntity.getLookAngle().z * 0.1;
       List<Entity> entities = levelAccessor.getEntitiesOfClass(Entity.class, new AABB(x - 0.1, y - 0.1, z - 0.1, x + 0.1, y + 0.1, z + 0.1));
-      if (entities.size() > 0) {
+      if (!entities.isEmpty()) {
         if (entities.getFirst().getUUID() != livingEntity.getUUID()) {
           return entities.getFirst();
         }

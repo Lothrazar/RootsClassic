@@ -32,7 +32,7 @@ public class RitualFlare extends SimpleRitualEffect {
     inventory.clearContent();
     List<LivingEntity> enemies = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.getX() - 22, pos.getY() - 8, pos.getZ() - 22,
         pos.getX() + 23, pos.getY() + 9, pos.getZ() + 23));
-    if (enemies.size() > 0) {
+    if (!enemies.isEmpty()) {
       for (LivingEntity enemy : enemies) {
         enemy.igniteForSeconds(level.getRandom().nextInt(5) + 14);
       }

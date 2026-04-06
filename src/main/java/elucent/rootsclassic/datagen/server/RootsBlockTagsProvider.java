@@ -6,6 +6,7 @@ import elucent.rootsclassic.registry.RootsTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 
 import java.util.concurrent.CompletableFuture;
@@ -34,5 +35,11 @@ public class RootsBlockTagsProvider extends BlockTagsProvider {
 			RootsRegistry.ALTAR.get(),
 			RootsRegistry.MORTAR.get()
 		);
+
+    this.tag(Tags.Blocks.FLOWERS_SMALL).add(
+      RootsRegistry.MIDNIGHT_BLOOM.get(),
+      RootsRegistry.FLARE_ORCHID.get(),
+      RootsRegistry.RADIANT_DAISY.get()
+    );
 	}
 }

@@ -19,7 +19,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ComponentPeony extends ComponentBase {
 
-  private List<BlockPos> pos = new CopyOnWriteArrayList<>();
+  private final List<BlockPos> pos = new CopyOnWriteArrayList<>();
 
   public ComponentPeony() {
     super(Blocks.PEONY, 24);
@@ -63,7 +63,7 @@ public class ComponentPeony extends ComponentBase {
   @Override
   public void doEffect(Level level, Entity caster, EnumCastType type, double x, double y, double z, double potency, double duration, double size) {
     if (type == EnumCastType.SPELL) {
-      ((LivingEntity) caster).heal((float) (pos.size() / 2 + (potency * 2)));
+      ((LivingEntity) caster).heal((float) ((double) pos.size() / 2 + (potency * 2)));
       pos.clear();
     }
   }

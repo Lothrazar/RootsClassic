@@ -21,7 +21,7 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 public class ComponentSpellsEvent {
 
-  public static int TICKS_PER_MANA_REGEN = 5;
+  public static final int TICKS_PER_MANA_REGEN = 5;
 
   @SubscribeEvent
   public void onLivingTick(EntityTickEvent.Pre event) {

@@ -23,7 +23,7 @@ public class Const {
   public static final String NBT_TRACK_TICKS = "RMOD_trackTicks";
   public static final String NBT_SKIP_TICKS = MODID + ":RMOD_skipTicks";
 
-  public static final Identifier modLoc(String path) {
+  public static Identifier modLoc(String path) {
     return Identifier.fromNamespaceAndPath(MODID, path);
   }
 }

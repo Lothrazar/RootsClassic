@@ -236,7 +236,7 @@ public class AltarBlockEntity extends BEBase {
       var color = tile.clientRitualColor;
       var secondaryColor = tile.clientRitualSecondaryColor;
       if (color == -1 || secondaryColor == -1) return;
-      if (pillarPositions.size() > 0) {
+      if (!pillarPositions.isEmpty()) {
         BlockPos particlePos = pillarPositions.get(level.getRandom().nextInt(pillarPositions.size())).above()
             .offset(pos.getX(), pos.getY(), pos.getZ());
         if (level.getRandom().nextInt(6) == 0) {
@@ -352,7 +352,7 @@ public class AltarBlockEntity extends BEBase {
   //		this.resultItem = resultItem;
   //	}
 
-  private static record RitualInfo(int level, int color, int secondaryColor) {
+  private record RitualInfo(int level, int color, int secondaryColor) {
     private static final Codec<RitualInfo> CODEC = RecordCodecBuilder.create(instance -> instance.group(
       Codec.INT.fieldOf("level").forGetter(RitualInfo::level),
       Codec.INT.fieldOf("color").forGetter(RitualInfo::color),

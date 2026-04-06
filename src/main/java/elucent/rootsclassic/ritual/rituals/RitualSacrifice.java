@@ -17,7 +17,7 @@ import java.util.List;
 
 public class RitualSacrifice extends SimpleRitualEffect {
 
-  public List<ItemStackTemplate> potentialDrops = new ArrayList<>();
+  public final List<ItemStackTemplate> potentialDrops = new ArrayList<>();
 
   public RitualSacrifice() {
     potentialDrops.add(new ItemStackTemplate(Items.WHEAT_SEEDS, 1));
@@ -45,7 +45,7 @@ public class RitualSacrifice extends SimpleRitualEffect {
   public void doEffect(Level level, BlockPos pos, Container inventory, List<ItemStack> incenses) {
     inventory.clearContent();
     List<LivingEntity> enemies = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.getX() - 2, pos.getY() - 2, pos.getZ() - 2, pos.getX() + 3, pos.getY() + 3, pos.getZ() + 3));
-    if (enemies.size() > 0) {
+    if (!enemies.isEmpty()) {
       for (LivingEntity enemy : enemies) {
         if (!(enemy instanceof Player)) {
           enemies.getFirst().setHealth(enemies.getFirst().getHealth() - 60.0f);

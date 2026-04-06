@@ -31,7 +31,7 @@ public class AcceleratorStandingStoneTile extends BEBase {
     tile.ticker++;
     if (tile.ticker % 20 == 0) {
       List<LivingEntity> nearbyCreatures = level.getEntitiesOfClass(LivingEntity.class, new AABB(pos.getX() - RADIUS, pos.getY() - RADIUS, pos.getZ() - RADIUS, pos.getX() + RADIUS, pos.getY() + RADIUS, pos.getZ() + RADIUS));
-      if (nearbyCreatures.size() > 0) {
+      if (!nearbyCreatures.isEmpty()) {
         for (LivingEntity nearbyCreature : nearbyCreatures) {
           nearbyCreature.addEffect(new MobEffectInstance(MobEffects.SPEED, POTION_SECONDS * 20, 1));
         }

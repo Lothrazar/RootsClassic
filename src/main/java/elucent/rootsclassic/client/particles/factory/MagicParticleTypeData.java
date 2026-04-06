@@ -11,7 +11,7 @@ import net.minecraft.network.codec.StreamCodec;
 
 public class MagicParticleTypeData implements ParticleOptions {
 
-  private ParticleType<MagicParticleTypeData> type;
+  private final ParticleType<MagicParticleTypeData> type;
 
 	public static final MapCodec<MagicParticleTypeData> CODEC = RecordCodecBuilder.mapCodec(
 		instance -> instance.group(
@@ -20,7 +20,7 @@ public class MagicParticleTypeData implements ParticleOptions {
 			.apply(instance, MagicParticleTypeData::new)
 	);
 
-  public ParticleColor color;
+  public final ParticleColor color;
 
 	public static final StreamCodec<RegistryFriendlyByteBuf, MagicParticleTypeData> STREAM_CODEC = StreamCodec.composite(
 		ParticleColor.STREAM_CODEC, p_319429_ -> p_319429_.color, MagicParticleTypeData::new

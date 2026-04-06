@@ -66,7 +66,6 @@ public class Roots {
       container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
       NeoForge.EVENT_BUS.addListener(ManaBarEvent::clientTickEnd);
       eventBus.addListener(ManaBarEvent::onRegisterLayer);
-      eventBus.addListener(ClientHandler::onClientSetup);
       eventBus.addListener(ClientHandler::registerEntityRenders);
       eventBus.addListener(ClientHandler::registerLayerDefinitions);
       eventBus.addListener(ClientHandler::registerItemColors);

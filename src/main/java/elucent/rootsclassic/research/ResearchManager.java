@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ResearchManager {
 
-  public static List<ResearchGroup> globalResearches = new ArrayList<>();
+  public static final List<ResearchGroup> globalResearches = new ArrayList<>();
 
   public static void onRecipesReceived(RecipesReceivedEvent event) {
     reload(event.getRecipeMap());

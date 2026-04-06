@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class RitualRecipe implements Recipe<RecipeInput> {
   private static final MapCodec<RitualRecipe> CODEC = RecordCodecBuilder.mapCodec(
     instance -> instance.group(
@@ -146,6 +147,11 @@ public class RitualRecipe implements Recipe<RecipeInput> {
   }
 
   @Override
+  public boolean isSpecial() {
+    return true;
+  }
+
+  @Override
 	public boolean matches(RecipeInput recipeInput, Level level) {
 		return false;
 	}
@@ -166,7 +172,7 @@ public class RitualRecipe implements Recipe<RecipeInput> {
 		return secondaryColorInt;
 	}
 
-	public boolean incenseMatches(Level levelAccessor, BlockPos pos) {
+  public boolean incenseMatches(Level levelAccessor, BlockPos pos) {
 		ArrayList<ItemStack> incenseFromNearby = new ArrayList<>();
 		List<BrazierBlockEntity> braziers = RitualPillars.getRecipeBraziers(levelAccessor, pos);
 		for (BrazierBlockEntity brazier : braziers) {

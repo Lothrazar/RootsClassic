@@ -41,7 +41,7 @@ public class MutatingPowderItem extends Item {
     for (ItemEntity itemEntity : itemEntities) {
       items.add(itemEntity.getItem());
     }
-    if (items.size() > 0) {
+    if (!items.isEmpty()) {
       MutagenRecipe recipe = MutagenManager.getRecipe(items, level, pos, player);
       if (recipe != null) {
         level.setBlockAndUpdate(pos, recipe.result);

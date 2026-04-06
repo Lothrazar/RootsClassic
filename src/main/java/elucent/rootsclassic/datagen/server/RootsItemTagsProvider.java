@@ -45,13 +45,21 @@ public class RootsItemTagsProvider extends ItemTagsProvider {
     this.tag(ItemTags.SWORDS).add(RootsRegistry.LIVING_SWORD.get(), RootsRegistry.ENGRAVED_BLADE.get());
     this.tag(ItemTags.HEAD_ARMOR).add(RootsRegistry.SYLVAN_HOOD.get(), RootsRegistry.WILDWOOD_MASK.get());
     this.tag(ItemTags.CHEST_ARMOR).add(RootsRegistry.SYLVAN_ROBE.get(), RootsRegistry.WILDWOOD_PLATE.get());
-    this.tag(ItemTags.LEG_ARMOR).add(RootsRegistry.SYLVAN_ROBE.get(), RootsRegistry.WILDWOOD_LEGGINGS.get());
+    this.tag(ItemTags.LEG_ARMOR).add(RootsRegistry.SYLVAN_TUNIC.get(), RootsRegistry.WILDWOOD_LEGGINGS.get());
     this.tag(ItemTags.FOOT_ARMOR).add(RootsRegistry.SYLVAN_BOOTS.get(), RootsRegistry.WILDWOOD_BOOTS.get());
 
     this.tag(RootsTags.LIVING_TOOL_MATERIALS);
     this.tag(RootsTags.ENGRAVED_TOOL_MATERIALS);
     this.tag(RootsTags.REPAIRS_SYLVAN);
     this.tag(RootsTags.REPAIRS_WILDWOOD);
+    this.tag(ItemTags.DURABILITY_ENCHANTABLE).add(RootsRegistry.BARK_KNIFE.get());
+
+    this.tag(Tags.Items.FERTILIZERS).add(RootsRegistry.GROWTH_POWDER.get());
+    this.tag(Tags.Items.FLOWERS_SMALL).add(
+      RootsRegistry.MIDNIGHT_BLOOM_ITEM.get(),
+      RootsRegistry.FLARE_ORCHID_ITEM.get(),
+      RootsRegistry.RADIANT_DAISY_ITEM.get()
+    );
 	}
 
 	private void addBark(Item item, String treeType) {

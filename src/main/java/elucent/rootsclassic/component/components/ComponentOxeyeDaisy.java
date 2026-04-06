@@ -25,7 +25,7 @@ public class ComponentOxeyeDaisy extends ComponentBase {
       if (entity != null) {
         if (!level.isClientSide()) {
           if (level.getEntitiesOfClass(EntityAccelerator.class, new AABB(entity.getX() - 0.1, entity.getY() - 0.1, entity.getZ() - 0.1,
-              entity.getX() + 0.1, entity.getY() + 0.1, entity.getZ() + 0.1)).size() == 0) {
+            entity.getX() + 0.1, entity.getY() + 0.1, entity.getZ() + 0.1)).isEmpty()) {
             EntityAccelerator a = new EntityAccelerator(level, entity, (int) potency, (int) size);
             level.addFreshEntity(a);
           }
@@ -34,7 +34,7 @@ public class ComponentOxeyeDaisy extends ComponentBase {
       else {
         BlockPos pos = RootsUtil.getRayTrace(level, caster, 4 + 2 * (int) size);
         if (level.getBlockEntity(pos) != null && !level.isClientSide()) {
-          if (level.getEntitiesOfClass(EntityTileAccelerator.class, new AABB(pos.getX() - 0.1, pos.getY() - 0.1, pos.getZ() - 0.1, pos.getX() + 0.1, pos.getY() + 0.1, pos.getZ() + 0.1)).size() == 0) {
+          if (level.getEntitiesOfClass(EntityTileAccelerator.class, new AABB(pos.getX() - 0.1, pos.getY() - 0.1, pos.getZ() - 0.1, pos.getX() + 0.1, pos.getY() + 0.1, pos.getZ() + 0.1)).isEmpty()) {
             EntityTileAccelerator a = new EntityTileAccelerator(level, pos, (int) potency, (int) size);
             a.setBEPosition(pos);
             level.addFreshEntity(a);

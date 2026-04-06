@@ -152,9 +152,7 @@ public class RootsRecipeProvider extends RecipeProvider {
 			.unlockedBy("has_dragons_eye", has(RootsRegistry.DRAGONS_EYE.get()))
 			.save(output, "rootsclassic:ender_pearl");
 
-		/**
-		 * Components
-		 */
+    // Components
 		new ComponentRecipeBuilder(ComponentRegistry.ALLIUM.getId())
 			.materials(
 				Ingredient.of(Items.ALLIUM),
@@ -333,9 +331,7 @@ public class RootsRecipeProvider extends RecipeProvider {
 			.save(output, Const.modLoc("component/white_tulip"));
 
 
-		/**
-		 * Rituals
-		 */
+		// Rituals
 
 		new RitualRecipeBuilder(RitualRegistry.CRAFTING.getId())
 			.config(stackTag(new ItemStackTemplate(RootsRegistry.ACCELERATOR_STANDING_STONE.asItem()), registries))

@@ -31,7 +31,7 @@ public class RepulsorStandingStoneTile extends BEBase {
     List<ItemEntity> nearbyItems = level.getEntitiesOfClass(ItemEntity.class,
         new AABB(pos.getX() - RADIUS, pos.getY() - VRADIUS, pos.getZ() - RADIUS,
             pos.getX() + RADIUS, pos.getY() + VRADIUS, pos.getZ() + RADIUS));
-    if (nearbyItems.size() > 0) {
+    if (!nearbyItems.isEmpty()) {
       for (ItemEntity ei : nearbyItems) {
         if (Math.max(Math.abs(ei.getX() - (pos.getX() + 0.5)), Math.abs(ei.getZ() - (pos.getZ() + 0.5))) > 1.0) {
           Vec3 v = new Vec3(ei.getX() - (pos.getX() + 0.5), 0, ei.getZ() - (pos.getZ() + 0.5));

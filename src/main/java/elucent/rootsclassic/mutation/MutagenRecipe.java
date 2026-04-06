@@ -44,7 +44,7 @@ public class MutagenRecipe {
           }
         }
       }
-      return tempItems.size() == 0;
+      return tempItems.isEmpty();
     }
     return false;
   }

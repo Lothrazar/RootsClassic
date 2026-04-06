@@ -14,7 +14,7 @@ public class ResearchPage {
   public List<ItemStack> craftingRecipe = new ArrayList<>();
   public RecipeHolder<ComponentRecipe> mortarRecipe = null;
   public RecipeHolder<RitualRecipe> altarRecipe = null;
-  public List<ItemStack> smeltingRecipe = new ArrayList<>();
+  public final List<ItemStack> smeltingRecipe = new ArrayList<>();
   public EnumPageType recipe = EnumPageType.TYPE_NULL;
   public ItemStack displayItem = null;
   public List<String> info = new ArrayList<>();

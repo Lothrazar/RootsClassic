@@ -7,7 +7,7 @@ public class ResearchGroup {
 
   private String name = "";
   private String properName = "";
-  public List<ResearchBase> researches = new ArrayList<>();
+  public final List<ResearchBase> researches = new ArrayList<>();
 
   public ResearchGroup(String name, String properName) {
     this.name = name;

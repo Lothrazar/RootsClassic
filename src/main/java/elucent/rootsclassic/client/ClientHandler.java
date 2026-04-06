@@ -14,13 +14,12 @@ import elucent.rootsclassic.client.renderer.block.ImbuerBER;
 import elucent.rootsclassic.client.renderer.block.MortarBER;
 import elucent.rootsclassic.client.renderer.entity.AcceleratorRenderer;
 import elucent.rootsclassic.client.renderer.entity.PhantomSkeletonRenderer;
-import elucent.rootsclassic.datacomponent.SpellData;
-import elucent.rootsclassic.datacomponent.SpellDataList;
+import elucent.rootsclassic.client.tintsource.CrystalStaffSource;
+import elucent.rootsclassic.client.tintsource.StaffSource;
 import elucent.rootsclassic.registry.ParticleRegistry;
 import elucent.rootsclassic.registry.RootsEntities;
 import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
@@ -29,11 +28,6 @@ public class ClientHandler {
 
   public static final ModelLayerLocation SYLVAN_ARMOR = new ModelLayerLocation(Const.modLoc("main"), "sylvan_armor");
   public static final ModelLayerLocation WILDWOOD_ARMOR = new ModelLayerLocation(Const.modLoc("main"), "wildwood_armor");
-
-  public static void onClientSetup(final FMLClientSetupEvent event) {
-//    ItemProperties.register(RootsRegistry.STAFF.get(), Identifier.withDefaultNamespace("imbued"), (stack, world, livingEntity, unused) ->
-//	    stack.has(RootsComponents.SPELL) ? 1.0F : 0.0F); TODO: re-implement imbued state for STAFF
-  }
 
   public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
     event.registerBlockEntityRenderer(RootsRegistry.MORTAR_TILE.get(), MortarBER::new);
@@ -51,47 +45,8 @@ public class ClientHandler {
   }
 
   public static void registerItemColors(final RegisterColorHandlersEvent.ItemTintSources event) {
-    event.register(Const.modLoc("spell_data"), SpellData.MAP_CODEC);
-    event.register(Const.modLoc("spell_data_list"), SpellDataList.MAP_CODEC);
-//    event.register((stack, tintIndex) -> {
-//      if (stack.has(RootsComponents.SPELL) && stack.getItem() instanceof StaffItem) {
-//	      SpellData data = stack.get(RootsComponents.SPELL);
-//        Identifier compName = Identifier.tryParse(data.effect());
-//        if (compName != null) {
-//          ComponentBase comp = ComponentBaseRegistry.COMPONENTS.getValue(compName);
-//          if (comp != null) {
-//            if (tintIndex == 2) {
-//              return RootsUtil.intColor((int) comp.primaryColor.x, (int) comp.primaryColor.y, (int) comp.primaryColor.z);
-//            }
-//            if (tintIndex == 1) {
-//              return RootsUtil.intColor((int) comp.secondaryColor.x, (int) comp.secondaryColor.y, (int) comp.secondaryColor.z);
-//            }
-//          }
-//        }
-//      }
-//      return RootsUtil.intColor(255, 255, 255);
-//    }, RootsRegistry.STAFF.get());
-//    event.register((stack, tintIndex) -> {
-//      if (stack.getItem() instanceof CrystalStaffItem && stack.has(RootsComponents.SPELLS)) {
-//				SpellData selectedSpell = CrystalStaffItem.getSelectedSpell(stack);
-//        String effect = selectedSpell.effect();
-//        if (effect != null) {
-//          Identifier compName = Identifier.tryParse(effect);
-//          if (compName != null) {
-//            ComponentBase comp = ComponentBaseRegistry.COMPONENTS.getValue(compName);
-//            if (comp != null) {
-//              if (tintIndex == 2) {
-//                return RootsUtil.intColor((int) comp.primaryColor.x, (int) comp.primaryColor.y, (int) comp.primaryColor.z);
-//              }
-//              if (tintIndex == 1) {
-//                return RootsUtil.intColor((int) comp.secondaryColor.x, (int) comp.secondaryColor.y, (int) comp.secondaryColor.z);
-//              }
-//            }
-//          }
-//        }
-//      }
-//      return RootsUtil.intColor(255, 255, 255);
-//    }, RootsRegistry.CRYSTAL_STAFF.get());
+    event.register(Const.modLoc("staff"), StaffSource.MAP_CODEC);
+    event.register(Const.modLoc("crystal_staff"), CrystalStaffSource.MAP_CODEC);
   }
 
   public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
