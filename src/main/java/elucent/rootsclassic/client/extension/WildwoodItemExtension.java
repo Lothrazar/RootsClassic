@@ -15,17 +15,10 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class WildwoodItemExtension implements IClientItemExtensions {
-  private final WildwoodArmorModel HEAD_MODEL;
-  private final WildwoodArmorModel CHEST_MODEL;
-  private final WildwoodArmorModel LEGGINGS_MODEL;
-  private final WildwoodArmorModel FEET_MODEL;
-
-  public WildwoodItemExtension() {
-    HEAD_MODEL = new WildwoodArmorModel(WildwoodArmorModel.createArmorDefinition().bakeRoot(), ArmorType.HELMET);
-    CHEST_MODEL = new WildwoodArmorModel(WildwoodArmorModel.createArmorDefinition().bakeRoot(), ArmorType.CHESTPLATE);
-    LEGGINGS_MODEL = new WildwoodArmorModel(WildwoodArmorModel.createArmorDefinition().bakeRoot(), ArmorType.LEGGINGS);
-    FEET_MODEL = new WildwoodArmorModel(WildwoodArmorModel.createArmorDefinition().bakeRoot(), ArmorType.BOOTS);
-  }
+  private static final WildwoodArmorModel HEAD_MODEL = new WildwoodArmorModel(WildwoodArmorModel.createArmorDefinition().bakeRoot(), ArmorType.HELMET);
+  private static final WildwoodArmorModel CHEST_MODEL = new WildwoodArmorModel(WildwoodArmorModel.createArmorDefinition().bakeRoot(), ArmorType.CHESTPLATE);
+  private static final WildwoodArmorModel LEGGINGS_MODEL = new WildwoodArmorModel(WildwoodArmorModel.createArmorDefinition().bakeRoot(), ArmorType.LEGGINGS);
+  private static final WildwoodArmorModel FEET_MODEL = new WildwoodArmorModel(WildwoodArmorModel.createArmorDefinition().bakeRoot(), ArmorType.BOOTS);
 
   @Override
   public @Nullable Identifier getArmorTexture(@NonNull ItemStack stack, EquipmentClientInfo.@NonNull LayerType type,

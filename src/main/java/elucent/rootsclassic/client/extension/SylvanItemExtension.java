@@ -15,17 +15,10 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 public class SylvanItemExtension implements IClientItemExtensions {
-  private final SylvanArmorModel HEAD_MODEL;
-  private final SylvanArmorModel CHEST_MODEL;
-  private final SylvanArmorModel LEGGINGS_MODEL;
-  private final SylvanArmorModel FEET_MODEL;
-
-  public SylvanItemExtension() {
-    HEAD_MODEL = new SylvanArmorModel(SylvanArmorModel.createArmorDefinition().bakeRoot(), ArmorType.HELMET);
-    CHEST_MODEL = new SylvanArmorModel(SylvanArmorModel.createArmorDefinition().bakeRoot(), ArmorType.CHESTPLATE);
-    LEGGINGS_MODEL = new SylvanArmorModel(SylvanArmorModel.createArmorDefinition().bakeRoot(), ArmorType.LEGGINGS);
-    FEET_MODEL = new SylvanArmorModel(SylvanArmorModel.createArmorDefinition().bakeRoot(), ArmorType.BOOTS);
-  }
+  private static final SylvanArmorModel HEAD_MODEL = new SylvanArmorModel(SylvanArmorModel.createArmorDefinition().bakeRoot(), ArmorType.HELMET);
+  private static final SylvanArmorModel CHEST_MODEL = new SylvanArmorModel(SylvanArmorModel.createArmorDefinition().bakeRoot(), ArmorType.CHESTPLATE);
+  private static final SylvanArmorModel LEGGINGS_MODEL = new SylvanArmorModel(SylvanArmorModel.createArmorDefinition().bakeRoot(), ArmorType.LEGGINGS);
+  private static final SylvanArmorModel FEET_MODEL = new SylvanArmorModel(SylvanArmorModel.createArmorDefinition().bakeRoot(), ArmorType.BOOTS);
 
   @Override
   public @Nullable Identifier getArmorTexture(@NonNull ItemStack stack, EquipmentClientInfo.@NonNull LayerType type,
