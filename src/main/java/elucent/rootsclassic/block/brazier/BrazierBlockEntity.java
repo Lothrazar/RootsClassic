@@ -26,7 +26,6 @@ import javax.annotation.Nonnull;
 public class BrazierBlockEntity extends BEBase {
 
   private static final int TOTAL_BURN_TIME = 2400;
-  //	private ItemStack heldItem = ItemStack.EMPTY;
   private int ticker = 0;
   private boolean burning = false;
   private int progress = 0;
@@ -37,10 +36,6 @@ public class BrazierBlockEntity extends BEBase {
       return 1;
     }
   };
-
-  public BrazierBlockEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
-    super(tileEntityTypeIn, pos, state);
-  }
 
   public BrazierBlockEntity(BlockPos pos, BlockState state) {
     super(RootsRegistry.BRAZIER_TILE.get(), pos, state);
