@@ -124,7 +124,8 @@ public class AltarBlockEntity extends BEBase {
               return InteractionResult.PASS;
             } else {
               if (!lastResourcePair.getSecond().isEmpty()) {
-                if (inventory.extract(lastResourcePair.getSecond(), 1, tx) != 1) return InteractionResult.PASS;
+                if (inventory.extract(lastResourcePair.getSecond(), 1, tx) != 1)
+                  return InteractionResult.PASS;
 
                 if (!levelAccessor.isClientSide()) {
                   levelAccessor.addFreshEntity(new ItemEntity(levelAccessor,

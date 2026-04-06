@@ -101,7 +101,7 @@ public class MortarBlockEntity extends BEBase {
         int modifierCount = ComponentRecipe.getModifierCount(InventoryUtil.createWrappedInventory(inventory));
         if (modifierCount < maxCapacity) {
           try (Transaction tx = Transaction.openRoot()) {
-            if (inventory.insert(ItemResource.of(heldCopy), 1, tx) != 0) {
+            if (inventory.insert(ItemResource.of(heldCopy), 1, tx) != 1) {
               return InteractionResult.FAIL;
             }
             heldItem.shrink(1);
@@ -134,7 +134,7 @@ public class MortarBlockEntity extends BEBase {
         Pair<Integer, ItemResource> lastPair = InventoryUtil.getLastResource(inventory);
         ItemResource lastResource = lastPair.getSecond();
         if (!lastResource.isEmpty()) {
-          if (inventory.extract(lastResource, 1, tx) != 0) {
+          if (inventory.extract(lastResource, 1, tx) != 1) {
             return InteractionResult.FAIL;
           }
           dropItem(lastResource.toStack(), 0.5F);
