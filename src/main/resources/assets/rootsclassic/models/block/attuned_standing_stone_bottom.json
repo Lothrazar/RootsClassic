@@ -1,7 +1,7 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "rootsclassic:block/attuned_standing_stone_bottom",
+        "layer0": "rootsclassic:block/attuned_standing_stone_bottom",
         "particle": "rootsclassic:block/attuned_standing_stone_bottom"
     },
     "elements": [
@@ -10,12 +10,12 @@
             "from": [ 4.0, 0.0, 4.0 ], 
             "to": [ 12.0, 16.0, 12.0 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 0.0, 0.0, 8.0, 16.0 ] },
-                "east": { "texture": "#0", "uv": [ 0.0, 0.0, 8.0, 16.0 ] },
-                "south": { "texture": "#0", "uv": [ 0.0, 0.0, 8.0, 16.0 ] },
-                "west": { "texture": "#0", "uv": [ 0.0, 0.0, 8.0, 16.0 ] },
-                "up": { "texture": "#0", "uv": [ 8.0, 0.0, 16.0, 8.0 ] },
-                "down": { "texture": "#0", "uv": [ 8.0, 8.0, 16.0, 16.0 ] }
+                "north": { "texture": "#layer0", "uv": [ 0.0, 0.0, 8.0, 16.0 ] },
+                "east": { "texture": "#layer0", "uv": [ 0.0, 0.0, 8.0, 16.0 ] },
+                "south": { "texture": "#layer0", "uv": [ 0.0, 0.0, 8.0, 16.0 ] },
+                "west": { "texture": "#layer0", "uv": [ 0.0, 0.0, 8.0, 16.0 ] },
+                "up": { "texture": "#layer0", "uv": [ 8.0, 0.0, 16.0, 8.0 ] },
+                "down": { "texture": "#layer0", "uv": [ 8.0, 8.0, 16.0, 16.0 ] }
             }
         }
     ]

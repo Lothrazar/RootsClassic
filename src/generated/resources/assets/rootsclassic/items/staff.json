@@ -1,0 +1,29 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "component": "rootsclassic:spell",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "rootsclassic:item/staff_base"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "rootsclassic:item/staff",
+      "tints": [
+        {
+          "type": "minecraft:constant",
+          "value": -1
+        },
+        {
+          "type": "rootsclassic:staff",
+          "tintIndex": 0
+        },
+        {
+          "type": "rootsclassic:staff",
+          "tintIndex": 1
+        }
+      ]
+    },
+    "property": "minecraft:has_component"
+  }
+}

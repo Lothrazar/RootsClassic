@@ -1,0 +1,7 @@
+{
+  "parent": "rootsclassic:item/standing_stone_item",
+  "textures": {
+    "layer0": "rootsclassic:block/repulsor_standing_stone",
+    "particle": "rootsclassic:block/repulsor_standing_stone"
+  }
+}
