@@ -183,7 +183,7 @@ public class TabletPageScreen extends Screen {
             xShift = 8 * pos.getX();
             yShift = 8 * pos.getZ();
           }
-          guiGraphics.blit(RenderPipelines.GUI_TEXTURED, Const.TABLETALTAR, basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16, 25, 25);
+          guiGraphics.blit(RenderPipelines.GUI_TEXTURED, Const.TABLETALTAR, basePosX + 93 + xShift, basePosY + 153 + yShift, u, v, 16, 16, 256, 256);
         });
         for (int i = 0; i < page.altarRecipe.value().getIngredients().size(); i++) {
           var stack = page.altarRecipe.value().getIngredients().get(i).getValues().get(0);
