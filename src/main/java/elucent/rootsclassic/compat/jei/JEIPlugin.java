@@ -29,9 +29,7 @@ import org.jspecify.annotations.Nullable;
 public class JEIPlugin implements IModPlugin {
 
   public static final Identifier PLUGIN_UID = Const.modLoc("main");
-  public static final Identifier MORTAR = Const.modLoc("mortar");
   public static final IRecipeType<ComponentRecipe> MORTAR_TYPE = IRecipeType.create(Const.MODID, "mortar", ComponentRecipe.class);
-  public static final Identifier RITUAL = Const.modLoc("ritual");
   public static final IRecipeType<RitualWrapper> RITUAL_TYPE = IRecipeType.create(Const.MODID, "ritual", RitualWrapper.class);
   @Nullable
   private IRecipeCategory<ComponentRecipe> mortarCategory;
