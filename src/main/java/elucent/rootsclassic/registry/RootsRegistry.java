@@ -128,6 +128,9 @@ public class RootsRegistry {
   public static final DeferredItem<Item> JUNGLE_BARK = ITEMS.registerSimpleItem("jungle_bark");
   public static final DeferredItem<Item> ACACIA_BARK = ITEMS.registerSimpleItem("acacia_bark");
   public static final DeferredItem<Item> DARK_OAK_BARK = ITEMS.registerSimpleItem("dark_oak_bark");
+  public static final DeferredItem<Item> PALE_OAK_BARK = ITEMS.registerSimpleItem("pale_oak_bark");
+  public static final DeferredItem<Item> MANGROVE_BARK = ITEMS.registerSimpleItem("mangrove_bark");
+  public static final DeferredItem<Item> CHERRY_BARK = ITEMS.registerSimpleItem("cherry_bark");
   public static final DeferredItem<LivingSwordItem> LIVING_SWORD = ITEMS.registerItem("living_sword", (properties) -> new LivingSwordItem(RootsItemTier.LIVING, 3, -2.4F, properties));
   public static final DeferredItem<LivingShovelItem> LIVING_SHOVEL = ITEMS.registerItem("living_shovel", (properties) -> new LivingShovelItem(RootsItemTier.LIVING, 1.5F, -3.0F, properties));
   public static final DeferredItem<LivingPickaxeItem> LIVING_PICKAXE = ITEMS.registerItem("living_pickaxe", (properties) -> new LivingPickaxeItem(RootsItemTier.LIVING, 1, -2.8F, properties));

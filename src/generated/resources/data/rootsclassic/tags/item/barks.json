@@ -5,6 +5,9 @@
     "#rootsclassic:barks/dark_oak",
     "#rootsclassic:barks/jungle",
     "#rootsclassic:barks/oak",
-    "#rootsclassic:barks/spruce"
+    "#rootsclassic:barks/spruce",
+    "#rootsclassic:barks/pale_oak",
+    "#rootsclassic:barks/mangrove",
+    "#rootsclassic:barks/cherry"
   ]
 }

@@ -31,6 +31,9 @@ public class DruidKnifeItem extends Item {
       .put(Blocks.BIRCH_WOOD, Blocks.STRIPPED_BIRCH_WOOD).put(Blocks.BIRCH_LOG, Blocks.STRIPPED_BIRCH_LOG)
       .put(Blocks.JUNGLE_WOOD, Blocks.STRIPPED_JUNGLE_WOOD).put(Blocks.JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_LOG)
       .put(Blocks.SPRUCE_WOOD, Blocks.STRIPPED_SPRUCE_WOOD).put(Blocks.SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_LOG)
+      .put(Blocks.CHERRY_WOOD, Blocks.STRIPPED_CHERRY_WOOD).put(Blocks.CHERRY_LOG, Blocks.STRIPPED_CHERRY_LOG)
+      .put(Blocks.MANGROVE_WOOD, Blocks.STRIPPED_MANGROVE_WOOD).put(Blocks.MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_LOG)
+      .put(Blocks.PALE_OAK_WOOD, Blocks.STRIPPED_PALE_OAK_WOOD).put(Blocks.PALE_OAK_LOG, Blocks.STRIPPED_PALE_OAK_LOG)
       //			.put(Blocks.WARPED_STEM, Blocks.STRIPPED_WARPED_STEM).put(Blocks.WARPED_HYPHAE, Blocks.STRIPPED_WARPED_HYPHAE)
       //			.put(Blocks.CRIMSON_STEM, Blocks.STRIPPED_CRIMSON_STEM).put(Blocks.CRIMSON_HYPHAE, Blocks.STRIPPED_CRIMSON_HYPHAE)
       .build();
@@ -41,6 +44,9 @@ public class DruidKnifeItem extends Item {
       .put(Blocks.BIRCH_WOOD, RootsRegistry.BIRCH_BARK).put(Blocks.BIRCH_LOG, RootsRegistry.BIRCH_BARK)
       .put(Blocks.JUNGLE_WOOD, RootsRegistry.JUNGLE_BARK).put(Blocks.JUNGLE_LOG, RootsRegistry.JUNGLE_BARK)
       .put(Blocks.SPRUCE_WOOD, RootsRegistry.SPRUCE_BARK).put(Blocks.SPRUCE_LOG, RootsRegistry.SPRUCE_BARK)
+      .put(Blocks.CHERRY_WOOD, RootsRegistry.CHERRY_BARK).put(Blocks.CHERRY_LOG, RootsRegistry.CHERRY_BARK)
+      .put(Blocks.MANGROVE_WOOD, RootsRegistry.MANGROVE_BARK).put(Blocks.MANGROVE_LOG, RootsRegistry.MANGROVE_BARK)
+      .put(Blocks.PALE_OAK_WOOD, RootsRegistry.PALE_OAK_BARK).put(Blocks.PALE_OAK_LOG, RootsRegistry.PALE_OAK_BARK)
       //			.put(Blocks.WARPED_STEM, Items.STRIPPED_WARPED_STEM).put(Blocks.WARPED_HYPHAE, Items.STRIPPED_WARPED_HYPHAE)
       //			.put(Blocks.CRIMSON_STEM, Items.STRIPPED_CRIMSON_STEM).put(Blocks.CRIMSON_HYPHAE, Items.STRIPPED_CRIMSON_HYPHAE)
       .build();

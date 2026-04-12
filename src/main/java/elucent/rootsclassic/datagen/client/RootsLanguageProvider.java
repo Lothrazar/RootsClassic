@@ -24,6 +24,7 @@ public class RootsLanguageProvider extends LanguageProvider {
     this.addItem(RootsRegistry.BIRCH_BARK, "Birch Bark");
     this.addItem(RootsRegistry.BLACKCURRANT, "Blackcurrant");
     this.addItem(RootsRegistry.CHARGED_RUNIC_FOCUS, "Charged Runic Focus");
+    this.addItem(RootsRegistry.CHERRY_BARK, "Cherry Bark");
     this.addItem(RootsRegistry.CRYSTAL_STAFF, "Crystal Staff");
     this.addItem(RootsRegistry.DARK_OAK_BARK, "Dark Oak Bark");
     this.addItem(RootsRegistry.DRAGONS_EYE, "Dragon's Eye");
@@ -40,10 +41,12 @@ public class RootsLanguageProvider extends LanguageProvider {
     this.addItem(RootsRegistry.LIVING_SHOVEL, "Living Shovel");
     this.addItem(RootsRegistry.LIVING_SWORD, "Living Sword");
     this.addItem(RootsRegistry.MANA_RESEARCH_ICON, "Mana Research Icon");
+    this.addItem(RootsRegistry.MANGROVE_BARK, "Mangrove Bark");
     this.addItem(RootsRegistry.MUTATING_POWDER, "Mutating Powder");
     this.addItem(RootsRegistry.NIGHTSHADE, "Nightshade");
     this.addItem(RootsRegistry.OAK_BARK, "Oak Bark");
     this.addItem(RootsRegistry.OLD_ROOT, "Old Root");
+    this.addItem(RootsRegistry.PALE_OAK_BARK, "Pale Oak Bark");
     this.addItem(RootsRegistry.PESTLE, "Pestle");
     this.addItem(RootsRegistry.REDCURRANT, "Redcurrant");
     this.addItem(RootsRegistry.ROOTY_STEW, "Rooty Stew");
@@ -68,6 +71,7 @@ public class RootsLanguageProvider extends LanguageProvider {
     this.add("item.rootsclassic.birch_bark.guide", "Use a Bark Knife on a log.");
     this.add("item.rootsclassic.blackcurrant.guide", "Spell component; see Runic Tablet.");
     this.add("item.rootsclassic.charged_runic_focus.guide", "Stores energy for Roots Rituals; see Runic Tablet.");
+    this.add("item.rootsclassic.cherry_bark.guide", "Use a Bark Knife on a log.");
     this.add("item.rootsclassic.crystal_staff.guide", "Advanced spellcasting staff for the most powerful of magic.  See Runic Tablet for crafting instructions.");
     this.add("item.rootsclassic.dark_oak_bark.guide", "Use a Bark Knife on a log.");
     this.add("item.rootsclassic.dragons_eye.guide", "Spell component; see Runic Tablet.");
@@ -84,10 +88,12 @@ public class RootsLanguageProvider extends LanguageProvider {
     this.add("item.rootsclassic.living_shovel.guide", "Self-repairing tool; obtained using a magic ritual; see Runic Tablet.");
     this.add("item.rootsclassic.living_sword.guide", "Self-repairing tool; obtained using a magic ritual; see Runic Tablet.");
     this.add("item.rootsclassic.mana_research_icon.guide", "Just an icon.");
+    this.add("item.rootsclassic.mangrove_bark.guide", "Use a Bark Knife on a log.");
     this.add("item.rootsclassic.mutating_powder.guide", "Mutates flora in magical ways; see Runic Tablet.");
     this.add("item.rootsclassic.nightshade.guide", "A pugnant mysterious berry; see Runic Tablet.");
     this.add("item.rootsclassic.oak_bark.guide", "Use a Bark Knife on a log.");
     this.add("item.rootsclassic.old_root.guide", "Basic spell component; drops from tall grass; see Runic Tablet.");
+    this.add("item.rootsclassic.pale_oak_bark.guide", "Use a Bark Knife on a log.");
     this.add("item.rootsclassic.pestle.guide", "Used with Mortar to create spells, see Runic Tablet.");
     this.add("item.rootsclassic.redcurrant.guide", "Spell component; see Runic Tablet.");
     this.add("item.rootsclassic.rooty_stew.guide", "Hearty Food.");
@@ -502,6 +508,7 @@ public class RootsLanguageProvider extends LanguageProvider {
     this.add("rootsclassic.research.ritual.engraved_blade.page1title", "Modular Weapon");
     this.add("rootsclassic.research.ritual.engraved_blade.page1info", "Using the properties of a Runic Focus, you have created a new weapon. During the crafting of this weapon you can burn up to four different kinds of barks as additional incenses to add different buffs to the sword. You can mix and match these buffs as you please, and they will stack if you put more than one on at a time.");
     this.add("rootsclassic.research.ritual.engraved_blade.page2title", "Ritual: Engraved Blade");
+    this.add("rootsclassic.research.ritual.engraved_blade.page2info", "");
     this.add("rootsclassic.research.ritual.engraved_blade.page3title", "Spikes");
     this.add("rootsclassic.research.ritual.engraved_blade.page3info", "Each acacia bark you burn as incense during the sword's crafting will add some generic damage to the sword.");
     this.add("rootsclassic.research.ritual.engraved_blade.page4title", "Forceful");
@@ -512,6 +519,12 @@ public class RootsLanguageProvider extends LanguageProvider {
     this.add("rootsclassic.research.ritual.engraved_blade.page6info", "Each jungle bark you burn as incense during the sword's crafting will add a small amount of drowning damage to the sword's damage output.");
     this.add("rootsclassic.research.ritual.engraved_blade.page7title", "Shadow Step");
     this.add("rootsclassic.research.ritual.engraved_blade.page7info", "Each dark oak bark you burn as incense during the sword's crafting will increase your chance to dodge attacks made against you when holding the sword.");
+    this.add("rootsclassic.research.ritual.engraved_blade.page8title", "");
+    this.add("rootsclassic.research.ritual.engraved_blade.page8info", "");
+    this.add("rootsclassic.research.ritual.engraved_blade.page9title", "");
+    this.add("rootsclassic.research.ritual.engraved_blade.page9info", "");
+    this.add("rootsclassic.research.ritual.engraved_blade.page10title", "");
+    this.add("rootsclassic.research.ritual.engraved_blade.page10info", "");
 
     this.add("rootsclassic.research.ritual.time_shift", "Time Shift");
     this.add("rootsclassic.research.ritual.time_shift.page1title", "Timey Wimey Stuff");

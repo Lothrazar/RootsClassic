@@ -1,4 +1,4 @@
-// 26.1.1	2026-04-06T19:26:18.7763261	Tags for minecraft:item mod id rootsclassic
+// 26.1.1	2026-04-12T03:08:09.7416086	Tags for minecraft:item mod id rootsclassic
 41a6c8d6004a36dfdae41a77959fedd2ccf0d656 data/c/tags/item/fertilizers.json
 f4a0231565ec7cc28908cb8fc626a3eac00140af data/c/tags/item/flowers/small.json
 305a860bb71fcbbf622c49615c613e8e64f52c49 data/c/tags/item/foods.json
@@ -14,12 +14,15 @@ e8d72fec83ebfe75a4eb358217bb562d1075460b data/minecraft/tags/item/head_armor.jso
 a44d9ffc2fd10ae9dbb86858bdbf04cf1753ced5 data/minecraft/tags/item/pickaxes.json
 75351c03add548410837ca446315387a7ae11382 data/minecraft/tags/item/shovels.json
 c891a8be5715984de3797eb9c3f187485b5e71cb data/minecraft/tags/item/swords.json
-35eac428592b750d11c1cf1de4a1bd3514bc10f6 data/rootsclassic/tags/item/barks.json
+bbfdfe205b1af71f7ea0007b3c4b533909a264c2 data/rootsclassic/tags/item/barks.json
 9dba0a2956e1c0e115cc8079755a0ee102f301ab data/rootsclassic/tags/item/barks/acacia.json
 a745da3593566a775d84f3d68de5334d9cf85cc3 data/rootsclassic/tags/item/barks/birch.json
+82f8911cacf2faac3984ee65e441bbe08a43c354 data/rootsclassic/tags/item/barks/cherry.json
 de7e273153be3337a5f0246d0df665b5a3c5efec data/rootsclassic/tags/item/barks/dark_oak.json
 c4051d254858a3362e0addf7c78c6dd59f7573d1 data/rootsclassic/tags/item/barks/jungle.json
+a94f396b21357c2002f79f781452742516ca87ff data/rootsclassic/tags/item/barks/mangrove.json
 d1b46b84935a0a490d9425020c3181076293da75 data/rootsclassic/tags/item/barks/oak.json
+326f3d976a7a179f1f568cae978e3518abf6bfe9 data/rootsclassic/tags/item/barks/pale_oak.json
 1b24c59ba81afe379e5c7f55a3a366d6250b3fe7 data/rootsclassic/tags/item/barks/spruce.json
 f1d46d02faa59923ed7d8dbe15b07f641f21dfbe data/rootsclassic/tags/item/berries.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/rootsclassic/tags/item/engraved_tool_materials.json

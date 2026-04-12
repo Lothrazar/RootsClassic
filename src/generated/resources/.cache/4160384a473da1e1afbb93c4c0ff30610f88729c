@@ -1,4 +1,4 @@
-// 26.1.1	2026-04-06T16:45:46.8389877	Model Definitions - rootsclassic
+// 26.1.1	2026-04-12T03:08:09.7416086	Model Definitions - rootsclassic
 80d3f0f8d29cef80d40896278814de9accf1968d assets/rootsclassic/blockstates/accelerator_standing_stone.json
 21a70467aeb7da725d6586bc438d8de521387a03 assets/rootsclassic/blockstates/aesthetic_standing_stone.json
 898dbb3e18113de2d5e47d1ec377500b1d698490 assets/rootsclassic/blockstates/altar.json
@@ -26,6 +26,7 @@ af7b3867c88f7cceff288926b861c76e560969a8 assets/rootsclassic/items/altar.json
 1271223b64d1fed23e3d5c600e3b8cf1640b2fda assets/rootsclassic/items/blackcurrant.json
 ad712a834b2ccf89db4ba902ae9873f0109b35b9 assets/rootsclassic/items/brazier.json
 6b12ce89b4db9ce618fbaa24a3637f214844e87f assets/rootsclassic/items/charged_runic_focus.json
+ed85c0e668e74f1ea0a8a383d58c72ee6e588da6 assets/rootsclassic/items/cherry_bark.json
 315bb9a526bcda3d0a416bced0b277c1fb620c90 assets/rootsclassic/items/crystal_staff.json
 58df993394616083a42a366fffd363ad01d9f035 assets/rootsclassic/items/dark_oak_bark.json
 be4db0340f3a893332b83ea62dc0696914acdcd6 assets/rootsclassic/items/dragons_eye.json
@@ -48,6 +49,7 @@ e008ca2f1870d61ac468db8703ca482b326859a4 assets/rootsclassic/items/living_pickax
 9bd59b7ec0f90fede96a04ea9e02fdb86cff14d0 assets/rootsclassic/items/living_shovel.json
 4b2236aef089a7f1b2f3c4992c30751ddd7062a0 assets/rootsclassic/items/living_sword.json
 5f883db819737bc39f977ceff203243a900e1bd3 assets/rootsclassic/items/mana_research_icon.json
+c5b8909c79427a9f9e51728e8b82e474f89df2b6 assets/rootsclassic/items/mangrove_bark.json
 4a6b6c6b96c483eed7fdf041c38c25b4d04171ee assets/rootsclassic/items/midnight_bloom.json
 77416e14822efda5609fa5a7d10ead5a39a42962 assets/rootsclassic/items/mortar.json
 f73d23220943e6af38bf1b8f9f4a0fdd8d2c18b0 assets/rootsclassic/items/mundane_standing_stone.json
@@ -55,6 +57,7 @@ f73d23220943e6af38bf1b8f9f4a0fdd8d2c18b0 assets/rootsclassic/items/mundane_stand
 f3647b3048425897c623c69dc4924fb6997dfbd7 assets/rootsclassic/items/nightshade.json
 f16a0003bd653ae4c75f30b929917aa1c3dc5dcc assets/rootsclassic/items/oak_bark.json
 13216fc26b0da187a15396042fa32da672684a05 assets/rootsclassic/items/old_root.json
+0b7bf258bad02fbf3be9e2e068fad0bf1c68f9aa assets/rootsclassic/items/pale_oak_bark.json
 236024d9f7b982a6613cfecf6c6d267d1ccae77b assets/rootsclassic/items/pestle.json
 5c3f1a60194c76577bee85909ef0946489a57137 assets/rootsclassic/items/radiant_daisy.json
 3b6adf5dbaf7edbdbda2681e5a75e606f8cdad7d assets/rootsclassic/items/redcurrant.json
@@ -96,6 +99,7 @@ f58e2d4c035a310a605d6b22318a3ec6cd4889a0 assets/rootsclassic/models/item/bark_kn
 b1e68add73274c5a7c2ea2a4a37ec11227c9d5c9 assets/rootsclassic/models/item/birch_bark.json
 ba6ee9d6a8a7d2e347293bd67f7be74cdec719f2 assets/rootsclassic/models/item/blackcurrant.json
 d324fcb36d6608bc27ca9b495c8e10edbdc331f0 assets/rootsclassic/models/item/charged_runic_focus.json
+ab81cb877d9036b51001a78f1c736c26ba4140a3 assets/rootsclassic/models/item/cherry_bark.json
 bb82b04b369056521e77cd57ec519872fec65c2b assets/rootsclassic/models/item/crystal_staff.json
 39f715045067c15063e95852c953d81c6f633b58 assets/rootsclassic/models/item/dark_oak_bark.json
 4e6267ba8d0498e010f00e3cc8f7a5b8d17884db assets/rootsclassic/models/item/dragons_eye.json
@@ -118,12 +122,14 @@ bc68f88ccd6101a6e0f6f7d4143d00bd0266dca2 assets/rootsclassic/models/item/living_
 35aa3721cb218537cf98fa530ad226ed995b73e1 assets/rootsclassic/models/item/living_shovel.json
 6f8152134af7e5594c7dc749e3c0dc571605c1e4 assets/rootsclassic/models/item/living_sword.json
 d4bc94af945d0ddcfba9f1f895237f9c7d2faa99 assets/rootsclassic/models/item/mana_research_icon.json
+99769f79d71adeeddba7d062c92234fa6fccf5f3 assets/rootsclassic/models/item/mangrove_bark.json
 7662a38deb0c2bd15540bff69ab33fa94e44ff83 assets/rootsclassic/models/item/midnight_bloom.json
 cbf4c4b621b053847e22de21b9a078c2af3ab779 assets/rootsclassic/models/item/mortar.json
 1c870db0042eb3263cfcc6e672b309c16cfd3e3e assets/rootsclassic/models/item/mutating_powder.json
 547ac6846a9864d8ae574efcfc12a7027449f4e0 assets/rootsclassic/models/item/nightshade.json
 03e550c9669c6c268f24ac4ccb24567700d7b613 assets/rootsclassic/models/item/oak_bark.json
 7ef128d5fa6bfb9f96f48e4579da5a466bc343bf assets/rootsclassic/models/item/old_root.json
+90115432f5852d9c278b07db004b35562e51ddfe assets/rootsclassic/models/item/pale_oak_bark.json
 f302d91f04416fb37613fcec22224b4d44097580 assets/rootsclassic/models/item/pestle.json
 49f52ef026d3aa4e093c0c563e1cf078540a4c60 assets/rootsclassic/models/item/radiant_daisy.json
 a27f2a8fa1b736c9efdca237a7b9532572c9d218 assets/rootsclassic/models/item/redcurrant.json

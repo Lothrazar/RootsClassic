@@ -39,6 +39,9 @@ public class RootsItemTagsProvider extends ItemTagsProvider {
 		this.addBark(RootsRegistry.JUNGLE_BARK.get(), "jungle");
 		this.addBark(RootsRegistry.OAK_BARK.get(), "oak");
 		this.addBark(RootsRegistry.SPRUCE_BARK.get(), "spruce");
+		this.addBark(RootsRegistry.PALE_OAK_BARK.get(), "pale_oak");
+		this.addBark(RootsRegistry.MANGROVE_BARK.get(), "mangrove");
+		this.addBark(RootsRegistry.CHERRY_BARK.get(), "cherry");
     this.tag(ItemTags.AXES).add(RootsRegistry.LIVING_AXE.get());
     this.tag(ItemTags.HOES).add(RootsRegistry.LIVING_HOE.get());
     this.tag(ItemTags.PICKAXES).add(RootsRegistry.LIVING_PICKAXE.get());
