@@ -6,9 +6,8 @@
     "entity": "minecraft:chicken"
   },
   "incenses": [
-    "minecraft:chicken",
-    "minecraft:feather",
-    "minecraft:bone"
+    "minecraft:wheat_seeds",
+    "minecraft:nether_wart"
   ],
   "ingredients": [
     "minecraft:chicken",

@@ -8,9 +8,8 @@
     }
   },
   "incenses": [
-    "minecraft:wooden_hoe",
-    "rootsclassic:verdant_sprig",
-    "minecraft:gold_nugget"
+    "rootsclassic:oak_bark",
+    "rootsclassic:oak_bark"
   ],
   "ingredients": [
     "minecraft:wooden_hoe",

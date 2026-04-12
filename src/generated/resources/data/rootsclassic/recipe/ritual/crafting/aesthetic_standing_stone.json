@@ -7,11 +7,6 @@
       "id": "rootsclassic:aesthetic_standing_stone"
     }
   },
-  "incenses": [
-    "rootsclassic:attuned_standing_stone",
-    "minecraft:glowstone_dust",
-    "minecraft:mossy_stone_bricks"
-  ],
   "ingredients": [
     "rootsclassic:attuned_standing_stone",
     "minecraft:glowstone_dust",

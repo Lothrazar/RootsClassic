@@ -6,9 +6,8 @@
     "entity": "minecraft:sheep"
   },
   "incenses": [
-    "minecraft:mutton",
-    "#minecraft:wool",
-    "minecraft:bone"
+    "minecraft:wheat_seeds",
+    "minecraft:nether_wart"
   ],
   "ingredients": [
     "minecraft:mutton",

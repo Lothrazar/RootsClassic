@@ -6,9 +6,8 @@
     "entity": "minecraft:spider"
   },
   "incenses": [
-    "minecraft:string",
-    "minecraft:spider_eye",
-    "minecraft:bone"
+    "minecraft:coal",
+    "minecraft:nether_wart"
   ],
   "ingredients": [
     "minecraft:string",

@@ -6,9 +6,8 @@
     "entity": "minecraft:cave_spider"
   },
   "incenses": [
-    "minecraft:string",
-    "minecraft:fermented_spider_eye",
-    "minecraft:bone"
+    "minecraft:coal",
+    "minecraft:nether_wart"
   ],
   "ingredients": [
     "minecraft:string",

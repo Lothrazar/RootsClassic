@@ -8,9 +8,10 @@
     }
   },
   "incenses": [
-    "rootsclassic:verdant_sprig",
-    "minecraft:diamond",
-    "minecraft:stone"
+    "rootsclassic:oak_bark",
+    "rootsclassic:spruce_bark",
+    "rootsclassic:acacia_bark",
+    "rootsclassic:jungle_bark"
   ],
   "ingredients": [
     "rootsclassic:verdant_sprig",

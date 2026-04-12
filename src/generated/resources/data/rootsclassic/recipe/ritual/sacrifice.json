@@ -3,9 +3,8 @@
   "color": "#5e0938",
   "effect": "rootsclassic:sacrifice",
   "incenses": [
-    "minecraft:flint",
-    "minecraft:iron_sword",
-    "minecraft:bone"
+    "minecraft:blaze_powder",
+    "rootsclassic:dark_oak_bark"
   ],
   "ingredients": [
     "minecraft:flint",

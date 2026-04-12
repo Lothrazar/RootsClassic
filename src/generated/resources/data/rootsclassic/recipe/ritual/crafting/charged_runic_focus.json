@@ -8,9 +8,8 @@
     }
   },
   "incenses": [
-    "rootsclassic:runic_focus",
-    "minecraft:redstone",
-    "minecraft:glowstone_dust"
+    "rootsclassic:infernal_bulb",
+    "minecraft:wheat"
   ],
   "ingredients": [
     "rootsclassic:runic_focus",

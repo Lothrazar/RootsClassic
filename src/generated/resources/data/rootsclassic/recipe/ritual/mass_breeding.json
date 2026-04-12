@@ -3,8 +3,10 @@
   "color": "#943d51",
   "effect": "rootsclassic:mass_breeding",
   "incenses": [
-    "minecraft:glowstone_dust",
-    "minecraft:bone"
+    "minecraft:carrot",
+    "minecraft:wheat",
+    "minecraft:wheat_seeds",
+    "minecraft:cod"
   ],
   "ingredients": [
     "minecraft:glowstone_dust",

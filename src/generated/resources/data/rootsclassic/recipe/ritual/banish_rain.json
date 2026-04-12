@@ -3,7 +3,8 @@
   "color": "#cc9f23",
   "effect": "rootsclassic:banish_rain",
   "incenses": [
-    "minecraft:wheat"
+    "minecraft:vine",
+    "rootsclassic:old_root"
   ],
   "ingredients": [
     "minecraft:wheat"

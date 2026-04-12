@@ -6,9 +6,8 @@
     "entity": "minecraft:enderman"
   },
   "incenses": [
-    "minecraft:ender_pearl",
-    "minecraft:ender_pearl",
-    "minecraft:bone"
+    "minecraft:coal",
+    "minecraft:nether_wart"
   ],
   "ingredients": [
     "minecraft:ender_pearl",

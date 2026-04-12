@@ -8,9 +8,8 @@
     }
   },
   "incenses": [
-    "minecraft:stone_sword",
-    "rootsclassic:runic_focus",
-    "minecraft:glowstone_dust"
+    "minecraft:golden_carrot",
+    "minecraft:golden_apple"
   ],
   "ingredients": [
     "minecraft:stone_sword",

@@ -8,9 +8,10 @@
     }
   },
   "incenses": [
-    "minecraft:diamond",
-    "minecraft:leather_helmet",
-    "minecraft:vine"
+    "rootsclassic:birch_bark",
+    "rootsclassic:birch_bark",
+    "minecraft:golden_apple",
+    "minecraft:poppy"
   ],
   "ingredients": [
     "minecraft:diamond",

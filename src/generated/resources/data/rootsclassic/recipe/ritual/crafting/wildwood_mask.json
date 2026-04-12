@@ -8,9 +8,10 @@
     }
   },
   "incenses": [
-    "minecraft:diamond",
-    "minecraft:iron_helmet",
-    "minecraft:oak_planks"
+    "rootsclassic:oak_bark",
+    "rootsclassic:oak_bark",
+    "minecraft:wheat",
+    "minecraft:oak_sapling"
   ],
   "ingredients": [
     "minecraft:diamond",

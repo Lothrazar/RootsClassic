@@ -8,9 +8,10 @@
     }
   },
   "incenses": [
-    "rootsclassic:attuned_standing_stone",
-    "minecraft:glowstone_dust",
-    "minecraft:chiseled_stone_bricks"
+    "rootsclassic:verdant_sprig",
+    "rootsclassic:infernal_bulb",
+    "minecraft:wheat",
+    "rootsclassic:spruce_bark"
   ],
   "ingredients": [
     "rootsclassic:attuned_standing_stone",

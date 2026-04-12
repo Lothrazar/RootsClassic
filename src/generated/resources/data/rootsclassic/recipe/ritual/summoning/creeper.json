@@ -6,9 +6,8 @@
     "entity": "minecraft:creeper"
   },
   "incenses": [
-    "minecraft:gunpowder",
-    "minecraft:gunpowder",
-    "minecraft:bone"
+    "minecraft:coal",
+    "minecraft:nether_wart"
   ],
   "ingredients": [
     "minecraft:gunpowder",

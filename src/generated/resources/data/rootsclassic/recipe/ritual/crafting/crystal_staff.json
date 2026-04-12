@@ -8,9 +8,10 @@
     }
   },
   "incenses": [
-    "minecraft:diamond_block",
-    "minecraft:stick",
-    "minecraft:blaze_powder"
+    "minecraft:coal_block",
+    "rootsclassic:acacia_bark",
+    "rootsclassic:verdant_sprig",
+    "rootsclassic:birch_bark"
   ],
   "ingredients": [
     "minecraft:diamond_block",

@@ -3,9 +3,8 @@
   "color": "#ff5b19",
   "effect": "rootsclassic:flare",
   "incenses": [
-    "minecraft:flint",
-    "minecraft:coal",
-    "minecraft:charcoal"
+    "minecraft:gunpowder",
+    "rootsclassic:infernal_bulb"
   ],
   "ingredients": [
     "minecraft:flint",

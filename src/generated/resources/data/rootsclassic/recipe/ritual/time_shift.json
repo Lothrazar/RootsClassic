@@ -3,8 +3,7 @@
   "color": "#f0f563",
   "effect": "rootsclassic:time_shift",
   "incenses": [
-    "minecraft:clock",
-    "minecraft:iron_ingot"
+    "minecraft:clock"
   ],
   "ingredients": [
     "minecraft:clock",

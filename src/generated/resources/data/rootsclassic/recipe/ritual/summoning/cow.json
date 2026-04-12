@@ -6,9 +6,8 @@
     "entity": "minecraft:cow"
   },
   "incenses": [
-    "minecraft:beef",
-    "minecraft:leather",
-    "minecraft:bone"
+    "minecraft:wheat_seeds",
+    "minecraft:nether_wart"
   ],
   "ingredients": [
     "minecraft:beef",

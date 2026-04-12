@@ -6,9 +6,8 @@
     "entity": "minecraft:skeleton"
   },
   "incenses": [
-    "minecraft:arrow",
-    "minecraft:bone",
-    "minecraft:bone"
+    "minecraft:coal",
+    "minecraft:nether_wart"
   ],
   "ingredients": [
     "minecraft:arrow",

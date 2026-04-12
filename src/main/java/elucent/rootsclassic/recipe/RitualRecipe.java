@@ -43,7 +43,7 @@ public class RitualRecipe implements Recipe<RecipeInput> {
         Identifier.CODEC.fieldOf("effect").forGetter(recipe -> recipe.effectId),
         CompoundTag.CODEC.optionalFieldOf("effectConfig").forGetter(o -> o.effectConfig),
         Codec.lazyInitialized(() -> Ingredient.CODEC.listOf(1, 4)).fieldOf("ingredients").forGetter(o -> o.materials),
-        Codec.lazyInitialized(() -> Ingredient.CODEC.listOf(1, 4)).fieldOf("incenses").forGetter(o -> o.materials),
+        Codec.lazyInitialized(() -> Ingredient.CODEC.listOf(0, 4)).optionalFieldOf("incenses", List.of()).forGetter(o -> o.incenses),
         Codec.INT.fieldOf("level").validate((level) -> {
           if (level < 0 || level > 2) {
             return DataResult.error(() -> "Level must be between 0 and 3, you tried " + level);

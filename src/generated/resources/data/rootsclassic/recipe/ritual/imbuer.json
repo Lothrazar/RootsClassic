@@ -2,10 +2,6 @@
   "type": "rootsclassic:ritual",
   "color": "#ffffff",
   "effect": "rootsclassic:imbuer",
-  "incenses": [
-    "rootsclassic:crystal_staff",
-    "rootsclassic:verdant_sprig"
-  ],
   "ingredients": [
     "rootsclassic:crystal_staff",
     "rootsclassic:verdant_sprig"

@@ -3,8 +3,10 @@
   "color": "#8b1628",
   "effect": "rootsclassic:life_drain",
   "incenses": [
-    "minecraft:blaze_powder",
-    "minecraft:bone"
+    "minecraft:wooden_sword",
+    "minecraft:wooden_axe",
+    "rootsclassic:dark_oak_bark",
+    "rootsclassic:birch_bark"
   ],
   "ingredients": [
     "minecraft:blaze_powder",

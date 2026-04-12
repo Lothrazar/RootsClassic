@@ -6,9 +6,8 @@
     "entity": "minecraft:zombie"
   },
   "incenses": [
-    "minecraft:rotten_flesh",
-    "minecraft:rotten_flesh",
-    "minecraft:bone"
+    "minecraft:coal",
+    "minecraft:nether_wart"
   ],
   "ingredients": [
     "minecraft:rotten_flesh",

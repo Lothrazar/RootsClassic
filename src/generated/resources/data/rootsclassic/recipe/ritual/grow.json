@@ -3,9 +3,10 @@
   "color": "#52d42f",
   "effect": "rootsclassic:grow",
   "incenses": [
-    "minecraft:redstone",
-    "minecraft:bone_meal",
-    "rootsclassic:verdant_sprig"
+    "minecraft:wheat",
+    "minecraft:beetroot",
+    "minecraft:potato",
+    "minecraft:carrot"
   ],
   "ingredients": [
     "minecraft:redstone",

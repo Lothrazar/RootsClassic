@@ -6,9 +6,8 @@
     "entity": "minecraft:slime"
   },
   "incenses": [
-    "minecraft:slime_ball",
-    "minecraft:slime_ball",
-    "minecraft:slime_ball"
+    "minecraft:coal",
+    "minecraft:nether_wart"
   ],
   "ingredients": [
     "minecraft:slime_ball",
