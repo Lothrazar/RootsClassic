@@ -1,9 +1,6 @@
 package elucent.rootsclassic.client.screen;
 
 import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.client.ClientInfo;
 import elucent.rootsclassic.config.RootsConfig;

@@ -16,8 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
-import java.util.Random;
-
 public class EntityTileAccelerator extends Entity {
 
   private BlockPos bePosition;
