@@ -55,7 +55,7 @@ public class BrazierBER implements BlockEntityRenderer<BrazierBlockEntity, Brazi
     for (int i = 0; i < state.items.size(); i++) {
       ItemStackRenderState itemState = state.items.get(i);
       poseStack.pushPose();
-      poseStack.translate(0.5, 0.5, 0.5);
+      poseStack.translate(0.5, 0.3125, 0.5);
       poseStack.scale(0.5F, 0.5F, 0.5F);
       poseStack.mulPose(Axis.YP.rotationDegrees(state.ticker));
       itemState.submit(poseStack, submitNodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
