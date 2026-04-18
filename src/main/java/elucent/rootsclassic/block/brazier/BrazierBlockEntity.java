@@ -5,6 +5,7 @@ import elucent.rootsclassic.registry.RootsRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -57,16 +58,20 @@ public class BrazierBlockEntity extends BEBase {
   }
 
   @Override
-  public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
-    if (getHeldItem() != null && !isBurning()) {
-      dropContaining();
-    }
-    this.setRemoved();
+  public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+    super.preRemoveSideEffects(pos, state);
+    dropContaining(pos);
   }
 
-  private void dropContaining() {
+  private void dropContaining(BlockPos pos) {
     if (!level.isClientSide()) {
-      level.addFreshEntity(new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5, getHeldItem()));
+      try (Transaction tx = Transaction.openRoot()) {
+        for (int i = 0; i < inventory.size(); ++i) {
+          if (!inventory.getResource(i).isEmpty())
+            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), inventory.getResource(i).toStack());
+        }
+        tx.commit();
+      }
     }
     setHeldItem(ItemStack.EMPTY);
   }
@@ -84,7 +89,7 @@ public class BrazierBlockEntity extends BEBase {
           player.sendOverlayMessage(getHeldItem().getHoverName());
         }
         else {
-          dropContaining();
+          dropContaining(worldPosition);
           notifyUpdate(state);
           player.sendOverlayMessage(Component.translatable("rootsclassic.brazier.burning.empty"));
         }
@@ -110,7 +115,7 @@ public class BrazierBlockEntity extends BEBase {
     else {
       if (getHeldItem().isEmpty()) {
         setHeldItem(playerItem.copyWithCount(1));
-        playerItem.shrink(1);
+        playerItem.consume(1, player);
         player.sendOverlayMessage(Component.translatable("rootsclassic.brazier.burning.added"));
         notifyUpdate(state);
         return InteractionResult.SUCCESS;
@@ -195,8 +200,10 @@ public class BrazierBlockEntity extends BEBase {
   }
 
   public void setHeldItem(ItemStack heldItem) {
+    int amount = heldItem.isEmpty() ? 0 : 1;
+    ItemResource resource = heldItem.isEmpty() ? ItemResource.EMPTY : ItemResource.of(heldItem);
     try (Transaction tx = Transaction.openRoot()) {
-      inventory.set(0, ItemResource.of(heldItem), 1);
+      inventory.set(0, resource, amount);
       tx.commit();
     }
   }
