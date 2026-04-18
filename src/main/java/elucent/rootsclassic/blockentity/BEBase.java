@@ -66,10 +66,6 @@ public abstract class BEBase extends BlockEntity {
     return tag;
   }
 
-  public void breakBlock(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
-    this.setRemoved();
-  }
-
   public InteractionResult activate(Level levelAccessor, BlockPos pos, BlockState state, Player player, InteractionHand hand, ItemStack heldItem, BlockHitResult hit) {
     return InteractionResult.PASS;
   }

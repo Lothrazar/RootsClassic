@@ -129,7 +129,7 @@ public class ImbuerBlockEntity extends BEBase {
             ItemStack copyStack = heldItem.copy();
             copyStack.setCount(1);
             inventory.set(STICK, ItemResource.of(copyStack), 1);
-            heldItem.shrink(1);
+            heldItem.consume(1, player);
             setChanged();
             levelAccessor.sendBlockUpdated(getBlockPos(), state, levelAccessor.getBlockState(pos), 3);
             return InteractionResult.SUCCESS;
@@ -140,7 +140,7 @@ public class ImbuerBlockEntity extends BEBase {
             ItemStack copyStack = heldItem.copy();
             copyStack.setCount(1);
             inventory.set(DUST, ItemResource.of(copyStack), 1);
-            heldItem.shrink(1);
+            heldItem.consume(1, player);
             setChanged();
             levelAccessor.sendBlockUpdated(getBlockPos(), state, levelAccessor.getBlockState(pos), 3);
             return InteractionResult.SUCCESS;

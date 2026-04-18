@@ -32,8 +32,8 @@ public class GrowthPowderItem extends Item {
         spawnGrowthParticle(levelAccessor, player);
       }
       boolean anySuccess = applyGrowthHere(levelAccessor, pos);
-      if (anySuccess && !player.getAbilities().instabuild) {
-        player.getItemInHand(hand).shrink(1);
+      if (anySuccess) {
+        player.getItemInHand(hand).consume(1, player);
       }
     }
     return InteractionResult.PASS;

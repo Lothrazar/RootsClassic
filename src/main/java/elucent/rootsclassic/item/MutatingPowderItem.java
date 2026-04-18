@@ -62,9 +62,7 @@ public class MutatingPowderItem extends Item {
         recipe.onCrafted(level, pos, player);
       }
     }
-    if (!player.getAbilities().instabuild) {
-      stack.shrink(1);
-    }
+    stack.consume(1, player);
     return InteractionResult.SUCCESS;
   }
 }

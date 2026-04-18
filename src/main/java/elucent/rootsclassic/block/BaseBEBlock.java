@@ -27,14 +27,6 @@ public class BaseBEBlock extends BaseEntityBlock {
   }
 
   @Override
-  public BlockState playerWillDestroy(Level levelAccessor, BlockPos pos, BlockState state, Player player) {
-    if (levelAccessor.getBlockEntity(pos) instanceof BEBase beBase) {
-      beBase.breakBlock(levelAccessor, pos, state, player);
-    }
-    return super.playerWillDestroy(levelAccessor, pos, state, player);
-  }
-
-  @Override
   protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
     if (level.getBlockEntity(pos) instanceof BEBase beBase) {
       return beBase.activate(level, pos, state, player, hand, player.getItemInHand(hand), hitResult);

@@ -49,15 +49,15 @@ public class StaffItem extends Item implements IManaRelatedItem {
     return ItemUseAnimation.BOW;
   }
 
-	@Override
-	public int getUseDuration(ItemStack stack, LivingEntity entity) {
-		return 72000;
-	}
+  @Override
+  public int getUseDuration(ItemStack stack, LivingEntity entity) {
+    return 72000;
+  }
 
   @Override
   public int getBarWidth(ItemStack stack) {
     if (stack.has(RootsComponents.STAFF_USES)) {
-	    StaffUses staffUses = stack.get(RootsComponents.STAFF_USES);
+      StaffUses staffUses = stack.get(RootsComponents.STAFF_USES);
       return Math.round((float) staffUses.uses() * 13.0F / (float) staffUses.maxUses());
     }
     return 1;
@@ -65,8 +65,8 @@ public class StaffItem extends Item implements IManaRelatedItem {
 
   @Override
   public boolean isBarVisible(ItemStack stack) {
-	  if (stack.has(RootsComponents.STAFF_USES)) {
-		  StaffUses staffUses = stack.get(RootsComponents.STAFF_USES);
+    if (stack.has(RootsComponents.STAFF_USES)) {
+      StaffUses staffUses = stack.get(RootsComponents.STAFF_USES);
       return staffUses.uses() < staffUses.maxUses();
     }
     return false;
@@ -75,38 +75,38 @@ public class StaffItem extends Item implements IManaRelatedItem {
   @Override
   public boolean releaseUsing(ItemStack stack, Level level, LivingEntity caster, int timeLeft) {
     if (timeLeft < (72000 - 12) && stack.has(RootsComponents.STAFF_USES) && stack.has(RootsComponents.SPELL)
-	    && caster.hasData(RootsAttachments.MANA)) {
-			StaffUses staffUses = stack.get(RootsComponents.STAFF_USES);
+      && caster.hasData(RootsAttachments.MANA)) {
+      StaffUses staffUses = stack.get(RootsComponents.STAFF_USES);
       if (staffUses.uses() >= 0) {
-				staffUses = new StaffUses(staffUses.uses() - 1, staffUses.maxUses());
-				stack.set(RootsComponents.STAFF_USES, staffUses);
+        staffUses = new StaffUses(staffUses.uses() - 1, staffUses.maxUses());
+        stack.set(RootsComponents.STAFF_USES, staffUses);
 
-	      SpellData spellData = stack.get(RootsComponents.SPELL);
+        SpellData spellData = stack.get(RootsComponents.SPELL);
         Identifier compName = Identifier.tryParse(spellData.effect());
         if (compName != null) {
           ComponentBase comp = ComponentBaseRegistry.COMPONENTS.getValue(compName);
           if (comp != null) {
-	          int potency = spellData.potency();
-	          int efficiency = spellData.efficiency();
-	          int size = spellData.size();
+            int potency = spellData.potency();
+            int efficiency = spellData.efficiency();
+            int size = spellData.size();
             Player player = (Player) caster;
             if (player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof SylvanArmorItem
-                && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof SylvanArmorItem
-                && player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof SylvanArmorItem
-                && player.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof SylvanArmorItem) {
+              && player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof SylvanArmorItem
+              && player.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof SylvanArmorItem
+              && player.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof SylvanArmorItem) {
               potency += 1;
             }
-	          ManaAttachment mana = caster.getData(RootsAttachments.MANA);
+            ManaAttachment mana = caster.getData(RootsAttachments.MANA);
             if (mana.getMana() >= comp.getManaCost() / (efficiency + 1)) {
-	            mana.setMana(mana.getMana() - (comp.getManaCost() / (efficiency + 1)));
-							caster.setData(RootsAttachments.MANA, mana);
+              mana.setMana(mana.getMana() - (comp.getManaCost() / (efficiency + 1)));
+              caster.setData(RootsAttachments.MANA, mana);
 
               Vec3 lookVec = caster.getLookAngle();
               comp.doEffect(level, caster, EnumCastType.SPELL,
-                  caster.getX() + RANGE * lookVec.x,
-                  caster.getY() + RANGE * lookVec.y,
-                  caster.getZ() + RANGE * lookVec.z, potency, efficiency,
-                  SIZE_BASE + SIZE_PER_LEVEL * size);
+                caster.getX() + RANGE * lookVec.x,
+                caster.getY() + RANGE * lookVec.y,
+                caster.getZ() + RANGE * lookVec.z, potency, efficiency,
+                SIZE_BASE + SIZE_PER_LEVEL * size);
               if (level.isClientSide()) {
                 for (int i = 0; i < 90; i++) {
                   double offX = level.getRandom().nextFloat() * 0.5 - 0.25;
@@ -118,11 +118,10 @@ public class StaffItem extends Item implements IManaRelatedItem {
                   double dz = (lookVec.z + offZ) * coeff;
                   if (level.getRandom().nextBoolean()) {
                     level.addParticle(MagicParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                        caster.getX() + dx, caster.getY() + 1.5 + dy, caster.getZ() + dz, dx, dy, dz);
-                  }
-                  else {
+                      caster.getX() + dx, caster.getY() + 1.5 + dy, caster.getZ() + dz, dx, dy, dz);
+                  } else {
                     level.addParticle(MagicParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                        caster.getX() + dx, caster.getY() + 1.5 + dy, caster.getZ() + dz, dx, dy, dz);
+                      caster.getX() + dx, caster.getY() + 1.5 + dy, caster.getZ() + dz, dx, dy, dz);
                   }
                 }
               }
@@ -138,8 +137,7 @@ public class StaffItem extends Item implements IManaRelatedItem {
   public InteractionResult use(Level level, Player player, InteractionHand hand) {
     if (level.isClientSide() && Minecraft.getInstance().screen != null) {
       return InteractionResult.FAIL;
-    }
-    else {
+    } else {
       player.startUsingItem(hand);
       return InteractionResult.PASS;
     }
@@ -147,13 +145,12 @@ public class StaffItem extends Item implements IManaRelatedItem {
 
   @Override
   public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity owner, @Nullable EquipmentSlot slot) {
-	  if (itemStack.has(RootsComponents.STAFF_USES)) {
-		  StaffUses staffUses = itemStack.get(RootsComponents.STAFF_USES);
-      if (staffUses.uses() <= 0 && owner instanceof Player) {
+    if (itemStack.has(RootsComponents.STAFF_USES)) {
+      StaffUses staffUses = itemStack.get(RootsComponents.STAFF_USES);
+      if (staffUses.uses() <= 0 && owner instanceof Player player) {
         itemStack.shrink(1);
-        if (owner instanceof Player player) {
-	        player.awardStat(Stats.ITEM_BROKEN.get(itemStack.getItem()));
-        }
+        itemStack.consume(1, player);
+        player.awardStat(Stats.ITEM_BROKEN.get(itemStack.getItem()));
       }
     }
   }
@@ -171,7 +168,7 @@ public class StaffItem extends Item implements IManaRelatedItem {
   @Override
   public void onUseTick(Level level, LivingEntity player, ItemStack stack, int count) {
     if (stack.has(RootsComponents.SPELL)) {
-			SpellData spellData = stack.get(RootsComponents.SPELL);
+      SpellData spellData = stack.get(RootsComponents.SPELL);
       Identifier componentName = Identifier.tryParse(spellData.effect());
       if (componentName != null) {
         ComponentBase comp = ComponentBaseRegistry.COMPONENTS.getValue(componentName);
@@ -183,13 +180,12 @@ public class StaffItem extends Item implements IManaRelatedItem {
           if (level.isClientSide()) {
             if (player.getRandom().nextBoolean()) {
               level.addParticle(MagicLineParticleData.createData(comp.primaryColor.x, comp.primaryColor.y, comp.primaryColor.z),
-                  player.getX() + 2.0 * (player.getRandom().nextFloat() - 0.5), player.getY() + 2.0 * (player.getRandom().nextFloat() - 0.5) + 1.0, player.getZ() + 2.0 * (player.getRandom().nextFloat() - 0.5),
-                  player.getX(), player.getY() + 1.0, player.getZ());
-            }
-            else {
+                player.getX() + 2.0 * (player.getRandom().nextFloat() - 0.5), player.getY() + 2.0 * (player.getRandom().nextFloat() - 0.5) + 1.0, player.getZ() + 2.0 * (player.getRandom().nextFloat() - 0.5),
+                player.getX(), player.getY() + 1.0, player.getZ());
+            } else {
               level.addParticle(MagicLineParticleData.createData(comp.secondaryColor.x, comp.secondaryColor.y, comp.secondaryColor.z),
-                  player.getX() + 2.0 * (player.getRandom().nextFloat() - 0.5), player.getY() + 2.0 * (player.getRandom().nextFloat() - 0.5) + 1.0, player.getZ() + 2.0 * (player.getRandom().nextFloat() - 0.5),
-                  player.getX(), player.getY() + 1.0, player.getZ());
+                player.getX() + 2.0 * (player.getRandom().nextFloat() - 0.5), player.getY() + 2.0 * (player.getRandom().nextFloat() - 0.5) + 1.0, player.getZ() + 2.0 * (player.getRandom().nextFloat() - 0.5),
+                player.getX(), player.getY() + 1.0, player.getZ());
             }
           }
         }
@@ -198,9 +194,9 @@ public class StaffItem extends Item implements IManaRelatedItem {
   }
 
   public static void createData(ItemStack stack, String effect, int potency, int efficiency, int size) {
-		stack.set(RootsComponents.SPELL, new SpellData(potency, efficiency, size, effect));
+    stack.set(RootsComponents.SPELL, new SpellData(potency, efficiency, size, effect));
     int uses = getMaxUsesBase() + getMaxUsesPerEfficiency() * efficiency;
-		stack.set(RootsComponents.STAFF_USES, new StaffUses(uses, uses));
+    stack.set(RootsComponents.STAFF_USES, new StaffUses(uses, uses));
   }
 
   public static int getMaxUsesBase() {
@@ -211,34 +207,32 @@ public class StaffItem extends Item implements IManaRelatedItem {
     return RootsConfig.COMMON.staffUsesEfficiency.get();
   }
 
-	@Override
+  @Override
   public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
     if (stack.has(RootsComponents.STAFF_USES) && stack.has(RootsComponents.SPELL)) {
-	    SpellData spellData = stack.get(RootsComponents.SPELL);
-	    StaffUses staffUses = stack.get(RootsComponents.STAFF_USES);
+      SpellData spellData = stack.get(RootsComponents.SPELL);
+      StaffUses staffUses = stack.get(RootsComponents.STAFF_USES);
 
       Identifier compName = Identifier.tryParse(spellData.effect());
       if (compName != null) {
         ComponentBase comp = ComponentBaseRegistry.COMPONENTS.getValue(compName);
         if (comp != null) {
           builder.accept(Component.translatable("rootsclassic.tooltip.spelltypeheading")
-              .append(": ").withStyle(ChatFormatting.GOLD).append(comp.getEffectName().withStyle(comp.getTextColor())));
-        }
-        else {
+            .append(": ").withStyle(ChatFormatting.GOLD).append(comp.getEffectName().withStyle(comp.getTextColor())));
+        } else {
           //TODO: let people know it's an invalid effect
         }
       }
       builder.accept(Component.translatable("  +" + spellData.potency() + " ")
-          .append(Component.translatable("rootsclassic.tooltip.spellpotency")).append(".").withStyle(ChatFormatting.RED));
+        .append(Component.translatable("rootsclassic.tooltip.spellpotency")).append(".").withStyle(ChatFormatting.RED));
       builder.accept(Component.translatable("  +" + spellData.efficiency() + " ")
-          .append(Component.translatable("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(ChatFormatting.RED));
+        .append(Component.translatable("rootsclassic.tooltip.spellefficiency")).append(".").withStyle(ChatFormatting.RED));
       builder.accept(Component.translatable("  +" + spellData.size() + " ")
-          .append(Component.translatable("rootsclassic.tooltip.spellsize")).append(".").withStyle(ChatFormatting.RED));
+        .append(Component.translatable("rootsclassic.tooltip.spellsize")).append(".").withStyle(ChatFormatting.RED));
       builder.accept(Component.empty());
       builder.accept(Component.translatable(staffUses.uses() + " ")
-          .append(Component.translatable("rootsclassic.tooltip.usesremaining")).append(".").withStyle(ChatFormatting.GOLD));
-    }
-    else {
+        .append(Component.translatable("rootsclassic.tooltip.usesremaining")).append(".").withStyle(ChatFormatting.GOLD));
+    } else {
       builder.accept(Component.translatable("rootsclassic.error.unset").withStyle(ChatFormatting.GRAY));
     }
   }

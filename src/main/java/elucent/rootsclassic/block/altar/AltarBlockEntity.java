@@ -13,7 +13,6 @@ import elucent.rootsclassic.ritual.RitualPillars;
 import elucent.rootsclassic.ritual.RitualRegistry;
 import elucent.rootsclassic.util.InventoryUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.Containers;
@@ -88,7 +87,6 @@ public class AltarBlockEntity extends BEBase {
 
     output.putInt("progress", getProgress());
 		if (level != null && !level.isClientSide() && currentRitual != null) {
-			var ritualTag = new CompoundTag();
 			RitualRecipe ritual = currentRitual.value();
       output.store("ritual", RitualInfo.CODEC, new RitualInfo(ritual.level, ritual.getColorInt(), ritual.getSecondaryColorInt()));
 		}
@@ -181,7 +179,7 @@ public class AltarBlockEntity extends BEBase {
               return InteractionResult.PASS;
             } else {
               tx.commit();
-              heldItem.shrink(1);
+              heldItem.consume(1, player);
               setChanged();
               levelAccessor.sendBlockUpdated(pos, state, levelAccessor.getBlockState(pos), 3);
             }
