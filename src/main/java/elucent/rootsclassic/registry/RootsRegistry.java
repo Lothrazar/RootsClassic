@@ -155,7 +155,7 @@ public class RootsRegistry {
   public static final DeferredItem<RootsFoodItem> ELDERBERRY = ITEMS.registerItem("elderberry", (properties) -> new RootsFoodItem(properties.food(RootsFoods.ELDERBERRY)));
   public static final DeferredItem<RootsFoodItem> HEALING_POULTICE = ITEMS.registerItem("healing_poultice", (properties) -> new RootsFoodItem(properties.stacksTo(8).food(RootsFoods.HEALING_POULTICE)));
   public static final DeferredItem<Item> ROOTY_STEW = ITEMS.registerItem("rooty_stew", (properties) -> new Item(properties.stacksTo(1).food(RootsFoods.ROOTY_STEW).usingConvertsTo(Items.BOWL)));
-  public static final DeferredItem<Item> FRUIT_SALAD = ITEMS.registerItem("fruit_salad", (properties) -> new Item(properties.stacksTo(1).food(RootsFoods.FRUIT_SALAD)));
+  public static final DeferredItem<Item> FRUIT_SALAD = ITEMS.registerItem("fruit_salad", (properties) -> new Item(properties.stacksTo(1).food(RootsFoods.FRUIT_SALAD).usingConvertsTo(Items.BOWL)));
   public static final DeferredItem<RunicFocusItem> RUNIC_FOCUS = ITEMS.registerItem("runic_focus", (properties) -> new RunicFocusItem(properties.stacksTo(1)));
   public static final DeferredItem<RunicFocusItem> CHARGED_RUNIC_FOCUS = ITEMS.registerItem("charged_runic_focus", (properties) -> new RunicFocusItem(properties.stacksTo(1)));
   public static final DeferredItem<EngravedBladeItem> ENGRAVED_BLADE = ITEMS.registerItem("engraved_blade", (properties) -> new EngravedBladeItem(RootsItemTier.ENGRAVED, 3, -3.0F, properties));
