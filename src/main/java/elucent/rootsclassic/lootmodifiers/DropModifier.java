@@ -40,8 +40,8 @@ public class DropModifier {
     public static final Supplier<MapCodec<BlockDropModifier>> CODEC = Suppliers.memoize(() ->
 	    RecordCodecBuilder.mapCodec(inst -> codecStart(inst).apply(inst, BlockDropModifier::new)));
 
-    public BlockDropModifier(LootItemCondition[] lootConditions) {
-      super(lootConditions);
+    public BlockDropModifier(LootItemCondition[] lootConditions, int priority) {
+      super(lootConditions, priority);
     }
 
     @Nonnull

@@ -28,6 +28,6 @@ public class RootsGLMProvider extends GlobalLootModifierProvider {
 		this.add("rootsclassic_drops", new DropModifier.BlockDropModifier(
 			new LootItemCondition[]{
 				InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, Tags.Items.TOOLS_SHEAR))).build()
-			}));
+			}, 1000));
 	}
 }
