@@ -30,6 +30,8 @@ import elucent.rootsclassic.blockentity.HealerStandingStone;
 import elucent.rootsclassic.blockentity.IgniterStandingStoneTile;
 import elucent.rootsclassic.blockentity.RepulsorStandingStoneTile;
 import elucent.rootsclassic.blockentity.VacuumStandingStoneTile;
+import elucent.rootsclassic.component.ComponentBase;
+import elucent.rootsclassic.component.ComponentBaseRegistry;
 import elucent.rootsclassic.item.CrystalStaffItem;
 import elucent.rootsclassic.item.DragonsEyeItem;
 import elucent.rootsclassic.item.DruidKnifeItem;
@@ -52,6 +54,7 @@ import elucent.rootsclassic.item.powder.SpellPowderItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -66,6 +69,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RootsRegistry {
@@ -189,5 +193,17 @@ public class RootsRegistry {
         List<ItemStack> stacks = RootsRegistry.ITEMS.getEntries().stream().map(reg -> new ItemStack(reg.get()))
             .filter(stack -> !stack.is(RootsRegistry.MANA_RESEARCH_ICON.get())).toList();
         output.acceptAll(stacks);
+        output.acceptAll(getSpellPowderVariants());
       }).build());
+
+  public static List<ItemStack> getSpellPowderVariants() {
+    List<ItemStack> variants = new ArrayList<>();
+    for (Identifier effect : ComponentBaseRegistry.COMPONENTS.keySet()) {
+      ItemStack stack = new ItemStack(RootsRegistry.SPELL_POWDER.get());
+      SpellPowderItem.createData(stack, effect, null);
+      variants.add(stack);
+    }
+
+    return variants;
+  }
 }
