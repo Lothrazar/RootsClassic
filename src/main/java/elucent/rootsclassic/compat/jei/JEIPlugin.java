@@ -3,6 +3,7 @@ package elucent.rootsclassic.compat.jei;
 import elucent.rootsclassic.Const;
 import elucent.rootsclassic.compat.jei.category.MortarCategory;
 import elucent.rootsclassic.compat.jei.category.RitualCategory;
+import elucent.rootsclassic.compat.jei.subtype.ComponentSubtypeInterpreter;
 import elucent.rootsclassic.compat.jei.wrapper.RitualWrapper;
 import elucent.rootsclassic.recipe.ComponentRecipe;
 import elucent.rootsclassic.recipe.RootsRecipeCache;
@@ -17,6 +18,7 @@ import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
@@ -70,5 +72,10 @@ public class JEIPlugin implements IModPlugin {
 	    .stream().map(RecipeHolder::value).toList());
     registration.addRecipes(RITUAL_TYPE, RootsRecipeCache.getRitualRecipes().stream()
       .map(holder -> new RitualWrapper(holder.value())).toList());
+  }
+
+  @Override
+  public void registerItemSubtypes(ISubtypeRegistration registration) {
+    registration.registerSubtypeInterpreter(RootsRegistry.SPELL_POWDER.asItem(), ComponentSubtypeInterpreter.INSTANCE);
   }
 }
