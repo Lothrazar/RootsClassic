@@ -147,13 +147,13 @@ public class ComponentRecipe implements Recipe<RecipeInput> {
    */
   private boolean isSupplementItem(ItemStack stack, RegistryAccess access) {
     if (recipeOutput.create().getItem() instanceof SpellPowderItem) {
-      return stack.getItem() == RootsRegistry.OLD_ROOT.get() ||
-          stack.getItem() == RootsRegistry.VERDANT_SPRIG.get() ||
-          stack.getItem() == RootsRegistry.INFERNAL_BULB.get() ||
-          stack.getItem() == RootsRegistry.DRAGONS_EYE.get() ||
-          stack.is(RootsTags.POTENCY) ||
-          stack.is(RootsTags.EFFICIENCY) ||
-          stack.is(RootsTags.SIZE);
+      return stack.is(RootsRegistry.OLD_ROOT) ||
+        stack.is(RootsRegistry.VERDANT_SPRIG) ||
+        stack.is(RootsRegistry.INFERNAL_BULB) ||
+        stack.is(RootsRegistry.DRAGONS_EYE) ||
+        stack.is(RootsTags.POTENCY) ||
+        stack.is(RootsTags.EFFICIENCY) ||
+        stack.is(RootsTags.SIZE);
     }
     else {
       return false;
