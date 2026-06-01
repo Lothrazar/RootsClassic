@@ -6,7 +6,6 @@ import elucent.rootsclassic.datacomponent.SpellData;
 import elucent.rootsclassic.registry.RootsComponents;
 import elucent.rootsclassic.registry.RootsTags;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
@@ -29,7 +28,6 @@ public class SpellPowderItem extends Item {
   }
 
   public static void createData(ItemStack stack, Identifier effect, RecipeInput recipeInput) {
-    CompoundTag nbt = new CompoundTag();
     int potency = 0;
     int efficiency = 0;
     int size = 0;
