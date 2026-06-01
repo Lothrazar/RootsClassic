@@ -65,7 +65,7 @@ public class RootsItemTagsProvider extends ItemTagsProvider {
       RootsRegistry.RADIANT_DAISY_ITEM.get()
     );
 
-    this.tag(RootsTags.POTENCY).add(Items.GLOWSTONE);
+    this.tag(RootsTags.POTENCY).add(Items.GLOWSTONE_DUST);
     this.tag(RootsTags.EFFICIENCY).add(Items.REDSTONE);
     this.tag(RootsTags.SIZE).add(Items.GUNPOWDER);
 	}
