@@ -8,6 +8,7 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -28,7 +29,7 @@ public class MortarCategory implements IRecipeCategory<ComponentRecipe> {
   private final Component localizedName;
 
   public MortarCategory(IGuiHelper guiHelper) {
-    this.background = guiHelper.drawableBuilder(backgroundLocation, 21, 30, 142, 45).addPadding(0, 0, 0, 0).build();
+    this.background = guiHelper.drawableBuilder(backgroundLocation, 21, 30, 100, 26).addPadding(0, 0, 0, 0).build();
     this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(RootsRegistry.MORTAR.get()));
     this.localizedName = Component.translatable("rootsclassic.gui.jei.category.mortar");
   }
@@ -40,12 +41,12 @@ public class MortarCategory implements IRecipeCategory<ComponentRecipe> {
 
   @Override
   public int getWidth() {
-    return 142;
+    return 140;
   }
 
   @Override
   public int getHeight() {
-    return 45;
+    return 26;
   }
 
   @Override
@@ -62,9 +63,15 @@ public class MortarCategory implements IRecipeCategory<ComponentRecipe> {
   public void setRecipe(IRecipeLayoutBuilder builder, ComponentRecipe recipe, IFocusGroup focuses) {
     for (int i = 0; i < recipe.getIngredients().size(); i++) {
       Ingredient ingredient = recipe.getIngredients().get(i);
-      builder.addSlot(RecipeIngredientRole.INPUT, 3 + (i * 16), 26).add(ingredient);
+      builder.addSlot(RecipeIngredientRole.INPUT, 3 + (i * 18), 4).add(ingredient).setStandardSlotBackground();
     }
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 123, 26).add(recipe.assemble(new SingleRecipeInput(ItemStack.EMPTY)));
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 120, 4).add(recipe.assemble(new SingleRecipeInput(ItemStack.EMPTY))).setOutputSlotBackground();
+  }
+
+  @Override
+  public void createRecipeExtras(IRecipeExtrasBuilder builder, ComponentRecipe recipe, IFocusGroup focuses) {
+    IRecipeCategory.super.createRecipeExtras(builder, recipe, focuses);
+    builder.addRecipeArrow().setPosition(86, 4);
   }
 
   @Override
