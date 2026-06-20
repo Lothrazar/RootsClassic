@@ -141,6 +141,10 @@ public class ComponentSpellsEvent {
 		        float currentAmount = event.getAmount();
 		        event.setAmount(currentAmount + amount);
 	        }
+          if (sword.has(RootsComponents.FORCEFUL)) {
+            int forcefulLvl = sword.getOrDefault(RootsComponents.FORCEFUL, 0);
+            event.getEntity().knockback(forcefulLvl * 0.5f, player.getX() - event.getEntity().getX(), player.getZ() - event.getEntity().getZ());
+          }
         }
       }
     }
