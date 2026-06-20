@@ -192,10 +192,6 @@ public class AltarBlockEntity extends BEBase {
   }
 
   public static void serverTick(Level level, BlockPos pos, BlockState state, AltarBlockEntity tile) {
-    tile.setTicker(tile.getTicker() + 3);
-    if (tile.getTicker() > 360) {
-      tile.setTicker(0);
-    }
     if (tile.getProgress() > 0 && tile.getCurrentRitual() != null) {
       tile.setProgress(tile.getProgress() - 1);
       //      if (tile.getProgress() % 40 == 0) {
@@ -222,6 +218,10 @@ public class AltarBlockEntity extends BEBase {
   }
 
   public static void clientTick(Level level, BlockPos pos, BlockState state, AltarBlockEntity tile) {
+    tile.setTicker(tile.getTicker() + 3);
+    if (tile.getTicker() > 360) {
+      tile.setTicker(0);
+    }
     if (tile.getProgress() > 0 && tile.getCurrentRitual() != null) {
       tile.setProgress(tile.getProgress() - 1);
       var pillars = RitualPillars.getRitualPillars(tile.clientRitualLevel);

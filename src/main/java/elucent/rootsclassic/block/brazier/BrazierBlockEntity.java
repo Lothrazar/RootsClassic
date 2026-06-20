@@ -135,7 +135,6 @@ public class BrazierBlockEntity extends BEBase {
   }
 
   public static void serverTick(Level level, BlockPos pos, BlockState state, BrazierBlockEntity tile) {
-    tile.setTicker(tile.getTicker() + (tile.isBurning() ? 12 : 3));
     if (tile.progress > 0) {
       tile.progress--;
       if (tile.progress <= 0) {
@@ -144,9 +143,6 @@ public class BrazierBlockEntity extends BEBase {
         tile.setChanged();
         level.sendBlockUpdated(pos, state, state, 3);
       }
-    }
-    if (tile.getTicker() > 360) {
-      tile.setTicker(0);
     }
   }
 
