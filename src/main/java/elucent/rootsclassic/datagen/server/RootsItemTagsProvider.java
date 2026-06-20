@@ -51,6 +51,8 @@ public class RootsItemTagsProvider extends ItemTagsProvider {
     this.tag(ItemTags.CHEST_ARMOR).add(RootsRegistry.SYLVAN_ROBE.get(), RootsRegistry.WILDWOOD_PLATE.get());
     this.tag(ItemTags.LEG_ARMOR).add(RootsRegistry.SYLVAN_TUNIC.get(), RootsRegistry.WILDWOOD_LEGGINGS.get());
     this.tag(ItemTags.FOOT_ARMOR).add(RootsRegistry.SYLVAN_BOOTS.get(), RootsRegistry.WILDWOOD_BOOTS.get());
+    this.tag(ItemTags.BOOKSHELF_BOOKS).add(RootsRegistry.RUNIC_TABLET.get());
+    this.tag(ItemTags.LECTERN_BOOKS).add(RootsRegistry.RUNIC_TABLET.get());
 
     this.tag(RootsTags.LIVING_TOOL_MATERIALS);
     this.tag(RootsTags.ENGRAVED_TOOL_MATERIALS);
