@@ -47,7 +47,7 @@ public class AltarBER implements BlockEntityRenderer<AltarBlockEntity, AltarRend
           ItemDisplayContext.GROUND, blockEntity.getLevel(), null, seed + slot);
       state.items.add(itemState);
     }
-    state.ticker = blockEntity.getTicker();
+    state.ticker = blockEntity.getTicker() + partialTicks * 3f;
   }
 
   @Override

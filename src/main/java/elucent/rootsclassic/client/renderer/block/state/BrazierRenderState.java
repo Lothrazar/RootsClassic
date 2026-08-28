@@ -8,5 +8,5 @@ import java.util.List;
 
 public class BrazierRenderState extends BlockEntityRenderState {
   public List<ItemStackRenderState> items = Collections.emptyList();
-  public int ticker;
+  public float ticker;
 }

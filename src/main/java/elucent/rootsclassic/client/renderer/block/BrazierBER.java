@@ -47,7 +47,7 @@ public class BrazierBER implements BlockEntityRenderer<BrazierBlockEntity, Brazi
           ItemDisplayContext.GROUND, blockEntity.getLevel(), null, seed + slot);
       state.items.add(itemState);
     }
-    state.ticker = blockEntity.getTicker();
+    state.ticker = blockEntity.getTicker() + partialTicks * (blockEntity.isBurning() ? 12f : 3f);
   }
 
   @Override

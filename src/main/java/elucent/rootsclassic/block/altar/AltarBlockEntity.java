@@ -40,7 +40,7 @@ public class AltarBlockEntity extends BEBase {
 
   private static final int RECIPE_PROGRESS_TIME = 200;
   private List<ItemStack> incenses = new ArrayList<>();
-  private int ticker = 0;
+  private float ticker = 0;
   private int progress = 0;
   @Nullable
   private RecipeHolder<RitualRecipe> currentRitual = null;
@@ -218,10 +218,7 @@ public class AltarBlockEntity extends BEBase {
   }
 
   public static void clientTick(Level level, BlockPos pos, BlockState state, AltarBlockEntity tile) {
-    tile.setTicker(tile.getTicker() + 3);
-    if (tile.getTicker() > 360) {
-      tile.setTicker(0);
-    }
+    tile.setTicker((tile.getTicker() + 3f) % 360f);
     if (tile.getProgress() > 0 && tile.getCurrentRitual() != null) {
       tile.setProgress(tile.getProgress() - 1);
       var pillars = RitualPillars.getRitualPillars(tile.clientRitualLevel);
@@ -300,11 +297,11 @@ public class AltarBlockEntity extends BEBase {
     this.incenses = incenses;
   }
 
-  public int getTicker() {
+  public float getTicker() {
     return ticker;
   }
 
-  public void setTicker(int ticker) {
+  public void setTicker(float ticker) {
     this.ticker = ticker;
   }
 

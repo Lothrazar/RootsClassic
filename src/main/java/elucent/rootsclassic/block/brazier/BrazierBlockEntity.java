@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 public class BrazierBlockEntity extends BEBase {
 
   private static final int TOTAL_BURN_TIME = 2400;
-  private int ticker = 0;
+  private float ticker = 0;
   private boolean burning = false;
   private int progress = 0;
   public final ItemStacksResourceHandler inventory = new ItemStacksResourceHandler(1) {
@@ -147,7 +147,7 @@ public class BrazierBlockEntity extends BEBase {
   }
 
   public static void clientTick(Level level, BlockPos pos, BlockState state, BrazierBlockEntity tile) {
-    tile.setTicker(tile.getTicker() + (tile.isBurning() ? 12 : 3));
+    tile.setTicker((tile.getTicker() + (tile.isBurning() ? 12f : 3f)) % 360f);
     if (tile.progress > 0) {
       tile.progress--;
       if (level.isClientSide()) {
@@ -165,9 +165,6 @@ public class BrazierBlockEntity extends BEBase {
         level.sendBlockUpdated(pos, state, state, 3);
       }
     }
-    if (tile.getTicker() > 360) {
-      tile.setTicker(0);
-    }
   }
 
   public boolean isBurning() {
@@ -178,11 +175,11 @@ public class BrazierBlockEntity extends BEBase {
     this.burning = burning;
   }
 
-  public int getTicker() {
+  public float getTicker() {
     return ticker;
   }
 
-  public void setTicker(int ticker) {
+  public void setTicker(float ticker) {
     this.ticker = ticker;
   }
 
