@@ -42,14 +42,17 @@ public class SylvanArmorItem extends ArmorItem {
 
   @Override
   public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-	  if (slotId < 4) {
-		  RootsUtil.randomlyRepair(level.random, stack);
-		  if (level.random.nextInt(40) == 0 && entity instanceof Player player) {
-			  ManaAttachment mana = player.getData(RootsAttachments.MANA);
-			  mana.setMana(mana.getMana() + 1.0f);
-			  player.setData(RootsAttachments.MANA, mana);
-		  }
-	  }
+    if (!(entity instanceof Player player) || !stack.isDamaged()) return;
+    for (ItemStack armorStack : player.getArmorSlots()) {
+      if (armorStack != stack) continue;
+      RootsUtil.randomlyRepair(level.random, stack);
+      if (level.random.nextInt(40) == 0) {
+        ManaAttachment mana = player.getData(RootsAttachments.MANA);
+        mana.setMana(mana.getMana() + 1.0f);
+        player.setData(RootsAttachments.MANA, mana);
+      }
+      break;
+    }
   }
 
   @Override
