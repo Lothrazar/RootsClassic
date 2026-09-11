@@ -25,7 +25,7 @@ public class WildwoodArmorItem extends Item {
 
 	@Override
   public void inventoryTick(ItemStack stack, ServerLevel level, Entity owner, @Nullable EquipmentSlot slot) {
-		if (slot != null && slot.getIndex() < 4)
+    if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR)
 			RootsUtil.randomlyRepair(level.getRandom(), stack);
 	}
 
